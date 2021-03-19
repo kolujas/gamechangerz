@@ -7,6 +7,7 @@
 
         {{-- ? Global CSS --}}
         <link href={{ asset('css/layouts/index.css') }} rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
         {{-- ? Section CSS --}}
         @yield('head')
