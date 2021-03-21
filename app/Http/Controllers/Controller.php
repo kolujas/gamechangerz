@@ -14,7 +14,7 @@
          * @return [type]
          */
         public function index(){
-            return view('web.coming_soon', [
+            return view('web.home', [
                 // ? Data
             ]);
         }
