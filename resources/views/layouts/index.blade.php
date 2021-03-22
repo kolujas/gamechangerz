@@ -7,6 +7,10 @@
         <link rel="stylesheet" href={{ asset('submodules/NavMenuJS/css/styles.css') }}>
         <link rel="stylesheet" href={{ asset('submodules/SidebarJS/css/styles.css') }}>
 
+        <!-- tailwindcss -->
+              
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
         {{-- ? Global CSS --}}
         <link href={{ asset('resources/css/styles.css') }} rel="stylesheet">
 

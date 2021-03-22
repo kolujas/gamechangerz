@@ -1,12 +1,12 @@
 [submodule ".\\public\\submodules\\NavMenuJS"]
-	path = .\\public\\submodules\\NavMenuJS
+	path = public/submodules/NavMenuJS
 	url = https://github.com/JuanCruzAGB/NavMenuJS.git
 [submodule ".\\public\\submodules\\JuanCruzAGB"]
-	path = .\\public\\submodules\\JuanCruzAGB
+	path = public/submodules/JuanCruzAGB
 	url = https://github.com/JuanCruzAGB/JuanCruzAGB.git
 [submodule ".\\public\\submodules\\ScrollDetectionJS"]
-	path = .\\public\\submodules\\ScrollDetectionJS
+	path = public/submodules/ScrollDetectionJS
 	url = https://github.com/JuanCruzAGB/ScrollDetectionJS.git
 [submodule ".\\public\\submodules\\SidebarJS"]
-	path = .\\public\\submodules\\SidebarJS
+	path = public/submodules/SidebarJS
 	url = https://github.com/JuanCruzAGB/SidebarJS.git

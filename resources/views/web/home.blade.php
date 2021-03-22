@@ -15,6 +15,7 @@
 
 @section('main')
     {{-- Page content --}}
+    
 @endsection
 
 @section('footer')
