@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('resources/css/blog/list.css') }}>
+    <link rel="stylesheet" href={{ asset('css/blog/list.css') }}>
 @endsection
 
 @section('nav')
@@ -23,5 +23,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src={{ asset('resources/js/blog/list.js') }}></script>
+    <script type="module" src={{ asset('js/blog/list.js') }}></script>
 @endsection

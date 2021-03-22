@@ -1,4 +1,4 @@
-import { NavMenu as NavMenuJS } from '../../submodules/NavMenuJS/js/NavMenu.js';
+import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
 
 let navmenu = new NavMenuJS({
     id: "nav-id",

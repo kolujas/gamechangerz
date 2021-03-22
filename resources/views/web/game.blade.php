@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('resources/css/web/game.css') }}>
+    <link rel="stylesheet" href={{ asset('css/web/game.css') }}>
 @endsection
 
 @section('nav')
@@ -23,5 +23,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src={{ asset('resources/js/web/game.js') }}></script>
+    <script type="module" src={{ asset('js/web/game.js') }}></script>
 @endsection

@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('resources/css/web/privacy_politics.css') }}>
+    <link rel="stylesheet" href={{ asset('css/web/privacy_politics.css') }}>
 @endsection
 
 @section('nav')
@@ -23,5 +23,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src={{ asset('resources/js/web/privacy_politics.js') }}></script>
+    <script type="module" src={{ asset('js/web/privacy_politics.js') }}></script>
 @endsection
