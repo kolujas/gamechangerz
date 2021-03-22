@@ -20,21 +20,6 @@
 		</ul>
 	</div>
 
-    <div class="nav-row">
-		<ul class="nav-menu-list">
-			<li>
-				<a href="/" class="nav-link">
-					<span class="link-text">Home</span>
-				</a>
-			</li>
-			<li>
-				<a href="/log-in" class="nav-link">
-					<span class="link-text">Log In</span>
-				</a>
-			</li>
-		</ul>
-	</div>
-
     <div id="menu" class="sidebar left closed push-body">
 		<div class="sidebar-header">
 			<div class="sidebar-title">
