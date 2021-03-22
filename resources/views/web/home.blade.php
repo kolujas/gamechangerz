@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
 @section('title')
-    {{-- Page title --}}
+    Home
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/web/home.css')}}">
+    <link rel="stylesheet" href={{ asset('resources/css/web/home.css') }}>
 @endsection
 
 @section('nav')
@@ -23,5 +23,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src="{{asset('js/web/home.js')}}"></script>
+    <script type="module" src={{ asset('resources/js/web/home.js') }}></script>
 @endsection
