@@ -1,10 +1,13 @@
 import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
 
-let navmenu = new NavMenuJS({
-    id: "nav-id",
-    sidebar: {
-        id: ["mainSidebar"],
-        position: ["left"],
-    }
-
-}, {fixed: true, hideOnScrollDown: true});
+document.addEventListener('DOMContentLoaded', (e) => {
+    let navmenu = new NavMenuJS({
+        id: "nav-id",
+        sidebar: {
+            id: ["menu"],
+            position: ["left"],
+    }}, {
+        // fixed: true,
+        // hideOnScrollDown: true
+    });
+});
