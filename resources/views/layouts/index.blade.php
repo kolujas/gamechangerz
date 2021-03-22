@@ -5,6 +5,10 @@
 
         {{-- ? External Repositories CSS --}}
 
+        <!-- tailwindcss -->
+              
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
         {{-- ? Global CSS --}}
         <link href={{ asset('css/layouts/index.css') }} rel="stylesheet">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
