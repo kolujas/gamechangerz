@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/web/checkout.css')}}">
+    <link rel="stylesheet" href={{ asset('resources/css/web/checkout.css') }}>
 @endsection
 
 @section('nav')
@@ -23,5 +23,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src="{{asset('js/web/checkout.js')}}"></script>
+    <script type="module" src={{ asset('resources/js/web/checkout.js') }}></script>
 @endsection

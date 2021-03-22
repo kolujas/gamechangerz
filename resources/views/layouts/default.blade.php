@@ -2,7 +2,7 @@
 
 @section('head')
     {{-- Layout CSS --}}
-    <link href={{ asset('css/layouts/default.css') }} rel="stylesheet">
+    <link href={{ asset('resources/css/layouts/default.css') }} rel="stylesheet">
 
     @yield('css')
 
@@ -27,7 +27,7 @@
 
 @section('extras')
     {{-- Layout JS --}}
-    <script src={{ asset('js/layouts/default.js') }}></script>
+    <script src={{ asset('resources/js/layouts/default.js') }}></script>
 
     @yield('js')
 @endsection

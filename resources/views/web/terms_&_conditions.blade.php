@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/web/terms_&_conditions.css')}}">
+    <link rel="stylesheet" href={{ asset('resources/css/web/terms_&_conditions.css') }}>
 @endsection
 
 @section('nav')
@@ -23,5 +23,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src="{{asset('js/web/terms_&_conditions.js')}}"></script>
+    <script type="module" src={{ asset('resources/js/web/terms_&_conditions.js') }}></script>
 @endsection
