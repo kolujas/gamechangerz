@@ -1,5 +1,12 @@
 /* TODO Custom CSS */
 
+.main{
+    background: url('../../img/home-bg.png') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     
@@ -8,6 +15,8 @@
 /* ? LG */
 @media(min-width: 1024px){
     
+    
+
 }
 
 /* ? XL */
@@ -16,6 +25,6 @@
 }
 
 /* ? XXL */
-@media(min-width: 1400px){
+@media(min-width: 1536px){
     
 }
