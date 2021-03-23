@@ -1,0 +1,36 @@
+.nav-menu {
+    --navmenu-title-color: var(--color-white);
+    --navmenu-button-color: var(--color-white);
+    --navmenu-button-color-alternative: var(--color-four);
+    --navmenu-background-color: purple;
+    --navmenu-background-color-alternative: purple;
+    --navmenu-border-color: purple;
+    --navmenu-border-color-alternative: purple;
+    --navmenu-icon-color: var(--color-five);
+    --navmenu-icon-color-alternative: var(--color-four);
+    background: var(--color-black);
+}
+
+.nav-menu .nav-menu-list span.nav-link {
+    color: var(--color-four);
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    
+}
+
+/* ? XXL */
+@media(min-width: 1400px){
+    
+}

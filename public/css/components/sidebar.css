@@ -1,0 +1,49 @@
+.sidebar {
+    --sidebar-title-color: var(--color-white);
+    --sidebar-button-color: var(--color-white);
+    --sidebar-button-color-alternative: var(--color-color-four);
+    --sidebar-background-color: var(--color-black);
+    --sidebar-background-color-alternative: var(--color-black);
+    --sidebar-border-color: transparent;
+    --sidebar-border-color-alternative: purple;
+    --sidebar-icon-color: purple;
+    --sidebar-icon-color-alternative: purple;
+}
+
+.sidebar .sidebar-header {
+    border-color: var(--color-four);
+}
+
+.sidebar .sidebar-header .sidebar-title {
+    width: auto;
+}
+
+.sidebar .sidebar-header .sidebar-button {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.sidebar span.sidebar-link {
+    color: var(--color-four);
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    
+}
+
+/* ? XXL */
+@media(min-width: 1400px){
+    
+}

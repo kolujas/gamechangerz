@@ -15,5 +15,5 @@
     Route::get('/blog/{slug}', 'App\Http\Controllers\BlogController@details')->name('blog.details');
 
 // * UserController - Controls the User pages.
-    Route::get('/{slug}/profile', 'App\Http\Controllers\UserController@profile')->name('user.profile');
+    Route::get('/user/{slug}/profile', 'App\Http\Controllers\UserController@profile')->name('user.profile');
     Route::get('/search', 'App\Http\Controllers\UserController@search')->name('user.search');

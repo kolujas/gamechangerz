@@ -1,6 +1,14 @@
 @import './components/styles.css';
 
-/* TODO Custom CSS */
+* {
+    --color-one: #281B2D;
+    --color-two: #745481;
+    --color-three: #846D9D;
+    --color-four: #ED6744;
+    --color-five: #FBF19C;
+    --color-black: #0D0D0D;
+    --color-white: #EEEEEE;
+}
 
 /* ? MD */
 @media(min-width: 768px){

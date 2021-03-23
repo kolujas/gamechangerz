@@ -15,7 +15,7 @@
          * @var array
          */
         protected $fillable = [
-            'folder', 'nickname', 'name', 'email', 'password', 'date_of_birth', 'idioms', 'games', 'teampro', 'achievements', 'description' 
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'idioms', 'lessons', 'name', 'nickname', 'password', 'role', 'slug', 'teamate', 'teampro', 'video',
         ];
 
         /**
