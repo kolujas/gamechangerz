@@ -17,8 +17,8 @@
     {{-- Page content --}}
     <main class="main container mx-auto">
         <header class="flex justify-center items-center pt-16">
-            <h2 class="text-4xl text-center text-white">Toma clases con 
-                <span class="text-yellow-700 font-semibold">profesionales</span>
+            <h2 class="text-4xl text-center font-semibold">Toma clases con 
+                <span>profesionales</span>
             </h2>
         </header>
         

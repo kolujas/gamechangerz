@@ -1,4 +1,6 @@
-/* TODO Custom CSS */
+.games .card {
+    background-color: var(--color-black);
+}
 
 .games .degradado{
     /* background: -webkit-linear-gradient(#FBBF24, #D97706); */
@@ -23,13 +25,15 @@
     object-position: top left;
 }
 
-/* .games .csgo-figure{
-    position: relative;
-    left: 50%;
-} */
-
 .games .disabled{
     opacity: 0.6;
+}
+
+.games .disabled header .degradado{
+    background: none;
+    color: var(--color-white);
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
 }
 
 
