@@ -6,7 +6,7 @@
             </header>
             <main class="card-body degradado">
                 <figure>
-                    <img class="card-img" src="/../../img/games/counter-strike-go/bg-card.png" alt="Counter Strike Global Offensive">
+                    <img class="card-img" src="/../../img/games/counter-strike-go/01-background.png" alt="Counter Strike Global Offensive">
                 </figure>
             </main>
         </a>
@@ -18,7 +18,7 @@
             </header>
             <main class="card-body degradado">
                 <figure>
-                    <img class="card-img" src="/../../img/games/league-of-leyends/bg-card.png" alt="Counter Strike Global Offensive">
+                    <img class="card-img" src="/../../img/games/league-of-legends/01-background.png" alt="Counter Strike Global Offensive">
                 </figure>
             </main>
         </a>
@@ -30,7 +30,7 @@
             </header>
             <main class="card-body degradado">
                 <figure>
-                    <img class="card-img" src="/../../img/games/apex-leyends/bg-card.png" alt="Apex Legends">
+                    <img class="card-img" src="/../../img/games/apex-legends/01-background.png" alt="Apex Legends">
                 </figure>
             </main>
         </a>
@@ -42,7 +42,7 @@
             </header>
             <main class="card-body degradado">
                 <figure>
-                    <img class="card-img" src="/../../img/games/overwatch/bg-card.png" alt="Overwatch">
+                    <img class="card-img" src="/../../img/games/overwatch/01-background.png" alt="Overwatch">
                 </figure>
             </main>
         </a>
