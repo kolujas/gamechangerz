@@ -57,7 +57,7 @@
          * @return array
          */
         static public function parse ($achievementsToParse) {
-            $achievements = [];
+            $achievements = collect([]);
             foreach ($achievementsToParse as $achievement) {
                 if ($this->has($achievement->id_achievement)) {
                     $achievements->push($this->find($achievement->id_achievement));

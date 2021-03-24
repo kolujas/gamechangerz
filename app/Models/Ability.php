@@ -62,7 +62,7 @@
          * @return array
          */
         static public function parse ($abilitiesToParse) {
-            $abilities = [];
+            $abilities = collect([]);
             foreach ($abilitiesToParse as $ability) {
                 if ($this->has($ability->id_ability)) {
                     $abilityFound = $this->find($ability->id_ability);

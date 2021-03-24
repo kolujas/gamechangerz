@@ -5,6 +5,8 @@
     use App\Models\Folder;
     use App\Models\Game;
     use App\Models\Idiom;
+    use App\Models\Post;
+    use App\Models\Role;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,12 +55,29 @@
         }
 
         /**
+         * * Get the User Chats.
+         * @return array
+         */
+        public function chats () {
+            $this->chats = collect([]);
+            foreach (Chat::where('id_user_from', '=', $this->id_user)->get() as $chat) {
+                $this->chats->push($chat);
+            }
+            foreach (Chat::where('id_user_to', '=', $this->id_user)->get() as $chat) {
+                $this->chats->push($chat);
+            }
+            $this->chats->sort(function ($a, $b) {
+                return ($a->updated_at < $b->updated_at) ? -1 : 1;
+            });
+        }
+
+        /**
          * * Get the User Files.
          * @return array
          */
         public function files () {
             $files = Folder::getFiles($this->folder);
-            $this->files = [];
+            $this->files = collect([]);
             foreach ($files as $file) {
                 dd($file);
             }
@@ -79,5 +98,29 @@
          */
         public function idioms () {
             $this->idioms = Idiom::parse($this->idioms);
+        }
+
+        /**
+         * * Get the User Lessons.
+         * @return array
+         */
+        public function lessons () {
+            $this->lessons = Lesson::parse($this->lessons);
+        }
+
+        /**
+         * * Get the User Posts.
+         * @return array
+         */
+        public function posts () {
+            return $this->hasMany(Post::class, 'id_user', 'id_user');
+        }
+
+        /**
+         * * Get the User Role.
+         * @return array
+         */
+        public function role () {
+            $this->role = Role::parse($this->role);
         }
     }

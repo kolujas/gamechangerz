@@ -67,7 +67,7 @@
          * @return array
          */
         static public function parse ($idiomsToParse) {
-            $idioms = [];
+            $idioms = collect([]);
             foreach ($idiomsToParse as $idiom) {
                 if ($this->has($idiom->id_idiom)) {
                     $idioms->push($this->find($idiom->id_idiom));

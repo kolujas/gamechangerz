@@ -68,7 +68,7 @@
             }
             $gameFound->abilities = Ability::parse($gameFound->abilities);
             $files = Folder::getFiles($gameFound->folder);
-            $gameFound->files = [];
+            $gameFound->files = collect([]);
             foreach ($files as $file) {
                 dd($file);
             }
@@ -81,7 +81,7 @@
          * @return array
          */
         static public function parse ($gamesToParse) {
-            $games = [];
+            $games = collect([]);
             foreach ($gamesToParse as $game) {
                 if ($this->has($game->id_game)) {
                     $games->push($this->find($game->id_game));
