@@ -15,7 +15,8 @@ h2 span {
 
 /* ? MD */
 @media(min-width: 768px){
-    
+    .main {
+        min-height: 0;  
 }
 
 /* ? LG */
@@ -27,7 +28,9 @@ h2 span {
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    .main{
+        max-width: 100%;
+    }
 }
 
 /* ? XXL */

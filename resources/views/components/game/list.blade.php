@@ -1,4 +1,4 @@
-<ul class="cards games mt-16 grid lg:grid-cols-4 main">
+<ul class="cards games mt-16 grid md:grid-cols-2 lg:grid-cols-4 main">
     <li style="--game-color-one: #ED6744; --game-color-two: #FBF19C;" class="card text-center pt-4">
         <a href="#">
             <header class="pb-4">
