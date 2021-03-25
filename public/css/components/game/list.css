@@ -1,9 +1,81 @@
 .games .card {
+    position: relative;
     background-color: var(--color-black);
+    overflow: hidden;
+}
+
+.games .card .borders {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.games .card .borders div {
+    position: absolute;
+    opacity: 0;
+    transition: background 500ms, opacity 500ms;
+}
+
+.games .card .borders div:first-of-type {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
+    background-size: 400% 400%;
+}
+
+.games .card .borders div:nth-of-type(2) {
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: -webkit-linear-gradient(130deg, var(--game-color-two), var(--game-color-one));
+    background-size: 400% 400%;
+}
+
+.games .card .borders div:nth-of-type(3) {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
+    background-size: 400% 400%;
+}
+
+.games .card .borders div:last-of-type {
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: -webkit-linear-gradient(130deg, var(--game-color-two), var(--game-color-one));
+    background-size: 400% 400%;
+}
+
+.games .card:not(.disabled):hover .borders div:first-of-type {
+    opacity: 1;
+    animation: backgroundRotationX 5s linear infinite;
+}
+
+.games .card:not(.disabled):hover .borders div:nth-of-type(2) {
+    opacity: 1;
+    animation: backgroundRotationY 5s linear infinite;
+}
+
+.games .card:not(.disabled):hover .borders div:nth-of-type(3) {
+    opacity: 1;
+    animation: backgroundRotationX 5s linear infinite;
+}
+
+.games .card:not(.disabled):hover .borders div:last-of-type {
+    opacity: 1;
+    animation: backgroundRotationY 5s linear infinite;
 }
 
 .games .degradado{
-    /* background: -webkit-linear-gradient(#FBBF24, #D97706); */
     background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
 }
 
@@ -23,7 +95,7 @@
     height: 100%;
     object-fit: cover;
     object-position: top left;
-    transition: 500ms;
+    transition: transform 500ms;
 }
 
 .games .card:not(.disabled):hover figure img{
@@ -34,13 +106,16 @@
     opacity: 0.5;
 }
 
+.games .disabled a {
+    cursor: not-allowed;
+}
+
 .games .disabled header .degradado{
     background: none;
     color: var(--color-white);
     -webkit-background-clip: initial;
     -webkit-text-fill-color: initial;
 }
-
 
 /* ? MD */
 @media(min-width: 768px){
@@ -57,7 +132,7 @@
 /* ? XL */
 @media(min-width: 1200px){
     .games figure{
-        height: 40rem;
+        height: 20rem;
         width: 100%;
         overflow: hidden;
     }
@@ -65,5 +140,9 @@
 
 /* ? XXL */
 @media(min-width: 1536px){
-    
+    .games figure{
+        height: 40rem;
+        width: 100%;
+        overflow: hidden;
+    }
 }

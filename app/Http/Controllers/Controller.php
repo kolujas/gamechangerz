@@ -13,7 +13,7 @@
          * * Control the index page.
          * @return [type]
          */
-        public function index(){
+        public function index () {
             return view('web.home', [
                 // ? Data
             ]);

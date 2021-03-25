@@ -2,7 +2,7 @@
     use Illuminate\Support\Facades\Route;
     
 // * DefaultController - Controls the web in general.
-    Route::get('/', 'App\Http\Controllers\Controller@index')->name('web.index');
+    Route::get('/', 'App\Http\Controllers\DefaultController@index')->name('web.index');
     Route::get('/checkout', 'App\Http\Controllers\DefaultController@checkout')->name('web.checkout');
     Route::get('/coming-soon', 'App\Http\Controllers\DefaultController@comingSoon')->name('web.coming_soon');
     Route::get('/game/{slug}', 'App\Http\Controllers\DefaultController@game')->name('web.game');

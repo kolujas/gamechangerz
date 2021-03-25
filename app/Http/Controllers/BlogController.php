@@ -8,7 +8,7 @@
          * * Control the Blog list page.
          * @return [type]
          */
-        public function list(){
+        public function list () {
             return view('blog.list', [
                 // ? Data
             ]);
@@ -19,7 +19,7 @@
          * @param string $slug Post slug.
          * @return [type]
          */
-        public function details($slug){
+        public function details ($slug) {
             return view('blog.details', [
                 // ? Data
             ]);

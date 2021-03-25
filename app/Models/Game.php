@@ -17,6 +17,8 @@
                 'folder' => 'games/counter-strike-go',
                 'slug' => 'counter-strike-go',
                 'abilities' => [],
+                'colors' => ['#ED6744', '#FBF19C'],
+                'active' => true,
             ], [
                 'id_game' => 2,
                 'name' => 'League of Legends',
@@ -24,6 +26,8 @@
                 'folder' => 'games/league-of-legends',
                 'slug' => 'league-of-legends',
                 'abilities' => [],
+                'colors' => ['#00FFFF', '#0000FF'],
+                'active' => false,
             ], [
                 'id_game' => 3,
                 'name' => 'Apex Legends',
@@ -31,6 +35,8 @@
                 'folder' => 'games/apex-legends',
                 'slug' => 'apex-legends',
                 'abilities' => [],
+                'colors' => ['#FF0000', '#800000'],
+                'active' => false,
             ], [
                 'id_game' => 4,
                 'name' => 'Overwatch',
@@ -38,6 +44,8 @@
                 'folder' => 'games/overwatch',
                 'slug' => 'overwatch',
                 'abilities' => [],
+                'colors' => ['#FFFF00', '#FFD700'],
+                'active' => false,
         ]];
 
         /**
@@ -88,5 +96,31 @@
                 }
             }
             return $games;
+        }
+
+        /**
+         * * Get the Game options.
+         * @return object[]
+         */
+        static function getOptions () {
+            $games = collect([]);
+            foreach (Game::$options as $option) {
+                $games->push((object) $option);
+            }
+            return $games;
+        }
+
+       /**
+        * * Search a Game.
+        * @param mixed $slug Game slug.
+        * @return object
+        */
+        static function search ($slug) {
+            foreach (Game::$options as $option) {
+                $option = (object) $option;
+                if ($option->slug === $slug) {
+                    return $option;
+                }
+            }
         }
     }

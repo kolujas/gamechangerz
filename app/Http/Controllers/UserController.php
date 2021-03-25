@@ -9,7 +9,7 @@
          * @param string $slug User slug.
          * @return [type]
          */
-        public function profile($slug){
+        public function profile ($slug) {
             return view('user.profile', [
                 // ? Data
             ]);
@@ -19,7 +19,7 @@
          * * Control the User search page.
          * @return [type]
          */
-        public function search(){
+        public function search () {
             return view('user.search', [
                 // ? Data
             ]);
