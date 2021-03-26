@@ -46,4 +46,21 @@
             </li>
         </ul>
     </div>
+
+    <div class="sidebar-footer">
+        <ul class="sidebar-footer-menu-list">
+            <li>
+                <a href="#" class="sidebar-footer-link nav-link p-0 mr-4">
+                    @component('components.svg.TwitchSVG')
+                    @endcomponent
+                </a>
+            </li>
+            <li>
+                <a href="#" class="sidebar-footer-link nav-link p-0">
+                    @component('components.svg.YtSVG')
+                    @endcomponent
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
