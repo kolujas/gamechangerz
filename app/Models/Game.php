@@ -55,7 +55,8 @@
          */
         static public function has ($id_game) {
             $found = false;
-            foreach ($this->options as $game) {
+            foreach (Game::$options as $game) {
+                $game = (object) $game;
                 if ($game->id_game === $id_game) {
                     $found = true;
                 }
@@ -69,7 +70,8 @@
          * @return object
          */
         static public function find ($id_game) {
-            foreach ($this->options as $game) {
+            foreach (Game::$options as $game) {
+                $game = (object) $game;
                 if ($game->id_game === $id_game) {
                     $gameFound = $game;
                 }
@@ -91,8 +93,9 @@
         static public function parse ($gamesToParse) {
             $games = collect([]);
             foreach ($gamesToParse as $game) {
-                if ($this->has($game->id_game)) {
-                    $games->push($this->find($game->id_game));
+                $game = (object) $game;
+                if (Game::has($game->id_game)) {
+                    $games->push(Game::find($game->id_game));
                 }
             }
             return $games;

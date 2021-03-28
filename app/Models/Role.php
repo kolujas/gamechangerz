@@ -31,7 +31,7 @@
          */
         static public function has ($id_role) {
             $found = false;
-            foreach ($this->options as $role) {
+            foreach (Role::options as $role) {
                 if ($role->id_role === $id_role) {
                     $found = true;
                 }
@@ -45,7 +45,8 @@
          * @return object
          */
         static public function find ($id_role) {
-            foreach ($this->options as $role) {
+            foreach (Role::$options as $role) {
+                $role = (object) $role;
                 if ($role->id_role === $id_role) {
                     $roleFound = $role;
                 }
@@ -59,8 +60,8 @@
          * @return array
          */
         static public function parse ($id_role) {
-            if ($this->has($id_role)) {
-                $role = $this->find($id_role);
+            if (Role::has($id_role)) {
+                $role = Role::find($id_role);
             }
             return $role;
         }

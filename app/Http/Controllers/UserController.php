@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Models\User;
     use Illuminate\Http\Request;
 
     class UserController extends Controller {
@@ -10,6 +11,10 @@
          * @return [type]
          */
         public function profile ($slug) {
+            $user = User::where('slug', '=', $slug)->get()[0];
+            $user->achievements();
+            $user->games();
+            dd($user);
             return view('user.profile', [
                 // ? Data
             ]);

@@ -29,7 +29,8 @@
          */
         static public function has ($id_achievement) {
             $found = false;
-            foreach ($this->options as $achievement) {
+            foreach (Achievement::$options as $achievement) {
+                $achievement = (object) $achievement;
                 if ($achievement->id_achievement === $id_achievement) {
                     $found = true;
                 }
@@ -43,7 +44,8 @@
          * @return object
          */
         static public function find ($id_achievement) {
-            foreach ($this->options as $achievement) {
+            foreach (Achievement::$options as $achievement) {
+                $achievement = (object) $achievement;
                 if ($achievement->id_achievement === $id_achievement) {
                     $achievementFound = $achievement;
                 }
@@ -59,8 +61,8 @@
         static public function parse ($achievementsToParse) {
             $achievements = collect([]);
             foreach ($achievementsToParse as $achievement) {
-                if ($this->has($achievement->id_achievement)) {
-                    $achievements->push($this->find($achievement->id_achievement));
+                if (isset($achievement->id_achievement) && Achievement::has($achievement->id_achievement)) {
+                    $achievements->push(Achievement::find($achievement->id_achievement));
                 } else {
                     $achievements->push($achievement);
                 }

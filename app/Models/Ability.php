@@ -34,7 +34,8 @@
          */
         static public function has ($id_ability) {
             $found = false;
-            foreach ($this->options as $ability) {
+            foreach (Ability::$options as $ability) {
+                $ability = (object) $ability;
                 if ($ability->id_ability === $id_ability) {
                     $found = true;
                 }
@@ -48,7 +49,8 @@
          * @return object
          */
         static public function find ($id_ability) {
-            foreach ($this->options as $ability) {
+            foreach (Ability::$options as $ability) {
+                $ability = (object) $ability;
                 if ($ability->id_ability === $id_ability) {
                     $abilityFound = $ability;
                 }
@@ -64,8 +66,8 @@
         static public function parse ($abilitiesToParse) {
             $abilities = collect([]);
             foreach ($abilitiesToParse as $ability) {
-                if ($this->has($ability->id_ability)) {
-                    $abilityFound = $this->find($ability->id_ability);
+                if (Ability::has($ability->id_ability)) {
+                    $abilityFound = Ability::find($ability->id_ability);
                     $abilityFound->stars = $ability->stars;
                     $abilities->push($abilityFound);
                 }
