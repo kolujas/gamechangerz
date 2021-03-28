@@ -39,7 +39,8 @@
          */
         static public function has ($id_idiom) {
             $found = false;
-            foreach ($this->options as $idiom) {
+            foreach (Idiom::$options as $idiom) {
+                $idiom = (object) $idiom;
                 if ($idiom->id_idiom === $id_idiom) {
                     $found = true;
                 }
@@ -53,7 +54,8 @@
          * @return object
          */
         static public function find ($id_idiom) {
-            foreach ($this->options as $idiom) {
+            foreach (Idiom::$options as $idiom) {
+                $idiom = (object) $idiom;
                 if ($idiom->id_idiom === $id_idiom) {
                     $idiomFound = $idiom;
                 }
@@ -69,8 +71,8 @@
         static public function parse ($idiomsToParse) {
             $idioms = collect([]);
             foreach ($idiomsToParse as $idiom) {
-                if ($this->has($idiom->id_idiom)) {
-                    $idioms->push($this->find($idiom->id_idiom));
+                if (Idiom::has($idiom->id_idiom)) {
+                    $idioms->push(Idiom::find($idiom->id_idiom));
                 }
             }
             return $idioms;

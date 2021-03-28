@@ -26,7 +26,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'idioms', 'lessons', 'name', 'password', 'id_role', 'slug', 'teammate', 'id_teampro', 'username', 'video',
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'idioms', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video',
         ];
 
         /**
@@ -51,7 +51,7 @@
          * @return array
          */
         public function achievements () {
-            $this->achievements = Achievement::parse($this->achievements);
+            $this->achievements = Achievement::parse(json_decode($this->achievements));
         }
 
         /**
@@ -89,7 +89,7 @@
          * @return array
          */
         public function games () {
-            $this->games = Game::parse($this->games);
+            $this->games = Game::parse(json_decode($this->games));
         }
 
         /**
@@ -97,7 +97,7 @@
          * @return array
          */
         public function idioms () {
-            $this->idioms = Idiom::parse($this->idioms);
+            $this->idioms = Idiom::parse(json_decode($this->idioms));
         }
 
         /**
@@ -105,7 +105,7 @@
          * @return array
          */
         public function lessons () {
-            $this->lessons = Lesson::parse($this->lessons);
+            $this->lessons = Lesson::parse(json_decode($this->lessons));
         }
 
         /**
@@ -120,7 +120,15 @@
          * * Get the User Role.
          * @return array
          */
+        public function price () {
+            $this->price = Price::parse(json_decode($this->price));
+        }
+
+        /**
+         * * Get the User Role.
+         * @return array
+         */
         public function role () {
-            $this->role = Role::parse($this->role);
+            $this->role = Role::parse(json_decode($this->role));
         }
     }

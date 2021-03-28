@@ -23,6 +23,19 @@
             'id_user_from', 'id_user_to', 'lessons',
         ];
 
+        /** @var array Lesson options */
+        static $options = [[
+                'id_lesson' => 1,
+                'name' => 'Online',
+                'svg' => 'svg/ESPSVG.svg',
+                'slug' => 'online',
+            ], [
+                'id_lesson' => 2,
+                'name' => 'Offline',
+                'svg' => 'svg/USASVG.svg',
+                'slug' => 'offline',
+        ]];
+
         /** @var array Lesson days */
         static $days = [[
                 'id_day' => 0,
@@ -163,13 +176,44 @@
         ]];
 
         /**
+         * * Check if a Price exists.
+         * @param int $id_lesson Price primary key. 
+         * @return boolean
+         */
+        static public function has ($id_lesson) {
+            $found = false;
+            foreach (Lesson::$options as $price) {
+                $price = (object) $price;
+                if ($price->id_lesson === $id_lesson) {
+                    $found = true;
+                }
+            }
+            return $found;
+        }
+
+        /**
+         * * Find a Price.
+         * @param int $id_lesson Price primary key. 
+         * @return object
+         */
+        static public function findLesson ($id_lesson) {
+            foreach (Lesson::$options as $lesson) {
+                $lesson = (object) $lesson;
+                if ($lesson->id_lesson === $id_lesson) {
+                    $lessonFound = $lesson;
+                }
+            }
+            return $lessonFound;
+        }
+
+        /**
          * * Check if a Lesson exists.
          * @param int $id_day Lesson primary key. 
          * @return boolean
          */
         static public function hasDay ($id_day) {
             $found = false;
-            foreach ($this->days as $day) {
+            foreach (Lesson::days as $day) {
                 if ($day->id_day === $id_day) {
                     $found = true;
                 }
@@ -183,7 +227,7 @@
          * @return object
          */
         static public function findDay ($id_day) {
-            foreach ($this->days as $day) {
+            foreach (Lesson::days as $day) {
                 if ($day->id_day === $id_day) {
                     $dayFound = $day;
                 }
@@ -199,7 +243,7 @@
          */
         static public function findHours ($id_from, $id_to) {
             $hours = collect([]);
-            foreach ($this->hours as $hour) {
+            foreach (Lesson::hours as $hour) {
                 if ($hour->id_hour <= $id_from || $hour->id_hour >= $id_to) {
                     $hours->push($hour);
                 }
@@ -213,7 +257,7 @@
          * @return object
          */
         static public function findState ($id_state) {
-            foreach ($this->states as $state) {
+            foreach (Lesson::states as $state) {
                 if ($state->id_state === $id_state) {
                     $stateFound = $state;
                 }
@@ -229,11 +273,11 @@
         static public function parse ($lessonsToParse) {
             $lessons = collect([]);
             foreach ($lessonsToParse as $lesson) {
-                if ($this->hasDay($lesson->id_day)) {
+                if (Lesson::hasDay($lesson->id_day)) {
                     $lessons->push([
-                        'id_state' => ($lesson->id_state ? $this->findState($lesson->id_state) : Lesson::$states[0]),
-                        'day' => $this->findDay($lesson->id_day),
-                        'hours' => $this->findHours($lesson->id_from, $lesson->id_to),
+                        'id_state' => ($lesson->id_state ? Lesson::findState($lesson->id_state) : Lesson::$states[0]),
+                        'day' => Lesson::findDay($lesson->id_day),
+                        'hours' => Lesson::findHours($lesson->id_from, $lesson->id_to),
                     ]);
                 }
             }
@@ -245,6 +289,6 @@
          * @return array
          */
         public function lessons () {
-            $this->lessons = Lesson::parse($this->lessons);
+            $this->lessons = Lesson::parse(json_decode($this->lessons));
         }
     }

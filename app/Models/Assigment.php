@@ -27,6 +27,6 @@
          * @return array
          */
         public function abilities () {
-            $this->abilities = Ability::parse($this->abilities);
+            $this->abilities = Ability::parse(json_decode($this->abilities));
         }
     }
