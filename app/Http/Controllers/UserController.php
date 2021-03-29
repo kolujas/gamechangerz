@@ -13,10 +13,16 @@
         public function profile ($slug) {
             $user = User::where('slug', '=', $slug)->get()[0];
             $user->achievements();
+            $user->files();
             $user->games();
-            dd($user);
+            $user->idioms();
+            if ($user->id_role === 1) {
+                $user->lessons();
+                $user->prices();
+            }
+            $user->role();
             return view('user.profile', [
-                // ? Data
+                'user' => $user,
             ]);
         }
 

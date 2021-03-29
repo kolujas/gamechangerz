@@ -27,7 +27,7 @@
          * @param int $id_achievement Achievement primary key. 
          * @return boolean
          */
-        static public function has ($id_achievement) {
+        static public function hasOptions ($id_achievement) {
             $found = false;
             foreach (Achievement::$options as $achievement) {
                 $achievement = (object) $achievement;
@@ -43,7 +43,7 @@
          * @param int $id_achievement Achievement primary key. 
          * @return object
          */
-        static public function find ($id_achievement) {
+        static public function findOptions ($id_achievement) {
             foreach (Achievement::$options as $achievement) {
                 $achievement = (object) $achievement;
                 if ($achievement->id_achievement === $id_achievement) {
@@ -61,8 +61,8 @@
         static public function parse ($achievementsToParse) {
             $achievements = collect([]);
             foreach ($achievementsToParse as $achievement) {
-                if (isset($achievement->id_achievement) && Achievement::has($achievement->id_achievement)) {
-                    $achievements->push(Achievement::find($achievement->id_achievement));
+                if (isset($achievement->id_achievement) && Achievement::hasOptions($achievement->id_achievement)) {
+                    $achievements->push(Achievement::findOptions($achievement->id_achievement));
                 } else {
                     $achievements->push($achievement);
                 }

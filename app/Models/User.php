@@ -120,8 +120,8 @@
          * * Get the User Role.
          * @return array
          */
-        public function price () {
-            $this->price = Price::parse(json_decode($this->price));
+        public function prices () {
+            $this->prices = Price::parse(json_decode($this->prices));
         }
 
         /**
@@ -129,6 +129,6 @@
          * @return array
          */
         public function role () {
-            $this->role = Role::parse(json_decode($this->role));
+            $this->role = Role::parse(json_decode($this->id_role));
         }
     }
