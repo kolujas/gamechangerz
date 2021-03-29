@@ -15,6 +15,67 @@
 
 @section('main')
     {{-- Page content --}}
+    <section class="slider-container">
+        <header>
+            <h3>Aprende de los <span class="color-four">mejores</span></h3>
+            <p class="mb-4 slider-text">Domina las habilidades que quieras
+                con nuestra gran seleccion de
+                expertos en CSGO.</p>
+                <button style="--game-color-one: orange; --game-color-two: gold" class="btn btn-one">
+                    <span>Ver profesionales</span>
+                </button>
+        </header>
+        <main class="swiper-container">
+            <div class="swiper-wrapper">
+                <figure class="swiper-slide">
+                    <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
+                </figure>
+                <figure class="swiper-slide">
+                    <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
+                </figure>
+                <figure class="swiper-slide">
+                    <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
+                </figure>     
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </main>
+    </section>
+
+    <section class="video-section">
+        <header>
+            <h3 class="pt-12 text-center color-white font-bold text-2xl">Cómo funciona
+                <figure>
+                    <img src="{{ asset('img/logos/isologo-reducido-claro-transparencia.svg') }}" alt="Logo claro solido de Gamechangerz">
+                </figure>
+            </h3>
+            <p class="text-center color-white text-md ">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
+        </header>
+        
+        <div class="pt-4 flex justify-center pb-12">
+            <iframe src="https://www.youtube.com/embed/uJNd8OzFt58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+  
+        <div class="services grid grid-cols-1 pb-12">
+                <div class="service text-lg p-6 my-4">
+                    <span class="color-four font-bold">Clases Online @component('components.svg.ClaseOnline1SVG')
+                    @endcomponent</span>
+                    <p class="text-white pt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudiandae corporis recusandae molestias. Veniam corrupti nostrum doloribus.</p>
+                </div>
+                <div class="service text-lg p-6 my-4">
+                    <span class="color-four font-bold">Clases Offline @component('components.svg.ClaseOnline1SVG')
+                        @endcomponent</span>
+                    <p class="text-white pt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudiandae corporis recusandae molestias. Veniam corrupti nostrum doloribus.</p>
+                </div>
+                <div class="service text-lg p-6 my-4">
+                    <span class="color-four font-bold">Packs @component('components.svg.ClaseOnline1SVG')
+                        @endcomponent</span>
+                    <p class="text-white pt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudiandae corporis recusandae molestias. Veniam corrupti nostrum doloribus.</p>
+                </div>
+                
+        </div>
+    </section>
 @endsection
 
 @section('footer')
@@ -23,5 +84,15 @@
 @endsection
 
 @section('js')
+    <script src={{ asset('js/swiper/swiper-bundle.min.js') }}></script>
     <script type="module" src={{ asset('js/web/game.js') }}></script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+  </script>
 @endsection

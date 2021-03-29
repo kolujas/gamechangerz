@@ -1,0 +1,27 @@
+.color-one{
+    color: var(--color-one);
+}
+
+.color-two{
+    color: var(--color-two);
+}
+
+.color-three{
+    color: var(--color-three);
+}
+
+.color-four{
+    color: var(--color-four);
+}
+
+.color-five{
+    color: var(--color-five);
+}
+
+.color-black{
+    color: var(--color-black);
+}
+
+.color-white{
+    color: var(--color-white);
+}

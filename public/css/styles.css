@@ -8,6 +8,8 @@
     --color-five: #FBF19C;
     --color-black: #0D0D0D;
     --color-white: #EEEEEE;
+    --font-one: ;  /* Tipografia para encabezados */
+    --font-two: ;  /* Tipografia para textos */
 }
 
 .nav-menu {
