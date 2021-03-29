@@ -15,9 +15,16 @@
          */
         static public function parse ($pricesToParse) {
             $prices = collect([]);
+            $pricesToParse[2] = [
+                'id_lesson' => 3,
+                'price' => intval($pricesToParse[0]->price) * 3,
+            ];
             foreach ($pricesToParse as $price) {
-                if (Lesson::has($price->id_lesson)) {
-                    $prices->push(Lesson::find($price->id_lesson));
+                $price = (object) $price;
+                if (Lesson::hasOptions($price->id_lesson)) {
+                    $lesson = Lesson::findOptions($price->id_lesson);
+                    $lesson->price = $price->price;
+                    $prices->push($lesson);
                 }
             }
             return $prices;

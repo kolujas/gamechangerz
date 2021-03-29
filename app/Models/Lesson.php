@@ -27,13 +27,18 @@
         static $options = [[
                 'id_lesson' => 1,
                 'name' => 'Online',
-                'svg' => 'svg/ESPSVG.svg',
+                'svg' => 'svg/ClaseOnline1SVG.svg',
                 'slug' => 'online',
             ], [
                 'id_lesson' => 2,
                 'name' => 'Offline',
-                'svg' => 'svg/USASVG.svg',
+                'svg' => 'svg/ClaseOnline1SVG.svg',
                 'slug' => 'offline',
+            ], [
+                'id_lesson' => 3,
+                'name' => 'Packs',
+                'svg' => 'svg/ClaseOnline3SVG.svg',
+                'slug' => 'packs',
         ]];
 
         /** @var array Lesson days */
@@ -180,7 +185,7 @@
          * @param int $id_lesson Price primary key. 
          * @return boolean
          */
-        static public function has ($id_lesson) {
+        static public function hasOptions ($id_lesson) {
             $found = false;
             foreach (Lesson::$options as $price) {
                 $price = (object) $price;
@@ -192,11 +197,11 @@
         }
 
         /**
-         * * Find a Price.
+         * * Find a Lesson option.
          * @param int $id_lesson Price primary key. 
          * @return object
          */
-        static public function findLesson ($id_lesson) {
+        static public function findOptions ($id_lesson) {
             foreach (Lesson::$options as $lesson) {
                 $lesson = (object) $lesson;
                 if ($lesson->id_lesson === $id_lesson) {
@@ -213,7 +218,8 @@
          */
         static public function hasDay ($id_day) {
             $found = false;
-            foreach (Lesson::days as $day) {
+            foreach (Lesson::$days as $day) {
+                $day = (object) $day;
                 if ($day->id_day === $id_day) {
                     $found = true;
                 }
@@ -227,7 +233,8 @@
          * @return object
          */
         static public function findDay ($id_day) {
-            foreach (Lesson::days as $day) {
+            foreach (Lesson::$days as $day) {
+                $day = (object) $day;
                 if ($day->id_day === $id_day) {
                     $dayFound = $day;
                 }
@@ -243,8 +250,9 @@
          */
         static public function findHours ($id_from, $id_to) {
             $hours = collect([]);
-            foreach (Lesson::hours as $hour) {
-                if ($hour->id_hour <= $id_from || $hour->id_hour >= $id_to) {
+            foreach (Lesson::$hours as $hour) {
+                $hour = (object) $hour;
+                if ($hour->id_hour >= $id_from && $hour->id_hour <= $id_to) {
                     $hours->push($hour);
                 }
             }
@@ -257,7 +265,8 @@
          * @return object
          */
         static public function findState ($id_state) {
-            foreach (Lesson::states as $state) {
+            foreach (Lesson::$states as $state) {
+                $state = (object) $state;
                 if ($state->id_state === $id_state) {
                     $stateFound = $state;
                 }
@@ -273,9 +282,10 @@
         static public function parse ($lessonsToParse) {
             $lessons = collect([]);
             foreach ($lessonsToParse as $lesson) {
+                $lesson = (object) $lesson;
                 if (Lesson::hasDay($lesson->id_day)) {
                     $lessons->push([
-                        'id_state' => ($lesson->id_state ? Lesson::findState($lesson->id_state) : Lesson::$states[0]),
+                        'id_state' => (isset($lesson->id_state) ? Lesson::findState($lesson->id_state) : Lesson::$states[0]),
                         'day' => Lesson::findDay($lesson->id_day),
                         'hours' => Lesson::findHours($lesson->id_from, $lesson->id_to),
                     ]);

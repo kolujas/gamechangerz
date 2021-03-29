@@ -37,7 +37,7 @@
          * @param int $id_idiom Idiom primary key. 
          * @return boolean
          */
-        static public function has ($id_idiom) {
+        static public function hasOptions ($id_idiom) {
             $found = false;
             foreach (Idiom::$options as $idiom) {
                 $idiom = (object) $idiom;
@@ -53,7 +53,7 @@
          * @param int $id_idiom Idiom primary key. 
          * @return object
          */
-        static public function find ($id_idiom) {
+        static public function findOptions ($id_idiom) {
             foreach (Idiom::$options as $idiom) {
                 $idiom = (object) $idiom;
                 if ($idiom->id_idiom === $id_idiom) {
@@ -71,8 +71,8 @@
         static public function parse ($idiomsToParse) {
             $idioms = collect([]);
             foreach ($idiomsToParse as $idiom) {
-                if (Idiom::has($idiom->id_idiom)) {
-                    $idioms->push(Idiom::find($idiom->id_idiom));
+                if (Idiom::hasOptions($idiom->id_idiom)) {
+                    $idioms->push(Idiom::findOptions($idiom->id_idiom));
                 }
             }
             return $idioms;

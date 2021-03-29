@@ -29,9 +29,10 @@
          * @param int $id_role Role primary key. 
          * @return boolean
          */
-        static public function has ($id_role) {
+        static public function hasOptions ($id_role) {
             $found = false;
-            foreach (Role::options as $role) {
+            foreach (Role::$options as $role) {
+                $role = (object) $role;
                 if ($role->id_role === $id_role) {
                     $found = true;
                 }
@@ -44,7 +45,7 @@
          * @param int $id_role Role primary key. 
          * @return object
          */
-        static public function find ($id_role) {
+        static public function findOptions ($id_role) {
             foreach (Role::$options as $role) {
                 $role = (object) $role;
                 if ($role->id_role === $id_role) {
@@ -60,8 +61,8 @@
          * @return array
          */
         static public function parse ($id_role) {
-            if (Role::has($id_role)) {
-                $role = Role::find($id_role);
+            if (Role::hasOptions($id_role)) {
+                $role = Role::findOptions($id_role);
             }
             return $role;
         }

@@ -16,7 +16,7 @@
                 'alias' => 'CSGO',
                 'folder' => 'games/counter-strike-go',
                 'slug' => 'counter-strike-go',
-                'abilities' => [],
+                'abilities' => [['id_ability' => 1],['id_ability' => 2],['id_ability' => 3],['id_ability' => 4]],
                 'colors' => ['#ED6744', '#FBF19C'],
                 'active' => true,
             ], [
@@ -53,7 +53,7 @@
          * @param int $id_game Game primary key. 
          * @return boolean
          */
-        static public function has ($id_game) {
+        static public function hasOptions ($id_game) {
             $found = false;
             foreach (Game::$options as $game) {
                 $game = (object) $game;
@@ -69,18 +69,12 @@
          * @param int $id_game Game primary key. 
          * @return object
          */
-        static public function find ($id_game) {
+        static public function findOptions ($id_game) {
             foreach (Game::$options as $game) {
                 $game = (object) $game;
                 if ($game->id_game === $id_game) {
                     $gameFound = $game;
                 }
-            }
-            $gameFound->abilities = Ability::parse($gameFound->abilities);
-            $files = Folder::getFiles($gameFound->folder);
-            $gameFound->files = collect([]);
-            foreach ($files as $file) {
-                dd($file);
             }
             return $gameFound;
         }
@@ -94,8 +88,15 @@
             $games = collect([]);
             foreach ($gamesToParse as $game) {
                 $game = (object) $game;
-                if (Game::has($game->id_game)) {
-                    $games->push(Game::find($game->id_game));
+                if (Game::hasOptions($game->id_game)) {
+                    $gameFound = Game::findOptions($game->id_game);
+                    $gameFound->abilities = Ability::parse(Game::parseAbilities($game->id_game, $game->abilities));
+                    $files = Folder::getFiles($gameFound->folder);
+                    $gameFound->files = collect([]);
+                    foreach ($files as $file) {
+                        dd($file);
+                    }
+                    $games->push($gameFound);
                 }
             }
             return $games;
@@ -105,7 +106,7 @@
          * * Get the Game options.
          * @return object[]
          */
-        static function getOptions () {
+        static public function getOptions () {
             $games = collect([]);
             foreach (Game::$options as $option) {
                 $games->push((object) $option);
@@ -118,12 +119,40 @@
         * @param mixed $slug Game slug.
         * @return object
         */
-        static function search ($slug) {
+        static public function search ($slug) {
             foreach (Game::$options as $option) {
                 $option = (object) $option;
                 if ($option->slug === $slug) {
                     return $option;
                 }
             }
+        }
+
+        /**
+         * * Parse a Game Abilities array.
+         * @param int $id_game
+         * @param array $abilitiesToParse Example: "[{\"id_ability\":1,\"stars\":3.5}]"
+         * @return array
+         */
+        static public function parseAbilities ($id_game, $abilitiesToParse) {
+            $abilities = collect([]);
+            $game = (object) Game::findOptions($id_game);
+            foreach ($game->abilities as $ability) {
+                $ability = (object) $ability;
+                $found = false;
+                foreach ($abilitiesToParse as $abilityToParse) {
+                    $abilityToParse = (object) $abilityToParse;
+                    if ($ability->id_ability === $abilityToParse->id_ability) {
+                        $abilities->push($abilityToParse);
+                        $found = true;
+                    }
+                }
+                if (!$found) {
+                    $ability->stars = 0;
+                    $abilities->push($ability);
+                }
+                
+            }
+            return $abilities;
         }
     }

@@ -11,7 +11,7 @@
                     <span>Name</span>
                 </div>
             </a>
-            <a href="#" class="sidebar-button close-btn left hidden">
+            <a href="#menu" class="sidebar-button close-btn left hidden">
                 <span class="link-text">Close</span>
             </a>
             <span class="sidebar-link">
@@ -26,7 +26,7 @@
                     <span>Ingresar</span>
                 </div>
             </a>
-            <a href="#" class="sidebar-button close-btn left hidden">
+            <a href="#menu" class="sidebar-button close-btn left hidden">
                 <span class="link-text">Close</span>
             </a>
         @endif

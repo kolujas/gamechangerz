@@ -25,6 +25,24 @@
                 'difficulty' => 0,
                 'slug' => 'something',
                 'stars' => null,
+            ], [
+                'id_ability' => 3,
+                'name' => 'Something',
+                'description' => 'Something',
+                'files' => 'games/something.png',
+                'icon' => 'something',
+                'difficulty' => 0,
+                'slug' => 'something',
+                'stars' => null,
+            ], [
+                'id_ability' => 4,
+                'name' => 'Something',
+                'description' => 'Something',
+                'files' => 'games/something.png',
+                'icon' => 'something',
+                'difficulty' => 0,
+                'slug' => 'something',
+                'stars' => null,
         ]];
 
         /**
@@ -32,7 +50,7 @@
          * @param int $id_ability Ability primary key. 
          * @return boolean
          */
-        static public function has ($id_ability) {
+        static public function hasOptions ($id_ability) {
             $found = false;
             foreach (Ability::$options as $ability) {
                 $ability = (object) $ability;
@@ -48,7 +66,7 @@
          * @param int $id_ability Ability primary key. 
          * @return object
          */
-        static public function find ($id_ability) {
+        static public function findOptions ($id_ability) {
             foreach (Ability::$options as $ability) {
                 $ability = (object) $ability;
                 if ($ability->id_ability === $id_ability) {
@@ -66,8 +84,9 @@
         static public function parse ($abilitiesToParse) {
             $abilities = collect([]);
             foreach ($abilitiesToParse as $ability) {
-                if (Ability::has($ability->id_ability)) {
-                    $abilityFound = Ability::find($ability->id_ability);
+                $ability = (object) $ability;
+                if (Ability::hasOptions($ability->id_ability)) {
+                    $abilityFound = Ability::findOptions($ability->id_ability);
                     $abilityFound->stars = $ability->stars;
                     $abilities->push($abilityFound);
                 }
