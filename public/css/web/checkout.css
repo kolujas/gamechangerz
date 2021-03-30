@@ -22,6 +22,7 @@
 }
 
 .calendar li:nth-of-type(2n+1) {
+    padding-left: 1rem;
     padding-right: .5rem;
 }
 
@@ -40,15 +41,21 @@
     align-items: center;
     font-size: 1rem;
     background-color: var(--color-black);
-    border: 1px solid var(--color-one);
+    border: 1px solid var(--color-two);
+    transition: 500ms;
+}
+
+.calendar input:not(:disabled) + label.btn {
+    cursor: pointer;
 }
 
 .calendar input:disabled + label.btn {
     opacity: .5;
+    pointer-events: none;
 }
 
-.calendar :not(input:disabled) + label.btn:hover {
-    border: 1px solid var(--color-two);
+.calendar input:not(:disabled) + label.btn:hover {
+    border: 1px solid var(--color-four);
 }
 
 .calendar input:not(:disabled):checked + label.btn {
@@ -60,19 +67,19 @@
     content: '';
     width: 1rem;
     height: 1rem;
-    background: var(--color-one);
+    background: var(--color-two);
     border-radius: 100vh;
     box-shadow: inset 0 0 0 3px var(--color-black),
-                0 0 0 3px var(--color-one);
+                0 0 0 3px var(--color-two);
     appearance: none;
     transition: 500ms;
     border: none;
 }
 
-.calendar :not(input:disabled) + label.btn:hover::after {
-    background: var(--color-two);
+.calendar input:not(:disabled) + label.btn:hover::after {
+    background: var(--color-four);
     box-shadow: inset 0 0 0 3px var(--color-black),
-                0 0 0 3px var(--color-two);
+                0 0 0 3px var(--color-four);
 }
 
 .calendar input:not(:disabled):checked + label.btn::after {
@@ -85,16 +92,46 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: .25rem;
     border: 1px solid;
     border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
     border-image-slice: 1;
-    background-color: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.5);
+    transition: background 500ms;
+}
+
+.methods .card a:hover {
+    background: var(--color-black);
+}
+
+button[type=submit].btn {
+    --color-one: var(--color-four);
+    --color-two: var(--color-five);
 }
 
 /* ? MD */
 @media(min-width: 768px){
+    .calendar li:nth-of-type(3n+1) {
+        padding-left: 1rem;
+        padding-right: .5rem;
+    }
     
+    .calendar li:nth-of-type(3n+2) {
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
+    
+    .calendar li:nth-of-type(3n+3) {
+        padding-left: .5rem;
+        padding-right: 1rem;
+    }
+
+    .methods .card:nth-of-type(3n+1) a {
+        margin-right: 1rem;
+    }
+
+    .methods .card:nth-of-type(3n+3) a {
+        margin-left: 1rem;
+    }
 }
 
 /* ? LG */

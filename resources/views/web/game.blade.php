@@ -20,6 +20,7 @@
             <p class="mb-4 slider-text color-white">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
             <button style="--color-one: {{ $game->colors[0] }}; --color-two: {{ $game->colors[1] }}" class="btn btn-one py-2 px-4">
                 <span>Ver profesionales</span>
+                <i class="fas fa-chevron-right"></i>
             </button>
         </header>
         <main class="swiper-container">
