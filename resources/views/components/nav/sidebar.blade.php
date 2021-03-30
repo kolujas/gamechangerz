@@ -20,7 +20,7 @@
         @else
             <a href="#" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
-                    <i class="link-icon">I</i>
+                    <i class="link-icon fas fa-sign-in-alt"></i>
                 </div>
                 <div class="col-span-2 grid grid-cols-1 items-center">
                     <span>Ingresar</span>

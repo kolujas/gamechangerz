@@ -8,6 +8,7 @@
     --color-five: #FBF19C;
     --color-black: #0D0D0D;
     --color-white: #EEEEEE;
+    --color-grey: #8F8C90;
     --font-one: ;  /* Tipografia para encabezados */
     --font-two: ;  /* Tipografia para textos */
 }
@@ -29,7 +30,7 @@ body {
     background-color: var(--color-one);
 }
 
-:is(h1, h2, h3, h4, h5, h6) {
+:is(h1, h2, h3, h4) {
     font-weight: bold;
 }
 
@@ -43,6 +44,10 @@ h3 {
 
 h4 {
     font-size: 1.125rem;
+}
+
+h5 {
+    font-size: .8rem;
 }
 
 ::selection {

@@ -16,7 +16,7 @@
                 $table->unsignedInteger('id_user_to');
                 $table->string('title');
                 $table->text('description')->nullble();
-                $table->json('abilities')->nullble();
+                $table->json('abilities')->nullble()->default('[]');
                 $table->timestamps();
             });
         }

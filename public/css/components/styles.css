@@ -1,7 +1,8 @@
 @import './animation.css';
 @import './button.css';
 @import './font.css';
+@import './footer.css';
 @import './game/list.css';
 @import './nav.css';
 @import './sidebar.css';
-@import './footer.css';
+@import './tab.css';

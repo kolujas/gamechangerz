@@ -3,7 +3,6 @@
     
 // * DefaultController - Controls the web in general.
     Route::get('/', 'App\Http\Controllers\DefaultController@index')->name('web.index');
-    Route::get('/checkout', 'App\Http\Controllers\DefaultController@checkout')->name('web.checkout');
     Route::get('/coming-soon', 'App\Http\Controllers\DefaultController@comingSoon')->name('web.coming_soon');
     Route::get('/game/{slug}', 'App\Http\Controllers\DefaultController@game')->name('web.game');
     Route::get('/home', 'App\Http\Controllers\DefaultController@home')->name('web.home');
@@ -17,3 +16,4 @@
 // * UserController - Controls the User pages.
     Route::get('/users/{slug}/profile', 'App\Http\Controllers\UserController@profile')->name('user.profile');
     Route::get('/search', 'App\Http\Controllers\UserController@search')->name('user.search');
+    Route::get('/users/{slug}/checkout/{type}', 'App\Http\Controllers\UserController@checkout')->name('user.checkout');

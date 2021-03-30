@@ -14,7 +14,7 @@
                 $table->increments('id_chat');
                 $table->unsignedInteger('id_user_from');
                 $table->unsignedInteger('id_user_to');
-                $table->json('messages');
+                $table->json('messages')->nullble()->default('[]');
                 $table->timestamps();
             });
         }

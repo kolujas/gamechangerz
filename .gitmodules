@@ -10,3 +10,6 @@
 [submodule ".\\public\\submodules\\SidebarJS"]
 	path = public/submodules/SidebarJS
 	url = https://github.com/JuanCruzAGB/SidebarJS.git
+[submodule ".\\public\\submodules\\TabMenuJS"]
+	path = .\\public\\submodules\\TabMenuJS
+	url = https://github.com/JuanCruzAGB/TabMenuJS.git

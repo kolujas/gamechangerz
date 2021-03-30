@@ -97,8 +97,10 @@
     border-image-slice: 1;
     background: rgba(0,0,0,.5);
     transition: background 500ms;
+    text-transform: uppercase;
 }
 
+.methods .card a.active,
 .methods .card a:hover {
     background: var(--color-black);
 }
@@ -106,6 +108,28 @@
 button[type=submit].btn {
     --color-one: var(--color-four);
     --color-two: var(--color-five);
+}
+
+.tab-content h4 {
+    font-size: 1.125rem;
+}
+
+input[name="credits"] {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-white);
+    color: var(--color-four);
+    transition: border 500ms;
+    appearance: none;
+}
+
+input[name="credits"]::placeholder {
+    color: var(--color-white);
+}
+
+input[name="credits"]:focus {
+    outline: none;
+    border-color: var(--color-four);
 }
 
 /* ? MD */

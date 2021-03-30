@@ -22,7 +22,7 @@
                 $table->json('games')->nullble()->default("[]");
                 $table->string('folder')->nullble();
                 $table->json('idioms')->nullble()->default('[{\"id_idiom\":1}]');
-                $table->json('lessons')->nullble()->default("[]");
+                $table->json('days')->nullble()->default("[]");
                 $table->string('name')->nullble();
                 $table->tinyInteger('id_role')->default(0);
                 $table->tinyInteger('id_teampro')->nullble();

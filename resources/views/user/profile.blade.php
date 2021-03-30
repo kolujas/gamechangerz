@@ -14,7 +14,11 @@
 @endsection
 
 @section('main')
-    {{-- Page content --}}
+    @if ($user->id_role < 1)
+        {{-- Perfil del Usuario --}}
+    @else
+        {{-- Perfil del Profesor --}}
+    @endif
 @endsection
 
 @section('footer')

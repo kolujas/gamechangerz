@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Models\Lesson;
     use App\Models\User;
     use Illuminate\Http\Request;
 
@@ -33,6 +34,27 @@
         public function search () {
             return view('user.search', [
                 // ? Data
+            ]);
+        }
+
+        /**
+         * * Control the checkout page.
+         * @param string $slug User slug.
+         * @param string $type User type of Lesson.
+         * @return [type]
+         */
+        public function checkout ($slug, $type) {
+            $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
+            $user->prices();
+            $user->days();
+            foreach ($user->prices as $price) {
+                if ($price->slug === $type) {
+                    $type = $price;
+                }
+            }
+            return view('user.checkout', [
+                'user' => $user,
+                'type' => $type,
             ]);
         }
     }

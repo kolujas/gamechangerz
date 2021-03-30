@@ -16,16 +16,6 @@
         }
 
         /**
-         * * Control the checkout page.
-         * @return [type]
-         */
-        public function checkout () {
-            return view('web.checkout', [
-                // ? Data
-            ]);
-        }
-
-        /**
          * * Control the coming soon page.
          * @return [type]
          */

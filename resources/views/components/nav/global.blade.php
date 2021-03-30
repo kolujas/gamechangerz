@@ -52,7 +52,7 @@
 			@else
 				<li>
 					<a href="/blog" class="nav-link">
-						<i class="link-icon">I</i>
+						<i class="link-icon fas fa-sign-in-alt"></i>
 						<span class="link-text">Ingresar</span>
 					</a>
 				</li>

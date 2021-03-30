@@ -2,9 +2,11 @@
     namespace App\Models;
 
     use App\Models\Achievements;
+    use App\Models\Day;
     use App\Models\Folder;
     use App\Models\Game;
     use App\Models\Idiom;
+    use App\Models\Lesson;
     use App\Models\Post;
     use App\Models\Role;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -72,6 +74,14 @@
         }
 
         /**
+         * * Get the User Days.
+         * @return array
+         */
+        public function days () {
+            $this->days = Day::parse(json_decode($this->days));
+        }
+
+        /**
          * * Get the User Files.
          * @return array
          */
@@ -105,7 +115,7 @@
          * @return array
          */
         public function lessons () {
-            $this->lessons = Lesson::parse(json_decode($this->lessons));
+            return $this->hasMany(Lesson::class, 'id_user_from', 'id_user');
         }
 
         /**

@@ -17,7 +17,7 @@
                 $table->string('title');
                 $table->text('description')->nullble();
                 $table->string('url')->nullble();
-                $table->json('abilities')->nullable();
+                $table->json('abilities')->nullble()->default('[]');
                 $table->timestamps();
             });
         }
