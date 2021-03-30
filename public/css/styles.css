@@ -23,6 +23,14 @@
     background: var(--color-black);
 }
 
+body {
+    background-color: var(--color-one);
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    font-weight: bold;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     

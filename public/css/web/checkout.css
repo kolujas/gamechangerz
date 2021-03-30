@@ -1,4 +1,87 @@
-/* TODO Custom CSS */
+.cart {
+    color: var(--color-white);
+    border-radius: .25rem;
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-image-slice: 1;
+    background-color: rgba(0,0,0,.5);
+}
+
+.calendar {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+.calendar h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-image-slice: 1;
+}
+
+.calendar li {
+    min-height: fit-content;
+}
+
+.calendar li:nth-of-type(2n+1) {
+    padding-right: .5rem;
+}
+
+.calendar li:nth-of-type(2n+2) {
+    padding-left: .5rem;
+    padding-right: 1rem;
+}
+
+.calendar input  {
+    display: none;
+}
+
+.calendar label.btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--color-black);
+    border: 1px solid var(--color-one);
+}
+
+.calendar input:disabled + label.btn {
+    opacity: .5;
+}
+
+.calendar :not(input:disabled) + label.btn:hover {
+    border: 1px solid var(--color-two);
+}
+
+.calendar input:not(:disabled):checked + label.btn {
+    background-color: var(--color-one);
+    border: 1px solid var(--color-four);
+}
+
+.calendar label.btn::after  {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    background: var(--color-one);
+    border-radius: 100vh;
+    box-shadow: inset 0 0 0 3px var(--color-black),
+                0 0 0 3px var(--color-one);
+    appearance: none;
+    transition: 500ms;
+    border: none;
+}
+
+.calendar :not(input:disabled) + label.btn:hover::after {
+    background: var(--color-two);
+    box-shadow: inset 0 0 0 3px var(--color-black),
+                0 0 0 3px var(--color-two);
+}
+
+.calendar input:not(:disabled):checked + label.btn::after {
+    background: var(--color-four);
+    box-shadow: inset 0 0 0 3px var(--color-black),
+                0 0 0 3px var(--color-four);
+}
 
 /* ? MD */
 @media(min-width: 768px){

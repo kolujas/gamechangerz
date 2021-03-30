@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
 
+    use App\Models\User;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
@@ -20,4 +21,12 @@
         protected $fillable = [
             'description', 'image', 'id_user', 'title', 'slug',
         ];
+
+        /**
+         * * Get the Post User.
+         * @return array
+         */
+        public function user () {
+            return $this->belongsTo(User::class, 'id_user', 'id_user');
+        }
     }

@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Models\Post;
     use Illuminate\Http\Request;
 
     class BlogController extends Controller {
@@ -10,7 +11,7 @@
          */
         public function list () {
             return view('blog.list', [
-                // ? Data
+                'posts' => Post::with('user')->limit(10)->orderBy('updated_at', 'DESC')->get(),
             ]);
         }
 
@@ -21,7 +22,7 @@
          */
         public function details ($slug) {
             return view('blog.details', [
-                // ? Data
+                'post' => Post::where('slug', '=', $slug)->with('user')->get()[0],
             ]);
         }
     }
