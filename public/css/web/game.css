@@ -1,5 +1,116 @@
 /* TODO Custom CSS */
 
+@import '../swiper/swiper.min.css';
+
+/* slider section */
+
+.slider-container{
+    position: relative;
+    height: 25rem;
+}
+
+.slider-container header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+}
+
+.swiper-container, .swiper-wrapper, .swiper-slide{
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+/* video section */
+
+.video-section{
+    background: url('../../img/02-background.png') no-repeat center center;
+    background-size: cover;
+}
+
+.video-section header p{
+    padding-top: .5rem;
+}
+
+.video-section header figure{
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    line-height: 2rem;
+}
+
+.video-section header figure img{
+    height: 500%;
+    width: 500%;
+    object-fit: cover;
+    position: relative;
+    top: -250%;
+    transform: translateY(15.6%);
+}
+
+.video-section iframe{
+    width: 100%;
+    height: 15rem;
+    border: 1px solid #FBF19C;
+}
+
+.video-section .services{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.video-section .services .service{
+    background: var(--color-black);
+    border-radius: .25rem;
+}
+
+.video-section .service:last-of-type {
+    margin-bottom: 0;
+}
+
+.video-section .service svg{
+    display: inline-block;
+    margin-left: .7rem;
+    height: 47px;
+}
+
+
+
 /* ? MD */
 @media(min-width: 768px){
     

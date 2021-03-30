@@ -5,25 +5,16 @@
     width: 100%;
 }
 
-h2 {
-    color: var(--color-white);
-}
-
-h2 span {
-    color: var(--color-four);
-}
-
 /* ? MD */
 @media(min-width: 768px){
     .main {
         min-height: 0;  
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
     
-    
-
 }
 
 /* ? XL */

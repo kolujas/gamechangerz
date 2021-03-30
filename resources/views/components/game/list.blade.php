@@ -1,4 +1,4 @@
-<ul class="cards games mt-16 grid md:grid-cols-2 lg:grid-cols-4 main">
+<ul class="cards games mt-12 grid md:grid-cols-2 lg:grid-cols-4 main">
     @foreach ($games as $game)
         @if ($game->active)
             <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4">
@@ -8,7 +8,7 @@
                 <a href="#">
         @endif
                 <header class="pb-4">
-                    <h3 class="font-bold text-xl degradado">{{ $game->name }}</h3>
+                    <h3 class="degradado">{{ $game->name }}</h3>
                 </header>
                 <main class="card-body degradado">
                     <figure>

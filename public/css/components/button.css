@@ -1,5 +1,22 @@
 .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: .25rem;
-    font-size: .8rem;
-    transition: 500ms;
+    font-weight: bold;
+}
+
+.btn.btn-one {
+    border: 1px solid;
+    border-image-source: -webkit-linear-gradient(130deg, var(--color-one), var(--color-two));
+    border-image-slice: 1;
+    border-radius: .5rem;
+    color: var(--color-two);
+}
+
+.btn.btn-two {
+    border: 1px solid var(--game-color-one);
+    border-image-source: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
+    border-image-slice: 1;
+    border-radius: .5rem;
 }

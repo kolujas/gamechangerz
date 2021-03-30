@@ -8,6 +8,8 @@
     --color-five: #FBF19C;
     --color-black: #0D0D0D;
     --color-white: #EEEEEE;
+    --font-one: ;  /* Tipografia para encabezados */
+    --font-two: ;  /* Tipografia para textos */
 }
 
 .nav-menu {
@@ -29,6 +31,18 @@ body {
 
 :is(h1, h2, h3, h4, h5, h6) {
     font-weight: bold;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.125rem;
 }
 
 /* ? MD */

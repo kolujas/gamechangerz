@@ -69,6 +69,11 @@
                         </li>
                     </ul>
             </nav>
+            <nav class="grid grid-cols-1 items-center m-auto py-8 pr-4">
+                <div>
+                    <img class="footer-logo" src={{ asset('img/logos/isologo-original-solido.svg') }} alt="Gamechangerz's logo">
+                </div>
+            </nav>
     </header>
 
     <section class="copy-text px-8 md:px-12 lg:px-20">

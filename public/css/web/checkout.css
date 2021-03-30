@@ -1,5 +1,4 @@
 .cart {
-    color: var(--color-white);
     border-radius: .25rem;
     border: 1px solid;
     border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
@@ -9,7 +8,6 @@
 
 .calendar {
     background: var(--color-black);
-    color: var(--color-white);
 }
 
 .calendar h2 {
@@ -81,6 +79,17 @@
     background: var(--color-four);
     box-shadow: inset 0 0 0 3px var(--color-black),
                 0 0 0 3px var(--color-four);
+}
+
+.methods .card a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .25rem;
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-image-slice: 1;
+    background-color: rgba(0,0,0,.5);
 }
 
 /* ? MD */

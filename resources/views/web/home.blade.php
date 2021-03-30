@@ -15,8 +15,8 @@
 
 @section('main')
     <main class="main container mx-auto">
-        <header class="flex justify-center items-center pt-16">
-            <h2 class="text-4xl text-center font-semibold">Toma clases con <span>profesionales</span></h2>
+        <header class="flex justify-center items-center pt-12">
+            <h2 class="text-center color-white">Toma clases con <span class="color-four">profesionales</span></h2>
         </header>
         
         @component('components.game.list', [
