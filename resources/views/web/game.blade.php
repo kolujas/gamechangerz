@@ -71,6 +71,53 @@
             </div>
         </div>
     </section>
+
+    <section class="banner-buscador py-12 mb-12">
+        <header class="text-left px-9 pb-4">
+            <h3 class="color-white">Los usuarios</h3>
+            <p class="color-white">Úneteles a miles de jugadores que buscan <span class="color-four font-bold">lo mismo</span> que vos</p>
+        </header>
+        <form class="users-form-search flex justify-center" action="">
+            <input class="rounded-sm users-search focus:outline-none text-sm px-2" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search">
+            <button class="submit-lupa" type="submit">
+                @component('components.svg.BuscarSVG');
+                @endcomponent
+            </button>
+        </form>        
+    </section>
+
+    <section class="profesores-destacados py-8 mb-8">
+        <header class="text-left px-9 pb-4">
+            <h3 class="color-white">Profesores desatacados</h3>
+            <p class="color-white">Conoce a los mejores mentores y aprende <span class="color-four">directamente</span> de ellos</p>
+        </header>
+        <form class="users-form-search flex justify-center" action="">
+            <input class="rounded-sm users-search focus:outline-none px-2 text-sm" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search">
+                <button class="submit-lupa" type="submit">
+                    @component('components.svg.Buscar2SVG');
+                    @endcomponent
+                </button>
+        </form>
+        <main>
+            @component('components.user.list')
+               
+            @endcomponent
+        </main>
+    </section>
+    
+    <section class="fornite-banner my-12">
+    </section>
+
+    <section class="bg-black mb-8">
+        <header class="px-4 py-4">
+            <h3 class="color-white">Criterios de evaluación</h3>
+            <p class="color-white">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
+        </header>
+        <main>
+            @component('components.game.abilities_list')
+            @endcomponent
+        </main>
+    </section>
 @endsection
 
 @section('footer')
