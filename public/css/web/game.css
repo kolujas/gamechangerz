@@ -122,6 +122,84 @@
 }
 
 
+/* buscador (usuarios) */
+
+.banner-buscador{
+    z-index: 2;
+    background-color: var(--color-black);
+    position: relative;
+}
+
+.banner-buscador::before{
+    content: "";
+    background: url(../../img/games/league-of-legends/01-background.png) no-repeat -70px top;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: .2;
+    transform: rotateY(180deg);
+}
+
+.banner-buscador::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    transform: rotateY(180deg);
+    background-color: var(--color-black);
+}
+
+.users-form-search .users-search{
+    width: 80%;
+    height: 2rem;
+    border: 1px solid;
+    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+    background-color: var(--color-one);
+}
+
+/* buscador profesores */
+
+.submit-lupa{
+    position: relative;
+    right: 2rem;
+}
+
+.submit-lupa svg{
+    height: 20px;
+}
+
+/* .listado-buscador-profesores li{
+    height: 9rem;
+    width: 80%;
+    border: 1px solid;
+    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+    position: relative;
+}
+
+.listado-buscador-profesores .profesor img{
+    height: 200px;
+    position: absolute;
+    top: -3.6rem;
+    right: 0;
+} */
+
+/* fornite banner */
+
+.fornite-banner{
+    background: url('../../img/games/counter-strike-go/banner-csgo-landingJuego.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: 20rem;
+    width: 100%;
+}
 
 /* ? MD */
 @media(min-width: 768px){

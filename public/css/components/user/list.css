@@ -1,7 +1,12 @@
 /* TODO Custom CSS */
+
 .profesor{
-    background-color: aqua;
+    padding: 1rem;
+    margin: 2rem;
+    border: 1px solid rebeccapurple;
 }
+
+
 
 /* ? MD */
 @media(min-width: 768px){
