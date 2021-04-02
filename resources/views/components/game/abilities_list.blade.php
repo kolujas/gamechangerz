@@ -25,5 +25,4 @@
         </figure>
         <span class="pt-4 color-white dificultad">Dificultad @component('components.svg.estrellaSVG')@endcomponent @component('components.svg.estrellaSVG')@endcomponent @component('components.svg.estrella2SVG')@endcomponent</span>
     </li>
-    
 </ul>

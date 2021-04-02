@@ -41,6 +41,7 @@
         </main>
     </section>
 
+
     <section class="video-section px-8">
         <header>
             <h3 class="pt-12 text-center color-white">
@@ -115,6 +116,17 @@
         </header>
         <main>
             @component('components.game.abilities_list')
+            @endcomponent
+        </main>
+    </section>
+
+    <section class="bg-black mb-8">
+        <header class="px-4 py-4">
+            <h3 class="color-white">Visita nuestro blog</h3>
+            <p class="color-white">Encontrarás los <span class="color-four font-bold">tips</span> mas valiosos y las discusiones mas interesantes </p>
+        </header>
+        <main>
+            @component('components.blog.list')
             @endcomponent
         </main>
     </section>
