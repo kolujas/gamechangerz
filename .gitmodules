@@ -13,3 +13,6 @@
 [submodule ".\\public\\submodules\\TabMenuJS"]
 	path = .\\public\\submodules\\TabMenuJS
 	url = https://github.com/JuanCruzAGB/TabMenuJS.git
+[submodule "public/submodules/InputDateMakerJS"]
+	path = public/submodules/InputDateMakerJS
+	url = https://github.com/JuanCruzAGB/InputDateMakerJS.git

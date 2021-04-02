@@ -52,7 +52,7 @@ h5 {
 
 ::selection {
     color: var(--color-white);
-    background: var(--color-black);
+    background: var(--color-four);
 }
 
 /* ? MD */

@@ -78,6 +78,10 @@
          * @return array
          */
         public function days () {
+            $this->lessons();
+            foreach ($this->lessons as $lesson) {
+                $lesson->hours();
+            }
             $this->days = Day::parse(json_decode($this->days));
         }
 

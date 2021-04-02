@@ -18,7 +18,7 @@
             $user->games();
             $user->idioms();
             if ($user->id_role === 1) {
-                $user->lessons();
+                $user->days();
                 $user->prices();
             }
             $user->role();

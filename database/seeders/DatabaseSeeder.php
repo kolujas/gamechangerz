@@ -10,6 +10,11 @@
          * @return void
          */
         public function run () {
+            $this->call(AssigmentsSeeder::class);
+            $this->call(ChatsSeeder::class);
+            $this->call(LessonsSeeder::class);
+            $this->call(PostsSeeder::class);
+            $this->call(ReviewsSeeder::class);
             $this->call(UsersSeeder::class);
         }
     }

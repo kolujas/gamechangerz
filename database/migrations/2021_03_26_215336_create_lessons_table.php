@@ -14,7 +14,8 @@
                 $table->increments('id_lesson');
                 $table->unsignedInteger('id_user_from');
                 $table->unsignedInteger('id_user_to');
-                $table->json('days')->nullble()->default('[]');
+                $table->date('date');
+                $table->json('hours')->nullble()->default('[]');
                 $table->timestamps();
             });
         }

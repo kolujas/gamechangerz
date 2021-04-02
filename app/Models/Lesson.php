@@ -21,7 +21,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'lessons',
+            'id_user_from', 'id_user_to', 'date', 'hours',
         ];
 
         /** @var array Lesson options */
@@ -74,10 +74,10 @@
         }
 
         /**
-         * * Get the User Days.
+         * * Get the Lesson Hours.
          * @return array
          */
-        public function days () {
-            $this->days = Day::parse(json_decode($this->days));
+        public function hours () {
+            $this->hours = Hour::parse(json_decode($this->hours), false);
         }
     }

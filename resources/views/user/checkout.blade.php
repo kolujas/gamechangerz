@@ -14,9 +14,9 @@
 @endsection
 
 @section('main')
-    <form action="#" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 items-center md:items-start py-12 px-8">
+    <form action="#" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 items-center md:items-start py-8 px-8">
         <section class="cart md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
-            <ul class="p-4">
+            <ul class="p-4 xl:px-8">
                 <li class="flex justify-between color-white">
                     <span>1 Clase {{ $type->name }} ({{ $type->price }} AR$): <a href="/users/{{ $user->slug }}/profile" class="color-four">{{ $user->username }}</a></span>
                 </li>
@@ -25,23 +25,14 @@
         @if ($type->id_type !== 2)
             <section class="calendar md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
                 <header>
-                    <h2 class="color-white p-4">Elige cuando empezar</h2>
+                    <h2 class="color-white p-4 xl:px-8">Elige cuando empezar</h2>
                 </header>
-                <main class="grid grid-cols-1 pt-4">
+                <main class="grid grid-cols-1 xl:grid-cols-3 p-4 xl:px-8 xl:gap-8">
                     <section class="mb-4">
-                        <div id="calendar">
-                            <input type="date" name="date">
-                        </div>
+                        <input type="date" name="date" id="calendar-1">
                     </section>
-                    <section>
-                        <ul class="grid grid-cols-2 md:grid-cols-3">
-                            @foreach ($user->days[0]['hours'] as $hour)
-                                <li class="pb-4">
-                                    <input id="hour-{{ $hour->id_hour }}" type="radio" name="hour" value="{{ $hour->id_hour }}">
-                                    <label for="hour-{{ $hour->id_hour }}" class="btn p-3 color-white">{{ $hour->from }} - {{ $hour->to }}</label>
-                                </li>
-                            @endforeach
-                        </ul>
+                    <section class="xl:col-span-2">
+                        <ul class="hours grid grid-cols-2 md:grid-cols-3 gap-4"></ul>
                     </section>
                 </main>
             </section>
@@ -51,15 +42,15 @@
                 <h3 class="color-white">Metodo de pago</h3>
             </header>
             <main id="methods" class="tab-menu">
-                <ul class="tabs tab-menu-list cards grid grid-cols-1 md:grid-cols-3">
+                <ul class="tabs tab-menu-list cards grid grid-cols-1 gap-4 md:grid-cols-3">
                     <li class="tab card">
-                        <a href="#mp" class="tab-button color-white p-4 mb-4">
+                        <a href="#mp" class="tab-button color-white p-4">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                             <h4 class="pl-4">Mercado pago</h4>
                         </a>
                     </li>
                     <li class="tab card">
-                        <a href="#paypal" class="tab-button color-white p-4 mb-4">
+                        <a href="#paypal" class="tab-button color-white p-4">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                             <h4 class="pl-4">Paypal</h4>
                         </a>
@@ -103,5 +94,11 @@
 @endsection
 
 @section('js')
+    <script>
+        @if (count($user->days))
+            const days = @json($user->days);
+            const lessons = @json($user->lessons);
+        @endif
+    </script>
     <script type="module" src={{ asset('js/user/checkout.js') }}></script>
 @endsection
