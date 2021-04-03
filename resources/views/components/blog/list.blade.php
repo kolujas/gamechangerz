@@ -5,7 +5,7 @@
         </figure>
         <h3 class="color-four font-bold text-uppercase text-white text-lg">Lidiar con la presion</h3>
         <span class="text-white">20 febrero, 2021</span>
-        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
+        <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
     <li class="card p-4 mr-4">
         <figure class="pt-4">
@@ -13,7 +13,7 @@
         </figure>
         <h3 class="color-four font-bold text-uppercase text-white text-lg">Lidiar con la presion</h3>
         <span class="text-white">20 febrero, 2021</span>
-        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
+        <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
     <li class="card p-4 mr-4">
         <figure class="pt-4">
@@ -21,7 +21,7 @@
         </figure>
         <h3 class="color-four font-bold text-uppercase text-white text-lg">Lidiar con la presion</h3>
         <span class="text-white">20 febrero, 2021</span>
-        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
+        <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
     <li class="card p-4 mr-4">
         <figure class="pt-4">
@@ -29,7 +29,7 @@
         </figure>
         <h3 class="color-four font-bold text-uppercase text-white text-lg">Lidiar con la presion</h3>
         <span class="text-white">20 febrero, 2021</span>
-        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
+        <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
     <li class="card p-4 mr-4">
         <figure class="pt-4">
@@ -37,7 +37,7 @@
         </figure>
         <h3 class="color-four font-bold text-uppercase text-white text-lg">Lidiar con la presion</h3>
         <span class="text-white">20 febrero, 2021</span>
-        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
+        <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
     <li class="card p-4 mr-4">
         <figure class="pt-4">
@@ -45,7 +45,7 @@
         </figure>
         <h3 class="color-four font-bold text-uppercase text-white text-lg">Lidiar con la presion</h3>
         <span class="text-white">20 febrero, 2021</span>
-        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
+        <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
 
   
