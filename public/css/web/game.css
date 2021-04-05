@@ -100,7 +100,7 @@
 }
 
 .video-section .services{
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -128,6 +128,7 @@
     z-index: 2;
     background-color: var(--color-black);
     position: relative;
+    color: #fff;
 }
 
 .banner-buscador::before{
@@ -167,6 +168,11 @@
 
 /* buscador profesores */
 
+.profesores-destacados input[type=search]{
+    background-color: var(--color-black);
+    color: #fff;
+}
+
 .submit-lupa{
     position: relative;
     right: 2rem;
@@ -175,22 +181,6 @@
 .submit-lupa svg{
     height: 20px;
 }
-
-/* .listado-buscador-profesores li{
-    height: 9rem;
-    width: 80%;
-    border: 1px solid;
-    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    border-image-slice: 1;
-    position: relative;
-}
-
-.listado-buscador-profesores .profesor img{
-    height: 200px;
-    position: absolute;
-    top: -3.6rem;
-    right: 0;
-} */
 
 /* fornite banner */
 
@@ -201,19 +191,178 @@
     width: 100%;
 }
 
+.catalogo, .blog{
+    background-color: var(--color-black);
+}
+
 /* ? MD */
 @media(min-width: 768px){
-    
+    .slider-container header{
+        width: 60%;
+    }
+
+    /* video section */
+
+.video-section iframe{
+    width: 80%;
+    height: 20rem;
+    border: 1px solid #FBF19C;
+}
+
+.video-section .services{
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+ 
+
+.video-section .service:last-of-type {
+    margin-bottom: 1rem;
+}
+
+
+/* buscador */
+
+.users-form-search .users-search{
+    height: 2.5rem;
+    margin-top: 1rem;
+}
+
+
+.submit-lupa svg{
+    margin-top: 1rem;
+}
+
+.banner-buscador{
+    height: 250px;
+}
+
+.banner-buscador header{
+    padding-left: 3.7rem;
+}
+
+
+.banner-buscador::before {
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+}
+
+/* profesores destacados */
+
+.profesores-destacados header{
+    padding-left: 3.7rem;
+}
+
+
+/* habiliades */
+
+.habilidades header{
+    padding-left: 3.7rem;
+}
+
+.cards-abilities .card{
+    min-width: 33.333333%;
+}
+
+.habilidades header{
+    padding-left: 3.7rem;
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    .slider-container header{
+        width: 60%;
+    }
+
+    /* video section */
+
+    .video-section iframe{
+        width: 75%;
+        height: 25rem;      
+    }
+
+    .video-section .services{
+        justify-content: space-evenly;
+        flex-basis: 80%;
+    }
+
+
+    /* buscador */
+
+    .users-form-search .users-search{
+        height: 2.8rem;
+        margin-top: 1rem;
+    }
+
+
+    .submit-lupa svg{
+        margin-top: 1rem;
+    }
+
+    .banner-buscador{
+        height: 300px;
+    }
+
+    .banner-buscador header{
+        padding-left: 5.4rem;
+    }
+
+
+    .banner-buscador::before {
+        background-size: contain;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* profesores destacados */
+
+    .banner-buscador header, .profesores-destacados header, .catalogo header, .blog header{
+        padding-left: 5.4rem;
+    }
+
+    .cards-abilities, .cards-list{
+        padding: 0 5.4rem;
+    }
+
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+
+    /* video section */
+
+    .video-section iframe{
+        width: 40%;
+        height: 25rem;      
+    }
+
+    .video-section .services{
+        justify-content: space-evenly;
+        flex-basis: 50%;
+    }
+
+
+    /* buscador */
+
+    .banner-buscador{
+        height: 400px;
+    }
+
+    /* profesores destacados */
+
+    .profesores-destacados header{
+        padding-left: 5.4rem;
+    }
+
+    .fornite-banner{
+        min-height: 30rem;
+    }
+
+    .banner-buscador header, .profesores-destacados header, .catalogo header, .blog header{
+        padding-left: 10.9rem;
+    }
 }
 
 /* ? XXL */

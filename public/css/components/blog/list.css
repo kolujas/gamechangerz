@@ -1,35 +1,36 @@
 /* TODO Custom CSS */
 
-.cards-abilities{
+.cards-list{
     overflow-x: scroll;
     max-width: 100%;
 }
 
-.cards-abilities .card{
+.cards-list .card{
     opacity: .5;
     background-color: transparent;
-    min-width: 66.666666%;
+    min-width: 15rem;
     min-height: 20rem;
     transition: 600ms;
 }
 
-.cards-abilities .card:hover{
+.cards-list .card:hover{
     opacity: 1;
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
     border-image-slice: 1;
-    background-color: var(--color-one);
+    background-color: var(--color-black);
 }
 
-.cards-abilities .card figure img{
-    width: 300px;
+.cards-list .card figure img{
+    width: 200px;
 }
 
 
-.cards-abilities .dificultad svg{
+.cards-list .dificultad svg{
     display: inline-block;
     padding-bottom: .35rem;
 }
+
 
 /* ? MD */
 @media(min-width: 768px){
@@ -38,16 +39,17 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    .cards-abilities .card figure img{
-        width: 250px;
-    }
+    
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    .cards-list .card{
+        min-width: 30rem;
+    }   
 }
 
 /* ? XXL */
 @media(min-width: 1400px){
-   
+    
+}
