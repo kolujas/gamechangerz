@@ -38,7 +38,9 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    .cards-abilities .card figure img{
+        width: 250px;
+    }
 }
 
 /* ? XL */

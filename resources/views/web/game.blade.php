@@ -42,8 +42,8 @@
     </section>
 
 
-    <section class="video-section px-8">
-        <header>
+    <section class="video-section lg:flex lg:justify-center lg:flex-wrap px-8">
+        <header class="lg:w-full">
             <h3 class="pt-12 text-center color-white">
                 <span>Cómo funciona</span>
                 <figure>
@@ -53,11 +53,11 @@
             <p class="text-center color-white text-md">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
         </header>
         
-        <div class="pt-4 flex justify-center pb-12">
+        <div class="pt-4 flex justify-center lg:w-full pb-12">
             <iframe src="https://www.youtube.com/embed/uJNd8OzFt58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
   
-        <div class="services grid grid-cols-1 md:grid-cols-6 pb-12">
+        <div class="services grid grid-cols-1 md:grid-cols-3 md:gap-4 pb-12">
             <div class="service p-4 mb-4">
                 <h4 class="color-four">Clases Online @component('components.svg.ClaseOnline1SVG')@endcomponent</h4>
                 <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
@@ -74,7 +74,7 @@
     </section>
 
     <section class="banner-buscador py-12 mb-12">
-        <header class="text-left px-9 pb-4">
+        <header class="text-left px-9 pb-4 xl:mt-12">
             <h3 class="color-white">Los usuarios</h3>
             <p class="color-white">Úneteles a miles de jugadores que buscan <span class="color-four font-bold">lo mismo</span> que vos</p>
         </header>
@@ -109,7 +109,7 @@
     <section class="fornite-banner my-12">
     </section>
 
-    <section class="bg-black mb-8">
+    <section class="catalogo mb-8">
         <header class="px-4 py-4 md:px-8 md:pt-12">
             <h3 class="color-white">Criterios de evaluación</h3>
             <p class="color-white">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
@@ -120,7 +120,7 @@
         </main>
     </section>
 
-    <section class="bg-black mb-8">
+    <section class="blog mb-8">
         <header class="px-4 py-4 md:pl-8">
             <h3 class="color-white">Visita nuestro blog</h3>
             <p class="color-white">Encontrarás los <span class="color-four font-bold">tips</span> mas valiosos y las discusiones mas interesantes </p>

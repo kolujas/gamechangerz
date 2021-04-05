@@ -44,7 +44,9 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    .cards-list .card{
+        min-width: 30rem;
+    }   
 }
 
 /* ? XXL */

@@ -1,4 +1,4 @@
-<ul class="cards-abilities flex space-between pl-4 py-8">
+<ul class="cards-abilities flex space-between pl-4 py-8 overflow-x-hidden">
     <li class="card p-4 mr-4">
         <span class="text-lg color-three font-bold">Precision</span>
         <p class="color-two"><span class="color-four">Derriba</span> a tus enemigos desde lejos practicando con el AWP.</p>
