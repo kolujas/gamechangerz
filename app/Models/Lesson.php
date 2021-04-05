@@ -21,7 +21,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'date', 'hours',
+            'id_user_from', 'id_user_to', 'days',
         ];
 
         /** @var array Lesson options */
@@ -77,7 +77,37 @@
          * * Get the Lesson Hours.
          * @return array
          */
-        public function hours () {
-            $this->hours = Hour::parse(json_decode($this->hours), false);
+        public function days () {
+            $days = collect([]);
+            foreach (json_decode($this->days) as $day) {
+                $day = (object) $day;
+                $hour = (object) $day->hour;
+                $hour = Hour::findOptions($hour->id_hour);
+                $active = false;
+                $days->push([
+                    'date' => $day->date,
+                    'hour' => $hour,
+                ]);
+            }
+            $this->days = $days;
         }
+
+        /** @var array Validation rules & messages. */
+        static $validation = [
+            'checkout' => [
+                'online' => [
+                    'rules' => [
+                        'dates' => 'required',
+                        'hours' => 'required',
+                    ], 'messages' => [
+                        'es' => [
+                            'dates.required' => 'La fecha de la clase debe ser seleccionada.',
+                            'hours.required' => 'El horario de la clase debe ser seleccionada.',
+            ]]]], 'signin' => [
+                'rules' => [
+                    //
+                ], 'messages' => [
+                    'es' => [
+                        //
+        ]]]];
     }

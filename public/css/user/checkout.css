@@ -103,7 +103,7 @@
 
 button[type=submit].btn {
     --color-one: var(--color-four);
-    --color-one: var(--color-five);
+    --color-two: var(--color-five);
 }
 
 .tab-content h4 {

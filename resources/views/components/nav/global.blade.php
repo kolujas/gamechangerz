@@ -1,7 +1,7 @@
 <nav id="nav-id" class="nav-menu">
 	<div class="nav-row">
 		<a href="#menu" class="sidebar-button open-btn left">
-			<span class="link-text">Menu</span>
+			<i class="icon-link fas fa-bars"></i>
 		</a>
 		
 		<a href="/" class="nav-title logo">

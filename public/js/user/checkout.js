@@ -5,8 +5,10 @@ import { InputDateMaker as InputDateMakerJS } from "../../submodules/InputDateMa
 function hasLesson (date) {
     let found = false;
     for (const lesson of lessons) {
-        if (lesson.date === date) {
-            found = true;
+        for (const day of lesson.days) {
+            if (day.date === date) {
+                found = true;
+            }
         }
     }
     return found;
@@ -14,8 +16,10 @@ function hasLesson (date) {
 
 function findLesson (date) {
     for (const lesson of lessons) {
-        if (lesson.date === date) {
-            return lesson;
+        for (const day of lesson.days) {
+            if (day.date === date) {
+                return lesson;
+            }
         }
     }
 }
@@ -37,8 +41,8 @@ function printHours (params) {
         if (date === day.day.id_day) {
             for (const hour of day.hours) {
                 if (lesson) {
-                    for (const hourFromLesson of lesson.hours) {
-                        if (hourFromLesson.id_hour === hour.id_hour) {
+                    for (const dayFromLesson of lesson.days) {
+                        if (dayFromLesson.hour.id_hour === hour.id_hour && dayFromLesson.date === params.inputDateMaker.html.value) {
                             hour.active = false;
                         }
                     }
@@ -61,6 +65,9 @@ function printHours (params) {
                     label.classList.add('btn', 'p-3', 'color-white');
                     label.htmlFor = `hour-${ hour.id_hour }`;
                     item.appendChild(label);
+                    label.addEventListener('click', function (e) {
+                        changeDate(this.htmlFor);
+                    });
                         let span = document.createElement('span');
                         label.appendChild(span);
                         span.classList.add('mr-2');
@@ -68,29 +75,44 @@ function printHours (params) {
             }
         }
     }
+    if (!html.innerHTML) {
+        let li = document.createElement('li');
+        li.classList.add('col-span-2', 'md:col-span-3');
+        html.appendChild(li);
+            let p = document.createElement('p');
+            li.classList.add('color-white');
+            p.innerHTML = 'No se encontraron horas para el día de hoy.';
+            li.appendChild(p);
+    }
+    if (date !== new Date().getDay() && type.id_type === 3) {
+        document.querySelector('.calendar main:not(.compressed)').classList.add;
+    }
 }
 
-function sayHi (params) {
-    printHours();
+function changeDate (id) {
+    let value = document.querySelector(`input[id=${ id }]`).value;
+    document.querySelector('#hours').value = value;
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-    let enableDays = [];
-    for (const day of days) {
-        enableDays.push(day.day.id_day);
+    if (type.id_type !== 2) {
+        let enableDays = [];
+        for (const day of days) {
+            enableDays.push(day.day.id_day);
+        }
+    
+        let calendar = new InputDateMakerJS({
+            id: 'calendar-1',
+            lang: 'es',
+            availableWeekDays: enableDays,
+        }, {
+            enablePastDates: false,
+        }, {
+            function: printHours,
+            params: {
+                //
+        }});
     }
-
-    let calendar = new InputDateMakerJS({
-        id: 'calendar-1',
-        lang: 'es',
-        availableWeekDays: enableDays,
-    }, {
-        enablePastDates: false,
-    }, {
-        function: printHours,
-        params: {
-            //
-    }});
 
     let tab = new TabMenuJS({
         id: 'methods'
