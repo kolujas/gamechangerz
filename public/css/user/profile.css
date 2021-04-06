@@ -1,5 +1,57 @@
 /* TODO Custom CSS */
 
+/* lang */
+
+.lang .esp-flag svg{
+    width: 1.5rem;
+    height: 2rem;
+}
+
+.lang li svg{
+    height: 50%;
+    width: 1.5rem;
+}
+
+/* team name and logo */
+
+.div-team svg{
+    height: 1.5rem;
+    display: inline-block;
+ }
+
+ /* abilities/stars */
+
+ .star-div svg{
+    margin-left: .3rem;
+ }
+
+ /* professor-profile-photo */
+
+ .professor-profile-photo figure img{
+     width: 300px;
+     height: 300px;
+     object-fit: contain;
+ }
+
+ /* achievements */
+
+ .achievements ul{
+     max-width: 100%;
+     overflow-x: scroll;
+ }
+
+ .achievements ul li{
+    min-width: 66.666666%;
+    background-color: var(--color-black);
+    min-height: 3rem;
+ }
+
+ /* informacion */
+
+ .informacion div{
+     background-color: var(--color-black);
+ }
+
 /* ? MD */
 @media(min-width: 768px){
     
