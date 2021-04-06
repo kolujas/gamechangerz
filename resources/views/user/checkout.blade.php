@@ -14,7 +14,9 @@
 @endsection
 
 @section('main')
-    <form action="#" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 items-center md:items-start py-8 px-8">
+    <form action="/users/{{ $user->slug }}/checkout/{{ $type->slug }}" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 items-center md:items-start py-8 px-8" method="post">
+        @csrf
+        @method('POST')
         <section class="cart md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
             <ul class="p-4 xl:px-8">
                 <li class="flex justify-between color-white">
@@ -29,7 +31,8 @@
                 </header>
                 <main class="grid grid-cols-1 xl:grid-cols-3 p-4 xl:px-8 xl:gap-8">
                     <section class="mb-4">
-                        <input type="date" name="date" id="calendar-1">
+                        <input type="radio" name="hours[]" checked id="hours">
+                        <input type="date" name="dates[]" id="calendar-1">
                     </section>
                     <section class="xl:col-span-2">
                         <ul class="hours grid grid-cols-2 md:grid-cols-3 gap-4"></ul>
@@ -96,6 +99,7 @@
 @section('js')
     <script>
         @if (count($user->days))
+            const type = @json($type);
             const days = @json($user->days);
             const lessons = @json($user->lessons);
         @endif

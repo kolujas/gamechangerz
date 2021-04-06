@@ -127,10 +127,9 @@
             foreach (Hour::$options as $hour) {
                 $hour = (object) $hour;
                 if ($hour->id_hour === $id_hour) {
-                    $hourFound = $hour;
+                    return $hour;
                 }
             }
-            return $hourFound;
         }
 
         /**

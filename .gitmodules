@@ -18,3 +18,6 @@
 [submodule "public/submodules/InputDateMakerJS"]
 	path = public/submodules/InputDateMakerJS
 	url = https://github.com/JuanCruzAGB/InputDateMakerJS.git
+[submodule ".\\public\\submodules\\ValidationJS"]
+	path = .\\public\\submodules\\ValidationJS
+	url = https://github.com/JuanCruzAGB/ValidationJS.git

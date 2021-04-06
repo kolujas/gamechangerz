@@ -13,6 +13,9 @@
     Route::get('/blog', 'App\Http\Controllers\BlogController@list')->name('blog.list');
     Route::get('/blog/{slug}', 'App\Http\Controllers\BlogController@details')->name('blog.details');
 
+// * LessonController - Controls the Lessom pages.
+    Route::post('/users/{slug}/checkout/{type}', 'App\Http\Controllers\LessonController@doCheckout')->name('lesson.doCheckout');
+
 // * UserController - Controls the User pages.
     Route::get('/users/{slug}/profile', 'App\Http\Controllers\UserController@profile')->name('user.profile');
     Route::get('/search', 'App\Http\Controllers\UserController@search')->name('user.search');
