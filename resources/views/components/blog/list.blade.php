@@ -47,6 +47,4 @@
         <span class="text-white">20 febrero, 2021</span>
         <p class="text-white pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
     </li>
-
-  
 </ul>

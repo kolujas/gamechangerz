@@ -12,18 +12,18 @@
          * @return [type]
          */
         public function profile ($slug) {
-            $user = User::where('slug', '=', $slug)->get()[0];
-            $user->achievements();
-            $user->files();
-            $user->games();
-            $user->idioms();
-            if ($user->id_role === 1) {
-                $user->days();
-                $user->prices();
-            }
-            $user->role();
+            // $user = User::where('slug', '=', $slug)->get()[0];
+            // $user->achievements();
+            // $user->files();
+            // $user->games();
+            // $user->idioms();
+            // if ($user->id_role === 1) {
+            //     $user->days();
+            //     $user->prices();
+            // }
+            // $user->role();
             return view('user.profile', [
-                'user' => $user,
+                // 'user' => $user,
             ]);
         }
 
