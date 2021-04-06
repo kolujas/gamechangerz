@@ -1,19 +1,21 @@
 /* TODO Custom CSS */
 
-.cards-abilities{
+.abilities.cards{
     overflow-x: scroll;
     max-width: 100%;
 }
 
-.cards-abilities .card{
+.abilities.cards .card{
     opacity: .5;
+    border: 1px solid transparent;
     background-color: transparent;
     min-width: 66.666666%;
+    flex-basis: 66.666666%;
     min-height: 20rem;
     transition: 600ms;
 }
 
-.cards-abilities .card:hover{
+.abilities.cards .card:hover{
     opacity: 1;
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
@@ -21,33 +23,62 @@
     background-color: var(--color-one);
 }
 
-.cards-abilities .card figure img{
-    width: 300px;
+.abilities.cards .card figure {
+    width: 100%;
+    height: 15rem;
 }
 
+.abilities.cards .card figure img {
+    width: 100%;
+    height: 100%;
+    min-width: 250px;
+    object-fit: cover;
+    object-position: right;
+}
 
-.cards-abilities .dificultad svg{
+.abilities.cards .diffculty {
+    opacity: 0;
+    transition: 500ms;
+}
+
+.abilities.cards .card:hover .diffculty {
+    opacity: 1;
+}
+
+.abilities.cards .diffculty svg{
     display: inline-block;
     padding-bottom: .35rem;
 }
 
 /* ? MD */
 @media(min-width: 768px){
-    
+    .abilities.cards .card {
+        opacity: .5;
+        background-color: transparent;
+        min-width: 15rem;
+        flex-basis: 15rem;
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    .cards-abilities .card figure img{
-        width: 250px;
+    .abilities.cards .card:first-of-type {
+        margin-left: 13rem;
     }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    .abilities.cards .card {
+        min-width: 15rem;
+    }  
+
+    .abilities.cards .card:first-of-type {
+        margin-left: 12rem;
+    }
 }
 
 /* ? XXL */
 @media(min-width: 1400px){
-   
+
+}

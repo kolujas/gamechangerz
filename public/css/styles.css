@@ -62,7 +62,24 @@ h5 {
 
 /* ? LG */
 @media(min-width: 1024px){
+    .cards::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* .cards:hover::-webkit-scrollbar {
+        opacity: 1;
+    }
     
+    .cards::-webkit-scrollbar-track {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 5px rgba(255,255,255,.1);
+    }
+     
+    .cards::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 5px rgba(255,255,255,.2);
+        transition: 500ms;
+    } */
 }
 
 /* ? XL */

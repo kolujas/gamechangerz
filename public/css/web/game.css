@@ -65,16 +65,36 @@
     background: var(--color-black);
 }
 
+.arrows {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    z-index: 2;
+    margin-top: 5rem;
+}
+
+.arrows div {
+    background-color: var(--color-white);
+    opacity: .5;
+    transition: 500ms;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100vh;
+}
+
+.arrows div:hover {
+    opacity: 1;
+}
+
+.arrows i {
+    color: var(--color-black);
+}
 
 /* video section */
 
 .video-section{
     background: url('../../img/02-background.png') no-repeat center center;
     background-size: cover;
-}
-
-.video-section header p{
-    padding-top: .5rem;
 }
 
 .video-section header figure{
@@ -96,7 +116,9 @@
 .video-section iframe{
     width: 100%;
     height: 15rem;
-    border: 1px solid #FBF19C;
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-image-slice: 1;
 }
 
 .video-section .services{
@@ -113,6 +135,10 @@
 
 .video-section .service:last-of-type {
     margin-bottom: 0;
+}
+
+.video-section .service h4 {
+    white-space: nowrap;
 }
 
 .video-section .service svg{
@@ -157,25 +183,27 @@
     background-color: var(--color-black);
 }
 
-.users-form-search .users-search{
-    width: 80%;
-    height: 2rem;
+.users-form-search {
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
     border-image-slice: 1;
     background-color: var(--color-one);
 }
 
-/* buscador profesores */
-
-.profesores-destacados input[type=search]{
-    background-color: var(--color-black);
-    color: #fff;
+.users-form-search input {
+    flex-basis: 100%;
+    background-color: transparent;
 }
 
-.submit-lupa{
-    position: relative;
-    right: 2rem;
+/* buscador profesores */
+
+.profesores-destacados form {
+    background-color: var(--color-black);
+    border: none;
+}
+
+.profesores-destacados .users-form-search button {
+    color: var(--color-five);
 }
 
 .submit-lupa svg{
@@ -184,15 +212,91 @@
 
 /* fornite banner */
 
-.fornite-banner{
+aside {
     background: url('../../img/games/counter-strike-go/banner-csgo-landingJuego.jpg') no-repeat center center;
     background-size: cover;
     min-height: 20rem;
     width: 100%;
 }
 
-.catalogo, .blog{
+.catalogo {
     background-color: var(--color-black);
+}
+
+.profesores-destacados .teacher {
+    border: 1px solid transparent;
+    background-color: var(--color-one);
+    opacity: .5;
+    transition: 500ms;
+    z-index: 1;
+}
+
+.profesores-destacados .teacher:hover {
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-image-slice: 1;
+    opacity: 1;
+    z-index: 2;
+}
+
+.profesores-destacados .teacher .image {
+    filter: grayscale(1);
+    transition: 500ms;
+}
+
+.profesores-destacados .teacher:hover .image {
+    filter: grayscale(0);
+}
+
+.profesores-destacados .teachers .teacher .team-name {
+    display: none;
+}
+
+.profesores-destacados .teachers .teacher .team-icon {
+    grid-column: span 2 / span 2;
+    order: 1;
+}
+
+.profesores-destacados .teachers .teacher .info {
+    order: 2;
+}
+
+.profesores-destacados .teacher .teampro {
+    transition: 500ms;
+    opacity: 0;
+}
+
+.profesores-destacados .teacher:hover .teampro {
+    opacity: 1;
+}
+
+.profesores-destacados .payment ul {
+    display: none;
+}
+
+.profesores-destacados .payment .btn {
+    opacity: 0;
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: var(--color-white);
+    border-image: none;
+    border-radius: 0;
+    width: fit-content;
+    transition: 500ms;
+    padding: 0;
+}
+
+.profesores-destacados .teacher:hover .payment .btn {
+    opacity: 1;
+}
+
+.profesores-destacados .payment .btn:hover {
+    padding-right: 0;
+    border-bottom-color: var(--color-four);
+}
+
+.profesores-destacados .payment .btn::before {
+    display: none;
 }
 
 /* ? MD */
@@ -202,72 +306,69 @@
     }
 
     /* video section */
+    .video-section iframe{
+        height: 20rem;
+    }
 
-.video-section iframe{
-    width: 80%;
-    height: 20rem;
-    border: 1px solid #FBF19C;
-}
+    .video-section .services{
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row;
+    }
 
-.video-section .services{
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-}
-
- 
-
-.video-section .service:last-of-type {
-    margin-bottom: 1rem;
-}
+    .video-section .service{
+        min-height: 100%;
+    }
 
 
-/* buscador */
+    /* buscador */
 
-.users-form-search .users-search{
-    height: 2.5rem;
-    margin-top: 1rem;
-}
+    .banner-buscador::before {
+        background-size: contain;
+        width: 100%;
+        height: 100%;
+    }
 
-
-.submit-lupa svg{
-    margin-top: 1rem;
-}
-
-.banner-buscador{
-    height: 250px;
-}
-
-.banner-buscador header{
-    padding-left: 3.7rem;
-}
+    /* profesores destacados */
 
 
-.banner-buscador::before {
-    background-size: contain;
-    width: 100%;
-    height: 100%;
-}
+    /* habiliades */
 
-/* profesores destacados */
+    .habilidades header{
+        padding-left: 3.7rem;
+    }
 
-.profesores-destacados header{
-    padding-left: 3.7rem;
-}
+    .cards-abilities .card{
+        min-width: 33.333333%;
+    }
 
+    .habilidades header{
+        padding-left: 3.7rem;
+    }
 
-/* habiliades */
+    .profesores-destacados .teachers {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
 
-.habilidades header{
-    padding-left: 3.7rem;
-}
+    .profesores-destacados .teacher {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
-.cards-abilities .card{
-    min-width: 33.333333%;
-}
+    .profesores-destacados .teacher .abilities {
+        display: none;
+    }
 
-.habilidades header{
-    padding-left: 3.7rem;
+    .profesores-destacados .teacher .image {
+        grid-row: span 2 / span 2;
+    }
+
+    .profesores-destacados .teacher .payment {
+        grid-row: span 1 / span 1;
+        margin: 0;
+        margin-left: 1rem;
+    }
 }
 
 /* ? LG */
@@ -279,7 +380,6 @@
     /* video section */
 
     .video-section iframe{
-        width: 75%;
         height: 25rem;      
     }
 
@@ -288,26 +388,12 @@
         flex-basis: 80%;
     }
 
+    .video-section .service h4 {
+        font-size: 1rem;
+    }
+
 
     /* buscador */
-
-    .users-form-search .users-search{
-        height: 2.8rem;
-        margin-top: 1rem;
-    }
-
-
-    .submit-lupa svg{
-        margin-top: 1rem;
-    }
-
-    .banner-buscador{
-        height: 300px;
-    }
-
-    .banner-buscador header{
-        padding-left: 5.4rem;
-    }
 
 
     .banner-buscador::before {
@@ -316,16 +402,31 @@
         height: 100%;
     }
 
-    /* profesores destacados */
-
-    .banner-buscador header, .profesores-destacados header, .catalogo header, .blog header{
-        padding-left: 5.4rem;
+    .profesores-destacados .teacher header {
+        grid-column: span 1 / span 1;
     }
 
-    .cards-abilities, .cards-list{
-        padding: 0 5.4rem;
+    .profesores-destacados .teachers .username {
+        max-width: 100%;
+        flex-basis: 100%;
     }
 
+    .profesores-destacados .teachers .image img {
+        min-height: 100%;
+        top: 0;
+        min-width: 175px;
+        right: calc(175px - 100%);
+    }
+
+    .profesores-destacados .teacher .image {
+        grid-column: span 1 / span 1;
+        grid-row: span 2 / span 2;
+    }
+
+    .profesores-destacados .teacher .payment {
+        grid-column: span 1 / span 1;
+        grid-row: span 1 / span 1;
+    }
 }
 
 /* ? XL */
@@ -333,39 +434,24 @@
 
     /* video section */
 
-    .video-section iframe{
-        width: 40%;
-        height: 25rem;      
-    }
-
     .video-section .services{
         justify-content: space-evenly;
         flex-basis: 50%;
     }
 
+    .video-section .service h4 {
+        font-size: 1.125rem;
+    }
+
 
     /* buscador */
 
-    .banner-buscador{
-        height: 400px;
-    }
-
     /* profesores destacados */
-
-    .profesores-destacados header{
-        padding-left: 5.4rem;
-    }
-
-    .fornite-banner{
-        min-height: 30rem;
-    }
-
-    .banner-buscador header, .profesores-destacados header, .catalogo header, .blog header{
-        padding-left: 10.9rem;
-    }
 }
 
 /* ? XXL */
-@media(min-width: 1400px){
-    
+@media(min-width: 1536px){
+    .video-section iframe {
+        height: 25rem;      
+    }
 }
