@@ -25,19 +25,23 @@
             </ul>
         </section>
         @if ($type->id_type !== 2)
-            <section class="calendar md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
-                <header>
-                    <h2 class="color-white p-4 xl:px-8">Elige cuando empezar</h2>
-                </header>
-                <main class="grid grid-cols-1 xl:grid-cols-3 p-4 xl:px-8 xl:gap-8">
-                    <section class="mb-4">
-                        <input type="radio" name="hours[]" checked id="hours">
-                        <input type="date" name="dates[]" id="calendar-1">
-                    </section>
-                    <section class="xl:col-span-2">
-                        <ul class="hours grid grid-cols-2 md:grid-cols-3 gap-4"></ul>
-                    </section>
-                </main>
+            <section class="md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
+                <section id="date-1" class="calendar dropdown">
+                    <header class="dropdown-header p-4">
+                        <button class="dropdown-button p-2">
+                            <h2 class="flex flex-wrap justify-start color-white">Elige cuando empezar</h2>
+                        </button>
+                    </header>
+                    <main class="dropdown-body grid grid-cols-1 xl:grid-cols-3 xl:px-8 xl:gap-8">
+                        <section class="m-4">
+                            <input type="checkbox" name="hours[]" checked id="hours-1">
+                            <input type="date" name="dates[]" id="input-1">
+                        </section>
+                        <section class="xl:col-span-2 mx-4 mb-4 xl:mt-4">
+                            <ul class="hours hours-1 grid grid-cols-2 md:grid-cols-3 gap-4"></ul>
+                        </section>
+                    </main>
+                </section>
             </section>
         @endif
         <section class="methods md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">

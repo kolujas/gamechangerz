@@ -1,3 +1,22 @@
+.dropdown {
+    --dropdown-header-background-color: var(--color-black); /* ? * Titles */
+    --dropdown-header-background-color-alternative: var(--color-black); /* ? * Titles efects */
+    --dropdown-button-color: var(--color-white); /* ? * Buttons */
+    --dropdown-button-color-alternative: var(--color-white); /* ? * Buttons efects */
+    --dropdown-button-background-color: transparent; /* ? * Buttons */
+    --dropdown-button-background-color-alternative: transparent; /* ? * Buttons efects */
+}
+
+.dropdown.opened .dropdown-header {
+    border-bottom: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-image-slice: 1;
+}
+
+.dropdown .dropdown-header h2 {
+    font-size: 1.5rem;
+}
+
 .cart {
     border-radius: .25rem;
     border: 1px solid;
@@ -12,13 +31,6 @@
 
 .cart a:hover {
     color: var(--color-five);
-}
-
-.calendar h2 {
-    font-size: 1.5rem;
-    border-bottom: 1px solid;
-    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
-    border-image-slice: 1;
 }
 
 .calendar li {

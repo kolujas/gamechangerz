@@ -83,7 +83,7 @@
                 $day = (object) $day;
                 $hour = (object) $day->hour;
                 $hour = Hour::findOptions($hour->id_hour);
-                $active = false;
+                $hour->active = false;
                 $days->push([
                     'date' => $day->date,
                     'hour' => $hour,
