@@ -3,6 +3,7 @@
 
     use App\Models\Lesson;
     use App\Models\User;
+    use App\Models\Game;
     use Illuminate\Http\Request;
 
     class UserController extends Controller {
@@ -24,6 +25,7 @@
             // $user->role();
             return view('user.profile', [
                 // 'user' => $user,
+                'games' => Game::getOptions(),
             ]);
         }
 

@@ -33,17 +33,66 @@
      object-fit: contain;
  }
 
+ /* games */
+
+ .games-cards .cards{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+ }
+
+
+ .games-cards .degradado{
+    font-size: 1.25rem;
+}
+ 
+ .games figure {
+    height: 10rem;
+}
+
+.games-cards header{
+    order: 2;
+    flex-basis: 100%;
+}
+
+.games-cards main{
+    order: 1;
+}
+
+.games-cards ul li{
+    padding-top: 0;
+}
+
  /* achievements */
 
- .achievements ul{
+ .achievements ul li{
+    white-space: nowrap;
+    min-width: fit-content;
+ }
+
+ .achievements ul, .reseñas ul{
      max-width: 100%;
      overflow-x: scroll;
  }
 
- .achievements ul li{
+ .achievements ul li, .reseñas ul li{
     min-width: 66.666666%;
     background-color: var(--color-black);
     min-height: 3rem;
+ }
+
+ /* reseñas */
+
+ .reseñas ul li{
+     min-height: 7rem;
+ }
+
+ .reseñas ul li div svg{
+     height: 1rem;
+     margin-top: 3px;
+ }
+
+ .reseñas ul li p{
+    min-height: 6rem;
  }
 
  /* informacion */
@@ -52,6 +101,12 @@
      background-color: var(--color-black);
  }
 
+
+.blog .card main span{
+    display: none;
+}
+
+
 /* ? MD */
 @media(min-width: 768px){
     
@@ -59,7 +114,34 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    .games-cards .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.achievements ul{
+    margin-left: 1.05rem;
+ }
+
+.achievements ul li{
+    white-space: nowrap;
+    min-width: fit-content;
+ }
+
+.reseñas ul li{
+    min-width: 5%;
+    width: 18rem;
+}
+
+/* abilities */
+
+.abilities.cards .card:first-of-type {
+    margin-left: 0;
+}
+
+/* blog */
+
+.blog.cards .card:first-of-type {
+    margin-left: 0;
 }
 
 /* ? XL */

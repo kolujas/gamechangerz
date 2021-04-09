@@ -2,10 +2,10 @@
     @foreach ($games as $game)
         @if ($game->active)
             <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4">
-                <a href="/game/{{ $game->slug }}">
+                <a class="flex flex-wrap" href="/game/{{ $game->slug }}">
         @else
             <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4 disabled">
-                <a href="#">
+                <a class="flex flex-wrap" href="#">
         @endif
                 <header class="pb-4">
                     <h3 class="degradado">{{ $game->name }}</h3>
