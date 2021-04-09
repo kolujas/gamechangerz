@@ -299,6 +299,11 @@ aside {
     display: none;
 }
 
+
+.blog .card main a{
+    display: none;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     .slider-container header{

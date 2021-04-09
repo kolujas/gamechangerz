@@ -117,6 +117,12 @@
     -webkit-text-fill-color: initial;
 }
 
+.games .disabled :is(header, main) {
+    flex-basis: 100%;
+}
+
+
+
 /* ? MD */
 @media(min-width: 768px){
     
