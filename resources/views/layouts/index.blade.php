@@ -6,6 +6,7 @@
         {{-- ? External Repositories CSS --}}
         <link rel="stylesheet" href={{ asset('submodules/DropdownJS/css/styles.css') }}>
         <link rel="stylesheet" href={{ asset('submodules/InputDateMakerJS/css/styles.css') }}>
+        <link rel="stylesheet" href={{ asset('submodules/ModalJS/css/styles.css') }}>
         <link rel="stylesheet" href={{ asset('submodules/NavMenuJS/css/styles.css') }}>
         <link rel="stylesheet" href={{ asset('submodules/SidebarJS/css/styles.css') }}>
         <link rel="stylesheet" href={{ asset('submodules/TabMenuJS/css/styles.css') }}>

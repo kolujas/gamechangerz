@@ -22,3 +22,6 @@
 [submodule ".\\public\\submodules\\DropdownJS"]
 	path = public/submodules/DropdownJS
 	url = https://github.com/JuanCruzAGB/DropdownJS.git
+[submodule ".\\public\\submodules\\ModalJS"]
+	path = public/submodules/ModalJS
+	url = https://github.com/JuanCruzAGB/ModalJS.git

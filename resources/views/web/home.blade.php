@@ -23,7 +23,7 @@
             'games' => $games
         ])
         @endcomponent
-    </main>    
+    </main>
 @endsection
 
 @section('footer')
