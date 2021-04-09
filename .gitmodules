@@ -16,3 +16,9 @@
 [submodule ".\\public\\submodules\\DropdownJS"]
 	path = public/submodules/DropdownJS
 	url = https://github.com/JuanCruzAGB/DropdownJS.git
+[submodule ".\\public\\submodules\\NavMenuJS"]
+	path = .\\public\\submodules\\NavMenuJS
+	url = https://github.com/JuanCruzAGB/NavMenuJS.git
+[submodule ".\\public\\submodules\\InputDateMakerJS"]
+	path = .\\public\\submodules\\InputDateMakerJS
+	url = https://github.com/JuanCruzAGB/InputDateMakerJS.git
