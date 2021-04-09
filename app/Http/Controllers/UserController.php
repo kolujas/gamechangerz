@@ -48,6 +48,9 @@
         public function checkout ($slug, $type) {
             $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
             $user->prices();
+            foreach ($user->lessons as $lesson) {
+                $lesson->days();
+            }
             $user->days();
             foreach ($user->prices as $price) {
                 if ($price->slug === $type) {
