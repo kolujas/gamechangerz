@@ -300,8 +300,12 @@ aside {
 }
 
 
-.blog .card main a{
+.posts .card main span {
     display: none;
+}
+
+.catalogo, .posts {
+    position: relative;
 }
 
 /* ? MD */
@@ -454,7 +458,7 @@ aside {
     /* profesores destacados */
 }
 
-/* ? XXL */
+/* ? 2XL */
 @media(min-width: 1536px){
     .video-section iframe {
         height: 25rem;      

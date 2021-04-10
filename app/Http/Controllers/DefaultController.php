@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Models\Ability;
     use App\Models\Game;
     use Illuminate\Http\Request;
 
@@ -32,6 +33,7 @@
          */
         public function game ($slug) {
             $game = Game::search($slug);
+            $game->abilities = Ability::parse($game->abilities);
             return view('web.game', [
                 'game' => $game,
             ]);

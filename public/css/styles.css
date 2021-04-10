@@ -62,24 +62,42 @@ h5 {
 
 /* ? LG */
 @media(min-width: 1024px){
-    .cards::-webkit-scrollbar {
+    /* .cards::-webkit-scrollbar {
         display: none;
+    } */
+    .cards::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
     }
 
-    /* .cards:hover::-webkit-scrollbar {
-        opacity: 1;
+    .cards::-webkit-scrollbar-button {
+        width: 250px;
+        height: 250px;
     }
-    
-    .cards::-webkit-scrollbar-track {
-        background-color: transparent;
-        box-shadow: inset 0 0 0 5px rgba(255,255,255,.1);
-    }
-     
+
     .cards::-webkit-scrollbar-thumb {
-        background-color: transparent;
-        box-shadow: inset 0 0 0 5px rgba(255,255,255,.2);
-        transition: 500ms;
-    } */
+        background: var(--scroll-color-one);
+        border-radius: 100vh;
+    }
+
+    .cards::-webkit-scrollbar-thumb:hover,
+    .cards::-webkit-scrollbar-thumb:active {
+        background: var(--scroll-color-one-alternative);
+    }
+
+    .cards::-webkit-scrollbar-track {
+        background: var(--scroll-color-two);
+        border-radius: 100vh;
+    }
+
+    .cards::-webkit-scrollbar-track:hover,
+    .cards::-webkit-scrollbar-track:active {
+        background: var(--scroll-color-two-alternative);
+    }
+
+    .cards::-webkit-scrollbar-corner {
+        background: transparent;
+    }
 }
 
 /* ? XL */
@@ -87,7 +105,7 @@ h5 {
     
 }
 
-/* ? XXL */
-@media(min-width: 1400px){
+/* ? 2XL */
+@media(min-width: 1536px){
     
 }

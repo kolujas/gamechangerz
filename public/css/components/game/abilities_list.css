@@ -3,19 +3,26 @@
 .abilities.cards{
     overflow-x: scroll;
     max-width: 100%;
+    --scroll-color-one: var(--color-two);
+    --scroll-color-one-alternative: var(--color-white);
+    --scroll-color-two: var(--color-one);
+    --scroll-color-two-alternative: var(--color-one);
 }
 
-.abilities.cards .card{
+.abilities.cards .card > div{
     opacity: .5;
     border: 1px solid transparent;
     background-color: transparent;
-    min-width: 66.666666%;
-    flex-basis: 66.666666%;
+    width: 66.666666vw;
     min-height: 20rem;
     transition: 600ms;
 }
 
-.abilities.cards .card:hover{
+.abilities.cards .card:last-of-type {
+    padding-right: 2rem;
+}
+
+.abilities.cards .card > div:hover{
     opacity: 1;
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
@@ -41,7 +48,7 @@
     transition: 500ms;
 }
 
-.abilities.cards .card:hover .diffculty {
+.abilities.cards .card > div:hover .diffculty {
     opacity: 1;
 }
 
@@ -52,10 +59,10 @@
 
 /* ? MD */
 @media(min-width: 768px){
-    .abilities.cards .card {
+    .abilities.cards .card > div {
         opacity: .5;
         background-color: transparent;
-        min-width: 15rem;
+        width: 15rem;
         flex-basis: 15rem;
     }
 }
@@ -63,22 +70,74 @@
 /* ? LG */
 @media(min-width: 1024px){
     .abilities.cards .card:first-of-type {
-        margin-left: 13rem;
+        padding-left: 13rem;
+    }
+
+    .abilities.cards .card:last-of-type {
+        padding-right: 13rem;
+    }
+
+    .blog.cards::after,
+    .blog.cards::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .blog.cards::before {
+        width: calc(100% - (100% - 28rem));
+        right: 0;
+        background-image: linear-gradient(90deg, transparent 0%, var(--color-black) 100%);
+    }
+
+    .blog.cards::after {
+        width: calc(100% - (100% - 13rem));
+        left: 0;
+        background-image: linear-gradient(270deg, transparent 0%, var(--color-black) 100%);
     }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    .abilities.cards .card {
-        min-width: 15rem;
-    }  
+    .abilities.cards .card > div {
+        width: 15rem;
+    }
 
     .abilities.cards .card:first-of-type {
-        margin-left: 12rem;
+        padding-left: 12rem;
+    }
+
+    .abilities.cards .card:last-of-type {
+        padding-right: 12rem;
+    }
+
+    .abilities.cards::before {
+        width: calc(100% - (100% - 27rem));
+    }
+
+    .abilities.cards::after {
+        width: calc(100% - (100% - 12rem));
     }
 }
 
-/* ? XXL */
-@media(min-width: 1400px){
+/* ? 2XL */
+@media(min-width: 1536px){
+    .abilities.cards .card:first-of-type {
+        padding-left: 22rem;
+    }
+    
+    .abilities.cards .card:last-of-type {
+        padding-right: 22rem;
+    }
 
+    .abilities.cards::before {
+        width: calc(100% - (100% - 44rem));
+    }
+
+    .abilities.cards::after {
+        width: calc(100% - (100% - 22rem));
+    }
 }
