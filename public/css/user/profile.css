@@ -1,33 +1,38 @@
-/* TODO Custom CSS */
-
-/* lang */
-
-.lang .esp-flag svg{
-    width: 1.5rem;
-    height: 2rem;
+.cards {
+    --scroll-color-one: var(--color-two);
+    --scroll-color-one-alternative: var(--color-white);
+    --scroll-color-two: #1a141d !important;
+    --scroll-color-two-alternative: #1a141d !important;
 }
 
-.lang li svg{
+/* ? Teacher */
+.teacher .info .idioms li svg{
     height: 50%;
     width: 1.5rem;
 }
 
-/* team name and logo */
-
-.div-team svg{
+.teacher .info .teampro svg{
     height: 1.5rem;
     display: inline-block;
- }
+}
 
- /* abilities/stars */
+.teacher .info .abilities.cards li > div {
+    width: fit-content;
+    min-height: fit-content;
+    opacity: 1;
+}
 
- .star-div svg{
+.teacher .info .abilities.cards li:not(:last-of-type) > div {
+    border-right: 2px solid var(--color-white);
+    margin-right: 1rem;
+    padding-right: 1rem;
+}
+
+.teacher .info .abilities .stars svg {
     margin-left: .3rem;
- }
+}
 
- /* professor-profile-photo */
-
- .professor-profile-photo figure img{
+.teacher .banner figure img{
      width: 300px;
      height: 300px;
      object-fit: contain;
@@ -35,122 +40,274 @@
 
  /* games */
 
- .games-cards .cards{
+.teacher section.games .cards{
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
- }
+}
 
-
- .games-cards .degradado{
+.teacher section.games .degradado{
     font-size: 1.25rem;
 }
  
- .games figure {
+.teacher section.games figure {
     height: 10rem;
 }
 
-.games-cards header{
+.teacher section.games header{
     order: 2;
     flex-basis: 100%;
 }
 
-.games-cards main{
+.teacher section.games main{
     order: 1;
 }
 
-.games-cards ul li{
+.teacher section.games ul li{
     padding-top: 0;
 }
 
- /* achievements */
+.teacher section.games header h3 {
+    padding-top: 1rem;
+}
 
- .achievements ul li{
+/* .teacher .info .abilities.cards::-webkit-scrollbar-button, .teacher .achievements .cards::-webkit-scrollbar-button, .teacher .reviews .cards::-webkit-scrollbar-button {
+    width: 10%;
+    height: 10%;
+} */
+
+.teacher .achievements ul li{
     white-space: nowrap;
     min-width: fit-content;
- }
+}
 
- .achievements ul, .reseñas ul{
-     max-width: 100%;
-     overflow-x: scroll;
- }
+.teacher .achievements ul, .reviews ul{
+    max-width: 100%;
+    overflow-x: scroll;
+}
 
- .achievements ul li, .reseñas ul li{
-    min-width: 66.666666%;
+.teacher .achievements ul li > div, .teacher .reviews ul li > div {
+    min-width: 66.666666vw;
     background-color: var(--color-black);
+    height: 100%;
     min-height: 3rem;
- }
+}
 
- /* reseñas */
+.teacher .achievements ul li > div > div, .reviews ul li > div > div {
+    height: fit-content;
+}
 
- .reseñas ul li{
-     min-height: 7rem;
- }
+.teacher .achievements ul li:not(:last-of-type), .reviews ul li:not(:last-of-type) {
+    padding-right: 1rem;
+}
 
- .reseñas ul li div svg{
-     height: 1rem;
-     margin-top: 3px;
- }
+.teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+    padding-right: 2rem;
+}
 
- .reseñas ul li p{
+.teacher .reviews ul li{
+    min-height: 7rem;
+}
+
+.teacher .reviews ul li div svg{
+    height: 1rem;
+    margin-top: 3px;
+}
+
+.teacher .reviews ul li p{
     min-height: 6rem;
- }
+}
 
- /* informacion */
-
- .informacion div{
-     background-color: var(--color-black);
- }
-
+.teacher .description div{
+    background-color: var(--color-black);
+}
 
 .blog .card main span{
     display: none;
 }
 
+.teacher .tab-menu {
+    background-color: var(--color-black);
+}
+
+.teacher .tab-menu .tabs a {
+    color: var(--color-one);
+    transition: 500ms;
+}
+
+.teacher .tab-menu .tabs a.active {
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.teacher .tab-menu .tabs a h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.teacher .tab-menu .btn {
+    width: 100%;
+    --color-one: var(--color-four);
+    --color-two: var(--color-five);
+}
+
+.teacher .tab-menu :is(table, tbody, tr) {
+    width: 100%;
+}
+
+.teacher .tab-menu table td span {
+    display: block;
+    text-align: center;
+    border-radius: .25rem;
+    background-color: var(--color-grey);
+    color: var(--color-white);
+    opacity: .2;
+    font-size: .75rem;
+}
+
+.teacher .tab-menu table td span.active {
+    background-color: var(--color-four);
+    opacity: 1;
+}
 
 /* ? MD */
-@media(min-width: 768px){
+@media (min-width: 768px) {
+    .teacher .achievements ul li > div, .teacher .reviews ul li > div {
+        min-width: 15rem;
+    }
+
+    .teacher .tab-menu .btn {
+        width: 33%;
+    }
+
+    .teacher .tab-menu .btn i {
+        right: calc(33% + 3rem);
+        transition: 500ms;
+    }
     
+    .teacher .tab-menu .btn:hover i {
+        right: 33%;
+    }
 }
 
 /* ? LG */
-@media(min-width: 1024px){
-    .games-cards .cards {
+@media (min-width: 1024px) {
+    .abilities.cards .card:first-of-type,
+    .blog.cards .card:first-of-type {
+        padding-left: 2rem;
+    }
+
+    .abilities.cards .card:last-of-type,
+    .blog.cards .card:last-of-type {
+        padding-right: 2rem;
+    }
+
+    .teacher .tab-menu {
+        position: sticky;
+        top: 1rem;
+        height: fit-content;
+    }
+
+    section.games .cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .achievements ul{
-        margin-left: 1.05rem;
+    .teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+        padding-right: 0;
     }
 
-    .achievements ul li{
-        white-space: nowrap;
-        min-width: fit-content;
+    .abilities.cards::before {
+        background-image: linear-gradient(270deg, transparent 0%, var(--color-one) 100%);
     }
 
-    .reseñas ul li{
-        min-width: 5%;
-        width: 18rem;
+    .abilities.cards::after {
+        background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
     }
 
-    /* abilities */
-
-    .abilities.cards .card:first-of-type {
-        margin-left: 0;
-    }
-
-    /* blog */
-
-    .blog.cards .card:first-of-type {
-        margin-left: 0;
+    .teacher .tab-menu .btn {
+        width: 100%;
     }
 }
 
 /* ? XL */
-@media(min-width: 1200px){
-    
+@media (min-width: 1200px) {
+    .abilities.cards .card:first-of-type,
+    .blog.cards .card:first-of-type {
+        padding-left: 12rem;
+    }
+
+    .abilities.cards .card:last-of-type,
+    .blog.cards .card:last-of-type {
+        padding-right: 12rem;
+    }
+
+    .teacher .achievements ul li:first-of-type, .reviews ul li:first-of-type {
+        padding-left: calc(100vw / 7);
+    }
+
+    .teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+        padding-right: calc(100vw / 7);
+    }
+
+    .teacher .achievements .cards::after,
+    .teacher .achievements .cards::before,
+    .teacher .reviews .cards::after,
+    .teacher .reviews .cards::before {
+        content: '';
+        width: calc(100vw / 7);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .teacher .achievements .cards::before,
+    .teacher .reviews .cards::before {
+        left: 0;
+        background-image: linear-gradient(270deg, transparent 0%, var(--color-one) 100%);
+    }
+
+    .teacher .achievements .cards::after,
+    .teacher .reviews .cards::after {
+        right: 0;
+        background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
+    }
 }
 
 /* ? 2XL */
-@media(min-width: 1536px){
-    
+@media (min-width: 1536px) {
+    .abilities.cards .card:first-of-type,
+    .blog.cards .card:first-of-type {
+        padding-left: 22rem;
+    }
+
+    .abilities.cards .card:last-of-type,
+    .blog.cards .card:last-of-type {
+        padding-right: 22rem;
+    }
+
+    .teacher .achievements ul li:first-of-type, .reviews ul li:first-of-type {
+        padding-left: calc((100vw / 9) * 2);
+    }
+
+    .teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+        padding-right: calc(100vw / 9);
+    }
+
+    .achievements .cards::-webkit-scrollbar-button,
+    .reviews .cards::-webkit-scrollbar-button {
+        width: 20%;
+        height: 20%;
+    }
+
+    .teacher .achievements .cards::before,
+    .teacher .reviews .cards::before {
+        width: calc((100vw / 9) * 2);
+    }
+
+    .teacher .achievements .cards::after,
+    .teacher .reviews .cards::after {
+        width: calc(100vw / 9);
+    }
 }

@@ -1,9 +1,10 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Models\Ability;
+    use App\Models\Game;
     use App\Models\Lesson;
     use App\Models\User;
-    use App\Models\Game;
     use Illuminate\Http\Request;
 
     class UserController extends Controller {
@@ -23,9 +24,13 @@
             //     $user->prices();
             // }
             // $user->role();
+            $games = Game::getOptions();
+            foreach ($games as $game) {
+                $game->abilities = Ability::parse($game->abilities);
+            }
             return view('user.profile', [
                 // 'user' => $user,
-                'games' => Game::getOptions(),
+                'games' => $games,
             ]);
         }
 

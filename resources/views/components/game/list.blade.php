@@ -2,7 +2,7 @@
     @foreach ($games as $game)
         @if ($game->active)
             <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4">
-                <a class="flex flex-wrap" href="/game/{{ $game->slug }}">
+                <a class="flex flex-wrap" href="/games/{{ $game->slug }}">
         @else
             <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4 disabled">
                 <a class="flex flex-wrap" href="#">
@@ -12,7 +12,7 @@
                 </header>
                 <main class="card-body degradado">
                     <figure>
-                        <img class="card-img" src="/../../img/{{ $game->folder }}/01-background.png" alt="{{ $game->name }} image">
+                        <img class="card-img" src="/img/{{ $game->folder }}/01-background.png" alt="{{ $game->name }} image">
                     </figure>
                 </main>
                 <aside class="borders">

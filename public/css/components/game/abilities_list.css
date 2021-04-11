@@ -1,6 +1,4 @@
-/* TODO Custom CSS */
-
-.abilities.cards{
+.abilities.cards {
     overflow-x: scroll;
     max-width: 100%;
     --scroll-color-one: var(--color-two);
@@ -9,13 +7,18 @@
     --scroll-color-two-alternative: var(--color-one);
 }
 
-.abilities.cards .card > div{
+.abilities.cards .card > div {
     opacity: .5;
     border: 1px solid transparent;
     background-color: transparent;
     width: 66.666666vw;
+    height: 100%;
     min-height: 20rem;
     transition: 600ms;
+}
+
+.abilities.cards .card > div > div {
+    height: fit-content;
 }
 
 .abilities.cards .card:last-of-type {
@@ -77,8 +80,8 @@
         padding-right: 13rem;
     }
 
-    .blog.cards::after,
-    .blog.cards::before {
+    .abilities.cards::after,
+    .abilities.cards::before {
         content: '';
         position: absolute;
         top: 0;
@@ -87,25 +90,21 @@
         pointer-events: none;
     }
 
-    .blog.cards::before {
-        width: calc(100% - (100% - 28rem));
-        right: 0;
-        background-image: linear-gradient(90deg, transparent 0%, var(--color-black) 100%);
-    }
-
-    .blog.cards::after {
-        width: calc(100% - (100% - 13rem));
+    .abilities.cards::before {
+        width: calc(100% - (100% - 15rem));
         left: 0;
         background-image: linear-gradient(270deg, transparent 0%, var(--color-black) 100%);
+    }
+
+    .abilities.cards::after {
+        width: calc(100% - (100% - 30rem));
+        right: 0;
+        background-image: linear-gradient(90deg, transparent 0%, var(--color-black) 100%);
     }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    .abilities.cards .card > div {
-        width: 15rem;
-    }
-
     .abilities.cards .card:first-of-type {
         padding-left: 12rem;
     }
@@ -115,11 +114,11 @@
     }
 
     .abilities.cards::before {
-        width: calc(100% - (100% - 27rem));
+        width: calc(100% - (100% - 12rem));
     }
 
     .abilities.cards::after {
-        width: calc(100% - (100% - 12rem));
+        width: calc(100% - (100% - 27rem));
     }
 }
 
@@ -134,10 +133,10 @@
     }
 
     .abilities.cards::before {
-        width: calc(100% - (100% - 44rem));
+        width: calc(100% - (100% - 22rem));
     }
 
     .abilities.cards::after {
-        width: calc(100% - (100% - 22rem));
+        width: calc(100% - (100% - 44rem));
     }
 }

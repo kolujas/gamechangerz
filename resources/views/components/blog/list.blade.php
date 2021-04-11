@@ -1,8 +1,8 @@
-<ul class="blog cards flex space-between overflow-x-hidden px-8 pb-4">
+<ul class="blog cards flex space-between px-8 lg:px-0 pb-4">
     <li class="card mr-4">
         <a href="#">
             <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01_precision.png') }}" alt="CT model with awp">
+                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
             </figure>
             <main class="card-body p-4">
                 <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
@@ -15,7 +15,7 @@
     <li class="card mr-4">
         <a href="#">
             <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01_precision.png') }}" alt="CT model with awp">
+                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
             </figure>
             <main class="card-body p-4">
                 <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
@@ -28,7 +28,7 @@
     <li class="card mr-4">
         <a href="#">
             <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01_precision.png') }}" alt="CT model with awp">
+                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
             </figure>
             <main class="card-body p-4">
                 <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
@@ -41,7 +41,7 @@
     <li class="card mr-4">
         <a href="#">
             <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01_precision.png') }}" alt="CT model with awp">
+                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
             </figure>
             <main class="card-body p-4">
                 <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
@@ -54,7 +54,7 @@
     <li class="card mr-4">
         <a href="#">
             <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01_precision.png') }}" alt="CT model with awp">
+                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
             </figure>
             <main class="card-body p-4">
                 <h4 class="color-four text-uppercase">Lidiar con la presion</h4>

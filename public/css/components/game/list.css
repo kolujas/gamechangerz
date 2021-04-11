@@ -79,6 +79,10 @@
     background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
 }
 
+.games header {
+    width: 100%;
+}
+
 .games header .degradado{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

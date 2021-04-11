@@ -91,15 +91,15 @@
     }
 
     .blog.cards::before {
-        width: calc(100% - (100% - 28rem));
-        right: 0;
-        background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
+        width: calc(100% - (100% - 15rem));
+        left: 0;
+        background-image: linear-gradient(270deg, transparent 0%, var(--color-one) 100%);
     }
 
     .blog.cards::after {
-        width: calc(100% - (100% - 13rem));
-        left: 0;
-        background-image: linear-gradient(270deg, transparent 0%, var(--color-one) 100%);
+        width: calc(100% - (100% - 30rem));
+        right: 0;
+        background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
     }
 }
 
@@ -114,11 +114,11 @@
     }
 
     .blog.cards::before {
-        width: calc(100% - (100% - 27rem));
+        width: calc(100% - (100% - 12rem));
     }
 
     .blog.cards::after {
-        width: calc(100% - (100% - 12rem));
+        width: calc(100% - (100% - 27rem));
     }
 }
 
@@ -132,16 +132,11 @@
         padding-right: 22rem;
     }
 
-    .blog.cards::after,
     .blog.cards::before {
         width: calc(100% - (100% - 22rem));
-    }
-
-    .blog.cards::before {
-        width: calc(100% - (100% - 44rem));
     }
 
     .blog.cards::after {
-        width: calc(100% - (100% - 22rem));
+        width: calc(100% - (100% - 44rem));
     }
 }
