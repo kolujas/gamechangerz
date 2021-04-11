@@ -1,10 +1,10 @@
-.games .card {
+.games .card a {
     position: relative;
     background-color: var(--color-black);
     overflow: hidden;
 }
 
-.games .card .borders {
+.games .card a .borders {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,13 +13,13 @@
     pointer-events: none;
 }
 
-.games .card .borders div {
+.games .card a .borders div {
     position: absolute;
     opacity: 0;
     transition: background 500ms, opacity 500ms;
 }
 
-.games .card .borders div:first-of-type {
+.games .card a .borders div:first-of-type {
     top: 0;
     left: 0;
     width: 100%;
@@ -28,7 +28,7 @@
     background-size: 400% 400%;
 }
 
-.games .card .borders div:nth-of-type(2) {
+.games .card a .borders div:nth-of-type(2) {
     top: 0;
     right: 0;
     width: 1px;
@@ -37,7 +37,7 @@
     background-size: 400% 400%;
 }
 
-.games .card .borders div:nth-of-type(3) {
+.games .card a .borders div:nth-of-type(3) {
     bottom: 0;
     left: 0;
     width: 100%;
@@ -46,7 +46,7 @@
     background-size: 400% 400%;
 }
 
-.games .card .borders div:last-of-type {
+.games .card a .borders div:last-of-type {
     top: 0;
     left: 0;
     width: 1px;
@@ -55,22 +55,22 @@
     background-size: 400% 400%;
 }
 
-.games .card:not(.disabled):hover .borders div:first-of-type {
+.games .card a:not(.disabled):hover .borders div:first-of-type {
     opacity: 1;
     animation: backgroundRotationX 5s linear infinite;
 }
 
-.games .card:not(.disabled):hover .borders div:nth-of-type(2) {
+.games .card a:not(.disabled):hover .borders div:nth-of-type(2) {
     opacity: 1;
     animation: backgroundRotationY 5s linear infinite;
 }
 
-.games .card:not(.disabled):hover .borders div:nth-of-type(3) {
+.games .card a:not(.disabled):hover .borders div:nth-of-type(3) {
     opacity: 1;
     animation: backgroundRotationX 5s linear infinite;
 }
 
-.games .card:not(.disabled):hover .borders div:last-of-type {
+.games .card a:not(.disabled):hover .borders div:last-of-type {
     opacity: 1;
     animation: backgroundRotationY 5s linear infinite;
 }
@@ -102,7 +102,7 @@
     transition: transform 500ms;
 }
 
-.games .card:not(.disabled):hover figure img{
+.games .card a:not(.disabled):hover figure img{
     transform: scale(1.02);
 }
 
@@ -110,7 +110,7 @@
     opacity: 0.5;
 }
 
-.games .disabled a {
+.games a.disabled {
     cursor: not-allowed;
 }
 

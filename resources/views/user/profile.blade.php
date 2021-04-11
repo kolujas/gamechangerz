@@ -19,81 +19,83 @@
     {{-- @else --}}
         {{-- Perfil del Profesor --}}
         <main class="teacher">
-            <section class="profile lg:grid lg:grid-cols-2 pt-12">
-                <header class="info grid">
-                    <section class="grid">
-                        <section class="flex px-8">
-                            <h2 class="name color-white">dev1ce</h2>
-                            <ul class="idioms flex items-center ml-2">
-                                <li class="mr-2">@component('components.svg.ESPSVG')@endcomponent</li>
-                                <li class="mr-2">@component('components.svg.USASVG')@endcomponent</li>
-                                <li class="mr-2">@component('components.svg.BRASVG')@endcomponent</li>                    
+            <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-7 2xl:grid-cols-9 lg:gap-4">
+                <header class="info grid lg:col-span-2 xl:col-span-3 xl:col-start-2 2xl:col-start-3 pt-12">
+                    <div>
+                        <section class="grid">
+                            <section class="flex px-8 xl:px-0">
+                                <h2 class="name color-white">dev1ce</h2>
+                                <ul class="idioms flex items-center ml-2">
+                                    <li class="mr-2">@component('components.svg.ESPSVG')@endcomponent</li>
+                                    <li class="mr-2">@component('components.svg.USASVG')@endcomponent</li>
+                                    <li class="mr-2">@component('components.svg.BRASVG')@endcomponent</li>                    
+                                </ul>
+                            </section>
+                            
+                            <section class="flex mb-4 px-8 xl:px-0">
+                                <h4 class="color-four">(Nicolai Rdeetz)</h4>
+                                <div class="teampro flex items-center color-white text-sm ml-2">
+                                    <span class="mr-2">Team</span> 
+                                    <span class="color-four">Astralis</span>
+                                    @component('components.svg.TeamSVG')@endcomponent
+                                </div>
+                            </section>
+    
+                            <ul class="cards abilities flex md:flex-wrap px-8 xl:px-0 pb-4">
+                                <li class="card">
+                                    <div class="color-white flex justify-between items-center md:p-2">
+                                        <span>Paciencia</span>
+                                        <div class="stars flex w-28 pl-4">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="card">
+                                    <div class="color-white flex justify-between items-center md:p-2">
+                                        <span>Conexión</span>
+                                        <div class="stars flex w-28 pl-4">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="card">
+                                    <div class="color-white flex justify-between items-center md:p-2">
+                                        <span>Paciencia</span>
+                                        <div class="stars flex w-28 pl-4">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="card">
+                                    <div class="color-white flex justify-between items-center md:p-2">
+                                        <span>Puntualidad</span>
+                                        <div class="stars flex w-28 pl-4">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </section>
-                        
-                        <section class="flex mb-4 px-8">
-                            <h4 class="color-four">(Nicolai Rdeetz)</h4>
-                            <div class="teampro flex items-center color-white text-sm ml-2">
-                                <span class="mr-2">Team</span> 
-                                <span class="color-four">Astralis</span>
-                                @component('components.svg.TeamSVG')@endcomponent
-                            </div>
-                        </section>
-
-                        <ul class="cards abilities flex px-8 pb-4">
-                            <li class="card">
-                                <div class="color-white flex justify-between items-center">
-                                    <span>Paciencia</span>
-                                    <div class="stars flex w-28 pl-4">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="card">
-                                <div class="color-white flex justify-between items-center">
-                                    <span>Conexión</span>
-                                    <div class="stars flex w-28 pl-4">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="card">
-                                <div class="color-white flex justify-between items-center">
-                                    <span>Paciencia</span>
-                                    <div class="stars flex w-28 pl-4">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="card">
-                                <div class="color-white flex justify-between items-center">
-                                    <span>Puntualidad</span>
-                                    <div class="stars flex w-28 pl-4">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
+                    </div>
                 </header>
                 
-                <section class="games md:px-8 mb-8">
+                <section class="games xl:col-span-3 2xl:col-span-4 xl:relative md:px-8 lg:px-0 mb-8">
                     @component('components.game.list', [
                         'games' => $games,
                     ])
@@ -234,24 +236,21 @@
                             <span class="block text-center color-five">AR$ 599 / h</span>
                             <button class="btn btn-one p-4 mt-4 md:mx-auto">
                                 <span>Cotratar</span>
-                                
-                    <i class="fas fa-chevron-right"></i>
+                                <i class="fas fa-chevron-right"></i>
                             </button>
                         </li>
                         <li id="offline" class="tab-content closed">
                             <span class="block text-center color-five">AR$ 599 / h</span>
                             <button class="btn btn-one p-4 mt-4 md:mx-auto">
                                 <span>Cotratar</span>
-                                
-                    <i class="fas fa-chevron-right"></i>
+                                <i class="fas fa-chevron-right"></i>
                             </button>
                         </li>
                         <li id="packs" class="tab-content closed">
                             <span class="block text-center color-five">AR$ 599 / h</span>
                             <button class="btn btn-one p-4 mt-4 md:mx-auto">
                                 <span>Cotratar</span>
-                                
-                    <i class="fas fa-chevron-right"></i>
+                                <i class="fas fa-chevron-right"></i>
                             </button>
                         </li>
                     </ul>
@@ -286,7 +285,7 @@
                     </ul>
                 </section>
 
-                <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8">
+                <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
                     <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                         <h3 class="color-white">Reseñas</h3>
                     </header>
@@ -334,7 +333,7 @@
                 </section>
 
                 <section class="description lg:col-span-2 xl:col-span-3 xl:col-start-2 2xl:col-start-3 lg:ml-8 xl:ml-0">
-                    <header class="mb-4">
+                    <header class="mb-4 pl-8 lg:pl-0">
                         <h3 class="color-white">Descripción</h3>
                     </header>
                     <div class="py-4 px-8">

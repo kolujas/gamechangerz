@@ -66,21 +66,12 @@
     padding-top: 0;
 }
 
-.teacher section.games header h3 {
-    padding-top: 1rem;
-}
-
-/* .teacher .info .abilities.cards::-webkit-scrollbar-button, .teacher .achievements .cards::-webkit-scrollbar-button, .teacher .reviews .cards::-webkit-scrollbar-button {
-    width: 10%;
-    height: 10%;
-} */
-
 .teacher .achievements ul li{
     white-space: nowrap;
     min-width: fit-content;
 }
 
-.teacher .achievements ul, .reviews ul{
+.teacher .achievements ul, .teacher .reviews ul{
     max-width: 100%;
     overflow-x: scroll;
 }
@@ -92,15 +83,15 @@
     min-height: 3rem;
 }
 
-.teacher .achievements ul li > div > div, .reviews ul li > div > div {
+.teacher .achievements ul li > div > div, .teacher .reviews ul li > div > div {
     height: fit-content;
 }
 
-.teacher .achievements ul li:not(:last-of-type), .reviews ul li:not(:last-of-type) {
+.teacher .achievements ul li:not(:last-of-type), .teacher .reviews ul li:not(:last-of-type) {
     padding-right: 1rem;
 }
 
-.teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+.teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
     padding-right: 2rem;
 }
 
@@ -121,7 +112,7 @@
     background-color: var(--color-black);
 }
 
-.blog .card main span{
+.teacher .blog .card main span{
     display: none;
 }
 
@@ -170,8 +161,35 @@
     opacity: 1;
 }
 
+.teacher .info .abilities.cards li > div {
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    border-image-source: none;
+}
+
+.teacher .info .abilities.cards li > div:hover {
+    border-image-source: none;
+}
+
 /* ? MD */
 @media (min-width: 768px) {
+    .teacher .info .abilities.cards li {
+        width: 50%;
+    }
+
+    .teacher .info .abilities.cards li > div {
+        width: 100%;
+    }
+
+    .teacher .info .abilities.cards .card:last-of-type {
+        padding-right: .5rem;
+    }
+
+    .teacher .info .abilities.cards li:is(:nth-of-type(2), :last-of-type) > div {
+        border: none;
+    }
+
     .teacher .achievements ul li > div, .teacher .reviews ul li > div {
         min-width: 15rem;
     }
@@ -192,13 +210,39 @@
 
 /* ? LG */
 @media (min-width: 1024px) {
-    .abilities.cards .card:first-of-type,
-    .blog.cards .card:first-of-type {
+    .teacher section.games .cards {
+        display: flex;
+        overflow: auto;
+        padding-bottom: 1rem;
+    }
+
+    .teacher section.games .cards .card a {
+        min-width: calc((100vw / 3) - 2.6rem);
+    }
+
+    .teacher section.games .cards .card:last-of-type {
+        padding-right: 2rem;
+    }
+
+    .teacher .abilities.cards .card:first-of-type,
+    .teacher .blog.cards .card:first-of-type {
         padding-left: 2rem;
     }
 
-    .abilities.cards .card:last-of-type,
-    .blog.cards .card:last-of-type {
+    .teacher .info .abilities.cards {
+        overflow: hidden;
+    }
+
+    .teacher .info .abilities.cards .card:is(:nth-of-type(3), :first-of-type) > div {
+        padding-left: 0;
+    }
+
+    .teacher .info .abilities.cards .card:first-of-type {
+        padding-left: 0;
+    }
+
+    .teacher .abilities.cards .card:last-of-type,
+    .teacher .blog.cards .card:last-of-type {
         padding-right: 2rem;
     }
 
@@ -208,7 +252,7 @@
         height: fit-content;
     }
 
-    section.games .cards {
+    .teacher section.games .cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -216,11 +260,16 @@
         padding-right: 0;
     }
 
-    .abilities.cards::before {
+    .teacher .info .abilities.cards::after,
+    .teacher .info .abilities.cards::before {
+        display: none;
+    }
+
+    .teacher .abilities.cards::before {
         background-image: linear-gradient(270deg, transparent 0%, var(--color-one) 100%);
     }
 
-    .abilities.cards::after {
+    .teacher .abilities.cards::after {
         background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
     }
 
@@ -231,13 +280,33 @@
 
 /* ? XL */
 @media (min-width: 1200px) {
-    .abilities.cards .card:first-of-type,
-    .blog.cards .card:first-of-type {
+    .teacher section.games .cards .card a {
+        min-width: calc(((100vw / 7) * 2) - 1rem);
+    }
+
+    .teacher section.games .cards::before {
+        content: '';
+        width: calc(100vw / 7);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        right: 0;
+        background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
+    }
+
+    .teacher section.games .cards .card:last-of-type {
+        padding-right: calc(100vw / 7);
+    }
+
+    .teacher .abilities.cards .card:first-of-type,
+    .teacher .blog.cards .card:first-of-type {
         padding-left: 12rem;
     }
 
-    .abilities.cards .card:last-of-type,
-    .blog.cards .card:last-of-type {
+    .teacher .abilities.cards .card:last-of-type,
+    .teacher .blog.cards .card:last-of-type {
         padding-right: 12rem;
     }
 
@@ -277,13 +346,25 @@
 
 /* ? 2XL */
 @media (min-width: 1536px) {
-    .abilities.cards .card:first-of-type,
-    .blog.cards .card:first-of-type {
+    .teacher section.games .cards .card a {
+        min-width: calc(((100vw / 9) * 2) - 1rem);
+    }
+
+    .teacher section.games .cards::before {
+        width: calc((100vw / 9) * 2);
+    }
+
+    .teacher section.games .cards .card:last-of-type {
+        padding-right: calc((100vw / 9) * 2);
+    }
+
+    .teacher .abilities.cards .card:first-of-type,
+    .teacher .blog.cards .card:first-of-type {
         padding-left: 22rem;
     }
 
-    .abilities.cards .card:last-of-type,
-    .blog.cards .card:last-of-type {
+    .teacher .abilities.cards .card:last-of-type,
+    .teacher .blog.cards .card:last-of-type {
         padding-right: 22rem;
     }
 
@@ -295,8 +376,8 @@
         padding-right: calc(100vw / 9);
     }
 
-    .achievements .cards::-webkit-scrollbar-button,
-    .reviews .cards::-webkit-scrollbar-button {
+    .teacher .achievements .cards::-webkit-scrollbar-button,
+    .teacher .reviews .cards::-webkit-scrollbar-button {
         width: 20%;
         height: 20%;
     }

@@ -1,13 +1,12 @@
 <ul class="cards games mt-12 grid md:grid-cols-2 lg:grid-cols-4 main">
     @foreach ($games as $game)
-        @if ($game->active)
-            <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4">
+        <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4">
+            @if ($game->active)
                 <a class="flex flex-wrap" href="/games/{{ $game->slug }}">
-        @else
-            <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4 disabled">
-                <a class="flex flex-wrap" href="#">
-        @endif
-                <header class="pb-4">
+            @else
+                <a class="flex flex-wrap disabled" href="#">
+            @endif
+                <header class="py-4">
                     <h3 class="degradado">{{ $game->name }}</h3>
                 </header>
                 <main class="card-body degradado">
