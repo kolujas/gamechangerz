@@ -168,6 +168,63 @@
     border-image-source: none;
 }
 
+
+/* usuario */
+
+.user-data{
+    background-color: var(--color-black);
+    width: 70%;
+}
+
+.looking-for-teammate{
+    position: relative;
+}
+
+.looking-for-teammate span{
+    position: absolute;
+    top: -4rem;
+    right: -1rem;
+}
+
+.user .user-tag span{
+    padding-left: 2.4rem;
+}
+
+.user .iconos-list svg{
+    object-fit: contain;
+    width: 40px;
+    height: 33px;
+}
+
+.user .games header{
+    order: 2;
+    flex-basis: 100%;
+}
+
+.user .games main{
+    order: 1;
+}
+
+.user .reseñas-user{
+    background: var(--color-black);
+    padding: 1rem;
+}
+
+.user .reseñas-user{
+    position: relative;
+}
+
+.user .reseñas-user aside{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .2;
+    z-index: 2;
+}
+
+
 /* ? MD */
 @media (min-width: 768px) {
     .teacher .info .abilities.cards li {

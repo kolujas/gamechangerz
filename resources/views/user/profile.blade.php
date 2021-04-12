@@ -16,6 +16,146 @@
 @section('main')
     @if ($user->id_role < 1)
         {{-- Perfil del Usuario --}}
+        <section class="user">
+            <section class="user-data p-8 mx-auto my-8">
+                <header class="user-tag">
+                    <div class="pr-2 flex">
+                        @component('components.svg.Group 15SVG')
+                        @endcomponent
+                        <h3 class="color-white ml-6">Fjacuzzy</h3>
+                    </div>
+                    <div class="looking-for-teammate">
+                        <span>
+                            @component('components.svg.ChoqueSVG')
+                            @endcomponent
+                        </span>
+                    </div>
+                    <span class="font-bold color-four ml-6">Facundo Sarassola</span>
+                </header>
+                
+                <ul class="iconos-list flex justify-center mt-8">
+                    <li class="px-2">
+                        @component('components.svg.Premio1SVG')
+                        @endcomponent
+                    </li>
+                    <li class="px-2">
+                        @component('components.svg.Premio2SVG')
+                        @endcomponent
+                    </li>
+                    <li class="px-2">
+                        @component('components.svg.Premio3SVG')
+                        @endcomponent
+                    </li>
+                    <li class="px-2">
+                        @component('components.svg.Premio4SVG')
+                        @endcomponent
+                    </li>
+                    <li class="px-2"> @component('components.svg.Premio5SVG')
+                        @endcomponent
+                    </li>
+                </ul>
+    
+                <div>
+                    <ul class="pt-8">
+                        <li class="color-white pb-4">
+                            <span>Total clases tomadas:</span> 
+                            <span class="color-four font-bold">16</span>
+                        </li>
+                        <li class="color-white pb-4">
+                            <span>Cantidad de horas:</span> 
+                            <span class="color-four font-bold">196</span>
+                        </li>
+                        <li class="color-white pb-4">
+                            <span>Amigos:</span>
+                            <span>class="color-four font-bold">23</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="games xl:col-span-3 2xl:col-span-4 xl:relative md:px-8 lg:px-0 mb-8">
+                @component('components.game.list', [
+                    'games' => $games,
+                ])
+                @endcomponent
+            </section>       
+            
+            <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
+                <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
+                    <h3 class="color-white">Reseñas</h3>
+                </header>
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
+                    <li class="card">
+                        <div class="flex p-4">
+                            <div class="reseñas-user flex items-start flex-wrap">
+                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
+                                <div class="color-white font-bold pr-1 flex flex-auto">
+                                    <span class="mr-2">Puntería</span>
+                                    @component('components.svg.PunteriaSVG')@endcomponent
+                                </div>
+                                <div class="flex">
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.Estrella2SVG')@endcomponent
+                                </div>
+                                <p class="color-white mt-4">Derriba a tus enemigos desde lejos practicando con el AWP.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="flex p-4">
+                            <div class="reseñas-user flex items-start flex-wrap">
+                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
+                                <div class="color-white font-bold pr-1 flex flex-auto">
+                                    <span class="mr-2">Velocidad</span>
+                                    @component('components.svg.MovilidadSVG')@endcomponent
+                                </div>
+                                <div class="flex">
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.Estrella2SVG')@endcomponent
+                                </div>
+                                <p class="color-white mt-4">Aprende como moverte más rápido y ciertos atajos de mapas.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="flex p-4">
+                            <div class="reseñas-user flex items-start flex-wrap">
+                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
+                                <div class="color-white font-bold pr-1 flex flex-auto">
+                                    <span class="mr-2">Estrategia</span>
+                                    @component('components.svg.EstSVG')@endcomponent
+                                </div>
+                                <div class="flex">
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.Estrella2SVG')@endcomponent
+                                    @component('components.svg.Estrella2SVG')@endcomponent
+                                </div>
+                                <p class="color-white mt-4">Aprende dónde y cuando moverte en distintos mapas y sobrevivir.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="flex p-4">
+                            <div class="reseñas-user flex items-start flex-wrap">
+                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
+                                <div class="color-white font-bold pr-1 flex flex-auto">
+                                    <span class="mr-2">Gamesense</span>
+                                    @component('components.svg.GamesenseSVG')@endcomponent
+                                </div>
+                                <div class="flex">
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                    @component('components.svg.EstrellaSVG')@endcomponent
+                                </div>
+                                <p class="color-white mt-4">Desarrolla la habilidad para reaccionar a cualquier problema.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </section>
     @else
         {{-- Perfil del Profesor --}}
         <main class="teacher">
