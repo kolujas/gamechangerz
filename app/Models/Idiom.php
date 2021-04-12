@@ -11,25 +11,25 @@
 
         /** @var array Idiom options */
         static $options = [[
-                'id_idiom' => 1,
-                'name' => 'Español',
-                'svg' => 'svg/ESPSVG.svg',
-                'slug' => 'espanol',
-            ], [
-                'id_idiom' => 2,
-                'name' => 'Inglés',
-                'svg' => 'svg/USASVG.svg',
-                'slug' => 'ingles',
-            ], [
-                'id_idiom' => 3,
-                'name' => 'Italiano',
-                'svg' => 'svg/ITASVG.svg',
-                'slug' => 'italiano',
-            ], [
-                'id_idiom' => 4,
-                'name' => 'Portugués',
-                'svg' => 'svg/BRASVG.svg',
-                'slug' => 'portugues',
+            'id_idiom' => 1,
+            'name' => 'Español',
+            'svg' => 'components.svg.ESPSVG',
+            'slug' => 'espanol',
+        ], [
+            'id_idiom' => 2,
+            'name' => 'Inglés',
+            'svg' => 'components.svg.USASVG',
+            'slug' => 'ingles',
+        ], [
+            'id_idiom' => 3,
+            'name' => 'Italiano',
+            'svg' => 'components.svg.ITASVG',
+            'slug' => 'italiano',
+        ], [
+            'id_idiom' => 4,
+            'name' => 'Portugués',
+            'svg' => 'components.svg.BRASVG',
+            'slug' => 'portugues',
         ]];
 
         /**

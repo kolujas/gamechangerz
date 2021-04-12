@@ -96,16 +96,12 @@
 }
 
 .teacher .reviews ul li{
-    min-height: 7rem;
+    min-height: 3rem;
 }
 
 .teacher .reviews ul li div svg{
     height: 1rem;
     margin-top: 3px;
-}
-
-.teacher .reviews ul li p{
-    min-height: 6rem;
 }
 
 .teacher .description div{

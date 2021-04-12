@@ -9,6 +9,30 @@
 
         static $options = [[
             'id_ability' => 1,
+            'name' => 'Paciencia',
+            'description' => '',
+            'slug' => 'paciencia',
+            'stars' => null,
+        ], [
+            'id_ability' => 2,
+            'name' => 'Conexión',
+            'description' => '',
+            'slug' => 'conexion',
+            'stars' => null,
+        ], [
+            'id_ability' => 3,
+            'name' => 'Conexión',
+            'description' => '',
+            'slug' => 'conexion',
+            'stars' => null,
+        ], [
+            'id_ability' => 4,
+            'name' => 'Puntualidad',
+            'description' => '',
+            'slug' => 'puntualidad',
+            'stars' => null,
+        ], [
+            'id_ability' => 5,
             'name' => 'Precisión',
             'description' => '<span class="color-four">Derriba</span> a tus enemigos desde lejos practicando con el AWP.',
             'image' => 'games/counter-strike-go/abilities/1/01-precision.png',
@@ -18,31 +42,13 @@
             'slug' => 'something',
             'stars' => null,
         ], [
-            'id_ability' => 2,
+            'id_ability' => 6,
             'name' => 'Punteria',
             'description' => '<span class="color-four">Elimina</span> al equipo contrario controlando el recoll del rifle.',
             'image' => 'games/counter-strike-go/abilities/2/01-punteria.png',
             'background' => 'games/counter-strike-go/abilities/2/02-background.png',
             'icon' => 'something',
             'difficulty' => 1,
-            'slug' => 'something',
-            'stars' => null,
-        ], [
-            'id_ability' => 3,
-            'name' => 'Something',
-            'description' => 'Something',
-            'files' => 'games/something.png',
-            'icon' => 'something',
-            'difficulty' => 0,
-            'slug' => 'something',
-            'stars' => null,
-        ], [
-            'id_ability' => 4,
-            'name' => 'Something',
-            'description' => 'Something',
-            'files' => 'games/something.png',
-            'icon' => 'something',
-            'difficulty' => 0,
             'slug' => 'something',
             'stars' => null,
         ]];

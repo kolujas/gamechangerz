@@ -12,33 +12,33 @@
 
         /** @var array Day options */
         static $options = [[
-                'id_day' => 0,
-                'name' => 'Domingo',
-                'slug' => 'domingo',
-            ],[
-                'id_day' => 1,
-                'name' => 'Lunes',
-                'slug' => 'lunes',
-            ],[
-                'id_day' => 2,
-                'name' => 'Martes',
-                'slug' => 'martes',
-            ],[
-                'id_day' => 3,
-                'name' => 'Miércoles',
-                'slug' => 'miercoles',
-            ],[
-                'id_day' => 4,
-                'name' => 'Jueves',
-                'slug' => 'jueves',
-            ],[
-                'id_day' => 5,
-                'name' => 'Viernes',
-                'slug' => 'viernes',
-            ],[
-                'id_day' => 6,
-                'name' => 'Sábado',
-                'slug' => 'sabado',
+            'id_day' => 0,
+            'name' => 'Domingo',
+            'slug' => 'domingo',
+        ],[
+            'id_day' => 1,
+            'name' => 'Lunes',
+            'slug' => 'lunes',
+        ],[
+            'id_day' => 2,
+            'name' => 'Martes',
+            'slug' => 'martes',
+        ],[
+            'id_day' => 3,
+            'name' => 'Miércoles',
+            'slug' => 'miercoles',
+        ],[
+            'id_day' => 4,
+            'name' => 'Jueves',
+            'slug' => 'jueves',
+        ],[
+            'id_day' => 5,
+            'name' => 'Viernes',
+            'slug' => 'viernes',
+        ],[
+            'id_day' => 6,
+            'name' => 'Sábado',
+            'slug' => 'sabado',
         ]];
 
         /**
@@ -94,6 +94,32 @@
                     }
                     $days->push($aux);
                 }
+            }
+            return $days;
+        }
+
+        static public function allDates ($daysToParse) {
+            $days = collect([]);
+            foreach (Day::$options as $day) {
+                $day = (object) $day;
+                $day->hours = collect([]);
+                foreach (Hour::$options as $hour) {
+                    $hour = (object) $hour;
+                    $hour->active = false;
+                    foreach ($daysToParse as $dayParsed) {
+                        $dayParsed = (object) $dayParsed;
+                        if ($day->id_day === $dayParsed->day->id_day) {
+                            foreach ($dayParsed->hours as $hourParsed) {
+                                $hourParsed = (object) $hourParsed;
+                                if ($hour->id_hour === $hourParsed->id_hour) {
+                                    $hour->active = true;
+                                }
+                            }
+                        }
+                    }
+                    $day->hours->push($hour);
+                }
+                $days->push($day);
             }
             return $days;
         }

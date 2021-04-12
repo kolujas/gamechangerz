@@ -9,14 +9,17 @@
     --scroll-color-two-alternative: #1a141d;
 }
 
-.blog.cards .card > a{
+.blog.cards .card > :is(a, div){
     display: block;
-    opacity: .5;
     border: 1px solid transparent;
     background-color: var(--color-black);
     width: 66.666666vw;
-    min-height: 20rem;
+    /* min-height: 20rem; */
     transition: 600ms;
+}
+
+.blog.cards .card > a{
+    opacity: .5;
 }
 
 .blog.cards .card:last-of-type {
@@ -33,6 +36,9 @@
 
 .blog.cards .card h4 {
     white-space: nowrap;
+}
+
+.blog.cards .card > :is(a) h4 {
     text-overflow: ellipsis;
     max-width: 100%;
     overflow: hidden;
@@ -67,6 +73,10 @@
 @media(min-width: 768px){
     .blog.cards .card > a {
         width: 15rem;
+    }
+
+    .blog.cards .card > div {
+        width: fit-content;
     }
 }
 

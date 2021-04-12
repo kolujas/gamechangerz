@@ -36,6 +36,7 @@
             $game->abilities = Ability::parse($game->abilities);
             return view('web.game', [
                 'game' => $game,
+                'posts' => [],
             ]);
         }
 

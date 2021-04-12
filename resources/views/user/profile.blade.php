@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{-- {{ $user->name }} | GameChangerZ --}}
+    {{ $user->username }} | GameChangerZ
 @endsection
 
 @section('css')
@@ -14,9 +14,9 @@
 @endsection
 
 @section('main')
-    {{-- @if ($user->id_role < 1) --}}
+    @if ($user->id_role < 1)
         {{-- Perfil del Usuario --}}
-    {{-- @else --}}
+    @else
         {{-- Perfil del Profesor --}}
         <main class="teacher">
             <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-7 2xl:grid-cols-9 lg:gap-4">
@@ -24,72 +24,40 @@
                     <div>
                         <section class="grid">
                             <section class="flex px-8 xl:px-0">
-                                <h2 class="name color-white">dev1ce</h2>
+                                <h2 class="name color-white">{{ $user->username }}</h2>
                                 <ul class="idioms flex items-center ml-2">
-                                    <li class="mr-2">@component('components.svg.ESPSVG')@endcomponent</li>
-                                    <li class="mr-2">@component('components.svg.USASVG')@endcomponent</li>
-                                    <li class="mr-2">@component('components.svg.BRASVG')@endcomponent</li>                    
+                                    @foreach ($user->idioms as $idiom)
+                                        <li class="mr-2" title={{ $idiom->name }}>@component($idiom->svg)@endcomponent</li>
+                                    @endforeach               
                                 </ul>
                             </section>
                             
                             <section class="flex mb-4 px-8 xl:px-0">
-                                <h4 class="color-four">(Nicolai Rdeetz)</h4>
+                                <h4 class="color-four">({{ $user->name }})</h4>
                                 <div class="teampro flex items-center color-white text-sm ml-2">
                                     <span class="mr-2">Team</span> 
-                                    <span class="color-four">Astralis</span>
-                                    @component('components.svg.TeamSVG')@endcomponent
+                                    <span class="color-four">{{ $user->teampro->name }}</span>
+                                    @component($user->teampro->svg)@endcomponent
                                 </div>
                             </section>
     
                             <ul class="cards abilities flex md:flex-wrap px-8 xl:px-0 pb-4">
-                                <li class="card">
-                                    <div class="color-white flex justify-between items-center md:p-2">
-                                        <span>Paciencia</span>
-                                        <div class="stars flex w-28 pl-4">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                @foreach ($user->abilities as $ability)
+                                    <li class="card">
+                                        <div class="color-white flex justify-between items-center md:p-2">
+                                            <span>{{ $ability->name }}</span>
+                                            <div class="stars flex w-28 pl-4">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $ability->stars)
+                                                        @component('components.svg.estrellaSVG')@endcomponent
+                                                    @else
+                                                        @component('components.svg.estrella2SVG')@endcomponent
+                                                    @endif
+                                                @endfor
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="card">
-                                    <div class="color-white flex justify-between items-center md:p-2">
-                                        <span>Conexión</span>
-                                        <div class="stars flex w-28 pl-4">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="card">
-                                    <div class="color-white flex justify-between items-center md:p-2">
-                                        <span>Paciencia</span>
-                                        <div class="stars flex w-28 pl-4">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="card">
-                                    <div class="color-white flex justify-between items-center md:p-2">
-                                        <span>Puntualidad</span>
-                                        <div class="stars flex w-28 pl-4">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endforeach
                             </ul>
                         </section>
                     </div>
@@ -97,7 +65,7 @@
                 
                 <section class="games xl:col-span-3 2xl:col-span-4 xl:relative md:px-8 lg:px-0 mb-8">
                     @component('components.game.list', [
-                        'games' => $games,
+                        'games' => $user->games,
                     ])
                     @endcomponent
                 </section>            
@@ -134,154 +102,76 @@
                     <ul class="tab-content-list">
                         <li id="online" class="tab-content closed">
                             <table>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Lunes</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Martes</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Miércoles</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Jueves</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Viernes</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Sábados</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1 active">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
-                                <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
-                                    <th class="col-span-2 md:col-span-1">
-                                        <span class="color-white">Domingos</span>
-                                    </th>
-                                    <td>
-                                        <span class="color-white p-1 active">Mañana</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Tarde</span>
-                                    </td>
-                                    <td>
-                                        <span class="color-white p-1">Noche</span>
-                                    </td>
-                                </tr>
+                                @foreach ($days as $day)
+                                    <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-4">
+                                        <th class="col-span-2 md:col-span-1">
+                                            <span class="color-white">{{ $day->name }}</span>
+                                        </th>
+                                        @for ($i = 1; $i <= 3; $i++)
+                                            <td>
+                                                @if ($i === 1)
+                                                    <span class="color-white p-1
+                                                        @foreach ($day->hours as $hour)
+                                                            @if ($hour->active && $hour->time === $i)
+                                                                active
+                                                            @endif
+                                                        @endforeach
+                                                    ">Mañana</span>
+                                                @elseif($i === 2)
+                                                    <span class="color-white p-1
+                                                        @foreach ($day->hours as $hour)
+                                                            @if ($hour->active && $hour->time === $i)
+                                                                active
+                                                            @endif
+                                                        @endforeach
+                                                    ">Tarde</span>
+                                                @else
+                                                    <span class="color-white p-1
+                                                        @foreach ($day->hours as $hour)
+                                                            @if ($hour->active && $hour->time === $i)
+                                                                active
+                                                            @endif
+                                                        @endforeach
+                                                    ">Noche</span>
+                                                @endif
+                                            </td>
+                                        @endfor
+                                    </tr>
+                                @endforeach
                             </table>
-                            <span class="block text-center color-five">AR$ 599 / h</span>
-                            <button class="btn btn-one p-4 mt-4 md:mx-auto">
+                            <span class="block text-center color-five">AR$ {{ $user->prices[0]->price }} / h</span>
+                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
                                 <span>Cotratar</span>
                                 <i class="fas fa-chevron-right"></i>
-                            </button>
+                            </a>
                         </li>
                         <li id="offline" class="tab-content closed">
-                            <span class="block text-center color-five">AR$ 599 / h</span>
-                            <button class="btn btn-one p-4 mt-4 md:mx-auto">
+                            <span class="block text-center color-five">AR$ {{ $user->prices[1]->price }} / h</span>
+                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
                                 <span>Cotratar</span>
                                 <i class="fas fa-chevron-right"></i>
-                            </button>
+                            </a>
                         </li>
                         <li id="packs" class="tab-content closed">
-                            <span class="block text-center color-five">AR$ 599 / h</span>
-                            <button class="btn btn-one p-4 mt-4 md:mx-auto">
+                            <span class="block text-center color-five">AR$ {{ $user->prices[2]->price }} / h</span>
+                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
                                 <span>Cotratar</span>
                                 <i class="fas fa-chevron-right"></i>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </section>
 
                 <section class="achievements relative lg:col-span-2 xl:col-span-4 2xl:col-span-5">
                     <ul class="cards flex px-8 pb-4 xl:px-0 mb-4">
-                        <li class="card">
-                            <div class="color-white flex justify-center items-center p-4">
-                                <span class="color-four font-bold pr-1">1° Lugar</span>
-                                <span>en torneo ESEA #115</span>
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div class="color-white flex justify-center items-center p-4">
-                                <span class="color-four font-bold pr-1">1° Lugar</span>
-                                <span>en torneo de Faceit Rivals 4</span>
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div class="color-white flex justify-center items-center p-4">
-                                <span class="color-four font-bold pr-1">1° Lugar</span>
-                                <span>en torneo ESEA #115</span>
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div class="color-white flex justify-center items-center p-4">
-                                <span class="color-four font-bold pr-1">1° Lugar</span>
-                                <span>en torneo de Faceit Rivals 4</span>
-                            </div>
-                        </li>
+                        @foreach ($user->achievements as $achievement)
+                            <li class="card">
+                                <div class="color-white flex justify-center items-center p-4">
+                                    <span class="color-four font-bold pr-1">{{ $achievement->name }}</span>
+                                    <span>{{ $achievement->description }}</span>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </section>
 
@@ -290,45 +180,35 @@
                         <h3 class="color-white">Reseñas</h3>
                     </header>
                     <ul class="cards flex px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
-                        <li class="card">
-                            <div class="flex p-4">
-                                <div class="flex items-start flex-wrap">
-                                    <span class="color-two font-bold pr-1">TREMENDO!</span>
-                                    <div class="flex">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
+                        @if (count($user->reviews))
+                            @foreach ($user->reviews as $review)
+                                <li class="card">
+                                    <div class="flex p-4">
+                                        <div class="flex items-start flex-wrap">
+                                            <span class="color-two font-bold pr-1">{{ $review->title }}</span>
+                                            <div class="flex">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->stars)
+                                                        @component('components.svg.estrellaSVG')@endcomponent
+                                                    @else
+                                                        @component('components.svg.estrella2SVG')@endcomponent
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                            <p class="color-white mt-4">{{ $review->description }}</p>
+                                        </div>
                                     </div>
-                                    <p class="color-white mt-4">La verdad que estaba estancado en nova 3 pero me suscribi a Gamechangerz y mi vida cambio y ahora soy un profesional</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div class="flex p-4">
-                                <div class="flex items-start flex-wrap">
-                                    <span class="color-two font-bold pr-1">Un crack</span>
-                                    <div class="flex">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="card">
+                                <div class="flex p-4">
+                                    <div class="flex items-start flex-wrap">
+                                        <p class="color-white">Aún no cuenta con ningúna reseña</p>
                                     </div>
-                                    <p class="color-white mt-4">No pegaba una y me mataban con nova saltando, pero gracias a device ahora gano todos los mapas 16-0</p>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="card">
-                            <div class="flex p-4">
-                                <div class="flex items-start flex-wrap">
-                                    <span class="color-two font-bold pr-1">Un crack</span>
-                                    <div class="flex">
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                    </div>
-                                    <p class="color-white mt-4">No pegaba una y me mataban con nova saltando, pero gracias a device ahora gano todos los mapas 16-0</p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endif
                     </ul>
                 </section>
 
@@ -337,9 +217,9 @@
                         <h3 class="color-white">Descripción</h3>
                     </header>
                     <div class="py-4 px-8">
-                        <h4 class="color-white">Informacion</h4>
-                        <span class="color-four font-bold block mb-4">Sobre Fjacuzzy</span>
-                        <p class="color-two">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, repellat minima aperiam minus deleniti aliquid necessitatibus quod alias facere aliquam quis hic quia placeat nobis nostrum assumenda sit quibusdam inventore.</p>
+                        <h4 class="color-white">Información</h4>
+                        <span class="color-four font-bold block mb-4">Sobre {{ $user->name }}</span>
+                        <p class="color-two">{!! $user->description !!}</p>
                     </div>
                 </section>
             </section>
@@ -350,7 +230,7 @@
                 </header>
                 <main class="xl:col-span-7 2xl:col-span-9 relative">
                     @component('components.game.abilities_list', [
-                        'abilities' => $games[0]->abilities,
+                        'abilities' => $user->game_abilities,
                         ])
                     @endcomponent
                 </main>
@@ -361,12 +241,14 @@
                     <h3 class="color-white mb-4 px-8 xl:px-0">Contenido</h3>
                 </header>
                 <main class="xl:col-span-7 2xl:col-span-9 relative">
-                    @component('components.blog.list')
+                    @component('components.blog.list', [
+                        'posts' => $user->posts
+                    ])
                     @endcomponent           
                 </main>
             </section>
         </main>
-    {{-- @endif --}}
+    @endif
 @endsection
 
 @section('footer')

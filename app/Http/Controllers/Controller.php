@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
+    use Carbon\Carbon;
     use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
     use Illuminate\Foundation\Bus\DispatchesJobs;
     use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -8,6 +9,17 @@
 
     class Controller extends BaseController {
         use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+        /**
+         * * Transforms a date to humans format text.
+         * @param Date $date
+         */
+        public function dateToHuman($date){
+            Carbon::setLocale('es');
+            $date = new Carbon($date);
+            $date = $date->diffForHumans();
+            return $date;
+        }
         
         /**
          * * Control the index page.

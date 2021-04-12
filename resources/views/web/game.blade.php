@@ -152,7 +152,9 @@
             <p class="color-white">Encontrarás los <span class="color-four font-bold">tips</span> mas valiosos y las discusiones mas interesantes </p>
         </header>
         <main class="lg:col-span-5 xl:col-span-7 2xl:col-span-9 relative">
-            @component('components.blog.list')
+            @component('components.blog.list', [
+                'posts' => $posts,
+            ])
             @endcomponent
         </main>
     </section>

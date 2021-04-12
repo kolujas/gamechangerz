@@ -2,9 +2,12 @@
     namespace App\Http\Controllers;
 
     use App\Models\Ability;
+    use App\Models\Day;
     use App\Models\Game;
     use App\Models\Lesson;
+    use App\Models\Post;
     use App\Models\User;
+    use Auth;
     use Illuminate\Http\Request;
 
     class UserController extends Controller {
@@ -14,23 +17,32 @@
          * @return [type]
          */
         public function profile ($slug) {
-            // $user = User::where('slug', '=', $slug)->get()[0];
-            // $user->achievements();
-            // $user->files();
-            // $user->games();
-            // $user->idioms();
-            // if ($user->id_role === 1) {
-            //     $user->days();
-            //     $user->prices();
-            // }
-            // $user->role();
-            $games = Game::getOptions();
-            foreach ($games as $game) {
-                $game->abilities = Ability::parse($game->abilities);
+            $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
+            $user->abilities();
+            $user->achievements();
+            $user->files();
+            $user->games();
+            $user->idioms();
+            if ($user->id_role >= 1) {
+                $user->days();
+                $user->prices();
             }
+            $user->role();
+            $user->teampro();
+            $user->game_abilities = collect([]);
+            foreach ($user->games as $game) {
+                $abilities = Ability::parse($game->abilities);
+                foreach ($abilities as $ability) {
+                    $user->game_abilities->push($ability);
+                }
+            }
+            foreach ($user->posts as $post) {
+                $post->date = $this->dateToHuman($post->updated_at);
+            }
+            $days = Day::allDates($user->days);
             return view('user.profile', [
-                // 'user' => $user,
-                'games' => $games,
+                'user' => $user,
+                'days' => $days,
             ]);
         }
 

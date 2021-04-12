@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
 
+    use App\Models\Ability;
     use App\Models\Achievements;
     use App\Models\Day;
     use App\Models\Folder;
@@ -8,7 +9,9 @@
     use App\Models\Idiom;
     use App\Models\Lesson;
     use App\Models\Post;
+    use App\Models\Review;
     use App\Models\Role;
+    use App\Models\Teampro;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,6 +50,26 @@
         protected $casts = [
             'email_verified_at' => 'datetime',
         ];
+
+        /**
+         * * Get the User Abilities.
+         * @return array
+         */
+        public function abilities () {
+            $this->abilities = [['id_ability' => 1, 'stars' => 0],['id_ability' => 2, 'stars' => 0],['id_ability' => 3, 'stars' => 0],['id_ability' => 4, 'stars' => 0]];
+            foreach ($this->reviews as $review) {
+                foreach ($review->abilities as $review_ability) {
+                    $review_ability = (object) $review_ability;
+                    foreach ($this->abilities as $user_ability) {
+                        $user_ability = (object) $user_ability;
+                        if ($user_ability->id_ability === $review_ability->id_ability) {
+                            $user_ability->stars = $review_ability->stars;
+                        }
+                    }
+                }
+            }
+            $this->abilities = Ability::parse($this->abilities);
+        }
 
         /**
          * * Get the User Achievements.
@@ -135,10 +158,28 @@
         }
 
         /**
+         * * Get the User Reviews.
+         * @return array
+         */
+        public function reviews () {
+            return $this->hasMany(Review::class, 'id_user_to', 'id_user');
+        }
+
+        /**
          * * Get the User Role.
          * @return array
          */
         public function role () {
             $this->role = Role::parse(json_decode($this->id_role));
+        }
+
+        /**
+         * * Get the User Teampro.
+         * @return array
+         */
+        public function teampro () {
+            if (Teampro::hasOptions($this->id_teampro)) {
+                $this->teampro = Teampro::findOptions($this->id_teampro);
+            }
         }
     }
