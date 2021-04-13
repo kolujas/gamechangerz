@@ -14,7 +14,7 @@
     border: 1px solid transparent;
     background-color: var(--color-black);
     width: 66.666666vw;
-    /* min-height: 20rem; */
+    min-height: 100%;
     transition: 600ms;
 }
 

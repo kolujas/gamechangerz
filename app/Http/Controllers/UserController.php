@@ -19,6 +19,21 @@
         public function profile ($slug) {
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->abilities();
+            foreach ($user->reviews as $review) {
+                $review->abilities();
+                foreach ($review->abilities as $review_ability) {
+                    $review->stars = (isset($review->stars) ? $review->stars : 0) + $review_ability->stars;
+                    foreach ($user->abilities as $user_ability) {
+                        if ($user_ability->id_ability === $review_ability->id_ability) {
+                            $user_ability->stars = $user_ability->stars + $review_ability->stars;
+                        }
+                    }
+                }
+                $review->stars = $review->stars / count($review->abilities);
+            }
+            foreach ($user->abilities as $ability) {
+                $ability->stars = $ability->stars / count($user->reviews);
+            }
             $user->achievements();
             $user->files();
             $user->games();

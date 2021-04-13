@@ -2,7 +2,7 @@
     @if (count($posts))
         @foreach ($posts as $post)
             <li class="card mr-4">
-                <a href="/blog/{{ $post->slug }}">
+                <a href="/blog/{{ $post->id_user }}/{{ $post->slug }}">
                     <figure>
                         <img src={{ asset("storage/$post->image") }} alt="{{ $post->title }}: image">
                     </figure>

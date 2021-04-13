@@ -118,7 +118,9 @@
                 </button>
             </form>
             <main class="lg:col-span-5 xl:col-start-2 2xl:col-start-3">
-                @component('components.user.list')
+                @component('components.user.list', [
+                    'users' => $users,
+                ])
                 @endcomponent
             </main>
         </section>

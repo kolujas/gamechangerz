@@ -3,6 +3,8 @@
 
     use App\Models\Ability;
     use App\Models\Game;
+    use App\Models\Post;
+    use App\Models\User;
     use Illuminate\Http\Request;
 
     class DefaultController extends Controller {
@@ -34,9 +36,36 @@
         public function game ($slug) {
             $game = Game::search($slug);
             $game->abilities = Ability::parse($game->abilities);
+            $usersFound = User::where('id_role', '=', 1)->with('reviews')->get();
+            $users = collect([]);
+            foreach ($usersFound as $user) {
+                $user->abilities();
+                $user->files();
+                $user->games();
+                $user->idioms();
+                $user->teampro();
+                $user->prices();
+                foreach ($user->games as $game) {
+                    if ($game->id_game) {
+                        $users->push($user);
+                    }
+                }
+                $user->game_abilities = collect([]);
+                foreach ($user->games as $game) {
+                    $abilities = Ability::parse($game->abilities);
+                    foreach ($abilities as $ability) {
+                        $user->game_abilities->push($ability);
+                    }
+                }
+            }
+            $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->get();
+            foreach ($posts as $post) {
+                $post->date = $this->dateToHuman($post->updated_at);
+            }
             return view('web.game', [
                 'game' => $game,
-                'posts' => [],
+                'posts' => $posts,
+                'users' => $users,
             ]);
         }
 

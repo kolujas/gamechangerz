@@ -1,8 +1,8 @@
 <?php
     namespace App\Models;
 
-    use App\Model\Ability;
-    use App\Model\User;
+    use App\Models\Ability;
+    use App\Models\User;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'title', 'description', 'abilities',
+            'id_user_from', 'id_user_to', 'title', 'description', 'abilities', 'slug,'
         ];
 
         /**

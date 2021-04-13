@@ -56,19 +56,8 @@
          * @return array
          */
         public function abilities () {
-            $this->abilities = [['id_ability' => 1, 'stars' => 0],['id_ability' => 2, 'stars' => 0],['id_ability' => 3, 'stars' => 0],['id_ability' => 4, 'stars' => 0]];
-            foreach ($this->reviews as $review) {
-                foreach ($review->abilities as $review_ability) {
-                    $review_ability = (object) $review_ability;
-                    foreach ($this->abilities as $user_ability) {
-                        $user_ability = (object) $user_ability;
-                        if ($user_ability->id_ability === $review_ability->id_ability) {
-                            $user_ability->stars = $review_ability->stars;
-                        }
-                    }
-                }
-            }
-            $this->abilities = Ability::parse($this->abilities);
+            $abilities = [['id_ability' => 1, 'stars' => 0],['id_ability' => 2, 'stars' => 0],['id_ability' => 3, 'stars' => 0],['id_ability' => 4, 'stars' => 0]];
+            $this->abilities = Ability::parse($abilities);
         }
 
         /**
@@ -112,9 +101,14 @@
             $files = Folder::getFiles($this->folder);
             $this->files = collect([]);
             foreach ($files as $file) {
-                dd($file);
+                if (strpos($file, '-')) {
+                    $fileExplode = explode('-', $file);
+                    $fileExplode = explode('.', $fileExplode[1]);
+                    $this->files->push([$fileExplode[0] => $file]);
+                } else {
+                    $this->files->push($file);
+                }
             }
-            return $this->files;
         }
 
         /**

@@ -13,7 +13,7 @@
                         </figure>
                         <div class="diffculty flex justify-between align-center px-4 my-4">
                             <span class="color-white">Dificultad</span>
-                            <div class="flex">
+                            <div class="flex" title="{{ $ability->difficulty }}/5">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $ability->difficulty)
                                         @component('components.svg.estrellaSVG')@endcomponent

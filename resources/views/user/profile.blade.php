@@ -186,7 +186,7 @@
                                     <li class="card">
                                         <div class="color-white flex justify-between items-center md:p-2">
                                             <span>{{ $ability->name }}</span>
-                                            <div class="stars flex w-28 pl-4">
+                                            <div class="stars flex w-28 pl-4" title="{{ $ability->stars }}/5">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($i <= $ability->stars)
                                                         @component('components.svg.estrellaSVG')@endcomponent
@@ -326,7 +326,7 @@
                                     <div class="flex p-4">
                                         <div class="flex items-start flex-wrap">
                                             <span class="color-two font-bold pr-1">{{ $review->title }}</span>
-                                            <div class="flex">
+                                            <div class="flex" title="{{ $review->stars }}/5">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($i <= $review->stars)
                                                         @component('components.svg.estrellaSVG')@endcomponent
