@@ -25,3 +25,6 @@
 [submodule ".\\public\\submodules\\InputDateMakerJS"]
 	path = public/submodules/InputDateMakerJS
 	url = https://github.com/JuanCruzAGB/InputDateMakerJS.git
+[submodule ".\\public\\submodules\\ProvidersJS"]
+	path = .\\public\\submodules\\ProvidersJS
+	url = https://github.com/JuanCruzAGB/ProvidersJS.git
