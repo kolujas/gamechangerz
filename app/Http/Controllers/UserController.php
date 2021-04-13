@@ -29,18 +29,24 @@
                         }
                     }
                 }
-                $review->stars = $review->stars / count($review->abilities);
+                if (count($review->abilities)) {
+                    $review->stars = $review->stars / count($review->abilities);
+                }
             }
-            foreach ($user->abilities as $ability) {
-                $ability->stars = $ability->stars / count($user->reviews);
+            if (count($user->reviews)) {
+                foreach ($user->abilities as $ability) {
+                    $ability->stars = $ability->stars / count($user->reviews);
+                }
             }
             $user->achievements();
             $user->files();
             $user->games();
             $user->idioms();
+            $days = [];
             if ($user->id_role >= 1) {
                 $user->days();
                 $user->prices();
+                $days = Day::allDates($user->days);
             }
             $user->role();
             $user->teampro();
@@ -54,7 +60,6 @@
             foreach ($user->posts as $post) {
                 $post->date = $this->dateToHuman($post->updated_at);
             }
-            $days = Day::allDates($user->days);
             return view('user.profile', [
                 'user' => $user,
                 'days' => $days,

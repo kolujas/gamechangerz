@@ -67,7 +67,7 @@
                         </li>
                         <li class="color-white pb-4">
                             <span>Amigos:</span>
-                            <span>class="color-four font-bold">23</span>
+                            <span class="color-four font-bold">23</span>
                         </li>
                     </ul>
                 </div>
@@ -75,7 +75,7 @@
 
             <section class="games xl:col-span-3 2xl:col-span-4 xl:relative md:px-8 lg:px-0 mb-8">
                 @component('components.game.list', [
-                    'games' => $games,
+                    'games' => $user->games,
                 ])
                 @endcomponent
             </section>       
@@ -105,7 +105,7 @@
                     <li class="card">
                         <div class="flex p-4">
                             <div class="reseñas-user flex items-start flex-wrap">
-                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
+                                <aside style="background:url({{ asset('img/games/counter-strike-go/01-background.png') }}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Velocidad</span>
                                     @component('components.svg.MovilidadSVG')@endcomponent
@@ -168,7 +168,7 @@
                                 <ul class="idioms flex items-center ml-2">
                                     @foreach ($user->idioms as $idiom)
                                         <li class="mr-2" title={{ $idiom->name }}>@component($idiom->svg)@endcomponent</li>
-                                    @endforeach               
+                                    @endforeach
                                 </ul>
                             </section>
                             
