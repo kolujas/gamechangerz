@@ -82,12 +82,12 @@
             
             <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
                 <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
-                    <h3 class="color-white">Reseñas</h3>
+                    <h3 class="color-white">Habilidades</h3>
                 </header>
                 <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="reseñas-user flex items-start flex-wrap">
+                            <div class="abilities-user flex items-start flex-wrap">
                                 <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Puntería</span>
@@ -104,7 +104,7 @@
                     </li>
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="reseñas-user flex items-start flex-wrap">
+                            <div class="abilities-user flex items-start flex-wrap">
                                 <aside style="background:url({{ asset('img/games/counter-strike-go/01-background.png') }}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Velocidad</span>
@@ -121,7 +121,7 @@
                     </li>
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="reseñas-user flex items-start flex-wrap">
+                            <div class="abilities-user flex items-start flex-wrap">
                                 <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Estrategia</span>
@@ -138,7 +138,7 @@
                     </li>
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="reseñas-user flex items-start flex-wrap">
+                            <div class="abilities-user flex items-start flex-wrap">
                                 <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Gamesense</span>
@@ -155,6 +155,84 @@
                     </li>
                 </ul>
             </section>
+
+
+            <section class="reviews-user reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
+                <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
+                    <h3 class="color-white">Reseñas</h3>
+                </header>
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
+                    <li class="card">
+                        <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota">
+                            <div class="reviews-user flex items-start flex-wrap col-span-2">
+                                <div class="color-white font-bold pr-1 flex flex-auto">
+                                    <span class="mr-2">Puntería</span>
+                                    @component('components.svg.PunteriaSVG')@endcomponent
+                                </div>
+                            </div>
+                            @component('components.game.list', [
+                                "games" => $user->games
+                            ])                                    
+                            @endcomponent
+                            <div class="reviews-user flex items-start flex-wrap">
+                                <ul class="w-full">
+                                    <li div class="flex justify-between">
+                                        <span class="color-white">Precisión</span> 
+                                        <div class="flex">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </li>
+                                    <li div class="flex justify-between">
+                                        <span class="color-white">Precisión</span> 
+                                        <div class="flex">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </li>
+                                    <li div class="flex justify-between">
+                                        <span class="color-white">Precisión</span> 
+                                        <div class="flex">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </li>
+                                    <li div class="flex justify-between">
+                                        <span class="color-white">Precisión</span> 
+                                        <div class="flex">
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.EstrellaSVG')@endcomponent
+                                            @component('components.svg.Estrella2SVG')@endcomponent
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <figure>
+                                <img src="{{ asset('/img/games/counter-strike-go/device.svg') }}" alt="Device">
+                            </figure>
+                            <header>
+                                <div class="grid grid-cols-2">
+                                    <h3 class="color-white text-2xl col-span-2">dev1ce</h3>
+                                    <span class="color-white">Nicolai</span>
+                                    <span class="row-span-2">
+                                        @component('components.svg.TeamSVG')@endcomponent
+                                    </span>
+                                    <span class="color-white">Rdeetz</span>
+                                    <a class="btn btn-one mt-4" href="">
+                                        <span>Leer más</span>
+                                    </a>
+                                </div>
+                            </header>
+                        </div>
+                        
+                    </li>
+                </ul>
+            </section>
+
+           
         </section>
     @else
         {{-- Perfil del Profesor --}}

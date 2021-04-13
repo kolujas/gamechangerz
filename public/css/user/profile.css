@@ -205,16 +205,16 @@
     order: 1;
 }
 
-.user .reseñas-user{
+.user .abilities-user{
     background: var(--color-black);
     padding: 1rem;
 }
 
-.user .reseñas-user{
+.user .abilities-user{
     position: relative;
 }
 
-.user .reseñas-user aside{
+.user .abilities-user aside{
     position: absolute;
     top: 0;
     left: 0;
@@ -223,6 +223,35 @@
     opacity: .2;
     z-index: 2;
 }
+
+/* reseñas user */
+
+.user .cardota{
+    background: var(--color-black);
+}
+
+.user .cards .games{
+    margin-top: 0;
+}
+
+.user .cards .games li{
+    padding-top: 0rem;
+}
+
+.user .games figure{
+    height: 6rem;
+}
+
+.user .degradado{
+    font-size: 0.875rem;
+}
+
+.user .btn.btn-one{
+    --color-one: var(--color-four);
+    --color-two: var(--color-five);
+}
+
+
 
 
 /* ? MD */
