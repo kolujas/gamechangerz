@@ -288,6 +288,51 @@
     .teacher .tab-menu .btn:hover i {
         right: 33%;
     }
+
+    /* user */
+
+    .user .user-data{
+        width: 100%;
+    }
+
+    .user .games .cards{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 0 auto;
+    }
+
+    .user .games .cards li{
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+
+    .user .games .cards li:is(:nth-last-of-type(2), :last-of-type()){
+        margin-bottom: 0;
+    }
+
+    .user .games .cards li:nth-of-type(2n + 1){
+        margin-right: 1rem;
+        padding: 0;
+    }
+
+    .user .reviews{
+        grid-column: span 3 / span 3;
+    }
+
+    .user .iconos-list svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* reseñas */
+
+    .reviews-user .cards{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .user .reviews-user .cardota .games{
+        order: 5;
+    }
+
 }
 
 /* ? LG */
@@ -358,6 +403,7 @@
     .teacher .tab-menu .btn {
         width: 100%;
     }
+
 }
 
 /* ? XL */
