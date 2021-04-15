@@ -171,26 +171,26 @@
 
 /* usuario */
 
-.user-data{
+.user .data{
     background-color: var(--color-black);
     width: 70%;
 }
 
-.looking-for-teammate{
+.user .data .tag span{
+    padding-left: 2.4rem;
+}
+
+.user .data .tag .teammate{
     position: relative;
 }
 
-.looking-for-teammate span{
+.user .data .tag .teammate span{
     position: absolute;
     top: -4rem;
     right: -1rem;
 }
 
-.user .user-tag span{
-    padding-left: 2.4rem;
-}
-
-.user .iconos-list svg{
+.user .icons-list svg{
     object-fit: contain;
     width: 40px;
     height: 33px;
@@ -205,16 +205,14 @@
     order: 1;
 }
 
-.user .reseñas-user{
+.user > .abilities li > div{
     background: var(--color-black);
     padding: 1rem;
-}
-
-.user .reseñas-user{
+    margin-bottom: 1rem;
     position: relative;
 }
 
-.user .reseñas-user aside{
+.user .abilities .ability aside{
     position: absolute;
     top: 0;
     left: 0;
@@ -223,6 +221,54 @@
     opacity: .2;
     z-index: 2;
 }
+
+/* reseñas user */
+
+.user .cardota{
+    background: var(--color-black);
+    z-index: -2;
+    border: 1px solid;
+    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+    position: relative;
+}
+
+.user .cardota::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: .5;
+    background:url(/img/01-background.png) no-repeat center center;
+    background-size: cover;
+}
+
+.user .cards .games{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.user .cards .games li{
+    padding-top: 0rem;
+}
+
+.user .games figure{
+    height: 6rem;
+}
+
+.user .degradado{
+    font-size: 0.875rem;
+}
+
+.user .btn.btn-one{
+    --color-one: var(--color-four);
+    --color-two: var(--color-five);
+}
+
+
 
 
 /* ? MD */
@@ -259,6 +305,64 @@
     .teacher .tab-menu .btn:hover i {
         right: 33%;
     }
+
+    /* user */
+
+    .user .data{
+        width: 100%;
+    }
+
+    .user .games .cards{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 0 auto;
+    }
+
+    .user .games .cards li{
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+
+    .user .games .cards li:is(:nth-last-of-type(2), :last-of-type()){
+        margin-bottom: 0;
+    }
+
+    .user .games .cards li:nth-of-type(2n + 1){
+        margin-right: 1rem;
+        padding: 0;
+    }
+
+    .user .reviews{
+        grid-column: span 3 / span 3;
+    }
+
+    .user .icons-list svg {
+        width: 30px;
+        height: 30px;
+    }
+
+
+    /* abilities */
+
+    .user .abilities li > div{
+        height: 100%;
+    }
+
+    .user .abilities li > div > div{
+        height: fit-content;
+    }
+
+    /* reseñas */
+
+    /* .user .reviews .abilities .cards{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    } */
+
+    .user .reviews .cardota .games{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    
+
 }
 
 /* ? LG */
@@ -309,7 +413,7 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+    .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
         padding-right: 0;
     }
 
@@ -329,6 +433,28 @@
     .teacher .tab-menu .btn {
         width: 100%;
     }
+
+    .user .abilities .ability{
+        min-height: 10.5rem;
+    }
+
+    .user .games li{
+        width: 12rem;
+        margin-left: 0;
+    }
+
+    .user .reviews-user .games{
+        margin-left: 0;
+        margin-bottom: 5rem;
+    }
+
+
+    .user .reviews-user .deviceFigure img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;        
+    }
+
 }
 
 /* ? XL */
@@ -363,11 +489,11 @@
         padding-right: 12rem;
     }
 
-    .teacher .achievements ul li:first-of-type, .reviews ul li:first-of-type {
+    .teacher .achievements ul li:first-of-type, .teacher .reviews ul li:first-of-type {
         padding-left: calc(100vw / 7);
     }
 
-    .teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+    .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
         padding-right: calc(100vw / 7);
     }
 
