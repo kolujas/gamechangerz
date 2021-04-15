@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         SantiGraviano\LaravelMercadoPago\Providers\MercadoPagoServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*

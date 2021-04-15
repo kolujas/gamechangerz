@@ -16,9 +16,10 @@
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
+    use Laravel\Passport\HasApiTokens;
 
     class User extends Authenticatable {
-        use HasFactory, Notifiable;
+        use HasApiTokens, HasFactory, Notifiable;
 
         /** @var string Table name */
         protected $table = 'users';
@@ -50,6 +51,19 @@
         protected $casts = [
             'email_verified_at' => 'datetime',
         ];
+        
+        /**
+         * * The Sluggable configuration for the Model.
+         * @return array
+         */
+        public function sluggable () {
+            return [
+                'slug' => [
+                    'source'	=> 'name',
+                    'onUpdate'	=> true,
+                ]
+            ];
+        }
 
         /**
          * * Get the User Abilities.

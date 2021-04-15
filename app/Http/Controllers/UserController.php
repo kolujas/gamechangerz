@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Ability;
+    use App\Models\Auth as AuthModel;
     use App\Models\Day;
     use App\Models\Game;
     use App\Models\Lesson;
@@ -16,7 +17,12 @@
          * @param string $slug User slug.
          * @return [type]
          */
-        public function profile ($slug) {
+        public function profile (Request $request, $slug) {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->abilities();
             foreach ($user->reviews as $review) {
@@ -63,6 +69,11 @@
             return view('user.profile', [
                 'user' => $user,
                 'days' => $days,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ]],
             ]);
         }
 
@@ -71,6 +82,11 @@
          * @return [type]
          */
         public function search () {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             return view('user.search', [
                 // ? Data
             ]);
@@ -83,6 +99,11 @@
          * @return [type]
          */
         public function checkout ($slug, $type) {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
             $user->prices();
             foreach ($user->lessons as $lesson) {
@@ -97,6 +118,9 @@
             return view('user.checkout', [
                 'user' => $user,
                 'type' => $type,
+                'validation' => [
+                    //
+                ],
             ]);
         }
     }

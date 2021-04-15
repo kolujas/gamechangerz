@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Ability;
+    use App\Models\Auth as AuthModel;
     use App\Models\Game;
     use App\Models\Post;
     use App\Models\User;
@@ -12,9 +13,19 @@
          * * Control the index page.
          * @return [type]
          */
-        public function index () {
+        public function index (Request $request) {
+            $error = null;
+            if ($request->session()->has('error')) {
+                $error = (object) $request->session()->pull('error');
+            }
             return view('web.home', [
                 'games' => Game::getOptions(),
+                'error' => $error,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ]],
             ]);
         }
 
@@ -23,6 +34,11 @@
          * @return [type]
          */
         public function comingSoon () {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             return view('web.coming_soon', [
                 // ? Data
             ]);
@@ -34,6 +50,11 @@
          * @return [type]
          */
         public function game ($slug) {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             $game = Game::search($slug);
             $game->abilities = Ability::parse($game->abilities);
             $usersFound = User::where('id_role', '=', 1)->with('reviews')->get();
@@ -66,6 +87,11 @@
                 'game' => $game,
                 'posts' => $posts,
                 'users' => $users,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ]],
             ]);
         }
 
@@ -74,8 +100,18 @@
          * @return [type]
          */
         public function home () {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             return view('web.home', [
                 'games' => Game::getOptions(),
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ]],
             ]);
         }
 
@@ -84,6 +120,11 @@
          * @return [type]
          */
         public function privacyPolitics () {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             return view('web.privacy_politics', [
                 // ? Data
             ]);
@@ -94,6 +135,11 @@
          * @return [type]
          */
         public function termsAndContidions () {
+            $error = null;
+            if($request->session()->has('error')){
+                $error = (object) $request->session()->pull('error');
+                dd($error);
+            }
             return view('web.terms_&_contidions', [
                 // ? Data
             ]);

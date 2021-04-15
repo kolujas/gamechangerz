@@ -7,18 +7,20 @@
                     @endcomponent
                 </div>
                 <div class="col-span-2 grid grid-cols-1 items-center">
-                    <span>Nickname</span>
-                    <span>Name</span>
+                    <span>{{ Auth::user()->username }}</span>
+                    <span>{{ Auth::user()->name }}</span>
                 </div>
             </a>
             <a href="#menu" class="sidebar-button close-btn left hidden">
                 <span class="link-text">Close</span>
             </a>
-            <span class="sidebar-link">
-                <span class="link-text">200 Créditos</span>
-            </span>
+            @if (Auth::user()->credits)
+                <span class="sidebar-link">
+                    <span class="link-text">{{ Auth::user()->credits }} Créditos</span>
+                </span>
+            @endif
         @else
-            <a href="#" class="sidebar-title grid grid-cols-3 items-center">
+            <a href="#login" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
                     <i class="link-icon fas fa-sign-in-alt"></i>
                 </div>

@@ -11,12 +11,12 @@
         static $validation = [
             'login' => [
                 'rules' => [
-                    'data' => 'required',
-                    'password' => 'required',
+                    'login_data' => 'required',
+                    'login_password' => 'required',
                 ], 'messages' => [
                     'es' => [
-                        'data.required' => 'El correo o el nombre de usuario es obligatorio.',
-                        'password.required' => 'La contraseña es obligatoria.',
+                        'login_data.required' => 'El correo o el nombre de usuario son obligatorios.',
+                        'login_password.required' => 'La contraseña es obligatoria.',
             ]]], 'signin' => [
                 'rules' => [
                     //

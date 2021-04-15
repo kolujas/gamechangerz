@@ -39,19 +39,19 @@
 				@if (Auth::user()->credits)
 					<li>
 						<span class="nav-link">
-							<span class="link-text">200 Créditos</span>
+							<span class="link-text">{{ Auth::user()->credits }} Créditos</span>
 						</span>
 					</li>
 				@endif
 				<li>
-					<a href="/user/{Auth::user()->slug}/profile" class="nav-link">
+					<a href="/user/{{ Auth::user()->slug }}/profile" class="nav-link">
 						@component('components.svg.Group 15SVG')
 						@endcomponent
 					</a>
 				</li>
 			@else
 				<li>
-					<a href="/blog" class="nav-link">
+					<a href="#login" class="nav-link">
 						<i class="link-icon fas fa-sign-in-alt"></i>
 						<span class="link-text">Ingresar</span>
 					</a>

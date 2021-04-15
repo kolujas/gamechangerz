@@ -26,20 +26,20 @@
 
         /** @var array Lesson options */
         static $options = [[
-                'id_type' => 1,
-                'name' => 'Online',
-                'svg' => 'svg/ClaseOnline1SVG.svg',
-                'slug' => 'online',
-            ], [
-                'id_type' => 2,
-                'name' => 'Offline',
-                'svg' => 'svg/ClaseOnline1SVG.svg',
-                'slug' => 'offline',
-            ], [
-                'id_type' => 3,
-                'name' => 'Packs',
-                'svg' => 'svg/ClaseOnline3SVG.svg',
-                'slug' => 'packs',
+            'id_type' => 1,
+            'name' => 'Online',
+            'svg' => 'svg/ClaseOnline1SVG.svg',
+            'slug' => 'online',
+        ], [
+            'id_type' => 2,
+            'name' => 'Offline',
+            'svg' => 'svg/ClaseOnline1SVG.svg',
+            'slug' => 'offline',
+        ], [
+            'id_type' => 3,
+            'name' => 'Packs',
+            'svg' => 'svg/ClaseOnline3SVG.svg',
+            'slug' => 'packs',
         ]];
 
         /**
@@ -94,20 +94,20 @@
 
         /** @var array Validation rules & messages. */
         static $validation = [
-            'checkout' => [
-                'online' => [
-                    'rules' => [
-                        'dates' => 'required',
-                        'hours' => 'required',
-                    ], 'messages' => [
-                        'es' => [
-                            'dates.required' => 'La fecha de la clase debe ser seleccionada.',
-                            'hours.required' => 'El horario de la clase debe ser seleccionada.',
-            ]]]], 'signin' => [
+        'checkout' => [
+            'online' => [
                 'rules' => [
-                    //
+                    'dates' => 'required',
+                    'hours' => 'required',
                 ], 'messages' => [
                     'es' => [
-                        //
+                        'dates.required' => 'La fecha de la clase debe ser seleccionada.',
+                        'hours.required' => 'El horario de la clase debe ser seleccionada.',
+        ]]]], 'signin' => [
+            'rules' => [
+                //
+            ], 'messages' => [
+                'es' => [
+                    //
         ]]]];
     }

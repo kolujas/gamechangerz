@@ -32,9 +32,18 @@
         {{-- ? External Repositories js --}}
 
         {{-- ? Global JS --}}
+        <script>
+            var validation = @json($validation);
+        </script>
         <script type="module" src={{ asset('js/script.js') }}></script>
 
         {{-- ? Added extras section --}}
         @yield('extras')
+
+        {{-- ? Auth modal --}}
+        @component('components.modal.layouts.auth', [
+            'errors' => ($errors ? $errors : []),
+        ])
+        @endcomponent
     </body>
 </html>

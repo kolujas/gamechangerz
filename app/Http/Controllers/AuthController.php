@@ -3,6 +3,8 @@
 
     use App\Models\Auth as Model;
     use App\Models\User;
+    use Auth;
+    use Carbon\Carbon;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
@@ -17,12 +19,12 @@
             $input = (object) $request->all();
 
             $validator = Validator::make($request->all(), Model::$validation['login']['rules'], Model::$validation['login']['messages']['es']);
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            if(!Auth::attempt(['password' => $input->password, 'email' => $input->data], isset($input->remember))){
-                if(!Auth::attempt(['password' => $input->password, 'username' => $input->data], isset($input->remember))){
+            if (!Auth::attempt(['password' => $input->login_password, 'email' => $input->login_data], isset($input->login_remember))) {
+                if (!Auth::attempt(['password' => $input->login_password, 'username' => $input->login_data], isset($input->login_remember))) {
                     return redirect()->back()->withInput()->with('status', [
                         'code' => 401,
                         'message' => 'Correo, nombre de usuario, y/o contraseña incorrectos.',
@@ -31,7 +33,8 @@
             }
 
             $user = Auth::user();
-            return redirect("/user/$user->slug/profile");
+            
+            return redirect("/users/$user->slug/profile");
         }
 
         /**
@@ -43,7 +46,7 @@
             $input = (object) $request->all();
 
             $validator = Validator::make($request->all(), Model::$validation['signin']['rules'], Model::$validation['signin']['messages']['es']);
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
