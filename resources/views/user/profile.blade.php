@@ -17,14 +17,14 @@
     @if ($user->id_role < 1)
         {{-- Perfil del Usuario --}}
         <section class="user md:grid md:grid-cols-3 md:gap-4">
-            <section class="user-data p-8 mx-auto my-8 md:ml-8">
-                <header class="user-tag">
+            <section class="data p-8 mx-auto my-8 md:ml-8">
+                <header class="tag">
                     <div class="pr-2 flex">
                         @component('components.svg.Group 15SVG')
                         @endcomponent
                         <h3 class="color-white ml-6">Fjacuzzy</h3>
                     </div>
-                    <div class="looking-for-teammate">
+                    <div class="teammate">
                         <span>
                             @component('components.svg.ChoqueSVG')
                             @endcomponent
@@ -33,7 +33,7 @@
                     <span class="font-bold color-four ml-6">Facundo Sarassola</span>
                 </header>
                 
-                <ul class="iconos-list flex justify-center mt-8">
+                <ul class="icons-list flex justify-center mt-8">
                     <li class="px-2">
                         @component('components.svg.Premio1SVG')
                         @endcomponent
@@ -55,7 +55,7 @@
                     </li>
                 </ul>
     
-                <div>
+                <div class="info">
                     <ul class="pt-8">
                         <li class="color-white pb-4">
                             <span>Total clases tomadas:</span> 
@@ -80,14 +80,14 @@
                 @endcomponent
             </section>       
             
-            <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
+            <section class="abilities relative lg:col-span-2 md:col-span-3 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
                 <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                     <h3 class="color-white">Habilidades</h3>
                 </header>
-                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 md:grid md:grid-cols-4 md:gap-4 mb-4">
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="abilities-user flex items-start flex-wrap">
+                            <div class="ability flex items-start flex-wrap">
                                 <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Puntería</span>
@@ -104,7 +104,7 @@
                     </li>
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="abilities-user flex items-start flex-wrap">
+                            <div class="ability flex items-start flex-wrap">
                                 <aside style="background:url({{ asset('img/games/counter-strike-go/01-background.png') }}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Velocidad</span>
@@ -121,7 +121,7 @@
                     </li>
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="abilities-user flex items-start flex-wrap">
+                            <div class="ability flex items-start flex-wrap">
                                 <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Estrategia</span>
@@ -138,7 +138,7 @@
                     </li>
                     <li class="card">
                         <div class="flex p-4">
-                            <div class="abilities-user flex items-start flex-wrap">
+                            <div class="ability flex items-start flex-wrap">
                                 <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Gamesense</span>
@@ -157,14 +157,14 @@
             </section>
 
 
-            <section class="reviews-user reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
+            <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
                 <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                     <h3 class="color-white">Reseñas</h3>
                 </header>
-                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4 md:order-5">
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
                     <li class="card">
                         <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota md:grid-cols-4">
-                            <div class="reviews-user flex items-start flex-wrap col-span-2 md:col-span-1 md:order-1">
+                            <div class="ability flex items-start flex-wrap col-span-2 md:col-span-4">
                                 <div class="color-white font-bold pr-1 flex flex-auto">
                                     <span class="mr-2">Puntería</span>
                                     @component('components.svg.PunteriaSVG')@endcomponent
@@ -174,7 +174,7 @@
                                 "games" => $user->games
                             ])                                    
                             @endcomponent
-                            <div class="reviews-user flex items-start flex-wrap md:row-span-2 md:order-2 md:mt-8">
+                            <div class="abilities flex items-start flex-wrap">
                                 <ul class="w-full">
                                     <li div class="flex justify-between">
                                         <span class="color-white">Precisión</span> 
@@ -210,10 +210,13 @@
                                     </li>
                                 </ul>
                             </div>
-                            <figure class="md:row-span-2 md:order-3 md:mt-8">
-                                <img src="{{ asset('/img/games/counter-strike-go/device.svg') }}" alt="Device">
-                            </figure>
-                            <header class="md:row-span-2 md:order-4 md:mt-8">
+                            <div>
+                                <figure>
+                                    <img src="{{ asset('/img/games/counter-strike-go/device.svg') }}" alt="Device">
+                                </figure>
+                            </div>
+                            
+                            <header>
                                 <div class="grid grid-cols-2">
                                     <h3 class="color-white text-2xl col-span-2">dev1ce</h3>
                                     <span class="color-white">Nicolai</span>
@@ -231,8 +234,6 @@
                     </li>
                 </ul>
             </section>
-
-           
         </section>
     @else
         {{-- Perfil del Profesor --}}
