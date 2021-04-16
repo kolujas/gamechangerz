@@ -171,23 +171,22 @@
 
 /* usuario */
 
-.user .data{
+.user .data > div{
     background-color: var(--color-black);
-    width: 70%;
 }
 
-.user .data .tag span{
-    padding-left: 2.4rem;
-}
-
-.user .data .tag .teammate{
+.user .data .tag{
     position: relative;
 }
 
-.user .data .tag .teammate span{
+.user .data .tag .username span {
+    white-space: nowrap;
+}
+
+.user .data .tag .teammate{
     position: absolute;
-    top: -4rem;
-    right: -1rem;
+    top: 0;
+    right: 0;
 }
 
 .user .icons-list svg{
@@ -434,16 +433,33 @@
         width: 100%;
     }
 
-    .user .abilities .ability{
-        min-height: 10.5rem;
+    .user .reviews{
+        grid-column: span 2 / span 2;
+    }
+
+    .user .data{
+        width: 100%;
+        position: sticky;
+        top: 1rem;
+        height: fit-content;
     }
 
     .user .games li{
-        width: 12rem;
+        /* width: 12rem; */
         margin-left: 0;
     }
 
-    .user .reviews-user .games{
+    .user .games .cards{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .user .games .cards li:nth-of-type(2n + 1){
+        margin-right: 0;
+        padding: 0;
+    }
+
+    /* .user .reviews-user .games{
         margin-left: 0;
         margin-bottom: 5rem;
     }
@@ -453,7 +469,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;        
-    }
+    } */
 
 }
 
@@ -521,6 +537,14 @@
         right: 0;
         background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
     }
+
+    .user .reviews{
+        grid-column: span 3 / span 3;
+    }
+
+    .user .games .cards{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 /* ? 2XL */
@@ -547,11 +571,11 @@
         padding-right: 22rem;
     }
 
-    .teacher .achievements ul li:first-of-type, .reviews ul li:first-of-type {
+    .teacher .achievements ul li:first-of-type, .teacher .reviews ul li:first-of-type {
         padding-left: calc((100vw / 9) * 2);
     }
 
-    .teacher .achievements ul li:last-of-type, .reviews ul li:last-of-type {
+    .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
         padding-right: calc(100vw / 9);
     }
 
@@ -569,5 +593,13 @@
     .teacher .achievements .cards::after,
     .teacher .reviews .cards::after {
         width: calc(100vw / 9);
+    }
+
+    .user .games .cards{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .user .reviews{
+        grid-column: span 4 / span 4;
     }
 }

@@ -16,75 +16,79 @@
 @section('main')
     @if ($user->id_role < 1)
         {{-- Perfil del Usuario --}}
-        <section class="user md:grid md:grid-cols-3 md:gap-4">
-            <section class="data p-8 mx-auto my-8 md:ml-8">
-                <header class="tag">
-                    <div class="pr-2 flex">
-                        @component('components.svg.Group 15SVG')
-                        @endcomponent
-                        <h3 class="color-white ml-6">Fjacuzzy</h3>
-                    </div>
-                    <div class="teammate">
-                        <span>
-                            @component('components.svg.ChoqueSVG')
+        <section class="user md:grid md:grid-cols-3 xl:grid-cols-7 2xl:grid-cols-9 md:gap-4 lg:relative">
+            <section class="data mb-8 md:pl-8 md:mt-8 lg:row-span-3 xl:col-start-2 xl:col-span-2 xl:px-0 2xl:col-start-3">
+                <div class="p-8">
+                    <header class="tag flex items-center">
+                        <div class="pr-2">
+                            @component('components.svg.Group 15SVG')
                             @endcomponent
-                        </span>
-                    </div>
-                    <span class="font-bold color-four ml-6">Facundo Sarassola</span>
-                </header>
-                
-                <ul class="icons-list flex justify-center mt-8">
-                    <li class="px-2">
-                        @component('components.svg.Premio1SVG')
-                        @endcomponent
-                    </li>
-                    <li class="px-2">
-                        @component('components.svg.Premio2SVG')
-                        @endcomponent
-                    </li>
-                    <li class="px-2">
-                        @component('components.svg.Premio3SVG')
-                        @endcomponent
-                    </li>
-                    <li class="px-2">
-                        @component('components.svg.Premio4SVG')
-                        @endcomponent
-                    </li>
-                    <li class="px-2"> @component('components.svg.Premio5SVG')
-                        @endcomponent
-                    </li>
-                </ul>
-    
-                <div class="info">
-                    <ul class="pt-8">
-                        <li class="color-white pb-4">
-                            <span>Total clases tomadas:</span> 
-                            <span class="color-four font-bold">16</span>
+                        </div>
+                        <div class="username">
+                            <h3 class="color-white">Fjacuzzy</h3>
+                            <span class="font-bold color-four">Facundo Sarassola</span>
+                        </div>
+                        <div class="teammate">
+                            <span>
+                                @component('components.svg.ChoqueSVG')
+                                @endcomponent
+                            </span>
+                        </div>
+                    </header>
+                    
+                    <ul class="icons-list flex justify-center mt-8">
+                        <li class="px-2">
+                            @component('components.svg.Premio1SVG')
+                            @endcomponent
                         </li>
-                        <li class="color-white pb-4">
-                            <span>Cantidad de horas:</span> 
-                            <span class="color-four font-bold">196</span>
+                        <li class="px-2">
+                            @component('components.svg.Premio2SVG')
+                            @endcomponent
                         </li>
-                        <li class="color-white pb-4">
-                            <span>Amigos:</span>
-                            <span class="color-four font-bold">23</span>
+                        <li class="px-2">
+                            @component('components.svg.Premio3SVG')
+                            @endcomponent
+                        </li>
+                        <li class="px-2">
+                            @component('components.svg.Premio4SVG')
+                            @endcomponent
+                        </li>
+                        <li class="px-2"> @component('components.svg.Premio5SVG')
+                            @endcomponent
                         </li>
                     </ul>
+        
+                    <div class="info">
+                        <ul class="pt-8">
+                            <li class="color-white pb-4">
+                                <span>Total clases tomadas:</span> 
+                                <span class="color-four font-bold">16</span>
+                            </li>
+                            <li class="color-white pb-4">
+                                <span>Cantidad de horas:</span> 
+                                <span class="color-four font-bold">196</span>
+                            </li>
+                            <li class="color-white pb-4">
+                                <span>Amigos:</span>
+                                <span class="color-four font-bold">23</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <section class="games xl:col-span-3 2xl:col-span-4 md:col-span-2 xl:relative md:px-8 md:my-8 md:mr-8 lg:px-0 mb-8">
+            <section class="games xl:col-span-3 2xl:col-span-4 md:col-span-2 xl:relative md:px-8 md:my-8 md:mr-8 lg:px-0 mb-8 xl:mx-0">
                 @component('components.game.list', [
                     'games' => $user->games,
                 ])
                 @endcomponent
             </section>       
             
-            <section class="abilities relative lg:col-span-2 md:col-span-3 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
-                <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
+            <section class="abilities relative lg:col-span-2 md:col-span-3 xl:col-span-3 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0">
+                <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                     <h3 class="color-white">Habilidades</h3>
                 </header>
-                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 md:grid md:grid-cols-4 md:gap-4 mb-4">
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 md:grid md:grid-cols-4 lg:grid-cols-2 md:gap-4 mb-4">
                     <li class="card">
                         <div class="flex p-4">
                             <div class="ability flex items-start flex-wrap">
@@ -156,12 +160,11 @@
                 </ul>
             </section>
 
-
-            <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-5 xl:grid xl:grid-cols-4 mb-8 lg:mb-0">
-                <header class="px-8 xl:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
+            <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0">
+                <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                     <h3 class="color-white">Reseñas</h3>
                 </header>
-                <ul class="cards flex flex-col md:flex-row px-8 pb-4 xl:px-0 xl:col-span-4 mb-4">
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 mb-4">
                     <li class="card">
                         <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota md:grid-cols-4">
                             <div class="ability flex items-start flex-wrap col-span-2 md:col-span-4">
