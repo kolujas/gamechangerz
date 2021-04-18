@@ -36,6 +36,20 @@
 
     <div class="sidebar-content">
         <ul class="sidebar-menu-list">
+            @if (Auth::check())
+                @if (Auth::user()->credits)
+                    <li>
+                        <span class="nav-link">
+                            <span class="link-text">{{ Auth::user()->credits }} Créditos</span>
+                        </span>
+                    </li>
+                @endif
+                <li>
+                    <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-link nav-link p-0">
+                        <span class="link-text">Ver Perfíl</span>
+                    </a>
+                </li>
+            @endif
             <li>
                 <a href="/search" class="sidebar-link nav-link p-0">
                     <span class="link-text">Profesores</span>
@@ -46,6 +60,13 @@
                     <span class="link-text">Novedades</span>
                 </a>
             </li>
+            @if (Auth::check())
+                <li>
+                    <a href="/logout" class="sidebar-link nav-link p-0">
+                        <span class="link-text">Cerrar Sesión</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 

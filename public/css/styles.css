@@ -1,6 +1,6 @@
 @import './components/styles.css';
 
-* {
+:root {
     --color-one: #281B2D;
     --color-two: #745481;
     --color-three: #846D9D;
@@ -11,9 +11,8 @@
     --color-grey: #8F8C90;
     --font-one: ;  /* Tipografia para encabezados */
     --font-two: ;  /* Tipografia para textos */
-}
 
-.nav-menu {
+    /* ? NavMenu */
     --navmenu-title-color: var(--color-white);
     --navmenu-button-color: var(--color-white);
     --navmenu-button-color-alternative: var(--color-four);
@@ -23,6 +22,30 @@
     --navmenu-border-color-alternative: purple;
     --navmenu-icon-color: var(--color-five);
     --navmenu-icon-color-alternative: var(--color-four);
+
+    /* ? Sideabar */
+    --sidebar-title-color: var(--color-white);
+    --sidebar-button-color: var(--color-white);
+    --sidebar-button-color-alternative: var(--color-four);
+    --sidebar-background-color: var(--color-black);
+    --sidebar-background-color-alternative: var(--color-black);
+    --sidebar-border-color: transparent;
+    --sidebar-border-color-alternative: purple;
+    --sidebar-icon-color: purple;
+    --sidebar-icon-color-alternative: purple;
+    
+    /* ? Dropdown */
+    --dropdown-header-color: purple;
+    --dropdown-header-color-alternative: purple;
+    --dropdown-header-background-color: transparent;
+    --dropdown-header-background-color-alternative: transparent;
+    --dropdown-content-color: purple;
+    --dropdown-content-color-alternative: purple;
+    --dropdown-content-background-color: var(--color-black);
+    --dropdown-content-background-color-alternative: purple;
+}
+
+.nav-menu {
     background: var(--color-black);
 }
 

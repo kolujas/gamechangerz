@@ -36,18 +36,30 @@
 				</a>
 			</li>
 			@if (Auth::check())
-				@if (Auth::user()->credits)
-					<li>
-						<span class="nav-link">
-							<span class="link-text">{{ Auth::user()->credits }} Créditos</span>
-						</span>
-					</li>
-				@endif
-				<li>
-					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link">
+				<li id="nav-user" class="dropdown closed">
+					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">
 						@component('components.svg.Group 15SVG')
 						@endcomponent
 					</a>
+					<ul class="dropdown-content px-4">
+						@if (Auth::user()->credits)
+							<li>
+								<span class="nav-link">
+									<span class="link-text">{{ Auth::user()->credits }} Créditos</span>
+								</span>
+							</li>
+						@endif
+						<li>
+							<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-link">
+								<span class="link-text">Ver Perfíl</span>
+							</a>
+						</li>
+						<li>
+							<a href="/logout" class="nav-link dropdown-link">
+								<span class="link-text">Cerrar Sesión</span>
+							</a>
+						</li>
+					</ul>
 				</li>
 			@else
 				<li>

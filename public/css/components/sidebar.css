@@ -1,15 +1,3 @@
-.sidebar {
-    --sidebar-title-color: var(--color-white);
-    --sidebar-button-color: var(--color-white);
-    --sidebar-button-color-alternative: var(--color-color-four);
-    --sidebar-background-color: var(--color-black);
-    --sidebar-background-color-alternative: var(--color-black);
-    --sidebar-border-color: transparent;
-    --sidebar-border-color-alternative: purple;
-    --sidebar-icon-color: purple;
-    --sidebar-icon-color-alternative: purple;
-}
-
 .sidebar .sidebar-header,
 .sidebar .sidebar-footer {
     border-color: var(--color-four);
