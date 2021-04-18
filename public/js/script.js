@@ -40,6 +40,15 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     const token = Token.get();
     if (authenticated) {
+        if (document.querySelectorAll("a[href='/logout']").length) {
+            for (const html of document.querySelectorAll("a[href='/logout']")) {
+                html.addEventListener('click', function (e) {
+                    e.preventDeefault();
+                    token.remove();
+                    window.location.href = '/logout';
+                });
+            }
+        }
         const chats = Chat.all(token.data);
     } else if (token) {
         token.remove();
