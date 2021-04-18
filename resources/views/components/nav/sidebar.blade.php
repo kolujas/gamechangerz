@@ -1,7 +1,7 @@
 <div id="menu" class="sidebar left closed push-body">
     <div class="sidebar-header grid items-center justify-between">
         @if (Auth::check())
-            <a href="#" class="sidebar-title grid grid-cols-3 items-center">
+            <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
                     @component('components.svg.Group 15SVG')
                     @endcomponent

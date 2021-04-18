@@ -33,11 +33,11 @@
          * * Control the coming soon page.
          * @return [type]
          */
-        public function comingSoon () {
+        public function comingSoon (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.coming_soon', [
                 // ? Data
@@ -49,11 +49,11 @@
          * @param string $slug Game slug.
          * @return [type]
          */
-        public function game ($slug) {
+        public function game (Request $request, $slug) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             $game = Game::search($slug);
             $game->abilities = Ability::parse($game->abilities);
@@ -99,11 +99,11 @@
          * * Control the home page.
          * @return [type]
          */
-        public function home () {
+        public function home (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.home', [
                 'games' => Game::getOptions(),
@@ -119,11 +119,11 @@
          * * Control the privacy politics page.
          * @return [type]
          */
-        public function privacyPolitics () {
+        public function privacyPolitics (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.privacy_politics', [
                 // ? Data
@@ -134,11 +134,11 @@
          * * Control the terms &contidions page.
          * @return [type]
          */
-        public function termsAndContidions () {
+        public function termsAndContidions (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.terms_&_contidions', [
                 // ? Data

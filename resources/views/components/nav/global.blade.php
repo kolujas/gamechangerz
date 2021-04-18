@@ -44,7 +44,7 @@
 					</li>
 				@endif
 				<li>
-					<a href="/user/{{ Auth::user()->slug }}/profile" class="nav-link">
+					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link">
 						@component('components.svg.Group 15SVG')
 						@endcomponent
 					</a>

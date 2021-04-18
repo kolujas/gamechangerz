@@ -2,6 +2,7 @@
     namespace App\Http\Controllers\API;
 
     use App\Models\Chat;
+    use App\Models\User;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
 
@@ -14,29 +15,16 @@
                 ]);
             }
 
-            $user_to = User::find($id_user);
-
-            if (!$user) {
-                return response()->json([
-                    'code' => 404,
-                    'message' => 'User does not exist',
-                ]);
-            }
-
-            $chat = Chat::find($id_chat);
-
-            if (!$chat) {
-                $chat = Chat::create([
-                    'id_user_from' => $request->user()->id_user,
-                    'id_user_to' => $user_to->id_user,
-                ]);
-            }
+            $chats = Chat::where([
+                ['id_user_from', '=', $request->user()->id_user],
+                ['id_user_to', '=', $request->user()->id_user]
+                ])->get();
 
             return response()->json([
                 'code' => 200,
                 'message' => 'Success',
                 'data' => [
-                    'chat' => $chat,
+                    'chats' => $chats,
                 ],
             ]);
         }

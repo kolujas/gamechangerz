@@ -21,7 +21,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->abilities();
@@ -81,11 +81,11 @@
          * * Control the User search page.
          * @return [type]
          */
-        public function search () {
+        public function search (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('user.search', [
                 // ? Data
@@ -98,11 +98,11 @@
          * @param string $type User type of Lesson.
          * @return [type]
          */
-        public function checkout ($slug, $type) {
+        public function checkout (Request $request, $slug, $type) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
             $user->prices();

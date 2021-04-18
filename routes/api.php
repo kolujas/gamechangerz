@@ -10,7 +10,7 @@
 // ! AuthController - Controls the authentication api.
         Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
 
-        Route::middleware('auth.api')->group(function () {
+        Route::middleware('auth:api')->group(function () {
 // ! AssigmentController - Controls the assigments api.
             Route::get('/lessons/{id_lesson}/assigments/{slug}', [AssigmentController::class, 'get'])->name('api.assigment.get');
             Route::post('/lessons/{id_lesson}/assigments/make', [AssigmentController::class, 'make'])->name('api.assigment.set');

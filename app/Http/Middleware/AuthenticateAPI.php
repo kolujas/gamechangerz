@@ -13,8 +13,7 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            $token = $request->header('X-CSRF-TOKEN');
-            if (!$token) {
+            if (!$request->user()) {
                 return response()->json([
                     'code' => 403,
                     'message' => 'Perro',
