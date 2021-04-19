@@ -21,7 +21,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->abilities();
@@ -85,7 +85,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('user.search', [
                 // ? Data
@@ -102,7 +102,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
             $user->prices();

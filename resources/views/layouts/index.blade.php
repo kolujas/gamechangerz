@@ -2,6 +2,7 @@
 <html lang="es">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content={{ csrf_token() }} name="csrf-token" />
 
         {{-- ? External Repositories CSS --}}
         <link rel="stylesheet" href={{ asset('submodules/DropdownJS/css/styles.css') }}>
@@ -34,6 +35,8 @@
         {{-- ? Global JS --}}
         <script>
             var validation = @json($validation);
+            const authenticated = @json(Auth::check());
+            console.log(authenticated);
         </script>
         <script type="module" src={{ asset('js/script.js') }}></script>
 

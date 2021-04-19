@@ -37,7 +37,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.coming_soon', [
                 // ? Data
@@ -53,7 +53,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             $game = Game::search($slug);
             $game->abilities = Ability::parse($game->abilities);
@@ -103,7 +103,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.home', [
                 'games' => Game::getOptions(),
@@ -123,7 +123,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.privacy_politics', [
                 // ? Data
@@ -138,7 +138,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                dd($error);
+                
             }
             return view('web.terms_&_contidions', [
                 // ? Data

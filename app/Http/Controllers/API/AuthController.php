@@ -40,17 +40,13 @@
             }
 
             $user = Auth::user();
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-            if ($request->login_remember) {
-                $token->expires_at = Carbon::now()->addWeeks(1);
-            }
+            $token = $user->createToken('Personal Access Token')->accessToken;
             
             return response()->json([
                 'code' => 200,
                 'message' => 'Success',
                 'data' => [
-                    'token' => $tokenResult->accessToken,
+                    'token' => $token,
                 ],
             ]);
         }

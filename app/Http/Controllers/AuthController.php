@@ -62,6 +62,9 @@
          * @return [type]
          */
         public function logout () {
+            foreach (Auth::user()->tokens as $token) {
+                $token->delete();
+            }
             Auth::logout();
             return redirect('/')->with('status', [
                 'code' => 200,
