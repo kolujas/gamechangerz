@@ -33,7 +33,7 @@
          * * Control the coming soon page.
          * @return [type]
          */
-        public function comingSoon () {
+        public function comingSoon (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
@@ -49,7 +49,7 @@
          * @param string $slug Game slug.
          * @return [type]
          */
-        public function game ($slug) {
+        public function game (Request $request, $slug) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
@@ -99,7 +99,7 @@
          * * Control the home page.
          * @return [type]
          */
-        public function home () {
+        public function home (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
@@ -119,7 +119,7 @@
          * * Control the privacy politics page.
          * @return [type]
          */
-        public function privacyPolitics () {
+        public function privacyPolitics (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
@@ -134,7 +134,7 @@
          * * Control the terms &contidions page.
          * @return [type]
          */
-        public function termsAndContidions () {
+        public function termsAndContidions (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');

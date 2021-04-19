@@ -81,7 +81,7 @@
          * * Control the User search page.
          * @return [type]
          */
-        public function search () {
+        public function search (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
@@ -98,7 +98,7 @@
          * @param string $type User type of Lesson.
          * @return [type]
          */
-        public function checkout ($slug, $type) {
+        public function checkout (Request $request, $slug, $type) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');

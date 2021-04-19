@@ -14,8 +14,8 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $user = User::where('slug', '=', $request->route()->parameter('slug'))->get();
-            if ($user->id_user !== 1) {
+            $user = User::where('slug', '=', $request->route()->parameter('slug'))->get()[0];
+            if ($user->id_role !== 1) {
                 $request->session()->put('error', [
                     'code' => 403,
                     'message' => "$user->username is not a teacher",
