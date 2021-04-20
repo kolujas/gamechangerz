@@ -1,10 +1,19 @@
 import { FetchServiceProvider as Fetch } from "../submodules/ProvidersJS/js/FetchServiceProvider.js";
 import Class from "../submodules/JuanCruzAGB/js/Class.js";
+import { Modal as ModalJS } from "../submodules/ModalJS/js/Modal.js";
 
 export class Chat extends Class {
     constructor (props) {
         super(props);
-        console.log(props);
+        this.createHTML();
+    }
+
+    createHTML () {
+        new ModalJS({
+            id: 'chat',
+        }, {
+            open: true,
+        });
     }
 
     static async all (token) {

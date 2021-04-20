@@ -7,6 +7,11 @@
     use Illuminate\Http\Request;
 
     class ChatController extends Controller {
+        /**
+         * * Get all the chats from an User.
+         * @param Request $request
+         * @return JSON
+         */
         public function all (Request $request) {
             if (!$request->user()) {
                 return response()->json([
@@ -15,10 +20,11 @@
                 ]);
             }
 
-            $chats = Chat::where([
-                ['id_user_from', '=', $request->user()->id_user],
-                ['id_user_to', '=', $request->user()->id_user]
-                ])->get();
+            $chats = Chat::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get();
+
+            foreach ($chats as $chat) {
+                $chat->messages();
+            }
 
             return response()->json([
                 'code' => 200,

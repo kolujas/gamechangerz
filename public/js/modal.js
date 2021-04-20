@@ -52,6 +52,8 @@ export class Modal extends Class {
     setModalJS (id) {
         this.ModalJS = new ModalJS({
             id: id,
+        }, {
+            ouutsideClick: true,
         });
     }
 

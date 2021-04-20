@@ -1,10 +1,10 @@
-<aside id='auth' class="modal">
-    <section class="modal-content center">
-        @component('components.modal.auth.login', [
+<aside id="chat" class="modal">
+    <section class="modal-content right bottom">
+        @component('components.modal.chat.list', [
             'erros' => ($errors ? $errors : []),
         ])
         @endcomponent
-        @component('components.modal.auth.signin', [
+        @component('components.modal.chat.details', [
             'erros' => ($errors ? $errors : []),
         ])
         @endcomponent

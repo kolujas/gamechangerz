@@ -1,11 +1,12 @@
 @import './animation.css';
+@import './blog/list.css';
 @import './button.css';
 @import './font.css';
 @import './footer.css';
+@import './game/abilities_list.css';
 @import './game/list.css';
+@import './modal.css';
 @import './nav.css';
 @import './sidebar.css';
 @import './tab.css';
 @import './user/list.css';
-@import './game/abilities_list.css';
-@import './blog/list.css';

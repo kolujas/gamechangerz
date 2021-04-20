@@ -48,5 +48,13 @@
             'errors' => ($errors ? $errors : []),
         ])
         @endcomponent
+
+        @if (Auth::check())
+            {{-- ? Chat modal --}}
+            @component('components.modal.layouts.chat', [
+                'errors' => ($errors ? $errors : []),
+            ])
+            @endcomponent
+        @endif
     </body>
 </html>

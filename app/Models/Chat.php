@@ -22,6 +22,10 @@
             'id_user_from', 'id_user_to', 'messages',
         ];
 
+        public function messages () {
+            $this->messages = json_decode($this->messages);
+        }
+
         /**
          * * Get the Chat Users.
          * @return array
