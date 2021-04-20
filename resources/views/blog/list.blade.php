@@ -15,6 +15,11 @@
 
 @section('main')
     {{-- Page content --}}
+    <h2 class="color-white text-center py-12">Guía, discusiones y más en nuestro <span class="color-four">Blog</span></h2>
+    <section>
+        @component('components.blog.list')            
+        @endcomponent
+    </section>
 @endsection
 
 @section('footer')

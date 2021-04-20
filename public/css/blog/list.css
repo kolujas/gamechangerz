@@ -1,22 +1,86 @@
 /* TODO Custom CSS */
 
+.blog.cards{
+    overflow-x: hidden;
+    flex-direction: column;
+}
+
+.blog.cards li{
+    margin: 1rem 0;
+}
+
+
+.blog.cards .card > :is(a, div){
+    width: 100%;
+}
+
+
+.blog.cards .card:last-of-type {
+    padding-right: 0;
+}
+
+.blog.cards .card > a {
+    opacity:1;
+}
+
 
 /* ? MD */
 @media(min-width: 768px){
     
+
+    .blog.cards .card > :is(a, div){
+        display: flex;
+        margin: auto;
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    .blog.cards .card:first-of-type {
+        padding-left: 0;
+    }
+
+    .blog.cards::before {
+        display: none;
+    }
+
+    .blog.cards::after {
+        display: none;
+    }
+
+    .blog.cards{
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .blog.cards .card{
+        grid-column: span 3 / span 3;
+        grid-column-start: 2;
+    }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    .blog.cards{
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .blog.cards .card{
+        grid-column: span 5 / span 5;
+        grid-column-start: 2;
+    }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    
+    .blog.cards{
+        display: grid;
+        grid-template-columns: repeat(9, minmax(0, 1fr));
+    }
+
+    .blog.cards .card{
+        grid-column: span 5 / span 5;
+        grid-column-start: 3;
+    }
 }
