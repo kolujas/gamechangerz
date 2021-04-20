@@ -15,7 +15,7 @@
          * * Control the Blog list page.
          * @return [type]
          */
-        public function list () {
+        public function list (Request $request) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
