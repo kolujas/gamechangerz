@@ -1,5 +1,43 @@
 /* TODO Custom CSS */
 
+.blog-details{
+    background: url('/img/games/counter-strike-go/banner-csgo-landingJuego.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: 300px;
+    width: 100%;
+}
+
+.blog-details .fecha-borde{
+    /* border-left: 2px solid #946856 */
+}
+
+.content p{
+    color: var(--color-white);
+    padding: 2rem 0;    
+}
+
+.content b{
+    color: var(--color-four);
+}
+
+.content i{
+    color: var(--color-five);
+}
+
+.content h3{
+    color: var(--color-four);
+}
+
+.degradado{
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    font-weight: bold;
+}
+
+.blog-details .fecha{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     
@@ -12,10 +50,44 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+
+    .blog-details{
+        margin-bottom: 6rem;
+    }
+
+    .texto-slogan{
+        padding: 1rem 20rem;
+    }
+
+    .content h3{
+        padding: 0 15rem;
+        margin: 2rem 0;
+    }
+
+    .content p{
+        padding: 0 15rem;
+        font-size: 1.2rem;
+    }
+
+    .content p:last-of-type{
+        margin-bottom: 6rem;
+    }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    
+    .texto-slogan{
+        padding: 1rem 30rem;
+    }
+
+    .content h3{
+        padding: 0 25rem;
+        margin: 2rem 0;
+    }
+
+    .content p{
+        padding: 0 25rem;
+        font-size: 1.2rem;
+    }
+
 }
