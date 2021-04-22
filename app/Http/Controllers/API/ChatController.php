@@ -3,6 +3,7 @@
 
     use App\Models\Chat;
     use App\Models\User;
+    use Auth;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
 
@@ -24,6 +25,7 @@
 
             foreach ($chats as $chat) {
                 $chat->messages();
+                $chat->user($request->user());
             }
 
             return response()->json([

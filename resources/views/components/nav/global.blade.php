@@ -7,7 +7,7 @@
 		<a href="/" class="nav-title logo">
 			<img src={{ asset('img/logos/logo-largo.png') }} 
 				alt="Game Changer Z Logo"/>
-			<h1>GameChangerz</h1>
+			<h1>GameChangerZ</h1>
 		</a>
 	</div>
 

@@ -55,6 +55,9 @@
                 'errors' => ($errors ? $errors : []),
             ])
             @endcomponent
+            <a href="#chat" class="chat-button" title="Open chat">
+                <img src={{ asset("img/logos/isologo-reducido-claro-transparencia.svg") }} alt="Chat button">
+            </a>
         @endif
     </body>
 </html>

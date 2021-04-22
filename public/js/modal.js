@@ -2,6 +2,7 @@ import { FetchServiceProvider as Fetch } from "../submodules/ProvidersJS/js/Fetc
 import Class from "../submodules/JuanCruzAGB/js/Class.js";
 import { Modal as ModalJS } from "../submodules/ModalJS/js/Modal.js";
 import Token from "./token.js";
+import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 import { Validation as ValidationJS } from "../submodules/ValidationJS/js/Validation.js";
 
 export class Modal extends Class {
@@ -20,21 +21,43 @@ export class Modal extends Class {
             case 'signin':
                 this.generateSignInModalLogic();
                 break;
+            case 'list':
+                this.generateChatListModalLogic();
+                break;
+            case 'details':
+                this.generateChatDetailsModalLogic();
+                break;
         }
     }
 
     generateLogInModalLogic () {
         this.setValidationJS();
-        this.setModalJS('auth');
+        this.setModalJS('auth', {
+            outsideClick: true,
+        });
         this.setModalButtonEvent();
         this.setModalSubmitButonEvent();
     }
 
     generateSignInModalLogic () {
         this.setValidationJS();
-        this.setModalJS('auth');
+        this.setModalJS('auth', {
+            outsideClick: true,
+        });
         this.setModalButtonEvent();
         this.setModalSubmitButonEvent();
+    }
+
+    generateChatListModalLogic () {
+        console.log();
+        this.setModalJS('chat', {
+            open: /chat/.exec(URL.findHashParameter()),
+        });
+        this.setModalReturnButtonEvent();
+    }
+
+    generateChatDetailsModalLogic () {
+        // 
     }
 
     setValidationJS () {
@@ -49,19 +72,40 @@ export class Modal extends Class {
         }
     }
 
-    setModalJS (id) {
+    setModalJS (id, states) {
         this.ModalJS = new ModalJS({
             id: id,
-        }, {
-            outsideClick: true,
-        });
+        }, states);
     }
 
-    changeAuthModalContent () {
-        document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? this.props.id : 'signin') }`).classList.remove('hidden');
-        document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? this.props.id : 'signin') }`).classList.add('block');
-        document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? 'signin' : this.props.id) }`).classList.remove('hblock');
-        document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? 'signin' : this.props.id) }`).classList.add('hidden');
+    changeModalContent () {
+        switch (this.props.id) {
+            case 'login':
+            case 'signin':
+                document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? 'login' : 'signin') }`).classList.remove('hidden');
+                document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? 'login' : 'signin') }`).classList.add('block');
+                document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? 'signin' : 'login') }`).classList.remove('block');
+                document.querySelector(`#auth.modal .modal-content #${ (this.props.id === 'login' ? 'signin' : 'login') }`).classList.add('hidden');
+                break;
+            case 'list':
+            case 'details':
+                document.querySelector(`#chat.modal .modal-content #${ (this.props.id === 'list' ? 'list' : 'details') }`).classList.remove('block');
+                document.querySelector(`#chat.modal .modal-content #${ (this.props.id === 'list' ? 'list' : 'details') }`).classList.add('hidden');
+                document.querySelector(`#chat.modal .modal-content #${ (this.props.id === 'list' ? 'details' : 'list') }`).classList.remove('hidden');
+                document.querySelector(`#chat.modal .modal-content #${ (this.props.id === 'list' ? 'details' : 'list') }`).classList.add('block');
+                break;
+        }
+    }
+
+    setModalReturnButtonEvent () {
+        const instance = this;
+        const btn = document.querySelector(`#chat.modal #details header > a`);
+        if (btn) {
+            btn.addEventListener('click', function (e) {
+                instance.setProps('id', 'details');
+                instance.changeModalContent();
+            });
+        }
     }
 
     setModalButtonEvent () {
@@ -70,7 +114,7 @@ export class Modal extends Class {
         if (btn) {
             btn.addEventListener('click', function (e) {
                 instance.ModalJS.open();
-                instance.changeAuthModalContent();
+                instance.changeModalContent();
             });
         }
     }

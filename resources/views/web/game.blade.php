@@ -39,10 +39,7 @@
                     </figure>
                     <figure class="swiper-slide">
                         <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
-                    </figure>
-                    <figure class="swiper-slide">
-                        <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
-                    </figure>     
+                    </figure>   
                 </div>
             </main>
         </section>

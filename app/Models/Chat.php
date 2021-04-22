@@ -27,6 +27,14 @@
         }
 
         /**
+         * * Get the Chat User who is not the logged in.
+         * @return array
+         */
+        public function user ($user) {
+            $this->user = User::find(($user->id_user === $this->id_user_from ? $this->id_user_to : $this->id_user_from));
+        }
+
+        /**
          * * Get the Chat Users.
          * @return array
          */

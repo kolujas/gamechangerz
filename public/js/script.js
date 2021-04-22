@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         login: new Modal({ id: 'login' }),
         signin: new Modal({ id: 'signin' }),
     };
+    
     if (URL.findHashParameter()) {
         switch (URL.findHashParameter()) {
             case 'login':
