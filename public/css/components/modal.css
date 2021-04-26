@@ -207,13 +207,20 @@ a[href="#chat"].modal-button.chat span {
     color: var(--color-grey);
     font-weight: bold;
     border-radius: 100vh;
-    border: 3px solid var(--color-grey);
+    border: 1px solid var(--color-black);
+    box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-grey);
     transition: 500ms;
 }
 
 #chat.modal #details main li.assigment a:hover {
     color: var(--color-white);
-    border: 3px solid var(--color-white);
+    box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-white);
+}
+
+#chat.modal #details main li.assigment a:focus {
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+    box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-white);
 }
 
 #chat.modal #details main li:last-of-type {
