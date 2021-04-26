@@ -28,3 +28,6 @@
 [submodule ".\\public\\submodules\\ProvidersJS"]
 	path = public/submodules/ProvidersJS
 	url = https://github.com/JuanCruzAGB/ProvidersJS.git
+[submodule ".\\public\\submodules\\NotificationJS"]
+	path = public/submodules/NotificationJS
+	url = https://github.com/JuanCruzAGB/NotificationJS.git

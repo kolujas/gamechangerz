@@ -19,7 +19,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                
+                // dd($error)
             }
             return view('blog.list', [
                 'posts' => Post::with('user')->limit(10)->orderBy('updated_at', 'DESC')->get(),
@@ -40,7 +40,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                
+                // dd($error)
             }
             return view('blog.details', [
                 'post' => Post::where('slug', '=', $slug)->with('user')->get()[0],

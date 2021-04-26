@@ -5,7 +5,7 @@
     use Closure;
     use Illuminate\Http\Request;
 
-    class Teacher {
+    class CheckUserExist {
         /**
          * Handle an incoming request.
          *
@@ -14,11 +14,11 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $user = User::where('slug', '=', $request->route()->parameter('slug'))->get()[0];
-            if ($user->id_role !== 1) {
+            $name = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
+            if ((!is_null($request->route()->parameter('id_user')) ? !User::find($name) : !User::where('slug', '=', $name)->get()[0])) {
                 $request->session()->put('error', [
-                    'code' => 403,
-                    'message' => "$user->username is not a teacher",
+                    'code' => 404,
+                    'message' => "User \"$name\" does not exist",
                 ]);
                 return redirect()->back();
             }

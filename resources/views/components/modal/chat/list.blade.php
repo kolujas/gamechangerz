@@ -1,5 +1,5 @@
 <section id="list" class="px-8">
-    <a href="#" class="modal-close chat absolute color-five flex justify-center items-center">
+    <a href="#" class="modal-button chat absolute color-five flex justify-center items-center">
         <i class="fas fa-times"></i>
     </a>
     <main>

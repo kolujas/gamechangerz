@@ -13,7 +13,7 @@
             Schema::create('assigments', function (Blueprint $table) {
                 $table->increments('id_assigment');
                 $table->unsignedInteger('id_lesson');
-                $table->unsignedInteger('slug');
+                $table->string('slug');
                 $table->string('title');
                 $table->text('description')->nullble();
                 $table->string('url')->nullble();

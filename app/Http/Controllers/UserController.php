@@ -21,7 +21,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                
+                // dd($error)
             }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->abilities();
@@ -69,6 +69,7 @@
             return view('user.profile', [
                 'user' => $user,
                 'days' => $days,
+                'error' => $error,
                 'validation' => [
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
@@ -85,7 +86,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                
+                // dd($error)
             }
             return view('user.search', [
                 // ? Data
@@ -102,7 +103,7 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                
+                // dd($error)
             }
             $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
             $user->prices();

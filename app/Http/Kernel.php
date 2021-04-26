@@ -63,9 +63,18 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'auth.api' => \App\Http\Middleware\AuthenticateAPI::class,
-        'user.own' => \App\Http\Middleware\Own::class,
-        'user.teacher' => \App\Http\Middleware\Teacher::class,
-        'lesson.type.exist' => \App\Http\Middleware\Type::class,
+        // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
+        'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
+
+        'game.exist' => \App\Http\Middleware\CheckGameExist::class,
+        'game.is.active' => \App\Http\Middleware\CheckGameIsActive::class,
+
+        'lesson.type.exist' => \App\Http\Middleware\CheckLessonTypeExist::class,
+
+        'post.exist' => \App\Http\Middleware\CheckPostExist::class,
+
+        'user.not.checkout' => \App\Http\Middleware\CheckUserDoesNotOwnCheckout::class,
+        'user.exist' => \App\Http\Middleware\CheckUserExist::class,
+        'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
     ];
 }

@@ -49,7 +49,6 @@ export class Modal extends Class {
     }
 
     generateChatListModalLogic () {
-        console.log();
         this.setModalJS('chat', {
             open: /chat/.exec(URL.findHashParameter()),
         });

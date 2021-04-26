@@ -1,0 +1,14 @@
+.notification {
+    top: 5.6rem;
+}
+
+.notification.top {
+    top: 5.6rem;
+    bottom: initial;
+}
+
+.notification.center.top {
+    top: 5.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+}

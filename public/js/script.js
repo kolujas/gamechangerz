@@ -2,6 +2,7 @@ import Chat from "./chat.js";
 import { Dropdown as DropdownJS } from "../submodules/DropdownJS/js/Dropdown.js";
 import Modal from './modal.js';
 import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
+import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
 import Token from "./token.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 
@@ -29,11 +30,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
     if (URL.findHashParameter()) {
         switch (URL.findHashParameter()) {
             case 'login':
-                modals.login.changeAuthModalContent();
+                modals.login.changeModalContent();
                 modals.login.ModalJS.open();
                 break;
             case 'signin':
-                modals.signin.changeAuthModalContent();
+                modals.signin.changeModalContent();
                 modals.signin.ModalJS.open();
                 break;
         }
@@ -44,7 +45,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
         if (document.querySelectorAll("a[href='/logout']").length) {
             for (const html of document.querySelectorAll("a[href='/logout']")) {
                 html.addEventListener('click', function (e) {
-                    e.preventDeefault();
                     token.remove();
                     window.location.href = '/logout';
                 });
@@ -53,5 +53,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
         const chats = Chat.all(token.data);
     } else if (token) {
         token.remove();
+    }
+
+    if (error) {
+        new NotificationJS(error, {
+            show: true,
+        });
     }
 });

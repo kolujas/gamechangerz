@@ -1,10 +1,10 @@
 <?php
-    namespace App\Http\Middleware;
+    namespace App\Http\Middleware\API;
 
     use Auth;
     use Closure;
 
-    class AuthenticateAPI {
+    class Authenticate {
         /**
          * Handle an incoming request.
          *

@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
 
+    use App\Models\Message;
     use App\Models\User;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@
         ];
 
         public function messages () {
-            $this->messages = json_decode($this->messages);
+            $this->messages = Message::parse(json_decode($this->messages));
         }
 
         /**
@@ -44,4 +45,14 @@
                 'to' => User::find($this->id_user_to),
             ];
         }
+
+        /** @var array Validation rules & messages. */
+        static $validation = [
+            'send' => [
+                'rules' => [
+                    'message' => 'required',
+                ], 'messages' => [
+                    'es' => [
+                        'message.required' => 'El mensaje es obligatorio.',
+        ]]]];
     }

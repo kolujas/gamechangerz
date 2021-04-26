@@ -1,11 +1,10 @@
 <?php
     namespace App\Http\Middleware;
 
-    use App\Models\Lesson;
     use Closure;
     use Illuminate\Http\Request;
 
-    class Type {
+    class CheckGameIsActive {
         /**
          * Handle an incoming request.
          *
@@ -14,18 +13,13 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $found = false;
-            foreach (Lesson::$options as $lesson) {
-                $lesson = (object) $lesson;
-                if ($lesson->slug === $request->route()->parameter('type')) {
-                    $found = true;
-                    break;
-                }
+            foreach (Game::$options as $game) {
+                $game = (object) $game;
             }
-            if (!$found) {
+            if (!$game->active) {
                 $request->session()->put('error', [
                     'code' => 403,
-                    'message' => "This is not a lesson type",
+                    'message' => "Game \"$game->name\" is not active",
                 ]);
                 return redirect()->back();
             }

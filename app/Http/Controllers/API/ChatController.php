@@ -6,6 +6,7 @@
     use Auth;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Validator;
 
     class ChatController extends Controller {
         /**
@@ -21,11 +22,20 @@
                 ]);
             }
 
-            $chats = Chat::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get();
+            $chats = Chat::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->orderBy('updated_at')->get();
 
             foreach ($chats as $chat) {
-                $chat->messages();
+                // TODO: Check if this is a friend or a lesson and set id_type
                 $chat->user($request->user());
+                $chat->messages();
+            }
+
+            if ($request->user()->id_role === 1) {
+                // TODO: Loop all the current Lessons, and generate a Chat
+            }
+
+            if ($request->user()->id_role === 0) {
+                // TODO: Loop all the Friends, and generate a Chat
             }
 
             return response()->json([
@@ -37,6 +47,12 @@
             ]);
         }
 
+        /**
+         * * Get an specific Chat.
+         * @param Request $request
+         * @param int $id_user
+         * @return JSON
+         */
         public function get (Request $request, $id_user) {
             if (!$request->user()) {
                 return response()->json([
@@ -72,7 +88,7 @@
             ]);
         }
 
-        public function send (Request $request, $id_user) {
+        public function send (Request $request, $id_chat) {
             if (!$request->user()) {
                 return response()->json([
                     'code' => 403,
@@ -80,14 +96,24 @@
                 ]);
             }
 
-            $user_to = User::find($id_user);
+            $chat = Chat::find($id_chat);
+            if (!$chat) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'Chat does not exist',
+                ]);
+            }
 
-            if (!$user) {
+            $user_to = User::find(($chat->id_user_from === $request->user()->id_user ? $chat->id_user_to : $chat->id_user_from));
+
+            if (!$user_to) {
                 return response()->json([
                     'code' => 404,
                     'message' => 'User does not exist',
                 ]);
             }
+
+            $input = (object) $request->all();
 
             $validator = Validator::make($request->all(), Chat::$validation['send']['rules'], Chat::$validation['send']['messages']['es']);
             if ($validator->fails()) {
@@ -98,11 +124,24 @@
                 ]);
             }
 
-            $chat = Chat::where(['id_user_from', '=', $request->user()->id_user], ['id_user_to', '=', $user_to->id_user])->get();
-            $messages = [];
+            $messages = collect([]);
             foreach (json_decode($chat->messages) as $message) {
-                # code...
+                $messages->push($message);
+                if (count($messages) === 19) {
+                    $messages->shift();
+                }
             }
+            $messages->push([
+                "id_user" => $request->user()->id_user,
+                "says" => $input->message,
+            ]);
+
+            $input->messages = json_encode($messages);
+
+            $chat->update((array) $input);
+
+            $chat->user($request->user());
+            $chat->messages();
 
             return response()->json([
                 'code' => 200,

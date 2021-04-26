@@ -1,7 +1,7 @@
 <?php
     namespace App\Models;
 
-    use App\Model\Ability;
+    use App\Models\Ability;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 

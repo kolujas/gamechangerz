@@ -1,4 +1,4 @@
-.chat-button {
+a[href="#chat"].modal-button.chat {
     position: fixed;
     right: 2rem;
     bottom: 2rem;
@@ -14,32 +14,51 @@
     z-index: 2;
 }
 
-.chat-button:hover { 
+a[href="#chat"].modal-button.chat:hover { 
     opacity: 1;
 }
 
-.chat-button img {
+a[href="#chat"].modal-button.chat img {
     width: 300%;
     height: 300%;
     object-fit: cover;
+}
+
+a[href="#chat"].modal-button.chat.new {
+    border: 3px solid var(--color-four);
+}
+
+a[href="#chat"].modal-button.chat span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--color-four);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: var(--color-white);
 }
 
 #chat.modal {
     --modal-background-color: transparent;
 }
 
-#chat.modal .modal-close {
+#chat.modal .modal-button {
     top: 0;
     right: 0;
     width: 2rem;
     height: 2rem;
 }
 
-#chat.modal .modal-close:hover {
+#chat.modal .modal-button:hover {
     color: var(--color-four);
 }
 
-#chat.modal .modal-close i {
+#chat.modal .modal-button i {
     font-size: 1.5rem;
     transition: 500ms;
 }
@@ -177,12 +196,32 @@
 
 #chat.modal #details main li.assigment {
     width: 100%;
-    background-color: rgba(0,0,0,.5);
     color: var(--color-white);
+    font-weight: bold;
+    border-radius: 0;
+}
+
+#chat.modal #details main li.assigment a {
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
+    color: var(--color-grey);
+    font-weight: bold;
+    border-radius: 100vh;
+    border: 3px solid var(--color-grey);
+    transition: 500ms;
+}
+
+#chat.modal #details main li.assigment a:hover {
+    color: var(--color-white);
+    border: 3px solid var(--color-white);
 }
 
 #chat.modal #details main li:last-of-type {
     margin-bottom: 0;
+}
+
+#chat.modal #details footer form a {
+    border-right: 1px solid var(--color-grey);
 }
 
 /* ? MD */
