@@ -88,7 +88,7 @@
                 
             }
             return view('user.search', [
-                // ? Data
+                'validation' => [],
             ]);
         }
 
