@@ -36,14 +36,14 @@
          * @param string $slug Post slug.
          * @return [type]
          */
-        public function details ($slug) {
+        public function details (Request $request, $slug) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }
             return view('blog.details', [
-                'post' => Post::where('slug', '=', $slug)->with('user')->get()[0],
+                // 'post' => Post::where('slug', '=', $slug)->with('user')->get()[0],
                 'validation' => [
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],

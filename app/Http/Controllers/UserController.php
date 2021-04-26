@@ -89,7 +89,7 @@
                 // dd($error)
             }
             return view('user.search', [
-                // ? Data
+                'validation' => [],
             ]);
         }
 
