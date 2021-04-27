@@ -21,6 +21,20 @@
             $date = $date->diffForHumans();
             return $date;
         }
+
+        /**
+         * * Transforms a date to humans format text.
+         * @param Date $date
+         */
+        public function justMonth($date){
+            $months = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            Carbon::setLocale('es');
+            $date = new Carbon($date);
+            $month = $months[intval($date->format('m')) - 1];
+            $day = $date->format('d') ;
+            $year = $date->format('Y') ;
+            return "$month $day, $year";
+        }
         
         /**
          * * Control the index page.

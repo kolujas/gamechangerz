@@ -26,7 +26,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/profesores" class="nav-link">
+				<a href="/teachers" class="nav-link">
 					<span class="link-text">Profesores</span>
 				</a>
 			</li>

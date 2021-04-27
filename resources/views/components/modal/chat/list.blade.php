@@ -10,6 +10,13 @@
                 @endcomponent
             </button>
         </form>
-        <ul class="mb-8"></ul>
+        <div class="teachers sections mb-8">
+            <span class="header color-white mb-8">Profesores</span>
+            <ul></ul>
+        </div>
+        <div class="friends sections mb-8">
+            <span class="header color-white mb-8">Amgos</span>
+            <ul></ul>
+        </div>
     </main>
 </section>

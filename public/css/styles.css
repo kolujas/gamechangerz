@@ -75,6 +75,7 @@ h5 {
 
 ::selection {
     color: var(--color-white);
+    -webkit-text-fill-color: initial;
     background: var(--color-four);
 }
 

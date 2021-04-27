@@ -42,7 +42,8 @@
     });
 
 // ! UserController - Controls the User pages.
-    Route::get('/search', [UserController::class, 'search'])->name('user.search');
+    Route::get('/users', [UserController::class, 'search'])->name('user.searchUsers');
+    Route::get('/teachers', [UserController::class, 'search'])->name('user.searchTeachers');
     Route::middleware(['user.exist'])->group(function () {
         Route::get('/users/{slug}/profile', [UserController::class, 'profile'])->name('user.profile');
         Route::middleware(['auth', 'user.not.checkout', 'user.is.teacher', 'lesson.type.exist'])->group(function () {

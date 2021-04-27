@@ -121,6 +121,10 @@ a[href="#chat"].modal-button.chat span {
     opacity: 1;
 }
 
+#chat.modal #list .sections .header {
+    font-size: 1.5rem;
+}
+
 #chat.modal #details > a {
     transition: 500ms;
 }

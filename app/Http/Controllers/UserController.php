@@ -88,7 +88,15 @@
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }
+            if (\Request::is('users')) {
+                $users = User::where('id_role', '=', 0)->limit(10)->get();
+            }
+            if (\Request::is('teachers')) {
+                $users = User::where('id_role', '=', 1)->limit(10)->get();
+            }
             return view('user.search', [
+                'users' => $users,
+                'error' => $error,
                 'validation' => [],
             ]);
         }
@@ -119,6 +127,7 @@
             return view('user.checkout', [
                 'user' => $user,
                 'type' => $type,
+                'error' => $error,
                 'validation' => [
                     //
                 ],

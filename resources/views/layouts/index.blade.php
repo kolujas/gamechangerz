@@ -62,6 +62,6 @@
             </a>
         @endif
 
-        <aside id="notification-1" class="notification p-4"></aside>
+        <aside id="notification-1" class="notification p-4 hidden"></aside>
     </body>
 </html>

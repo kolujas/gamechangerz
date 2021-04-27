@@ -21,8 +21,13 @@
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }
+            $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->limit(10)->get();
+            foreach ($posts as $post) {
+                $post->date = $this->dateToHuman($post->updated_at);
+            }
             return view('blog.list', [
-                'posts' => Post::with('user')->limit(10)->orderBy('updated_at', 'DESC')->get(),
+                'posts' => $posts,
+                'error' => $error,
                 'validation' => [
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
@@ -36,14 +41,17 @@
          * @param string $slug Post slug.
          * @return [type]
          */
-        public function details (Request $request, $slug) {
+        public function details (Request $request, $id_user, $slug) {
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }
+            $post = Post::where('slug', '=', $slug)->with('user')->get()[0];
+            $post->date = $this->justMonth($post->updated_at);
             return view('blog.details', [
-                // 'post' => Post::where('slug', '=', $slug)->with('user')->get()[0],
+                'post' => $post,
+                'error' => $error,
                 'validation' => [
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],

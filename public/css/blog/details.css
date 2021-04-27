@@ -1,14 +1,14 @@
-/* TODO Custom CSS */
-
-.blog-details{
-    background: url('/img/games/counter-strike-go/banner-csgo-landingJuego.jpg') no-repeat center center;
-    background-size: cover;
+header.image{
     min-height: 300px;
     width: 100%;
 }
 
-.blog-details .fecha-borde{
-    /* border-left: 2px solid #946856 */
+header.image a {
+    transition: 500ms;
+}
+
+header.image a:hover {
+    color: var(--color-four);
 }
 
 .content p{
@@ -33,7 +33,7 @@
     font-weight: bold;
 }
 
-.blog-details .fecha{
+header.image .fecha{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -51,7 +51,7 @@
 /* ? XL */
 @media(min-width: 1200px){
 
-    .blog-details{
+    header.image{
         margin-bottom: 6rem;
         height: 400px;
     }

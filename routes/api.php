@@ -21,9 +21,11 @@
 
 // ! ChatController - Controls the chats api.
             Route::get('/chats', [ChatController::class, 'all'])->name('api.chat.all');
-            Route::middleware(['api.user.exist'])->group(function () {
+            Route::middleware('api.user.exist')->group(function () {
                 Route::get('/chats/{id_user}', [ChatController::class, 'get'])->name('api.chat.get');
-                Route::post('/chats/{id_user}', [ChatController::class, 'send'])->name('api.chat.send');
+            });
+            Route::middleware('api.chat.exist')->group(function () {
+                Route::post('/chats/{id_chat}', [ChatController::class, 'send'])->name('api.chat.send');
             });
 
 // ! FriendController - Controls the friends api. 

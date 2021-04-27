@@ -71,6 +71,8 @@ class Kernel extends HttpKernel
 
         'lesson.type.exist' => \App\Http\Middleware\CheckLessonTypeExist::class,
 
+        'chat.exist' => \App\Http\Middleware\CheckChatExist::class,
+        
         'post.exist' => \App\Http\Middleware\CheckPostExist::class,
 
         'user.not.checkout' => \App\Http\Middleware\CheckUserDoesNotOwnCheckout::class,

@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Middleware;
 
+    use App\Models\game;
     use Closure;
     use Illuminate\Http\Request;
 
@@ -13,8 +14,12 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
+            $slug = $request->route()->parameter('slug');
             foreach (Game::$options as $game) {
                 $game = (object) $game;
+                if ($game->slug === $slug) {
+                    break;
+                }
             }
             if (!$game->active) {
                 $request->session()->put('error', [

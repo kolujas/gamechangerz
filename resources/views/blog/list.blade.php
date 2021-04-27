@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{-- Page title --}}
+    Blog | GameChangerZ
 @endsection
 
 @section('css')
@@ -14,10 +14,11 @@
 @endsection
 
 @section('main')
-    {{-- Page content --}}
-    <h2 class="color-white text-center py-12">Guía, discusiones y más en nuestro <span class="color-four">Blog</span></h2>
+    <h2 class="color-white text-center pt-12 pb-8 px-8">Guía, discusiones y más en nuestro <span class="color-four">Blog</span></h2>
     <section>
-        @component('components.blog.list')            
+        @component('components.blog.list', [
+            'posts' => $posts,
+        ])            
         @endcomponent
     </section>
 @endsection

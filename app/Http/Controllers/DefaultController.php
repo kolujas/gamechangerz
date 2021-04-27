@@ -41,7 +41,7 @@
                 // dd($error)
             }
             return view('web.coming_soon', [
-                // ? Data
+                'error' => $error,
             ]);
         }
 
@@ -58,7 +58,7 @@
             }
             $game = Game::search($slug);
             $game->abilities = Ability::parse($game->abilities);
-            $usersFound = User::where('id_role', '=', 1)->with('reviews')->get();
+            $usersFound = User::where('id_role', '=', 1)->with('reviews')->limit(6)->get();
             $users = collect([]);
             foreach ($usersFound as $user) {
                 $user->abilities();
@@ -80,7 +80,7 @@
                     }
                 }
             }
-            $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->get();
+            $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->limit(10)->get();
             foreach ($posts as $post) {
                 $post->date = $this->dateToHuman($post->updated_at);
             }
@@ -88,6 +88,7 @@
                 'game' => $game,
                 'posts' => $posts,
                 'users' => $users,
+                'error' => $error,
                 'validation' => [
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
@@ -108,6 +109,7 @@
             }
             return view('web.home', [
                 'games' => Game::getOptions(),
+                'error' => $error,
                 'validation' => [
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
@@ -127,7 +129,7 @@
                 // dd($error)
             }
             return view('web.privacy_politics', [
-                // ? Data
+                'error' => $error,
             ]);
         }
 
@@ -142,7 +144,7 @@
                 // dd($error)
             }
             return view('web.terms_&_contidions', [
-                // ? Data
+                'error' => $error,
             ]);
         }
     }

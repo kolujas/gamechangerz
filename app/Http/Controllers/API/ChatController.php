@@ -26,7 +26,8 @@
 
             foreach ($chats as $chat) {
                 // TODO: Check if this is a friend or a lesson and set id_type
-                $chat->user($request->user());
+                $chat->id_user_logged = $request->user()->id_user;
+                $chat->users();
                 $chat->messages();
             }
 
@@ -140,7 +141,7 @@
 
             $chat->update((array) $input);
 
-            $chat->user($request->user());
+            $chat->id_user_logged = $request->user();
             $chat->messages();
 
             return response()->json([

@@ -60,7 +60,7 @@
     padding-bottom: .35rem;
 }
 
-.blog.cards .card p {
+.blog.cards .card .post-content {
     max-width: 100%;
     display: -webkit-box;
     overflow: hidden;

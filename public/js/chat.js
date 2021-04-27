@@ -5,7 +5,7 @@ import Modal from './modal.js';
 export class Chat extends Class {
     constructor (props, token) {
         super(props);
-        this.setProps('token', token)
+        this.setProps('token', token);
         this.createHTML();
         this.generateHTMLChat();
     }
@@ -17,10 +17,11 @@ export class Chat extends Class {
         });
         let li = document.createElement('li');
         li.classList.add('mt-4');
-        this.Modal.ModalJS.html.children[0].children[0].children[1].children[1].appendChild(li);
+        console.log(this.Modal.ModalJS.html);
+        this.Modal.ModalJS.html.children[0].children[0].children[1].children[1].children[1].appendChild(li);
         let link = document.createElement('a');
         link.classList.add('flex', 'color-white', 'items-center');
-        link.href = `#chat-${ this.props.user.slug }`;
+        link.href = `#chat-${ this.props.users[((this.props.id_user_logged === this.props.id_user_from) ? 'to' : 'from')].slug }`;
         li.appendChild(link);
         this.list = link;
         this.details = document.querySelector('#chat.modal #details main ul');
@@ -41,7 +42,7 @@ export class Chat extends Class {
         username.classList.add('username');
         this.list.appendChild(username);
             let paragraph = document.createElement('paragraph');
-            paragraph.innerHTML = `${ this.props.user.username} (${ this.props.user.name })`;
+            paragraph.innerHTML = `${ this.props.users[((this.props.id_user_logged === this.props.id_user_from) ? 'to' : 'from')].username} (${ this.props.users[((this.props.id_user_logged === this.props.id_user_from) ? 'to' : 'from')].name })`;
             username.appendChild(paragraph);
 
         let span = document.createElement('span');
@@ -74,7 +75,7 @@ export class Chat extends Class {
         let li = document.createElement('li');
         this.details.appendChild(li);
         if (message.hasOwnProperty('says')) {
-            li.classList.add((this.props.user.id_user === message.id_user ? 'to' : 'from'), 'p-4', 'mb-4');
+            li.classList.add((this.props.id_user_logged === message.id_user ? 'from' : 'to'), 'p-4', 'mb-4');
                 let paragraph = document.createElement('p');
                 paragraph.innerHTML = message.says;
                 li.appendChild(paragraph);
