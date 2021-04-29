@@ -60,6 +60,10 @@
   height: 0;
 }
 
+.user-search .degradado{
+  background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+}
+
 .user-search  .slider {
   position: absolute;
   cursor: pointer;
@@ -129,6 +133,44 @@
     background-color: var(--color-one);
     padding: 1rem;
 }
+
+.user-search .user-list li{
+  background: var(--color-black);
+}
+
+.users-list li{
+  background: var(--color-black);
+  margin-bottom: 4rem;
+}
+
+.users-list .teammate svg{
+  height: 100%;
+  width: 3rem;
+}
+
+.users-list .photo svg{
+  height: 100%;
+}
+
+.users-list li .btn.btn-one {
+  border: 1px solid;
+  border-image-source: linear-gradient(130deg, var(--color-four), var(--color-five));
+  border-image-slice: 1;
+  color: var(--color-five);
+  background-color: var(--color-black);
+  padding: .4rem;
+  font-size: .85rem;
+}
+
+
+/* teachers */
+
+.teachers-list .teachers .teacher{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
 
 
 /* ? MD */

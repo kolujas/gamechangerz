@@ -94,6 +94,26 @@
             if (\Request::is('teachers')) {
                 $users = User::where('id_role', '=', 1)->limit(10)->get();
             }
+            foreach ($users as $user) {                
+                $user->abilities();
+                $user->files();
+                $user->games();
+                $user->idioms();
+                $user->teampro();
+                $user->prices();
+                foreach ($user->games as $game) {
+                    if ($game->id_game) {
+                        $users->push($user);
+                    }
+                }
+                $user->game_abilities = collect([]);
+                foreach ($user->games as $game) {
+                    $abilities = Ability::parse($game->abilities);
+                    foreach ($abilities as $ability) {
+                        $user->game_abilities->push($ability);
+                    }
+                }
+            }
             return view('user.search', [
                 'users' => $users,
                 'error' => $error,
