@@ -62,13 +62,13 @@
     }
 
     .teachers .image {
-        max-height: 20rem;
+        /* max-height: 20rem; */
     }
 
     .teachers .image img {
-        min-height: 23rem;
+        /* min-height: 23rem; */
         position: relative;
-        top: -3rem;
+        /* top: -3rem; */
     }
 }
 
