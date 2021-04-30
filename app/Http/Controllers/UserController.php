@@ -121,13 +121,23 @@
             if (\Request::is('teachers')) {
                 $users = User::where('id_role', '=', 1)->limit(10)->get();
             }
-            foreach ($users as $user) {                
-                $user->abilities();
-                $user->files();
-                $user->games();
-                $user->idioms();
-                $user->teampro();
-                $user->prices();
+            foreach ($users as $user) {   
+                $user->games();  
+                if ($user->id_role === 1) {
+                    $user->abilities();
+                    $user->days();
+                    $user->files();
+                    $user->idioms();
+                    $user->prices();
+                    $user->teampro();
+                    $days = Day::allDates($user->days);
+                }
+                if ($user->id_role === 0) {
+                    $user->friends();
+                    $user->lessons();
+                    $user->hours();
+                    $days = [];
+                }
                 foreach ($user->games as $game) {
                     if ($game->id_game) {
                         $users->push($user);

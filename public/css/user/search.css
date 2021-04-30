@@ -140,7 +140,7 @@
 
 .users-list li{
   background: var(--color-black);
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 .users-list .teammate svg{
@@ -175,7 +175,72 @@
 
 /* ? MD */
 @media(min-width: 768px){
-    
+  .users-list .games figure{
+    height: 5rem;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .users-list .cards{
+    gap: 1rem;
+    margin-top: 0;
+  }
+
+  .users-list .cards .card header{
+    display: none;
+  }
+
+  .users-list .cards{
+    display: flex;
+    overflow-x: scroll;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+
+  .users-list .cards .card{
+    min-width: 50%;
+    /* width: 50%; */
+  }
+
+  .users-list li > div:nth-child(4){
+    min-width: 25%;
+    width: 25%;
+  }
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-button {
+      width: 15%;
+      height: 15%;
+  }
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-thumb {
+      background: chartreuse;
+      border-radius: 100vh;
+  }
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-thumb:hover,
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-thumb:active {
+      background: cadetblue;
+  }
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-track {
+      background: tomato;
+      border-radius: 100vh;
+  }
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-track:hover,
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-track:active {
+      background: yellowgreen;
+  }
+
+  .users-list li > div:nth-child(4)::-webkit-scrollbar-corner {
+      background: transparent;
+  }
 }
 
 /* ? LG */
