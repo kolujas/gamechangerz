@@ -16,5 +16,6 @@
             $this->call(PostsSeeder::class);
             $this->call(ReviewsSeeder::class);
             $this->call(UsersSeeder::class);
+            $this->call(FriendsSeeder::class);
         }
     }

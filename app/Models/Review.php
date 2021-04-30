@@ -2,6 +2,7 @@
     namespace App\Models;
 
     use App\Models\Ability;
+    use App\Models\Game;
     use App\Models\User;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,14 @@
          */
         public function abilities () {
             $this->abilities = Ability::parse(json_decode($this->abilities));
+        }
+
+        /**
+         * * Get the Review Game.
+         * @return array
+         */
+        public function game () {
+            $this->game = Game::getByAbility($this->abilities);
         }
 
         /**

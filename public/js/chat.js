@@ -3,54 +3,110 @@ import Class from "../submodules/JuanCruzAGB/js/Class.js";
 import Modal from './modal.js';
 
 export class Chat extends Class {
-    constructor (props, token) {
+    constructor (props, chats) {
         super(props);
-        this.setProps('token', token);
-        this.createHTML();
-        this.generateHTMLChat();
+        this.getRole();
+        this.createHTML(chats);
+        this.generateHTMLChats(chats);
     }
 
-    createHTML () {
-        let instance = this;
+    async getRole (chats) {
+        let query = await Fetch.get(`/api/role`, {
+            'Accept': 'application/json',
+            'Content-type': 'application/json; charset=UTF-8',
+            'Authorization': "Bearer " + this.props.token,
+        });
+        if (query.response.code === 200) {
+            this.setProps('id_role', query.response.data.id_role);
+        }
+    }
+
+    createHTML (chats) {
         this.Modal = new Modal({
             id: 'list',
         });
-        let li = document.createElement('li');
-        li.classList.add('mt-4');
-        console.log(this.Modal.ModalJS.html);
-        this.Modal.ModalJS.html.children[0].children[0].children[1].children[1].children[1].appendChild(li);
-        let link = document.createElement('a');
-        link.classList.add('flex', 'color-white', 'items-center');
-        link.href = `#chat-${ this.props.users[((this.props.id_user_logged === this.props.id_user_from) ? 'to' : 'from')].slug }`;
-        li.appendChild(link);
-        this.list = link;
-        this.details = document.querySelector('#chat.modal #details main ul');
-        this.list.addEventListener('click', function (e) {
-            instance.open();
-        });
+        this.setHTML(this.Modal.ModalJS.html.children[0]);
+        this.list = this.html.children[0];
+        this.details = this.html.children[1];
+        if (!this.props.id_role) {
+            this.list.children[1].children[1].children[0].classList.add('block');
+            this.list.children[1].children[2].children[0].classList.add('block');
+            let friends = 0;
+            let lessons = 0;
+            for (const chat of chats) {
+                if (chat.id_type === 1) {
+                    friends++;
+                }
+                if (chat.id_type === 2) {
+                    lessons++;
+                }
+            }
+            if (!friends) {
+                this.list.children[1].children[2].classList.add('hidden');
+            }
+            if (!lessons) {
+                this.list.children[1].children[1].classList.add('hidden');
+            }
+        }
+        if (this.props.id_role) {
+            this.list.children[1].children[1].children[0].classList.add('hidden');
+            this.list.children[1].children[2].add('hidden');
+        }
     }
 
-    generateHTMLChat () {
-        let image = document.createElement('figure');
-        image.classList.add('image', 'mr-4');
-        this.list.appendChild(image);
-            let img = document.createElement('img');
-            img.src = "/img/resources/Group 15SVG.svg";
-            image.appendChild(img);
+    generateHTMLChats (chats) {
+        let instance = this;
+        for (const chat of chats) {
+            let li = document.createElement('li');
+            li.classList.add('mt-4');
+            if (!this.props.id_role) {
+                if (chat.id_user_logged === chat.id_user_from) {
+                    this.list.children[1].children[2].children[1].appendChild(li);
+                }
+                if (chat.id_user_logged === chat.id_user_to) {
+                    if (!chat.users.from.id_role) {
+                        this.list.children[1].children[2].children[1].appendChild(li);
+                    }
+                    if (chat.users.from.id_role) {
+                        this.list.children[1].children[1].children[1].appendChild(li);
+                    }
+                }
+            }
+            if (this.props.id_role) {
+                this.list.children[1].children[1].children[1].appendChild(li);
+            }
+                let link = document.createElement('a');
+                link.classList.add('flex', 'color-white', 'items-center');
+                link.href = `#chat-${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug }`;
+                li.appendChild(link);
+                link.addEventListener('click', function (e) {
+                    instance.open();
+                });
+                    let image = document.createElement('figure');
+                    image.classList.add('image', 'mr-4');
+                    link.appendChild(image);
+                        let img = document.createElement('img');
+                        img.src = "/img/resources/Group 15SVG.svg";
+                        image.appendChild(img);
 
-        let username = document.createElement('div');
-        username.classList.add('username');
-        this.list.appendChild(username);
-            let paragraph = document.createElement('paragraph');
-            paragraph.innerHTML = `${ this.props.users[((this.props.id_user_logged === this.props.id_user_from) ? 'to' : 'from')].username} (${ this.props.users[((this.props.id_user_logged === this.props.id_user_from) ? 'to' : 'from')].name })`;
-            username.appendChild(paragraph);
+                    let username = document.createElement('div');
+                    username.classList.add('username');
+                    link.appendChild(username);
+                        let paragraph = document.createElement('p');
+                        paragraph.innerHTML = `${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].username} (`;
+                        username.appendChild(paragraph);
+                            let name = document.createElement('span');
+                            name.innerHTML = `${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].name }`;
+                            paragraph.appendChild(name);
+                            paragraph.innerHTML = `${paragraph.innerHTML})`;
 
-        let span = document.createElement('span');
-        span.classList.add('icon', 'color-five');
-        this.list.appendChild(span);
-            let icon = document.createElement('icon');
-            icon.classList.add('fas', 'fa-chevron-right');
-            span.appendChild(icon);
+                    let span = document.createElement('span');
+                    span.classList.add('icon', 'color-five');
+                    link.appendChild(span);
+                        let icon = document.createElement('icon');
+                        icon.classList.add('fas', 'fa-chevron-right');
+                        span.appendChild(icon);
+        }
     }
 
     open () {
@@ -122,7 +178,7 @@ export class Chat extends Class {
         let chats = [];
         if (query.response.code === 200) {
             for (const chat of query.response.data.chats) {
-                chats.push(new this(chat, token));
+                chats.push(chat);
             }
         }
         return chats;

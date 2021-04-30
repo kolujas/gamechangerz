@@ -155,4 +155,19 @@
             }
             return $abilities;
         }
+
+        static public function getByAbility ($abilitiesToFor) {
+            foreach (Game::$options as $game) {
+                $game = (object) $game;
+                foreach ($game->abilities as $game_ability) {
+                    $game_ability = (object) $game_ability;
+                    foreach ($abilitiesToFor as $ability) {
+                        $ability = (object) $ability;
+                        if ($ability->id_ability === $game_ability->id_ability) {
+                            return $game;
+                        }
+                    }
+                }
+            }
+        }
     }

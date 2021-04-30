@@ -109,18 +109,24 @@ export class Modal extends Class {
 
     setModalButtonEvent () {
         const instance = this;
-        const btn = document.querySelector(`a[href='#${ this.props.id }']`);
-        if (btn) {
-            btn.addEventListener('click', function (e) {
-                instance.ModalJS.open();
-                instance.changeModalContent();
-            });
+        const btn = document.querySelectorAll(`a[href='#${ this.props.id }']`);
+        if (document.querySelectorAll(`a[href='#${ this.props.id }']`).length) {
+            for (const btn of document.querySelectorAll(`a[href='#${ this.props.id }']`)) {
+                btn.addEventListener('click', function (e) {
+                    instance.ModalJS.open();
+                    instance.changeModalContent();
+                });
+            }
         }
     }
 
     setModalSubmitButonEvent () {
         const instance = this;
         document.querySelector(`#auth.modal .modal-content #${ this.props.id } [type=submit]`).addEventListener('click', function (e) {
+            e.preventDefault();
+            instance.submitModalForm();
+        });
+        document.querySelector(`#auth.modal .modal-content #${ this.props.id }`).addEventListener('submit', function (e) {
             e.preventDefault();
             instance.submitModalForm();
         });

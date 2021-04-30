@@ -2,6 +2,8 @@
     namespace App\Http\Controllers\API;
 
     use App\Models\Chat;
+    use App\Models\Friend;
+    use App\Models\Lesson;
     use App\Models\User;
     use Auth;
     use App\Http\Controllers\Controller;
@@ -24,19 +26,54 @@
 
             $chats = Chat::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->orderBy('updated_at')->get();
 
-            foreach ($chats as $chat) {
-                // TODO: Check if this is a friend or a lesson and set id_type
-                $chat->id_user_logged = $request->user()->id_user;
-                $chat->users();
-                $chat->messages();
-            }
-
-            if ($request->user()->id_role === 1) {
-                // TODO: Loop all the current Lessons, and generate a Chat
+            foreach (Lesson::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get() as $lesson) {
+                if (count($chats)) {
+                    foreach ($chats as $chat) {
+                        if (($request->user()->id_user === $chat->id_user_from ? $chat->id_user_to : $chat->id_user_from) === ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from)) {
+                            break;
+                        }
+                    }
+                }
+                if (!count($chats)) {
+                    $chats[] = new Chat([
+                        'id_chat' => null,
+                        'id_user_from' => $lesson->id_user_from,
+                        'id_user_to' => $lesson->id_user_to,
+                        'messages' => "[]",
+                    ]);
+                }
             }
 
             if ($request->user()->id_role === 0) {
-                // TODO: Loop all the Friends, and generate a Chat
+                foreach (Friend::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get() as $friend) {
+                    if (count($chats)) {
+                        foreach ($chats as $chat) {
+                            if (($request->user()->id_user === $chat->id_user_from ? $chat->id_user_to : $chat->id_user_from) === ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from)) {
+                                break;
+                            }
+                            $chats[] = new Chat([
+                                'id_chat' => null,
+                                'id_user_from' => $friend->id_user_from,
+                                'id_user_to' => $friend->id_user_to,
+                                'messages' => "[]",
+                            ]);
+                        }
+                    }
+                    if (!count($chats)) {
+                        $chats[] = new Chat([
+                            'id_chat' => null,
+                            'id_user_from' => $friend->id_user_from,
+                            'id_user_to' => $friend->id_user_to,
+                            'messages' => "[]",
+                        ]);
+                    }
+                }
+            }
+
+            foreach ($chats as $chat) {
+                $chat->id_user_logged = $request->user()->id_user;
+                $chat->users();
+                $chat->type();
             }
 
             return response()->json([

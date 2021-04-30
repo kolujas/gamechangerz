@@ -27,6 +27,17 @@
             $this->messages = Message::parse(json_decode($this->messages));
         }
 
+        public function type () {
+            $this->messages();
+            $this->id_type = 1;
+            foreach ($this->messages as $message) {
+                if (isset($message->id_assigment)) {
+                    $this->id_type = 2;
+                    break;
+                }
+            }
+        }
+
         /**
          * * Get the Chat Users.
          * @return array

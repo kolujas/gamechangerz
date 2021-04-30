@@ -173,20 +173,30 @@
 
 .user .data > div{
     background-color: var(--color-black);
-}
-
-.user .data .tag{
     position: relative;
 }
 
 .user .data .tag .username span {
+    display: block;
     white-space: nowrap;
+    max-width: 13rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .user .data .tag .teammate{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 1rem;
+    right: 1rem;
+    border-radius: .25rem;
+}
+
+.user .data .tag .teammate.active {
+    background-image: linear-gradient(130deg , var(--color-five), var(--color-four));
+}
+
+.user .data .tag .teammate.active path {
+    fill: var(--color-black);
 }
 
 .user .icons-list svg{
@@ -204,11 +214,18 @@
     order: 1;
 }
 
-.user > .abilities li > div{
+.user > .abilities li {
     background: var(--color-black);
+    position: relative;
+}
+
+.user > .abilities li > div{
     padding: 1rem;
     margin-bottom: 1rem;
-    position: relative;
+}
+
+.user .abilities .ability > *:not(aside) {
+    z-index: 1;
 }
 
 .user .abilities .ability aside{
@@ -218,14 +235,12 @@
     width: 100%;
     height: 100%;
     opacity: .2;
-    z-index: 2;
 }
 
 /* reseñas user */
-
 .user .cardota{
-    background: var(--color-black);
-    z-index: -2;
+    /* background: var(--color-black); */
+    /* z-index: -2; */
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
     border-image-slice: 1;
@@ -267,8 +282,42 @@
     --color-two: var(--color-five);
 }
 
+.user .reviews .games header .degradado:first-of-type {
+    display: none;
+}
 
+.user .reviews .games header .degradado.hidden {
+    display: block;
+}
 
+.user .abilities li > div > div .stars svg {
+    width: 1.2rem;
+}
+
+.user .reviews .abilities .stars svg {
+    width: 1.2rem;
+}
+
+.user .reviews .cards header {
+    height: 100%;
+}
+
+.user .reviews .cards .image figure {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.user .reviews .cards .image figure img {
+    height: 200%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.user .reviews .cards header a:hover {
+    padding-right: 0;
+}
 
 /* ? MD */
 @media (min-width: 768px) {
@@ -360,8 +409,13 @@
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 
-    
+    .user .reviews .abilities .stars svg {
+        width: 1rem;
+    }
 
+    .user .data .tag .username span {
+        max-width: 8rem;
+    }
 }
 
 /* ? LG */
@@ -459,18 +513,9 @@
         padding: 0;
     }
 
-    /* .user .reviews-user .games{
-        margin-left: 0;
-        margin-bottom: 5rem;
+    .user .reviews .abilities .stars svg {
+        width: .8rem;
     }
-
-
-    .user .reviews-user .deviceFigure img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;        
-    } */
-
 }
 
 /* ? XL */
@@ -545,6 +590,10 @@
     .user .games .cards{
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .user .data .tag .username span {
+        max-width: 13rem;
+    }
 }
 
 /* ? 2XL */
@@ -601,5 +650,9 @@
 
     .user .reviews{
         grid-column: span 4 / span 4;
+    }
+
+    .user .data .tag .username span {
+        max-width: 10rem;
     }
 }

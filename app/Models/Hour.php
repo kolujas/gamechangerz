@@ -155,7 +155,7 @@
          * @param array $hoursToParse Example: "[{\"id_hour\":1},{\"id_hour\":15},{\"id_hour\":15}]"
          * @return array
          */
-        static public function parse ($hoursToParse, $active) {
+        static public function parse ($hoursToParse, $active = false) {
             $hours = collect([]);
             foreach ($hoursToParse as $hour) {
                 $hour = (object) $hour;

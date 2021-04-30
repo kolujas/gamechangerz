@@ -6,6 +6,11 @@ import { Notification as NotificationJS } from "../submodules/NotificationJS/js/
 import Token from "./token.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 
+async function getChats (token) {
+    const chats = await Chat.all(token.data);
+    new Chat({ token: token.data }, chats);
+}
+
 document.addEventListener('DOMContentLoaded', (e) => {
     new NavMenuJS({
         id: "nav-id",
@@ -50,7 +55,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 });
             }
         }
-        const chats = Chat.all(token.data);
+        getChats(token);
     } else if (token) {
         token.remove();
     }

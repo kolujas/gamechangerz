@@ -5,6 +5,7 @@
     use App\Models\Achievements;
     use App\Models\Day;
     use App\Models\Folder;
+    use App\Models\Friend;
     use App\Models\Game;
     use App\Models\Idiom;
     use App\Models\Lesson;
@@ -126,11 +127,44 @@
         }
 
         /**
+         * * Get the User Friends.
+         * @return array
+         */
+        public function friends () {
+            $this->friends = collect([]);
+            foreach (Friend::where('id_user_from', '=', $this->id_user)->get() as $friend) {
+                $this->friends->push($friend);
+            }
+            foreach (Friend::where('id_user_to', '=', $this->id_user)->get() as $friend) {
+                $this->friends->push($friend);
+            }
+        }
+
+        /**
          * * Get the User Games.
          * @return array
          */
         public function games () {
             $this->games = Game::parse(json_decode($this->games));
+        }
+
+        /**
+         * * Get the User hours.
+         * @return array
+         */
+        public function hours () {
+            $this->hours = 0;
+            foreach ($this->lessons as $lesson) {
+                foreach (json_decode($lesson->days) as $day) {
+                    $day = (object) $day;
+                    if (Hour::hasOptions($day->hour->id_hour)) {
+                        $hour = Hour::findOptions($day->hour->id_hour);
+                        if (now() > $day->date . "T" . $hour->to) {
+                            $this->hours++;
+                        }
+                    }
+                }
+            }
         }
 
         /**
@@ -146,7 +180,13 @@
          * @return array
          */
         public function lessons () {
-            return $this->hasMany(Lesson::class, 'id_user_from', 'id_user');
+            $this->lessons = collect([]);
+            foreach (Lesson::where('id_user_from', '=', $this->id_user)->get() as $friend) {
+                $this->lessons->push($friend);
+            }
+            foreach (Lesson::where('id_user_to', '=', $this->id_user)->get() as $friend) {
+                $this->lessons->push($friend);
+            }
         }
 
         /**

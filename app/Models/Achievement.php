@@ -9,17 +9,17 @@
 
         /** @var array Achievement options */
         static $options = [[
-                'id_achievement' => 1,
-                'title' => 'Something',
-                'description' => 'Something',
-                'icon' => 'something',
-                'slug' => 'something',
-            ], [
-                'id_achievement' => 2,
-                'title' => 'Something',
-                'description' => 'Something',
-                'icon' => 'something',
-                'slug' => 'something',
+            'id_achievement' => 1,
+            'title' => 'Something',
+            'description' => 'Something',
+            'icon' => 'something',
+            'slug' => 'something',
+        ], [
+            'id_achievement' => 2,
+            'title' => 'Something',
+            'description' => 'Something',
+            'icon' => 'something',
+            'slug' => 'something',
         ]];
 
         /**

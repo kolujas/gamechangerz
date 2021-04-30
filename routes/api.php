@@ -1,5 +1,6 @@
 <?php
     use App\Http\Controllers\API\AuthController;
+    use App\Http\Controllers\API\RoleController;
     use App\Http\Controllers\API\AssigmentController;
     use App\Http\Controllers\API\ChatController;
     use App\Http\Controllers\API\FriendController;
@@ -11,6 +12,9 @@
         Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
 
         Route::middleware('auth:api')->group(function () {
+// ! RoleController - Controls the Role api.
+            Route::get('/role', [RoleController::class, 'get'])->name('api.role.get');
+
             Route::middleware(['api.lesson.exist'])->group(function () {
 // ! AssigmentController - Controls the assigments api.
                 Route::middleware(['api.assigment.exist'])->group(function () {

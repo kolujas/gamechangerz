@@ -8,6 +8,7 @@
             @endif
                 <header class="py-4">
                     <h3 class="degradado">{{ $game->name }}</h3>
+                    <h3 class="degradado hidden">{{ $game->alias }}</h3>
                 </header>
                 <main class="card-body degradado">
                     <figure>

@@ -15,7 +15,6 @@
 
 @section('main')
     @if ($user->id_role < 1)
-        {{-- Perfil del Usuario --}}
         <section class="user md:grid md:grid-cols-3 xl:grid-cols-7 2xl:grid-cols-9 md:gap-4 lg:relative">
             <section class="data mb-8 md:pl-8 md:mt-8 lg:row-span-3 xl:col-start-2 xl:col-span-2 xl:px-0 2xl:col-start-3">
                 <div class="p-8">
@@ -25,10 +24,15 @@
                             @endcomponent
                         </div>
                         <div class="username">
-                            <h3 class="color-white">Fjacuzzy</h3>
-                            <span class="font-bold color-four">Facundo Sarassola</span>
+                            <h3 class="color-white">{{ $user->username }}</h3>
+                            <span class="font-bold color-four">{{ $user->name }}</span>
                         </div>
-                        <div class="teammate">
+                        @if ($user->teammate)
+                            <div class="active teammate p-2">
+                        @endif
+                        @if (!$user->teammate)
+                            <div class="teammate p-2">
+                        @endif
                             <span>
                                 @component('components.svg.ChoqueSVG')
                                 @endcomponent
@@ -36,41 +40,30 @@
                         </div>
                     </header>
                     
-                    <ul class="icons-list flex justify-center mt-8">
-                        <li class="px-2">
-                            @component('components.svg.Premio1SVG')
-                            @endcomponent
-                        </li>
-                        <li class="px-2">
-                            @component('components.svg.Premio2SVG')
-                            @endcomponent
-                        </li>
-                        <li class="px-2">
-                            @component('components.svg.Premio3SVG')
-                            @endcomponent
-                        </li>
-                        <li class="px-2">
-                            @component('components.svg.Premio4SVG')
-                            @endcomponent
-                        </li>
-                        <li class="px-2"> @component('components.svg.Premio5SVG')
-                            @endcomponent
-                        </li>
-                    </ul>
+                    @if (count($user->achievements))
+                        <ul class="icons-list flex justify-center mt-8">
+                            @foreach ($user->achievements as $achievement)
+                                <li class="px-2" title="{{ $achievement->name }}: {{ $achievement->description }}">
+                                    @component($achievement->icon)
+                                    @endcomponent
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
         
                     <div class="info">
                         <ul class="pt-8">
                             <li class="color-white pb-4">
                                 <span>Total clases tomadas:</span> 
-                                <span class="color-four font-bold">16</span>
+                                <span class="color-four font-bold">{{ count($user->lessons) }}</span>
                             </li>
                             <li class="color-white pb-4">
                                 <span>Cantidad de horas:</span> 
-                                <span class="color-four font-bold">196</span>
+                                <span class="color-four font-bold">{{ $user->hours }}</span>
                             </li>
                             <li class="color-white pb-4">
                                 <span>Amigos:</span>
-                                <span class="color-four font-bold">23</span>
+                                <span class="color-four font-bold">{{ count($user->friends) }}</span>
                             </li>
                         </ul>
                     </div>
@@ -89,157 +82,92 @@
                     <h3 class="color-white">Habilidades</h3>
                 </header>
                 <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 md:grid md:grid-cols-4 lg:grid-cols-2 md:gap-4 mb-4">
-                    <li class="card">
-                        <div class="flex p-4">
-                            <div class="ability flex items-start flex-wrap">
-                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
-                                <div class="color-white font-bold pr-1 flex flex-auto">
-                                    <span class="mr-2">Puntería</span>
-                                    @component('components.svg.PunteriaSVG')@endcomponent
+                    @foreach ($user->game_abilities as $ability)
+                        <li class="card">
+                            <div class="flex p-4">
+                                <div class="ability flex items-start flex-wrap">
+                                    <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
+                                    <div class="color-white font-bold pr-1 flex flex-auto">
+                                        <span class="mr-2">{{ $ability->name }}</span>
+                                        @component($ability->icon)@endcomponent
+                                    </div>
+                                    <div class="stars flex">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $ability->stars)
+                                                @component('components.svg.estrellaSVG')@endcomponent
+                                            @else
+                                                @component('components.svg.estrella2SVG')@endcomponent
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <p class="color-white mt-4">{!! $ability->description !!}</p>
                                 </div>
-                                <div class="flex">
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.Estrella2SVG')@endcomponent
-                                </div>
-                                <p class="color-white mt-4">Derriba a tus enemigos desde lejos practicando con el AWP.</p>
                             </div>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="flex p-4">
-                            <div class="ability flex items-start flex-wrap">
-                                <aside style="background:url({{ asset('img/games/counter-strike-go/01-background.png') }}) no-repeat center center; background-size: cover"></aside>
-                                <div class="color-white font-bold pr-1 flex flex-auto">
-                                    <span class="mr-2">Velocidad</span>
-                                    @component('components.svg.MovilidadSVG')@endcomponent
-                                </div>
-                                <div class="flex">
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.Estrella2SVG')@endcomponent
-                                </div>
-                                <p class="color-white mt-4">Aprende como moverte más rápido y ciertos atajos de mapas.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="flex p-4">
-                            <div class="ability flex items-start flex-wrap">
-                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
-                                <div class="color-white font-bold pr-1 flex flex-auto">
-                                    <span class="mr-2">Estrategia</span>
-                                    @component('components.svg.EstSVG')@endcomponent
-                                </div>
-                                <div class="flex">
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.Estrella2SVG')@endcomponent
-                                    @component('components.svg.Estrella2SVG')@endcomponent
-                                </div>
-                                <p class="color-white mt-4">Aprende dónde y cuando moverte en distintos mapas y sobrevivir.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="flex p-4">
-                            <div class="ability flex items-start flex-wrap">
-                                <aside style="background:url({{asset('img/games/counter-strike-go/01-background.png')}}) no-repeat center center; background-size: cover"></aside>
-                                <div class="color-white font-bold pr-1 flex flex-auto">
-                                    <span class="mr-2">Gamesense</span>
-                                    @component('components.svg.GamesenseSVG')@endcomponent
-                                </div>
-                                <div class="flex">
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                </div>
-                                <p class="color-white mt-4">Desarrolla la habilidad para reaccionar a cualquier problema.</p>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endforeach
                 </ul>
             </section>
 
-            <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0">
-                <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
-                    <h3 class="color-white">Reseñas</h3>
-                </header>
-                <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 mb-4">
-                    <li class="card">
-                        <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota md:grid-cols-4">
-                            <div class="ability flex items-start flex-wrap col-span-2 md:col-span-4">
-                                <div class="color-white font-bold pr-1 flex flex-auto">
-                                    <span class="mr-2">Puntería</span>
-                                    @component('components.svg.PunteriaSVG')@endcomponent
+            @if (count($user->reviews))
+                <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0">
+                    <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
+                        <h3 class="color-white">Reseñas</h3>
+                    </header>
+                    <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 mb-4">
+                        @foreach ($user->reviews as $review)
+                            <li class="card">
+                                <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota md:grid-cols-4">
+                                    <div class="ability flex items-start flex-wrap">
+                                        <div class="color-white font-bold pr-1 flex flex-auto mb-4">
+                                            <span class="mr-2">Puntería</span>
+                                            @component('components.svg.PunteriaSVG')@endcomponent
+                                        </div>
+                                        @component('components.game.list', [
+                                            "games" => [$review->game]
+                                        ])                                    
+                                        @endcomponent
+                                    </div>
+                                    <ul class="abilities hidden md:flex content-between flex-wrap mb-4">
+                                        @foreach ($review->abilities as $ability)
+                                            <li div class="flex justify-between">
+                                                <span class="color-white">{{ $ability->name }}</span> 
+                                                <div class="stars flex">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $ability->stars)
+                                                            @component('components.svg.estrellaSVG')@endcomponent
+                                                        @else
+                                                            @component('components.svg.estrella2SVG')@endcomponent
+                                                        @endif
+                                                    @endfor
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="image hidden md:block">
+                                        <figure>
+                                            <img src="{{ asset('/img/games/counter-strike-go/device.svg') }}" alt="Foto del profesor">
+                                        </figure>
+                                    </div>
+                                    <header class="grid pb-4">
+                                        <div class="grid grid-cols-2">
+                                            <h3 class="color-white text-2xl col-span-2">{{ $review->users['from']->username }}</h3>
+                                            <span class="color-white">{{ $review->users['from']->name }}</span>
+                                            <span class="row-span-2">
+                                                @component('components.svg.TeamSVG')@endcomponent
+                                            </span>
+                                        </div>
+                                        <a class="btn btn-one mt-4 block" href="#">
+                                            <span>Leer más</span>
+                                        </a>
+                                    </header>
                                 </div>
-                            </div>
-                            @component('components.game.list', [
-                                "games" => $user->games
-                            ])                                    
-                            @endcomponent
-                            <div class="abilities flex items-start flex-wrap">
-                                <ul class="w-full">
-                                    <li div class="flex justify-between">
-                                        <span class="color-white">Precisión</span> 
-                                        <div class="flex">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </li>
-                                    <li div class="flex justify-between">
-                                        <span class="color-white">Precisión</span> 
-                                        <div class="flex">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </li>
-                                    <li div class="flex justify-between">
-                                        <span class="color-white">Precisión</span> 
-                                        <div class="flex">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </li>
-                                    <li div class="flex justify-between">
-                                        <span class="color-white">Precisión</span> 
-                                        <div class="flex">
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.EstrellaSVG')@endcomponent
-                                            @component('components.svg.Estrella2SVG')@endcomponent
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <figure>
-                                    <img src="{{ asset('/img/games/counter-strike-go/device.svg') }}" alt="Device">
-                                </figure>
-                            </div>
-                            
-                            <header>
-                                <div class="grid grid-cols-2">
-                                    <h3 class="color-white text-2xl col-span-2">dev1ce</h3>
-                                    <span class="color-white">Nicolai</span>
-                                    <span class="row-span-2">
-                                        @component('components.svg.TeamSVG')@endcomponent
-                                    </span>
-                                    <span class="color-white">Rdeetz</span>
-                                    <a class="btn btn-one mt-4" href="">
-                                        <span>Leer más</span>
-                                    </a>
-                                </div>
-                            </header>
-                        </div>
-                        
-                    </li>
-                </ul>
-            </section>
+                            </li>
+                        @endforeach
+                    </ul>
+                </section>
+            @endif
         </section>
     @else
-        {{-- Perfil del Profesor --}}
         <main class="teacher">
             <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-7 2xl:grid-cols-9 lg:gap-4">
                 <header class="info grid lg:col-span-2 xl:col-span-3 xl:col-start-2 2xl:col-start-3 pt-12">
