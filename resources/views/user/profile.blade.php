@@ -15,8 +15,8 @@
 
 @section('main')
     @if ($user->id_role < 1)
-        <section class="user md:grid md:grid-cols-3 xl:grid-cols-7 2xl:grid-cols-9 md:gap-4 lg:relative">
-            <section class="data mb-8 md:pl-8 md:mt-8 lg:row-span-3 xl:col-start-2 xl:col-span-2 xl:px-0 2xl:col-start-3">
+        <section class="user md:grid md:grid-cols-3 xl:grid-cols-9  xl:gap-8 2xl:grid-cols-9 md:gap-4 lg:relative">
+            <section class="data mb-8 md:pl-8 md:mt-8 lg:row-span-3 xl:col-start-2 xl:col-span-3 xl:px-0 2xl:col-start-3">
                 <div class="p-8">
                     <header class="tag flex items-center">
                         <div class="pr-2">
@@ -70,18 +70,18 @@
                 </div>
             </section>
 
-            <section class="games xl:col-span-3 2xl:col-span-4 md:col-span-2 xl:relative md:px-8 md:my-8 md:mr-8 lg:px-0 mb-8 xl:mx-0">
+            <section class="games xl:col-span-4 2xl:col-span-4 md:col-span-2 xl:relative md:px-8 md:my-8 md:mr-8 lg:px-0 mb-8 xl:mx-0">
                 @component('components.game.list', [
                     'games' => $user->games,
                 ])
                 @endcomponent
             </section>       
             
-            <section class="abilities relative lg:col-span-2 md:col-span-3 xl:col-span-3 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0">
+            <section class="abilities relative lg:col-span-2 md:col-span-3 xl:col-span-4 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0 xl:pr-0">
                 <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                     <h3 class="color-white">Habilidades</h3>
                 </header>
-                <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 md:grid md:grid-cols-4 lg:grid-cols-2 md:gap-4 mb-4">
+                <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 xl:gap-8 md:grid md:grid-cols-4 lg:grid-cols-2 md:gap-4 mb-4">
                     @foreach ($user->game_abilities as $ability)
                         <li class="card">
                             <div class="flex p-4">
@@ -109,7 +109,7 @@
             </section>
 
             @if (count($user->reviews))
-                <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 2xl-pr-0">
+                <section class="reviews relative lg:col-span-2 xl:col-span-4 2xl:col-span-4 mb-8 lg:mb-0 lg:pr-8 xl:pr-0 2xl-pr-0">
                     <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 2xl:col-start-3 mb-4">
                         <h3 class="color-white">Reseñas</h3>
                     </header>
