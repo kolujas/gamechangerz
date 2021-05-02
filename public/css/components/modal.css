@@ -1,3 +1,246 @@
+#login, #signin{
+    background-color: #0D0D0D;
+    border: 1px solid;
+    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+}
+
+.login .modal-header h2, .register .modal-header h2{
+    font-size: 1.5rem;
+}
+
+.form-input{
+    background-color: #000;
+    color: var(--color-white);
+    padding-left: 1rem;
+    outline: none;
+    height: 2.5rem;
+    font-size: .8rem;
+}
+
+.form-input::placeholder{
+    padding-left: 1rem;
+    color: var(--color-white);
+}
+
+
+.input-group .error{
+    color: var(--color-white);
+}
+
+.login .input-group .support-login_data, .signin .input-group .support-login_data{
+    margin: 0 0 1rem 0;
+}
+
+.login .input-group .support-login_password, .signin .input-group .support-login_password{
+    margin: 1rem 0 0 0;
+}
+
+
+
+/* .input-group .error .support-box .support-login-data{
+    color: var(--color-white);
+    margin: 0.5rem 0;
+} */
+
+.form-submit.degradado{
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    font-weight: bold;
+}
+
+
+
+
+/* checkbox css */
+
+.b-contain *, .b-contain *::before, .b-contain *::after {
+	box-sizing: content-box !important;
+}
+
+.b-contain input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.b-contain span {
+	line-height: 1.49;
+	font-size: 0.88rem;
+	font-family: inherit;
+}
+
+.b-contain {
+	display: table;
+	position: relative;
+	padding-left: 1.8rem;
+	cursor: pointer;
+	margin-bottom: 0.62rem;
+}
+
+.b-contain input[type="checkbox"] ~ .b-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 1.2rem;
+	width: 1.31rem;
+	background: rgba(241, 245, 248, 1);
+	transition: background 250ms;
+	border: none;
+	border-radius: 0.307rem;
+    margin-top: .2rem;
+}
+
+.b-contain input[type="radio"] ~ .b-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 1.2rem;
+	width: 1.31rem;
+	background: rgba(241, 245, 248, 1);
+	transition: background 250ms;
+	border: none;
+	border-radius: 2.0rem;
+}
+
+.b-contain input[type="checkbox"] ~ .b-input::after {
+	content: '';
+	position: absolute;
+	display: none;
+	left: .45rem;
+	top: .18rem;
+	width: .25rem;
+	height: .6rem;
+	border: solid rgba(237, 103, 68, 1);
+	border-width: 0 2px 2px 0;
+	transition: background 250ms;
+	transform: rotate(45deg);
+}
+
+.b-contain input[type="radio"] ~ .b-input::after {
+	content: '';
+	position: absolute;
+	display: none;
+	left: .25rem;
+	top: .25rem;
+	width: .75rem;
+	height: .75rem;
+	border-radius: 2.0rem;
+	background: rgba(237, 103, 68, 1);
+	transition: background 250ms;
+}
+
+.b-contain input:disabled ~ .b-input::after {
+	border-color: rgba(208, 208, 208, 1);
+}
+
+.b-contain input:checked ~ .b-input::after {
+	display: block;
+}
+
+.b-contain:hover input ~ .b-input,
+.b-contain input:focus ~ .b-input {
+	background: rgb(231, 238, 243);
+}
+
+.b-contain input:focus ~ .b-input {
+	box-shadow: 0 0 0 2px rgba(52,144,220,0.5);
+}
+
+.b-contain input:checked ~ .b-input {
+	background: rgba(179, 94, 67, 0.98);
+	border-color: rgba(237, 103, 68, 1);
+}
+
+.b-contain input[type="checkbox"]:disabled ~ .b-input {
+	background: rgba(241, 245, 248, 1);
+	border-color: rgba(184, 194, 204, 1);
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.b-contain input[type="radio"]:disabled ~ .b-input {
+	background: rgba(241, 245, 248, 1);
+	border-color: rgba(184, 194, 204, 1);
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.b-contain input[type="radio"]:disabled ~ .b-input::after {
+	background: rgba(208, 208, 208, 1);
+}
+
+
+.b-contain .b-input::before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 3rem;
+	height: 3rem;
+	margin-left: -0.85rem;
+	margin-top: -0.85rem;
+	background: rgba(0, 130, 243, 1);
+	border-radius: 2rem;
+	opacity: .6;
+	z-index: 99999;
+	transform: scale(0);
+}
+
+@keyframes b-ripple {
+	0% {
+		transform: scale(0);
+	}
+
+	20% {
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(1);
+  	}
+}
+
+@keyframes b-ripple-duplicate {
+	0% {
+		transform: scale(0);
+	}
+
+	30% {
+		transform: scale(1);
+	}
+
+	60% {
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(1);
+  	}
+}
+
+.b-contain input + .b-input::before {
+	animation: b-ripple 250ms ease-out;
+}
+
+.b-contain input:checked + .b-input::before {
+	animation-name: b-ripple-duplicate;
+}
+
+.b-contain .b-input::before {
+	visibility: hidden;
+}
+
+.b-contain input:focus + .b-input::before {
+	visibility: visible;
+}
+
+.b-contain:first-child .b-input::before {
+	visibility: hidden;
+}
+
 a[href="#chat"].modal-button.chat {
     position: fixed;
     right: 2rem;
@@ -296,8 +539,56 @@ a[href="#chat"].modal-button.chat span {
     border-right: 1px solid var(--color-grey);
 }
 
+/* datepicker */
+
+.datepicker [type="date"], .datepicker [type="text"] {
+    background: #000 url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+    color: var(--color-white);
+    border: none;
+  }
+
+  .datepicker [type="date"]::placeholder, .datepicker [type="text"]::placeholder {
+    color: var(--color-white);
+    padding-left: 1.4rem;
+    font-size: .8rem;
+  }
+
+
+.datepicker [type="date"]:focus, .datepicker [type="text"]:focus{
+    outline: none;
+}
+
+.datepicker [type="date"]::-webkit-inner-spin-button {
+display: none;
+}
+.datepicker [type="date"]::-webkit-calendar-picker-indicator {
+opacity: 0;
+}
+
+/* custom styles */
+.datepicker label {
+display: block;
+}
+.datepicker input {
+border-radius: 2px;
+background-color: #fff;
+padding: .5rem;
+width: 190px;
+}
+
+/* signin */
+
+.signup{
+    width: 60vw;
+}
+
 /* ? MD */
 @media(min-width: 768px){
+
+    .signup{
+        width: 40vw;
+    }
+
     #chat.modal > section {
         width: calc(100vw / 2);
         height: 50vh;
