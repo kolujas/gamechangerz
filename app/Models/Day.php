@@ -9,6 +9,17 @@
 
     class Day extends Model {
         use HasFactory;
+        
+        /** @var string Table primary key name */
+        protected $primaryKey = 'id_day';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_day', 'name', 'slug',
+        ];
 
         /** @var array Day options */
         static $options = [[
@@ -41,63 +52,6 @@
             'slug' => 'sabado',
         ]];
 
-        /**
-         * * Check if a Day exists.
-         * @param int $id_day Day primary key. 
-         * @return boolean
-         */
-        static public function hasOptions ($id_day) {
-            $found = false;
-            foreach (Day::$options as $day) {
-                $day = (object) $day;
-                if ($day->id_day === $id_day) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Find a Day.
-         * @param int $id_day Day primary key. 
-         * @return object
-         */
-        static public function findOptions ($id_day) {
-            foreach (Day::$options as $day) {
-                $day = (object) $day;
-                if ($day->id_day === $id_day) {
-                    $dayFound = $day;
-                }
-            }
-            return $dayFound;
-        }
-
-        /**
-         * * Parse a Days array.
-         * @param array $daysToParse Example: "[{\"id_day\":1,\"hours\":[{\"id_hour\":1},{\"id_hour\":2}]}]"
-         * @return array
-         */
-        static public function parse ($daysToParse) {
-            $days = collect([]);
-            foreach ($daysToParse as $day) {
-                $day = (object) $day;
-                if (Day::hasOptions($day->id_day)) {
-                    $aux = [
-                        'day' => Day::findOptions($day->id_day),
-                        'hours' => collect([]),
-                    ];
-                    foreach ($day->hours as $hour) {
-                        $hour = (object) $hour;
-                        if (Hour::hasOptions($hour->id_hour)) {
-                            $aux['hours']->push(Hour::findOptions($hour->id_hour));
-                        }
-                    }
-                    $days->push($aux);
-                }
-            }
-            return $days;
-        }
-
         static public function allDates ($daysToParse) {
             $days = collect([]);
             foreach (Day::$options as $day) {
@@ -120,6 +74,65 @@
                     $day->hours->push($hour);
                 }
                 $days->push($day);
+            }
+            return $days;
+        }
+
+        /**
+         * * Check if a Day exists.
+         * @param string $field 
+         * @return boolean
+         */
+        static public function has ($field) {
+            $found = false;
+            foreach (Day::$options as $day) {
+                $day = new Day($day);
+                if ($day->id_day === $field) {
+                    $found = true;
+                }
+            }
+            return $found;
+        }
+
+        /**
+         * * Returns a Day.
+         * @param string $field
+         * @return Day
+         */
+        static public function one ($field = '') {
+            foreach (Day::$options as $day) {
+                $day = new Day($day);
+                if ($day->id_day === $field) {
+                    return $day;
+                }
+            }
+        }
+
+        /**
+         * * Parse a Days array.
+         * @param array $daysToParse Example: "[{\"id_day\":1}]"
+         * @return Day[]
+         * @throws
+         */
+        static public function parse ($daysToParse = []) {
+            $days = collect([]);
+            foreach ($daysToParse as $data) {
+                if (!Day::has($data->id_day)) {
+                    throw (object)[
+                        'code' => 404,
+                        'message' => "Day with id = \"$data->id_day\" does not exist",
+                    ];
+                }
+                $aux = [
+                    'day' => Day::one($data->id_day),
+                    'hours' => collect([]),
+                ];
+                foreach ($data->hours as $hour) {
+                    if (Hour::has($hour->id_hour)) {
+                        $aux['hours']->push(Hour::one($hour->id_hour));
+                    }
+                }
+                $days->push($aux);
             }
             return $days;
         }

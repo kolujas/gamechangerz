@@ -8,6 +8,17 @@
 
     class Teampro extends Model {
         use HasFactory;
+        
+        /** @var string Table primary key name */
+        protected $primaryKey = 'id_teampro';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_teampro', 'name', 'svg', 'slug',
+        ];
 
         /** @var array Teampro options */
         static $options = [[
@@ -19,14 +30,14 @@
 
         /**
          * * Check if a Teampro exists.
-         * @param int $id_teampro Teampro primary key. 
+         * @param string $field 
          * @return boolean
          */
-        static public function hasOptions ($id_teampro) {
+        static public function has ($field) {
             $found = false;
             foreach (Teampro::$options as $teampro) {
-                $teampro = (object) $teampro;
-                if ($teampro->id_teampro === $id_teampro) {
+                $teampro = new Teampro($teampro);
+                if ($teampro->id_teampro === $field) {
                     $found = true;
                 }
             }
@@ -34,17 +45,16 @@
         }
 
         /**
-         * * Find a Teampro.
-         * @param int $id_teampro Teampro primary key. 
-         * @return object
+         * * Returns a Teampro.
+         * @param string $field
+         * @return Teampro
          */
-        static public function findOptions ($id_teampro) {
+        static public function one ($field = '') {
             foreach (Teampro::$options as $teampro) {
-                $teampro = (object) $teampro;
-                if ($teampro->id_teampro === $id_teampro) {
-                    $teamproFound = $teampro;
+                $teampro = new Teampro($teampro);
+                if ($teampro->id_teampro === $field) {
+                    return $teampro;
                 }
             }
-            return $teamproFound;
         }
     }

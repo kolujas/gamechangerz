@@ -94,7 +94,7 @@
                 <p class="color-white">Úneteles a miles de jugadores que buscan <span class="color-four font-bold">lo mismo</span> que vos</p>
             </header>
             <form class="users-form-search lg:col-span-3 lg:col-start-2 xl:col-span-5 xl:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between" action="/">
-                <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search">
+                <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, languageas, habilidades, etc." type="search">
                 <button class="submit-lupa p-4" type="submit">
                     @component('components.svg.BuscarSVG');
                     @endcomponent
@@ -108,7 +108,7 @@
                 <p class="color-white">Conoce a los mejores mentores y aprende <span class="color-four">directamente</span> de ellos</p>
             </header>
             <form class="users-form-search lg:col-span-3 lg:col-start-2 xl:col-span-5 xl:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between mb-8" action="">
-                <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search">
+                <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, languageas, habilidades, etc." type="search">
                 <button class="submit-lupa p-4" type="submit">
                     @component('components.svg.Buscar2SVG');
                     @endcomponent
@@ -116,7 +116,7 @@
             </form>
             <main class="lg:col-span-5 xl:col-start-2 2xl:col-start-3">
                 @component('components.user.list', [
-                    'users' => $users,
+                    'users' => $game->users,
                 ])
                 @endcomponent
             </main>

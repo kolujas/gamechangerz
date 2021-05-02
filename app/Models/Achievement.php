@@ -6,6 +6,17 @@
 
     class Achievement extends Model {
         use HasFactory;
+        
+        /** @var string Table primary key name */
+        protected $primaryKey = 'id_achievement';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_achievement', 'title', 'description', 'icon', 'slug', 'slug'
+        ];
 
         /** @var array Achievement options */
         static $options = [[
@@ -23,15 +34,29 @@
         ]];
 
         /**
+         * * Returns a Achievement.
+         * @param string $field
+         * @return Achievement
+         */
+        static public function one ($field = '') {
+            foreach (Achievement::$options as $achievement) {
+                $achievement = new Achievement($achievement);
+                if ($achievement->id_achievement === $field) {
+                    return $achievement;
+                }
+            }
+        }
+
+        /**
          * * Check if a Achievement exists.
-         * @param int $id_achievement Achievement primary key. 
+         * @param string $field 
          * @return boolean
          */
-        static public function hasOptions ($id_achievement) {
+        static public function has ($field) {
             $found = false;
             foreach (Achievement::$options as $achievement) {
-                $achievement = (object) $achievement;
-                if ($achievement->id_achievement === $id_achievement) {
+                $achievement = new Achievement($achievement);
+                if ($achievement->id_achievement === $field) {
                     $found = true;
                 }
             }
@@ -39,31 +64,20 @@
         }
 
         /**
-         * * Find a Achievement.
-         * @param int $id_achievement Achievement primary key. 
-         * @return object
+         * * Parse a Achievements array.
+         * @param array $achievementsToParse Example: "[{\"id_achievement\":1,\"abilities\":[{\"id_ability\":1,\"stars\":3.5}]}]"
+         * @return Achievement[]
+         * @throws
          */
-        static public function findOptions ($id_achievement) {
-            foreach (Achievement::$options as $achievement) {
-                $achievement = (object) $achievement;
-                if ($achievement->id_achievement === $id_achievement) {
-                    $achievementFound = $achievement;
-                }
-            }
-            return $achievementFound;
-        }
-
-        /**
-         * * Parse an Achievements array.
-         * @param array $achievementsToParse Example: "[{\"name\":\"Something\",\"description\":\"Something\",\"icon\":\"trophy\"}]"
-         * @return array
-         */
-        static public function parse ($achievementsToParse) {
+        static public function parse ($achievementsToParse = []) {
             $achievements = collect([]);
-            foreach ($achievementsToParse as $achievement) {
-                if (isset($achievement->id_achievement) && Achievement::hasOptions($achievement->id_achievement)) {
-                    $achievements->push(Achievement::findOptions($achievement->id_achievement));
-                } else {
+            foreach ($achievementsToParse as $data) {
+                if (isset($data->id_achievement) && Achievement::has($data->id_achievement)) {
+                    $achievement = Achievement::one($data->id_achievement);
+                    $achievements->push($achievement);
+                }
+                if (!isset($data->id_achievement) || !Achievement::has($data->id_achievement)) {
+                    $achievement = new Achievement((array) $data);
                     $achievements->push($achievement);
                 }
             }

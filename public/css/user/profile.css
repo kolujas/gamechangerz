@@ -6,7 +6,7 @@
 }
 
 /* ? Teacher */
-.teacher .info .idioms li svg{
+.teacher .info .languages li svg{
     height: 50%;
     width: 1.5rem;
 }
@@ -309,7 +309,7 @@
 }
 
 .user .reviews .cards .image figure img {
-    height: 200%;
+    height: 150%;
     width: 100%;
     object-fit: cover;
     object-position: top;
@@ -593,6 +593,10 @@
 
     .user .data .tag .username span {
         max-width: 13rem;
+    }
+
+    .user .reviews .abilities .stars svg {
+        width: 1rem;
     }
 }
 

@@ -17,10 +17,9 @@
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error);
             }
             return view('web.home', [
-                'games' => Game::getOptions(),
+                'games' => Game::all(),
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
@@ -38,7 +37,6 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
             return view('web.coming_soon', [
                 'error' => $error,
@@ -52,32 +50,19 @@
          */
         public function game (Request $request, $slug) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
-            $game = Game::search($slug);
-            $game->abilities = Ability::parse($game->abilities);
-            $usersFound = User::where('id_role', '=', 1)->with('reviews')->limit(6)->get();
-            $users = collect([]);
-            foreach ($usersFound as $user) {
-                $user->abilities();
-                $user->files();
-                $user->games();
-                $user->idioms();
-                $user->teampro();
-                $user->prices();
-                foreach ($user->games as $game) {
-                    if ($game->id_game) {
-                        $users->push($user);
+            if ($error === null) {
+                try {
+                    $game = Game::find($slug);
+                    $game->and(['abilities', 'users']);
+                    foreach ($game->users as $user) {
+                        $user->and(['abilities', 'games', 'languages', 'teampro', 'prices', 'files']);
                     }
-                }
-                $user->game_abilities = collect([]);
-                foreach ($user->games as $game) {
-                    $abilities = Ability::parse($game->abilities);
-                    foreach ($abilities as $ability) {
-                        $user->game_abilities->push($ability);
-                    }
+                } catch (\Throwable $th) {
+                    $error = $th;
+                    dd($error);
                 }
             }
             $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->limit(10)->get();
@@ -87,7 +72,6 @@
             return view('web.game', [
                 'game' => $game,
                 'posts' => $posts,
-                'users' => $users,
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
@@ -105,10 +89,9 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
             return view('web.home', [
-                'games' => Game::getOptions(),
+                'games' => Game::all(),
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
