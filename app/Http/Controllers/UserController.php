@@ -21,39 +21,22 @@
             $error = null;
             if($request->session()->has('error')){
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
-            $user->achievements();
-            $user->games();
-            $user->game_abilities = collect([]);
-            foreach ($user->games as $game) {
-                $abilities = Ability::parse($game->abilities);
-                foreach ($abilities as $ability) {
-                    $user->game_abilities->push($ability);
-                }
-            }
-            $user->role();
+            $user->and(['achievements', 'games', 'role']);
             if ($user->id_role === 1) {
-                $user->abilities();
-                $user->days();
-                $user->files();
-                $user->idioms();
-                $user->prices();
-                $user->teampro();
+                $user->and(['abilities', 'files', 'languages', 'prices', 'teampro', 'days']);
                 $days = Day::allDates($user->days);
             }
             if ($user->id_role === 0) {
-                $user->friends();
-                $user->lessons();
-                $user->hours();
+                $user->and(['friends', 'lessons', 'hours']);
                 $days = [];
             }
             foreach ($user->reviews as $review) {
-                $review->abilities();
+                $review->and(['abilities', 'lesson', 'users']);
+                $review->users['from']->and(['teampro']);
                 if ($user->id_role === 0) {
-                    $review->users();
-                    $review->game();
+                    $review->and(['game']);
                 }
                 foreach ($review->abilities as $review_ability) {
                     $review->stars = (isset($review->stars) ? $review->stars : 0) + $review_ability->stars;
@@ -65,9 +48,11 @@
                         }
                     }
                     if ($user->id_role === 0) {
-                        foreach ($user->game_abilities as $game_ability) {
-                            if ($game_ability->id_ability === $review_ability->id_ability) {
-                                $game_ability->stars = $game_ability->stars + $review_ability->stars;
+                        foreach ($user->games as $game) {
+                            foreach ($game->abilities as $ability) {
+                                if ($ability->id_ability === $review_ability->id_ability) {
+                                    $ability->stars = $ability->stars + $review_ability->stars;
+                                }
                             }
                         }
                     }
@@ -85,8 +70,10 @@
             }
             if ($user->id_role === 0) {
                 if (count($user->reviews)) {
-                    foreach ($user->game_abilities as $ability) {
-                        $ability->stars = $ability->stars / count($user->reviews);
+                    foreach ($user->games as $game) {
+                        foreach ($game->abilities as $ability) {
+                            $ability->stars = $ability->stars / count($user->reviews);
+                        }
                     }
                 }
             }
@@ -125,7 +112,7 @@
                 $user->abilities();
                 $user->files();
                 $user->games();
-                $user->idioms();
+                $user->languages();
                 $user->teampro();
                 $user->prices();
                 foreach ($user->games as $game) {

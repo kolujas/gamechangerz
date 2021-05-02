@@ -82,28 +82,30 @@
                     <h3 class="color-white">Habilidades</h3>
                 </header>
                 <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 xl:gap-8 md:grid md:grid-cols-4 lg:grid-cols-2 md:gap-4 mb-4">
-                    @foreach ($user->game_abilities as $ability)
-                        <li class="card">
-                            <div class="flex p-4">
-                                <div class="ability flex items-start flex-wrap">
-                                    <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
-                                    <div class="color-white font-bold pr-1 flex flex-auto">
-                                        <span class="mr-2">{{ $ability->name }}</span>
-                                        @component($ability->icon)@endcomponent
+                    @foreach ($user->games as $game)
+                        @foreach ($game->abilities as $ability)
+                            <li class="card">
+                                <div class="flex p-4">
+                                    <div class="ability flex items-start flex-wrap">
+                                        <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
+                                        <div class="color-white font-bold pr-1 flex flex-auto">
+                                            <span class="mr-2">{{ $ability->name }}</span>
+                                            @component($ability->icon)@endcomponent
+                                        </div>
+                                        <div class="stars flex">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $ability->stars)
+                                                    @component('components.svg.estrellaSVG')@endcomponent
+                                                @else
+                                                    @component('components.svg.estrella2SVG')@endcomponent
+                                                @endif
+                                            @endfor
+                                        </div>
+                                        <p class="color-white mt-4">{!! $ability->description !!}</p>
                                     </div>
-                                    <div class="stars flex">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= $ability->stars)
-                                                @component('components.svg.estrellaSVG')@endcomponent
-                                            @else
-                                                @component('components.svg.estrella2SVG')@endcomponent
-                                            @endif
-                                        @endfor
-                                    </div>
-                                    <p class="color-white mt-4">{!! $ability->description !!}</p>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     @endforeach
                 </ul>
             </section>
@@ -116,20 +118,20 @@
                     <ul class="cards flex flex-col md:flex-row px-8 pb-4 lg:px-0 xl:col-span-4 mb-4">
                         @foreach ($user->reviews as $review)
                             <li class="card">
-                                <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota md:grid-cols-4">
+                                <div class="flex p-4 pb-0 grid grid-cols-2 gap-4 cardota md:grid-cols-4 xl:grid-cols-5">
                                     <div class="ability flex items-start flex-wrap">
-                                        <div class="color-white font-bold pr-1 flex flex-auto mb-4">
-                                            <span class="mr-2">Puntería</span>
-                                            @component('components.svg.PunteriaSVG')@endcomponent
+                                        <div class="color-white font-bold w-full flex flex-auto items-center">
+                                            <span class="mr-2 w-full">{{ $review->lesson->name }}</span>
+                                            @component($review->lesson->svg)@endcomponent
                                         </div>
                                         @component('components.game.list', [
                                             "games" => [$review->game]
                                         ])                                    
                                         @endcomponent
                                     </div>
-                                    <ul class="abilities hidden md:flex content-between flex-wrap mb-4">
+                                    <ul class="abilities hidden md:flex content-start flex-wrap mb-4 xl:col-span-2">
                                         @foreach ($review->abilities as $ability)
-                                            <li div class="flex justify-between">
+                                            <li div class="w-full flex justify-between">
                                                 <span class="color-white">{{ $ability->name }}</span> 
                                                 <div class="stars flex">
                                                     @for ($i = 1; $i <= 5; $i++)
@@ -152,9 +154,7 @@
                                         <div class="grid grid-cols-2">
                                             <h3 class="color-white text-2xl col-span-2">{{ $review->users['from']->username }}</h3>
                                             <span class="color-white">{{ $review->users['from']->name }}</span>
-                                            <span class="row-span-2">
-                                                @component('components.svg.TeamSVG')@endcomponent
-                                            </span>
+                                            @component($review->users['from']->teampro->svg)@endcomponent
                                         </div>
                                         <a class="btn btn-one mt-4 block" href="#">
                                             <span>Leer más</span>
@@ -175,9 +175,9 @@
                         <section class="grid">
                             <section class="flex px-8 xl:px-0">
                                 <h2 class="name color-white">{{ $user->username }}</h2>
-                                <ul class="idioms flex items-center ml-2">
-                                    @foreach ($user->idioms as $idiom)
-                                        <li class="mr-2" title={{ $idiom->name }}>@component($idiom->svg)@endcomponent</li>
+                                <ul class="languages flex items-center ml-2">
+                                    @foreach ($user->languages as $language)
+                                        <li class="mr-2" title={{ $language->name }}>@component($language->svg)@endcomponent</li>
                                     @endforeach
                                 </ul>
                             </section>
@@ -379,10 +379,12 @@
                     <h3 class="color-white mb-4 px-8 xl:px-0">Habilidades</h3>
                 </header>
                 <main class="xl:col-span-7 2xl:col-span-9 relative">
-                    @component('components.game.abilities_list', [
-                        'abilities' => $user->game_abilities,
+                    @foreach ($user->games as $game)
+                        @component('components.game.abilities_list', [
+                            'abilities' => $game->abilities,
                         ])
-                    @endcomponent
+                        @endcomponent
+                    @endforeach
                 </main>
             </section>
 

@@ -7,7 +7,7 @@
     use App\Models\Folder;
     use App\Models\Friend;
     use App\Models\Game;
-    use App\Models\Idiom;
+    use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\Post;
     use App\Models\Review;
@@ -33,7 +33,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'idioms', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video',
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video',
         ];
 
         /**
@@ -67,20 +67,97 @@
         }
 
         /**
+         * * Get the User Posts.
+         * @return array
+         */
+        public function posts () {
+            return $this->hasMany(Post::class, 'id_user', 'id_user');
+        }
+
+        /**
+         * * Get the User Reviews.
+         * @return array
+         */
+        public function reviews () {
+            return $this->hasMany(Review::class, 'id_user_to', 'id_user');
+        }
+
+        /**
+         * * Get the Game info. 
+         * @param array $columns
+         * @throws
+         */
+        public function and ($columns = []) {
+            try {
+                foreach ($columns as $column) {
+                    switch ($column) {
+                        case 'abilities':
+                            $this->abilities();
+                            break;
+                        case 'achievements':
+                            $this->achievements();
+                            break;
+                        case 'days':
+                            $this->days();
+                            break;
+                        case 'files':
+                            $this->files();
+                            break;
+                        case 'friends':
+                            $this->friends();
+                            break;
+                        case 'games':
+                            $this->games();
+                            break;
+                        case 'hours':
+                            $this->hours();
+                            break;
+                        case 'languages':
+                            $this->languages();
+                            break;
+                        case 'lessons':
+                            $this->lessons();
+                            break;
+                        case 'prices':
+                            $this->prices();
+                            break;
+                        case 'role':
+                            $this->role();
+                            break;
+                        case 'teampro':
+                            $this->teampro();
+                            break;
+                    }
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
          * * Get the User Abilities.
          * @return array
          */
         public function abilities () {
-            $abilities = [['id_ability' => 1, 'stars' => 0],['id_ability' => 2, 'stars' => 0],['id_ability' => 3, 'stars' => 0],['id_ability' => 4, 'stars' => 0]];
+            $abilities = [
+                (object) ['id_ability' => 1, 'stars' => 0],
+                (object) ['id_ability' => 2, 'stars' => 0],
+                (object) ['id_ability' => 3, 'stars' => 0],
+                (object) ['id_ability' => 4, 'stars' => 0]
+            ];
             $this->abilities = Ability::parse($abilities);
         }
 
         /**
          * * Get the User Achievements.
-         * @return array
+         * @throws
          */
         public function achievements () {
-            $this->achievements = Achievement::parse(json_decode($this->achievements));
+            try {
+                $this->achievements = Achievement::parse(json_decode($this->achievements));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
@@ -102,10 +179,14 @@
 
         /**
          * * Get the User Days.
-         * @return array
+         * @throws
          */
         public function days () {
-            $this->days = Day::parse(json_decode($this->days));
+            try {
+                $this->days = Day::parse(json_decode($this->days));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
@@ -142,23 +223,29 @@
 
         /**
          * * Get the User Games.
-         * @return array
+         * @throws
          */
         public function games () {
-            $this->games = Game::parse(json_decode($this->games));
+            try {
+                $this->games = Game::parse(json_decode($this->games));
+                foreach ($this->games as $game) {
+                    $game->and(['abilities']);
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
-         * * Get the User hours.
+         * * Get the User Lessons.
          * @return array
          */
         public function hours () {
             $this->hours = 0;
             foreach ($this->lessons as $lesson) {
                 foreach (json_decode($lesson->days) as $day) {
-                    $day = (object) $day;
-                    if (Hour::hasOptions($day->hour->id_hour)) {
-                        $hour = Hour::findOptions($day->hour->id_hour);
+                    if (Hour::has($day->hour->id_hour)) {
+                        $hour = Hour::one($day->hour->id_hour);
                         if (now() > $day->date . "T" . $hour->to) {
                             $this->hours++;
                         }
@@ -168,11 +255,15 @@
         }
 
         /**
-         * * Get the User Idioms.
-         * @return array
+         * * Get the User Languages.
+         * @throws
          */
-        public function idioms () {
-            $this->idioms = Idiom::parse(json_decode($this->idioms));
+        public function languages () {
+            try {
+                $this->languages = Language::parse(json_decode($this->languages));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
@@ -181,36 +272,42 @@
          */
         public function lessons () {
             $this->lessons = collect([]);
-            foreach (Lesson::where('id_user_from', '=', $this->id_user)->get() as $friend) {
-                $this->lessons->push($friend);
+            foreach (Lesson::where('id_user_from', '=', $this->id_user)->get() as $lesson) {
+                $lesson->hours = 0;
+                foreach (json_decode($lesson->days) as $day) {
+                    if (Hour::has($day->hour->id_hour)) {
+                        $hour = Hour::one($day->hour->id_hour);
+                        if (now() > $day->date . "T" . $hour->to) {
+                            $lesson->hours++;
+                        }
+                    }
+                }
+                $this->lessons->push($lesson);
             }
-            foreach (Lesson::where('id_user_to', '=', $this->id_user)->get() as $friend) {
-                $this->lessons->push($friend);
+            foreach (Lesson::where('id_user_to', '=', $this->id_user)->get() as $lesson) {
+                $lesson->hours = 0;
+                foreach (json_decode($lesson->days) as $day) {
+                    if (Hour::has($day->hour->id_hour)) {
+                        $hour = Hour::one($day->hour->id_hour);
+                        if (now() > $day->date . "T" . $hour->to) {
+                            $lesson->hours++;
+                        }
+                    }
+                }
+                $this->lessons->push($lesson);
             }
         }
 
         /**
-         * * Get the User Posts.
-         * @return array
-         */
-        public function posts () {
-            return $this->hasMany(Post::class, 'id_user', 'id_user');
-        }
-
-        /**
-         * * Get the User Role.
-         * @return array
+         * * Get the User Prices.
+         * @throws
          */
         public function prices () {
-            $this->prices = Price::parse(json_decode($this->prices));
-        }
-
-        /**
-         * * Get the User Reviews.
-         * @return array
-         */
-        public function reviews () {
-            return $this->hasMany(Review::class, 'id_user_to', 'id_user');
+            try {
+                $this->prices = Price::parse(json_decode($this->prices));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
@@ -218,16 +315,68 @@
          * @return array
          */
         public function role () {
-            $this->role = Role::parse(json_decode($this->id_role));
+            try {
+                if (!Role::has($this->id_role)) {
+                    throw (object)[
+                        'code' => 404,
+                        'message' => "Role with id = \"$this->id_role\" does not exist",
+                    ];
+                }
+                $this->role = Role::one($this->id_role);
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
          * * Get the User Teampro.
-         * @return array
+         * @throws
          */
         public function teampro () {
-            if (Teampro::hasOptions($this->id_teampro)) {
-                $this->teampro = Teampro::findOptions($this->id_teampro);
+            try {
+                if (!Teampro::has($this->id_teampro)) {
+                    throw (object)[
+                        'code' => 404,
+                        'message' => "Teampro with id = \"$this->id_teampro\" does not exist",
+                    ];
+                }
+                $this->teampro = Teampro::one($this->id_teampro);
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
+         * * Fidn and returns the User by a Game.
+         * @param ine $id_game
+         * @return User[]
+         * @throws
+         */
+        static public function findByGame ($id_game = '', $id_role = false) {
+            try {
+                $users = collect([]);
+                $usersToSearch = User::all();
+                foreach ($usersToSearch as $user) {
+                    if ($id_role && $user->id_role === $id_role) {
+                        $user->and(['games']);
+                        foreach ($user->games as $game) {
+                            if ($game->id_game === $id_game) {
+                                $users->push($user);
+                            }
+                        }
+                    }
+                    if (!$id_role) {
+                        $user->and(['games']);
+                        foreach ($user->games as $game) {
+                            if ($game->id_game === $id_game) {
+                                $users->push($user);
+                            }
+                        }
+                    }
+                }
+                return $users;
+            } catch (\Throwable $th) {
+                throw $th;
             }
         }
     }

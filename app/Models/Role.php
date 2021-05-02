@@ -8,6 +8,17 @@
 
     class Role extends Model {
         use HasFactory;
+        
+        /** @var string Table primary key name */
+        protected $primaryKey = 'id_role';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_role', 'name', 'slug',
+        ];
 
         /** @var array Role options */
         static $options = [[
@@ -26,14 +37,14 @@
 
         /**
          * * Check if a Role exists.
-         * @param int $id_role Role primary key. 
+         * @param string $field 
          * @return boolean
          */
-        static public function hasOptions ($id_role) {
+        static public function has ($field) {
             $found = false;
             foreach (Role::$options as $role) {
-                $role = (object) $role;
-                if ($role->id_role === $id_role) {
+                $role = new Role($role);
+                if ($role->id_role === $field) {
                     $found = true;
                 }
             }
@@ -41,29 +52,16 @@
         }
 
         /**
-         * * Find a Role.
-         * @param int $id_role Role primary key. 
-         * @return object
+         * * Returns a Role.
+         * @param string $field
+         * @return Role
          */
-        static public function findOptions ($id_role) {
+        static public function one ($field = '') {
             foreach (Role::$options as $role) {
-                $role = (object) $role;
-                if ($role->id_role === $id_role) {
-                    $roleFound = $role;
+                $role = new Role($role);
+                if ($role->id_role === $field) {
+                    return $role;
                 }
             }
-            return $roleFound;
-        }
-
-        /**
-         * * Parse a Role primary key.
-         * @param int $id_role.
-         * @return array
-         */
-        static public function parse ($id_role) {
-            if (Role::hasOptions($id_role)) {
-                $role = Role::findOptions($id_role);
-            }
-            return $role;
         }
     }

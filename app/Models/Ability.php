@@ -6,6 +6,17 @@
 
     class Ability extends Model {
         use HasFactory;
+        
+        /** @var string Table primary key name */
+        protected $primaryKey = 'id_ability';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_ability', 'name', 'description', 'slug', 'stars', 'image', 'background', 'icon', 'difficulty',
+        ];
 
         static $options = [[
             'id_ability' => 1,
@@ -54,15 +65,29 @@
         ]];
 
         /**
+         * * Returns a Ability.
+         * @param string $id_ability
+         * @return Ability
+         */
+        static public function one ($id_ability = '') {
+            foreach (Ability::$options as $ability) {
+                $ability = new Ability($ability);
+                if ($ability->id_ability === $id_ability) {
+                    return $ability;
+                }
+            }
+        }
+
+        /**
          * * Check if a Ability exists.
-         * @param int $id_ability Ability primary key. 
+         * @param string $id_ability 
          * @return boolean
          */
-        static public function hasOptions ($id_ability) {
+        static public function has ($id_ability) {
             $found = false;
-            foreach (Ability::$options as $ability) {
-                $ability = (object) $ability;
-                if ($ability->id_ability === $id_ability) {
+            foreach (Ability::$options as $game) {
+                $game = new Ability($game);
+                if ($game->id_ability === $id_ability) {
                     $found = true;
                 }
             }
@@ -70,34 +95,39 @@
         }
 
         /**
-         * * Find a Ability.
-         * @param int $id_ability Ability primary key. 
-         * @return object
+         * * Find & returns a Ability.
+         * @param string $id_ability
+         * @return Ability
+         * @throws
          */
-        static public function findOptions ($id_ability) {
-            foreach (Ability::$options as $ability) {
-                $ability = (object) $ability;
-                if ($ability->id_ability === $id_ability) {
-                    $abilityFound = $ability;
-                }
+        static public function find ($id_ability = '') {
+            if (!Ability::has($id_ability)) {
+                throw (object)[
+                    'code' => 404,
+                    'message' => "Ability with id = \"$id_ability\" does not exist",
+                ];
             }
-            return $abilityFound;
+            return Ability::one($id_ability);
         }
 
         /**
          * * Parse an Abilities array.
          * @param array $abilitiesToParse Example: "[{\"id_ability\":1,\"stars\":3.5}]"
-         * @return array
+         * @return Ability[]
+         * @throws
          */
-        static public function parse ($abilitiesToParse) {
+        static public function parse ($abilitiesToParse = []) {
             $abilities = collect([]);
-            foreach ($abilitiesToParse as $ability) {
-                $ability = (object) $ability;
-                if (Ability::hasOptions($ability->id_ability)) {
-                    $abilityFound = Ability::findOptions($ability->id_ability);
-                    $abilityFound->stars = (isset($ability->stars) ? $ability->stars : $abilityFound->stars);
-                    $abilities->push($abilityFound);
+            foreach ($abilitiesToParse as $data) {
+                if (!Ability::has($data->id_ability)) {
+                    throw (object)[
+                        'code' => 404,
+                        'message' => "Ability with id = \"$data->id_ability\" does not exist",
+                    ];
                 }
+                $ability = Ability::one($data->id_ability);
+                $ability->stars = (isset($data->stars) ? $data->stars : $ability->stars);
+                $abilities->push($ability);
             }
             return $abilities;
         }

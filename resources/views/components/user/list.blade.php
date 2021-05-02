@@ -10,9 +10,9 @@
                     <section class="teampro grid grid-cols-3 items-start gap-4">
                         <div class="info col-span-2 grid">
                             <span class="team-name p-1 text-center mb-4">{{ $user->teampro->name }}</span>
-                            <ul class="idioms grid grid-cols-2 gap-4">
-                                @foreach ($user->idioms as $idiom)
-                                    <li title="{{ $idiom->name }}">@component($idiom->svg)@endcomponent</li>
+                            <ul class="languages grid grid-cols-2 gap-4">
+                                @foreach ($user->languages as $language)
+                                    <li title="{{ $language->name }}">@component($language->svg)@endcomponent</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -22,11 +22,13 @@
                     </section>
                     <section class="abilities w-full hidden md:block">
                         <ul class="grid gap-4 lg:grid-cols-3 mb-4">
-                            @foreach ($user->game_abilities as $ability)
-                                <li class="flex justify-between items-center p-2">
-                                    <span class="color-white pr-2">{{ $ability->name }}</span>
-                                    {{-- @component($ability->svg)@endcomponent --}}
-                                </li>
+                            @foreach ($user->games as $game)
+                                @foreach ($game->abilities as $ability)
+                                    <li class="flex justify-between items-center p-2">
+                                        <span class="color-white pr-2">{{ $ability->name }}</span>
+                                        {{-- @component($ability->svg)@endcomponent --}}
+                                    </li>
+                                @endforeach
                             @endforeach
                         </ul>
                     </section>
@@ -71,7 +73,7 @@
             <section class="teampro grid grid-cols-3 items-start gap-4">
                 <div class="info col-span-2 grid">
                     <span class="team-name p-1 text-center mb-4">Astralis</span>
-                    <ul class="idioms grid grid-cols-2 gap-4">
+                    <ul class="languages grid grid-cols-2 gap-4">
                         <li>@component('components.svg.ESPSVG')@endcomponent</li>
                         <li>@component('components.svg.ITASVG')@endcomponent</li>
                     </ul>
@@ -137,7 +139,7 @@
             <section class="teampro grid grid-cols-3 items-start gap-4">
                 <div class="info col-span-2 grid">
                     <span class="team-name p-1 text-center mb-4">Astralis</span>
-                    <ul class="idioms grid grid-cols-2 gap-4">
+                    <ul class="languages grid grid-cols-2 gap-4">
                         <li>@component('components.svg.ESPSVG')@endcomponent</li>
                         <li>@component('components.svg.ITASVG')@endcomponent</li>
                     </ul>
@@ -203,7 +205,7 @@
             <section class="teampro grid grid-cols-3 items-start gap-4">
                 <div class="info col-span-2 grid">
                     <span class="team-name p-1 text-center mb-4">Astralis</span>
-                    <ul class="idioms grid grid-cols-2 gap-4">
+                    <ul class="languages grid grid-cols-2 gap-4">
                         <li>@component('components.svg.ESPSVG')@endcomponent</li>
                         <li>@component('components.svg.ITASVG')@endcomponent</li>
                     </ul>

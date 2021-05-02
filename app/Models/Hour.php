@@ -8,6 +8,17 @@
 
     class Hour extends Model {
         use HasFactory;
+        
+        /** @var string Table primary key name */
+        protected $primaryKey = 'id_hour';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_hour', 'from', 'to', 'active', 'time',
+        ];
 
         /** @var array Hour options */
         static $options = [[
@@ -122,14 +133,14 @@
 
         /**
          * * Check if a Hour exists.
-         * @param int $id_hour Hour primary key. 
+         * @param string $field 
          * @return boolean
          */
-        static public function hasOptions ($id_hour) {
+        static public function has ($field) {
             $found = false;
             foreach (Hour::$options as $hour) {
-                $hour = (object) $hour;
-                if ($hour->id_hour === $id_hour) {
+                $hour = new Hour($hour);
+                if ($hour->id_hour === $field) {
                     $found = true;
                 }
             }
@@ -137,14 +148,14 @@
         }
 
         /**
-         * * Find a Hour.
-         * @param int $id_hour Hour primary key. 
-         * @return object
+         * * Returns a Hour.
+         * @param string $field
+         * @return Hour
          */
-        static public function findOptions ($id_hour) {
+        static public function one ($field = '') {
             foreach (Hour::$options as $hour) {
-                $hour = (object) $hour;
-                if ($hour->id_hour === $id_hour) {
+                $hour = new Hour($hour);
+                if ($hour->id_hour === $field) {
                     return $hour;
                 }
             }

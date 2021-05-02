@@ -21,57 +21,26 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'days',
+            'id_user_from', 'id_user_to', 'days', 'id_type', 'name', 'svg', 'slug',
         ];
 
         /** @var array Lesson options */
         static $options = [[
             'id_type' => 1,
             'name' => 'Online',
-            'svg' => 'svg/ClaseOnline1SVG.svg',
+            'svg' => 'components.svg.ClaseOnline1SVG',
             'slug' => 'online',
         ], [
             'id_type' => 2,
             'name' => 'Offline',
-            'svg' => 'svg/ClaseOnline1SVG.svg',
+            'svg' => 'components.svg.ClaseOnline1SVG',
             'slug' => 'offline',
         ], [
             'id_type' => 3,
             'name' => 'Packs',
-            'svg' => 'svg/ClaseOnline3SVG.svg',
+            'svg' => 'components.svg.ClaseOnline3SVG',
             'slug' => 'packs',
         ]];
-
-        /**
-         * * Check if a Price exists.
-         * @param int $id_type Price primary key. 
-         * @return boolean
-         */
-        static public function hasOptions ($id_type) {
-            $found = false;
-            foreach (Lesson::$options as $lesson) {
-                $lesson = (object) $lesson;
-                if ($lesson->id_type === $id_type) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Find a Lesson option.
-         * @param int $id_type Price primary key. 
-         * @return object
-         */
-        static public function findOptions ($id_type) {
-            foreach (Lesson::$options as $lesson) {
-                $lesson = (object) $lesson;
-                if ($lesson->id_type === $id_type) {
-                    $lessonFound = $lesson;
-                }
-            }
-            return $lessonFound;
-        }
 
         /**
          * * Get the Lesson Hours.
@@ -110,4 +79,34 @@
                 'es' => [
                     //
         ]]]];
+
+        /**
+         * * Check if a Lesson exists.
+         * @param string $field 
+         * @return boolean
+         */
+        static public function has ($field) {
+            $found = false;
+            foreach (Lesson::$options as $lesson) {
+                $lesson = new Lesson($lesson);
+                if ($lesson->id_type === $field) {
+                    $found = true;
+                }
+            }
+            return $found;
+        }
+
+        /**
+         * * Returns a Lesson.
+         * @param string $field
+         * @return Lesson
+         */
+        static public function one ($field = '') {
+            foreach (Lesson::$options as $lesson) {
+                $lesson = new Lesson($lesson);
+                if ($lesson->id_type === $field) {
+                    return $lesson;
+                }
+            }
+        }
     }
