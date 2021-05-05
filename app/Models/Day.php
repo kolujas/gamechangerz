@@ -4,6 +4,7 @@
     use App\Models\Ability;
     use App\Models\Folder;
     use App\Models\Hour;
+    use Carbon\Carbon;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
@@ -117,19 +118,30 @@
         static public function parse ($daysToParse = []) {
             $days = collect([]);
             foreach ($daysToParse as $data) {
-                if (!Day::has($data->id_day)) {
+                if (isset($data->id_day) && !Day::has($data->id_day)) {
                     throw (object)[
                         'code' => 404,
                         'message' => "Day with id = \"$data->id_day\" does not exist",
                     ];
                 }
+                if (isset($data->date)) {
+                    $date = new Carbon($data->date);
+                    $data->id_day = $date->dayOfWeek;
+                }
                 $aux = [
                     'day' => Day::one($data->id_day),
                     'hours' => collect([]),
                 ];
-                foreach ($data->hours as $hour) {
-                    if (Hour::has($hour->id_hour)) {
-                        $aux['hours']->push(Hour::one($hour->id_hour));
+                if (isset($data->hours)) {
+                    foreach ($data->hours as $hour) {
+                        if (Hour::has($hour->id_hour)) {
+                            $aux['hours']->push(Hour::one($hour->id_hour));
+                        }
+                    }
+                }
+                if (isset($data->hour)) {
+                    if (Hour::has($data->hour->id_hour)) {
+                        $aux['hours']->push(Hour::one($data->hour->id_hour));
                     }
                 }
                 $days->push($aux);

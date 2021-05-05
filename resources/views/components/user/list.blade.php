@@ -53,7 +53,7 @@
                             <li class="color-white">Modalidad offline AR$ {{ $user->prices[1]->price }}/h</li>
                         </ul>
                         <div>
-                            <a class="btn btn-one p-2" href="/users/{{ $user->slug }}/profile">
+                            <a class="btn btn-two" href="/users/{{ $user->slug }}/profile">
                                 <span>Horarios</span>
                             </a>
                         </div>

@@ -1,11 +1,11 @@
 @extends('layouts.default')
 
 @section('title')
-    {{-- Page title --}}
+    Panel | GameChangerZ
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('css/web/terms_&_conditions.css') }}>
+    <link rel="stylesheet" href={{ asset('css/web/panel.css') }}>
 @endsection
 
 @section('nav')
@@ -15,7 +15,7 @@
 
 @section('main')
     <main class="main">
-        {{-- Page content --}}
+        
     </main>
 @endsection
 
@@ -25,5 +25,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src={{ asset('js/web/terms_&_conditions.js') }}></script>
+    <script type="module" src={{ asset('js/web/panel.js') }}></script>
 @endsection

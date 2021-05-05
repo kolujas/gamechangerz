@@ -15,15 +15,7 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
-            $found = false;
-            foreach (Game::$options as $game) {
-                $game = (object) $game;
-                if ($game->slug === $slug) {
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
+            if (!Game::has($slug)) {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Game \"$slug\" does not exist",

@@ -35,7 +35,7 @@
          */
         public function comingSoon (Request $request) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
             return view('web.coming_soon', [
@@ -62,7 +62,6 @@
                     }
                 } catch (\Throwable $th) {
                     $error = $th;
-                    dd($error);
                 }
             }
             $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->limit(10)->get();
@@ -87,11 +86,30 @@
          */
         public function home (Request $request) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
             return view('web.home', [
                 'games' => Game::all(),
+                'error' => $error,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ]],
+            ]);
+        }
+
+        /**
+         * * Control the panel page.
+         * @return [type]
+         */
+        public function panel (Request $request) {
+            $error = null;
+            if ($request->session()->has('error')) {
+                $error = (object) $request->session()->pull('error');
+            }
+            return view('web.panel', [
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
@@ -107,9 +125,8 @@
          */
         public function privacyPolitics (Request $request) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
             return view('web.privacy_politics', [
                 'error' => $error,
@@ -122,9 +139,8 @@
          */
         public function termsAndContidions (Request $request) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
             return view('web.terms_&_contidions', [
                 'error' => $error,

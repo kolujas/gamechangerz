@@ -1,11 +1,11 @@
 <?php
     namespace App\Http\Middleware;
 
-    use App\Models\Lesson;
+    use App\Models\Friend;
     use Closure;
     use Illuminate\Http\Request;
 
-    class CheckLessonTypeExist {
+    class CheckFriendshipActionExist {
         /**
          * Handle an incoming request.
          *
@@ -14,11 +14,11 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $slug = $request->route()->parameter('type');
-            if (!Lesson::has($slug)) {
+            $action = $request->route()->parameter('action');
+            if (!Friend::hasAction($action)) {
                 $request->session()->put('error', [
                     'code' => 404,
-                    'message' => "Lesson \"$slug\" type does not exist",
+                    'message' => "Action \"$action\" does not exist",
                 ]);
                 return redirect()->back();
             }

@@ -19,11 +19,21 @@
          */
         public function profile (Request $request, $slug) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->and(['achievements', 'games', 'role']);
+            if ($user->id_role === 2) {
+                if (!Auth::check()) {
+                    $request->session()->put('error', [
+                        'code' => 404,
+                        'message' => "User \"$slug\" does not exist",
+                    ]);
+                    return redirect()->back();
+                }
+                return redirect('/panel');
+            }
             if ($user->id_role === 1) {
                 $user->and(['abilities', 'files', 'languages', 'prices', 'teampro', 'days']);
                 $days = Day::allDates($user->days);
@@ -69,10 +79,30 @@
                 }
             }
             if ($user->id_role === 0) {
+                $user->friends_length = 0;
+                foreach ($user->friends as $friend) {
+                    if ($friend->accepted) {
+                        $user->friends_length++;
+                    }
+                }
                 if (count($user->reviews)) {
                     foreach ($user->games as $game) {
                         foreach ($game->abilities as $ability) {
                             $ability->stars = $ability->stars / count($user->reviews);
+                        }
+                    }
+                }
+            }
+            if (Auth::user()->slug !== $user->slug && $user->id_role === 0) {
+                $user->isFriend = 0;
+                foreach ($user->friends as $friend) {
+                    if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
+                        if ($friend->accepted) {
+                            $user->isFriend = 2;
+                        }
+                        if (!$friend->accepted) {
+                            $user->isFriend = 1;
+                            $user->id_user_request = $friend->id_user_from;
                         }
                     }
                 }
@@ -98,9 +128,8 @@
          */
         public function search (Request $request) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
             if (\Request::is('users')) {
                 $users = User::where('id_role', '=', 0)->limit(10)->get();
@@ -108,39 +137,23 @@
             if (\Request::is('teachers')) {
                 $users = User::where('id_role', '=', 1)->limit(10)->get();
             }
-            foreach ($users as $user) {   
-                $user->games();  
+            foreach ($users as $user) {
+                $user->and(['games']);  
                 if ($user->id_role === 1) {
-                    $user->abilities();
-                    $user->days();
-                    $user->files();
-                    $user->idioms();
-                    $user->prices();
-                    $user->teampro();
+                    $user->and(['abilities', 'days', 'files', 'languages', 'prices', 'teampro']);
                     $days = Day::allDates($user->days);
                 }
                 if ($user->id_role === 0) {
-                    $user->friends();
-                    $user->lessons();
-                    $user->hours();
+                    $user->and(['friends', 'lessons', 'hours']);
                     $days = [];
-                }
-                foreach ($user->games as $game) {
-                    if ($game->id_game) {
-                        $users->push($user);
-                    }
-                }
-                $user->game_abilities = collect([]);
-                foreach ($user->games as $game) {
-                    $abilities = Ability::parse($game->abilities);
-                    foreach ($abilities as $ability) {
-                        $user->game_abilities->push($ability);
-                    }
                 }
             }
             return view('user.search', [
                 'users' => $users,
                 'error' => $error,
+                'search' => (object)[
+                    'username' => $request->username,
+                ],
                 'validation' => [],
             ]);
         }
@@ -153,16 +166,14 @@
          */
         public function checkout (Request $request, $slug, $type) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
-            $user = User::where('slug', '=', $slug)->with('lessons')->get()[0];
-            $user->prices();
+            $user = User::where('slug', '=', $slug)->get()[0];
+            $user->and(['lessons', 'prices', 'days']);
             foreach ($user->lessons as $lesson) {
-                $lesson->days();
+                $lesson->and(['days']);
             }
-            $user->days();
             foreach ($user->prices as $price) {
                 if ($price->slug === $type) {
                     $type = $price;

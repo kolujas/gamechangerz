@@ -17,7 +17,7 @@
          */
         public function list (Request $request) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }
@@ -43,7 +43,7 @@
          */
         public function details (Request $request, $id_user, $slug) {
             $error = null;
-            if($request->session()->has('error')){
+            if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }

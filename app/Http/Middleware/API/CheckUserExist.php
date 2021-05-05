@@ -15,7 +15,7 @@
          */
         public function handle (Request $request, Closure $next) {
             $name = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
-            if ((!is_null($request->route()->parameter('id_user')) ? !User::find($name) : !User::where('slug', '=', $name)->get()[0])) {
+            if ((!is_null($request->route()->parameter('id_user')) ? !User::find($name) : !count(User::where('slug', '=', $name)->get()))) {
                 return response()->json([
                     'code' => 404,
                     'message' => "User \"$name\" does not exist",

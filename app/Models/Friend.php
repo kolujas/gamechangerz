@@ -15,6 +15,14 @@
         protected $primaryKey = 'id_friend';
 
         /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_user_from', 'id_user_to', 'accepted',
+        ];
+
+        /**
          * * Get the Friend Users.
          * @return array
          */
@@ -23,5 +31,24 @@
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
+        }
+
+        /**
+         * * Check if the Friend has an action.
+         * @param string $name
+         * @return boolean
+         */
+        static public function hasAction ($name) {
+            switch (strtoupper($name)) {
+                case 'ACCEPT':
+                case 'CANCEL':
+                case 'DELETE':
+                case 'REQUEST':
+                    return true;
+                    break;
+                default:
+                    return false;
+                    break;
+            }
         }
     }

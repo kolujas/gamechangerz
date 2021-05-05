@@ -15,7 +15,7 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
-            if (!Assigment::where('slug', '=', $slug)->get()[0]) {
+            if (!count(Assigment::where('slug', '=', $slug)->get())) {
                 return response()->json([
                     'code' => 404,
                     'message' => "Assigment \"$slug\" does not exist",

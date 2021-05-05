@@ -14,11 +14,11 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $name = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
-            if ((!is_null($request->route()->parameter('id_user')) ? !User::find($name) : !User::where('slug', '=', $name)->get()[0])) {
+            $field = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
+            if ((!is_null($request->route()->parameter('id_user')) ? !User::find($field) : !count(User::where('slug', '=', $field)->get()))) {
                 $request->session()->put('error', [
                     'code' => 404,
-                    'message' => "User \"$name\" does not exist",
+                    'message' => "User \"$field\" does not exist",
                 ]);
                 return redirect()->back();
             }

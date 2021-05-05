@@ -72,6 +72,8 @@ class Kernel extends HttpKernel
         'lesson.type.exist' => \App\Http\Middleware\CheckLessonTypeExist::class,
 
         'chat.exist' => \App\Http\Middleware\CheckChatExist::class,
+
+        'friendship.action.exist' => \App\Http\Middleware\CheckFriendshipActionExist::class,
         
         'post.exist' => \App\Http\Middleware\CheckPostExist::class,
 

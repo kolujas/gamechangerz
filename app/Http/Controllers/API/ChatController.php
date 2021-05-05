@@ -46,11 +46,21 @@
 
             if ($request->user()->id_role === 0) {
                 foreach (Friend::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get() as $friend) {
-                    if (count($chats)) {
-                        foreach ($chats as $chat) {
-                            if (($request->user()->id_user === $chat->id_user_from ? $chat->id_user_to : $chat->id_user_from) === ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from)) {
-                                break;
+                    if ($friend->accepted) {
+                        if (count($chats)) {
+                            foreach ($chats as $chat) {
+                                if (($request->user()->id_user === $chat->id_user_from ? $chat->id_user_to : $chat->id_user_from) === ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from)) {
+                                    break;
+                                }
+                                $chats[] = new Chat([
+                                    'id_chat' => null,
+                                    'id_user_from' => $friend->id_user_from,
+                                    'id_user_to' => $friend->id_user_to,
+                                    'messages' => "[]",
+                                ]);
                             }
+                        }
+                        if (!count($chats)) {
                             $chats[] = new Chat([
                                 'id_chat' => null,
                                 'id_user_from' => $friend->id_user_from,
@@ -58,14 +68,6 @@
                                 'messages' => "[]",
                             ]);
                         }
-                    }
-                    if (!count($chats)) {
-                        $chats[] = new Chat([
-                            'id_chat' => null,
-                            'id_user_from' => $friend->id_user_from,
-                            'id_user_to' => $friend->id_user_to,
-                            'messages' => "[]",
-                        ]);
                     }
                 }
             }

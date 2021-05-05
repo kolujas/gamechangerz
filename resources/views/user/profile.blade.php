@@ -43,7 +43,7 @@
                     @if (count($user->achievements))
                         <ul class="icons-list flex justify-center mt-8">
                             @foreach ($user->achievements as $achievement)
-                                <li class="px-2" title="{{ $achievement->name }}: {{ $achievement->description }}">
+                                <li class="px-2" title="{{ $achievement->title }}: {{ $achievement->description }}">
                                     @component($achievement->icon)
                                     @endcomponent
                                 </li>
@@ -63,9 +63,53 @@
                             </li>
                             <li class="color-white pb-4">
                                 <span>Amigos:</span>
-                                <span class="color-four font-bold">{{ count($user->friends) }}</span>
+                                <span class="color-four font-bold">{{ $user->friends_length }}</span>
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="actions flex justify-end">
+                        @if (Auth::user()->slug === $user->slug)
+                            <div class="actions flex justify-end">
+                                <a href="#update" class="btn btn-one py-2 px-4 ml-4">
+                                    <span>Editar perfil</span>
+                                </a>
+                            </div>
+                        @endif
+                        @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0)
+                            <div class="actions flex justify-end">
+                                <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-one py-2 px-4 ml-4">
+                                    <span>Agregar amigo</span>
+                                </a>
+                            </div>
+                        @endif
+                        @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 1)
+                            <div class="actions flex justify-end">
+                                @if (Auth::user()->id_user === $user->id_user_request)
+                                    <span class="btn btn-three not py-2 px-4 ml-4">
+                                        <span>Solicitud enviada</span>
+                                    </span>
+                                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-four py-2 px-4 ml-4">
+                                        <span>Cancelar solicitud</span>
+                                    </a>
+                                @endif
+                                @if (Auth::user()->id_user !== $user->id_user_request)
+                                    <a href="/users/{{ $user->slug }}/friendship/accept" class="btn btn-one py-2 px-4 ml-4">
+                                        <span>Aceptar solicitud</span>
+                                    </a>
+                                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-four py-2 px-4 ml-4">
+                                        <span>Cancelar solicitud</span>
+                                    </a>
+                                @endif
+                            </div>
+                        @endif
+                        @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2)
+                            <div class="actions flex justify-end">
+                                <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-four py-2 px-4 ml-4">
+                                    <span>Eliminar amigo</span>
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </section>
@@ -291,22 +335,19 @@
                             </table>
                             <span class="block text-center color-five">AR$ {{ $user->prices[0]->price }} / h</span>
                             <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
-                                <span>Cotratar</span>
-                                <i class="fas fa-chevron-right"></i>
+                                <span>Contratar</span>
                             </a>
                         </li>
                         <li id="offline" class="tab-content closed">
                             <span class="block text-center color-five">AR$ {{ $user->prices[1]->price }} / h</span>
                             <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
-                                <span>Cotratar</span>
-                                <i class="fas fa-chevron-right"></i>
+                                <span>Contratar</span>
                             </a>
                         </li>
                         <li id="packs" class="tab-content closed">
                             <span class="block text-center color-five">AR$ {{ $user->prices[2]->price }} / h</span>
                             <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
-                                <span>Cotratar</span>
-                                <i class="fas fa-chevron-right"></i>
+                                <span>Contratar</span>
                             </a>
                         </li>
                     </ul>
@@ -317,7 +358,7 @@
                         @foreach ($user->achievements as $achievement)
                             <li class="card">
                                 <div class="color-white flex justify-center items-center p-4">
-                                    <span class="color-four font-bold pr-1">{{ $achievement->name }}</span>
+                                    <span class="color-four font-bold pr-1">{{ $achievement->title }}</span>
                                     <span>{{ $achievement->description }}</span>
                                 </div>
                             </li>
@@ -362,16 +403,18 @@
                     </ul>
                 </section>
 
-                <section class="description lg:col-span-2 xl:col-span-3 xl:col-start-2 2xl:col-start-3 lg:ml-8 xl:ml-0">
-                    <header class="mb-4 pl-8 lg:pl-0">
-                        <h3 class="color-white">Descripción</h3>
-                    </header>
-                    <div class="py-4 px-8">
-                        <h4 class="color-white">Información</h4>
-                        <span class="color-four font-bold block mb-4">Sobre {{ $user->name }}</span>
-                        <p class="color-two">{!! $user->description !!}</p>
-                    </div>
-                </section>
+                @if ($user->description !== '')
+                    <section class="description lg:col-span-2 xl:col-span-3 xl:col-start-2 2xl:col-start-3 lg:ml-8 xl:ml-0">
+                        <header class="mb-4 pl-8 lg:pl-0">
+                            <h3 class="color-white">Descripción</h3>
+                        </header>
+                        <div class="py-4 px-8">
+                            <h4 class="color-white">Información</h4>
+                            <span class="color-four font-bold block mb-4">Sobre {{ $user->name }}</span>
+                            <p class="color-two">{!! $user->description !!}</p>
+                        </div>
+                    </section>
+                @endif
             </section>
 
             <section class="abilities mb-4 p-cols-3 xl:grid xl:grid-cols-7 2xl:grid-cols-9">

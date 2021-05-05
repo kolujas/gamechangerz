@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Home
+    Home | GameChangerZ
 @endsection
 
 @section('css')
@@ -14,7 +14,7 @@
 @endsection
 
 @section('main')
-    <main class="main container mx-auto">
+    <main class="main">
         <header class="flex justify-center items-center pt-12">
             <h2 class="text-center color-white">Toma clases con <span class="color-four">profesionales</span></h2>
         </header>

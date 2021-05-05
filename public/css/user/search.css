@@ -1,6 +1,4 @@
-/* TODO Custom CSS */
-
-.user-search .switch-content{
+.users .switch-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,74 +7,46 @@
     background-color: var(--color-black);
 }
 
-.user-search .switch-content label{
+.users .switch-content label {
     margin-right: .5rem;
 }
 
-.user-search svg{
+.users .switch-content svg {
     margin-left: .5rem;
     padding: .1rem;
 }
 
-.user-search form{
-    background-color: var(--color-black);
+.users .switch-content .switch {
+    position: relative;
+    display: inline-block;
+    width: 37px;
+    height: 20px;
+    border-radius: 50px;
 }
 
-.user-search .dropdown-header{
-    background-color: var(--color-one);
+.users .switch-content .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-.user-search .dropdown-header span{
-    color: var(--color-grey);
-    white-space: nowrap;
-    padding: 0 .5rem;
+.users .switch-content .degradado{
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
 }
 
-.user-search input[type=search]{
-    width: 80%;
-    height: 2rem;
-    border-radius: 0.2rem;
-    background: transparent;
+.users .switch-content .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: .4s;
 }
 
-.user-search input[type=search]::placeholder{
-    padding-left: 1rem;
-    font-size: .9rem;
-    color: var(--color-grey);
-}
-
-
-.user-search .switch {
-  position: relative;
-  display: inline-block;
-  width: 37px;
-  height: 20px;
-  border-radius: 50px;
-}
-
-.user-search  .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.user-search .degradado{
-  background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-}
-
-.user-search  .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: .4s;
-}
-
-.user-search .slider:before {
+.users .switch-content .slider:before {
     position: absolute;
     content: "";
     height: 17px;
@@ -87,160 +57,187 @@
     transition: .4s;
 }
 
-.user-search input:checked + .slider {
-  background-color: $blue;
+.users .switch-content input:checked + .slider {
+    /* background-color: blue; */
 }
 
-.user-search input:focus + .slider {
-  box-shadow: 0 0 0 4px rgba(21, 156, 228, 0.7);
-  outline: none;
+.users .switch-content input:focus + .slider {
+    /* box-shadow: 0 0 0 4px rgba(21, 156, 228, 0.7); */
+    outline: none;
 }
 
-.user-search input:checked + .slider:before {
-  transform: translateX(16px);
+.users .switch-content input:checked + .slider:before {
+    transform: translateX(16px);
 }
 
-.user-search .slider.round {
-  border-radius: 34px;
+.users .switch-content .slider.round {
+    border-radius: 34px;
 }
 
-.user-search .slider.round:before {
-  border-radius: 50%;
+.users .switch-content .slider.round:before {
+    border-radius: 50%;
 }
 
-.user-search .dropdown label input[type=radio] {
+:is(.users, .teachers) form {
+    background-color: var(--color-black);
+}
+
+:is(.users, .teachers) .dropdown-header{
+    background-color: var(--color-one);
+}
+
+:is(.users, .teachers) .dropdown-header span{
+    color: var(--color-grey);
+    white-space: nowrap;
+    padding: 0 .5rem;
+}
+
+:is(.users, .teachers) input[type=search] {
+    width: 80%;
+    height: 2rem;
+    border-radius: 0.2rem;
+    background: transparent;
+}
+
+:is(.users, .teachers) input[type=search]::placeholder {
+    padding-left: 1rem;
+    font-size: .9rem;
+    color: var(--color-grey);
+}
+
+:is(.users, .teachers) .dropdown {
+    --dropdown-header-background-color-alternative: var(--color-one);
+}
+
+:is(.users, .teachers) .dropdown label input[type=radio] {
     display: none;
 }
 
-.user-search .dropdown label input[type=radio] + span {
+:is(.users, .teachers) .dropdown label input[type=radio] + span {
     transition: 600ms;
 }
 
-.user-search .dropdown label input[type=radio]:checked + span {
+:is(.users, .teachers) .dropdown label input[type=radio]:checked + span {
     color: var(--color-white);    
 }
 
-.user-search .dropdown li{
-    border-bottom: 1px solid var(--color-grey);
-    padding-bottom: .2rem;
-    margin-bottom: .5rem;
+:is(.users, .teachers) .dropdown li{
+    padding: .5rem;
 }
 
-.user-search .dropdown-content{
-    min-height: 8rem;
+:is(.users, .teachers) .dropdown li label {
+    cursor: pointer;
+}
+
+:is(.users, .teachers) .dropdown li:not(:last-of-type) {
+    border-bottom: 1px solid var(--color-grey);
+}
+
+:is(.users, .teachers) .dropdown-content{
     width: 100%;
     color: var(--color-grey);
     background-color: var(--color-one);
-    padding: 1rem;
 }
 
-.user-search .user-list li{
-  background: var(--color-black);
+.users + .list li{
+    background: var(--color-black);
+    margin-bottom: 1rem;
 }
 
-.users-list li{
-  background: var(--color-black);
-  margin-bottom: 1rem;
+.users + .list .teammate svg{
+    height: 100%;
+    width: 3rem;
 }
 
-.users-list .teammate svg{
-  height: 100%;
-  width: 3rem;
+.users + .list .photo svg{
+    height: 100%;
 }
 
-.users-list .photo svg{
-  height: 100%;
+.users + .list li .btn.btn-one {
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+    color: var(--color-five);
+    background-color: var(--color-black);
+    padding: .4rem;
+    font-size: .85rem;
 }
-
-.users-list li .btn.btn-one {
-  border: 1px solid;
-  border-image-source: linear-gradient(130deg, var(--color-four), var(--color-five));
-  border-image-slice: 1;
-  color: var(--color-five);
-  background-color: var(--color-black);
-  padding: .4rem;
-  font-size: .85rem;
-}
-
 
 /* teachers */
 
-.teachers-list .teachers .teacher{
+.teachers + .list .teachers .teacher{
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-
-
-
 /* ? MD */
 @media(min-width: 768px){
-  .users-list .games figure{
-    height: 5rem;
-    width: 100%;
-    overflow: hidden;
-  }
+    .users + .list .games figure{
+        height: 5rem;
+        width: 100%;
+        overflow: hidden;
+    }
   
-  .users-list .cards{
-    gap: 1rem;
-    margin-top: 0;
-  }
+    .users + .list .cards{
+        gap: 1rem;
+        margin-top: 0;
+    }
 
-  .users-list .cards .card header{
-    display: none;
-  }
+    .users + .list .cards .card header{
+        display: none;
+    }
 
-  .users-list .cards{
-    display: flex;
-    overflow-x: scroll;
-    max-width: 100%;
-    width: 100%;
-  }
-  
+    .users + .list .cards{
+        display: flex;
+        overflow-x: scroll;
+        max-width: 100%;
+        width: 100%;
+    }
+    
 
-  .users-list .cards .card{
-    min-width: 50%;
-    /* width: 50%; */
-  }
+    .users + .list .cards .card{
+        min-width: 50%;
+        /* width: 50%; */
+    }
 
-  .users-list li > div:nth-child(4){
-    min-width: 25%;
-    width: 25%;
-  }
+    .users + .list li > div:nth-child(4){
+        min-width: 25%;
+        width: 25%;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-button {
-      width: 15%;
-      height: 15%;
-  }
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-button {
+        width: 15%;
+        height: 15%;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-thumb {
-      background: chartreuse;
-      border-radius: 100vh;
-  }
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-thumb {
+        background: chartreuse;
+        border-radius: 100vh;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-thumb:hover,
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-thumb:active {
-      background: cadetblue;
-  }
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-thumb:hover,
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-thumb:active {
+        background: cadetblue;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-track {
-      background: tomato;
-      border-radius: 100vh;
-  }
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-track {
+        background: tomato;
+        border-radius: 100vh;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-track:hover,
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-track:active {
-      background: yellowgreen;
-  }
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-track:hover,
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-track:active {
+        background: yellowgreen;
+    }
 
-  .users-list li > div:nth-child(4)::-webkit-scrollbar-corner {
-      background: transparent;
-  }
+    .users + .list li > div:nth-child(4)::-webkit-scrollbar-corner {
+        background: transparent;
+    }
 }
 
 /* ? LG */

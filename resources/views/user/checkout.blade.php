@@ -89,7 +89,6 @@
         <div class="flex justify-center md:justify-end lg:justify-center lg:col-start-2 lg:col-span-3">
             <button class="btn btn-one py-2 px-4" type="submit">
                 <span>Comenzar entrenamiento</span>
-                <i class="fas fa-check"></i>
             </button>
         </div>
     </form>

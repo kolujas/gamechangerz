@@ -30,9 +30,6 @@
 }
 
 .teachers .btn {
-   --color-one: var(--color-four);
-   --color-two: var(--color-five);
-   background-color: #281B2D;
    z-index: 1;
 }
 

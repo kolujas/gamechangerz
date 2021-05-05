@@ -9,6 +9,7 @@
     --color-black: #0D0D0D;
     --color-white: #EEEEEE;
     --color-grey: #8F8C90;
+    --color-red: #B91C1C;
     --font-one: ;  /* Tipografia para encabezados */
     --font-two: ;  /* Tipografia para textos */
 
@@ -43,6 +44,16 @@
     --dropdown-content-color-alternative: purple;
     --dropdown-content-background-color: var(--color-black);
     --dropdown-content-background-color-alternative: purple;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:is(input, button):focus {
+    outline: none;
 }
 
 .nav-menu {

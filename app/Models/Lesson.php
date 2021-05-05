@@ -47,18 +47,23 @@
          * @return array
          */
         public function days () {
-            $days = collect([]);
-            foreach (json_decode($this->days) as $day) {
-                $day = (object) $day;
-                $hour = (object) $day->hour;
-                $hour = Hour::findOptions($hour->id_hour);
-                $hour->active = false;
-                $days->push([
-                    'date' => $day->date,
-                    'hour' => $hour,
-                ]);
+            try {
+                // $days = collect([]);
+                // foreach (json_decode($this->days) as $day) {
+                //     $day = (object) $day;
+                //     $hour = (object) $day->hour;
+                //     $hour = Hour::findOptions($hour->id_hour);
+                //     $hour->active = false;
+                //     $days->push([
+                //         'date' => $day->date,
+                //         'hour' => $hour,
+                //     ]);
+                // }
+                // $this->days = $days;
+                $this->days = Day::parse(json_decode($this->days));
+            } catch (\Throwable $th) {
+                throw $th;
             }
-            $this->days = $days;
         }
 
         /** @var array Validation rules & messages. */
@@ -81,6 +86,25 @@
         ]]]];
 
         /**
+         * * Get the Game info. 
+         * @param array $columns
+         * @throws
+         */
+        public function and ($columns = []) {
+            try {
+                foreach ($columns as $column) {
+                    switch ($column) {
+                        case 'days':
+                            $this->days();
+                            break;
+                    }
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
          * * Check if a Lesson exists.
          * @param string $field 
          * @return boolean
@@ -89,7 +113,7 @@
             $found = false;
             foreach (Lesson::$options as $lesson) {
                 $lesson = new Lesson($lesson);
-                if ($lesson->id_type === $field) {
+                if ($lesson->id_type === $field || $lesson->slug === $field) {
                     $found = true;
                 }
             }

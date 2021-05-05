@@ -70,18 +70,6 @@
     align-items: center;
 }
 
-.slider-container .btn {
-    background-color: transparent;
-}
-
-.slider-container .btn:hover {
-    background-color: var(--color-black);
-}
-
-.slider-container .btn::before {
-    background: var(--color-black);
-}
-
 .arrows {
     position: absolute;
     bottom: 0;

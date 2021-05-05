@@ -1,7 +1,8 @@
 <?php
     use App\Http\Controllers\AuthController;
-    use App\Http\Controllers\DefaultController;
     use App\Http\Controllers\BlogController;
+    use App\Http\Controllers\FriendshipController;
+    use App\Http\Controllers\DefaultController;
     use App\Http\Controllers\LessonController;
     use App\Http\Controllers\UserController;
     use Illuminate\Support\Facades\Route;
@@ -20,6 +21,9 @@
         Route::get('/games/{slug}', [DefaultController::class, 'game'])->name('web.game');
     });
     Route::get('/home', [DefaultController::class, 'home'])->name('web.home');
+    Route::middleware('auth')->group(function () {
+        Route::get('/panel', [DefaultController::class, 'panel'])->name('web.panel');
+    });
     Route::get('/privacy-politics', [DefaultController::class, 'privacyPolitics'])->name('web.privacy_politics');
     Route::get('/terms-&-conditions', [DefaultController::class, 'termsAndConditions'])->name('web.terms_&_conditions');
 
@@ -34,6 +38,11 @@
             Route::put('/blog/{slug}/update', [BlogController::class, 'doUpdate'])->name('blog.doUpdate');
             Route::delete('/blog/{slug}/delete', [BlogController::class, 'doDelete'])->name('blog.doDelete');
         });
+    });
+
+// ! FriendshipController - Controls the User Friends
+    Route::middleware(['user.exist', 'friendship.action.exist'])->group(function () {
+        Route::get('/users/{slug}/friendship/{action}', [FriendshipController::class, 'call'])->name('friendship.call');
     });
 
 // ! LessonController - Controls the Lessom pages.

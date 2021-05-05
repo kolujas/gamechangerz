@@ -15,12 +15,7 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
-            foreach (Game::$options as $game) {
-                $game = (object) $game;
-                if ($game->slug === $slug) {
-                    break;
-                }
-            }
+            $game = Game::one($slug);
             if (!$game->active) {
                 $request->session()->put('error', [
                     'code' => 403,

@@ -134,8 +134,6 @@
 
 .teacher .tab-menu .btn {
     width: 100%;
-    --color-one: var(--color-four);
-    --color-two: var(--color-five);
 }
 
 .teacher .tab-menu :is(table, tbody, tr) {
@@ -275,11 +273,6 @@
 
 .user .degradado{
     font-size: 0.875rem;
-}
-
-.user .btn.btn-one{
-    --color-one: var(--color-four);
-    --color-two: var(--color-five);
 }
 
 .user .reviews .games header .degradado:first-of-type {
