@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const modals = {
         login: new Modal({ id: 'login' }),
         signin: new Modal({ id: 'signin' }),
+        assigment: new Modal({ id: 'assigment' }),
     };
     
     if (URL.findHashParameter()) {

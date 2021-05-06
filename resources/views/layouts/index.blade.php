@@ -51,6 +51,11 @@
         @endcomponent
 
         @if (Auth::check())
+            {{-- ? Assigment modal --}}
+            @component('components.modal.assigment', [
+                'error' => ($error ? $error : []),
+            ])
+            @endcomponent
             {{-- ? Chat modal --}}
             @component('components.modal.layouts.chat', [
                 'error' => ($error ? $error : []),

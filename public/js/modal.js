@@ -15,17 +15,20 @@ export class Modal extends Class {
 
     checkModalID () {
         switch (this.props.id) {
+            case 'assigment':
+                this.generateAssigmentModalLogic();
+                break;
+            case 'details':
+                this.generateChatDetailsModalLogic();
+                break;
+            case 'list':
+                this.generateChatListModalLogic();
+                break;
             case 'login':
                 this.generateLogInModalLogic();
                 break;
             case 'signin':
                 this.generateSignInModalLogic();
-                break;
-            case 'list':
-                this.generateChatListModalLogic();
-                break;
-            case 'details':
-                this.generateChatDetailsModalLogic();
                 break;
         }
     }
@@ -48,9 +51,17 @@ export class Modal extends Class {
         this.setModalSubmitButonEvent();
     }
 
+    generateAssigmentModalLogic () {
+        this.setModalJS('assigment', {
+            detectHash: true,
+            outsideClick: true,
+        });
+    }
+
     generateChatListModalLogic () {
         this.setModalJS('chat', {
-            open: /chat/.exec(URL.findHashParameter()),
+            detectHash: true,
+            open: /chat-/.exec(URL.findHashParameter()),
         });
         this.setModalReturnButtonEvent();
     }
@@ -75,6 +86,7 @@ export class Modal extends Class {
         this.ModalJS = new ModalJS({
             id: id,
         }, states);
+        console.log(this.ModalJS);
     }
 
     changeModalContent () {

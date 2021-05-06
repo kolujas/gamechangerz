@@ -51,34 +51,53 @@
                         </ul>
                     @endif
         
-                    <div class="info">
-                        <ul class="pt-8">
-                            <li class="color-white pb-4">
-                                <span>Total clases tomadas:</span> 
-                                <span class="color-four font-bold">{{ count($user->lessons) }}</span>
-                            </li>
-                            <li class="color-white pb-4">
-                                <span>Cantidad de horas:</span> 
-                                <span class="color-four font-bold">{{ $user->hours }}</span>
-                            </li>
-                            <li class="color-white pb-4">
-                                <span>Amigos:</span>
-                                <span class="color-four font-bold">{{ $user->friends_length }}</span>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (count($user->lessons) || $user->hours || $user->friends_length)
+                        <div class="info">
+                            <ul class="pt-8">
+                                @if (count($user->lessons))
+                                    <li class="color-white pb-4">
+                                        <span>Total clases tomadas:</span> 
+                                        <span class="color-four font-bold">{{ count($user->lessons) }}</span>
+                                    </li>
+                                @endif
+                                @if ($user->hours)
+                                    <li class="color-white pb-4">
+                                        <span>Cantidad de horas:</span> 
+                                        <span class="color-four font-bold">{{ $user->hours }}</span>
+                                    </li>
+                                @endif
+                                @if ($user->friends_length)
+                                    <li class="color-white">
+                                        <a href="#">
+                                            <span>Amigos:</span>
+                                            <span class="color-four font-bold">{{ $user->friends_length }}</span>
+                                        </a>
+                                        <div class="grid grid-cols-5 gap-4 mt-4">
+                                            @for ($i = 0; $i < count($user->friends); $i++)
+                                                @if ($i <= 5 && $user->friends[$i]->accepted)
+                                                    <a href="/users/{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->slug : $user->friends[$i]->users->from->slug) }}/profile" title="{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->username : $user->friends[$i]->users->from->username) }}" class="flex justify-center">
+                                                        @component('components.svg.Group 15SVG')@endcomponent
+                                                    </a>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    @endif
 
-                    <div class="actions flex justify-end">
+                    <div class="actions flex justify-end mt-4">
                         @if (Auth::user()->slug === $user->slug)
                             <div class="actions flex justify-end">
-                                <a href="#update" class="btn btn-one py-2 px-4 ml-4">
+                                <a href="#update" class="btn btn-outline btn-one py-2 px-4 ml-4">
                                     <span>Editar perfil</span>
                                 </a>
                             </div>
                         @endif
                         @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0)
                             <div class="actions flex justify-end">
-                                <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-one py-2 px-4 ml-4">
+                                <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-outline btn-one py-2 px-4 ml-4">
                                     <span>Agregar amigo</span>
                                 </a>
                             </div>
@@ -86,18 +105,18 @@
                         @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 1)
                             <div class="actions flex justify-end">
                                 @if (Auth::user()->id_user === $user->id_user_request)
-                                    <span class="btn btn-three not py-2 px-4 ml-4">
+                                    <span class="btn btn-outline btn-two not py-2 px-4 ml-4">
                                         <span>Solicitud enviada</span>
                                     </span>
-                                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-four py-2 px-4 ml-4">
+                                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three py-2 px-4 ml-4">
                                         <span>Cancelar solicitud</span>
                                     </a>
                                 @endif
                                 @if (Auth::user()->id_user !== $user->id_user_request)
-                                    <a href="/users/{{ $user->slug }}/friendship/accept" class="btn btn-one py-2 px-4 ml-4">
+                                    <a href="/users/{{ $user->slug }}/friendship/accept" class="btn btn-outline btn-one py-2 px-4 ml-4">
                                         <span>Aceptar solicitud</span>
                                     </a>
-                                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-four py-2 px-4 ml-4">
+                                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three py-2 px-4 ml-4">
                                         <span>Cancelar solicitud</span>
                                     </a>
                                 @endif
@@ -105,7 +124,7 @@
                         @endif
                         @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2)
                             <div class="actions flex justify-end">
-                                <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-four py-2 px-4 ml-4">
+                                <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-outline btn-three py-2 px-4 ml-4">
                                     <span>Eliminar amigo</span>
                                 </a>
                             </div>
@@ -200,7 +219,7 @@
                                             <span class="color-white">{{ $review->users['from']->name }}</span>
                                             @component($review->users['from']->teampro->svg)@endcomponent
                                         </div>
-                                        <a class="btn btn-one mt-4 block" href="#">
+                                        <a class="btn btn-outline btn-one mt-4 block" href="#">
                                             <span>Leer más</span>
                                         </a>
                                     </header>
@@ -334,19 +353,19 @@
                                 @endforeach
                             </table>
                             <span class="block text-center color-five">AR$ {{ $user->prices[0]->price }} / h</span>
-                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
+                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one p-4 mt-4 md:mx-auto">
                                 <span>Contratar</span>
                             </a>
                         </li>
                         <li id="offline" class="tab-content closed">
                             <span class="block text-center color-five">AR$ {{ $user->prices[1]->price }} / h</span>
-                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
+                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one p-4 mt-4 md:mx-auto">
                                 <span>Contratar</span>
                             </a>
                         </li>
                         <li id="packs" class="tab-content closed">
                             <span class="block text-center color-five">AR$ {{ $user->prices[2]->price }} / h</span>
-                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-one p-4 mt-4 md:mx-auto">
+                            <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one p-4 mt-4 md:mx-auto">
                                 <span>Contratar</span>
                             </a>
                         </li>
