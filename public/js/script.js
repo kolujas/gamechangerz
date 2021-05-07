@@ -27,10 +27,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }
     }
 
-    const modals = {
+    let modals = {
         login: new Modal({ id: 'login' }),
         signin: new Modal({ id: 'signin' }),
-        assigment: new Modal({ id: 'assigment' }),
     };
     
     if (URL.findHashParameter()) {
@@ -48,6 +47,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     const token = Token.get();
     if (authenticated) {
+        modals.assigment = new Modal({ id: 'assigment' });
         if (document.querySelectorAll("a[href='/logout']").length) {
             for (const html of document.querySelectorAll("a[href='/logout']")) {
                 html.addEventListener('click', function (e) {

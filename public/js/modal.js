@@ -60,6 +60,7 @@ export class Modal extends Class {
             detectHash: true,
             outsideClick: true,
         });
+        console.log(this.ModalJS);
     }
 
     generateChatListModalLogic () {
@@ -90,7 +91,6 @@ export class Modal extends Class {
         this.ModalJS = new ModalJS({
             id: id,
         }, states);
-        console.log(this.ModalJS);
     }
 
     changeModalContent () {
