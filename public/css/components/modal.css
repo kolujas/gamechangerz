@@ -12,94 +12,60 @@
 .form-input{
     background-color: #000;
     color: var(--color-white);
-    padding-left: 1rem;
     outline: none;
     height: 2.5rem;
     font-size: .8rem;
 }
 
 .form-input::placeholder{
-    padding-left: 1rem;
     color: var(--color-white);
 }
-
 
 .input-group .error{
     color: var(--color-white);
 }
 
-.login .input-group .support-login_data, .signin .input-group .support-login_data{
-    margin: 0 0 1rem 0;
-}
-
-.login .input-group .support-login_password, .signin .input-group .support-login_password{
-    margin: 1rem 0 0 0;
-}
-
-
-
-/* .input-group .error .support-box .support-login-data{
-    color: var(--color-white);
-    margin: 0.5rem 0;
-} */
-
-.form-submit.degradado{
-    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    font-weight: bold;
-}
-
-
-
-
-/* checkbox css */
-
+/* * Custom checkbox */
 .b-contain *, .b-contain *::before, .b-contain *::after {
 	box-sizing: content-box !important;
 }
 
-.b-contain input {
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
+.b-contain {
+	cursor: pointer;
 }
 
-.b-contain span {
+.b-contain input {
+    display: none;
+}
+
+.b-contain .b-text {
 	line-height: 1.49;
 	font-size: 0.88rem;
 	font-family: inherit;
 }
 
-.b-contain {
-	display: table;
-	position: relative;
-	padding-left: 1.8rem;
-	cursor: pointer;
-	margin-bottom: 0.62rem;
-}
-
 .b-contain input[type="checkbox"] ~ .b-input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 1.2rem;
-	width: 1.31rem;
-	background: rgba(241, 245, 248, 1);
+	position: relative;
+	min-width: 1.3rem;
+	min-height: 1.3rem;
+	max-width: 1.3rem;
+	max-height: 1.3rem;
+	background: var(--color-white);
 	transition: background 250ms;
 	border: none;
-	border-radius: 0.307rem;
-    margin-top: .2rem;
+	border-radius: .25rem;
 }
 
 .b-contain input[type="radio"] ~ .b-input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 1.2rem;
-	width: 1.31rem;
-	background: rgba(241, 245, 248, 1);
+	position: relative;
+	min-width: 1.3rem;
+	min-height: 1.3rem;
+	max-width: 1.3rem;
+	max-height: 1.3rem;
+	background: var(--color-white);
 	transition: background 250ms;
 	border: none;
-	border-radius: 2.0rem;
+	border-radius: .25rem;
 }
 
 .b-contain input[type="checkbox"] ~ .b-input::after {
@@ -110,7 +76,7 @@
 	top: .18rem;
 	width: .25rem;
 	height: .6rem;
-	border: solid rgba(237, 103, 68, 1);
+	border: solid var(--color-five);
 	border-width: 0 2px 2px 0;
 	transition: background 250ms;
 	transform: rotate(45deg);
@@ -125,12 +91,12 @@
 	width: .75rem;
 	height: .75rem;
 	border-radius: 2.0rem;
-	background: rgba(237, 103, 68, 1);
+	background: var(--color-five);
 	transition: background 250ms;
 }
 
 .b-contain input:disabled ~ .b-input::after {
-	border-color: rgba(208, 208, 208, 1);
+	border-color: var(--color-grey);
 }
 
 .b-contain input:checked ~ .b-input::after {
@@ -139,36 +105,35 @@
 
 .b-contain:hover input ~ .b-input,
 .b-contain input:focus ~ .b-input {
-	background: rgb(231, 238, 243);
+	background: var(--color-white);
 }
 
 .b-contain input:focus ~ .b-input {
-	box-shadow: 0 0 0 2px rgba(52,144,220,0.5);
+	box-shadow: 0 0 0 2px var(--color-one);
 }
 
 .b-contain input:checked ~ .b-input {
-	background: rgba(179, 94, 67, 0.98);
-	border-color: rgba(237, 103, 68, 1);
+	background: var(--color-four);
+	border-color: var(--color-four);
 }
 
 .b-contain input[type="checkbox"]:disabled ~ .b-input {
-	background: rgba(241, 245, 248, 1);
-	border-color: rgba(184, 194, 204, 1);
+	background: var(--color-white);
+	border-color: var(--color-grey);
 	opacity: 0.6;
 	cursor: not-allowed;
 }
 
 .b-contain input[type="radio"]:disabled ~ .b-input {
-	background: rgba(241, 245, 248, 1);
-	border-color: rgba(184, 194, 204, 1);
+	background: var(--color-white);
+	border-color: var(--color-grey);
 	opacity: 0.6;
 	cursor: not-allowed;
 }
 
 .b-contain input[type="radio"]:disabled ~ .b-input::after {
-	background: rgba(208, 208, 208, 1);
+	background: var(--color-grey);
 }
-
 
 .b-contain .b-input::before {
 	content: '';
@@ -180,7 +145,7 @@
 	height: 3rem;
 	margin-left: -0.85rem;
 	margin-top: -0.85rem;
-	background: rgba(0, 130, 243, 1);
+	background: var(--color-fiveo);
 	border-radius: 2rem;
 	opacity: .6;
 	z-index: 99999;
@@ -477,39 +442,73 @@ a[href="#chat"].modal-button.chat span {
 }
 
 #chat.modal #details main li {
+    position: relative;
+    width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+#chat.modal #details main li div {
+    --color-to-left: var(--color-five);
+    --color-to-right: var(--color-four);
+    --color-from: var(--color-two);
+    --w-arrow: 25px;
+    --h-arrow: 25px;
     width: 75%;
     color: var(--color-black);
     border-radius: 2rem;
 }
 
-#chat.modal #details main li.to {
-    background-image: linear-gradient(130deg, var(--color-five), var(--color-four));
+#chat.modal #details main li div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: var(--w-arrow);
+    height: var(--h-arrow);
+}
+
+#chat.modal #details main li.to div {
+    background-image: linear-gradient(130deg, var(--color-to-left), var(--color-to-right));
     border-top-left-radius: 0;
+    border-bottom-left-radius: .25rem;
 }
 
-#chat.modal #details main li.to + li.to {
-    border-top-left-radius: 2rem;
+#chat.modal #details main li.to div::before {
+    left: 1px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    background-color: var(--color-to-left);
 }
 
-#chat.modal #details main li.from {
+#chat.modal #details main :is(li.to + li.to, li.from + li.from) div::before {
+    display: none;
+}
+
+#chat.modal #details main li.from div {
     color: var(--color-black);
-    background-color: var(--color-three);
+    background-color: var(--color-from);
     border-top-right-radius: 0;
+    border-bottom-right-radius: .25rem;
     margin-left: 25%;
 }
 
-#chat.modal #details main li.from + li.from {
-    border-top-right-radius: 2rem;
+#chat.modal #details main li.from div::before {
+    right: 0;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    background-color: var(--color-from);
 }
 
-#chat.modal #details main li.assigment {
+#chat.modal #details main li.assigment div {
     width: 100%;
     color: var(--color-white);
     font-weight: bold;
     border-radius: 0;
 }
 
-#chat.modal #details main li.assigment a {
+#chat.modal #details main li.assigment div::before {
+    display: none;
+}
+
+#chat.modal #details main li.assigment div a {
     width: 100%;
     background-color: rgba(0,0,0,.5);
     color: var(--color-grey);
@@ -520,12 +519,12 @@ a[href="#chat"].modal-button.chat span {
     transition: 500ms;
 }
 
-#chat.modal #details main li.assigment a:hover {
+#chat.modal #details main li.assigment div a:hover {
     color: var(--color-white);
     box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-white);
 }
 
-#chat.modal #details main li.assigment a:focus {
+#chat.modal #details main li.assigment div a:focus {
     color: var(--color-white);
     border: 1px solid var(--color-white);
     box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-white);
@@ -539,56 +538,38 @@ a[href="#chat"].modal-button.chat span {
     border-right: 1px solid var(--color-grey);
 }
 
-/* datepicker */
-
+/* * Custom datepicker */
 .datepicker [type="date"], .datepicker [type="text"] {
     background: #000 url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
     color: var(--color-white);
     border: none;
-  }
+}
 
-  .datepicker [type="date"]::placeholder, .datepicker [type="text"]::placeholder {
+.datepicker [type="date"]::placeholder, .datepicker [type="text"]::placeholder {
     color: var(--color-white);
-    padding-left: 1.4rem;
     font-size: .8rem;
-  }
-
+}
 
 .datepicker [type="date"]:focus, .datepicker [type="text"]:focus{
     outline: none;
 }
 
 .datepicker [type="date"]::-webkit-inner-spin-button {
-display: none;
+    display: none;
 }
+
 .datepicker [type="date"]::-webkit-calendar-picker-indicator {
-opacity: 0;
+    opacity: 0;
 }
 
-/* custom styles */
-.datepicker label {
-display: block;
-}
 .datepicker input {
-border-radius: 2px;
-background-color: #fff;
-padding: .5rem;
-width: 190px;
-}
-
-/* signin */
-
-.signup{
-    width: 60vw;
+    border-radius: 2px;
+    background-color: #000;
+    width: 100%;
 }
 
 /* ? MD */
 @media(min-width: 768px){
-
-    .signup{
-        width: 40vw;
-    }
-
     #chat.modal > section {
         width: calc(100vw / 2);
         height: 50vh;

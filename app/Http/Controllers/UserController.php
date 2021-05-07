@@ -81,6 +81,7 @@
             if ($user->id_role === 0) {
                 $user->friends_length = 0;
                 foreach ($user->friends as $friend) {
+                    $friend->and(['users']);
                     if ($friend->accepted) {
                         $user->friends_length++;
                     }
@@ -93,16 +94,18 @@
                     }
                 }
             }
-            if (Auth::user()->slug !== $user->slug && $user->id_role === 0) {
-                $user->isFriend = 0;
-                foreach ($user->friends as $friend) {
-                    if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
-                        if ($friend->accepted) {
-                            $user->isFriend = 2;
-                        }
-                        if (!$friend->accepted) {
-                            $user->isFriend = 1;
-                            $user->id_user_request = $friend->id_user_from;
+            if (Auth::check()) {
+                if (Auth::user()->slug !== $user->slug && $user->id_role === 0) {
+                    $user->isFriend = 0;
+                    foreach ($user->friends as $friend) {
+                        if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
+                            if ($friend->accepted) {
+                                $user->isFriend = 2;
+                            }
+                            if (!$friend->accepted) {
+                                $user->isFriend = 1;
+                                $user->id_user_request = $friend->id_user_from;
+                            }
                         }
                     }
                 }
@@ -189,3 +192,7 @@
             ]);
         }
     }
+
+
+
+// TODO teampro cargado por el profe, dificultad habilidad profe, opacidad habilidades nula (se da vuelta la card, packs profe = online), pack valor no automatico

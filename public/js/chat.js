@@ -5,6 +5,7 @@ import Modal from './modal.js';
 export class Chat extends Class {
     constructor (props, chats) {
         super(props);
+        this.setProps('chats', chats);
         this.getRole();
         this.createHTML(chats);
         this.generateHTMLChats(chats);
@@ -80,7 +81,7 @@ export class Chat extends Class {
                 link.href = `#chat-${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug }`;
                 li.appendChild(link);
                 link.addEventListener('click', function (e) {
-                    instance.open();
+                    instance.open(chat.id_chat);
                 });
                     let image = document.createElement('figure');
                     image.classList.add('image', 'mr-4');
@@ -109,17 +110,21 @@ export class Chat extends Class {
         }
     }
 
-    open () {
+    open (id_chat = '') {
         this.Modal.setProps('id', 'list');
         this.Modal.changeModalContent();
-        this.changeChat();
+        this.changeChat(id_chat);
     }
 
-    changeChat () {
+    changeChat (id_chat = '') {
         let instance = this;
-        this.details.innerHTML = '';
-        for (const message of this.props.messages) {
-            this.addMessage(message);
+        this.details.children[1].children[0].innerHTML = '';
+        for (const chat of this.props.chats) {
+            if (id_chat === chat.id_chat) {
+                for (const message of chat.messages) {
+                    this.addMessage(chat.id_user_logged, message);
+                }
+            }
         }
         document.querySelector(`#chat.modal #details form`).addEventListener('submit', function (e) {
             e.preventDefault();
@@ -127,24 +132,29 @@ export class Chat extends Class {
         });
     }
 
-    addMessage (message) {
+    addMessage (id_user_logged, message) {
         let li = document.createElement('li');
-        this.details.appendChild(li);
+        this.details.children[1].children[0].appendChild(li);
         if (message.hasOwnProperty('says')) {
-            li.classList.add((this.props.id_user_logged === message.id_user ? 'from' : 'to'), 'p-4', 'mb-4');
-                let paragraph = document.createElement('p');
-                paragraph.innerHTML = message.says;
-                li.appendChild(paragraph);
+            li.classList.add((id_user_logged === message.id_user ? 'from' : 'to'));
+                let div = document.createElement('div');
+                div.classList.add('p-4');
+                li.appendChild(div);
+                    let paragraph = document.createElement('p');
+                    paragraph.innerHTML = message.says;
+                    div.appendChild(paragraph);
         } else {
             li.classList.add('assigment');
-                let link = document.createElement('a');
-                link.href = `#assigment-${ message.assigment.slug }`;
-                link.classList.add('flex', 'justify-end', 'flex-wrap', 'p-4', 'mb-4');
-                li.appendChild(link);
-                    let title = document.createElement('span');
-                    title.classList.add('w-full', 'text-center');
-                    title.innerHTML = message.assigment.title;
-                    link.appendChild(title);
+                let div = document.createElement('div');
+                li.appendChild(div);
+                    let link = document.createElement('a');
+                    link.href = `#assigment-${ message.assigment.slug }`;
+                    link.classList.add('flex', 'justify-end', 'flex-wrap', 'p-4', 'mb-4');
+                    div.appendChild(link);
+                        let title = document.createElement('span');
+                        title.classList.add('w-full', 'text-center');
+                        title.innerHTML = message.assigment.title;
+                        link.appendChild(title);
         }
     }
 

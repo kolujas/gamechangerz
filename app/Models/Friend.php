@@ -27,7 +27,7 @@
          * @return array
          */
         public function users () {
-            $this->users = [
+            $this->users = (object) [
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
@@ -49,6 +49,25 @@
                 default:
                     return false;
                     break;
+            }
+        }
+
+        /**
+         * * Get the Friend info. 
+         * @param array $columns
+         * @throws
+         */
+        public function and ($columns = []) {
+            try {
+                foreach ($columns as $column) {
+                    switch ($column) {
+                        case 'users':
+                            $this->users();
+                            break;
+                    }
+                }
+            } catch (\Throwable $th) {
+                throw $th;
             }
         }
     }

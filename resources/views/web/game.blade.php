@@ -20,7 +20,7 @@
                 <header class="p-8 md:mt-12">
                     <h2 class="color-white">Aprende de los <span class="color-four">mejores</span></h2>
                     <p class="mb-4 slider-text color-white">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
-                    <button style="--color-left: {{ $game->colors[1] }}; --color-right: {{ $game->colors[0] }}" class="btn btn-one py-2 px-4">
+                    <button style="--color-left: {{ $game->colors[1] }}; --color-right: {{ $game->colors[0] }}" class="btn btn-outline btn-one py-2 px-4">
                         <span>Ver profesionales</span>
                     </button>
                 </header>
@@ -35,10 +35,10 @@
                     </div>
                     <div class="swiper-wrapper">
                         <figure class="swiper-slide">
-                            <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
+                            <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="Game banner">
                         </figure>
                         <figure class="swiper-slide">
-                            <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="">
+                            <img src="{{ asset('storage/web/01-Banner.png') }}" alt="Ads banner">
                         </figure>   
                     </div>
                 </main>

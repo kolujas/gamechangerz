@@ -25,6 +25,9 @@
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
                         'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                        'rules' => AuthModel::$validation['signin']['rules'],
+                        'messages' => AuthModel::$validation['signin']['messages']['es'],
                 ]],
             ]);
         }
@@ -76,6 +79,9 @@
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
                         'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                        'rules' => AuthModel::$validation['signin']['rules'],
+                        'messages' => AuthModel::$validation['signin']['messages']['es'],
                 ]],
             ]);
         }
@@ -96,6 +102,9 @@
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
                         'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                    'rules' => AuthModel::$validation['signin']['rules'],
+                    'messages' => AuthModel::$validation['signin']['messages']['es'],
                 ]],
             ]);
         }
@@ -115,6 +124,9 @@
                     'login' => (object)[
                         'rules' => AuthModel::$validation['login']['rules'],
                         'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                    'rules' => AuthModel::$validation['signin']['rules'],
+                    'messages' => AuthModel::$validation['signin']['messages']['es'],
                 ]],
             ]);
         }
@@ -130,6 +142,14 @@
             }
             return view('web.privacy_politics', [
                 'error' => $error,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                    'rules' => AuthModel::$validation['signin']['rules'],
+                    'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ]],
             ]);
         }
 
@@ -144,6 +164,14 @@
             }
             return view('web.terms_&_contidions', [
                 'error' => $error,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => AuthModel::$validation['login']['rules'],
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                    'rules' => AuthModel::$validation['signin']['rules'],
+                    'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ]],
             ]);
         }
     }
