@@ -26,7 +26,7 @@
                                 @foreach ($game->abilities as $ability)
                                     <li class="flex justify-between items-center p-2">
                                         <span class="color-white pr-2">{{ $ability->name }}</span>
-                                        {{-- @component($ability->svg)@endcomponent --}}
+                                        @component($ability->icon)@endcomponent
                                     </li>
                                 @endforeach
                             @endforeach
