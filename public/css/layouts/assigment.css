@@ -1,0 +1,38 @@
+.form-input, textarea, #url{
+    background-color: var(--color-one);
+    padding-left: 1rem;
+    color: #fff;
+    font-size: .8rem;
+    padding-top: .5rem;
+}
+
+
+textarea{
+    color: #fff;
+    font-size: .8rem;
+    padding-top: 1rem;
+}
+
+textarea::placeholder{
+    color: #fff;
+    font-size: .8rem;
+}
+
+textarea{
+    resize: none;
+}
+
+textarea:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+#myVideo{
+    display: flex;
+    justify-content: center;
+}
+
+#myVideo iframe{
+    width: 80%;
+    height: 20rem;
+}
