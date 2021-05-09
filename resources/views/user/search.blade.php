@@ -14,8 +14,7 @@
 @endsection
 
 @section('nav')
-    @component('components.nav.global')
-    @endcomponent
+    @component('components.nav.global')@endcomponent
 @endsection
 
 @section('main')
@@ -28,8 +27,7 @@
 
             <div class="flex justify-end px-8 xl:col-span-5 xl:col-start-2 2xl:col-span-7 2xl:col-start-2">
                 <label class="switch-content my-8">
-                    @component('components.svg.ChoqueSVG')
-                    @endcomponent
+                    @component('components.svg.ChoqueSVG')@endcomponent
                     <span class="color-two px-2">Buscar compañero</span>
                     <div class="switch degradado">
                         <input class="switchBtn" type="checkbox">
@@ -68,8 +66,7 @@
                 <li class="p-4 flex justify-between items-center gap-4 xl:col-span-5 xl:col-start-2 2xl:col-span-7 2xl:col-start-2">
                     <header class="flex mr-2">
                         <div class="photo mr-2">
-                            @component('components.svg.Group 15SVG')
-                            @endcomponent
+                            @component('components.svg.Group 15SVG')@endcomponent
                         </div>
                         <div>
                             <h3 class="color-white font-bold">{{ $user->username }}</h3>
@@ -77,8 +74,7 @@
                         </div>
                     </header>
                     <div class="h-full teammate">
-                        @component('components.svg.ChoqueSVG')
-                        @endcomponent
+                        @component('components.svg.ChoqueSVG')@endcomponent
                     </div>
                     <div class="hidden md:block">
                         <span class="color-white">Clases tomadas</span>
@@ -140,8 +136,7 @@
 @endsection
 
 @section('footer')
-    @component('components.footer')
-    @endcomponent
+    @component('components.footer')@endcomponent
 @endsection
 
 @section('js')

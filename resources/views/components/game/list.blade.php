@@ -1,5 +1,5 @@
 <ul class="cards games mt-12 grid md:grid-cols-2 lg:grid-cols-4 main">
-    @foreach ($games as $game)
+    @forelse ($games as $game)
         <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center pt-4">
             @if ($game->active)
                 <a class="flex flex-wrap" href="/games/{{ $game->slug }}">
@@ -23,5 +23,7 @@
                 </aside>
             </a>
         </li>
-    @endforeach
+    @empty
+        No hay juegos que mostrar
+    @endforelse
 </ul>

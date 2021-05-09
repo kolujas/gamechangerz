@@ -15,14 +15,12 @@
 		<ul class="nav-menu-list">
 			<li>
 				<a href="https://www.twitch.tv" target="_blank" class="nav-link">
-					@component('components.svg.TwitchSVG')
-					@endcomponent
+					@component('components.svg.TwitchSVG')@endcomponent
 				</a>
 			</li>
 			<li>
 				<a href="https://www.youtube.com" target="_blank" class="nav-link">
-					@component('components.svg.YtSVG')
-					@endcomponent
+					@component('components.svg.YtSVG')@endcomponent
 				</a>
 			</li>
 			<li>
@@ -35,11 +33,10 @@
 					<span class="link-text">Novedades</span>
 				</a>
 			</li>
-			@if (Auth::check())
+			@auth
 				<li id="nav-user" class="dropdown closed">
 					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">
-						@component('components.svg.Group 15SVG')
-						@endcomponent
+						@component('components.svg.Group 15SVG')@endcomponent
 					</a>
 					<ul class="dropdown-content px-4">
 						@if (Auth::user()->credits)
@@ -61,14 +58,15 @@
 						</li>
 					</ul>
 				</li>
-			@else
+			@endauth
+			@guest
 				<li>
 					<a href="#login" class="nav-link">
 						<i class="link-icon fas fa-sign-in-alt"></i>
 						<span class="link-text">Ingresar</span>
 					</a>
 				</li>
-			@endif
+			@endguest
 		</ul>
 	</div>
 

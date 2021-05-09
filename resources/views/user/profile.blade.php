@@ -9,8 +9,7 @@
 @endsection
 
 @section('nav')
-    @component('components.nav.global')
-    @endcomponent
+    @component('components.nav.global')@endcomponent
 @endsection
 
 @section('main')
@@ -20,8 +19,7 @@
                 <div class="p-8">
                     <header class="tag flex items-center">
                         <div class="pr-2">
-                            @component('components.svg.Group 15SVG')
-                            @endcomponent
+                            @component('components.svg.Group 15SVG')@endcomponent
                         </div>
                         <div class="username">
                             <h3 class="color-white">{{ $user->username }}</h3>
@@ -44,8 +42,7 @@
                         <ul class="icons-list flex justify-center mt-8">
                             @foreach ($user->achievements as $achievement)
                                 <li class="px-2" title="{{ $achievement->title }}: {{ $achievement->description }}">
-                                    @component($achievement->icon)
-                                    @endcomponent
+                                    @component($achievement->icon)@endcomponent
                                 </li>
                             @endforeach
                         </ul>
@@ -158,7 +155,7 @@
                                         <div class="stars flex">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($i <= $ability->stars)
-                                                    @component('components.svg.estrellaSVG')@endcomponent
+                                                    @component('components.svg.EstrellaSVG')@endcomponent
                                                 @else
                                                     @component('components.svg.estrella2SVG')@endcomponent
                                                 @endif
@@ -199,7 +196,7 @@
                                                 <div class="stars flex">
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         @if ($i <= $ability->stars)
-                                                            @component('components.svg.estrellaSVG')@endcomponent
+                                                            @component('components.svg.EstrellaSVG')@endcomponent
                                                         @else
                                                             @component('components.svg.estrella2SVG')@endcomponent
                                                         @endif
@@ -262,7 +259,7 @@
                                             <div class="stars flex w-28 pl-4">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($i <= $ability->stars)
-                                                        @component('components.svg.estrellaSVG')@endcomponent
+                                                        @component('components.svg.EstrellaSVG')@endcomponent
                                                     @else
                                                         @component('components.svg.estrella2SVG')@endcomponent
                                                     @endif
@@ -399,7 +396,7 @@
                                             <div class="flex">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($i <= $review->stars)
-                                                        @component('components.svg.estrellaSVG')@endcomponent
+                                                        @component('components.svg.EstrellaSVG')@endcomponent
                                                     @else
                                                         @component('components.svg.estrella2SVG')@endcomponent
                                                     @endif
@@ -466,8 +463,7 @@
 @endsection
 
 @section('footer')
-    @component('components.footer')
-    @endcomponent
+    @component('components.footer')@endcomponent
 @endsection
 
 @section('js')

@@ -16,7 +16,7 @@
                             <div class="flex">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $ability->difficulty)
-                                        @component('components.svg.estrellaSVG')@endcomponent
+                                        @component('components.svg.EstrellaSVG')@endcomponent
                                     @else
                                         @component('components.svg.estrella2SVG')@endcomponent
                                     @endif

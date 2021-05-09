@@ -9,8 +9,7 @@
 @endsection
 
 @section('nav')
-    @component('components.nav.global')
-    @endcomponent
+    @component('components.nav.global')@endcomponent
 @endsection
 
 @section('main')
@@ -20,8 +19,7 @@
 @endsection
 
 @section('footer')
-    @component('components.footer')
-    @endcomponent
+    @component('components.footer')@endcomponent
 @endsection
 
 @section('js')

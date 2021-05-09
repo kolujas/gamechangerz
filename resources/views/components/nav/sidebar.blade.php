@@ -1,10 +1,9 @@
 <div id="menu" class="sidebar left closed push-body">
     <div class="sidebar-header grid items-center justify-between">
-        @if (Auth::check())
+        @auth
             <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
-                    @component('components.svg.Group 15SVG')
-                    @endcomponent
+                    @component('components.svg.Group 15SVG')@endcomponent
                 </div>
                 <div class="col-span-2 grid grid-cols-1 items-center">
                     <span>{{ Auth::user()->username }}</span>
@@ -19,7 +18,8 @@
                     <span class="link-text">{{ Auth::user()->credits }} Créditos</span>
                 </span>
             @endif
-        @else
+        @endauth
+        @guest
             <a href="#login" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
                     <i class="link-icon fas fa-sign-in-alt"></i>
@@ -31,12 +31,12 @@
             <a href="#menu" class="sidebar-button close-btn left hidden">
                 <span class="link-text">Close</span>
             </a>
-        @endif
+        @endguest
     </div>
 
     <div class="sidebar-content">
         <ul class="sidebar-menu-list">
-            @if (Auth::check())
+            @auth
                 @if (Auth::user()->credits)
                     <li>
                         <span class="nav-link">
@@ -49,7 +49,7 @@
                         <span class="link-text">Ver Perfíl</span>
                     </a>
                 </li>
-            @endif
+            @endauth
             <li>
                 <a href="/teachers" class="sidebar-link nav-link p-0">
                     <span class="link-text">Profesores</span>
@@ -60,13 +60,13 @@
                     <span class="link-text">Novedades</span>
                 </a>
             </li>
-            @if (Auth::check())
+            @auth
                 <li>
                     <a href="/logout" class="sidebar-link nav-link p-0">
                         <span class="link-text">Cerrar Sesión</span>
                     </a>
                 </li>
-            @endif
+            @endauth
         </ul>
     </div>
 
@@ -74,14 +74,12 @@
         <ul class="sidebar-footer-menu-list">
             <li>
                 <a href="#" class="sidebar-footer-link nav-link p-0 mr-4">
-                    @component('components.svg.TwitchSVG')
-                    @endcomponent
+                    @component('components.svg.TwitchSVG')@endcomponent
                 </a>
             </li>
             <li>
                 <a href="#" class="sidebar-footer-link nav-link p-0">
-                    @component('components.svg.YtSVG')
-                    @endcomponent
+                    @component('components.svg.YtSVG')@endcomponent
                 </a>
             </li>
         </ul>

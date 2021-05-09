@@ -9,8 +9,7 @@
 @endsection
 
 @section('nav')
-    @component('components.nav.global')
-    @endcomponent
+    @component('components.nav.global')@endcomponent
 @endsection
 
 @section('main')
@@ -96,8 +95,7 @@
                 <form class="users-form-search lg:col-span-3 lg:col-start-2 xl:col-span-5 xl:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between" action="/users" method="GET">
                     <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, languageas, habilidades, etc." type="search" name="username">
                     <button class="submit-lupa p-4" type="submit">
-                        @component('components.svg.BuscarSVG');
-                        @endcomponent
+                        @component('components.svg.BuscarSVG')@endcomponent
                     </button>
                 </form>        
             </section>
@@ -110,8 +108,7 @@
                 <form class="users-form-search lg:col-span-3 lg:col-start-2 xl:col-span-5 xl:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between mb-8" action="/teachers" method="GET">
                     <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, languageas, habilidades, etc." type="search" name="username">
                     <button class="submit-lupa p-4" type="submit">
-                        @component('components.svg.Buscar2SVG');
-                        @endcomponent
+                        @component('components.svg.Buscar2SVG')@endcomponent
                     </button>
                 </form>
                 <main class="lg:col-span-5 xl:col-start-2 2xl:col-start-3">
@@ -161,8 +158,7 @@
 @endsection
 
 @section('footer')
-    @component('components.footer')
-    @endcomponent
+    @component('components.footer')@endcomponent
 @endsection
 
 @section('js')

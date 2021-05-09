@@ -6,8 +6,7 @@
         <form action="#" class="my-8">
             <input class="py-2 px-4" placeholder="Busca a un amigo" type="search">
             <button class="py-2 px-4" type="submit">
-                @component('components.svg.BuscarSVG');
-                @endcomponent
+                @component('components.svg.BuscarSVG')@endcomponent
             </button>
         </form>
         <div class="sections mb-8">
