@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             }
         }
         getChats(token);
+        new Modal({id: 'assigment'});
     } else if (token) {
         token.remove();
     }

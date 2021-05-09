@@ -24,6 +24,10 @@ export class Modal extends Class {
             case 'list':
                 this.generateChatListModalLogic();
                 break;
+            case 'assigment': this.youtubeConverter(); 
+                break;
+            case 'details':
+                this.generateChatDetailsModalLogic();
             case 'login':
                 this.generateLogInModalLogic();
                 break;
@@ -56,6 +60,7 @@ export class Modal extends Class {
             detectHash: true,
             outsideClick: true,
         });
+        console.log(this.ModalJS);
     }
 
     generateChatListModalLogic () {
@@ -161,6 +166,26 @@ export class Modal extends Class {
                 this.ValidationJS.form.html.submit();
             }
         }
+    }
+
+    youtubeConverter(){
+        $('#url').change(function(){
+            function getId(url) {
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+          
+                if (match && match[2].length == 11) {
+                    return match[2];
+                }else {
+                    return 'error';
+                }
+            }
+
+                var videoId = this.val();
+                var myId = getId(videoId);
+                
+                $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
+            })
     }
 }
 
