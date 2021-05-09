@@ -26,11 +26,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
             });
         }
     }
-
-    let modals = {
-        login: new Modal({ id: 'login' }),
-        signin: new Modal({ id: 'signin' }),
-    };
     
     if (URL.findHashParameter()) {
         switch (URL.findHashParameter()) {
@@ -46,6 +41,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     const token = Token.get();
+    let modals = {}
+    if (!authenticated) {
+        modals.login = new Modal({ id: 'login' });
+        modals.signin = new Modal({ id: 'signin' });
+    }
+    
     if (authenticated) {
         modals.assigment = new Modal({ id: 'assigment' });
         if (document.querySelectorAll("a[href='/logout']").length) {

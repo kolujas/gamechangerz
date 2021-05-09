@@ -2,12 +2,9 @@
     namespace App\Models;
 
     use App\Models\Ability;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Assigment extends Model {
-        use HasFactory;
-
         /** @var string Table name */
         protected $table = 'assigments';
         

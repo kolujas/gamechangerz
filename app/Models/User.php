@@ -14,13 +14,12 @@
     use App\Models\Role;
     use App\Models\Teampro;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
     use Laravel\Passport\HasApiTokens;
 
     class User extends Authenticatable {
-        use HasApiTokens, HasFactory, Notifiable;
+        use HasApiTokens, Notifiable;
 
         /** @var string Table name */
         protected $table = 'users';
@@ -33,7 +32,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video',
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video', 'important'
         ];
 
         /**
@@ -194,16 +193,19 @@
          * @return array
          */
         public function files () {
-            $files = Folder::getFiles($this->folder);
-            $this->files = collect([]);
-            foreach ($files as $file) {
-                if (strpos($file, '-')) {
-                    $fileExplode = explode('-', $file);
-                    $fileExplode = explode('.', $fileExplode[1]);
-                    $this->files->push([$fileExplode[0] => $file]);
-                } else {
-                    $this->files->push($file);
+            try {
+                $this->files = collect();
+                foreach (Folder::getFiles($this->folder) as $file) {
+                    if (strpos($file, '-')) {
+                        $fileExplode = explode('-', $file);
+                        $fileExplode = explode('.', $fileExplode[1]);
+                        $this->files[$fileExplode[0]] = $file;
+                    } else {
+                        $this->files->push($file);
+                    }
                 }
+            } catch (\Throwable $th) {
+                throw $th;
             }
         }
 

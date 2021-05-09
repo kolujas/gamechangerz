@@ -5,12 +5,9 @@
     use App\Models\Folder;
     use App\Models\Hour;
     use Carbon\Carbon;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Day extends Model {
-        use HasFactory;
-        
         /** @var string Table primary key name */
         protected $primaryKey = 'id_day';
 

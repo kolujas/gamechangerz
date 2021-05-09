@@ -210,15 +210,15 @@
                                     </ul>
                                     <div class="image hidden md:block">
                                         <figure>
-                                            <img src="{{ asset('/img/games/counter-strike-go/device.svg') }}" alt="Foto del profesor">
+                                            <img src={{ asset("/storage/" . $review->users['from']->files['profile']) }} alt="Foto del profesor">
                                         </figure>
                                     </div>
                                     <header class="grid pb-4">
-                                        <div class="grid grid-cols-2">
-                                            <h3 class="color-white text-2xl col-span-2">{{ $review->users['from']->username }}</h3>
-                                            <span class="color-white">{{ $review->users['from']->name }}</span>
+                                        <a href="/users/{{ $review->users['from']->slug }}/profile" class="btn btn-text btn-white grid grid-cols-2">
+                                            <h3 class="text-2xl col-span-2">{{ $review->users['from']->username }}</h3>
+                                            <span>{{ $review->users['from']->name }}</span>
                                             @component($review->users['from']->teampro->svg)@endcomponent
-                                        </div>
+                                        </a>
                                         <a class="btn btn-outline btn-one mt-4 block" href="#">
                                             <span>Leer más</span>
                                         </a>

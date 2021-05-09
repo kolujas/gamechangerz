@@ -117,3 +117,9 @@
     --color-right: var(--color-red);
     --border: var(--color-red);
 }
+
+.btn.btn-white {
+    --color-left: var(--color-four);
+    --color-right: var(--color-white);
+    --border: var(--color-black);
+}

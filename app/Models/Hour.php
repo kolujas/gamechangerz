@@ -3,12 +3,9 @@
 
     use App\Models\Ability;
     use App\Models\Folder;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Hour extends Model {
-        use HasFactory;
-        
         /** @var string Table primary key name */
         protected $primaryKey = 'id_hour';
 

@@ -2,12 +2,9 @@
     namespace App\Models;
 
     use App\Models\Lesson;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Price extends Model {
-        use HasFactory;
-        
         /** @var string Table primary key name */
         protected $primaryKey = 'id_lesson';
 
