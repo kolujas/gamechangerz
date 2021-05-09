@@ -4,12 +4,9 @@
     use App\Models\Ability;
     use App\Models\Day;
     use App\Models\Folder;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Lesson extends Model {
-        use HasFactory;
-
         /** @var string Table name */
         protected $table = 'lessons';
         

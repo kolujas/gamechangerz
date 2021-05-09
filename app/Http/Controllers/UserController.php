@@ -44,7 +44,7 @@
             }
             foreach ($user->reviews as $review) {
                 $review->and(['abilities', 'lesson', 'users']);
-                $review->users['from']->and(['teampro']);
+                $review->users['from']->and(['teampro', 'files']);
                 if ($user->id_role === 0) {
                     $review->and(['game']);
                 }
@@ -138,7 +138,7 @@
                 $users = User::where('id_role', '=', 0)->limit(10)->get();
             }
             if (\Request::is('teachers')) {
-                $users = User::where('id_role', '=', 1)->limit(10)->get();
+                $users = User::where('id_role', '=', 1)->limit(10)->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get();
             }
             foreach ($users as $user) {
                 $user->and(['games']);  

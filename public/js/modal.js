@@ -86,7 +86,6 @@ export class Modal extends Class {
         this.ModalJS = new ModalJS({
             id: id,
         }, states);
-        console.log(this.ModalJS);
     }
 
     changeModalContent () {

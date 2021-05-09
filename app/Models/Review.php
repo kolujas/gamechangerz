@@ -5,12 +5,9 @@
     use App\Models\Game;
     use App\Models\Lesson;
     use App\Models\User;
-    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Review extends Model {
-        use HasFactory;
-
         /** @var string Table name */
         protected $table = 'reviews';
         
