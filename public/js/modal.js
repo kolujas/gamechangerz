@@ -17,14 +17,13 @@ export class Modal extends Class {
         switch (this.props.id) {
             case 'assigment':
                 this.generateAssigmentModalLogic();
+                this.youtubeConverter();
                 break;
             case 'details':
                 this.generateChatDetailsModalLogic();
                 break;
             case 'list':
                 this.generateChatListModalLogic();
-                break;
-            case 'assigment': this.youtubeConverter(); 
                 break;
             case 'details':
                 this.generateChatDetailsModalLogic();
@@ -169,22 +168,18 @@ export class Modal extends Class {
     }
 
     youtubeConverter(){
-        $('#url').change(function(){
-            function getId(url) {
+        document.querySelector('#url').addEventListener("change", function(){
+           
                 var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                var match = url.match(regExp);
-          
+                var match = this.value.match(regExp);
+                let videoId;
                 if (match && match[2].length == 11) {
-                    return match[2];
+                    videoId = match[2];
                 }else {
-                    return 'error';
+                    videoId = 'error';
                 }
-            }
-
-                var videoId = this.val();
-                var myId = getId(videoId);
                 
-                $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
+                $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
             })
     }
 }

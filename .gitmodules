@@ -28,3 +28,6 @@
 [submodule ".\\public\\submodules\\NotificationJS"]
 	path = public/submodules/NotificationJS
 	url = https://github.com/JuanCruzAGB/NotificationJS.git
+[submodule ".\\public\\submodules\\ModalJS"]
+	path = public/submodules/ModalJS
+	url = https://github.com/JuanCruzAGB/ModalJS.git
