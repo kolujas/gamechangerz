@@ -24,7 +24,7 @@
                     </aside>
                 </a>
             </li>
-        @endforelse
+        @endforeach
     @endif
     @if (!count($games))
         No hay juegos que mostrar
