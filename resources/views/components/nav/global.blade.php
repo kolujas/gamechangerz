@@ -33,7 +33,7 @@
 					<span class="link-text">Novedades</span>
 				</a>
 			</li>
-			@auth
+			@if (Auth::check())
 				<li id="nav-user" class="dropdown closed">
 					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">
 						@component('components.svg.Group 15SVG')@endcomponent
@@ -58,18 +58,17 @@
 						</li>
 					</ul>
 				</li>
-			@endauth
-			@guest
+			@endif
+			@if (!Auth::check())
 				<li>
 					<a href="#login" class="nav-link">
 						<i class="link-icon fas fa-sign-in-alt"></i>
 						<span class="link-text">Ingresar</span>
 					</a>
 				</li>
-			@endguest
+			@endif
 		</ul>
 	</div>
 
-    @component('components.nav.sidebar')
-	@endcomponent
+    @component('components.nav.sidebar')@endcomponent
 </nav>

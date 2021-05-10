@@ -1,6 +1,6 @@
 <div id="menu" class="sidebar left closed push-body">
     <div class="sidebar-header grid items-center justify-between">
-        @auth
+        @if (Auth::check())
             <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
                     @component('components.svg.Group 15SVG')@endcomponent
@@ -18,8 +18,8 @@
                     <span class="link-text">{{ Auth::user()->credits }} Créditos</span>
                 </span>
             @endif
-        @endauth
-        @guest
+        @endif
+        @if (!Auth::check())
             <a href="#login" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
                     <i class="link-icon fas fa-sign-in-alt"></i>
@@ -31,12 +31,12 @@
             <a href="#menu" class="sidebar-button close-btn left hidden">
                 <span class="link-text">Close</span>
             </a>
-        @endguest
+        @endif
     </div>
 
     <div class="sidebar-content">
         <ul class="sidebar-menu-list">
-            @auth
+            @if (Auth::check())
                 @if (Auth::user()->credits)
                     <li>
                         <span class="nav-link">
@@ -49,7 +49,7 @@
                         <span class="link-text">Ver Perfíl</span>
                     </a>
                 </li>
-            @endauth
+            @endif
             <li>
                 <a href="/teachers" class="sidebar-link nav-link p-0">
                     <span class="link-text">Profesores</span>
@@ -60,13 +60,13 @@
                     <span class="link-text">Novedades</span>
                 </a>
             </li>
-            @auth
+            @if (Auth::check())
                 <li>
                     <a href="/logout" class="sidebar-link nav-link p-0">
                         <span class="link-text">Cerrar Sesión</span>
                     </a>
                 </li>
-            @endauth
+            @endif
         </ul>
     </div>
 
