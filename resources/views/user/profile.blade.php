@@ -157,7 +157,7 @@
                                                 @if ($i <= $ability->stars)
                                                     @component('components.svg.EstrellaSVG')@endcomponent
                                                 @else
-                                                    @component('components.svg.estrella2SVG')@endcomponent
+                                                    @component('components.svg.Estrella2SVG')@endcomponent
                                                 @endif
                                             @endfor
                                         </div>
@@ -198,7 +198,7 @@
                                                         @if ($i <= $ability->stars)
                                                             @component('components.svg.EstrellaSVG')@endcomponent
                                                         @else
-                                                            @component('components.svg.estrella2SVG')@endcomponent
+                                                            @component('components.svg.Estrella2SVG')@endcomponent
                                                         @endif
                                                     @endfor
                                                 </div>
@@ -261,7 +261,7 @@
                                                     @if ($i <= $ability->stars)
                                                         @component('components.svg.EstrellaSVG')@endcomponent
                                                     @else
-                                                        @component('components.svg.estrella2SVG')@endcomponent
+                                                        @component('components.svg.Estrella2SVG')@endcomponent
                                                     @endif
                                                 @endfor
                                             </div>
@@ -398,7 +398,7 @@
                                                     @if ($i <= $review->stars)
                                                         @component('components.svg.EstrellaSVG')@endcomponent
                                                     @else
-                                                        @component('components.svg.estrella2SVG')@endcomponent
+                                                        @component('components.svg.Estrella2SVG')@endcomponent
                                                     @endif
                                                 @endfor
                                             </div>

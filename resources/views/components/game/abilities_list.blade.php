@@ -18,7 +18,7 @@
                                     @if ($i <= $ability->difficulty)
                                         @component('components.svg.EstrellaSVG')@endcomponent
                                     @else
-                                        @component('components.svg.estrella2SVG')@endcomponent
+                                        @component('components.svg.Estrella2SVG')@endcomponent
                                     @endif
                                 @endfor
                             </div>
