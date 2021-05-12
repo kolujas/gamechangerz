@@ -192,6 +192,7 @@
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
     border-image-slice: 1;
+    color: var(--color-white);
     background-color: var(--color-one);
 }
 
