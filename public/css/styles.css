@@ -52,8 +52,14 @@
     padding: 0;
 }
 
-:is(input, button):focus {
+:is(input, button, textarea):focus {
     outline: none;
+}
+
+:is(input, textarea):focus {
+    box-shadow: 0 0 0 1px var(--color-four),
+                0 0 0 2px var(--color-black),
+                0 0 0 3px var(--color-four);
 }
 
 .nav-menu {
@@ -92,7 +98,7 @@ h5 {
 
 /* ? MD */
 @media(min-width: 768px){
-    
+    /*  */
 }
 
 /* ? LG */
@@ -134,10 +140,10 @@ h5 {
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    /*  */
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    
+    /*  */
 }

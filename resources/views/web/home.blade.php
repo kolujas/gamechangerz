@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Home | GameChangerZ
+    GameChangerZ
 @endsection
 
 @section('css')

@@ -6,12 +6,10 @@ export class Chat extends Class {
     constructor (props, chats) {
         super(props);
         this.setProps('chats', chats);
-        this.getRole();
-        this.createHTML(chats);
-        this.generateHTMLChats(chats);
+        this.createHTML();
     }
 
-    async getRole (chats) {
+    async getRole () {
         let query = await Fetch.get(`/api/role`, {
             'Accept': 'application/json',
             'Content-type': 'application/json; charset=UTF-8',
@@ -22,19 +20,20 @@ export class Chat extends Class {
         }
     }
 
-    createHTML (chats) {
+    async createHTML () {
         this.Modal = new Modal({
             id: 'list',
         });
         this.setHTML(this.Modal.ModalJS.html.children[0]);
         this.list = this.html.children[0];
         this.details = this.html.children[1];
+        await this.getRole();
         if (!this.props.id_role) {
             this.list.children[1].children[1].children[0].classList.add('block');
             this.list.children[1].children[2].children[0].classList.add('block');
             let friends = 0;
             let lessons = 0;
-            for (const chat of chats) {
+            for (const chat of this.props.chats) {
                 if (chat.id_type === 1) {
                     friends++;
                 }
@@ -51,13 +50,14 @@ export class Chat extends Class {
         }
         if (this.props.id_role) {
             this.list.children[1].children[1].children[0].classList.add('hidden');
-            this.list.children[1].children[2].add('hidden');
+            this.list.children[1].children[2].classList.add('hidden');
         }
+        this.generateHTMLChats();
     }
 
-    generateHTMLChats (chats) {
+    generateHTMLChats () {
         let instance = this;
-        for (const chat of chats) {
+        for (const chat of this.props.chats) {
             let li = document.createElement('li');
             li.classList.add('mt-4');
             if (!this.props.id_role) {
@@ -110,30 +110,35 @@ export class Chat extends Class {
         }
     }
 
-    open (id_chat = '') {
+    open (id_chat) {
         this.Modal.setProps('id', 'list');
         this.Modal.changeModalContent();
         this.changeChat(id_chat);
     }
 
-    changeChat (id_chat = '') {
+    changeChat (id_chat) {
         let instance = this;
-        this.details.children[1].children[0].innerHTML = '';
         for (const chat of this.props.chats) {
-            if (id_chat === chat.id_chat) {
+            if (chat.id_chat === id_chat) {
+                this.details.children[1].children[0].innerHTML = '';
+                let header = this.details.children[0].children[1];
+                header.href = `/users/${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].slug }/profile`;
+                header.children[1].innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].name })`;
                 for (const message of chat.messages) {
                     this.addMessage(chat.id_user_logged, message);
                 }
+                document.querySelector(`#chat.modal #details form`).addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    instance.send(chat);
+                });
+                break;
             }
         }
-        document.querySelector(`#chat.modal #details form`).addEventListener('submit', function (e) {
-            e.preventDefault();
-            instance.send();
-        });
     }
 
     addMessage (id_user_logged, message) {
         let li = document.createElement('li');
+        li.id = `message-${ message.id_message }`;
         this.details.children[1].children[0].appendChild(li);
         if (message.hasOwnProperty('says')) {
             li.classList.add((id_user_logged === message.id_user ? 'from' : 'to'));
@@ -158,14 +163,14 @@ export class Chat extends Class {
         }
     }
 
-    async send () {
+    async send (chat) {
         if (document.querySelector(`#chat.modal #details form input[name=message]`).value) {
             let formData = new FormData(document.querySelector(`#chat.modal #details form`));
             let token = formData.get('_token');
             formData.delete('_token');
             let query = await Fetch.send({
                 method: 'POST',
-                url: `/api/chats/${ this.props.id_chat }`,
+                url: `/api/chats/${ (chat.id_user_logged === chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`,
             }, {
                 'Accept': 'application/json',
                 'Content-type': 'application/json; charset=UTF-8',
@@ -173,9 +178,25 @@ export class Chat extends Class {
                 'Authorization': "Bearer " + this.props.token,
             }, formData);
             if (query.response.code === 200) {
-                for (const message of query.response.data.chat.messages) {
-                    this.addMessage(message);
+                this.save(query.response.data);
+                document.querySelector(`#chat.modal #details form`).reset();
+            }
+        }
+    }
+
+    save (data) {
+        for (const key in this.props.chats) {
+            if (Object.hasOwnProperty.call(this.props.chats, key)) {
+                const chat = this.props.chats[key];
+                if (chat.id_chat === data.chat.id_chat) {
+                    this.props.chats[key] = data.chat;
+                    break;
                 }
+            }
+        }
+        for (const message of data.chat.messages) {
+            if (!document.querySelector(`#message-${ message.id_message }`)) {
+                this.addMessage(data.chat.id_user_logged, message);
             }
         }
     }

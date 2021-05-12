@@ -20,10 +20,16 @@
             'id_user_from', 'id_user_to', 'messages',
         ];
 
+        /**
+         * * Parse the Chat Messages.
+         */
         public function messages () {
             $this->messages = Message::parse(json_decode($this->messages));
         }
 
+        /**
+         * * Parse the Chat type
+         */
         public function type () {
             $this->messages();
             $this->id_type = 1;
@@ -55,4 +61,20 @@
                     'es' => [
                         'message.required' => 'El mensaje es obligatorio.',
         ]]]];
+
+        /**
+         * * Check if a Chat exist by the Users
+         * @param int $id_user_1
+         * @param int $id_user_2
+         * @return boolean
+         */
+        static public function exist ($id_user_1, $id_user_2) {
+            return count(Chat::where([
+                ['id_user_from', '=', $id_user_1],
+                ['id_user_to', '=', $id_user_2]
+            ])->orwhere([
+                ['id_user_from', '=', $id_user_2],
+                ['id_user_to', '=', $id_user_1]
+            ])->get()) > 0;
+        }
     }

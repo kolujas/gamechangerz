@@ -23,6 +23,7 @@
     border-image-source: linear-gradient(130deg, var(--color-left), var(--color-right));
     border-image-slice: 1;
     transition: color 500ms, text-shadow 500ms;
+    text-align: center;
 }
 
 .btn.btn-outline:focus {

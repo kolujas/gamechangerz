@@ -219,7 +219,7 @@
 /* fornite banner */
 
 .aside {
-    background: url('../../storage/web/01-Banner.png') no-repeat center center;
+    background: url('../../storage/web/01-banner.png') no-repeat center center;
     background-size: cover;
     min-height: 20rem;
     width: 100%;

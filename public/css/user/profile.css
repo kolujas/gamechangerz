@@ -6,6 +6,37 @@
 }
 
 /* ? Teacher */
+.teacher .profile .info input {
+    background-color: transparent;
+    padding: 0;
+    width: calc(var(--width));
+    cursor: text;
+}
+
+.teacher .profile .info input:not([disabled]) {
+    background-color: var(--color-black);
+    padding: .25rem .5rem;
+    width: calc(var(--width) + 1rem);
+}
+
+.teacher .profile .info .name input {
+    text-align: center;
+}
+
+.teacher .description textarea {
+    background-color: transparent;
+    width: 100%;
+    resize: none;
+    padding: 0;
+    color: var(--color-two);
+}
+
+.teacher .description textarea:not([disabled]) {
+    background-color: black;
+    padding: .5rem;
+    color: var(--color-white);
+}
+
 .teacher .info .languages li svg{
     height: 50%;
     width: 1.5rem;
@@ -41,8 +72,8 @@
  /* games */
 
 .teacher section.games .cards{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+    gap: 2rem;
 }
 
 .teacher section.games .degradado{
@@ -88,7 +119,7 @@
 }
 
 .teacher .achievements ul li:not(:last-of-type), .teacher .reviews ul li:not(:last-of-type) {
-    padding-right: 1rem;
+    padding-right: 2rem;
 }
 
 .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
@@ -140,7 +171,11 @@
     width: 100%;
 }
 
-.teacher .tab-menu table td span {
+.teacher .tab-menu table td label input {
+    display: none;
+}
+
+.teacher .tab-menu table td label span {
     display: block;
     text-align: center;
     border-radius: .25rem;
@@ -150,9 +185,13 @@
     font-size: .75rem;
 }
 
-.teacher .tab-menu table td span.active {
+.teacher .tab-menu table td label input:checked + span {
     background-color: var(--color-four);
     opacity: 1;
+}
+
+.teacher .tab-menu table td label input:not([disabled]) + span {
+    cursor: pointer;
 }
 
 .teacher .info .abilities.cards li > div {
@@ -167,11 +206,27 @@
 }
 
 
-/* usuario */
-
+/* ? User */
 .user .data > div{
     background-color: var(--color-black);
     position: relative;
+}
+
+.user .data .tag .username {
+    flex-basis: 75%;
+}
+
+.user .data .tag .username input {
+    background: transparent;
+    padding: 0;
+    transition: 500ms;
+    cursor: text;
+    width: 100%;
+}
+
+.user .data .tag .username input:not([disabled]) {
+    background: black;
+    padding: .25rem .5rem;
 }
 
 .user .data .tag .username span {
@@ -212,12 +267,9 @@
     order: 1;
 }
 
-.user > .abilities li {
+.user > .abilities li > div{
     background: var(--color-black);
     position: relative;
-}
-
-.user > .abilities li > div{
     padding: 1rem;
     margin-bottom: 1rem;
 }
@@ -235,7 +287,6 @@
     opacity: .2;
 }
 
-/* reseñas user */
 .user .cardota{
     /* background: var(--color-black); */
     /* z-index: -2; */
@@ -267,7 +318,19 @@
     padding-top: 0rem;
 }
 
-.user .games figure{
+.user .games .card a.add {
+    height: 6rem;
+    font-size: 2.5rem;
+    background: var(--color-black);
+    border-radius: .25rem;
+    color: var(--color-white);
+}
+
+.user > .games figure {
+    height: 10rem;
+}
+
+.user .reviews .games figure {
     height: 6rem;
 }
 
@@ -356,11 +419,16 @@
     .user .games .cards{
         grid-template-columns: repeat(2, minmax(0, 1fr));
         margin: 0 auto;
+        gap: 2rem;
+    }
+
+    .user .games .card a.add {
+        height: 100%;
     }
 
     .user .games .cards li{
         padding: 0;
-        margin-bottom: 1rem;
+        /* margin-bottom: 1rem; */
     }
 
     .user .games .cards li:is(:nth-last-of-type(2), :last-of-type()){
@@ -368,12 +436,12 @@
     }
 
     .user .games .cards li:nth-of-type(2n + 1){
-        margin-right: 1rem;
+        /* margin-right: 1rem; */
         padding: 0;
     }
 
     .user .reviews{
-        grid-column: span 3 / span 3;
+        /* grid-column: span 3 / span 3; */
     }
 
     .user .icons-list svg {
@@ -481,7 +549,7 @@
     }
 
     .user .reviews{
-        grid-column: span 2 / span 2;
+        /* grid-column: span 2 / span 2; */
     }
 
     .user .data{
@@ -494,11 +562,12 @@
     .user .games li{
         /* width: 12rem; */
         margin-left: 0;
+        margin-bottom: 0;
     }
 
     .user .games .cards{
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2rem;
     }
 
     .user .games .cards li:nth-of-type(2n + 1){
@@ -519,7 +588,7 @@
 
     .teacher section.games .cards::before {
         content: '';
-        width: calc(100vw / 7);
+        width: calc(100% / 6);
         position: absolute;
         top: 0;
         height: 100%;
@@ -530,25 +599,25 @@
     }
 
     .teacher section.games .cards .card:last-of-type {
-        padding-right: calc(100vw / 7);
+        padding-right: calc(100% / 6);
     }
 
     .teacher .abilities.cards .card:first-of-type,
     .teacher .blog.cards .card:first-of-type {
-        padding-left: 12rem;
+        padding-left: 10%;
     }
 
     .teacher .abilities.cards .card:last-of-type,
     .teacher .blog.cards .card:last-of-type {
-        padding-right: 12rem;
+        padding-right: 10%;
     }
 
     .teacher .achievements ul li:first-of-type, .teacher .reviews ul li:first-of-type {
-        padding-left: calc(100vw / 7);
+        padding-left: calc(100% / 6);
     }
 
     .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
-        padding-right: calc(100vw / 7);
+        padding-right: calc(100% / 6);
     }
 
     .teacher .achievements .cards::after,
@@ -556,7 +625,7 @@
     .teacher .reviews .cards::after,
     .teacher .reviews .cards::before {
         content: '';
-        width: calc(100vw / 7);
+        width: calc(100% / 6);
         position: absolute;
         top: 0;
         height: 100%;
@@ -577,7 +646,7 @@
     }
 
     .user .reviews{
-        grid-column: span 4 / span 4;
+        /* grid-column: span 4 / span 4; */
     }
 
     .user .games .cards{
@@ -609,20 +678,20 @@
 
     .teacher .abilities.cards .card:first-of-type,
     .teacher .blog.cards .card:first-of-type {
-        padding-left: 22rem;
+        /* padding-left: 22rem; */
     }
 
     .teacher .abilities.cards .card:last-of-type,
     .teacher .blog.cards .card:last-of-type {
-        padding-right: 22rem;
+        /* padding-right: 22rem; */
     }
 
     .teacher .achievements ul li:first-of-type, .teacher .reviews ul li:first-of-type {
-        padding-left: calc((100vw / 9) * 2);
+        /* padding-left: calc((100vw / 9) * 2); */
     }
 
     .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
-        padding-right: calc(100vw / 9);
+        /* padding-right: calc(100vw / 9); */
     }
 
     .teacher .achievements .cards::-webkit-scrollbar-button,
@@ -646,7 +715,7 @@
     }
 
     .user .reviews{
-        grid-column: span 4 / span 4;
+        /* grid-column: span 4 / span 4; */
     }
 
     .user .data .tag .username span {

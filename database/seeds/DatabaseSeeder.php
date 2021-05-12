@@ -8,12 +8,12 @@
          * @return void
          */
         public function run () {
-            $this->call(AssigmentsSeeder::class);
-            $this->call(ChatsSeeder::class);
-            $this->call(LessonsSeeder::class);
-            $this->call(PostsSeeder::class);
-            $this->call(ReviewsSeeder::class);
-            $this->call(UsersSeeder::class);
-            $this->call(FriendsSeeder::class);
+            $this->call(AssigmentSeeder::class);
+            $this->call(ChatSeeder::class);
+            $this->call(LessonSeeder::class);
+            $this->call(PostSeeder::class);
+            $this->call(ReviewSeeder::class);
+            $this->call(UserSeeder::class);
+            $this->call(FriendSeeder::class);
         }
     }

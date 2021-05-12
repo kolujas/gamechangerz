@@ -1,10 +1,10 @@
 @extends('layouts.default')
 
 @section('title')
-    @if (\Request::is('users'))
+    @if (Request::is('users'))
         Buscador de Usuarios | GameChangerZ
     @endif
-    @if (\Request::is('teachers'))
+    @if (Request::is('teachers'))
         Buscador de Profesores | GameChangerZ
     @endif
 @endsection
@@ -18,7 +18,7 @@
 @endsection
 
 @section('main')
-    @if (\Request::is('users'))
+    @if (Request::is('users'))
         <section class="users lg:grid lg:grid-cols-10">
             <header class="px-8 lg:col-span-8 lg:col-start-2">
                 <h2 class="color-two text-md text-left pt-4">Buscador de usuarios</h2>
@@ -93,7 +93,7 @@
             @endforeach
         </ul>
     @endif
-    @if (\Request::is('teachers'))
+    @if (Request::is('teachers'))
         <section class="teachers xl:grid xl:grid-cols-7 2xl:grid-cols-9">
             <header class="px-8 xl:col-span-5 xl:col-start-2 2xl:col-span-7 2xl:col-start-2">
                 <h2 class="color-two text-md text-left pt-4">Buscador de profesores</h2>
