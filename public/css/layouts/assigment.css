@@ -1,4 +1,4 @@
-.form-input, textarea, #url{
+#assigment .form-input, #assigment textarea, #assigment #url{
     background-color: var(--color-one);
     padding-left: 1rem;
     color: #fff;
@@ -7,32 +7,32 @@
 }
 
 
-textarea{
+#assigment textarea{
     color: #fff;
     font-size: .8rem;
     padding-top: 1rem;
 }
 
-textarea::placeholder{
+#assigment textarea::placeholder{
     color: #fff;
     font-size: .8rem;
 }
 
-textarea{
+#assigment textarea{
     resize: none;
 }
 
-textarea:focus{
+#assigment textarea:focus{
     outline: none;
     box-shadow: none;
 }
 
-#myVideo{
+#assigment #myVideo{
     display: flex;
     justify-content: center;
 }
 
-#myVideo iframe{
+#assigment #myVideo iframe{
     width: 80%;
     height: 20rem;
 }

@@ -37,7 +37,7 @@
                             <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="Game banner">
                         </figure>
                         <figure class="swiper-slide">
-                            <img src="{{ asset('storage/web/01-Banner.png') }}" alt="Ads banner">
+                            <img src="{{ asset('storage/web/01-banner.png') }}" alt="Ads banner">
                         </figure>   
                     </div>
                 </main>

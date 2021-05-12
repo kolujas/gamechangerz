@@ -3,13 +3,16 @@
         <a href="#chat" class="color-five mr-2">
             <i class="fas fa-chevron-left"></i>
         </a>
-        @component('components.svg.Group 15SVG')@endcomponent
-        <p class="color-white ml-2">
-            <a href="#">Pepe (Pepe Diaz)</a>
-        </p>
+        <a href="#" class="color-white flex items-center">
+            @component('components.svg.Group 15SVG')@endcomponent
+            <span class="ml-2"></span>
+        </a>
     </header>
-    <main>
+    <main class="relative">
         <ul class="mx-2 px-2 py-4"></ul>
+        <span class="question" title="Los mensajes se cargaran automáticamente cada 1 minuto">
+            <i class="fas fa-question"></i>
+        </span>
     </main>
     <footer>
         <form action="#">

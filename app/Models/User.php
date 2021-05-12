@@ -32,7 +32,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video', 'important'
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video', 'important', 'stars'
         ];
 
         /**
@@ -357,7 +357,7 @@
         static public function findByGame ($id_game = '', $id_role = false) {
             try {
                 $users = collect([]);
-                $usersToSearch = User::all();
+                $usersToSearch = User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get();
                 foreach ($usersToSearch as $user) {
                     if ($id_role && $user->id_role === $id_role) {
                         $user->and(['games']);

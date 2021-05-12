@@ -30,10 +30,9 @@
 
         {{-- ? Node modules --}}
         <script src={{ asset('js/app.js') }}></script>
+        <script src={{ asset('js/jquery/jquery-3.6.0.min.js') }}></script>
 
         {{-- ? External Repositories js --}}
-
-        <script src="js/jquery/jquery-3.6.0.min.js"></script>
 
         {{-- ? Global JS --}}
         <script>

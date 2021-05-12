@@ -4,6 +4,10 @@
     overflow: hidden;
 }
 
+.games .card a.plus {
+    height: 100%;
+}
+
 .games .card a .borders {
     position: absolute;
     top: 0;

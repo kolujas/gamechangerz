@@ -35,15 +35,15 @@
                 </header>
                 <section class="image row-span-4 md:row-span-3 lg:row-span-2 lg:col-span-3">
                     <figure>
-                        @for ($i = 0; $i < count($user->files); $i++)
-                            @if (isset($user->files[$i]['profile']))
-                                @foreach ($user->files[$i] as $key => $value)
+                        {{-- @for ($i = 0; $i < count($user->files); $i++) --}}
+                            @if (isset($user->files['profile']))
+                                @foreach ($user->files as $key => $value)
                                     @if ($key === 'profile')
                                         <img src={{ asset("storage/$value") }} alt="Device image">
                                     @endif
                                 @endforeach
                             @endif
-                        @endfor
+                        {{-- @endfor --}}
                     </figure>
                 </section>
                 <section class="payment grid md:row-span-3 lg:row-span-2 lg:col-span-2 ml-4 mb-4 md:m-0 md:mr-8 md:mt-4 md:items-end">

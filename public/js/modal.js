@@ -58,8 +58,8 @@ export class Modal extends Class {
         this.setModalJS('assigment', {
             detectHash: true,
             outsideClick: true,
+            open: /assigment-/.exec(URL.findHashParameter()),
         });
-        console.log(this.ModalJS);
     }
 
     generateChatListModalLogic () {

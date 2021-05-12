@@ -24,18 +24,9 @@
                 ]);
             }
 
-            $chats = Chat::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->orderBy('updated_at')->get();
-
             foreach (Lesson::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get() as $lesson) {
-                if (count($chats)) {
-                    foreach ($chats as $chat) {
-                        if (($request->user()->id_user === $chat->id_user_from ? $chat->id_user_to : $chat->id_user_from) === ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from)) {
-                            break;
-                        }
-                    }
-                }
-                if (!count($chats)) {
-                    $chats[] = new Chat([
+                if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
+                    Chat::create([
                         'id_chat' => null,
                         'id_user_from' => $lesson->id_user_from,
                         'id_user_to' => $lesson->id_user_to,
@@ -47,21 +38,8 @@
             if ($request->user()->id_role === 0) {
                 foreach (Friend::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->get() as $friend) {
                     if ($friend->accepted) {
-                        if (count($chats)) {
-                            foreach ($chats as $chat) {
-                                if (($request->user()->id_user === $chat->id_user_from ? $chat->id_user_to : $chat->id_user_from) === ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from)) {
-                                    break;
-                                }
-                                $chats[] = new Chat([
-                                    'id_chat' => null,
-                                    'id_user_from' => $friend->id_user_from,
-                                    'id_user_to' => $friend->id_user_to,
-                                    'messages' => "[]",
-                                ]);
-                            }
-                        }
-                        if (!count($chats)) {
-                            $chats[] = new Chat([
+                        if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from))) {
+                            Chat::create([
                                 'id_chat' => null,
                                 'id_user_from' => $friend->id_user_from,
                                 'id_user_to' => $friend->id_user_to,
@@ -71,6 +49,8 @@
                     }
                 }
             }
+
+            $chats = Chat::where('id_user_from', '=', $request->user()->id_user)->orwhere('id_user_to', '=', $request->user()->id_user)->orderBy('updated_at')->get();
 
             foreach ($chats as $chat) {
                 $chat->id_user_logged = $request->user()->id_user;
@@ -101,8 +81,7 @@
                 ]);
             }
 
-            $user_to = User::find($id_user);
-
+            $user = User::find($id_user);
             if (!$user) {
                 return response()->json([
                     'code' => 404,
@@ -110,12 +89,11 @@
                 ]);
             }
 
-            $chat = Chat::find($id_chat);
-
+            $chat = Chat::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->limit(1);
             if (!$chat) {
-                $chat = Chat::create([
-                    'id_user_from' => $request->user()->id_user,
-                    'id_user_to' => $user_to->id_user,
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'Chat does not exist',
                 ]);
             }
 
@@ -128,7 +106,7 @@
             ]);
         }
 
-        public function send (Request $request, $id_chat) {
+        public function send (Request $request, $id_user) {
             if (!$request->user()) {
                 return response()->json([
                     'code' => 403,
@@ -136,17 +114,8 @@
                 ]);
             }
 
-            $chat = Chat::find($id_chat);
-            if (!$chat) {
-                return response()->json([
-                    'code' => 404,
-                    'message' => 'Chat does not exist',
-                ]);
-            }
-
-            $user_to = User::find(($chat->id_user_from === $request->user()->id_user ? $chat->id_user_to : $chat->id_user_from));
-
-            if (!$user_to) {
+            $user = User::find($id_user);
+            if (!$user) {
                 return response()->json([
                     'code' => 404,
                     'message' => 'User does not exist',
@@ -164,14 +133,19 @@
                 ]);
             }
 
+            $chat = Chat::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->get()[0];
+
             $messages = collect([]);
+            $id_message = 1;
             foreach (json_decode($chat->messages) as $message) {
+                $id_message = intval($message->id_message) + 1;
                 $messages->push($message);
-                if (count($messages) === 19) {
+                if (count($messages) === 20) {
                     $messages->shift();
                 }
             }
             $messages->push([
+                "id_message" => $id_message,
                 "id_user" => $request->user()->id_user,
                 "says" => $input->message,
             ]);
@@ -180,8 +154,10 @@
 
             $chat->update((array) $input);
 
-            $chat->id_user_logged = $request->user();
+            $chat->id_user_logged = $request->user()->id_user;
+            $chat->users();
             $chat->messages();
+            $chat->type();
 
             return response()->json([
                 'code' => 200,
