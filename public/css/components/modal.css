@@ -1,5 +1,5 @@
 #auth .modal-content, #assigment .modal-content {
-    background-color: #0D0D0D;
+    --modal-content-background-color: var(--color-black);
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
     border-image-slice: 1;
@@ -643,10 +643,6 @@ a[href="#chat"].modal-button.chat span {
 #assigment #myVideo iframe{
     width: 80%;
     height: 20rem;
-}
-
-#assigment #assigment-form{
-    background-color: var(--color-black);
 }
 
 #assigment h3{
