@@ -11,7 +11,7 @@
     --color-grey: #8F8C90;
     --color-red: #B91C1C;
     --font-one: ;  /* Tipografia para encabezados */
-    --font-two: ;  /* Tipografia para textos */
+    --font-two: 'Overpass', sans-serif;  /* Tipografia para textos */
 
     /* ? NavMenu */
     --navmenu-title-color: var(--color-white);
@@ -57,9 +57,9 @@
 }
 
 :is(input, textarea):focus {
-    box-shadow: 0 0 0 1px var(--color-four),
-                0 0 0 2px var(--color-black),
-                0 0 0 3px var(--color-four);
+    box-shadow: 0 0 0 2px var(--color-four);
+                /* 0 0 0 2px var(--color-black),
+                0 0 0 3px var(--color-four); */
 }
 
 .nav-menu {
@@ -88,6 +88,10 @@ h4 {
 
 h5 {
     font-size: .8rem;
+}
+
+p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, label, button{
+    font-family: var(--font-two) !important;
 }
 
 ::selection {

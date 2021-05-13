@@ -24,7 +24,7 @@
         </div>
     </header>
 
-    <section class="content px-10 mt-12">
+    <section class="content mx-8 py-12 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0">
         {!! $post->description !!}
     </section>
 @endsection

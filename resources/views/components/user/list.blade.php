@@ -1,8 +1,8 @@
 <ul class="teachers flex justify-center flex-wrap">
     @if (count($users))
         @foreach ($users as $user)
-            <li class="teacher grid grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
-                <header class="profile grid gap-4 lg:col-span-8 lg:flex lg:flex-wrap mt-4 ml-4 lg:my-4">
+            <li class="teacher grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4">
+                <header class="profile grid gap-4 lg:col-span-3 lg:flex lg:flex-wrap mt-4 ml-4 lg:my-4">
                     <section class="username">
                         <h4 class="color-white">{{ $user->username }}</h4>
                         <h5 class="color-grey">{{ $user->name }}</h5>
@@ -21,7 +21,7 @@
                         </div>
                     </section>
                     <section class="abilities w-full hidden md:block">
-                        <ul class="grid gap-4 lg:grid-cols-10 mb-4">
+                        <ul class="grid gap-4 lg:grid-cols-2 mb-4">
                             @foreach ($user->games as $game)
                                 @foreach ($game->abilities as $ability)
                                     <li class="flex justify-between items-center p-2">
@@ -33,7 +33,7 @@
                         </ul>
                     </section>
                 </header>
-                <section class="image row-span-4 md:row-span-3 lg:row-span-8 lg:col-span-3">
+                <section class="image row-span-4 md:row-span-3 lg:row-span-2 lg:col-span-3">
                     <figure>
                         {{-- @for ($i = 0; $i < count($user->files); $i++) --}}
                             @if (isset($user->files['profile']))
@@ -46,7 +46,7 @@
                         {{-- @endfor --}}
                     </figure>
                 </section>
-                <section class="payment grid md:row-span-3 lg:row-span-2 lg:col-span-8 ml-4 mb-4 md:m-0 md:mr-8 md:mt-4 md:items-end">
+                <section class="payment grid md:row-span-3 lg:row-span-2 lg:col-span-2 ml-4 mb-4 md:m-0 md:mr-8 md:mt-4 md:items-end">
                     <div class="mb-4">
                         <ul class="mb-4">
                             <li class="color-five">Modalidad Online AR$ {{ $user->prices[0]->price }}/h</li>

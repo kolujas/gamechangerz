@@ -94,13 +94,13 @@
         </ul>
     @endif
     @if (Request::is('teachers'))
-        <section class="teachers xl:grid xl:grid-cols-7 2xl:grid-cols-9">
-            <header class="px-8 xl:col-span-5 xl:col-start-2 2xl:col-span-7 2xl:col-start-2">
+        <section class="teachers lg:grid lg:grid-cols-10">
+            <header class="px-8 lg:col-span-8 lg:col-start-2">
                 <h2 class="color-two text-md text-left pt-4">Buscador de profesores</h2>
                 <p class="color-two text-sm text-left">Úneteles a miles de jugadores que buscan <span class="color-four">lo mismo</span> que vos</p>
             </header>
 
-            <form class="flex justify-center lg:justify-between mx-8 my-4 p-2 xl:col-span-5 xl:col-start-2 2xl:col-span-7 2xl:col-start-2 lg:mb-12" action="#">
+            <form class="flex justify-center lg:justify-between mx-8 my-4 p-2 lg:col-span-8 lg:col-start-2 lg:mb-12" action="#">
                 <input placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
                 <div id="order" class="dropdown closed">
                     <a class="dropdown-header dropdown-button" href="#">
@@ -124,8 +124,8 @@
                 </div>
             </form>            
         </section>
-        <section class="list lg:grid lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-9 px-8 mb-12">
-            <main class="lg:col-span-5 xl:col-start-2 2xl:col-start-3">
+        <section class="list lg:grid lg:grid-cols-10 lg:grid-cols-8 px-8 mb-12">
+            <main class="lg:col-span-8 lg:col-start-2">
                 @component('components.user.list',[
                     'users' => $users,
                 ])

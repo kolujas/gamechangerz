@@ -1,4 +1,4 @@
-#login, #signin{
+#auth .modal-content, #assigment .modal-content{
     background-color: #0D0D0D;
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
@@ -590,7 +590,7 @@ a[href="#chat"].modal-button.chat span {
     width: 100%;
 }
 
-/* #assigment .form-input, #assigment textarea, #assigment #url{
+#assigment .form-input, #assigment textarea, #assigment #url{
     background-color: var(--color-one);
     padding-left: 1rem;
     color: #fff;
@@ -598,25 +598,24 @@ a[href="#chat"].modal-button.chat span {
     padding-top: .5rem;
 }
 
-#assigment textarea{
-    color: #fff;
-    font-size: .8rem;
-    padding-top: 1rem;
+#assigment #url{
+    height: 2.5rem;
 }
 
-#assigment textarea::placeholder{
-    color: #fff;
-    font-size: .8rem;
+
+#assigment textarea::placeholder, #assigment input::placeholder{
+    color: var(--color-grey) !important;
 }
+
 
 #assigment textarea{
     resize: none;
 }
 
-#assigment textarea:focus{
+/* #assigment textarea:focus{
     outline: none;
     box-shadow: none;
-}
+} */
 
 #assigment #myVideo{
     display: flex;
@@ -626,7 +625,42 @@ a[href="#chat"].modal-button.chat span {
 #assigment #myVideo iframe{
     width: 80%;
     height: 20rem;
-} */
+}
+
+#assigment #assigment-form{
+    background-color: var(--color-black);
+}
+
+#assigment h3{
+    font-size: 1.1rem;
+}
+
+#assigment h3 span{
+    padding-right: 0.5rem;
+}
+
+#assigment.modal form .abilities label > div {
+    border: 1px solid var(--color-white);
+    opacity: .2;
+    cursor: pointer;
+}
+
+
+#assigment.modal form .abilities label input[type=checkbox]:checked + div{
+    opacity: 1;
+}
+
+#assigment.modal form .abilities label > div svg {
+    height: 18px;
+}
+
+#assigment.modal form .abilities label:not(:last-of-type){
+    margin-right: 1rem;
+}
+
+#assigment.modal button{
+    border-radius: .3rem;
+}
 
 /* ? MD */
 @media(min-width: 768px){
@@ -690,6 +724,10 @@ a[href="#chat"].modal-button.chat span {
     #chat.modal #details ul::-webkit-scrollbar-corner {
         background: transparent;
     }
+
+    /* abilities */
+
+    
 }
 
 /* ? XL */
