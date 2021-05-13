@@ -17,7 +17,7 @@
             ]]], 'signin' => [
                 'rules' => [
                     'username' => 'required|unique:users',
-                    'email' => 'required|unique:users',
+                    'email' => 'required|email|unique:users',
                     'password' => 'required|confirmed',
                     'date' => 'nullable|date',
                     'language' => 'required',
@@ -27,6 +27,7 @@
                         'username.required' => 'El nombre de usuario es obligatorio.',
                         'username.unique' => 'Ese nombre de usuario ya se encuentra en uso.',
                         'email.required' => 'El correo es obligatorio.',
+                        'email.email' => 'El correo debe ser formato mail (ejemplo@correo.com).',
                         'email.unique' => 'Ese correo ya se encuentra en uso.',
                         'password.required' => 'La contraseña es obligatoria.',
                         'password.confirmed' => 'Las contraseñas no coinciden.',
