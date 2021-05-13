@@ -9,13 +9,16 @@
                 @component('components.svg.BuscarSVG')@endcomponent
             </button>
         </form>
-        <div class="sections mb-8">
+        <div class="sections mb-8 hidden">
             <span class="header color-white mb-8">Profesores</span>
             <ul></ul>
         </div>
-        <div class="sections mb-8">
-            <span class="header color-white mb-8 block">Amigos</span>
+        <div class="sections mb-8 hidden">
+            <span class="header color-white mb-8">Amigos</span>
             <ul></ul>
+        </div>
+        <div class="sections">
+            <span class="header color-grey mt-4 block text-center">No tienes chats disponibles</span>
         </div>
     </main>
 </section>

@@ -1,6 +1,7 @@
 import { FetchServiceProvider as Fetch } from "../submodules/ProvidersJS/js/FetchServiceProvider.js";
 import Class from "../submodules/JuanCruzAGB/js/Class.js";
 import { Modal as ModalJS } from "../submodules/ModalJS/js/Modal.js";
+import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
 import Token from "./token.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 import { Validation as ValidationJS } from "../submodules/ValidationJS/js/Validation.js";
@@ -148,39 +149,53 @@ export class Modal extends Class {
     }
 
     async submitModalForm () {
-        let formData = new FormData(this.ValidationJS.form.html);
-        let token = formData.get('_token');
-        formData.delete('_token');
-        let query = await Fetch.send({
-            method: 'POST',
-            url: `/api/${ this.props.id }`,
-        }, {
-            'Accept': 'application/json',
-            'Content-type': 'application/json; charset=UTF-8',
-            'X-CSRF-TOKEN': token,
-        }, formData);
         if (!this.ValidationJS.form.html.classList.contains('invalid')) {
+            let formData = new FormData(this.ValidationJS.form.html);
+            let token = formData.get('_token');
+            formData.delete('_token');
+            let query = await Fetch.send({
+                method: 'POST',
+                url: `/api/${ this.props.id }`,
+            }, {
+                'Accept': 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': token,
+            }, formData);
             if (query.response.code === 200) {
                 Token.save(query.response.data.token);
                 this.ValidationJS.form.html.submit();
+            }
+            if (query.response.code !== 200) {
+                new NotificationJS(query.response, {
+                    open: true,
+                });
+                for (const key in query.response.data.errors) {
+                    if (Object.hasOwnProperty.call(query.response.data.errors, key)) {
+                        const errors = query.response.data.errors[key];
+                        let span = document.querySelector(`form#${ this.props.id } .support-${ this.props.id }_${ key }`);
+                        for (const error of errors) {
+                            span.innerHTML = error;
+                            span.classList.remove('hidden');
+                        }
+                    }
+                }
             }
         }
     }
 
     youtubeConverter(){
         document.querySelector('#url').addEventListener("change", function(){
-           
-                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                var match = this.value.match(regExp);
-                let videoId;
-                if (match && match[2].length == 11) {
-                    videoId = match[2];
-                }else {
-                    videoId = 'error';
-                }
-                
-                $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
-            })
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = this.value.match(regExp);
+            let videoId;
+            if (match && match[2].length == 11) {
+                videoId = match[2];
+            }else {
+                videoId = 'error';
+            }
+            
+            $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
+        })
     }
 }
 

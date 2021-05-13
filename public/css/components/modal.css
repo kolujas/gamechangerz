@@ -1,4 +1,4 @@
-#login, #signin{
+#auth .modal-content {
     background-color: #0D0D0D;
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
@@ -13,8 +13,10 @@
     background-color: #000;
     color: var(--color-white);
     outline: none;
-    height: 2.5rem;
+    /* height: 2.5rem; */
     font-size: .8rem;
+    width: 100%;
+    z-index: 1;
 }
 
 .form-input::placeholder{
@@ -23,6 +25,23 @@
 
 .input-group .error{
     color: var(--color-white);
+}
+
+.modal .modal-content > form {
+    max-height: calc(100vh - 2px);
+    overflow: auto;
+}
+
+.seePassword {
+    padding: .5rem;
+    height: 100%;
+    background: black;
+    color: var(--color-white);
+    transition: 500ms;
+}
+
+.seePassword:hover {
+    color: var(--color-grey);
 }
 
 /* * Custom checkbox */
@@ -329,7 +348,8 @@ a[href="#chat"].modal-button.chat span {
     opacity: 1;
 }
 
-#chat.modal #list .sections .header {
+#chat.modal #list .sections:not(:last-child) .header {
+    display: block;
     font-size: 1.5rem;
 }
 
@@ -382,7 +402,7 @@ a[href="#chat"].modal-button.chat span {
                  var(--color-black) 4.98271px -0.415447px 0px;
 }
 
-#chat.modal #list .sections > span::before {
+#chat.modal #list .sections:not(:last-child) > span::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -561,10 +581,8 @@ a[href="#chat"].modal-button.chat span {
 }
 
 /* * Custom datepicker */
-.datepicker [type="date"], .datepicker [type="text"] {
-    background: #000 url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
-    color: var(--color-white);
-    border: none;
+.datepicker input[type="date"], .datepicker input[type="text"] {
+    /* background: url("SVG") no-repeat center center; */
 }
 
 .datepicker [type="date"]::placeholder, .datepicker [type="text"]::placeholder {
@@ -688,6 +706,40 @@ a[href="#chat"].modal-button.chat span {
     }
 
     #chat.modal #details ul::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    .modal .modal-content form::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    .modal .modal-content form::-webkit-scrollbar-button {
+        width: 15%;
+        height: 15%;
+    }
+
+    .modal .modal-content form::-webkit-scrollbar-thumb {
+        background: var(--color-white);
+        border-radius: 100vh;
+    }
+
+    .modal .modal-content form::-webkit-scrollbar-thumb:hover,
+    .modal .modal-content form::-webkit-scrollbar-thumb:active {
+        background: var(--color-grey);
+    }
+
+    .modal .modal-content form::-webkit-scrollbar-track {
+        background: black;
+        border-radius: 100vh;
+    }
+
+    .modal .modal-content form::-webkit-scrollbar-track:hover,
+    .modal .modal-content form::-webkit-scrollbar-track:active {
+        background: black;
+    }
+
+    .modal .modal-content form::-webkit-scrollbar-corner {
         background: transparent;
     }
 }

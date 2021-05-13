@@ -10,6 +10,7 @@
     Route::middleware('api')->group(function () {
 // ! AuthController - Controls the authentication api.
         Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
+        Route::post('/signin', [AuthController::class, 'signin'])->name('api.auth.signin');
 
         Route::middleware('auth:api')->group(function () {
 // ! RoleController - Controls the Role api.

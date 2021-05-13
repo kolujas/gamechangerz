@@ -11,6 +11,27 @@ async function getChats (token) {
     new Chat({ token: token.data }, chats);
 }
 
+function changeType (btn) {
+    let input;
+    for (const className of btn.classList) {
+        if (/input-/.exec(className)) {
+            input = document.querySelector(`input[name=${ className.split('input-')[1] }]`);
+        }
+    }
+    if (input.type === 'password') {
+        input.type = 'text';
+    } else {
+        input.type = 'password';
+    }
+    if (btn.children[0].classList.contains('fa-eye')) {
+        btn.children[0].classList.remove('fa-eye');
+        btn.children[0].classList.add('fa-eye-slash');
+    } else {
+        btn.children[0].classList.add('fa-eye');
+        btn.children[0].classList.remove('fa-eye-slash');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', (e) => {
     new NavMenuJS({
         id: "nav-id",
@@ -26,25 +47,25 @@ document.addEventListener('DOMContentLoaded', (e) => {
             });
         }
     }
-    
-    if (URL.findHashParameter()) {
-        switch (URL.findHashParameter()) {
-            case 'login':
-                modals.login.changeModalContent();
-                modals.login.ModalJS.open();
-                break;
-            case 'signin':
-                modals.signin.changeModalContent();
-                modals.signin.ModalJS.open();
-                break;
-        }
-    }
 
     const token = Token.get();
     let modals = {}
     if (!authenticated) {
         modals.login = new Modal({ id: 'login' });
         modals.signin = new Modal({ id: 'signin' });
+    
+        if (URL.findHashParameter()) {
+            switch (URL.findHashParameter()) {
+                case 'login':
+                    modals.login.changeModalContent();
+                    modals.login.ModalJS.open();
+                    break;
+                case 'signin':
+                    modals.signin.changeModalContent();
+                    modals.signin.ModalJS.open();
+                    break;
+            }
+        }
     }
     
     if (authenticated) {
@@ -65,7 +86,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     if (error) {
         new NotificationJS(error, {
-            show: true,
+            open: true,
         });
+    }
+
+    if (document.querySelectorAll('.seePassword').length) {
+        for (const btn of document.querySelectorAll('.seePassword')) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                changeType(this);
+            });
+        }
     }
 });

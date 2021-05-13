@@ -35,6 +35,32 @@
             $year = $date->format('Y') ;
             return "$month $day, $year";
         }
+
+        public function encodeInput ($array = [], $string = '') {
+            foreach ($array as $key => $value) {
+                $array["$string$key"] = $value;
+            }
+            foreach ($array as $key => $value) {
+                if (!preg_match("/$string/", $key)) {
+                    unset($array[$key]);
+                }
+            }
+            return $array;
+        }
+
+        public function decodeInput ($array = [], $string = '') {
+            foreach ($array as $key => $value) {
+                if (preg_match("/$string/", $key)) {
+                    $array[explode($string, $key)[1]] = $value;
+                }
+            }
+            foreach ($array as $key => $value) {
+                if (preg_match("/$string/", $key)) {
+                    unset($array[$key]);
+                }
+            }
+            return $array;
+        }
         
         /**
          * * Control the index page.

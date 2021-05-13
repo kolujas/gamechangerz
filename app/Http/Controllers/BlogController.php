@@ -30,8 +30,11 @@
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
-                        'rules' => AuthModel::$validation['login']['rules'],
+                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
                         'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
+                        'messages' => AuthModel::$validation['signin']['messages']['es'],
                 ]],
             ]);
         }
@@ -54,8 +57,11 @@
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
-                        'rules' => AuthModel::$validation['login']['rules'],
+                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
                         'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
+                        'messages' => AuthModel::$validation['signin']['messages']['es'],
                 ]],
             ]);
         }

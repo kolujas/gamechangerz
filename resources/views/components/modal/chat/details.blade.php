@@ -9,7 +9,11 @@
         </a>
     </header>
     <main class="relative">
-        <ul class="mx-2 px-2 py-4"></ul>
+        <ul class="mx-2 px-2 py-4">
+            <li>
+                <span class="color-grey block text-center mt-4">No hay mensajes, sé el primero en escribir</span>
+            </li>
+        </ul>
         <span class="question" title="Los mensajes se cargaran automáticamente cada 1 minuto">
             <i class="fas fa-question"></i>
         </span>

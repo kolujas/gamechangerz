@@ -13,13 +13,15 @@
     use App\Models\Review;
     use App\Models\Role;
     use App\Models\Teampro;
+    use Cviebrock\EloquentSluggable\Sluggable;
+    use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
     use Laravel\Passport\HasApiTokens;
 
     class User extends Authenticatable {
-        use HasApiTokens, Notifiable;
+        use HasApiTokens, Notifiable, Sluggable, SluggableScopeHelpers;
 
         /** @var string Table name */
         protected $table = 'users';
@@ -59,7 +61,7 @@
         public function sluggable () {
             return [
                 'slug' => [
-                    'source'	=> 'name',
+                    'source'	=> 'username',
                     'onUpdate'	=> true,
                 ]
             ];
