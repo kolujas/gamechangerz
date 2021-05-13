@@ -613,7 +613,6 @@ a[href="#chat"].modal-button.chat span {
     padding-left: 1rem;
     color: #fff;
     font-size: .8rem;
-    padding-top: .5rem;
 }
 
 #assigment #url{
@@ -638,11 +637,14 @@ a[href="#chat"].modal-button.chat span {
 #assigment #myVideo{
     display: flex;
     justify-content: center;
+    width: 100%;
+    height: 20rem;
+    background-color: var(--color-one);
 }
 
 #assigment #myVideo iframe{
-    width: 80%;
-    height: 20rem;
+    width: 100%;
+    height: 100%;
 }
 
 #assigment h3{
@@ -659,7 +661,6 @@ a[href="#chat"].modal-button.chat span {
     cursor: pointer;
 }
 
-
 #assigment.modal form .abilities label input[type=checkbox]:checked + div{
     opacity: 1;
 }
@@ -674,6 +675,18 @@ a[href="#chat"].modal-button.chat span {
 
 #assigment.modal button{
     border-radius: .3rem;
+}
+
+#assigment.modal .form-submit span{
+    border-radius: .3rem;
+    font-family: var(--font-one) !important;
+}
+
+select{
+    background-color: var(--color-one);
+    color: var(--color-grey);
+    box-shadow: none;
+    outline: none;
 }
 
 /* ? MD */

@@ -10,7 +10,7 @@
     --color-white: #EEEEEE;
     --color-grey: #8F8C90;
     --color-red: #B91C1C;
-    --font-one: ;  /* Tipografia para encabezados */
+    --font-one: 'Russo One', sans-serif;;  /* Tipografia para encabezados */
     --font-two: 'Overpass', sans-serif;  /* Tipografia para textos */
 
     /* ? NavMenu */
@@ -90,9 +90,11 @@ h5 {
     font-size: .8rem;
 }
 
-p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, label, button{
+p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, label{
     font-family: var(--font-two) !important;
 }
+
+
 
 ::selection {
     color: var(--color-white);
