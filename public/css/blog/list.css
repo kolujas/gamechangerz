@@ -130,18 +130,18 @@
 @media(min-width: 1200px){
     .blog.cards{
         display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-template-columns: repeat(10, minmax(0, 1fr));
     }
 
     .blog.cards .card{
-        grid-column: span 5 / span 5;
+        grid-column: span 8 / span 8;
         grid-column-start: 2;
     }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .blog.cards{
+    /* .blog.cards{
         display: grid;
         grid-template-columns: repeat(9, minmax(0, 1fr));
     }
@@ -149,5 +149,5 @@
     .blog.cards .card{
         grid-column: span 5 / span 5;
         grid-column-start: 3;
-    }
+    } */
 }

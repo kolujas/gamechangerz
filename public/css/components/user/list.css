@@ -54,9 +54,9 @@
 
 /* ? LG */
 @media (min-width: 1024px) {
-    .teachers .username {
+    /* .teachers .username {
         max-width: 50%;
-    }
+    } */
 
     .teachers .image {
         /* max-height: 20rem; */

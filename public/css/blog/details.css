@@ -13,7 +13,7 @@ header.image a:hover {
 
 .content p{
     color: var(--color-white);
-    padding: 2rem 0;    
+    /* padding: 2rem 0;     */
 }
 
 .content b{
@@ -24,7 +24,7 @@ header.image a:hover {
     color: var(--color-five);
 }
 
-.content h3{
+.content :is(h1, h2, h3, h4, h5) {
     color: var(--color-four);
 }
 
@@ -38,6 +38,10 @@ header.image .fecha{
     -webkit-text-fill-color: transparent;
 }
 
+.content h1{
+    font-size: 1.5rem;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     
@@ -45,18 +49,20 @@ header.image .fecha{
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    .content > *{
+        grid-column: span 8 / span 8;
+        grid-column-start: 2;
+    }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
 
     header.image{
-        margin-bottom: 6rem;
         height: 400px;
     }
 
-    .texto-slogan{
+    /* .texto-slogan{
         padding: 1rem 20rem;
     }
 
@@ -72,23 +78,13 @@ header.image .fecha{
 
     .content p:last-of-type{
         margin-bottom: 6rem;
-    }
+    } */
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .texto-slogan{
-        padding: 1rem 30rem;
-    }
-
-    .content h3{
-        padding: 0 25rem;
-        margin: 2rem 0;
-        font-size: 1.8rem;
-    }
 
     .content p{
-        padding: 0 25rem;
         font-size: 1.2rem;
     }
 

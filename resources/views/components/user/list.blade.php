@@ -21,7 +21,7 @@
                         </div>
                     </section>
                     <section class="abilities w-full hidden md:block">
-                        <ul class="grid gap-4 lg:grid-cols-3 mb-4">
+                        <ul class="grid gap-4 lg:grid-cols-2 mb-4">
                             @foreach ($user->games as $game)
                                 @foreach ($game->abilities as $ability)
                                     <li class="flex justify-between items-center p-2">
