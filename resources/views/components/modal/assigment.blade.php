@@ -1,6 +1,6 @@
 <aside id="assigment" class="modal">
     <section class="modal-content center">
-        <form class="p-12" id="assigment-form" action="#" method="post" class="grid">
+        <form class="p-12 pr-6 mr-6" id="assigment-form" action="#" method="post" class="grid">
             @csrf
             @method('post')
             <section>
