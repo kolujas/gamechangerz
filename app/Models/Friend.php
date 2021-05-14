@@ -28,6 +28,8 @@
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
+            $this->users->from->and(['files']);
+            $this->users->to->and(['files']);
         }
 
         /**

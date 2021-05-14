@@ -1,11 +1,8 @@
-.games .card a {
+.games .card a,
+.games .card > div {
     position: relative;
     background-color: var(--color-black);
     overflow: hidden;
-}
-
-.games .card a.plus {
-    height: 100%;
 }
 
 .games .card a .borders {

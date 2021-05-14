@@ -97,25 +97,19 @@
 
 /* video section */
 
-.video-section{
-    background: url('../../img/02-background.png') no-repeat center center;
-    background-size: cover;
-}
+/* .video-section{
+    background: url('../../img/logos/027-hive_con_isotipo.png');
+} */
 
 .video-section header figure{
-    width: 2rem;
-    height: 2rem;
-    display: inline-block;
-    line-height: 2rem;
+    width: 3rem;
+    height: 100%;
 }
 
 .video-section header figure img{
-    height: 500%;
+    height: 100%;
     width: 500%;
-    object-fit: cover;
-    position: relative;
-    top: -250%;
-    transform: translateY(15.6%);
+    object-fit: contain;
 }
 
 .video-section iframe{

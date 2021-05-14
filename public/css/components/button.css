@@ -58,6 +58,28 @@
     opacity: 1;
 }
 
+/* * Button icon */
+.btn.btn-icon {
+    background-color: var(--color-solid);
+    /* border: 1px solid var(--color-left); */
+    border-radius: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var( --color-left);
+    font-size: 1rem;
+}
+
+.btn.btn-icon:focus {
+    box-shadow: 0 0 0 1px var(--color-right),
+                0 0 0 2px var(--color-left);
+}
+
+.btn.btn-icon:not(.not):hover {
+    outline: none;
+    text-shadow: 0 0 1px var(--color-left), 0 0 5px var(--color-left), 2px 2px 2px rgba(206,89,55,0);
+}
+
 /* * Button text */
 .btn.btn-text {
     color: var(--color-right);

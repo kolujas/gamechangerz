@@ -47,10 +47,10 @@
             {{-- <section class="video-section lg:flex lg:justify-center lg:flex-wrap px-8"> --}}
                 <header class="md:col-span-3 lg:col-span-8 lg:col-start-2 2xl:col-start-4 2xl:col-span-3 pt-12 mb-8">
                 {{-- <header class="lg:w-full"> --}}
-                    <h3 class="text-center color-white mb-4">
-                        <span>Cómo funciona</span>
+                    <h3 class="flex justify-center items-center text-center color-white mb-4">
+                        <span class="mr-4">Cómo funciona</span>
                         <figure>
-                            <img src="{{ asset('img/logos/isologo-reducido-claro-transparencia.svg') }}" alt="Logo claro solido de Gamechangerz">
+                            <img src="{{ asset('img/logos/018-isologo_reducido_original_transparencia.png') }}" alt="Logo claro solido de Gamechangerz">
                         </figure>
                     </h3>
                     <p class="text-center color-white text-md">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
@@ -127,7 +127,7 @@
                     <p class="color-white">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
                 </header>
                 <main class="lg:col-span-10 2xl:col-span-9 relative">
-                    @component('components.game.abilities_list', [
+                    @component('components.abilities.list', [
                         'abilities' => $game->abilities,
                     ])
                     @endcomponent

@@ -4,7 +4,7 @@
     <section class="signin">
         <header class="modal-header mb-12">
             {{-- <figure>
-                <img src="{{ asset('img/logos/isologo-reducido-claro-transparencia.svg') }}" alt="Logo claro solido de Gamechangerz">
+                <img src="{{ asset('img/logos/011-isologo_reducido_claro_transparencia.png') }}" alt="Logo claro solido de Gamechangerz">
             </figure> --}}
             <h2 class="color-four text-center">Registrate</h2>
         </header>

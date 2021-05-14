@@ -194,6 +194,7 @@
          * * Get the User Files.
          * @return array
          */
+        
         public function files () {
             try {
                 $this->files = collect();
@@ -202,8 +203,10 @@
                         $fileExplode = explode('-', $file);
                         $fileExplode = explode('.', $fileExplode[1]);
                         $this->files[$fileExplode[0]] = $file;
+                        $files[$fileExplode[0]] = $file;
                     } else {
                         $this->files->push($file);
+                        $files->push($file);
                     }
                 }
             } catch (\Throwable $th) {
@@ -309,6 +312,27 @@
         public function prices () {
             try {
                 $this->prices = Price::parse(json_decode($this->prices));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
+         * * Get the User profile image.
+         * @throws
+         */
+        public function profile () {
+            try {
+                foreach (Folder::getFiles($this->folder) as $file) {
+                    if (strpos($file, '-')) {
+                        $fileExplode = explode('-', $file);
+                        $fileExplode = explode('.', $fileExplode[1]);
+                        if ($fileExplode[0] === 'profile') {
+                            return $file;
+                        }
+                    }
+                }
+                return false;
             } catch (\Throwable $th) {
                 throw $th;
             }
