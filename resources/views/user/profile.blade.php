@@ -19,21 +19,28 @@
                 <div class="p-8">
                     <header class="tag flex items-center">
                         <div class="pr-2">
-                            @component('components.svg.Group 15SVG')@endcomponent
+                            @if (isset($user->files['profile']))
+                                <figure class="profile-image">
+                                    <img src={{ asset("storage/" . $user->files['profile']) }} alt="{{ $user->username }} profile image">
+                                </figure>
+                            @endif
+                            @if (!isset($user->files['profile']))
+                                @component('components.svg.Group 15SVG')@endcomponent
+                            @endif
                         </div>
                         <div class="username">
                             <h3 class="color-white"><input placeholder="Nombre de usuario" type="text" name="username" value="{{ old('username', $user->username) }}" disabled></h3>
                             <span class="font-bold color-four"><input placeholder="Nombre" type="text" name="name" value="{{ old('name', $user->name) }}" disabled></span>
                         </div>
-                        @if ($user->teammate)
-                            <div class="active teammate p-2">
-                        @endif
-                        @if (!$user->teammate)
-                            <div class="teammate p-2">
-                        @endif
-                            <span>
-                                @component('components.svg.ChoqueSVG')@endcomponent
-                            </span>
+                        <div class="teammate p-2">
+                            <label>
+                                <input type="checkbox" name="teammate" @if($user->teammate)
+                                    checked
+                                @endif class="hidden">
+                                <span>
+                                    @component('components.svg.ChoqueSVG')@endcomponent
+                                </span>
+                            </label>
                         </div>
                     </header>
                     
@@ -72,7 +79,14 @@
                                             @for ($i = 0; $i < count($user->friends); $i++)
                                                 @if ($i <= 5 && $user->friends[$i]->accepted)
                                                     <a href="/users/{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->slug : $user->friends[$i]->users->from->slug) }}/profile" title="{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->username : $user->friends[$i]->users->from->username) }}" class="flex justify-center">
-                                                        @component('components.svg.Group 15SVG')@endcomponent
+                                                        @if (($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
+                                                            <figure class="profile-image">
+                                                                <img src={{ asset("storage/". ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->files['profile'] : $user->friends[$i]->users->from->files['profile'])) }} alt="{{ $user->username }} profile image">
+                                                            </figure>
+                                                        @endif
+                                                        @if (!($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
+                                                            @component('components.svg.Group 15SVG')@endcomponent
+                                                        @endif
                                                     </a>
                                                 @endif
                                             @endfor
@@ -83,23 +97,25 @@
                         </div>
                     @endif
 
-                    <div class="actions flex justify-end mt-4">
-                        @if (Auth::user()->slug === $user->slug)
+                    @if (Auth::user()->slug === $user->slug)
+                        <div class="actions flex justify-end">
                             <div class="actions flex justify-end">
-                                <a href="#update" class="btn btn-outline btn-one py-2 px-4 ml-4">
-                                    <span>Editar perfil</span>
+                                <a href="#update" class="btn btn-icon btn-one py-2 px-4">
+                                    <i class="fas fa-pen"></i>
                                 </a>
                             </div>
-                        @endif
-                        @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0)
-                            <div class="actions flex justify-end">
+                    @endif
+                    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0)
+                        <div class="actions flex justify-end mt-4">
+                            <div class="flex justify-end">
                                 <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-outline btn-one py-2 px-4 ml-4">
                                     <span>Agregar amigo</span>
                                 </a>
                             </div>
-                        @endif
-                        @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 1)
-                            <div class="actions flex justify-end">
+                    @endif
+                    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 1)
+                        <div class="actions flex justify-end mt-4">
+                            <div class="flex justify-end">
                                 @if (Auth::user()->id_user === $user->id_user_request)
                                     <span class="btn btn-outline btn-two not py-2 px-4 ml-4">
                                         <span>Solicitud enviada</span>
@@ -117,23 +133,33 @@
                                     </a>
                                 @endif
                             </div>
-                        @endif
-                        @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2)
-                            <div class="actions flex justify-end">
+                    @endif
+                    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2)
+                        <div class="actions flex justify-end mt-4">
+                            <div class="flex justify-end">
                                 <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-outline btn-three py-2 px-4 ml-4">
                                     <span>Eliminar amigo</span>
                                 </a>
                             </div>
-                        @endif
-                    </div>
+                    @endif
+                        </div>
                 </div>
             </section>
 
             <section class="games xl:col-span-5 md:col-span-2 xl:relative mx-8 md:mx-0 md:mb-0 md:mt-8 md:mr-8 lg:px-0 mb-8 xl:mx-0">
+                <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-4">
+                    <h3 class="color-white flex items-center">
+                        <span class="mr-2">Juegos</span>
+                        @if (Auth::check() && Auth::user()->id_user === $user->id_user)
+                            <a href="#games" class="modal-button games btn btn-icon btn-one p-2">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        @endif
+                    </h3>
+                </header>
                 @if (Auth::check() && Auth::user()->id_user === $user->id_user)
                     @component('components.game.list', [
                         'games' => $user->games,
-                        'new' => true,
                     ])
                     @endcomponent
                 @endif
@@ -145,38 +171,40 @@
                 @endif
             </section>       
             
-            <section class="abilities relative md:col-span-3 lg:col-span-2 xl:col-span-5 mb-8 md:mb-0 lg:mb-0 lg:pr-8 xl:pr-0">
-                <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-4">
-                    <h3 class="color-white">Habilidades</h3>
-                </header>
-                <ul class="cards flex flex-col md:flex-row px-8 lg:px-0 xl:col-span-4 xl:gap-8 md:grid md:grid-cols-2 md:gap-8">
-                    @foreach ($user->games as $game)
-                        @foreach ($game->abilities as $ability)
-                            <li class="card">
-                                <div class="flex p-4">
-                                    <div class="ability flex items-start flex-wrap">
-                                        <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
-                                        <div class="color-white font-bold pr-1 flex flex-auto">
-                                            <span class="mr-2">{{ $ability->name }}</span>
-                                            @component($ability->icon)@endcomponent
+            @if (count($user->games) && count($user->games[0]->abilities))
+                <section class="abilities relative md:col-span-3 lg:col-span-2 xl:col-span-5 mb-8 md:mb-0 lg:mb-0 lg:pr-8 xl:pr-0">
+                    <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-4">
+                        <h3 class="color-white">Habilidades</h3>
+                    </header>
+                    <ul class="cards flex flex-col md:flex-row px-8 lg:px-0 xl:col-span-4 xl:gap-8 md:grid md:grid-cols-2 md:gap-8">
+                        @foreach ($user->games as $game)
+                            @foreach ($game->abilities as $ability)
+                                <li class="card">
+                                    <div class="flex p-4">
+                                        <div class="ability flex items-start flex-wrap">
+                                            <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
+                                            <div class="color-white font-bold pr-1 flex flex-auto">
+                                                <span class="mr-2">{{ $ability->name }}</span>
+                                                @component($ability->icon)@endcomponent
+                                            </div>
+                                            <div class="stars flex">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $ability->stars)
+                                                        @component('components.svg.EstrellaSVG')@endcomponent
+                                                    @else
+                                                        @component('components.svg.Estrella2SVG')@endcomponent
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                            <p class="color-white mt-4">{!! $ability->description !!}</p>
                                         </div>
-                                        <div class="stars flex">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                @if ($i <= $ability->stars)
-                                                    @component('components.svg.EstrellaSVG')@endcomponent
-                                                @else
-                                                    @component('components.svg.Estrella2SVG')@endcomponent
-                                                @endif
-                                            @endfor
-                                        </div>
-                                        <p class="color-white mt-4">{!! $ability->description !!}</p>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         @endforeach
-                    @endforeach
-                </ul>
-            </section>
+                    </ul>
+                </section>
+            @endif
 
             @if (count($user->reviews))
                 <section class="reviews relative md:col-span-3 lg:col-span-2 xl:col-span-5 mb-8 lg:mb-0 lg:pr-8 xl:pr-0">
@@ -516,7 +544,7 @@
                 </header>
                 <main class="xl:col-span-10 relative">
                     @foreach ($user->games as $game)
-                        @component('components.game.abilities_list', [
+                        @component('components.abilities.list', [
                             'abilities' => $game->abilities,
                         ])
                         @endcomponent
@@ -536,6 +564,12 @@
                 </main>
             </section>
         </main>
+    @endif
+    @if (Auth::check() && Auth::user()->id_user === $user->id_user)
+        @component('components.modal.games', [
+            'games' => $games,
+        ])
+        @endcomponent
     @endif
 @endsection
 

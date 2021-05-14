@@ -1,4 +1,4 @@
-#auth .modal-content, #assigment .modal-content {
+.modal .modal-content {
     --modal-content-background-color: var(--color-black);
     border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
@@ -238,12 +238,7 @@ a[href="#chat"].modal-button.chat {
     bottom: 2rem;
     width: 5rem;
     height: 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--color-black);
-    border-radius: 100vh;
-    opacity: .8;
+    opacity: .4;
     transition: 500ms;
     z-index: 2;
 }
@@ -252,14 +247,20 @@ a[href="#chat"].modal-button.chat:hover {
     opacity: 1;
 }
 
-a[href="#chat"].modal-button.chat img {
-    width: 300%;
-    height: 300%;
-    object-fit: cover;
+a[href="#chat"].modal-button.chat figure {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-black);
+    border-radius: 100vh;
+    height: 100%;
 }
 
-a[href="#chat"].modal-button.chat.new {
-    border: 3px solid var(--color-four);
+a[href="#chat"].modal-button.chat img {
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
 }
 
 a[href="#chat"].modal-button.chat span {

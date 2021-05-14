@@ -66,7 +66,14 @@
                 <li class="p-4 flex justify-between items-center gap-4 lg:col-span-8 lg:col-start-2">
                     <header class="flex mr-2">
                         <div class="photo mr-2">
-                            @component('components.svg.Group 15SVG')@endcomponent
+                            @if (isset($user->files['profile']))
+                                <figure class="profile-image">
+                                    <img src={{ asset("storage/". $user->files['profile']) }} alt="{{ $user->username }} profile image">
+                                </figure>
+                            @endif
+                            @if (!isset($user->files['profile']))
+                                @component('components.svg.Group 15SVG')@endcomponent
+                            @endif
                         </div>
                         <div>
                             <h3 class="color-white font-bold">{{ $user->username }}</h3>

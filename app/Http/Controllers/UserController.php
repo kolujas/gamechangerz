@@ -39,7 +39,7 @@
                 $days = Day::allDates($user->days);
             }
             if ($user->id_role === 0) {
-                $user->and(['friends', 'lessons', 'hours']);
+                $user->and(['friends', 'lessons', 'hours', 'files']);
                 $days = [];
             }
             foreach ($user->reviews as $review) {
@@ -115,6 +115,7 @@
             }
             return view('user.profile', [
                 'user' => $user,
+                'games' => Game::all(),
                 'days' => $days,
                 'error' => $error,
                 'validation' => [
@@ -150,7 +151,7 @@
                     $days = Day::allDates($user->days);
                 }
                 if ($user->id_role === 0) {
-                    $user->and(['friends', 'lessons', 'hours']);
+                    $user->and(['friends', 'lessons', 'hours', 'files']);
                     $days = [];
                 }
             }

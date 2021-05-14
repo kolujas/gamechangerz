@@ -8,6 +8,7 @@
     use Carbon\Carbon;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Facades\Validator;
 
     class AuthController extends Controller {
@@ -70,11 +71,13 @@
                 ]);
             }
 
+            $password = $input->password;
             $input->id_role = 0;
             $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
             $input->languages = json_encode([[
                 'id_language' => $input->language,
             ]]);
+            $input->password = Hash::make($password);
 
             try {
                 $user = User::create((array) $input);
@@ -85,7 +88,7 @@
                 dd($th);
             }
 
-            if (!Auth::attempt(['password' => $input->password, 'email' => $input->email], isset($input->remember))) {
+            if (!Auth::attempt(['password' => $password, 'email' => $input->email], isset($input->remember))) {
                 return response()->json([
                     'code' => 404,
                     'message' => 'Correo, nombre de usuario, y/o contraseña incorrectos.',

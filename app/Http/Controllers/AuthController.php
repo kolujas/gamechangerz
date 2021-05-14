@@ -16,7 +16,18 @@
          * @return [type]
          */
         public function login (Request $request) {
-            $input = (object) $this->decodeInput($request->all(), 'login_');
+            foreach ($request->all() as $key => $value) {
+                if (preg_match("/login_/", $key)) {
+                    $string = "login_";
+                }
+                if (preg_match("/signin_/", $key)) {
+                    $string = "signin_";
+                }
+            }
+            $input = (object) $this->decodeInput($request->all(), $string);
+            if ($string === "signin_") {
+                $input->data = $input->email;
+            }
 
             $validator = Validator::make((array) $input, Model::$validation['login']['rules'], Model::$validation['login']['messages']['es']);
             if ($validator->fails()) {

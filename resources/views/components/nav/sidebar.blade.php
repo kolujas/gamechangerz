@@ -3,7 +3,14 @@
         @if (Auth::check())
             <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
-                    @component('components.svg.Group 15SVG')@endcomponent
+                    @if (Auth::user()->profile())
+                        <figure class="profile-image">
+                            <img src={{ asset("storage/". Auth::user()->profile()) }} alt="{{ Auth::user()->username }} profile image">
+                        </figure>
+                    @endif
+                    @if (!Auth::user()->profile())
+                        @component('components.svg.Group 15SVG')@endcomponent
+                    @endif
                 </div>
                 <div class="col-span-2 grid grid-cols-1 items-center">
                     <span>{{ Auth::user()->username }}</span>

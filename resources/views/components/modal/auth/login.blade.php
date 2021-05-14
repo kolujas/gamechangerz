@@ -4,7 +4,7 @@
     <section class="login">
         <header class="modal-header mb-12">
             <figure>
-                <img src="{{ asset('img/logos/Isologo-reducido-original-Transparencia.svg') }}" alt="Logo claro solido de Gamechangerz">
+                <img src="{{ asset('img/logos/029-logo-hexagonos.png') }}" alt="Logo claro solido con fondo de Gamechangerz">
             </figure>
             <h2 class="color-four text-center">Iniciar sesión</h2>
         </header>
