@@ -71,11 +71,12 @@ body {
 }
 
 :is(h1, h2, h3, h4) {
-    font-weight: bold;
+    font-family: var(--font-one);
 }
 
 h2 {
     font-size: 2rem;
+    font-family: var(--font-one);
 }
 
 h3 {

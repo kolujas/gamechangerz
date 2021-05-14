@@ -19,8 +19,15 @@
     z-index: 1;
 }
 
-.form-input::placeholder{
-    color: var(--color-white);
+.form-input::placeholder, .b-text{
+    color: var(--color-grey);
+    position: relative;
+    top: 2px;
+}
+
+.submit-group p{
+    color: var(--color-grey);
+    font-size: .75rem;
 }
 
 .input-group .error{
@@ -637,14 +644,14 @@ a[href="#chat"].modal-button.chat span {
 #assigment #myVideo{
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 20rem;
+    /* width: 100%;
+    height: 20rem; */
     background-color: var(--color-one);
 }
 
 #assigment #myVideo iframe{
     width: 100%;
-    height: 100%;
+    height: 20rem;
 }
 
 #assigment h3{

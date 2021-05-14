@@ -3,9 +3,9 @@
     @method('post')
     <section class="login">
         <header class="modal-header mb-12">
-            {{-- <figure>
-                <img src="{{ asset('img/logos/isologo-reducido-claro-transparencia.svg') }}" alt="Logo claro solido de Gamechangerz">
-            </figure> --}}
+            <figure>
+                <img src="{{ asset('img/logos/Isologo-reducido-original-Transparencia.svg') }}" alt="Logo claro solido de Gamechangerz">
+            </figure>
             <h2 class="color-four text-center">Iniciar sesión</h2>
         </header>
         <label class="input-group grid mb-6">

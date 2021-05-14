@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+h2 span{
+    font-family: var(--font-one);
+}
+
 /* ? MD */
 @media(min-width: 768px){
     .main {
