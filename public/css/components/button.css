@@ -146,3 +146,10 @@
     --color-right: var(--color-white);
     --border: var(--color-black);
 }
+
+
+.btn.btn-grey {
+    --color-left: var(--color-five);
+    --color-right: var(--color-grey);
+    --border: var(--color-black);
+}

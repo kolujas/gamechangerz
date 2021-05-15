@@ -8,7 +8,7 @@
                     <a class="flex flex-wrap disabled" href="#">
                 @endif
                     <header class="py-4">
-                        <h3 class="degradado">{{ $game->name }}</h3>
+                        <h3 class="degradado russo">{{ $game->name }}</h3>
                         <h3 class="degradado hidden">{{ $game->alias }}</h3>
                     </header>
                     <main class="card-body degradado">
@@ -29,7 +29,7 @@
     @if (!count($games))
         <li class="card text-center">
             <div class="flex flex-wrap p-6 color-grey">
-                <span>No hay juegos que mostrar</span>
+                <span class="overpass">No hay juegos que mostrar</span>
             </div>
         </li>
     @endif

@@ -3,6 +3,10 @@
     color: #fff;
 }
 
+.footer .btn{
+    font-weight: initial;
+}
+
 .footer-logo{
     width: 200px;
     height: 200px;

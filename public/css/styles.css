@@ -10,7 +10,7 @@
     --color-white: #EEEEEE;
     --color-grey: #8F8C90;
     --color-red: #B91C1C;
-    --font-one: 'Russo One', sans-serif;;  /* Tipografia para encabezados */
+    --font-one: 'Russo One', sans-serif;  /* Tipografia para encabezados */
     --font-two: 'Overpass', sans-serif;  /* Tipografia para textos */
 
     /* ? NavMenu */
@@ -70,13 +70,13 @@ body {
     background-color: var(--color-one);
 }
 
-:is(h1, h2, h3, h4) {
+/* :is(h1, h2, h3, h4) {
     font-family: var(--font-one);
-}
+} */
 
 h2 {
     font-size: 2rem;
-    font-family: var(--font-one);
+    /* font-family: var(--font-one); */
 }
 
 h3 {
@@ -91,9 +91,9 @@ h5 {
     font-size: .8rem;
 }
 
-p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, label{
+/* p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, label{
     font-family: var(--font-two) !important;
-}
+} */
 
 
 
@@ -113,6 +113,14 @@ p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, la
     height: 100%;
     border-radius: 100vh;
     object-fit: cover;
+}
+
+.russo{
+    font-family: var(--font-one);
+}
+
+.overpass{
+    font-family: var(--font-two);
 }
 
 /* ? MD */

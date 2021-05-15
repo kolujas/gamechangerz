@@ -95,6 +95,10 @@
     color: var(--color-black);
 }
 
+.verPros{
+    font-size: .88rem;
+}
+
 /* video section */
 
 /* .video-section{
@@ -208,6 +212,10 @@
 
 .submit-lupa svg{
     height: 20px;
+}
+
+.profesores-destacados input::placeholder{
+    color: var(--color-grey);
 }
 
 /* fornite banner */
