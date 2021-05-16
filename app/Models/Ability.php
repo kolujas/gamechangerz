@@ -12,7 +12,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_ability', 'name', 'description', 'slug', 'stars', 'image', 'background', 'icon', 'difficulty',
+            'id_ability', 'name', 'description', 'slug', 'stars', 'image', 'background', 'icon', 'difficulty', 'id_game',
         ];
 
         static $options = [[
@@ -49,6 +49,7 @@
             'difficulty' => 3,
             'slug' => 'precision',
             'stars' => null,
+            'id_game' => 1,
         ], [
             'id_ability' => 6,
             'name' => 'Punteria',
@@ -59,6 +60,7 @@
             'difficulty' => 1,
             'slug' => 'punteria',
             'stars' => null,
+            'id_game' => 1,
         ]];
 
         /**

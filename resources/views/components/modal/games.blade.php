@@ -1,6 +1,6 @@
 <aside id="games" class="modal">
     <section class="modal-content center">
-        <form class="p-12 pr-6 mr-6" id="games-form" action="#" method="post" class="grid">
+        <form class="p-12 pr-6 mr-6" id="games-form" action="/users/{{ $user->slug }}/games/update" method="post" class="grid">
             @csrf
             @method('post')
             <section>
@@ -8,7 +8,11 @@
                 @foreach ($games as $game)
                     @if ($game->active)
                         <label class="text-white b-contain flex mb-6">
-                            <input type="checkbox" class="form-input" name="games[{{ $game->slug }}]">
+                            <input type="checkbox" class="form-input" @foreach ($user->games as $game_checked)
+                                @if ($game_checked->id_game === $game->id_game)
+                                    checked
+                                @endif
+                            @endforeach name="games[{{ $game->slug }}]">
                             <div class="b-input mr-2"></div>
                             <div class="b-text">{{ $game->name }}</div>
                         </label>

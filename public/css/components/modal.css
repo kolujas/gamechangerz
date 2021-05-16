@@ -9,7 +9,7 @@
     font-size: 1.5rem;
 }
 
-.form-input{
+.modal .form-input{
     background-color: #000;
     color: var(--color-white);
     outline: none;
@@ -19,7 +19,7 @@
     z-index: 1;
 }
 
-.form-input::placeholder{
+.modal .form-input::placeholder{
     color: var(--color-white);
 }
 

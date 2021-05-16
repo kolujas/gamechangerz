@@ -23,6 +23,9 @@ export class Modal extends Class {
             case 'details':
                 this.generateChatDetailsModalLogic();
                 break;
+            case 'games':
+                this.generateGamesModalLogic();
+                break;
             case 'list':
                 this.generateChatListModalLogic();
                 break;
@@ -60,6 +63,14 @@ export class Modal extends Class {
             detectHash: true,
             outsideClick: true,
             open: /assigment-/.exec(URL.findHashParameter()),
+        });
+    }
+
+    generateGamesModalLogic () {
+        this.setModalJS('games', {
+            open: URL.findHashParameter() === 'games',
+            detectHash: true,
+            outsideClick: true,
         });
     }
 

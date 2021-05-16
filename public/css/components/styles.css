@@ -1,9 +1,9 @@
+@import './abilities/list.css';
 @import './animation.css';
 @import './blog/list.css';
 @import './button.css';
 @import './font.css';
 @import './footer.css';
-@import './game/abilities_list.css';
 @import './game/list.css';
 @import './modal.css';
 @import './nav.css';

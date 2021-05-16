@@ -40,7 +40,10 @@
         <script>
             const validation = @json($validation);
             const authenticated = @json(Auth::check());
-            const error = @json($error);
+            var error = @json($error);
+            @if(Session::has('status'))
+                error = @json(Session::get('status'))
+            @endif
         </script>
         <script type="module" src={{ asset('js/script.js') }}></script>
 

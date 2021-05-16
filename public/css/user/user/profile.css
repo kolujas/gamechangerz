@@ -1,0 +1,376 @@
+.user .banner img {
+    width: 100%;
+    height: calc(100vh - 4.6rem);
+    object-fit: cover;
+}
+
+.user .banner .actions {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.user .data > div{
+    background-color: var(--color-black);
+    position: relative;
+}
+
+.user .data .btn.btn-icon {
+    position: absolute;
+    top: 2.9rem;
+    left: 0;
+}
+
+.user .data button.btn.btn-icon:first-of-type {
+    top: 3.4rem;
+}
+
+.user .data button.btn.btn-icon:last-of-type {
+    top: 6.4rem;
+}
+
+.user .data .tag .username {
+    flex-basis: 75%;
+}
+
+.user .data .tag .username input {
+    background: transparent;
+    padding: 0;
+    transition: 500ms;
+    cursor: text;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user .data .tag .username span input.hidden[value=""] {
+    display: none;
+}
+
+.user .data .tag .username input:not([disabled]) {
+    background: black;
+    padding: .25rem .5rem;
+}
+
+.user .data .tag .username span {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: initial;
+}
+
+.user .data .tag .teammate{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.user .data .tag .teammate span {
+    display: block;
+    width: 100%;
+    height: fit-content;
+}
+
+.user .data .tag .teammate input:not(:disabled) + span {
+    cursor: pointer;
+}
+
+.user .data .tag .teammate input:checked + span {
+    border: 1px solid red;
+}
+
+.user .icons-list svg{
+    object-fit: contain;
+    width: 40px;
+    height: 33px;
+}
+
+.user > .games header,
+.user .reviews .games header{
+    order: 2;
+    flex-basis: 100%;
+}
+
+.user > .games ul {
+    margin-top: 2rem;
+}
+
+.user > .games ul li:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+.user > .games main{
+    order: 1;
+}
+
+.user >.games header .degradado {
+    -webkit-text-fill-color: var(--color-white);
+}
+
+.user > .abilities li > div{
+    background: var(--color-black);
+    position: relative;
+}
+
+.user > .abilities li:not(:last-of-type) > div {
+    margin-bottom: 2rem;
+}
+
+.user .abilities .ability > *:not(aside) {
+    z-index: 1;
+}
+
+.user .abilities .ability aside{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .2;
+}
+
+.user .cardota{
+    /* background: var(--color-black); */
+    /* z-index: -2; */
+    border: 1px solid;
+    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+    position: relative;
+}
+
+.user .cardota::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: .5;
+    background:url(/img/01-background.png) no-repeat center center;
+    background-size: cover;
+}
+
+.user .cards .games{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.user .cards .games li{
+    padding-top: 0rem;
+}
+
+.user > .games .card a.add {
+    height: 6rem;
+    font-size: 2.5rem;
+    background: var(--color-black);
+    border-radius: .25rem;
+    color: var(--color-white);
+}
+
+.user > .games figure {
+    height: 10rem;
+}
+
+.user .reviews .games figure {
+    height: 6rem;
+}
+
+.user .degradado{
+    font-size: 0.875rem;
+}
+
+.user .reviews .games header .degradado:first-of-type {
+    display: none;
+}
+
+.user .reviews .games header .degradado.hidden {
+    display: block;
+}
+
+.user .abilities li > div > div .stars svg {
+    /* width: 1.2rem; */
+    margin-left: .5rem;
+}
+
+.user .reviews .abilities .stars svg {
+    width: 1.2rem;
+}
+
+.user .reviews .cards header {
+    height: 100%;
+}
+
+.user .reviews .cards .image figure {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.user .reviews .cards .image figure img {
+    height: 150%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.user .reviews .cards header a:hover {
+    padding-right: 0;
+}
+
+.user .reviews > ul li:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+/* ? MD */
+@media (min-width: 768px) {
+    .user .data .btn.btn-icon {
+        left: -1rem;
+    }
+
+    .user .data{
+        width: 100%;
+    }
+
+    .user > .games .cards{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem;
+    }
+
+    .user > .games .card a.add {
+        height: 100%;
+    }
+
+    .user > .games .cards li{
+        padding: 0;
+    }
+
+    .user > .games .cards li:is(:nth-last-of-type(2), :last-of-type()){
+        margin-bottom: 0;
+    }
+
+    .user > .games .cards li:nth-of-type(2n + 1){
+        padding: 0;
+    }
+
+    .user .icons-list svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .user > .abilities li > div{
+        min-height: 10rem;
+        height: 100%;
+    }
+
+    .user .abilities li > div > div{
+        height: fit-content;
+    }
+
+    .user .reviews .cardota .games{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .user .reviews .abilities .stars svg {
+        width: 1rem;
+    }
+}
+
+/* ? LG */
+@media (min-width: 1024px) {
+    .user .banner {
+        height: calc(100vh - 4.6rem - 9rem);
+    }
+
+    .user .banner .actions {
+        bottom: -5.5rem;
+    }
+
+    .user .data{
+        width: 100%;
+        position: sticky;
+        top: 4rem;
+        height: fit-content;
+    }
+
+    .user > .games{
+        margin-top: 9rem;
+    }
+
+    .user > .games li{
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    .user > .games .cards{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 2rem;
+        margin-right: 2rem;
+    }
+
+    .user > .games figure {
+        height: 5rem;
+    }
+
+    .user > .games ul li:not(:last-child) {
+        margin-bottom: 0;
+    }
+
+    .user > .games .cards li:nth-of-type(2n + 1){
+        margin-right: 0;
+        padding: 0;
+    }
+
+    .user > .abilities li:not(:last-of-type) > div {
+        margin-bottom: 0;
+    }
+
+    .user .abilities li > div > div > div span {
+        width: fit-content;
+        display: block;
+    }
+
+    .user .abilities li > div > div .stars svg {
+        width: 1.2rem;
+        margin-left: .25rem;
+    }
+
+    .user .abilities li > div > div .stars svg {
+        width: 1.2rem;
+        margin-left: .25rem;
+    }
+
+    .user .reviews .abilities .stars svg {
+        width: .8rem;
+    }
+
+    .user .reviews > ul {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* ? XL */
+@media (min-width: 1200px) {
+    .user > .games .cards{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-right: 0;
+    }
+
+    .user .reviews .abilities .stars svg {
+        width: 1rem;
+    }
+}
+
+/* ? 2XL */
+@media (min-width: 1536px) {
+    .user .banner img {
+        height: calc(50vh - 4.6rem);
+    }
+
+    .user > .games .cards{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}

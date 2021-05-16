@@ -9,7 +9,9 @@
     use App\Models\Post;
     use App\Models\User;
     use Auth;
+    use Cviebrock\EloquentSluggable\Services\SlugService;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Validator;
 
     class UserController extends Controller {
         /**
@@ -125,6 +127,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'update' => (object)[
+                        'rules' => User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'],
+                        'messages' => User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es'],
                 ]],
             ]);
         }
@@ -207,8 +212,40 @@
                 ]],
             ]);
         }
+
+        /**
+         * * Update an User.
+         * @param Request $request
+         * @param string $slug User slug
+         * @return [type]
+         */
+        public function update (Request $request, $slug) {
+            $user = User::where('slug', '=', $slug)->get()[0];
+            
+            $input = (object) $request->all();
+
+            $validator = Validator::make((array) $input, User::replaceUniqueIDUser(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            if ($user->username !== $input->username) {
+                $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
+            }
+            if (!isset($input->teammate)) {
+                $input->teammate = 0;
+            } else {
+                $input->teammate = 1;
+            }
+            if (!isset($input->name)) {
+                $input->name = null;
+            }
+
+            $user->update((array) $input);
+            
+            return redirect("/users/$user->slug/profile")->with('status', [
+                'code' => 200,
+                'message' => 'Perfil actualizado correctamente.',
+            ]);
+        }
     }
-
-
-
-// TODO teampro cargado por el profe, dificultad habilidad profe, opacidad habilidades nula (se da vuelta la card, packs profe = online), pack valor no automatico

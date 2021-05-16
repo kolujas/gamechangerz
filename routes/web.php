@@ -1,8 +1,9 @@
 <?php
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\BlogController;
-    use App\Http\Controllers\FriendshipController;
     use App\Http\Controllers\DefaultController;
+    use App\Http\Controllers\FriendshipController;
+    use App\Http\Controllers\GameController;
     use App\Http\Controllers\LessonController;
     use App\Http\Controllers\UserController;
     use Illuminate\Support\Facades\Route;
@@ -54,8 +55,18 @@
     Route::get('/users', [UserController::class, 'search'])->name('user.searchUsers');
     Route::get('/teachers', [UserController::class, 'search'])->name('user.searchTeachers');
     Route::middleware(['user.exist'])->group(function () {
+        Route::middleware('auth')->group(function () {
+            Route::post('/users/{slug}/update', [UserController::class, 'update'])->name('user.update');
+        });
         Route::get('/users/{slug}/profile', [UserController::class, 'profile'])->name('user.profile');
         Route::middleware(['auth', 'user.not.checkout', 'user.is.teacher', 'lesson.type.exist'])->group(function () {
             Route::get('/users/{slug}/checkout/{type}', [UserController::class, 'checkout'])->name('user.checkout');
+        });
+    });
+
+// ! GameController - Controls the Game pages.
+    Route::middleware(['user.exist'])->group(function () {
+        Route::middleware('auth')->group(function () {
+            Route::post('/users/{slug}/games/update', [GameController::class, 'user'])->name('game.user');
         });
     });

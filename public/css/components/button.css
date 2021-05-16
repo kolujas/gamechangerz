@@ -15,7 +15,7 @@
 }
 
 /* * Button outline */
-.btn-outline {
+.btn.btn-outline {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +24,10 @@
     border-image-slice: 1;
     transition: color 500ms, text-shadow 500ms;
     text-align: center;
+}
+
+.btn.btn-outline.hidden {
+    display: none;
 }
 
 .btn.btn-outline:focus {
@@ -68,6 +72,18 @@
     align-items: center;
     color: var( --color-left);
     font-size: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* .btn.btn-icon i {
+    background: -webkit-linear-gradient(130deg, var(--color-left), var(--color-right));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+} */
+
+.btn.btn-icon.hidden {
+    display: none;
 }
 
 .btn.btn-icon:focus {
@@ -142,7 +158,21 @@
 }
 
 .btn.btn-white {
-    --color-left: var(--color-four);
+    --color-left: var(--color-five);
     --color-right: var(--color-white);
     --border: var(--color-black);
+}
+
+.btn.btn-icon.btn-white {
+    /* border: 1px solid var(--color-right); */
+    color: var( --color-right);
+}
+
+.btn.btn-icon.btn-white:focus {
+    box-shadow: 0 0 0 1px var(--color-left),
+                0 0 0 2px var(--color-right);
+}
+
+.btn.btn-icon.btn-white:not(.not):hover {
+    text-shadow: 0 0 1px var(--color-right), 0 0 5px var(--color-right), 2px 2px 2px rgba(206,89,55,0);
 }

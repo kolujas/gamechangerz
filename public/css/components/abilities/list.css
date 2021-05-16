@@ -56,8 +56,8 @@
 }
 
 .abilities.cards .diffculty svg{
-    display: inline-block;
-    padding-bottom: .35rem;
+    width: 1rem;
+    margin-left: .5rem;
 }
 
 /* ? MD */
@@ -90,27 +90,34 @@
         pointer-events: none;
     }
 
-    .abilities.cards::before {
+    /* .abilities.cards::before {
         width: 10%;
         left: 0;
         background-image: linear-gradient(270deg, transparent 0%, var(--color-black) 100%);
-    }
+    } */
 
-    .abilities.cards::after {
+    /* .abilities.cards::after {
         width: 20%;
         right: 0;
         background-image: linear-gradient(90deg, transparent 0%, var(--color-black) 100%);
-    }
+    } */
 }
 
 /* ? XL */
 @media(min-width: 1200px){
+    .abilities.cards .card figure {
+        height: 13rem;
+    }
 
+    .abilities.cards .card > div {
+        width: 14rem;
+        flex-basis: 14rem;
+    }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .abilities.cards .card:first-of-type {
+    /* .abilities.cards .card:first-of-type {
         padding-left: 22rem;
     }
     
@@ -124,5 +131,5 @@
 
     .abilities.cards::after {
         width: calc(100% - (100% - 44rem));
-    }
+    } */
 }

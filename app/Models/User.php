@@ -250,11 +250,13 @@
         public function hours () {
             $this->hours = 0;
             foreach ($this->lessons as $lesson) {
-                foreach (json_decode($lesson->days) as $day) {
-                    if (Hour::has($day->hour->id_hour)) {
-                        $hour = Hour::one($day->hour->id_hour);
-                        if (now() > $day->date . "T" . $hour->to) {
-                            $this->hours++;
+                if ($lesson->id_type === 1) {
+                    foreach (json_decode($lesson->days) as $day) {
+                        if (Hour::has($day->hour->id_hour)) {
+                            $hour = Hour::one($day->hour->id_hour);
+                            if (now() > $day->date . "T" . $hour->to) {
+                                $this->hours++;
+                            }
                         }
                     }
                 }
@@ -279,29 +281,37 @@
          */
         public function lessons () {
             $this->lessons = collect([]);
-            foreach (Lesson::where('id_user_from', '=', $this->id_user)->get() as $lesson) {
-                $lesson->hours = 0;
-                foreach (json_decode($lesson->days) as $day) {
-                    if (Hour::has($day->hour->id_hour)) {
-                        $hour = Hour::one($day->hour->id_hour);
-                        if (now() > $day->date . "T" . $hour->to) {
-                            $lesson->hours++;
+            if ($this->id_role === 0) {
+                foreach (Lesson::where('id_user_to', '=', $this->id_user)->get() as $lesson) {
+                    if ($lesson->id_type === 1) {
+                        $lesson->hours = 0;
+                        foreach (json_decode($lesson->days) as $day) {
+                            if (Hour::has($day->hour->id_hour)) {
+                                $hour = Hour::one($day->hour->id_hour);
+                                if (now() > $day->date . "T" . $hour->to) {
+                                    $lesson->hours++;
+                                }
+                            }
                         }
                     }
+                    $this->lessons->push($lesson);
                 }
-                $this->lessons->push($lesson);
             }
-            foreach (Lesson::where('id_user_to', '=', $this->id_user)->get() as $lesson) {
-                $lesson->hours = 0;
-                foreach (json_decode($lesson->days) as $day) {
-                    if (Hour::has($day->hour->id_hour)) {
-                        $hour = Hour::one($day->hour->id_hour);
-                        if (now() > $day->date . "T" . $hour->to) {
-                            $lesson->hours++;
+            if ($this->id_role === 1) {
+                foreach (Lesson::where('id_user_from', '=', $this->id_user)->get() as $lesson) {
+                    if ($lesson->id_type === 1) {
+                        $lesson->hours = 0;
+                        foreach (json_decode($lesson->days) as $day) {
+                            if (Hour::has($day->hour->id_hour)) {
+                                $hour = Hour::one($day->hour->id_hour);
+                                if (now() > $day->date . "T" . $hour->to) {
+                                    $lesson->hours++;
+                                }
+                            }
                         }
                     }
+                    $this->lessons->push($lesson);
                 }
-                $this->lessons->push($lesson);
             }
         }
 
@@ -406,5 +416,38 @@
             } catch (\Throwable $th) {
                 throw $th;
             }
+        }
+
+        
+        /** @var array Validation rules & messages. */
+        static $validation = [
+            'user' => [
+                'update' => [
+                    'rules' => [
+                        'username' => 'required|unique:users,username,{id_user},id_user|max:25',
+                        'name' => 'max:25',
+                    ], 'messages' => [
+                        'es' => [
+                            'username.required' => 'El nombre de usuario es obligatorio.',
+                            'username.unique' => 'Ese nombre de usuario ya esta en uso.',
+                            'username.max' => 'El nombre de usuario no puede tener más de :max caracteres.',
+                            'name.max' => 'El nombre no puede tener más de :max caracteres.',
+            ]]]], 'teacher' => [
+                'update' => [
+                    'rules' => [
+                        // 
+                    ], 'messages' => [
+                        'es' => [
+                            // 
+        ]]]]];
+
+       /**
+        * * Replace the unique {id_user} rule.
+        * @param mixed $rules Rules to replace.
+        * @param mixed $id_user User primary key to put.
+        * @return string
+        */
+        static function replaceUniqueIDUser ($rules, $id_user) {
+            return preg_replace("({[a-z_]*})", $id_user, $rules);
         }
     }

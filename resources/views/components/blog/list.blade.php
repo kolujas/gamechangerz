@@ -1,12 +1,12 @@
 <ul class="blog cards flex space-between px-8 lg:px-0 pb-4">
     @if (count($posts))
         @foreach ($posts as $post)
-            <li class="card mr-4">
+            <li class="card mr-8">
                 <a href="/blog/{{ $post->id_user }}/{{ $post->slug }}">
                     <figure>
                         <img src={{ asset("storage/$post->image") }} alt="{{ $post->title }}: image">
                     </figure>
-                    <main class="card-body p-4">
+                    <main class="card-body p-8">
                         <h4 class="color-four text-uppercase">{{ $post->title }}</h4>
                         <span class="color-grey block mb-4">{{ $post->date }}</span>
                         <div class="post-content color-grey">{!! $post->description !!}</div>
@@ -43,64 +43,4 @@
             </div>
         </li>
     @endif
-    {{-- <li class="card mr-4">
-        <a href="#">
-            <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
-            </figure>
-            <main class="card-body p-4">
-                <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
-                <span class="color-grey block mb-4">20 febrero, 2021</span>
-                <p class="color-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
-            </main>
-        </a>
-    </li>
-    <li class="card mr-4">
-        <a href="#">
-            <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
-            </figure>
-            <main class="card-body p-4">
-                <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
-                <span class="color-grey block mb-4">20 febrero, 2021</span>
-                <p class="color-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
-            </main>
-        </a>
-    </li>
-    <li class="card mr-4">
-        <a href="#">
-            <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
-            </figure>
-            <main class="card-body p-4">
-                <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
-                <span class="color-grey block mb-4">20 febrero, 2021</span>
-                <p class="color-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
-            </main>
-        </a>
-    </li>
-    <li class="card mr-4">
-        <a href="#">
-            <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
-            </figure>
-            <main class="card-body p-4">
-                <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
-                <span class="color-grey block mb-4">20 febrero, 2021</span>
-                <p class="color-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
-            </main>
-        </a>
-    </li>
-    <li class="card mr-4">
-        <a href="#">
-            <figure>
-                <img src="{{ asset('img/games/counter-strike-go/abilities/1/01-precision.png') }}" alt="CT model with awp">
-            </figure>
-            <main class="card-body p-4">
-                <h4 class="color-four text-uppercase">Lidiar con la presion</h4>
-                <span class="color-grey block mb-4">20 febrero, 2021</span>
-                <p class="color-grey">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nulla doloremque vel quo. Excepturi, distinctio!</p>
-            </main>
-        </a>
-    </li> --}}
 </ul>
