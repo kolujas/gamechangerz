@@ -140,6 +140,18 @@ input[name="credits"]:focus {
     border-color: var(--color-four);
 }
 
+#credits:focus {
+    box-shadow: none;
+}
+
+.calendar .month {
+    font-family: 'Overpass';
+}
+
+.hours p, span{
+    font-family: 'Overpass';
+}
+
 /* ? MD */
 @media(min-width: 768px){
     /**/

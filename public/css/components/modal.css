@@ -6,7 +6,11 @@
 }
 
 .login .modal-header h2, .register .modal-header h2{
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+}
+
+.signin #signin_language, #signin_date{
+    color: var(--color-grey);
 }
 
 .modal .form-input{
@@ -19,8 +23,15 @@
     z-index: 1;
 }
 
-.modal .form-input::placeholder{
-    color: var(--color-white);
+.modal .form-input::placeholder, .b-text{
+    color: var(--color-grey);
+    position: relative;
+    top: 2px;
+}
+
+.submit-group p{
+    color: var(--color-grey);
+    font-size: .75rem;
 }
 
 .input-group .error{
@@ -614,11 +625,11 @@ a[href="#chat"].modal-button.chat span {
     padding-left: 1rem;
     color: #fff;
     font-size: .8rem;
-    padding-top: .5rem;
+    font-size: var(--font-one);
 }
 
 #assigment #url{
-    height: 2.5rem;
+    font-size: var(--font-one);
 }
 
 
@@ -629,6 +640,7 @@ a[href="#chat"].modal-button.chat span {
 
 #assigment textarea{
     resize: none;
+    font-size: var(--font-one);
 }
 
 /* #assigment textarea:focus{
@@ -639,10 +651,13 @@ a[href="#chat"].modal-button.chat span {
 #assigment #myVideo{
     display: flex;
     justify-content: center;
+    /* width: 100%;
+    height: 20rem; */
+    background-color: var(--color-one);
 }
 
 #assigment #myVideo iframe{
-    width: 80%;
+    width: 100%;
     height: 20rem;
 }
 
@@ -660,7 +675,6 @@ a[href="#chat"].modal-button.chat span {
     cursor: pointer;
 }
 
-
 #assigment.modal form .abilities label input[type=checkbox]:checked + div{
     opacity: 1;
 }
@@ -676,6 +690,29 @@ a[href="#chat"].modal-button.chat span {
 #assigment.modal button{
     border-radius: .3rem;
 }
+
+#assigment.modal .form-submit span{
+    border-radius: .3rem;
+    font-family: var(--font-one) !important;
+}
+
+select{
+    background-color: var(--color-one);
+    color: var(--color-grey);
+    box-shadow: none;
+    outline: none;
+}
+
+/* .modal .modal-content::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(calc(-50% - 1px)) translateY(-50%);
+    background: linear-gradient(130deg, var(--color-four), var(--color-five));
+    width: 100%;
+    height: 100%;
+} */
 
 /* ? MD */
 @media(min-width: 768px){

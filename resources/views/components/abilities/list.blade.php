@@ -4,15 +4,15 @@
             <div style="background: url(/img/{{ $ability->background }}) no-repeat center center; background-size: cover;">
                 <div>
                     <header class="p-4">
-                        <h4 class="color-three">{{ $ability->name }}</h4>
-                        <p class="color-two">{!! $ability->description !!}</p>
+                        <h4 class="color-three russo">{{ $ability->name }}</h4>
+                        <p class="color-three leading-5 overpass">{!! $ability->description !!}</p>
                     </header>
                     <main>
                         <figure>
                             <img src={{ asset("img/$ability->image") }} alt="{{ $ability->name }} image">
                         </figure>
                         <div class="diffculty flex justify-between align-center px-4 mb-4">
-                            <span class="color-white">Dificultad</span>
+                            <span class="color-white overpass">Dificultad</span>
                             <div class="flex">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $ability->difficulty)

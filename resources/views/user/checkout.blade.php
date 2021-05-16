@@ -19,7 +19,7 @@
         <section class="cart md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
             <ul class="p-4 xl:px-8">
                 <li class="flex justify-between color-white">
-                    <span>1 Clase {{ $type->name }} ({{ $type->price }} AR$): <a href="/users/{{ $user->slug }}/profile" class="color-four">{{ $user->username }}</a></span>
+                    <span class="russo">1 Clase {{ $type->name }} ({{ $type->price }} AR$): <a href="/users/{{ $user->slug }}/profile" class="color-four">{{ $user->username }}</a></span>
                 </li>
             </ul>
         </section>
@@ -28,7 +28,7 @@
                 <section id="date-1" class="calendar dropdown">
                     <header class="dropdown-header p-4">
                         <button class="dropdown-button p-2">
-                            <h2 class="flex flex-wrap justify-start color-white">Elige cuando empezar</h2>
+                            <h2 class="flex flex-wrap justify-start color-white russo">Elige cuando empezar</h2>
                         </button>
                     </header>
                     <main class="dropdown-body grid grid-cols-1 xl:grid-cols-3 xl:px-8 xl:gap-8">
@@ -45,49 +45,49 @@
         @endif
         <section class="methods md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-3 mb-8">
             <header class="mb-4">
-                <h3 class="color-white">Metodo de pago</h3>
+                <h3 class="color-white overpass">Metodo de pago</h3>
             </header>
             <main id="methods" class="tab-menu">
                 <ul class="tabs tab-menu-list cards grid grid-cols-1 gap-4 md:grid-cols-3">
                     <li class="tab card">
                         <a href="#mp" class="tab-button color-white p-4">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
-                            <h4 class="pl-4">Mercado pago</h4>
+                            <h4 class="pl-4 overpass">Mercado pago</h4>
                         </a>
                     </li>
                     <li class="tab card">
                         <a href="#paypal" class="tab-button color-white p-4">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
-                            <h4 class="pl-4">Paypal</h4>
+                            <h4 class="pl-4 overpass">Paypal</h4>
                         </a>
                     </li>
                     <li class="tab card">
                         <a href="#skins" class="tab-button color-white p-4">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
-                            <h4 class="pl-4">Skins</h4>
+                            <h4 class="pl-4 overpass">Skins</h4>
                         </a>
                     </li>
                 </ul>
                 <ul class="tab-content-list mt-4">
                     <li id="mp" class="tab-content closed">
-                        <p class="color-white">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum aspernatur, placeat recusandae ab quas perferendis aut! Cum veritatis consequuntur molestias sapiente quis suscipit dolorem totam illum modi, obcaecati hic repellat!</p>
+                        <p class="color-white overpass">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum aspernatur, placeat recusandae ab quas perferendis aut! Cum veritatis consequuntur molestias sapiente quis suscipit dolorem totam illum modi, obcaecati hic repellat!</p>
                     </li>
                     <li id="paypal" class="tab-content closed">
-                        <p class="color-white">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum aspernatur, placeat recusandae ab quas perferendis aut! Cum veritatis consequuntur molestias sapiente quis suscipit dolorem totam illum modi, obcaecati hic repellat!</p>
+                        <p class="color-white overpass">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum aspernatur, placeat recusandae ab quas perferendis aut! Cum veritatis consequuntur molestias sapiente quis suscipit dolorem totam illum modi, obcaecati hic repellat!</p>
                     </li>
                     <li id="skins" class="tab-content closed">
-                        <p class="color-white">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum aspernatur, placeat recusandae ab quas perferendis aut! Cum veritatis consequuntur molestias sapiente quis suscipit dolorem totam illum modi, obcaecati hic repellat!</p>
+                        <p class="color-white overpass">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum aspernatur, placeat recusandae ab quas perferendis aut! Cum veritatis consequuntur molestias sapiente quis suscipit dolorem totam illum modi, obcaecati hic repellat!</p>
                     </li>
                 </ul>
             </main>
         </section>
         <section class="credits grid grid-cols-1 md:grid-cols-2 md:col-start-1 md:col-span-2 lg:col-start-2 lg:col-span-3 mb-8">
-            <input id="credits" type="number" name="credits" class="mb-4 pb-4 md:col-end-2 mr-4" placeholder="Usar creditos:">
-            <label for="credits" class="color-grey md:col-end-2 mr-4">(300 créditos disponibles)</label>
+            <input id="credits" type="number" name="credits" class="mb-4 md:col-end-2 mr-4 overpass xl:text-lg focus:outline-none border-0" placeholder="Usar creditos:">
+            <label for="credits" class="color-grey md:col-end-2 mr-4 overpass">(300 créditos disponibles)</label>
         </section>
         <div class="flex justify-center md:justify-end lg:justify-center lg:col-start-2 lg:col-span-3">
-            <button class="btn btn-one py-2 px-4" type="submit">
-                <span>Comenzar entrenamiento</span>
+            <button class="btn btn-one btn-outline py-2 px-4" type="submit">
+                <span class="russo">Comenzar entrenamiento</span>
             </button>
         </div>
     </form>

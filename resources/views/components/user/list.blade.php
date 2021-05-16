@@ -4,12 +4,12 @@
             <li class="teacher grid grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-4">
                 <header class="profile grid gap-4 lg:col-span-3 lg:flex lg:flex-wrap mt-4 ml-4 lg:my-4">
                     <section class="username">
-                        <h4 class="color-white">{{ $user->username }}</h4>
-                        <h5 class="color-grey">{{ $user->name }}</h5>
+                        <h4 class="color-white russo">{{ $user->username }}</h4>
+                        <h5 class="color-grey overpass">{{ $user->name }}</h5>
                     </section>
                     <section class="teampro grid grid-cols-3 items-start gap-4">
                         <div class="info col-span-2 grid">
-                            <span class="team-name p-1 text-center mb-4">{{ $user->teampro->name }}</span>
+                            <span class="team-name p-1 text-center mb-4 overpass">{{ $user->teampro->name }}</span>
                             <ul class="languages grid grid-cols-2 gap-4">
                                 @foreach ($user->languages as $language)
                                     <li title="{{ $language->name }}">@component($language->svg)@endcomponent</li>
@@ -49,12 +49,12 @@
                 <section class="payment grid md:row-span-3 lg:row-span-2 lg:col-span-2 ml-4 mb-4 md:m-0 md:mr-8 md:mt-4 md:items-end">
                     <div class="mb-4">
                         <ul class="mb-4">
-                            <li class="color-five">Modalidad Online AR$ {{ $user->prices[0]->price }}/h</li>
-                            <li class="color-white">Modalidad offline AR$ {{ $user->prices[1]->price }}/h</li>
+                            <li class="color-five overpass">Modalidad Online AR$ {{ $user->prices[0]->price }}/h</li>
+                            <li class="color-white overpass">Modalidad offline AR$ {{ $user->prices[1]->price }}/h</li>
                         </ul>
                         <div>
                             <a class="btn btn-outline btn-one" href="/users/{{ $user->slug }}/profile">
-                                <span>Horarios</span>
+                                <span class="overpass">Ver horarios</span>
                             </a>
                         </div>
                     </div>

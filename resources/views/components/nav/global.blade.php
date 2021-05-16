@@ -25,12 +25,12 @@
 			</li>
 			<li>
 				<a href="/teachers" class="nav-link">
-					<span class="link-text">Profesores</span>
+					<span class="link-text overpass">Profesores</span>
 				</a>
 			</li>
 			<li>
 				<a href="/blog" class="nav-link">
-					<span class="link-text">Novedades</span>
+					<span class="link-text overpass">Novedades</span>
 				</a>
 			</li>
 			@if (Auth::check())
@@ -55,12 +55,12 @@
 						@endif
 						<li>
 							<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-link">
-								<span class="link-text">Ver Perfíl</span>
+								<span class="link-text overpass">Ver Perfíl</span>
 							</a>
 						</li>
 						<li>
 							<a href="/logout" class="nav-link dropdown-link">
-								<span class="link-text">Cerrar Sesión</span>
+								<span class="link-text overpass">Cerrar Sesión</span>
 							</a>
 						</li>
 					</ul>
@@ -70,7 +70,7 @@
 				<li>
 					<a href="#login" class="nav-link">
 						<i class="link-icon fas fa-sign-in-alt"></i>
-						<span class="link-text">Ingresar</span>
+						<span class="link-text overpass">Ingresar</span>
 					</a>
 				</li>
 			@endif

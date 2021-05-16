@@ -80,6 +80,14 @@
                  var(--color-one) 4.98271px -0.415447px 0px;
 }
 
+.post-content b {
+    color: var(--color-four);
+}
+
+.post-content i {
+    color: var(--color-five);
+}
+
 /* ? MD */
 @media(min-width: 768px){
     .blog.cards .card figure {

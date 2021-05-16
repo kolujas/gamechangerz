@@ -11,7 +11,7 @@
     <main class="relative">
         <ul class="mx-2 px-2 py-4">
             <li>
-                <span class="color-grey block text-center mt-4">No hay mensajes, sé el primero en escribir</span>
+                <span class="color-grey block text-center mt-4 overpass">No hay mensajes, sé el primero en escribir</span>
             </li>
         </ul>
         <span class="question" title="Los mensajes se cargaran automáticamente cada 1 minuto">
@@ -21,9 +21,9 @@
     <footer>
         <form action="#">
             @csrf
-            <input class="py-2 px-4" placeholder="Escribe tu mensaje" name="message" type="text">
+            <input class="py-2 px-4 overpass" placeholder="Escribe tu mensaje" name="message" type="text">
             @if (Auth::user()->id_role === 1)
-                <a href="#assigment-chat" class="my-2 py-2 px-4 flex items-center">
+                <a href="#assigment-chat" class="my-2 py-2 px-4 flex items-center overpass">
                     @component('components.svg.BuscarSVG')@endcomponent
                 </a>
             @endif

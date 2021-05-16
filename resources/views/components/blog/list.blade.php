@@ -7,9 +7,9 @@
                         <img src={{ asset("storage/$post->image") }} alt="{{ $post->title }}: image">
                     </figure>
                     <main class="card-body p-8">
-                        <h4 class="color-four text-uppercase">{{ $post->title }}</h4>
-                        <span class="color-grey block mb-4">{{ $post->date }}</span>
-                        <div class="post-content color-grey">{!! $post->description !!}</div>
+                        <h4 class="color-four text-uppercase russo">{{ $post->title }}</h4>
+                        <span class="color-grey block mb-4 overpass">{{ $post->date }}</span>
+                        <div class="post-content color-grey overpass">{!! $post->description !!}</div>
                     </main>
                 </a>
             </li>
@@ -19,7 +19,7 @@
                 <li class="card mr-4 info">
                     <div>
                         <main class="card-body p-4">
-                            <h4 class="color-four text-uppercase">No hay más entradas que mostrar</h4>
+                            <h4 class="color-four text-uppercase overpass">No hay más entradas que mostrar</h4>
                         </main>
                     </div>
                 </li>

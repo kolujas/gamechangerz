@@ -16,11 +16,11 @@
     <main class="main">
         @if ($game->active)
             <section class="slider-container">
-                <header class="p-8 md:mt-12">
-                    <h2 class="color-white">Aprende de los <span class="color-four">mejores</span></h2>
-                    <p class="mb-4 slider-text color-white">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
+                <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
+                    <h2 class="color-white russo text-5xl md:text-6xl mb-8">Aprende de los <span class="color-four">mejores</span></h2>
+                    <p class="mb-8 slider-text color-white overpass text-xl">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
                     <button style="--color-left: {{ $game->colors[1] }}; --color-right: {{ $game->colors[0] }}" class="btn btn-outline btn-one py-2 px-4">
-                        <span>Ver profesionales</span>
+                        <span class="russo px-6 font-thin verPros">Ver profesionales</span>
                     </button>
                 </header>
                 <main class="swiper-container">
@@ -43,70 +43,70 @@
                 </main>
             </section>
     
-            <section class="video-section grid grid-cols-1 md:grid-cols-3 lg:grid-cols-10 2xl:grid-cols-9 items-center md:items-start px-8">
+            <section class="video-section grid grid-cols-1 md:grid-cols-3 lg:grid-cols-10 2xl:grid-cols-9 items-center md:items-start px-8 lg:px-0">
             {{-- <section class="video-section lg:flex lg:justify-center lg:flex-wrap px-8"> --}}
-                <header class="md:col-span-3 lg:col-span-8 lg:col-start-2 2xl:col-start-4 2xl:col-span-3 pt-12 mb-8">
+                <header class="md:col-span-3 lg:col-span-8 lg:col-start-2 2xl:col-start-4 2xl:col-span-3 pt-24 mb-8">
                 {{-- <header class="lg:w-full"> --}}
-                    <h3 class="flex justify-center items-center text-center color-white mb-4">
-                        <span class="mr-4">Cómo funciona</span>
+                    <h3 class="flex justify-center items-center text-center color-white">
+                        <span class="mr-4 russo">Cómo funciona</span>
                         <figure>
                             <img src="{{ asset('img/logos/018-isologo_reducido_original_transparencia.png') }}" alt="Logo claro solido de Gamechangerz">
                         </figure>
                     </h3>
-                    <p class="text-center color-white text-md">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
+                    <p class="text-center color-white text-md overpass">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
                 </header>
                 
-                <div class="flex justify-center md:col-span-3 lg:col-span-8 lg:col-start-2 xl:col-span-6 xl:col-start-3 2xl:col-span-3 2xl:col-start-4 mb-12">
+                <div class="flex justify-center md:col-span-3 lg:col-span-8 lg:col-start-2 xl:col-span-6 xl:col-start-3 2xl:col-span-3 2xl:col-start-4 mb-24">
                 {{-- <div class="pt-4 flex justify-center lg:w-full pb-12"> --}}
                     <iframe src="https://www.youtube.com/embed/uJNd8OzFt58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
         
-                <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 md:gap-4 pb-12">
+                <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 md:gap-6 pb-24">
                 {{-- <div class="services grid grid-cols-1 md:grid-cols-3 md:gap-4 pb-12"> --}}
-                    <div class="service p-4 mb-4 md:mb-0">
-                        <h4 class="color-four flex items-center">
-                            <span>Clases Online</span>
+                    <div class="service p-4 mb-6 md:mb-0 xl:px-8">
+                        <h4 class="color-four flex items-center xl:w-full xl:justify-between mb-2">
+                            <span class="russo text-2xl md:text-xl xl:text-3xl">Clases Online</span>
                             @component('components.svg.ClaseOnline1SVG')@endcomponent
                         </h4>
-                        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
+                        <p class="color-grey overpass">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
                     </div>
-                    <div class="service p-4 mb-4 md:mb-0">
-                        <h4 class="color-four flex items-center">
-                            <span>Clases Offline</span>
-                            @component('components.svg.ClaseOnline1SVG')@endcomponent
+                    <div class="service p-4 mb-6 md:mb-0 xl:px-8">
+                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
+                            <span class="russo text-2xl md:text-xl xl:text-3xl">Clases Offline</span>
+                            @component('components.svg.ClaseOnline2SVG')@endcomponent
                         </h4>
-                        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
+                        <p class="color-grey overpass">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
                     </div>
-                    <div class="service p-4 mb-4 md:mb-0">
-                        <h4 class="color-four flex items-center">
-                            <span>Packs</span>
-                            @component('components.svg.ClaseOnline1SVG')@endcomponent
+                    <div class="service p-4 mb-6 md:mb-0 xl:px-8">
+                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
+                            <span class="russo text-2xl md:text-xl xl:text-3xl">Packs</span>
+                            @component('components.svg.ClaseOnline3SVG')@endcomponent
                         </h4>
-                        <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
+                        <p class="color-grey overpass">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
                     </div>
                 </div>
             </section>
     
-            <section class="banner-buscador lg:grid lg:grid-cols-10 2xl:grid-cols-9 py-12 px-8 mb-12">
-                <header class="text-left lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-4">
-                    <h3 class="color-white mb-4">Los usuarios</h3>
-                    <p class="color-white">Úneteles a miles de jugadores que buscan <span class="color-four font-bold">lo mismo</span> que vos</p>
+            <section class="banner-buscador lg:grid lg:grid-cols-10 2xl:grid-cols-9 py-24 px-8 md:px-24 lg:px-0 mb-12">
+                <header class="text-left lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-8">
+                    <h3 class="color-white mb-2 russo">Los usuarios</h3>
+                    <p class="color-white overpass">Úneteles a miles de jugadores que buscan <span class="color-four font-bold">lo mismo</span> que vos</p>
                 </header>
                 <form class="users-form-search lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between" action="/users" method="GET">
-                    <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, languageas, habilidades, etc." type="search" name="username">
+                    <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search" name="username">
                     <button class="submit-lupa p-4" type="submit">
                         @component('components.svg.BuscarSVG')@endcomponent
                     </button>
                 </form>        
             </section>
     
-            <section class="profesores-destacados lg:grid lg:grid-cols-10 2xl:grid-cols-9 px-8 mb-12">
-                <header class="text-left lg:col-span-3 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-4">
-                    <h3 class="color-white mb-4">Profesores desatacados</h3>
-                    <p class="color-white">Conoce a los mejores mentores y aprende <span class="color-four">directamente</span> de ellos</p>
+            <section class="profesores-destacados lg:grid lg:grid-cols-10 2xl:grid-cols-9 px-8 py-12 mb-12 md:px-24 lg:px-0">
+                <header class="text-left lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-8">
+                    <h3 class="color-three mb-2 russo">Profesores desatacados</h3>
+                    <p class="color-two xl:text-lg overpass">Conoce a los mejores mentores y aprende <span class="color-four">directamente</span> de ellos</p>
                 </header>
-                <form class="users-form-search lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between mb-8" action="/teachers" method="GET">
-                    <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, languageas, habilidades, etc." type="search" name="username">
+                <form class="users-form-search lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 flex justify-between mb-10" action="/teachers" method="GET">
+                    <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search" name="username">
                     <button class="submit-lupa p-4" type="submit">
                         @component('components.svg.Buscar2SVG')@endcomponent
                     </button>
@@ -119,12 +119,12 @@
                 </main>
             </section>
             
-            <aside class="aside"></aside>
+            <aside class="aside lg:h-screen lg:w-full"></aside>
     
-            <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-9 mb-12 pt-8 pb-4">
-                <header class="lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-4 px-8 lg:px-0">
-                    <h3 class="color-white mb-4">Criterios de evaluación</h3>
-                    <p class="color-white">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
+            <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-9 py-24">
+                <header class="lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-8 px-8 lg:px-0">
+                    <h3 class="color-white mb-2 russo">Criterios de evaluación</h3>
+                    <p class="color-grey overpass font-thin">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
                 </header>
                 <main class="lg:col-span-10 2xl:col-span-9 relative">
                     @component('components.abilities.list', [
@@ -142,10 +142,10 @@
             </section>
         @endif
     
-        <section class="posts lg:grid lg:grid-cols-10 2xl:grid-cols-9 pb-4">
-            <header class="lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-4 px-8 lg:px-0">
-                <h3 class="color-white mb-4">Visita nuestro blog</h3>
-                <p class="color-white">Encontrarás los <span class="color-four font-bold">tips</span> mas valiosos y las discusiones mas interesantes </p>
+        <section class="posts lg:grid lg:grid-cols-10 2xl:grid-cols-9 my-24 pb-2">
+            <header class="lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-8 px-8 lg:px-0">
+                <h3 class="color-three mb-2 russo">Visita nuestro blog</h3>
+                <p class="color-three lg:text-lg overpass">Encontrarás los <span class="color-four font-bold">tips</span> mas valiosos y las discusiones mas interesantes </p>
             </header>
             <main class="lg:col-span-10 2xl:col-span-9 relative">
                 @component('components.blog.list', [
