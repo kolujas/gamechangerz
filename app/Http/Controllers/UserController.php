@@ -46,7 +46,13 @@
             }
             foreach ($user->reviews as $review) {
                 $review->and(['abilities', 'lesson', 'users']);
-                $review->users['from']->and(['teampro', 'files']);
+                $review->users['from']->and(['files']);
+                if ($review->users['from']->id_role === 1) {
+                    $review->users['from']->and(['teampro']);
+                }
+                if ($review->users['to']->id_role === 1) {
+                    $review->users['to']->and(['teampro']);
+                }
                 if ($user->id_role === 0) {
                     $review->and(['game']);
                 }
@@ -228,6 +234,8 @@
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+
+            dd($input);
 
             if ($user->username !== $input->username) {
                 $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);

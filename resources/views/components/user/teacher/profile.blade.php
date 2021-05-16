@@ -42,23 +42,28 @@
         ])
         @endcomponent
 
-        <section class="achievements relative lg:col-span-2 xl:col-span-6">
-            @component('components.achievement.list', [
-                'achievements' => $user->achievements
-            ])
-            @endcomponent
-        </section>
+        @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)
+            <section class="achievements relative lg:col-span-2 xl:col-span-6">
+                @component('components.achievement.list', [
+                    'achievements' => $user->achievements,
+                    'user' => $user,
+                ])
+                @endcomponent
+            </section>
+        @endif
 
-        <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
-            <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-4 xl:col-start-2 mb-8">
-                <h3 class="color-white russo">Reseñas</h3>
-            </header>
-            @component('components.review.users', [
-                'reviews' => $user->reviews,
-                'user' => $user,
-            ])
-            @endcomponent
-        </section>
+        @if (count($user->reviews))
+            <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
+                <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-4 xl:col-start-2 mb-8">
+                    <h3 class="color-white russo">Reseñas</h3>
+                </header>
+                @component('components.review.users', [
+                    'reviews' => $user->reviews,
+                    'user' => $user,
+                ])
+                @endcomponent
+            </section>
+        @endif
 
         @if ($user->description !== '')
             <section class="description lg:col-span-2 xl:col-span-5 xl:col-start-2 lg:ml-8 xl:ml-0">

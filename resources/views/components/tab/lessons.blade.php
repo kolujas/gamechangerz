@@ -1,4 +1,10 @@
-<section id="horarios" class="horarios tab-menu mb-20 lg:mr-8 lg:mb-0 xl:mx-0 p-8 lg:row-span-4 xl:col-span-3">
+<section id="horarios" class="horarios tab-menu mb-20 lg:mr-8 lg:mb-0 xl:mx-0 p-8 @if ((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) && count($user->reviews) && $user->description !== '')
+    lg:row-span-4
+@elseif (((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) && count($user->reviews)) || ((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) && $user->description !== '') || (count($user->reviews) && $user->description !== ''))
+    lg:row-span-3
+@elseif ((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) || count($user->reviews) || $user->description !== '')
+    lg:row-span-2
+@endif xl:col-span-3">
     @if (Auth::check() && Auth::user()->id_user === $user->id_user)
         <div class="actions w-full mb-8 lg:mb-0 flex justify-center items-center">
             <a href="#update" class="update-button btn btn-icon btn-one p-2">
@@ -16,8 +22,8 @@
         <li class="tab card flex justify-start">
             <a href="#online" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
-                    @component('components.svg.ClaseOnline2SVG')@endcomponent
-                    <h4 class="mt-4 overpass">Online</h4>
+                    @component('components.svg.ClaseOnline1SVG')@endcomponent
+                    <h4 class="mt-4">Online</h4>
                 </div>
             </a>
         </li>
@@ -85,7 +91,7 @@
                 @endforeach
             </table>
             <span class="block text-center color-five mt-4 russo">
-                AR$ <input type="number" name="prices[0]" class="form-input update-input" disabled value={{ $user->prices[0]->price }} placeholder="$$$"/> / h
+                AR$ <input type="number" name="prices[0]" class="form-input update-input" disabled value={{ $user->prices[0]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug)
@@ -96,7 +102,7 @@
         </li>
         <li id="offline" class="tab-content closed">
             <span class="block text-center color-five russo">
-                AR$ <input type="number" name="prices[1]" class="form-input update-input" disabled value={{ $user->prices[1]->price }} placeholder="$$$"/> / h
+                AR$ <input type="number" name="prices[1]" class="form-input update-input" disabled value={{ $user->prices[1]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug)
@@ -151,7 +157,7 @@
                 @endforeach
             </table>
             <span class="block text-center color-five russo">
-                AR$<input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="$$$"/> / h
+                AR$ <input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug)

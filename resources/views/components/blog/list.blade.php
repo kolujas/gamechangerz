@@ -38,7 +38,7 @@
         <li class="card mr-4 info">
             <div>
                 <main class="card-body p-4">
-                    <h4 class="color-four text-uppercase">No hay entradas que mostrar</h4>
+                    <h4 class="color-white text-uppercase">No hay entradas que mostrar</h4>
                 </main>
             </div>
         </li>

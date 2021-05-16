@@ -68,10 +68,12 @@
                 try {
                     $game = Game::find($slug);
                     $game->and(['abilities', 'users']);
+                    // dd($game->users);
                     foreach ($game->users as $user) {
-                        $user->and(['abilities', 'games', 'languages', 'teampro', 'prices', 'files']);
+                        $user->and(['abilities', 'games', 'languages', 'prices', 'files', 'teampro']);
                     }
                 } catch (\Throwable $th) {
+                    dd($th);
                     $error = $th;
                 }
             }

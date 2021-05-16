@@ -34,7 +34,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'id_teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video', 'important', 'stars'
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video', 'important', 'stars'
         ];
 
         /**
@@ -197,8 +197,12 @@
         
         public function files () {
             try {
-                $this->files = collect();
-                foreach (Folder::getFiles($this->folder) as $file) {
+                $this->files = collect([]);
+                $files = Folder::getFiles($this->folder);
+                if (!count($files)) {
+                    $this->files = false;
+                }
+                foreach ($files as $file) {
                     if (strpos($file, '-')) {
                         $fileExplode = explode('-', $file);
                         $fileExplode = explode('.', $fileExplode[1]);
@@ -250,7 +254,7 @@
         public function hours () {
             $this->hours = 0;
             foreach ($this->lessons as $lesson) {
-                if ($lesson->id_type === 1) {
+                if ($lesson->id_type === 1 || $lesson->id_type === 3) {
                     foreach (json_decode($lesson->days) as $day) {
                         if (Hour::has($day->hour->id_hour)) {
                             $hour = Hour::one($day->hour->id_hour);
@@ -372,13 +376,7 @@
          */
         public function teampro () {
             try {
-                if (!Teampro::has($this->id_teampro)) {
-                    throw (object)[
-                        'code' => 404,
-                        'message' => "Teampro with id = \"$this->id_teampro\" does not exist",
-                    ];
-                }
-                $this->teampro = Teampro::one($this->id_teampro);
+                $this->teampro = Teampro::parse((array) json_decode($this->teampro), $this);
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -435,7 +433,12 @@
             ]]]], 'teacher' => [
                 'update' => [
                     'rules' => [
-                        // 
+                        'username' => 'required|unique:users,username,{id_user},id_user|max:25',
+                        'name' => 'max:25',
+                        'description' => 'max:255',
+                        'langueages' => 'required',
+                        'teampro_name' => 'required|max:25',
+                        // 'teampro_logo' => 'required|mimetype:image/png,image/jpeg',
                     ], 'messages' => [
                         'es' => [
                             // 
