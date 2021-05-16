@@ -29,7 +29,7 @@
 	path = public/submodules/InputFileMakerJS
 	url = https://github.com/JuanCruzAGB/InputFileMakerJS.git
 [submodule ".\\public\\submodules\\HTMLCreatorJS"]
-	path = .\\public\\submodules\\HTMLCreatorJS
+	path = public/submodules/HTMLCreatorJS
 	url = https://github.com/JuanCruzAGB/HTMLCreatorJS.git
 [submodule ".\\public\\submodules\\ProvidersJS"]
 	path = public/submodules/ProvidersJS
