@@ -250,7 +250,6 @@
         public function hours () {
             $this->hours = 0;
             foreach ($this->lessons as $lesson) {
-                dd($lesson);
                 if ($lesson->id_type === 1) {
                     foreach (json_decode($lesson->days) as $day) {
                         if (Hour::has($day->hour->id_hour)) {

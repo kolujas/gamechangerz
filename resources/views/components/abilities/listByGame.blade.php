@@ -6,7 +6,7 @@
                     <div class="ability flex items-start flex-wrap">
                         <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
                         <div class="color-white font-bold pr-1 flex flex-auto">
-                            <span class="mr-2">{{ $ability->name }}</span>
+                            <span class="mr-2 overpass">{{ $ability->name }}</span>
                             @component($ability->icon)@endcomponent
                         </div>
                         <div class="stars flex">
@@ -18,7 +18,7 @@
                                 @endif
                             @endfor
                         </div>
-                        <p class="color-white mt-4">{!! $ability->description !!}</p>
+                        <p class="color-white mt-4 overpass">{!! $ability->description !!}</p>
                     </div>
                 </div>
             </li>
