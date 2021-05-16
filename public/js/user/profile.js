@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             });
         }
         if (document.querySelector('#achievements.modal')) {
+            console.log();
             modals.achievements = new ModalJS({
                 id: 'achievements',
             }, {

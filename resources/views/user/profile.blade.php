@@ -45,6 +45,8 @@
             'friends' => $user->friends,
         ])
         @endcomponent
+    @endif
+    @if (Auth::check() && Auth::user()->id_user === $user->id_user && $user->id_role === 1)
         @component('components.modal.achievements', [
             'achievements' => $user->achievements,
         ])
