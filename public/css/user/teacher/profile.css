@@ -237,6 +237,25 @@
     border-image-source: none;
 }
 
+.teacher .tab-menu input[type=number] {
+    background-color: transparent;
+    padding: 0;
+    width: calc(var(--width) + 2.5rem);
+    max-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.teacher .tab-menu input[type=number]:not([disabled]) {
+    background-color: black;
+    padding: .25rem .5rem;
+}
+
+.teacher .tab-menu input[type=number] + span {
+    position: fixed;
+    left: -100000000px;
+}
+
 /* ? MD */
 @media (min-width: 768px) {
     .teacher .info .abilities.cards li {

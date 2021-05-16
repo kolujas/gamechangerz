@@ -46,22 +46,40 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (document.querySelector(".teacher")) {
         let username_input = document.querySelector(".teacher .profile .info .username input");
         let username_text = document.querySelector(".teacher .profile .info .username span");
-        username_text.innerHTML = document.querySelector(".teacher .profile .info .username input").value;
+        username_text.innerHTML = username_input.value;
         username_input.setAttribute('style', `width: ${ username_text.offsetWidth }px`);
         let name_input = document.querySelector(".teacher .profile .info .name input");
         let name_text = document.querySelector(".teacher .profile .info .name span");
-        name_text.innerHTML = document.querySelector(".teacher .profile .info .name input").value;
+        name_text.innerHTML = name_input.value;
         name_input.setAttribute('style', `width: ${ name_text.offsetWidth }px`);
+        let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
+        let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");
+        prices_text[0].innerHTML = prices_input[0].value;
+        prices_text[1].innerHTML = prices_input[1].value;
+        prices_text[2].innerHTML = prices_input[2].value;
+        prices_input[0].setAttribute('style', `--width: ${ prices_text[0].offsetWidth }px`);
+        prices_input[1].setAttribute('style', `--width: ${ prices_text[1].offsetWidth }px`);
+        prices_input[2].setAttribute('style', `--width: ${ prices_text[2].offsetWidth }px`);
         username_input.addEventListener('keyup', function (e) {
             e.preventDefault();
-            username_text.innerHTML = username_input.value;
-            username_input.setAttribute('style', `width: ${ username_text.offsetWidth }px`);
+            username_text.innerHTML = this.value;
+            this.setAttribute('style', `width: ${ username_text.offsetWidth }px`);
         });
         name_input.addEventListener('keyup', function (e) {
             e.preventDefault();
-            name_text.innerHTML = name_input.value;
-            name_input.setAttribute('style', `width: ${ name_text.offsetWidth }px`);
+            name_text.innerHTML = this.value;
+            this.setAttribute('style', `width: ${ name_text.offsetWidth }px`);
         });
+        for (const key in prices_input) {
+            if (Object.hasOwnProperty.call(prices_input, key)) {
+                const input = prices_input[key];
+                input.addEventListener('keyup', function (e) {
+                    e.preventDefault();
+                    prices_text[key].innerHTML = this.value;
+                    this.setAttribute('style', `--width: ${ prices_text[key].offsetWidth }px`);
+                });
+            }
+        }
     }
 
     let modals = {};
