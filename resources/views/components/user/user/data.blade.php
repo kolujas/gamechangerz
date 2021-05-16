@@ -11,8 +11,8 @@
             @endif
         </div>
         <div class="username">
-            <h3 class="color-white mb-2"><input class="update-input form-input" placeholder="Nombre de usuario" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
-            <span class="font-bold color-four"><input class="@if (!$user->name)
+            <h3 class="color-white mb-2"><input class="update-input form-input russo" placeholder="Nombre de usuario" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
+            <span class="font-bold color-four overpass"><input class="@if (!$user->name)
                 hidden
             @endif update-input form-input" placeholder="Nombre" type="text" name="name" value="{{ old('name', $user->name) }}" disabled title="{{ $user->name }}"></span>
         </div>

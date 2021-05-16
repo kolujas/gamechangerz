@@ -66,6 +66,8 @@
 .teacher .info .languages li svg{
     height: 50%;
     width: 1.5rem;
+    position: relative;
+    top: 2px;
 }
 
 .teacher .info .teampro svg{
@@ -86,8 +88,11 @@
 }
 
 .teacher .info .abilities .stars svg {
-    margin-left: .3rem;
+    margin-left: .5rem;
+    width: 19px;
 }
+
+
 
 .teacher .banner figure img{
      width: 100%;
@@ -132,6 +137,10 @@
     overflow-x: scroll;
 }
 
+.teacher .reviews .card svg{
+    width: 24px;
+}
+
 .teacher .achievements ul li > div, .teacher .reviews ul li > div {
     min-width: 66.666666vw;
     background-color: var(--color-black);
@@ -169,6 +178,14 @@
 
 .teacher .description div{
     background-color: var(--color-black);
+}
+
+.teacher .blog .card-body{
+    padding-top: 1rem;
+}
+
+.teacher .blog .card h4{
+    color: var(--color-white);
 }
 
 .teacher .blog .card main span{
@@ -233,6 +250,10 @@
     border-image-source: none;
 }
 
+.teacher .abilities .text-profile, .teacher .abilities header h4{
+    color: var(--color-white);
+}
+
 .teacher .info .abilities.cards li > div:hover {
     border-image-source: none;
 }
@@ -260,6 +281,10 @@
 .teacher .tab-menu input[type=number] + span {
     position: fixed;
     left: -100000000px;
+}
+
+.teacher .horarios #online .precio{
+    font-family: var(--font-one);
 }
 
 /* ? MD */

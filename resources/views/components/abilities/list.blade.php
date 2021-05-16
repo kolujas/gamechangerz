@@ -5,7 +5,7 @@
                 <div>
                     <header class="p-4">
                         <h4 class="color-three russo">{{ $ability->name }}</h4>
-                        <p class="color-three leading-5 overpass">{!! $ability->description !!}</p>
+                        <p class="color-three leading-5 text-profile overpass">{!! $ability->description !!}</p>
                     </header>
                     <main>
                         <figure>
