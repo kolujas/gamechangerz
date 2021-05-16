@@ -4,7 +4,7 @@
             @csrf
             @method('post')
             <section>
-                <h3 class="color-four mb-12">¿Cuál juego querés tener?</h3>
+                <h3 class="color-four mb-12 russo">¿Cuál juego querés tener?</h3>
                 @foreach ($games as $game)
                     @if ($game->active)
                         <label class="text-white b-contain flex mb-6">
@@ -14,13 +14,13 @@
                                 @endif
                             @endforeach name="games[{{ $game->slug }}]">
                             <div class="b-input mr-2"></div>
-                            <div class="b-text">{{ $game->name }}</div>
+                            <div class="b-text overpass">{{ $game->name }}</div>
                         </label>
                     @endif
                 @endforeach
                 <div class="w-full flex justify-center mt-12">
                     <button class="btn btn-one btn-outline px-4 py-2">
-                        <span>Confirmar</span>
+                        <span class="russo">Confirmar</span>
                     </button>
                 </div>
             </section>

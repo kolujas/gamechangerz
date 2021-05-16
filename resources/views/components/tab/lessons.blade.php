@@ -17,7 +17,7 @@
             <a href="#online" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline2SVG')@endcomponent
-                    <h4 class="mt-4">Online</h4>
+                    <h4 class="mt-4 overpass">Online</h4>
                 </div>
             </a>
         </li>
@@ -25,7 +25,7 @@
             <a href="#offline" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline2SVG')@endcomponent
-                    <h4 class="mt-4">Offline</h4>
+                    <h4 class="mt-4 overpass">Offline</h4>
                 </div>
             </a>
         </li>
@@ -33,14 +33,14 @@
             <a href="#packs" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline3SVG')@endcomponent
-                    <h4 class="mt-4">Packs</h4>
+                    <h4 class="mt-4 overpass">Packs</h4>
                 </div>
             </a>
         </li>
     </ul>
     <ul class="tab-content-list">
         <li id="online" class="tab-content closed">
-            <table>
+            <table class="overpass">
                 @foreach ($days as $day)
                     <tr class="grid grid-cols-3 gap-4 items-center mb-6">
                         <th class="md:col-span-1">
@@ -56,7 +56,7 @@
                                                 checked
                                             @endif
                                         @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
-                                        <span class="color-white p-1">Mañana</span>
+                                        <span class="color-white p-1 overpass">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
                                     <label>
@@ -66,7 +66,7 @@
                                                 checked
                                             @endif
                                         @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
-                                        <span class="color-white p-1">Tarde</span>
+                                        <span class="color-white p-1 overpass">Tarde</span>
                                     </label>
                                 @else
                                     <label>
@@ -76,7 +76,7 @@
                                                 checked
                                             @endif
                                         @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
-                                        <span class="color-white p-1">Noche</span>
+                                        <span class="color-white p-1 overpass">Noche</span>
                                     </label>
                                 @endif
                             @endfor
@@ -84,24 +84,24 @@
                     </tr>
                 @endforeach
             </table>
-            <span class="block text-center color-five mt-4">
+            <span class="block text-center color-five mt-4 russo">
                 AR$ <input type="number" name="prices[0]" class="form-input update-input" disabled value={{ $user->prices[0]->price }} placeholder="$$$"/> / h
                 <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
-                    <span>Contratar</span>
+                    <span class="russo">Contratar</span>
                 </a>
             @endif
         </li>
         <li id="offline" class="tab-content closed">
-            <span class="block text-center color-five">
+            <span class="block text-center color-five russo">
                 AR$ <input type="number" name="prices[1]" class="form-input update-input" disabled value={{ $user->prices[1]->price }} placeholder="$$$"/> / h
                 <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
-                    <span>Contratar</span>
+                    <span class="russo">Contratar</span>
                 </a>
             @endif
         </li>
@@ -122,7 +122,7 @@
                                                 checked
                                             @endif
                                         @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
-                                        <span class="color-white p-1">Mañana</span>
+                                        <span class="color-white p-1 overpass">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
                                     <label>
@@ -132,7 +132,7 @@
                                                 checked
                                             @endif
                                         @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
-                                        <span class="color-white p-1">Tarde</span>
+                                        <span class="color-white p-1 overpass">Tarde</span>
                                     </label>
                                 @else
                                     <label>
@@ -142,7 +142,7 @@
                                                 checked
                                             @endif
                                         @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
-                                        <span class="color-white p-1">Noche</span>
+                                        <span class="color-white p-1 overpass">Noche</span>
                                     </label>
                                 @endif
                             @endfor
@@ -150,13 +150,13 @@
                     </tr>
                 @endforeach
             </table>
-            <span class="block text-center color-five">
-                AR$ <input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="$$$"/> / h
+            <span class="block text-center color-five russo">
+                AR$<input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="$$$"/> / h
                 <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
-                    <span>Contratar</span>
+                    <span class="russo">Contratar</span>
                 </a>
             @endif
         </li>

@@ -1,25 +1,25 @@
 <div>
     <section class="grid relative">
         <section class="flex px-8 pr-0 xl:px-0 mb-2">
-            <h2 class="username color-white">
+            <h2 class="username color-white russo">
                 <input class="update-input form-input" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
-                <span>{{ old('username', $user->username) }}</span>
+                <span class="russo">{{ old('username', $user->username) }}</span>
             </h2>
             <ul class="languages flex items-center ml-4">
                 @foreach ($user->languages as $language)
-                    <li class="mr-2" title={{ $language->name }}>@component($language->svg)@endcomponent</li>
+                    <li class="mr-2 overpass" title={{ $language->name }}>@component($language->svg)@endcomponent</li>
                 @endforeach
             </ul>
         </section>
         
         <section class="flex mb-8 px-8 pr-0 xl:px-0">
-            <h4 class="name color-four">
+            <h4 class="name color-four russo">
                 (<input class="update-input form-input" type="text" name="name" disabled value="{{ old('name', $user->name) }}">)
                 <span>{{ old('username', $user->username) }}</span>
             </h4>
             <div class="teampro flex items-center color-white text-sm ml-4">
-                <span class="mr-4">Team</span> 
-                <span class="color-four">{{ $user->teampro->name }}</span>
+                <span class="mr-4 overpass">Team</span> 
+                <span class="color-four overpass">{{ $user->teampro->name }}</span>
                 @component($user->teampro->svg)@endcomponent
             </div>
         </section>
@@ -28,8 +28,8 @@
             @foreach ($user->abilities as $ability)
                 <li class="card">
                     <div class="color-white flex justify-between items-center md:p-2">
-                        <span>{{ $ability->name }}</span>
-                        <div class="stars flex md:w-28 pl-4">
+                        <span class="overpass">{{ $ability->name }}</span>
+                        <div class="stars flex pl-4">
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $ability->stars)
                                     @component('components.svg.EstrellaSVG')@endcomponent

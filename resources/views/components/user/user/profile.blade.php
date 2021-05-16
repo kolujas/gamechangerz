@@ -43,7 +43,7 @@
     <section class="games lg:col-span-2 xl:col-span-5 xl:relative mb-20 mx-8 md:mr-8 lg:mx-0 lg:mb-0 lg:px-0 xl:mx-0">
         <header class="xl:col-span-3 xl:col-start-2">
             <h3 class="color-white flex items-center">
-                <span class="mr-2">Juegos</span>
+                <span class="mr-2 overpass">Juegos</span>
                 @if (Auth::check() && Auth::user()->id_user === $user->id_user)
                     <a href="#games" class="modal-button games btn btn-icon btn-one p-2">
                         <i class="fas fa-pen"></i>
