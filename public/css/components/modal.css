@@ -6,7 +6,11 @@
 }
 
 .login .modal-header h2, .register .modal-header h2{
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+}
+
+.signin #signin_language, #signin_date{
+    color: var(--color-grey);
 }
 
 .form-input{
@@ -621,10 +625,11 @@ a[href="#chat"].modal-button.chat span {
     padding-left: 1rem;
     color: #fff;
     font-size: .8rem;
+    font-size: var(--font-one);
 }
 
 #assigment #url{
-    height: 2.5rem;
+    font-size: var(--font-one);
 }
 
 
@@ -635,6 +640,7 @@ a[href="#chat"].modal-button.chat span {
 
 #assigment textarea{
     resize: none;
+    font-size: var(--font-one);
 }
 
 /* #assigment textarea:focus{

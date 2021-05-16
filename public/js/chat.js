@@ -101,7 +101,7 @@ export class Chat extends Class {
                     this.list.children[1].children[1].children[1].appendChild(li);
                 }
                     let link = document.createElement('a');
-                    link.classList.add('flex', 'color-white', 'items-center');
+                    link.classList.add('flex', 'color-white', 'items-center', 'overpass');
                     link.href = `#chat-${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug }`;
                     li.appendChild(link);
                     link.addEventListener('click', function (e) {
@@ -126,7 +126,7 @@ export class Chat extends Class {
                                 paragraph.innerHTML = `${paragraph.innerHTML})`;
     
                         let span = document.createElement('span');
-                        span.classList.add('icon', 'color-five');
+                        span.classList.add('icon', 'color-five', 'overpass');
                         link.appendChild(span);
                             let icon = document.createElement('icon');
                             icon.classList.add('fas', 'fa-chevron-right');
@@ -152,6 +152,7 @@ export class Chat extends Class {
                 let header = this.details.children[0].children[1];
                 header.href = `/users/${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].slug }/profile`;
                 header.children[1].innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].name })`;
+                header.children[1].classList.add('overpass');
                 for (const message of chat.messages) {
                     this.addMessage(chat.id_user_logged, message);
                 }
@@ -171,7 +172,7 @@ export class Chat extends Class {
         if (message.hasOwnProperty('says')) {
             li.classList.add((id_user_logged === message.id_user ? 'from' : 'to'));
                 let div = document.createElement('div');
-                div.classList.add('p-4');
+                div.classList.add('p-4', 'overpass');
                 li.appendChild(div);
                     let paragraph = document.createElement('p');
                     paragraph.innerHTML = message.says;
@@ -182,10 +183,10 @@ export class Chat extends Class {
                 li.appendChild(div);
                     let link = document.createElement('a');
                     link.href = `#assigment-${ message.assigment.slug }`;
-                    link.classList.add('flex', 'justify-end', 'flex-wrap', 'p-4', 'mb-4');
+                    link.classList.add('flex', 'justify-end', 'flex-wrap', 'p-4', 'mb-4', 'overpass');
                     div.appendChild(link);
                         let title = document.createElement('span');
-                        title.classList.add('w-full', 'text-center');
+                        title.classList.add('w-full', 'text-center', 'overpass');
                         title.innerHTML = message.assigment.title;
                         link.appendChild(title);
         }

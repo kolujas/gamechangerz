@@ -4,7 +4,8 @@
     --color-solid: var(--color-black);
     --border: var(--color-four);
     position: relative;
-    font-weight: bold;
+    /* font-weight: bold; */
+    font-size: .88rem;
     border-radius: .25rem;
     z-index: 1;
     color: var(--color-left);
