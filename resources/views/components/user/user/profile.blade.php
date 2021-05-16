@@ -20,9 +20,9 @@
                 <button class="update-button confirm hidden btn btn-icon btn-white p-2 mb-2">
                     <i class="fas fa-check"></i>
                 </button>
-                <button class="update-button cancel hidden btn btn-icon btn-three p-2 mb-2">
+                <a href="/users/{{ $user->slug }}/profile" class="update-button cancel hidden btn btn-icon btn-three p-2 mb-2">
                     <i class="fas fa-times"></i>
-                </button>
+                </a>
             </div>
         @endif
     </section>

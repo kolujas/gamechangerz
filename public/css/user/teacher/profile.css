@@ -27,7 +27,7 @@
     left: -3.5rem;
 }
 
-.teacher .profile .actions button.btn.btn-icon:last-of-type {
+.teacher .profile .actions button + a.btn.btn-icon {
     top: 3.5rem;
 }
 
@@ -195,7 +195,7 @@
     text-align: center;
 }
 
-.teacher .tab-menu .btn {
+.teacher .tab-menu .tab-menu-list .btn {
     width: 100%;
 }
 
@@ -259,17 +259,8 @@
         min-width: 15rem;
     }
 
-    .teacher .tab-menu .btn {
+    .teacher .tab-menu .tab-menu-list .btn {
         width: 33%;
-    }
-
-    .teacher .tab-menu .btn i {
-        right: calc(33% + 3rem);
-        transition: 500ms;
-    }
-    
-    .teacher .tab-menu .btn:hover i {
-        right: 33%;
     }
 }
 
@@ -341,13 +332,25 @@
         display: none;
     }
 
-    .teacher .tab-menu .btn {
+    .teacher .tab-menu .tab-menu-list .btn {
         width: 100%;
+    }
+
+    .teacher .tab-menu .update-button {
+        position: absolute;
+        top: 2rem;
+        right: -1.25rem;
+        margin: 0;
+    }
+
+    .teacher .tab-menu button.update-button + a.update-button {
+        top: 5rem;
     }
 }
 
 /* ? XL */
-@media (min-width: 1200px) {.teacher section.games .cards .card a {
+@media (min-width: 1200px) {
+    .teacher section.games .cards .card a {
         min-width: 100%;
     }
 

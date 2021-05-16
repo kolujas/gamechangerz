@@ -104,9 +104,9 @@
                 <button class="update-button form-submit update-form confirm hidden btn btn-icon btn-white p-2 mr-2">
                     <i class="fas fa-check"></i>
                 </button>
-                <button class="update-button cancel hidden btn btn-icon btn-three p-2 mr-2">
+                <a href="/users/{{ $user->slug }}/profile" class="update-button cancel hidden btn btn-icon btn-three p-2 mr-2">
                     <i class="fas fa-times"></i>
-                </button>
+                </a>
             </div>
     @endif
     @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0)

@@ -72,16 +72,16 @@
                             <button class="update-button confirm hidden btn btn-icon btn-white p-2 mr-2">
                                 <i class="fas fa-check"></i>
                             </button>
-                            <button class="update-button cancel hidden btn btn-icon btn-three p-2 mr-2">
+                            <a href="/users/{{ $user->slug }}/profile" class="update-button cancel hidden btn btn-icon btn-three p-2 mr-2">
                                 <i class="fas fa-times"></i>
-                            </button>
+                            </a>
                         @endif
                     </h3>
                 </header>
                 <div class="p-8">
                     <h4 class="color-white mb-4">Información</h4>
                     <span class="color-four font-bold block mb-8">Sobre {{ $user->name }}</span>
-                    <textarea name="description" disabled>{{ old('description', $user->description) }}</textarea>
+                    <textarea class="form-input update-input" name="description" disabled>{{ old('description', $user->description) }}</textarea>
                 </div>
             </section>
         @endif

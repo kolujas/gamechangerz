@@ -2,7 +2,7 @@
     <section class="grid relative">
         <section class="flex px-8 pr-0 xl:px-0 mb-2">
             <h2 class="username color-white">
-                <input class="update-input" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
+                <input class="update-input form-input" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
                 <span>{{ old('username', $user->username) }}</span>
             </h2>
             <ul class="languages flex items-center ml-4">
@@ -14,7 +14,7 @@
         
         <section class="flex mb-8 px-8 pr-0 xl:px-0">
             <h4 class="name color-four">
-                (<input class="update-input" type="text" name="name" disabled value="{{ old('name', $user->name) }}">)
+                (<input class="update-input form-input" type="text" name="name" disabled value="{{ old('name', $user->name) }}">)
                 <span>{{ old('username', $user->username) }}</span>
             </h4>
             <div class="teampro flex items-center color-white text-sm ml-4">
@@ -48,12 +48,12 @@
                 <a href="#update" class="update-button btn btn-icon btn-one p-2">
                     <i class="fas fa-pen"></i>
                 </a>
-                <button class="update-button confirm hidden btn btn-icon btn-white p-2 mr-2">
+                <button class="update-button confirm form-submit update-form hidden btn btn-icon btn-white p-2 mr-2">
                     <i class="fas fa-check"></i>
                 </button>
-                <button class="update-button cancel hidden btn btn-icon btn-three p-2 mr-2">
+                <a href="/users/{{ $user->slug }}/profile" class="update-button cancel hidden btn btn-icon btn-three p-2 mr-2">
                     <i class="fas fa-times"></i>
-                </button>
+                </a>
             @endif
         </section>
     </section>

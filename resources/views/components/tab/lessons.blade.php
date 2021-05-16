@@ -1,4 +1,17 @@
 <section id="horarios" class="horarios tab-menu mb-20 lg:mr-8 lg:mb-0 xl:mx-0 p-8 lg:row-span-4 xl:col-span-3">
+    @if (Auth::check() && Auth::user()->id_user === $user->id_user)
+        <div class="actions w-full mb-8 lg:mb-0 flex justify-center items-center">
+            <a href="#update" class="update-button btn btn-icon btn-one p-2">
+                <i class="fas fa-pen"></i>
+            </a>
+            <button class="update-button confirm hidden btn btn-icon btn-white p-2 mr-2">
+                <i class="fas fa-check"></i>
+            </button>
+            <a href="/users/{{ $user->slug }}/profile" class="update-button cancel hidden btn btn-icon btn-three p-2 ml-2">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    @endif
     <ul class="tabs tab-menu-list cards grid gap-4 grid-cols-3 mb-8">
         <li class="tab card flex justify-start">
             <a href="#online" class="tab-button color-white">
@@ -37,38 +50,32 @@
                             @for ($i = 1; $i <= 3; $i++)
                                 @if ($i === 1)
                                     <label>
-                                        <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
-                                            disabled
-                                        @endif type="checkbox"
+                                        <input disabled type="checkbox"
                                         @foreach ($day->hours as $hour)
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach name="hour[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
                                         <span class="color-white p-1">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
                                     <label>
-                                        <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
-                                            disabled
-                                        @endif type="checkbox"
+                                        <input disabled type="checkbox"
                                         @foreach ($day->hours as $hour)
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach name="hour[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
                                         <span class="color-white p-1">Tarde</span>
                                     </label>
                                 @else
                                     <label>
-                                        <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
-                                            disabled
-                                        @endif type="checkbox"
+                                        <input disabled type="checkbox"
                                         @foreach ($day->hours as $hour)
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach name="hour[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
                                         <span class="color-white p-1">Noche</span>
                                     </label>
                                 @endif
@@ -103,38 +110,32 @@
                             <td>
                                 @if ($i === 1)
                                     <label>
-                                        <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
-                                            disabled
-                                        @endif type="checkbox"
+                                        <input disabled type="checkbox"
                                         @foreach ($day->hours as $hour)
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach name="hour[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
                                         <span class="color-white p-1">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
                                     <label>
-                                        <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
-                                            disabled
-                                        @endif type="checkbox"
+                                        <input disabled type="checkbox"
                                         @foreach ($day->hours as $hour)
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach name="hour[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
                                         <span class="color-white p-1">Tarde</span>
                                     </label>
                                 @else
                                     <label>
-                                        <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
-                                            disabled
-                                        @endif type="checkbox"
+                                        <input disabled type="checkbox"
                                         @foreach ($day->hours as $hour)
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach name="hour[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
                                         <span class="color-white p-1">Noche</span>
                                     </label>
                                 @endif
