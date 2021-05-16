@@ -1,25 +1,25 @@
-<section id="horarios" class="horarios tab-menu mx-8 mb-20 lg:ml-0 lg:mb-0 xl:mx-0 p-8 lg:row-span-4 xl:col-span-3">
+<section id="horarios" class="horarios tab-menu mb-20 lg:mr-8 lg:mb-0 xl:mx-0 p-8 lg:row-span-4 xl:col-span-3">
     <ul class="tabs tab-menu-list cards grid gap-4 grid-cols-3 mb-8">
-        <li class="tab card">
-            <a href="#online" class="tab-button color-white flex justify-start">
+        <li class="tab card flex justify-start">
+            <a href="#online" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline2SVG')@endcomponent
                     <h4 class="mt-4">Online</h4>
                 </div>
             </a>
         </li>
-        <li class="tab card">
-            <a href="#offline" class="tab-button color-white flex justify-center">
+        <li class="tab card flex justify-center">
+            <a href="#offline" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline2SVG')@endcomponent
                     <h4 class="mt-4">Offline</h4>
                 </div>
             </a>
         </li>
-        <li class="tab card">
-            <a href="#packs" class="tab-button color-white flex justify-end">
+        <li class="tab card flex justify-end">
+            <a href="#packs" class="tab-button color-white">
                 <div class="flex justify-center align-center flex-wrap">
-                    @component('components.svg.ClaseOnline2SVG')@endcomponent
+                    @component('components.svg.ClaseOnline3SVG')@endcomponent
                     <h4 class="mt-4">Packs</h4>
                 </div>
             </a>
@@ -29,12 +29,12 @@
         <li id="online" class="tab-content closed">
             <table>
                 @foreach ($days as $day)
-                    <tr class="grid grid-cols-5 md:grid-cols-4 gap-4 items-center mb-6">
-                        <th class="col-span-2 md:col-span-1">
+                    <tr class="grid grid-cols-3 gap-4 items-center mb-6">
+                        <th class="md:col-span-1">
                             <span class="color-white">{{ $day->name }}</span>
                         </th>
-                        @for ($i = 1; $i <= 3; $i++)
-                            <td>
+                        <td class="col-span-2 grid gap-4 grid-cols-3">
+                            @for ($i = 1; $i <= 3; $i++)
                                 @if ($i === 1)
                                     <label>
                                         <input @if (!Auth::check() || Auth::user()->id_user !== $user->id_user)
@@ -72,8 +72,8 @@
                                         <span class="color-white p-1">Noche</span>
                                     </label>
                                 @endif
-                            </td>
-                        @endfor
+                            @endfor
+                        </td>
                     </tr>
                 @endforeach
             </table>

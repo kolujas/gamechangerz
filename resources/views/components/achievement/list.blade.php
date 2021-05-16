@@ -10,6 +10,9 @@
                 @endif
                 <span class="color-four font-bold pl-4 pr-2">{{ $achievement->title }}</span>
                 <span>{{ $achievement->description }}</span>
+                <a href="#achievements" class="btn btn-icon btn-one p-2">
+                    <i class="fas fa-pen"></i>
+                </a>
             </div>
         </li>
     @endforeach

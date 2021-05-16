@@ -155,6 +155,10 @@
     min-height: 3rem;
 }
 
+.teacher .tab-menu .tabs svg {
+    height: 3rem;
+}
+
 .teacher .reviews ul li div svg{
     margin-left: .5rem;
 }
@@ -176,7 +180,7 @@
 }
 
 .teacher .tab-menu .tabs a {
-    color: var(--color-one);
+    color: var(--color-two);
     transition: 500ms;
 }
 
@@ -187,7 +191,7 @@
 }
 
 .teacher .tab-menu .tabs a > div {
-    width: 100%;
+    max-width: fit-content;
     text-align: center;
 }
 
@@ -277,12 +281,23 @@
         padding-bottom: 1rem;
     }
 
-    .teacher section.games .cards .card a {
-        min-width: calc((100vw / 3) - 20rem);
+    .teacher section.games .cards .card {
+        width: calc(((100vw / 3) - 7rem) / 2);
+        min-width: calc(((100vw / 3) - 7rem) / 2);
     }
 
-    .teacher section.games .cards .card:last-of-type {
+    .teacher section.games .cards .card:last-of-type:not(:first-of-type, :nth-of-type(2)) {
+        width: calc((((100vw / 3) - 7rem) / 2) + 2rem);
+        min-width: calc((((100vw / 3) - 7rem) / 2) + 2rem);
         padding-right: 2rem;
+    }
+
+    .teacher section.games figure {
+        height: 5rem;
+    }
+
+    .teacher section.games .degradado {
+        font-size: .75rem;
     }
 
     .teacher .abilities.cards .card:first-of-type,
@@ -309,12 +324,12 @@
 
     .teacher .tab-menu {
         position: sticky;
-        top: 5rem;
+        top: 3rem;
         height: fit-content;
     }
 
     .teacher section.games .cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: initial;
     }
 
     .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
@@ -332,18 +347,24 @@
 }
 
 /* ? XL */
-@media (min-width: 1200px) {
-    .teacher section.games .cards .card {
-        min-width: 50%;
-    }
-
-    .teacher section.games .cards .card a {
+@media (min-width: 1200px) {.teacher section.games .cards .card a {
         min-width: 100%;
     }
 
     .teacher .abilities.cards .card:first-of-type,
     .teacher .blog.cards .card:first-of-type {
         padding-left: 10%;
+    }
+
+    .teacher section.games .cards .card {
+        width: calc(((100vw / 3) - 9rem) / 2);
+        min-width: calc(((100vw / 3) - 9rem) / 2);
+    }
+
+    .teacher section.games .cards .card:last-of-type:not(:first-of-type, :nth-of-type(2)) {
+        width: calc((((100vw / 3) - 9rem) / 2) + calc(((100vw / 10) - 4.5rem) + 5rem));
+        min-width: calc((((100vw / 3) - 9rem) / 2) + calc(((100vw / 10) - 4.5rem) + 5rem));
+        padding-right: calc(((100vw / 10) - 4.5rem) + 5rem);
     }
 
     .teacher .abilities.cards .card:last-of-type,
@@ -375,18 +396,6 @@
 
 /* ? 2XL */
 @media (min-width: 1536px) {
-    .teacher section.games .cards .card a {
-        min-width: calc((100vw / 10) * 3);
-    }
-
-    .teacher section.games .cards::before {
-        width: calc((100vw / 10) * 3);
-    }
-
-    .teacher section.games .cards .card:last-of-type {
-        padding-right: calc((100vw / 10) * 3);
-    }
-
     .teacher .achievements .cards::-webkit-scrollbar-button,
     .teacher .reviews .cards::-webkit-scrollbar-button {
         width: 20%;
@@ -401,5 +410,5 @@
     .teacher .achievements .cards::after,
     .teacher .reviews .cards::after {
         width: calc(100vw / 10);
- 3  }
+    }
 }

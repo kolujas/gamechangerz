@@ -1,4 +1,6 @@
-<main class="teacher">
+<form id="update-form" action="/users/{{ $user->slug }}/update" method="post"  class="teacher">
+    @csrf
+    @method('POST')
     <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-10 lg:gap-20">
         <header class="info grid lg:col-span-2 xl:col-span-5 xl:col-start-2 pt-20">
             @component('components.user.teacher.data', [
@@ -7,7 +9,7 @@
             @endcomponent
         </header>
         
-        <section class="games xl:col-span-3 xl:relative mx-8 md:mx-0 md:px-8 lg:px-0 mb-20">
+        <section class="games xl:col-span-4 xl:relative mx-8 md:mx-0 md:px-8 lg:px-0 mb-20">
             <header class="mb-6 mt-12">
                 <h3 class="color-white flex items-center">
                     <span class="mr-2">Juegos</span>
@@ -45,9 +47,6 @@
                 'achievements' => $user->achievements
             ])
             @endcomponent
-            <a href="#achievements" class="btn btn-icon btn-one p-2">
-                <i class="fas fa-pen"></i>
-            </a>
         </section>
 
         <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
@@ -120,4 +119,4 @@
             @endcomponent           
         </main>
     </section>
-</main>
+</form>
