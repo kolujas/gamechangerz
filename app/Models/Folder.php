@@ -8,6 +8,9 @@
     class Folder extends Model {
         static public function getFiles ($route, $storage = true) {
             if ($storage) {
+                if (!count(Storage::disk('public')->allFiles($route))) {
+                    return [];
+                }
                 return Storage::disk('public')->allFiles($route);
             } else {
                 // 

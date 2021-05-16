@@ -37,7 +37,9 @@
                     <a href="/users/{{ $review->users['from']->slug }}/profile" class="btn btn-text btn-white grid grid-cols-2">
                         <h3 class="text-2xl col-span-2">{{ $review->users['from']->username }}</h3>
                         <span>{{ $review->users['from']->name }}</span>
-                        @component($review->users['from']->teampro->svg)@endcomponent
+                        <figure>
+                            <img src={{ asset("/storage/" . $review->users['from']->teampro->logo) }} alt="{{ $review->users['from']->teampro->name }}">
+                        </figure>
                     </a>
                     <a class="btn btn-outline btn-one mt-4 block" href="#">
                         <span>Leer más</span>

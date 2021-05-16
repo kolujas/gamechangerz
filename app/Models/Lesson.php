@@ -30,7 +30,7 @@
         ], [
             'id_type' => 2,
             'name' => 'Offline',
-            'svg' => 'components.svg.ClaseOnline1SVG',
+            'svg' => 'components.svg.ClaseOnline2SVG',
             'slug' => 'offline',
         ], [
             'id_type' => 3,

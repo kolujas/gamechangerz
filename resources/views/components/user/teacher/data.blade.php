@@ -18,9 +18,14 @@
                 <span>{{ old('username', $user->username) }}</span>
             </h4>
             <div class="teampro flex items-center color-white text-sm ml-4">
-                <span class="mr-4">Team</span> 
-                <span class="color-four">{{ $user->teampro->name }}</span>
-                @component($user->teampro->svg)@endcomponent
+                <span class="mr-2">Team</span> 
+                <div class="color-four mr-2">
+                    <input name="teampro_name" disabled class="form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
+                    <span>{{ old('teampro_name', $user->teampro->name) }}</span>
+                </div>
+                <figure>
+                    <img src={{ asset("storage/" . $user->teampro->logo) }} alt="{{ $user->teampro->name }} logo"/>
+                </figure>
             </div>
         </section>
 

@@ -25,7 +25,7 @@
                 $table->json('days')->nullable()->default("[]");
                 $table->string('name')->nullable();
                 $table->tinyInteger('id_role')->default(0);
-                $table->tinyInteger('id_teampro')->nullable();
+                $table->json('teampro')->nullable();
                 $table->json('prices')->nullable()->default("[]");
                 $table->boolean('teammate')->nullable()->default(1);
                 $table->string('video')->nullable();

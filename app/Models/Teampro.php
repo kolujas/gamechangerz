@@ -6,52 +6,23 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Teampro extends Model {
-        /** @var string Table primary key name */
-        protected $primaryKey = 'id_teampro';
-
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_teampro', 'name', 'svg', 'slug',
+            'name', 'logo',
         ];
-
-        /** @var array Teampro options */
-        static $options = [[
-            'id_teampro' => 1,
-            'name' => 'Astralis',
-            'svg' => 'components.svg.TeamSVG',
-            'slug' => 'astralis',
-        ]];
-
-        /**
-         * * Check if a Teampro exists.
-         * @param string $field 
-         * @return boolean
-         */
-        static public function has ($field) {
-            $found = false;
-            foreach (Teampro::$options as $teampro) {
-                $teampro = new Teampro($teampro);
-                if ($teampro->id_teampro === $field) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
 
         /**
          * * Returns a Teampro.
-         * @param string $field
+         * @param string $data = "{\"name\":\"astralis\"}"
          * @return Teampro
          */
-        static public function one ($field = '') {
-            foreach (Teampro::$options as $teampro) {
-                $teampro = new Teampro($teampro);
-                if ($teampro->id_teampro === $field) {
-                    return $teampro;
-                }
-            }
+        static public function parse ($data = [], $user = null) {
+            return new Teampro([
+                'name' => (isset($data['name']) ? $data['name'] : null),
+                'logo' => (isset($user->files['teampro']) ? $user->files['teampro'] : null),
+            ]);
         }
     }

@@ -100,11 +100,12 @@
     font-size: .88rem;
 }
 
-/* video section */
-
-/* .video-section{
-    background: url('../../img/logos/027-hive_con_isotipo.png');
-} */
+.teachers .teacher .teampro img {
+    width: 100%;
+    height: 2rem;
+    object-fit: contain;
+    object-position: left;
+}
 
 .video-section header figure{
     width: 3rem;
