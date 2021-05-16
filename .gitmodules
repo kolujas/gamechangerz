@@ -16,9 +16,6 @@
 [submodule ".\\public\\submodules\\DropdownJS"]
 	path = public/submodules/DropdownJS
 	url = https://github.com/JuanCruzAGB/DropdownJS.git
-[submodule ".\\public\\submodules\\NavMenuJS"]
-	path = public/submodules/NavMenuJS
-	url = https://github.com/JuanCruzAGB/NavMenuJS.git
 [submodule ".\\public\\submodules\\InputDateMakerJS"]
 	path = public/submodules/InputDateMakerJS
 	url = https://github.com/JuanCruzAGB/InputDateMakerJS.git
@@ -28,12 +25,15 @@
 [submodule ".\\public\\submodules\\ModalJS"]
 	path = public/submodules/ModalJS
 	url = https://github.com/JuanCruzAGB/ModalJS.git
-[submodule ".\\public\\submodules\\ProvidersJS"]
-	path = public/submodules/ProvidersJS
-	url = https://github.com/JuanCruzAGB/ProvidersJS.git
 [submodule ".\\public\\submodules\\InputFileMakerJS"]
 	path = public/submodules/InputFileMakerJS
 	url = https://github.com/JuanCruzAGB/InputFileMakerJS.git
 [submodule ".\\public\\submodules\\HTMLCreatorJS"]
 	path = .\\public\\submodules\\HTMLCreatorJS
 	url = https://github.com/JuanCruzAGB/HTMLCreatorJS.git
+[submodule ".\\public\\submodules\\ProvidersJS"]
+	path = public/submodules/ProvidersJS
+	url = https://github.com/JuanCruzAGB/ProvidersJS.git
+[submodule ".\\public\\submodules\\NavMenuJS"]
+	path = public/submodules/NavMenuJS
+	url = https://github.com/JuanCruzAGB/NavMenuJS.git
