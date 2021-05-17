@@ -9,7 +9,7 @@
             <h2 class="color-four text-center russo">Registrate</h2>
         </header>
         <label class="input-group grid mb-6">
-            <input class="form-input px-5 py-4 overpass" type="text" name="signin_username" id="signin_username" placeholder="Nombre de usuario" value={{ old('signin_username', '') }}>
+            <input class="form-input px-5 py-4 overpass" type="text" name="signin_username" id="signin_username" placeholder="Apodo" value={{ old('signin_username', '') }}>
             @if ($errors->has('signin_username'))
                 <span class="error support support-box hidden support-signin_username overpass">{{ $errors->first('signin_username') }}</span>
             @else

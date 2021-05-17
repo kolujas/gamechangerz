@@ -177,4 +177,71 @@
             }
             return $hours;
         }
+
+        static public function stringify ($hoursToParse = []) {
+            $hours = [];
+            foreach ($hoursToParse as $time => $value) {
+                if ($time === 0) {
+                    $hours[] = [
+                        "id_hour" => 2,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 3,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 4,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 5,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 6,
+                    ];
+                }
+                if ($time === 1) {
+                    $hours[] = [
+                        "id_hour" => 7,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 8,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 9,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 10,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 11,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 12,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 13,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 14,
+                    ];
+                }
+                if ($time === 2) {
+                    $hours[] = [
+                        "id_hour" => 1,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 15,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 16,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 17,
+                    ];
+                    $hours[] = [
+                        "id_hour" => 18,
+                    ];
+                }
+            }
+            return json_encode($hours);
+        }
     }

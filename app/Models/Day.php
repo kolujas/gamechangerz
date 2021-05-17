@@ -145,4 +145,15 @@
             }
             return $days;
         }
+
+        static public function stringify ($daysToParse = []) {
+            $days = [];
+            foreach ($daysToParse as $id_day => $hours) {
+                $days[] = [
+                    "id_day" => $id_day,
+                    "hours" => Hour::stringify($hours),
+                ];
+            }
+            return json_encode($days);
+        }
     }

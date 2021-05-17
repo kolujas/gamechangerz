@@ -81,5 +81,6 @@ class Kernel extends HttpKernel
         'user.not.checkout' => \App\Http\Middleware\CheckUserDoesNotOwnCheckout::class,
         'user.exist' => \App\Http\Middleware\CheckUserExist::class,
         'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
+        'user.role.is.user' => \App\Http\Middleware\CheckUserRoleIsUser::class,
     ];
 }

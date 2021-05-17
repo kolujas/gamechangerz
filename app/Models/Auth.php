@@ -12,7 +12,7 @@
                     'password' => 'required',
                 ], 'messages' => [
                     'es' => [
-                        'data.required' => 'El correo o el nombre de usuario son obligatorios.',
+                        'data.required' => 'El correo o el apodo son obligatorios.',
                         'password.required' => 'La contraseña es obligatoria.',
             ]]], 'signin' => [
                 'rules' => [
@@ -24,8 +24,8 @@
                     'accept' => 'required',
                 ], 'messages' => [
                     'es' => [
-                        'username.required' => 'El nombre de usuario es obligatorio.',
-                        'username.unique' => 'Ese nombre de usuario ya se encuentra en uso.',
+                        'username.required' => 'El apodo es obligatorio.',
+                        'username.unique' => 'Ese apodo ya se encuentra en uso.',
                         'email.required' => 'El correo es obligatorio.',
                         'email.email' => 'El correo debe ser formato mail (ejemplo@correo.com).',
                         'email.unique' => 'Ese correo ya se encuentra en uso.',

@@ -34,7 +34,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'teampro', 'languages', 'lessons', 'name', 'password', 'price', 'slug', 'teammate', 'username', 'video', 'important', 'stars'
+            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'teampro', 'languages', 'lessons', 'name', 'password', 'prices', 'slug', 'teammate', 'username', 'video', 'important', 'stars', 'days',
         ];
 
         /**
@@ -184,7 +184,13 @@
          */
         public function days () {
             try {
-                $this->days = Day::parse(json_decode($this->days));
+                $days = json_decode($this->days);
+                foreach ($days as $day) {
+                    if (!is_array($day->hours)) {
+                        $day->hours = json_decode($day->hours);
+                    }
+                }
+                $this->days = Day::parse($days);
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -424,24 +430,34 @@
                     'rules' => [
                         'username' => 'required|unique:users,username,{id_user},id_user|max:25',
                         'name' => 'max:25',
+                        // 'profile' => 'mimetype:image/png,image/jpeg',
+                        // 'banner' => 'mimetype:image/png,image/jpeg',
                     ], 'messages' => [
                         'es' => [
-                            'username.required' => 'El nombre de usuario es obligatorio.',
-                            'username.unique' => 'Ese nombre de usuario ya esta en uso.',
-                            'username.max' => 'El nombre de usuario no puede tener más de :max caracteres.',
+                            'username.required' => 'El apodo es obligatorio.',
+                            'username.unique' => 'Ese apodo ya esta en uso.',
+                            'username.max' => 'El apodo no puede tener más de :max caracteres.',
                             'name.max' => 'El nombre no puede tener más de :max caracteres.',
             ]]]], 'teacher' => [
                 'update' => [
                     'rules' => [
                         'username' => 'required|unique:users,username,{id_user},id_user|max:25',
-                        'name' => 'max:25',
+                        'name' => 'required|max:25',
                         'description' => 'max:255',
-                        'langueages' => 'required',
                         'teampro_name' => 'required|max:25',
                         // 'teampro_logo' => 'required|mimetype:image/png,image/jpeg',
+                        // 'prices' => 'required',
+                        // 'hours' => 'required',
                     ], 'messages' => [
                         'es' => [
-                            // 
+                            'username.required' => 'El apodo es obligatorio.',
+                            'username.unique' => 'Ese apodo ya esta en uso.',
+                            'username.max' => 'El apodo no puede tener más de :max caracteres.',
+                            'name.required' => 'El nombre es obligatorio.',
+                            'name.max' => 'El nombre no puede tener más de :max caracteres.',
+                            'description.max' => 'La descripción no puede tener más de :max caracteres.',
+                            'teampro_name.required' => 'El nombre de tu equipo es obligatorio.',
+                            'teampro_name.max' => 'El nombre de tu equipo no puede tener más de :max caracteres.',
         ]]]]];
 
        /**

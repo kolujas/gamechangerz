@@ -491,6 +491,7 @@
 
     .slider-container header{
         width: 48%;
+        padding-left: calc(((100vw - (5rem * 10)) / 10) + 5rem);
     }
 
     /* video section */

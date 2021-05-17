@@ -47,11 +47,15 @@ document.addEventListener('DOMContentLoaded', function (e) {
         let username_input = document.querySelector(".teacher .profile .info .username input");
         let username_text = document.querySelector(".teacher .profile .info .username span");
         username_text.innerHTML = username_input.value;
-        username_input.setAttribute('style', `width: ${ username_text.offsetWidth }px`);
+        username_input.setAttribute('style', `--width: ${ username_text.offsetWidth }px`);
         let name_input = document.querySelector(".teacher .profile .info .name input");
         let name_text = document.querySelector(".teacher .profile .info .name span");
         name_text.innerHTML = name_input.value;
-        name_input.setAttribute('style', `width: ${ name_text.offsetWidth }px`);
+        name_input.setAttribute('style', `--width: ${ name_text.offsetWidth }px`);
+        let teampro_name_input = document.querySelector(".teacher .profile .info .teampro div input");
+        let teampro_name_text = document.querySelector(".teacher .profile .info .teampro div span");
+        teampro_name_text.innerHTML = teampro_name_input.value;
+        teampro_name_input.setAttribute('style', `--width: ${ teampro_name_text.offsetWidth }px`);
         let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
         let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");
         prices_text[0].innerHTML = prices_input[0].value;
@@ -63,12 +67,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
         username_input.addEventListener('keyup', function (e) {
             e.preventDefault();
             username_text.innerHTML = this.value;
-            this.setAttribute('style', `width: ${ username_text.offsetWidth }px`);
+            this.setAttribute('style', `--width: ${ username_text.offsetWidth }px`);
         });
         name_input.addEventListener('keyup', function (e) {
             e.preventDefault();
             name_text.innerHTML = this.value;
-            this.setAttribute('style', `width: ${ name_text.offsetWidth }px`);
+            this.setAttribute('style', `--width: ${ name_text.offsetWidth }px`);
+        });
+        teampro_name_input.addEventListener('keyup', function (e) {
+            e.preventDefault();
+            teampro_name_text.innerHTML = this.value;
+            this.setAttribute('style', `--width: ${ teampro_name_text.offsetWidth }px`);
         });
         for (const key in prices_input) {
             if (Object.hasOwnProperty.call(prices_input, key)) {
@@ -108,11 +117,19 @@ document.addEventListener('DOMContentLoaded', function (e) {
             });
         }
         if (document.querySelector('#achievements.modal')) {
-            console.log();
             modals.achievements = new ModalJS({
                 id: 'achievements',
             }, {
                 open: URL.findHashParameter() === 'achievements',
+                detectHash: true,
+                outsideClick: true,
+            });
+        }
+        if (document.querySelector('#languages.modal')) {
+            modals.languages = new ModalJS({
+                id: 'languages',
+            }, {
+                open: URL.findHashParameter() === 'languages',
                 detectHash: true,
                 outsideClick: true,
             });

@@ -72,7 +72,7 @@
 /* ? MD */
 @media(min-width: 768px){
     .blog.cards .card > a {
-        width: 15rem;
+        width: 23rem;
     }
 
     .blog.cards .card > div {

@@ -38,7 +38,7 @@
                 if (!Auth::attempt(['password' => $input->password, 'username' => $input->data], isset($input->remember))) {
                     return redirect()->back()->withInput()->with('status', [
                         'code' => 401,
-                        'message' => 'Correo, nombre de usuario, y/o contraseña incorrectos.',
+                        'message' => 'Correo, apodo, y/o contraseña incorrectos.',
                     ]);
                 }
             }

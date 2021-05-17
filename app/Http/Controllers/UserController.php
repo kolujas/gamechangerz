@@ -7,6 +7,7 @@
     use App\Models\Game;
     use App\Models\Lesson;
     use App\Models\Post;
+    use App\Models\Price;
     use App\Models\User;
     use Auth;
     use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -47,6 +48,7 @@
             foreach ($user->reviews as $review) {
                 $review->and(['abilities', 'lesson', 'users']);
                 $review->users['from']->and(['files']);
+                $review->users['to']->and(['files']);
                 if ($review->users['from']->id_role === 1) {
                     $review->users['from']->and(['teampro']);
                 }
@@ -235,18 +237,25 @@
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            dd($input);
-
             if ($user->username !== $input->username) {
                 $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
             }
-            if (!isset($input->teammate)) {
-                $input->teammate = 0;
-            } else {
-                $input->teammate = 1;
+            if ($user->id_role === 0) {
+                if (!isset($input->teammate)) {
+                    $input->teammate = 0;
+                } else {
+                    $input->teammate = 1;
+                }
+                if (!isset($input->name)) {
+                    $input->name = null;
+                }
             }
-            if (!isset($input->name)) {
-                $input->name = null;
+            if ($user->id_role === 1) {
+                if (!isset($input->description)) {
+                    $input->description = null;
+                }
+                $input->days = Day::stringify($input->days);
+                $input->prices = Price::stringify($input->prices);
             }
 
             $user->update((array) $input);

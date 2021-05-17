@@ -51,6 +51,10 @@
             'achievements' => $user->achievements,
         ])
         @endcomponent
+        @component('components.modal.languages', [
+            'languages' => $user->languages,
+        ])
+        @endcomponent
     @endif
 @endsection
 

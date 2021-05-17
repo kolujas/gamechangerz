@@ -54,7 +54,7 @@
 
         @if (count($user->reviews))
             <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
-                <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-4 xl:col-start-2 mb-8">
+                <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-6 mb-8">
                     <h3 class="color-white russo">Reseñas</h3>
                 </header>
                 @component('components.review.users', [
@@ -65,7 +65,7 @@
             </section>
         @endif
 
-        @if ($user->description !== '')
+        @if (($user->description !== '' && $user->description !== null) || (Auth::check() && Auth::user()->id_user === $user->id_user))
             <section class="description lg:col-span-2 xl:col-span-5 xl:col-start-2 lg:ml-8 xl:ml-0">
                 <header class="mb-8 pl-8 lg:pl-0">
                     <h3 class="color-white flex items-center">
@@ -86,7 +86,7 @@
                 <div class="p-8">
                     <h4 class="color-white mb-4 russo">Información</h4>
                     <span class="color-four font-bold block mb-8 overpass">Sobre {{ $user->name }}</span>
-                    <textarea class="form-input update-input overpass" name="description" disabled>{{ old('description', $user->description) }}</textarea>
+                    <textarea class="form-input update-input overpass" name="description" placeholder="Descripción" disabled>{{ old('description', $user->description) }}</textarea>
                 </div>
             </section>
         @endif

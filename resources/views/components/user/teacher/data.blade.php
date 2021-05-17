@@ -2,25 +2,32 @@
     <section class="grid relative">
         <section class="flex px-8 pr-0 xl:px-0 mb-2">
             <h2 class="username color-white russo">
-                <input class="update-input form-input" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
+                <input class="update-input form-input" placeholder="Apodo" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
                 <span class="russo">{{ old('username', $user->username) }}</span>
             </h2>
-            <ul class="languages flex items-center ml-4">
-                @foreach ($user->languages as $language)
-                    <li class="mr-2 overpass" title={{ $language->name }}>@component($language->svg)@endcomponent</li>
-                @endforeach
-            </ul>
+            <div class="languages flex items-center">
+                <ul class="languages flex items-center ml-4">
+                    @foreach ($user->languages as $language)
+                        <li class="mr-2 overpass" title={{ $language->name }}>@component($language->svg)@endcomponent</li>
+                    @endforeach
+                </ul>
+                @if (Auth::check() && Auth::user()->id_user === $user->id_user)
+                    <a href="#languages" class="modal-button languages btn btn-icon btn-one p-2">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                @endif
+            </div>
         </section>
         
         <section class="flex mb-8 px-8 pr-0 xl:px-0">
             <h4 class="name color-four russo">
-                (<input class="update-input form-input" type="text" name="name" disabled value="{{ old('name', $user->name) }}">)
+                (<input class="update-input form-input" type="text" name="name" placeholder="Nombre" disabled value="{{ old('name', $user->name) }}">)
                 <span>{{ old('username', $user->username) }}</span>
             </h4>
             <div class="teampro flex items-center color-white text-sm ml-4">
                 <span class="mr-2 overpass">Team</span> 
                 <div class="color-four mr-2 overpass">
-                    <input name="teampro_name" disabled class="form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
+                    <input name="teampro_name" disabled placeholder="Nombre" class="form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
                     <span>{{ old('teampro_name', $user->teampro->name) }}</span>
                 </div>
                 <figure>

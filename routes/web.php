@@ -59,7 +59,7 @@
             Route::post('/users/{slug}/update', [UserController::class, 'update'])->name('user.update');
         });
         Route::get('/users/{slug}/profile', [UserController::class, 'profile'])->name('user.profile');
-        Route::middleware(['auth', 'user.not.checkout', 'user.is.teacher', 'lesson.type.exist'])->group(function () {
+        Route::middleware(['auth', 'user.not.checkout', 'user.is.teacher', 'user.role.is.user', 'lesson.type.exist'])->group(function () {
             Route::get('/users/{slug}/checkout/{type}', [UserController::class, 'checkout'])->name('user.checkout');
         });
     });

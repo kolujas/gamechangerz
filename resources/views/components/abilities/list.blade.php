@@ -4,7 +4,7 @@
             <div style="background: url(/img/{{ $ability->background }}) no-repeat center center; background-size: cover;">
                 <div>
                     <header class="p-4">
-                        <h4 class="color-three russo">{{ $ability->name }}</h4>
+                        <h4 class="color-three russo mb-2">{{ $ability->name }}</h4>
                         <p class="color-three leading-5 text-profile overpass">{!! $ability->description !!}</p>
                     </header>
                     <main>

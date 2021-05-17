@@ -61,7 +61,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][0]">
                                         <span class="color-white p-1 overpass">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
@@ -71,7 +71,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][1]">
                                         <span class="color-white p-1 overpass">Tarde</span>
                                     </label>
                                 @else
@@ -81,7 +81,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][2]">
                                         <span class="color-white p-1 overpass">Noche</span>
                                     </label>
                                 @endif
@@ -94,7 +94,7 @@
                 AR$ <input type="number" name="prices[0]" class="form-input update-input" disabled value={{ $user->prices[0]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
             </span>
-            @if (Auth::check() && Auth::user()->slug !== $user->slug)
+            @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
                     <span class="russo">Contratar</span>
                 </a>
@@ -105,7 +105,7 @@
                 AR$ <input type="number" name="prices[1]" class="form-input update-input" disabled value={{ $user->prices[1]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
             </span>
-            @if (Auth::check() && Auth::user()->slug !== $user->slug)
+            @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
                     <span class="russo">Contratar</span>
                 </a>
@@ -127,7 +127,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][0]">
                                         <span class="color-white p-1 overpass">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
@@ -137,7 +137,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][1]">
                                         <span class="color-white p-1 overpass">Tarde</span>
                                     </label>
                                 @else
@@ -147,7 +147,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="hours[{{ $hour->id_hour }}]">
+                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][2]">
                                         <span class="color-white p-1 overpass">Noche</span>
                                     </label>
                                 @endif
@@ -160,7 +160,7 @@
                 AR$ <input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
             </span>
-            @if (Auth::check() && Auth::user()->slug !== $user->slug)
+            @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
                     <span class="russo">Contratar</span>
                 </a>

@@ -35,7 +35,7 @@
                 if (!Auth::attempt(['password' => $input->password, 'username' => $input->data], isset($input->remember))) {
                     return response()->json([
                         'code' => 404,
-                        'message' => 'Correo, nombre de usuario, y/o contraseña incorrectos.',
+                        'message' => 'Correo, apodo, y/o contraseña incorrectos.',
                     ]);
                 }
             }
@@ -91,7 +91,7 @@
             if (!Auth::attempt(['password' => $password, 'email' => $input->email], isset($input->remember))) {
                 return response()->json([
                     'code' => 404,
-                    'message' => 'Correo, nombre de usuario, y/o contraseña incorrectos.',
+                    'message' => 'Correo, apodo, y/o contraseña incorrectos.',
                 ]);
             }
 
