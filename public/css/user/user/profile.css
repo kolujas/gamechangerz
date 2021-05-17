@@ -175,7 +175,16 @@
 }
 
 .user .reviews .games figure {
-    height: 6rem;
+    height: 3rem;
+}
+
+.user .reviews .games header {
+    padding: .5rem 0;
+}
+
+.user .reviews header a:last-child{
+    background: var(--color-black);
+    height: 2rem;
 }
 
 .user .degradado{
@@ -220,8 +229,22 @@
     padding-right: 0;
 }
 
-.user .reviews > ul li:not(:last-child) {
+.user .reviews > ul li .abilities li{
+    margin-bottom: .5rem;
+    font-size: .88rem;
+}
+
+.user .reviews > ul > li .stars{
+    position: relative;
+    bottom: 1px;
+}
+
+.user .reviews > ul > li{
     margin-bottom: 2rem;
+}
+
+.user .reviews > ul > li .abilities li:first-of-type {
+    margin-top: 1rem;
 }
 
 /* ? MD */
@@ -368,5 +391,9 @@
 @media (min-width: 1536px) {
     .user > .games .cards{
         grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .user .cardota .image{
+        width: 12rem;
     }
 }

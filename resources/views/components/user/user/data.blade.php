@@ -11,7 +11,7 @@
             @endif
         </div>
         <div class="username">
-            <h3 class="color-white mb-2"><input class="update-input form-input russo" placeholder="Apodo" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
+            <h3 class="color-white mb-2 overpass"><input class="update-input form-input russo" placeholder="Apodo" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
             <span class="font-bold color-four overpass"><input class="@if (!$user->name)
                 hidden
             @endif update-input form-input" placeholder="Nombre" type="text" name="name" value="{{ old('name', $user->name) }}" disabled title="{{ $user->name }}"></span>
@@ -56,22 +56,22 @@
                 @if (count($user->lessons))
                     <li class="color-white my-8 font-bold">
                         <a href="#lessons" class="btn btn-text btn-white font-bold">
-                            <span>Total clases tomadas:</span>
-                            <span class="color-four">{{ count($user->lessons) }}</span>
+                            <span class="overpass">Total clases tomadas:</span>
+                            <span class="color-four overpass">{{ count($user->lessons) }}</span>
                         </a>
                     </li>
                 @endif
                 @if ($user->hours)
                     <li class="color-white mb-8 font-bold">
-                        <span>Cantidad de horas:</span> 
-                        <span class="color-four">{{ $user->hours }}</span>
+                        <span class="overpass">Cantidad de horas:</span> 
+                        <span class="color-four overpass">{{ $user->hours }}</span>
                     </li>
                 @endif
                 @if ($user->friends_length)
                     <li class="color-white">
                         <a href="#friends" class="btn btn-text btn-white font-bold">
-                            <span>Amigos:</span>
-                            <span class="color-four">{{ $user->friends_length }}</span>
+                            <span class="overpass">Amigos:</span>
+                            <span class="color-four overpass">{{ $user->friends_length }}</span>
                         </a>
                         <div class="grid grid-cols-5 gap-4 mt-4">
                             @for ($i = 0; $i < count($user->friends); $i++)
@@ -113,7 +113,7 @@
         <div class="actions flex justify-end mt-8 mt-4">
             <div class="flex justify-end">
                 <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-outline btn-one py-2 px-4 ml-4">
-                    <span>Agregar amigo</span>
+                    <span class="overpass">Agregar amigo</span>
                 </a>
             </div>
     @endif
@@ -122,18 +122,18 @@
             <div class="flex justify-end">
                 @if (Auth::user()->id_user === $user->id_user_request)
                     <span class="btn btn-outline btn-two not py-2 px-4 ml-4">
-                        <span>Solicitud enviada</span>
+                        <span class="overpass">Solicitud enviada</span>
                     </span>
                     <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three py-2 px-4 ml-4">
-                        <span>Cancelar solicitud</span>
+                        <span class="overpass">Cancelar solicitud</span>
                     </a>
                 @endif
                 @if (Auth::user()->id_user !== $user->id_user_request)
                     <a href="/users/{{ $user->slug }}/friendship/accept" class="btn btn-outline btn-one py-2 px-4 ml-4">
-                        <span>Aceptar solicitud</span>
+                        <span class="overpass">Aceptar solicitud</span>
                     </a>
                     <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three py-2 px-4 ml-4">
-                        <span>Cancelar solicitud</span>
+                        <span class="overpass">Cancelar solicitud</span>
                     </a>
                 @endif
             </div>
@@ -142,7 +142,7 @@
         <div class="actions flex justify-end mt-8">
             <div class="flex justify-end">
                 <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-outline btn-three py-2 px-4 ml-4">
-                    <span>Eliminar amigo</span>
+                    <span class="overpass">Eliminar amigo</span>
                 </a>
             </div>
     @endif

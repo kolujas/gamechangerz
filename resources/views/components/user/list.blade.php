@@ -27,7 +27,7 @@
                             @foreach ($user->games as $game)
                                 @foreach ($game->abilities as $ability)
                                     <li class="flex justify-between items-center p-2">
-                                        <span class="color-white pr-2">{{ $ability->name }}</span>
+                                        <span class="color-white pr-2 russo">{{ $ability->name }}</span>
                                         @component($ability->icon)@endcomponent
                                     </li>
                                 @endforeach
@@ -51,8 +51,8 @@
                             <li class="color-white overpass">Modalidad offline AR$ {{ $user->prices[1]->price }}/h</li>
                         </ul>
                         <div>
-                            <a class="btn btn-outline btn-one" href="/users/{{ $user->slug }}/profile">
-                                <span class="overpass">Ver horarios</span>
+                            <a class="btn btn-outline btn-one mobile-btn" href="/users/{{ $user->slug }}/profile">
+                                <span class="russo">Ver horarios</span>
                             </a>
                         </div>
                     </div>
