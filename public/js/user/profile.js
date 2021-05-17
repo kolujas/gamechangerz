@@ -3,6 +3,26 @@ import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 import Modal from "../modal.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
+import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
+
+function createErrorNotification (params) {
+    for (const target in params.errors) {
+        if (Object.hasOwnProperty.call(params.errors, target)) {
+            const errors = params.errors[target];
+            for (const error of errors) {
+                new NotificationJS({
+                    id: `notification-${ target }`,
+                    code: 404,
+                    message: error,
+                    classes: ['russo'],
+                }, {
+                    open: true,
+                    insertBefore: document.querySelector('#notification-1'),
+                });
+            }
+        }
+    }
+}
 
 function changeProfileState (state) {
     switch (state) {
@@ -138,7 +158,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
         if (document.querySelectorAll('.update-button').length) {
             validation['update'].ValdiationJS = new ValidationJS({
                 id: 'update-form',
-            }, { }, validation['update']['rules'], validation['update']['messages']);
+                rules: validation['update'].rules,
+                messages: validation['update'].messages,
+            }, {}, {
+                invalid: {
+                    function: createErrorNotification,
+                    params: {},
+            }});
             if (URL.findHashParameter() === 'update') {
                 changeProfileState('update');
             }

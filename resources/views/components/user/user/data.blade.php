@@ -41,18 +41,6 @@
     @if (count($user->lessons) || $user->hours || $user->friends_length)
         <div class="info">
             <ul>
-                <li class="color-white font-bold">
-                    @if ($errors->has('username'))
-                        <span class="block error hidden support support-box support-username">{{ $errors->first('username') }}</span>
-                    @else
-                        <span class="block error hidden support support-box support-username"></span>
-                    @endif
-                    @if ($errors->has('name'))
-                        <span class="block error hidden support support-box support-name">{{ $errors->first('name') }}</span>
-                    @else
-                        <span class="block error hidden support support-box support-name"></span>
-                    @endif
-                </li>
                 @if (count($user->lessons))
                     <li class="color-white my-8 font-bold">
                         <a href="#lessons" class="btn btn-text btn-white font-bold">
@@ -109,7 +97,7 @@
                 </a>
             </div>
     @endif
-    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0)
+    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0 && Auth::user()->id_role === 0)
         <div class="actions flex justify-end mt-8 mt-4">
             <div class="flex justify-end">
                 <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-outline btn-one py-2 px-4 ml-4">
@@ -117,7 +105,7 @@
                 </a>
             </div>
     @endif
-    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 1)
+    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 1 && Auth::user()->id_role === 0)
         <div class="actions flex justify-end mt-8 mt-4">
             <div class="flex justify-end">
                 @if (Auth::user()->id_user === $user->id_user_request)
@@ -138,7 +126,7 @@
                 @endif
             </div>
     @endif
-    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2)
+    @if (Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2 && Auth::user()->id_role === 0)
         <div class="actions flex justify-end mt-8">
             <div class="flex justify-end">
                 <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-outline btn-three py-2 px-4 ml-4">

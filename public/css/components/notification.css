@@ -23,3 +23,21 @@
     color: var(--color-white);
     font-weight: bold;
 }
+
+.notification.notification-error {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: 1px solid var(--color-red);
+}
+
+.notification.notification-error .notification-message p { */
+    font-weight: 500;
+}
+
+.notification .notification-footer a {
+    color: var(--color-four);
+}
+
+.notification .notification-footer a:hover {
+    color: var(--color-red);
+}

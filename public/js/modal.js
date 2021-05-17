@@ -90,9 +90,11 @@ export class Modal extends Class {
         if (validation[this.props.id]) {
             this.ValidationJS = new ValidationJS({
                 id: this.props.id,
+                rules: validation[this.props.id].rules,
+                messages: validation[this.props.id].messages,
             }, {
                 submit: false,
-            }, validation[this.props.id].rules, validation[this.props.id].messages);
+            }, {});
         } else {
             console.error(`validation.${ this.props.id } does not exist`);
         }

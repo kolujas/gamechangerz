@@ -25,7 +25,7 @@
     top: 3.4rem;
 }
 
-.user .data button.btn.btn-icon:last-of-type {
+.user .data button + a.btn.btn-icon {
     top: 6.4rem;
 }
 
