@@ -57,21 +57,21 @@
                     <li class="color-white my-8 font-bold">
                         <a href="#lessons" class="btn btn-text btn-white font-bold">
                             <span class="overpass">Total clases tomadas:</span>
-                            <span class="color-four">{{ count($user->lessons) }}</span>
+                            <span class="color-four overpass">{{ count($user->lessons) }}</span>
                         </a>
                     </li>
                 @endif
                 @if ($user->hours)
                     <li class="color-white mb-8 font-bold">
                         <span class="overpass">Cantidad de horas:</span> 
-                        <span class="color-four">{{ $user->hours }}</span>
+                        <span class="color-four overpass">{{ $user->hours }}</span>
                     </li>
                 @endif
                 @if ($user->friends_length)
                     <li class="color-white">
                         <a href="#friends" class="btn btn-text btn-white font-bold">
                             <span class="overpass">Amigos:</span>
-                            <span class="color-four">{{ $user->friends_length }}</span>
+                            <span class="color-four overpass">{{ $user->friends_length }}</span>
                         </a>
                         <div class="grid grid-cols-5 gap-4 mt-4">
                             @for ($i = 0; $i < count($user->friends); $i++)
