@@ -56,11 +56,11 @@
     outline: none;
 }
 
-:where(input, textarea):focus {
-    box-shadow: 0 0 0 2px var(--color-four);
-                /* 0 0 0 2px var(--color-black),
-                0 0 0 3px var(--color-four); */
-}
+/* :where(input, textarea):focus {
+    box-shadow: 0 0 0 2px var(--color-four),
+                0 0 0 2px var(--color-black),
+                0 0 0 3px var(--color-four);
+} */
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,

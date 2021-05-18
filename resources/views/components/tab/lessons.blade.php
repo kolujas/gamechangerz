@@ -95,8 +95,8 @@
                 <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
-                <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
-                    <span class="russo">Contratar</span>
+                <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto">
+                    <span class="russo py-2 px-4">Contratar</span>
                 </a>
             @endif
         </li>
@@ -106,8 +106,8 @@
                 <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
-                <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
-                    <span class="russo">Contratar</span>
+                <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto">
+                    <span class="russo py-2 px-4">Contratar</span>
                 </a>
             @endif
         </li>
@@ -161,8 +161,8 @@
                 <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
             </span>
             @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
-                <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one py-2 px-4 mt-4 md:mx-auto">
-                    <span class="russo">Contratar</span>
+                <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto rounded">
+                    <span class="russo py-2 px-4">Contratar</span>
                 </a>
             @endif
         </li>

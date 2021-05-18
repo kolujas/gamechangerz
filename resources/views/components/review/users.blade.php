@@ -1,7 +1,7 @@
 <ul class="cards flex px-8 pb-4 lg:pr-0 xl:px-0 xl:col-span-6 mb-4">
     @foreach ($reviews as $review)
         <li class="card">
-            <div class="flex p-8">
+            <div class="flex p-8 rounded">
                 <div class="flex items-start flex-wrap">
                     <div class="w-full flex justify-between items-center">
                         <span class="color-two font-bold pr-1">{{ $review->title }}</span>

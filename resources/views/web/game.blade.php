@@ -19,8 +19,8 @@
                 <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
                     <h2 class="color-white russo text-5xl md:text-6xl mb-8">Aprende de los <span class="color-four">mejores</span></h2>
                     <p class="mb-8 slider-text color-white overpass text-xl">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
-                    <button style="--color-left: {{ $game->colors[1] }}; --color-right: {{ $game->colors[0] }}" class="btn btn-outline btn-one py-2 px-4">
-                        <span class="russo px-6 font-thin verPros">Ver profesionales</span>
+                    <button style="--color-left: {{ $game->colors[1] }}; --color-right: {{ $game->colors[0] }}" class="btn btn-outline btn-one">
+                        <span class="russo py-2 px-4 font-thin verPros">Ver profesionales</span>
                     </button>
                 </header>
                 <main class="swiper-container">
@@ -56,7 +56,7 @@
                     <p class="text-center color-white text-md overpass">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
                 </header>
                 
-                <div class="flex justify-center md:col-span-3 lg:col-span-8 lg:col-start-2 xl:col-span-6 xl:col-start-3 2xl:col-span-3 2xl:col-start-4 mb-24">
+                <div class="flex justify-center md:col-span-3 lg:col-span-8 lg:col-start-2 xl:col-span-6 xl:col-start-3 2xl:col-span-3 2xl:col-start-4 mb-24 iframe-padrino">
                 {{-- <div class="pt-4 flex justify-center lg:w-full pb-12"> --}}
                     <iframe src="https://www.youtube.com/embed/uJNd8OzFt58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>

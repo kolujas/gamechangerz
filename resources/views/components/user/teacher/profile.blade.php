@@ -83,7 +83,7 @@
                         @endif
                     </h3>
                 </header>
-                <div class="p-8">
+                <div class="p-8 rounded">
                     <h4 class="color-white mb-4 russo">Información</h4>
                     <span class="color-four font-bold block mb-8 overpass">Sobre {{ $user->name }}</span>
                     <textarea class="form-input update-input overpass" name="description" placeholder="Descripción" disabled>{{ old('description', $user->description) }}</textarea>
@@ -111,7 +111,7 @@
             <h3 class="color-white mb-8 px-8 xl:px-0 flex items-center">
                 <span class="mr-2 russo">Contenido</span>
                 @if (Auth::check() && Auth::user()->id_user === $user->id_user)
-                    <a href="/post/add" class="btn btn-icon btn-one p-2">
+                    <a href="/post/add" class="btn btn-icon btn-one p-2 rounded">
                         <i class="fas fa-plus"></i>
                     </a>
                 @endif
