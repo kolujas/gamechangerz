@@ -6,6 +6,24 @@
     width: 100%;
 }
 
+ul.games .card :where(a, div):hover::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+ul.games header {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+ul.games main {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     .main {

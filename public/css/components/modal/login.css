@@ -1,0 +1,56 @@
+#auth.modal .modal-content #login .modal-header figure {
+    display: flex;
+    justify-content: center;
+}
+
+#auth.modal .modal-content #login .modal-header h2 {
+    font-size: 1.7rem;
+}
+
+#auth.modal .modal-content #login .input-group {
+    border-radius: .25rem;
+    overflow: hidden;
+}
+
+#auth.modal .modal-content #login .form-input {
+    background-color: #000;
+    color: var(--color-white);
+    font-size: .8rem;
+    width: 100%;
+    z-index: 1;
+}
+
+#auth.modal .modal-content #login .form-input::placeholder {
+    color: var(--color-grey);
+    position: relative;
+    top: 2px;
+}
+
+#auth.modal .modal-content #login .submit-group p {
+    color: var(--color-grey);
+    font-size: .75rem;
+}
+
+#auth.modal .modal-content #login .error {
+    color: var(--color-white);
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    /*  */
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    /*  */
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    /*  */
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    /*  */
+}

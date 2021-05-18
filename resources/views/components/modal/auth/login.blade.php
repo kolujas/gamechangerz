@@ -1,7 +1,7 @@
-<form class="p-12 pr-6 mr-6" id="login" action="/login" method="post" class="grid">
+<form id="login" action="/login" method="post" class="grid pr-6">
     @csrf
     @method('post')
-    <section class="login">
+    <main class="login pl-12 pb-12 pr-6">
         <header class="modal-header mb-12">
             <figure>
                 <img src="{{ asset('img/logos/029-logo-hexagonos.png') }}" alt="Logo claro solido con fondo de Gamechangerz">
@@ -30,10 +30,10 @@
             @endif
         </label>
         <div class="submit-group">
-            <label class="text-white b-contain flex mb-6">
+            <label class="text-white input-option flex mb-6">
                 <input class="overpass" type="checkbox" name="login_remember">
-                <div class="b-input mr-2"></div>
-                <div class="b-text">
+                <div class="input-box mr-2"></div>
+                <div class="input-text">
                     <span class="overpass">Recuerdame</span>
                 </div>
             </label>
@@ -42,5 +42,5 @@
             </button>
             <p class="color-white mt-6 text-center overpass">No tenés cuenta todavía? <a class="btn btn-text btn-one" href="#signin">Registrate</a></p>
         </div>
-    </section>
+    </main>
 </form>

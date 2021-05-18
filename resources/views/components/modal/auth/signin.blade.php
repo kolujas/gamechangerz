@@ -1,7 +1,7 @@
-<form class="p-12 pr-6 mr-6" id="signin" action="/login" method="post">
+<form id="signin" action="/login" method="post" class="grid pr-6">
     @csrf
     @method('post')
-    <section class="signin">
+    <main class="signin pl-12 pb-12 pr-6">
         <header class="modal-header mb-12">
             <figure>
                 <img src="{{ asset('img/logos/029-logo-hexagonos.png') }}" alt="Logo claro solido con fondo de Gamechangerz">
@@ -79,14 +79,14 @@
         </div>
         <div class="submit-group">
             <div class="input-group mb-6">
-                <label class="text-white b-contain flex mb-1">
+                <label class="text-white input-option flex mb-1">
                     <input id="signin_accept" type="checkbox" class="form-input" name="signin_accept">
-                    <div class="b-input mr-2"></div>
-                    <div class="b-text">
+                    <div class="input-box mr-2"></div>
+                    <div class="input-text">
                         <span class="overpass">Acepto los</span>
-                        <a class="overpass" href="#" target="_blank" class="btn btn-text btn-one">Términos</a>
-                        <span class="overpass">y las</span>
-                        <a class="overpass" href="#" target="_blank" class="btn btn-text btn-one">Políticas de Privacidad</a>
+                        <a href="#" target="_blank" class="btn btn-text btn-one overpass">Términos</a>
+                        <span>y las</span>
+                        <a href="#" target="_blank" class="btn btn-text btn-one overpass">Políticas de Privacidad</a>
                     </div>
                 </label>
                 @if ($errors->has('signin_accept'))
@@ -100,6 +100,6 @@
             </button>
             <p class="color-white mt-6 text-center">Ya tenés cuenta? <a class="btn btn-text btn-one" href="#login">Ingrésa aquí</a></p>
         </div>
-    </section>
+    </main>
 </form>
 

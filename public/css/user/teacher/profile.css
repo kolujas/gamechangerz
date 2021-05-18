@@ -137,8 +137,6 @@
     width: 19px;
 }
 
-
-
 .teacher .banner figure img{
      width: 100%;
      height: 100%;
@@ -150,8 +148,12 @@
     margin-top: 0; 
 }
 
-.teacher section.games .degradado{
-    font-size: 1.25rem;
+ul.abilities.cards .card > div:hover::before {
+    display: none;
+}
+
+.teacher ul.games header * {
+    font-size: .7rem;
     -webkit-text-fill-color: var(--color-white);
 }
  

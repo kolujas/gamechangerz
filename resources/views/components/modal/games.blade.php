@@ -7,14 +7,14 @@
                 <h3 class="color-four mb-12 russo">¿Cuál juego querés tener?</h3>
                 @foreach ($games as $game)
                     @if ($game->active)
-                        <label class="text-white b-contain flex mb-6">
+                        <label class="text-white input-option flex mb-6">
                             <input type="checkbox" class="form-input" @foreach ($user->games as $game_checked)
                                 @if ($game_checked->id_game === $game->id_game)
                                     checked
                                 @endif
                             @endforeach name="games[{{ $game->slug }}]">
-                            <div class="b-input mr-2"></div>
-                            <div class="b-text overpass">{{ $game->name }}</div>
+                            <div class="input-box mr-2"></div>
+                            <div class="input-text overpass">{{ $game->name }}</div>
                         </label>
                     @endif
                 @endforeach

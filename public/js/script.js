@@ -85,7 +85,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     if (error) {
-        new NotificationJS(error, {
+        new NotificationJS({
+            ...error,
+            classes: ['russo'],
+        }, {
             open: true,
         });
     }

@@ -1,4 +1,4 @@
-.abilities.cards {
+ul.abilities.cards {
     overflow-x: scroll;
     max-width: 100%;
     --scroll-color-one: var(--color-two);
@@ -7,38 +7,51 @@
     --scroll-color-two-alternative: var(--color-one);
 }
 
-.abilities.cards .card > div {
-    opacity: .5;
+ul.abilities.cards .card > div {
     border: 1px solid transparent;
     background-color: transparent;
     width: 66.666666vw;
     height: 100%;
     min-height: 100%;
     transition: 600ms;
+    position: relative;
+    z-index: 1;
 }
 
-.abilities.cards .card > div > div {
+ul.abilities.cards .card > div:hover::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
+    border-radius: .25rem;
+}
+
+ul.abilities.cards .card > div > div {
+    border-radius: .25rem;
+}
+
+ul.abilities.cards .card > div > div > div {
     height: fit-content;
 }
 
-.abilities.cards .card:last-of-type {
+ul.abilities.cards .card:last-of-type {
     padding-right: 2rem;
 }
 
-.abilities.cards .card > div:hover{
-    opacity: 1;
-    border: 1px solid;
-    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    border-image-slice: 1;
+ul.abilities.cards .card > div:hover{
     background-color: var(--color-one);
 }
 
-.abilities.cards .card figure {
+ul.abilities.cards .card figure {
     width: 100%;
     height: 15rem;
 }
 
-.abilities.cards .card figure img {
+ul.abilities.cards .card figure img {
     width: 100%;
     height: 100%;
     min-width: 250px;
@@ -46,24 +59,14 @@
     object-position: right;
 }
 
-.abilities.cards .diffculty {
-    opacity: 0;
-    transition: 500ms;
-}
-
-.abilities.cards .card > div:hover .diffculty {
-    opacity: 1;
-}
-
-.abilities.cards .diffculty svg{
+ul.abilities.cards .diffculty svg{
     width: 1rem;
     margin-left: .5rem;
 }
 
 /* ? MD */
 @media(min-width: 768px){
-    .abilities.cards .card > div {
-        opacity: .5;
+    ul.abilities.cards .card > div {
         background-color: transparent;
         width: 15rem;
         flex-basis: 15rem;
@@ -72,16 +75,16 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    .abilities.cards .card:first-of-type {
+    ul.abilities.cards .card:first-of-type {
         padding-left: 10%;
     }
 
-    .abilities.cards .card:last-of-type {
+    ul.abilities.cards .card:last-of-type {
         padding-right: 10%;
     }
 
-    .abilities.cards::after,
-    .abilities.cards::before {
+    ul.abilities.cards::after,
+    ul.abilities.cards::before {
         content: '';
         position: absolute;
         top: 0;
@@ -90,13 +93,13 @@
         pointer-events: none;
     }
 
-    /* .abilities.cards::before {
+    /* ul.abilities.cards::before {
         width: 10%;
         left: 0;
         background-image: linear-gradient(270deg, transparent 0%, var(--color-black) 100%);
     } */
 
-    /* .abilities.cards::after {
+    /* ul.abilities.cards::after {
         width: 20%;
         right: 0;
         background-image: linear-gradient(90deg, transparent 0%, var(--color-black) 100%);
@@ -105,11 +108,11 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    .abilities.cards .card figure {
+    ul.abilities.cards .card figure {
         height: 13rem;
     }
 
-    .abilities.cards .card > div {
+    ul.abilities.cards .card > div {
         width: 14rem;
         flex-basis: 14rem;
     }
@@ -117,19 +120,19 @@
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    /* .abilities.cards .card:first-of-type {
+    /* ul.abilities.cards .card:first-of-type {
         padding-left: 22rem;
     }
     
-    .abilities.cards .card:last-of-type {
+    ul.abilities.cards .card:last-of-type {
         padding-right: 22rem;
     }
 
-    .abilities.cards::before {
+    ul.abilities.cards::before {
         width: calc(100% - (100% - 22rem));
     }
 
-    .abilities.cards::after {
+    ul.abilities.cards::after {
         width: calc(100% - (100% - 44rem));
     } */
 }

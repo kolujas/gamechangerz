@@ -52,11 +52,11 @@
     padding: 0;
 }
 
-:is(input, button, textarea):focus {
+:where(input, button, textarea):focus {
     outline: none;
 }
 
-:is(input, textarea):focus {
+:where(input, textarea):focus {
     box-shadow: 0 0 0 2px var(--color-four);
                 /* 0 0 0 2px var(--color-black),
                 0 0 0 3px var(--color-four); */
@@ -77,13 +77,8 @@ body {
     background-color: var(--color-one);
 }
 
-/* :is(h1, h2, h3, h4) {
-    font-family: var(--font-one);
-} */
-
 h2 {
     font-size: 2rem;
-    /* font-family: var(--font-one); */
 }
 
 h3 {
@@ -97,12 +92,6 @@ h4 {
 h5 {
     font-size: .8rem;
 }
-
-/* p, li, a, span, textarea, textarea::placeholder,  input,  input::placeholder, label{
-    font-family: var(--font-two) !important;
-} */
-
-
 
 ::selection {
     color: var(--color-white);
@@ -128,6 +117,168 @@ h5 {
 
 .overpass{
     font-family: var(--font-two);
+}
+
+.seePassword {
+    padding: .5rem;
+    height: 100%;
+    background: black;
+    color: var(--color-white);
+    transition: 500ms;
+}
+
+.seePassword:focus {
+    outline: none;
+}
+
+.seePassword:hover {
+    color: var(--color-grey);
+}
+
+.input-option .input-box::before {
+	animation: b-ripple 250ms ease-out;
+}
+
+.input-option input:checked + .input-box::before {
+	animation-name: b-ripple-duplicate;
+}
+
+.input-option .input-box::before {
+	visibility: hidden;
+}
+
+.input-option input:focus + .input-box::before {
+	visibility: visible;
+}
+
+.input-option:first-child .input-box::before {
+	visibility: hidden;
+}
+
+.input-option *, .input-option *::before, .input-option *::after {
+	box-sizing: content-box !important;
+}
+
+.input-option {
+	cursor: pointer;
+}
+
+.input-option input {
+    display: none;
+}
+
+.input-option .input-text {
+	line-height: 1.49;
+	font-size: 0.88rem;
+	font-family: inherit;
+}
+
+.input-option input[type="checkbox"] ~ .input-box {
+	position: relative;
+	min-width: 1.3rem;
+	min-height: 1.3rem;
+	max-width: 1.3rem;
+	max-height: 1.3rem;
+	background: var(--color-white);
+	transition: background 250ms;
+	border: none;
+	border-radius: .25rem;
+}
+
+.input-option input[type="radio"] ~ .input-box {
+	position: relative;
+	min-width: 1.3rem;
+	min-height: 1.3rem;
+	max-width: 1.3rem;
+	max-height: 1.3rem;
+	background: var(--color-white);
+	transition: background 250ms;
+	border: none;
+	border-radius: .25rem;
+}
+
+.input-option input[type="checkbox"] ~ .input-box::after {
+	content: '';
+	position: absolute;
+	display: none;
+	left: .45rem;
+	top: .18rem;
+	width: .25rem;
+	height: .6rem;
+	border: solid var(--color-five);
+	border-width: 0 2px 2px 0;
+	transition: background 250ms;
+	transform: rotate(45deg);
+}
+
+.input-option input[type="radio"] ~ .input-box::after {
+	content: '';
+	position: absolute;
+	display: none;
+	left: .25rem;
+	top: .25rem;
+	width: .75rem;
+	height: .75rem;
+	border-radius: 2.0rem;
+	background: var(--color-five);
+	transition: background 250ms;
+}
+
+.input-option input:disabled ~ .input-box::after {
+	border-color: var(--color-grey);
+}
+
+.input-option input:checked ~ .input-box::after {
+	display: block;
+}
+
+.input-option:hover input ~ .input-box,
+.input-option input:focus ~ .input-box {
+	background: var(--color-white);
+}
+
+.input-option input:focus ~ .input-box {
+	box-shadow: 0 0 0 2px var(--color-one);
+}
+
+.input-option input:checked ~ .input-box {
+	background: var(--color-four);
+	border-color: var(--color-four);
+}
+
+.input-option input[type="checkbox"]:disabled ~ .input-box {
+	background: var(--color-white);
+	border-color: var(--color-grey);
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.input-option input[type="radio"]:disabled ~ .input-box {
+	background: var(--color-white);
+	border-color: var(--color-grey);
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.input-option input[type="radio"]:disabled ~ .input-box::after {
+	background: var(--color-grey);
+}
+
+.input-option .input-box::before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 3rem;
+	height: 3rem;
+	margin-left: -0.85rem;
+	margin-top: -0.85rem;
+	background: var(--color-fiveo);
+	border-radius: 2rem;
+	opacity: .6;
+	z-index: 99999;
+	transform: scale(0);
 }
 
 /* ? MD */

@@ -1,101 +1,69 @@
-.games .card a,
-.games .card > div {
+ul.games .card > :where(a, div) {
     position: relative;
+    z-index: 1;
+    transition: padding 500ms;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.games .card > :where(a, div):not(.disabled):hover {
+    padding: 1px;
+}
+
+ul.games a.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+ul.games .card :where(a, div):hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(130deg, var(--game-color-two), var(--game-color-one));
+    z-index: -1;
+    border-radius: .25rem;
+}
+
+/* ul.games .disabled :where(header, main) {
+    flex-basis: 100%;
+} */
+
+ul.games header {
+    width: 100%;
     background-color: var(--color-black);
-    overflow: hidden;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
 }
 
-.games .card a .borders {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.games .card a .borders div {
-    position: absolute;
-    opacity: 0;
-    transition: background 500ms, opacity 500ms;
-}
-
-.games .card a .borders div:first-of-type {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
-    background-size: 400% 400%;
-}
-
-.games .card a .borders div:nth-of-type(2) {
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background: -webkit-linear-gradient(130deg, var(--game-color-two), var(--game-color-one));
-    background-size: 400% 400%;
-}
-
-.games .card a .borders div:nth-of-type(3) {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
-    background-size: 400% 400%;
-}
-
-.games .card a .borders div:last-of-type {
-    top: 0;
-    left: 0;
-    width: 1px;
-    height: 100%;
-    background: -webkit-linear-gradient(130deg, var(--game-color-two), var(--game-color-one));
-    background-size: 400% 400%;
-}
-
-.games .card a:not(.disabled):hover .borders div:first-of-type {
-    opacity: 1;
-    animation: backgroundRotationX 5s linear infinite;
-}
-
-.games .card a:not(.disabled):hover .borders div:nth-of-type(2) {
-    opacity: 1;
-    animation: backgroundRotationY 5s linear infinite;
-}
-
-.games .card a:not(.disabled):hover .borders div:nth-of-type(3) {
-    opacity: 1;
-    animation: backgroundRotationX 5s linear infinite;
-}
-
-.games .card a:not(.disabled):hover .borders div:last-of-type {
-    opacity: 1;
-    animation: backgroundRotationY 5s linear infinite;
-}
-
-.games .degradado{
-    background: -webkit-linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
-}
-
-.games header {
-    width: 100%;
-}
-
-.games header .degradado{
+ul.games .disabled header * {
+    background: var(--color-white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.games figure{
+ul.games header * {
+    background: linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ul.games main {
+    background: linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    overflow: hidden;
+}
+
+ul.games figure{
     height: 20rem;
     width: 100%;
     overflow: hidden;
 }
 
-.games figure img{
+ul.games figure img{
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -103,27 +71,8 @@
     transition: transform 500ms;
 }
 
-.games .card a:not(.disabled):hover figure img{
+ul.games .card a:not(.disabled):hover figure img{
     transform: scale(1.02);
-}
-
-.games .disabled{
-    opacity: 0.5;
-}
-
-.games a.disabled {
-    cursor: not-allowed;
-}
-
-.games .disabled header .degradado{
-    background: none;
-    color: var(--color-white);
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: initial;
-}
-
-.games .disabled :is(header, main) {
-    flex-basis: 100%;
 }
 
 /* ? MD */
@@ -138,7 +87,7 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    .games figure{
+    ul.games figure{
         height: 20rem;
         width: 100%;
         overflow: hidden;
@@ -147,7 +96,7 @@
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .games figure{
+    ul.games figure{
         height: 40rem;
         width: 100%;
         overflow: hidden;

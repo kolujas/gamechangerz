@@ -1,0 +1,80 @@
+#auth.modal .modal-content #signin .modal-header figure {
+    display: flex;
+    justify-content: center;
+}
+
+#auth.modal .modal-content #signin .modal-header h2 {
+    font-size: 1.7rem;
+}
+
+#auth.modal .modal-content #login .input-group {
+    border-radius: .25rem;
+    overflow: hidden;
+}
+
+#auth.modal .modal-content #signin .form-input {
+    background-color: #000;
+    color: var(--color-white);
+    font-size: .8rem;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#auth.modal .modal-content #signin .form-input::placeholder {
+    color: var(--color-grey);
+    position: relative;
+    top: 2px;
+}
+
+#auth.modal .modal-content #signin .submit-group p {
+    color: var(--color-grey);
+    font-size: .75rem;
+}
+
+#auth.modal .modal-content #signin .error {
+    color: var(--color-white);
+}
+
+#auth.modal #signin .datepicker :where([type="date"], [type="text"])::placeholder {
+    color: var(--color-white);
+    font-size: .8rem;
+}
+
+#auth.modal #signin .datepicker :where([type="date"], [type="text"]):focus {
+    outline: none;
+}
+
+#auth.modal #signin .datepicker [type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+#auth.modal #signin .datepicker [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+#auth.modal #signin .datepicker input {
+    border-radius: 2px;
+    background-color: #000;
+    width: 100%;
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    /*  */
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    /*  */
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    /*  */
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    /*  */
+}

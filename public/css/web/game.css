@@ -153,7 +153,6 @@
     width: 35px;
 }
 
-
 /* buscador (usuarios) */
 
 .banner-buscador{
@@ -221,6 +220,29 @@
     color: var(--color-grey);
 }
 
+.teachers .teacher {
+    position: relative;
+    border-radius: .25rem;
+    border: none;
+}
+
+.teachers .teacher > main {
+    height: 100%;
+    border-radius: .25rem;
+}
+
+.teachers .teacher:hover::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
+    border-radius: .25rem;
+}
+
 /* fornite banner */
 
 .aside {
@@ -234,18 +256,17 @@
     background-color: var(--color-black);
 }
 
-.profesores-destacados .teacher {
-    border: 1px solid transparent;
+.profesores-destacados .teacher > main {
     background-color: var(--color-one);
+}
+
+.profesores-destacados .teacher {
     opacity: .5;
     transition: 500ms;
     z-index: 1;
 }
 
 .profesores-destacados .teacher:hover {
-    border: 1px solid;
-    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
-    border-image-slice: 1;
     opacity: 1;
     z-index: 2;
 }
@@ -315,7 +336,7 @@
     display: none;
 } */
 
-.teacher{
+.teacher > main {
     background: url('../../img/01-background.png') no-repeat center center;
     background-size: cover;
 }
@@ -387,7 +408,7 @@
         gap: 1rem;
     }
 
-    .profesores-destacados .teacher {
+    .profesores-destacados .teacher > main {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
