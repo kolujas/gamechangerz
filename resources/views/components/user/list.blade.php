@@ -52,7 +52,7 @@
                         </ul>
                         <div>
                             <a class="btn btn-outline btn-one mobile-btn" href="/users/{{ $user->slug }}/profile">
-                                <span class="russo">Ver horarios</span>
+                                <span class="russo p-2">Ver horarios</span>
                             </a>
                         </div>
                     </div>

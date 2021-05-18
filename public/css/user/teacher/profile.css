@@ -336,9 +336,23 @@
     left: -100000000px;
 }
 
+.teacher .horarios{
+    border-radius: .25rem;
+}
+
 .teacher .horarios #online .precio{
     font-family: var(--font-one);
 }
+
+/* #horarios .tab-content-list #online a{
+    position: relative;
+    border-radius: .25rem;
+}
+
+#horarios .tab-content-list #online a::before{
+    background: var(--color-black);
+}
+ */
 
 /* ? MD */
 @media (min-width: 768px) {

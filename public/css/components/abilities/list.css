@@ -27,9 +27,9 @@
 
 .abilities.cards .card > div:hover{
     opacity: 1;
-    border: 1px solid;
+    /* border: 1px solid;
     border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    border-image-slice: 1;
+    border-image-slice: 1; */
     background-color: var(--color-one);
 }
 

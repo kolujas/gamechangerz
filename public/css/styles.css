@@ -57,7 +57,7 @@
 }
 
 :is(input, textarea):focus {
-    box-shadow: 0 0 0 2px var(--color-four);
+    /* box-shadow: 0 0 0 2px var(--color-four); */
                 /* 0 0 0 2px var(--color-black),
                 0 0 0 3px var(--color-four); */
 }

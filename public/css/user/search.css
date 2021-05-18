@@ -213,6 +213,23 @@
     text-overflow: ellipsis;
 }
 
+.users + .list li{
+    position: relative;
+    border-radius: .25rem;
+}
+
+.users + .list li::before{
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border-radius: .25rem;
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background: linear-gradient(130deg , var(--color-five), var(--color-four));
+    z-index: -1;
+}
+
 .list .teachers > li:last-of-type {
     margin-bottom: 6rem;
 }
@@ -223,7 +240,6 @@
 }
 
 .teacher .mobile-btn{
-    padding: .5rem;
     background: var(--color-one);
 }
 

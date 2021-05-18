@@ -2,7 +2,7 @@
     @if (count($achievements))
         @foreach ($achievements as $achievement)
             <li class="card">
-                <div class="color-white flex justify-center items-center py-4 px-8">
+                <div class="color-white flex justify-center items-center py-4 px-8 rounded">
                     @if (isset($achievement->svg))
                         @component($achievement->svg)@endcomponent
                     @endif

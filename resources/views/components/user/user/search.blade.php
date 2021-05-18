@@ -15,8 +15,8 @@
         </label>
     </div>
 
-    <form class="flex justify-center lg:justify-between mx-8 mb-8 p-2 lg:col-span-8 lg:col-start-2 lg:mb-12" action="#">
-        <input class="overpass" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
+    <form class="flex justify-center lg:justify-between mx-8 mb-8 p-2 lg:col-span-8 lg:col-start-2 lg:mb-12 rounded" action="#">
+        <input class="overpass rounded" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
         <div id="order" class="dropdown closed">
             <a class="dropdown-header dropdown-button" href="#">
                 <span class="overpass ordenar-por">Ordenar por</span>

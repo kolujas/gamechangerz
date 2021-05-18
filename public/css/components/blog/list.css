@@ -28,9 +28,6 @@
 
 .blog.cards .card > a:hover{
     opacity: 1;
-    border: 1px solid;
-    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    border-image-slice: 1;
     background-color: var(--color-black);
 }
 
