@@ -263,6 +263,10 @@
     border-radius: .25rem;
 }
 
+.teacher .payment .mobile-btn span {
+    background: none;
+}
+
 /* fornite banner */
 
 .aside {
@@ -274,6 +278,10 @@
 
 .catalogo {
     background-color: var(--color-black);
+}
+
+.abilities.cards{
+    overflow-x: auto;
 }
 
 .profesores-destacados .teacher > main {
@@ -318,6 +326,24 @@
 .profesores-destacados .teacher .teampro {
     transition: 500ms;
     opacity: 0;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.profesores-destacados .teacher .teampro .info{
+    grid-column: span 2 / span 2;
+}
+
+.profesores-destacados .teacher .teampro .info .languages{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profesores-destacados .teacher .teampro .team-icon{
+    grid-column: span 2 / span 2;
+    margin-left: 0;
+    margin-bottom: 1rem;
 }
 
 .profesores-destacados .teacher:hover .teampro {
@@ -420,6 +446,8 @@
         min-width: 33.333333%;
     }
 
+
+
     .habilidades header{
         padding-left: 3.7rem;
     }
@@ -508,10 +536,8 @@
     }
 
     .profesores-destacados .teachers .image img {
-        min-height: 100%;
+        height: 100%;
         top: 0;
-        min-width: 175px;
-        right: calc(175px - 100%);
     }
 
     .profesores-destacados .teacher .image {

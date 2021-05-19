@@ -20,7 +20,7 @@
                     <h2 class="color-white russo text-5xl md:text-6xl mb-8">Aprende de los <span class="color-four">mejores</span></h2>
                     <p class="mb-8 slider-text color-white overpass text-xl">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
                     <button style="--color-left: {{ $game->colors[1] }}; --color-right: {{ $game->colors[0] }}" class="btn btn-outline btn-one">
-                        <span class="russo py-2 px-4 font-thin verPros">Ver profesionales</span>
+                        <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
                     </button>
                 </header>
                 <main class="swiper-container">
@@ -122,7 +122,7 @@
             <aside class="aside lg:h-screen lg:w-full"></aside>
     
             <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-9 py-24">
-                <header class="lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 mb-8 px-8 lg:px-0">
+                <header class="lg:col-span-8 lg:col-start-2 2xl:col-span-5 2xl:col-start-3 px-8 lg:px-0">
                     <h3 class="color-white mb-2 russo">Criterios de evaluación</h3>
                     <p class="color-grey overpass font-thin">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
                 </header>

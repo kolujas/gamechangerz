@@ -94,10 +94,12 @@
     height: 2.5rem;
     border-radius: 0.2rem;
     background: transparent;
+    padding-left: 1rem;
+    color: var(--color-white);
+    font-family: var(--font-two);
 }
 
 :is(.users, .teachers) input[type=search]::placeholder {
-    padding-left: 1rem;
     font-size: 1rem;
     color: var(--color-grey);
     font-family: var(--font-two);
@@ -196,12 +198,14 @@
 
 .teachers + .list .teachers .teacher{
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .teachers + .list .teachers .teacher:last-child{
   margin-bottom: 5rem;
 }
+
+
 
 
 
@@ -243,8 +247,10 @@
     background: var(--color-one);
 }
 
-.teacher .team-icon{
-    width: 2rem;
+.teacher .team-icon figure img{
+    height: 3.5rem;
+    width: 45px;
+    object-fit: cover;
 }
 
 .teacher .languages{
@@ -254,6 +260,44 @@
 .teacher .abilities ul{
     width: 5rem;
 }
+
+
+.teachers .teacher .btn.btn-outline span {
+    background-color: var(--color-one);
+    padding: .5rem 0;
+}
+
+.teachers #payment a, .teachers #especialidad a, .teachers #disponibilidad a, .teachers #game a{
+    background-color: var(--color-black);
+}
+
+.teachers #payment .dropdown-content, .teachers #order .dropdown-content{
+    width: fit-content;
+    z-index: 10;
+}
+
+.teachers #payment .dropdown-content li label span{
+    white-space: nowrap;
+}
+
+
+.teachers .teacher main{
+    position: relative;
+}
+
+.teachers .teacher main::before{
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
+    border-radius: .25rem;
+}
+
+
 
 
 /* ? MD */
