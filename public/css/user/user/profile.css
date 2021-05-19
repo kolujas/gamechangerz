@@ -101,6 +101,11 @@
     margin-bottom: 2rem;
 }
 
+.user ul.games header * {
+    font-size: .7rem;
+    -webkit-text-fill-color: var(--color-white);
+}
+
 .user > .games main{
     order: 1;
 }
@@ -239,7 +244,7 @@
     bottom: 1px;
 }
 
-.user .reviews > ul > li{
+.user .reviews > ul > li:not(:last-child){
     margin-bottom: 2rem;
 }
 

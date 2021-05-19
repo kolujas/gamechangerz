@@ -37,3 +37,6 @@
 [submodule ".\\public\\submodules\\NavMenuJS"]
 	path = public/submodules/NavMenuJS
 	url = https://github.com/JuanCruzAGB/NavMenuJS.git
+[submodule ".\\public\\submodules\\FilterJS"]
+	path = public/submodules/FilterJS
+	url = https://github.com/JuanCruzAGB/FilterJS.git

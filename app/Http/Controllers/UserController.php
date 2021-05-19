@@ -27,6 +27,9 @@
             }
             $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
             $user->and(['achievements', 'games', 'role']);
+            foreach ($user->games as $game) {
+                $game->and(['files']);
+            }
             if ($user->id_role === 2) {
                 if (!Auth::check()) {
                     $request->session()->put('error', [
@@ -123,9 +126,13 @@
             foreach ($user->posts as $post) {
                 $post->date = $this->dateToHuman($post->updated_at);
             }
+            $games = Game::all();
+            foreach ($games as $game) {
+                $game->and(['files']);
+            }
             return view('user.profile', [
                 'user' => $user,
-                'games' => Game::all(),
+                'games' => $games,
                 'days' => $days,
                 'error' => $error,
                 'validation' => [
@@ -159,6 +166,9 @@
             }
             foreach ($users as $user) {
                 $user->and(['games']);  
+                foreach ($user->games as $game) {
+                    $game->and(['files']);
+                }
                 if ($user->id_role === 1) {
                     $user->and(['abilities', 'days', 'files', 'languages', 'prices', 'teampro']);
                     $days = Day::allDates($user->days);

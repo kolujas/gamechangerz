@@ -4,6 +4,8 @@ import Class from "../submodules/JuanCruzAGB/js/Class.js";
 import Modal from './modal.js';
 import CountDown from "./CountDown.js";
 
+const asset = document.querySelector('meta[name=asset]').content;
+
 export class Chat extends Class {
     constructor (props, chats = []) {
         super(props);
@@ -110,9 +112,14 @@ export class Chat extends Class {
                         let image = document.createElement('figure');
                         image.classList.add('image', 'mr-4');
                         link.appendChild(image);
-                            let img = document.createElement('img');
-                            img.src = "/img/resources/Group 15SVG.svg";
-                            image.appendChild(img);
+                        let img = document.createElement('img');
+                        image.appendChild(img);
+                            if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
+                                img.src = `${ asset }img/resources/Group 15SVG.svg`;
+                            }
+                            if (chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
+                                img.src = `${ asset }storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile }`;
+                            }
     
                         let username = document.createElement('div');
                         username.classList.add('username');
@@ -150,8 +157,24 @@ export class Chat extends Class {
             if (chat.id_chat === id_chat) {
                 this.details.children[1].children[0].innerHTML = '';
                 let header = this.details.children[0].children[1];
+                console.log(header);
+                header.innerHTML = '';
                 header.href = `/users/${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].slug }/profile`;
-                header.children[1].innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].name })`;
+                    let figure = document.createElement('figure');
+                    header.appendChild(figure);
+                        let image = document.createElement('img');
+                        image.alt = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } profile image`;
+                        if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
+                            image.src = `${ asset }img/resources/Group 15SVG.svg`;
+                        }
+                        if (chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
+                            image.src = `${ asset }storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile }`;
+                        }
+                        figure.appendChild(image);
+                    let span = document.createElement('span');
+                    span.classList.add('ml-2');
+                    header.appendChild(span);
+                    span.innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].name })`;
                 header.children[1].classList.add('overpass');
                 for (const message of chat.messages) {
                     this.addMessage(chat.id_user_logged, message);

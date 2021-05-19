@@ -34,7 +34,7 @@
                     </div>
                     <div class="swiper-wrapper">
                         <figure class="swiper-slide">
-                            <img src="{{ asset('img/games/counter-strike-go/banner-csgo-landingJuego.jpg') }}" alt="Game banner">
+                            <img src="{{ asset($game->files['banner']) }}" alt="Game banner">
                         </figure>
                         <figure class="swiper-slide">
                             <img src="{{ asset('storage/web/01-banner.png') }}" alt="Ads banner">
@@ -135,7 +135,7 @@
             </section>
         @else
             <section class="coming-soon flex justify-center items-center mb-8" style="--color-one: {{ $game->colors[0] }}; --color-two: {{ $game->colors[1] }}">
-                <aside style="background: url(/img/{{ $game->folder }}/01-background.png) no-repeat -70px top; background-size: cover;"></aside>
+                <aside style="background: url({{ asset('/img/' . $game->files['background']) }}) no-repeat -70px top; background-size: cover;"></aside>
                 <header>
                     <h2 class="color-white"><span class="color-four">{{ $game->name }}</span> coming soon</h2>
                 </header>

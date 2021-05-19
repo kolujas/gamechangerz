@@ -13,9 +13,17 @@
                     </header>
                     <main class="card-body">
                         <figure>
-                            <img class="card-img" src="/img/{{ $game->folder }}/01-background.png" alt="{{ $game->name }} image">
+                            <img class="card-img" src={{ asset($game->files['background']) }} alt="{{ $game->name }} image">
                         </figure>
                     </main>
+                    @if (Request::is('/') || Request::is('home'))
+                        <aside class="borders">
+                            <div class="top"></div>
+                            <div class="right"></div>
+                            <div class="bottom"></div>
+                            <div class="left"></div>
+                        </aside>
+                    @endif
                 </a>
             </li>
         @endforeach

@@ -4,6 +4,7 @@
     use App\Http\Controllers\API\AssigmentController;
     use App\Http\Controllers\API\ChatController;
     use App\Http\Controllers\API\FriendController;
+    use App\Http\Controllers\API\UserController;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,10 @@
 // ! AuthController - Controls the authentication api.
         Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
         Route::post('/signin', [AuthController::class, 'signin'])->name('api.auth.signin');
+
+// ! UserController - Controls the user api.
+        Route::get('/users', [UserController::class, 'users'])->name('api.user.users');
+        Route::get('/teachers', [UserController::class, 'teachers'])->name('api.user.teachers');
 
         Route::middleware('auth:api')->group(function () {
 // ! RoleController - Controls the Role api.

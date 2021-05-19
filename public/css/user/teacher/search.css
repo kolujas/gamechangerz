@@ -1,0 +1,165 @@
+.teachers form {
+    background-color: var(--color-black);
+}
+
+.teachers .dropdown-header{
+    background-color: var(--color-one);
+}
+
+.teachers .dropdown-header span{
+    color: var(--color-grey);
+    white-space: nowrap;
+    padding: 0 .5rem;
+}
+
+.teachers input[type=search] {
+    width: 80%;
+    height: 2.5rem;
+    border-radius: 0.2rem;
+    background: transparent;
+    color: var(--color-grey);
+}
+
+.teachers input[type=search]::placeholder {
+    padding-left: 1rem;
+    font-size: 1rem;
+    color: var(--color-grey);
+    font-family: var(--font-two);
+}
+
+.teachers .dropdown {
+    --dropdown-header-background-color-alternative: var(--color-one);
+}
+
+.teachers .dropdown label input[type=radio] {
+    display: none;
+}
+
+.teachers .dropdown label input[type=radio] + span {
+    transition: 600ms;
+}
+
+.teachers .dropdown label input[type=radio]:checked + span {
+    color: var(--color-white);    
+}
+
+.teachers .dropdown li{
+    padding: .5rem;
+}
+
+.teachers .dropdown li label {
+    cursor: pointer;
+}
+
+.teachers .dropdown li:not(:last-of-type) {
+    border-bottom: 1px solid var(--color-grey);
+}
+
+.teachers .dropdown-content{
+    width: 100%;
+    color: var(--color-grey);
+    background-color: var(--color-one);
+}
+
+.teachers + .list .teachers .teacher{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.teachers + .list .teachers .teacher:last-child{
+  margin-bottom: 5rem;
+}
+
+.teachers + .list .teachers > li:last-of-type {
+    margin-bottom: 6rem;
+}
+
+.teachers .dropdown-header span{
+    color: var(--color-three);
+    font-weight: 600;
+}
+
+.teacher .mobile-btn{
+    background: var(--color-one);
+}
+
+.teacher .team-icon{
+    width: 2rem;
+}
+
+.teacher .languages{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.teacher .abilities ul{
+    width: 5rem;
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    /*  */
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    .teacher .abilities ul{
+        width: 100%;
+    }
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    .teacher .username h4{
+        font-size: 1.6rem;
+    }
+
+    .teacher .username h5{
+        font-size: 1.1rem;
+    }
+
+    .teacher .abilities ul{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .teacher .abilities ul li{
+        width: fit-content;
+    }
+
+    .teacher .abilities ul li span{
+        font-size: 1rem;
+    }
+
+    .teacher .image, .teacher .payment{
+        grid-row: span 1 / span 1;
+    }
+
+    .teacher header{
+        grid-column: span 4 / span 4;
+    }
+
+    .teacher .image{
+        grid-column: span 2 / span 2;
+    }
+
+    .teacher .image img{
+        height: 12rem;
+        min-height: 100%;
+        object-position: top;
+    }
+
+    .teacher .teampro{
+        flex-basis: 50%;
+    }
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    .teachers + .list .teachers .teacher{
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .teacher header{
+        grid-column: span 3 / span 3;
+    }
+}

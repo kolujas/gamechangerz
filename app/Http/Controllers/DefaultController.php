@@ -18,8 +18,12 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
+            $games = Game::all();
+            foreach ($games as $game) {
+                $game->and(['files']);
+            }
             return view('web.home', [
-                'games' => Game::all(),
+                'games' => $games,
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[
@@ -67,13 +71,14 @@
             if ($error === null) {
                 try {
                     $game = Game::find($slug);
-                    $game->and(['abilities', 'users']);
-                    // dd($game->users);
+                    $game->and(['abilities', 'users', 'files']);
                     foreach ($game->users as $user) {
                         $user->and(['abilities', 'games', 'languages', 'prices', 'files', 'teampro']);
+                        foreach ($user->games as $gameFromUser) {
+                            $gameFromUser->and(['files']);
+                        }
                     }
                 } catch (\Throwable $th) {
-                    dd($th);
                     $error = $th;
                 }
             }
@@ -105,8 +110,12 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
+            $games = Game::all();
+            foreach ($games as $game) {
+                $game->and(['files']);
+            }
             return view('web.home', [
-                'games' => Game::all(),
+                'games' => $games,
                 'error' => $error,
                 'validation' => [
                     'login' => (object)[

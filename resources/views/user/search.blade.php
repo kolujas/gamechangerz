@@ -24,7 +24,6 @@
             'search' => $search
         ])
         @endcomponent
-        
     @endif
     @if (Request::is('teachers'))
         @component('components.user.teacher.search', [
@@ -32,7 +31,6 @@
             'search' => $search
         ])
         @endcomponent
-        
     @endif
 @endsection
 
@@ -41,5 +39,9 @@
 @endsection
 
 @section('js')
+    <script>
+        let users = @json($users);
+    </script>
+
     <script type="module" src={{ asset('js/user/search.js') }}></script>
 @endsection

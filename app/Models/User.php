@@ -200,7 +200,6 @@
          * * Get the User Files.
          * @return array
          */
-        
         public function files () {
             try {
                 $this->files = collect([]);
@@ -209,15 +208,9 @@
                     $this->files = false;
                 }
                 foreach ($files as $file) {
-                    if (strpos($file, '-')) {
-                        $fileExplode = explode('-', $file);
-                        $fileExplode = explode('.', $fileExplode[1]);
-                        $this->files[$fileExplode[0]] = $file;
-                        $files[$fileExplode[0]] = $file;
-                    } else {
-                        $this->files->push($file);
-                        $files->push($file);
-                    }
+                    $fileExplode = explode(".", $file);
+                    $fileExplode = explode("-", $fileExplode[0]);
+                    $this->files[$fileExplode[1]] = $file;
                 }
             } catch (\Throwable $th) {
                 throw $th;

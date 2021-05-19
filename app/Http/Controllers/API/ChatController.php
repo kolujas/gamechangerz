@@ -55,6 +55,8 @@
             foreach ($chats as $chat) {
                 $chat->id_user_logged = $request->user()->id_user;
                 $chat->users();
+                $chat->users['from']->and(['files']);
+                $chat->users['to']->and(['files']);
                 $chat->type();
             }
 

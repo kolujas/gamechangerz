@@ -1,3 +1,7 @@
+#chat.modal .modal-content::before {
+    display: none;
+}
+
 #chat.modal {
     --modal-background-color: transparent;
 }
@@ -19,11 +23,9 @@
 }
 
 #chat.modal > section {
-    background-color: var(--color-black);
     width: 100%;
     height: 100%;
     max-height: 100%;
-    margin: 0;
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
@@ -84,6 +86,14 @@
 #chat.modal #list .sections li a p {
     display: flex;
     align-items: center;
+}
+
+#chat.modal #list .sections li .image img {
+    min-width: 38px;
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 100vh;
 }
 
 #chat.modal #list .sections li a p span {
@@ -158,6 +168,13 @@
 #chat.modal #details header span {
     transition: 500ms;
     height: fit-content;
+}
+
+#chat.modal #details header img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    border-radius: 100vh;
 }
 
 #chat.modal #details header :is(span, p):hover {
@@ -362,6 +379,7 @@ a[href="#chat"].modal-button.chat span {
         max-height: 50vh;
         margin: 1rem;
         right: 8rem;
+        left: initial;
     }
 
     #chat.modal #details main ul {
@@ -421,13 +439,11 @@ a[href="#chat"].modal-button.chat span {
 /* ? XL */
 @media(min-width: 1200px){
     #chat.modal > section {
-        width: calc((100vw / 7) * 2);
+        width: calc((100vw / 10) * 3);
     }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    #chat.modal > section {
-        width: calc((100vw / 9) * 2);
-    }
+    /*  */
 }

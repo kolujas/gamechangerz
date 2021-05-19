@@ -476,6 +476,11 @@ ul.abilities.cards .card > div:hover::before {
 @media (min-width: 1200px) {
     .teacher section.games .cards .card a {
         min-width: 100%;
+        margin-top: 1px;
+    }
+    
+    .teacher section.games .cards:first-of-type .card a {
+        margin-left: 1px;
     }
 
     .teacher .abilities.cards .card:first-of-type,

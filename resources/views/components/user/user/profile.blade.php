@@ -29,9 +29,7 @@
 
     <section class="data mb-20 md:px-8 md:mt-20 lg:my-0 lg:mx-0 lg:pr-0 xl:px-0 @if ((count($user->games) && count($user->games[0]->abilities)) && count($user->reviews))
         lg:row-span-3
-    @endif @if ((count($user->games) && count($user->games[0]->abilities)) || count($user->reviews))
-        lg:row-span-2
-    @endif @if (!(count($user->games) && count($user->games[0]->abilities)) && !count($user->reviews))
+    @endif @if (count($user->games) && count($user->reviews))
         lg:row-span-2
     @endif xl:col-start-2 xl:col-span-3">
         @component('components.user.user.data', [

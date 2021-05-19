@@ -25,7 +25,7 @@
             'folder' => 'games/counter-strike-go',
             'slug' => 'counter-strike-go',
             'abilities' => [['id_ability' => 5],['id_ability' => 6]],
-            'colors' => ['#ED6744', '#FBF19C'],
+            'colors' => ['#FBF19C', '#ED6744'],
             'active' => true,
         ], [
             'id_game' => 2,
@@ -94,6 +94,9 @@
                         case 'abilities':
                             $this->abilities();
                             break;
+                        case 'files':
+                            $this->files();
+                            break;
                         case 'users':
                             $this->users();
                             break;
@@ -121,12 +124,34 @@
         }
 
         /**
+         * * Get the Game Files.
+         * @return array
+         */
+        public function files () {
+            try {
+                $this->files = collect([]);
+                $files = Folder::getFiles($this->folder, false);
+                if (!count($files)) {
+                    $this->files = false;
+                }
+                foreach ($files as $file) {
+                    $fileExplode = explode(".", $file);
+                    $fileExplode = explode("\\", $fileExplode[0]);
+                    $fileExplode = explode("-", $fileExplode[1]);
+                    $this->files[$fileExplode[1]] = $file;
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
          * * Get the Game Users.
          * @throws
          */
         public function users () {
             try {
-                $this->users = collect([]);
+                $this->users = collect();
                 $users = User::findByGame($this->id_game, 1);
                 foreach ($users as $user) {
                     if (count($this->users) <= 6) {

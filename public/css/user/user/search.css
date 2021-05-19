@@ -1,0 +1,329 @@
+
+
+.users form {
+    background-color: var(--color-black);
+}
+
+.users .dropdown-header{
+    background-color: var(--color-one);
+}
+
+.users .dropdown-header span{
+    color: var(--color-grey);
+    white-space: nowrap;
+    padding: 0 .5rem;
+}
+
+.users input[type=search] {
+    width: 80%;
+    height: 2.5rem;
+    border-radius: 0.2rem;
+    background: transparent;
+    color: var(--color-grey);
+}
+
+.users + .list ul.games a {
+    border-radius: .25rem;
+    overflow: hidden;
+}
+
+.users input[type=search]::placeholder {
+    padding-left: 1rem;
+    font-size: 1rem;
+    color: var(--color-grey);
+    font-family: var(--font-two);
+}
+
+.users .dropdown {
+    --dropdown-header-background-color-alternative: var(--color-one);
+}
+
+.users .dropdown label input[type=radio] {
+    display: none;
+}
+
+.users .dropdown label input[type=radio] + span {
+    transition: 600ms;
+}
+
+.users .dropdown label input[type=radio]:checked + span {
+    color: var(--color-white);    
+}
+
+.users .dropdown li{
+    padding: .5rem;
+}
+
+.users .dropdown li label {
+    cursor: pointer;
+}
+
+.users .dropdown li:not(:last-of-type) {
+    border-bottom: 1px solid var(--color-grey);
+}
+
+.users .dropdown-content{
+    z-index: 4;
+    width: 100%;
+    color: var(--color-grey);
+    background-color: var(--color-one);
+}
+
+.users .dropdown-header span{
+    color: var(--color-three);
+    font-weight: 600;
+}
+
+.users .switch-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .2rem;
+    border-radius: 50px;
+    background-color: var(--color-black);
+}
+
+.users .switch-content label {
+    margin-right: .5rem;
+}
+
+.users .switch-content svg {
+    margin-left: .5rem;
+    padding: .1rem;
+}
+
+.users .switch-content .switch {
+    position: relative;
+    display: inline-block;
+    width: 37px;
+    height: 22px;
+    border-radius: 50px;
+}
+
+.users .switch-content .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.users .switch-content .degradado{
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+}
+
+.users .switch-content .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: .4s;
+}
+
+.users .switch-content .slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--color-one);
+    transition: .4s;
+}
+
+
+.users .switch-content input:focus + .slider {
+    /* box-shadow: 0 0 0 4px rgba(21, 156, 228, 0.7); */
+    outline: none;
+}
+
+.users .switch-content input:checked + .slider:before {
+    transform: translateX(16px);
+}
+
+.users .switch-content .slider.round {
+    border-radius: 34px;
+}
+
+.users .switch-content .slider.round:before {
+    border-radius: 50%;
+}
+.users + .list > li{
+    background: var(--color-black);
+    margin-bottom: 2rem;
+}
+
+.users + .list .teammate svg{
+    height: 100%;
+    width: 3rem;
+}
+
+.users + .list .photo svg{
+    height: 100%;
+}
+
+.users + .list li .btn.btn-one {
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-four), var(--color-five));
+    border-image-slice: 1;
+    color: var(--color-five);
+    background-color: var(--color-black);
+    padding: .4rem;
+    font-size: .85rem;
+}
+
+.users .lft{
+    position: relative;
+    font-size: .95rem;
+    top: 2px;
+    font-weight: 600;
+}
+
+.users .ordenar-por{
+    font-size: 0.9rem;
+    position: relative;
+    top: 1px;
+}
+
+.users + .list > li:last-of-type {
+    margin-bottom: 0;
+}
+
+.btn-purple a{
+    background: var(--color-one) !important;
+}
+
+.users .degradado{
+    border: 1px solid;
+    border-image-source: linear-gradient(130deg, var(--color-left), var(--color-right));
+    border-image-slice: 1;
+}
+
+.users + .list li header :where(h3, span) {
+    max-width: 6ch;
+    min-width: 6ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.users + .list li{
+    position: relative;
+    border-radius: .25rem;
+}
+
+.users + .list li::before{
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    border-radius: .25rem;
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    background: linear-gradient(130deg , var(--color-five), var(--color-four));
+    z-index: -1;
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    .users + .list .games figure{
+        height: 4rem;
+        width: 100%;
+        overflow: hidden;
+    }
+  
+    .users + .list .cards{
+        gap: 1rem;
+        margin-top: 0;
+    }
+
+    .users + .list .cards .card header{
+        display: none;
+    }
+
+    .users + .list .cards{
+        display: flex;
+        overflow: scroll hidden;
+        max-width: 100%;
+        width: 100%;
+        padding-top: .25rem;
+    }
+
+    .users + .list .cards .card{
+        min-width: 8rem;
+        width: 8rem;
+    }
+
+    .users + .list li > div:nth-child(3) p {
+        line-height: 2rem;
+        font-size: 2rem;
+    }
+
+    .users + .list li > div:nth-child(4){
+        min-width: 25%;
+        width: 25%;
+    }
+
+    .users + .list header span {
+        max-width: 8ch;
+        min-width: 100%;
+    }
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    .users + .list .cards {
+        padding-bottom: .5rem;
+    }
+
+    .users + .list .cards::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+    }
+
+    .users + .list .cards::-webkit-scrollbar-thumb {
+        background: var(--color-white);
+    }
+
+    .users + .list .cards::-webkit-scrollbar-thumb:hover,
+    .users + .list .cards::-webkit-scrollbar-thumb:active {
+        background: var(--color-grey);
+    }
+
+    .users + .list .cards::-webkit-scrollbar-track {
+        background: black;
+    }
+
+    .users + .list .cards::-webkit-scrollbar-track:hover,
+    .users + .list .cards::-webkit-scrollbar-track:active {
+        background: black;
+    }
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    .users + .list li header h3 {
+        max-width: 12ch;
+        min-width: 12ch;
+    }
+
+    .users + .list li header span {
+        max-width: 18ch;
+        min-width: 18ch;
+    }
+
+    .users + .list li > div:nth-child(4){
+        min-width: 18rem;
+        width: 18rem;
+    }
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    .users + .list li header :where(h3, span) {
+        max-width: 30ch;
+        min-width: 30ch;
+    }
+}

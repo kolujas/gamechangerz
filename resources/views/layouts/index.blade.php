@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta content={{ csrf_token() }} name="csrf-token" />
+        <meta content={{ asset("") }} name="asset" />
 
         {{-- ? External Repositories CSS --}}
         <link rel="stylesheet" href={{ asset('submodules/DropdownJS/css/styles.css') }}>
@@ -34,6 +35,7 @@
         {{-- ? Node modules --}}
         <script src={{ asset('js/app.js') }}></script>
         <script src={{ asset('js/jquery/jquery-3.6.0.min.js') }}></script>
+        <script src={{ asset('js/pagination.min.js') }}></script>
 
         {{-- ? External Repositories js --}}
 

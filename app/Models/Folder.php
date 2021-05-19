@@ -13,7 +13,11 @@
                 }
                 return Storage::disk('public')->allFiles($route);
             } else {
-                // 
+                $files = collect();
+                foreach (File::files("img/$route") as $file) {
+                    $files->push($file->getPathname());
+                }
+                return $files;
             }
         }
     }
