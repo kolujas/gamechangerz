@@ -1,9 +1,9 @@
 <aside id="assigment" class="modal">
     <section class="modal-content center">
-        <form class="p-12 pr-6 mr-6" id="assigment-form" action="#" method="post" class="grid">
+        <form class="pr-6" id="assigment-form" action="#" method="post" class="grid">
             @csrf
             @method('post')
-            <section>
+            <main class="pl-12 py-12 pr-6">
                 <div class="input-group grid">
                     <h3 class="color-four mb-4 overpass">Titulo</h3>
                     <input class="form-input px-5 py-4 mb-4 overpass" type="text" name="title" id="title" placeholder="Titulo" value="">
@@ -46,7 +46,7 @@
 
                 <div class="abilities">
                     <h3 class="color-four mb-4 overpass">Habilidades</h3>
-                    <div class="flex">
+                    <div class="flex flex-wrap">
                         <label>
                             <input class="hidden abilitie" name="" type="checkbox" value=""> 
                             <div class="flex justify-between p-2 flex items-center">
@@ -80,7 +80,7 @@
                             </div>
                         </label> 
                     </div>
-                    <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center mt-16" type="submit">
+                    <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center mt-12" type="submit">
                         <span class="xl:text-lg">Enviar asignatura</span>
                     </button>
                 </form>

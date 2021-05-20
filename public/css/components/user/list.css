@@ -74,8 +74,8 @@ ul.teachers .teacher .profile .info .team-name .inner-text{
 
     ul.teachers .teacher .team-icon figure img{
         height: 56px;
-        width: 32px;
-        object-fit: cover;
+        width: 40px;
+        object-fit: contain;
     }
 
     ul.teachers .image figure{
@@ -92,8 +92,15 @@ ul.teachers .teacher .profile .info .team-name .inner-text{
 
 /* ? XL */
 @media (min-width: 1200px) {
+
+    ul.teachers .image img {
+        height: calc(100% + 10rem);
+    }
+
+
     ul.teachers .image figure{
-        width: calc((((((100vw - 17px) / 10) * 8) - 2rem) / 10) * 3);
+        height: 15rem;
+        width: calc((((((100vw - 17px) / 10) * 8) - 2rem) / 12) * 4);
         clip-path: polygon(0 -2rem, 100% -2rem, 100% 100%, 0 100%);
     }
 }

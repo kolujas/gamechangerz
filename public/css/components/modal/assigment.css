@@ -72,6 +72,14 @@
     outline: none;
 }
 
+#assigment .abilities label{
+    margin-bottom: 1rem;
+}
+
+#assigment .btn.btn-one span {
+    background-color: transparent;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     /*  */

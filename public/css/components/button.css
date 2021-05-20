@@ -119,10 +119,7 @@
     top: -6px;
     width: calc(100% + 12px);
     height: calc(100% + 12px);
-    background: transparent;
-    border: 3px solid;
-    border-image-source: linear-gradient(130deg, var(--color-left), var(--color-right));
-    border-image-slice: 1;
+    /* background: linear-gradient(130deg, var(--color-left), var(--color-right));; */
     opacity: 0;
     z-index: -1;
     transition: 500ms;
