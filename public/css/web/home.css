@@ -65,16 +65,26 @@ ul.games a:not(.disabled):hover .borders :where(.top, .bottom) {
     height: 1px;
 }
 
+ul.games figure{
+    width: 100vw;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     .main {
         min-height: 0;  
     }
+
+    ul.games figure{
+        width: 50vw;
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    ul.games figure{
+        width: calc(100vw / 4);
+    }
 }
 
 /* ? XL */
@@ -82,9 +92,15 @@ ul.games a:not(.disabled):hover .borders :where(.top, .bottom) {
     .main{
         max-width: 100%;
     }
+
+    ul.games figure{
+        width: calc((100vw - 17px) / 4);
+    }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    
+    ul.games figure{
+        height: 30rem;
+    }
 }

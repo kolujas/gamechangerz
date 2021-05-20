@@ -23,7 +23,10 @@ ul.teachers .teacher .team-icon figure img {
     object-fit: contain;
 }
 
-/* slider section */
+ul.teachers .image figure{
+    width: calc(((100vw - 4rem) / 2) - 1rem);
+    height: 16rem;
+}
 
 .slider-container{
     position: relative;
@@ -303,11 +306,10 @@ ul.teachers .teacher .team-icon figure img {
     z-index: 2;
 }
 
-
-
 .profesores-destacados .teacher .image {
     filter: grayscale(1);
     transition: 500ms;
+    grid-row: span 2 / span 2;
 }
 
 .profesores-destacados .teacher:hover .image {
@@ -399,6 +401,11 @@ ul.teachers .teacher .team-icon figure img {
 
 /* ? MD */
 @media(min-width: 768px){
+    ul.teachers .image figure{
+        width: calc(((((100vw - 12rem) - 2rem) / 2) - 1rem) / 2);
+        height: 18rem;
+    }
+
     .coming-soon aside {
         background-size: contain !important;
         background-position: -70px center !important;
@@ -412,7 +419,6 @@ ul.teachers .teacher .team-icon figure img {
         top: 12%;
     }
 
-    /* video section */
     .video-section iframe{
         height: 20rem;
     }
@@ -427,18 +433,11 @@ ul.teachers .teacher .team-icon figure img {
         min-height: 100%;
     }
 
-    /* buscador */
-
     .banner-buscador::before {
         background-size: contain;
         width: 100%;
         height: 100%;
     }
-
-    /* profesores destacados */
-
-
-    /* habiliades */
 
     .habilidades header{
         padding-left: 3.7rem;
@@ -448,8 +447,6 @@ ul.teachers .teacher .team-icon figure img {
         min-width: 33.333333%;
     }
 
-
-
     .habilidades header{
         padding-left: 3.7rem;
     }
@@ -457,7 +454,7 @@ ul.teachers .teacher .team-icon figure img {
     .profesores-destacados .teachers {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
+        gap: 2rem;
     }
 
     .teachers .teacher:nth-last-of-type(2) {
@@ -506,8 +503,6 @@ ul.teachers .teacher .team-icon figure img {
         right: 4rem;
     }
 
-    /* video section */
-
     .video-section iframe{
         height: 25rem;      
     }
@@ -520,9 +515,6 @@ ul.teachers .teacher .team-icon figure img {
     .video-section .service h4 {
         font-size: 1rem;
     }
-
-
-    /* buscador */
 
     .teachers .teacher:nth-last-of-type(3) {
         margin-bottom: 0;
@@ -549,15 +541,14 @@ ul.teachers .teacher .team-icon figure img {
     }
 
     .profesores-destacados .teachers .image img {
-        height: 280px;
+        height: 100%;
         top: 0;
-        width: 150px;
+        width: 100%;
     }
 
     ul.teachers .image figure{
-        width: calc(((((((100vw - 17px) / 10) * 8) - 10rem) / 3) / 2) - 5px);
-        height: 280px;
-        max-height: 280px;
+        width: calc((((((100vw / 10) * 8) - 6rem) / 3) - 1rem) / 2);
+        height: 18rem;
     }
 
     .profesores-destacados .teacher .image {
@@ -577,13 +568,10 @@ ul.teachers .teacher .team-icon figure img {
 
 /* ? XL */
 @media(min-width: 1200px){
-
     .slider-container header{
         width: 48%;
         padding-left: calc((((100vw - 17px) - (5rem * 10)) / 10) + 5rem);
     }
-
-    /* video section */
 
     .video-section .services{
         justify-content: space-evenly;
@@ -598,10 +586,9 @@ ul.teachers .teacher .team-icon figure img {
         gap: 4rem;
     }
 
-
-    /* buscador */
-
-    /* profesores destacados */
+    ul.teachers .image figure {
+        width: calc(((((((100vw - 17px) / 10) * 8) - 8rem) / 3) - 1rem) / 2);
+    }
 }
 
 /* ? 2XL */
@@ -613,6 +600,10 @@ ul.teachers .teacher .team-icon figure img {
 
     .video-section iframe {
         height: 25rem;      
+    }
+
+    ul.teachers .image figure {
+        width: calc(((((((100vw - 17px) / 12) * 8) - 8rem) / 3) - 1rem) / 2);
     }
 
     ul.blog.cards .card:first-of-type,

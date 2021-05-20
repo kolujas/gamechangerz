@@ -51,7 +51,7 @@ ul.games main {
 
 ul.games figure{
     height: 20rem;
-    width: 100%;
+    width: 10rem;
     overflow: hidden;
 }
 
@@ -65,28 +65,25 @@ ul.games figure img{
 
 /* ? MD */
 @media(min-width: 768px){
-    
+    /*  */
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    /*  */
 }
 
 /* ? XL */
 @media(min-width: 1200px){
     ul.games figure{
-        height: 20rem;
-        width: 100%;
-        overflow: hidden;
+        /* width: 10re; */
     }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
     ul.games figure{
-        height: 40rem;
-        width: 100%;
-        overflow: hidden;
+        /* height: 40rem; */
+        /* width: 100%; */
     }
 }

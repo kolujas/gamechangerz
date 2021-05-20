@@ -23,9 +23,11 @@
                                     </ul>
                                 </div>
                                 <div class="team-icon ml-4">
-                                    <figure>
-                                        <img src={{ asset("storage/" . $user->teampro->logo) }} alt="{{ $user->teampro->name }} logo"/>
-                                    </figure>
+                                    <div>
+                                        <figure>
+                                            <img src={{ asset("storage/" . $user->teampro->logo) }} alt="{{ $user->teampro->name }} logo"/>
+                                        </figure>
+                                    </div>
                                 </div>
                             </section>
                             <section class="abilities w-full hidden md:block">
@@ -42,14 +44,16 @@
                             </section>
                         </div>
                     </header>
-                    <section class="image lg:col-span-3">
-                        <figure>
-                            @foreach ($user->files as $key => $value)
-                                @if ($key === 'profile')
-                                    <img src={{ asset("storage/$value") }} alt="Device image">
-                                @endif
-                            @endforeach
-                        </figure>
+                    <section class="image lg:col-span-3 row-span-2 md:row-span-1">
+                        <div>
+                            <figure>
+                                @foreach ($user->files as $key => $value)
+                                    @if ($key === 'profile')
+                                        <img src={{ asset("storage/$value") }} alt="Device image">
+                                    @endif
+                                @endforeach
+                            </figure>
+                        </div>
                     </section>
                     <section class="payment grid lg:col-span-2 ml-4 mb-4 md:m-0 md:mr-8 md:mt-4 md:items-end">
                         <div class="mb-4">

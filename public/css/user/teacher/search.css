@@ -161,24 +161,6 @@
         font-size: 1rem;
     }
 
-    .teacher .image, .teacher .payment{
-        /* grid-row: span 1 / span 1; */
-    }
-
-    .teacher header{
-        /* grid-column: span 4 / span 4; */
-    }
-
-    .teacher .image{
-        /* grid-column: span 2 / span 2; */
-    }
-
-    .teacher .image img{
-        height: 12rem;
-        min-height: 100%;
-        object-position: top;
-    }
-
     .teacher .teampro{
         flex-basis: 50%;
     }
@@ -186,11 +168,5 @@
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .teachers + .list .teachers .teacher{
-        /* grid-template-columns: repeat(7, minmax(0, 1fr)); */
-    }
-
-    .teacher header{
-        /* grid-column: span 3 / span 3; */
-    }
+    /*  */
 }

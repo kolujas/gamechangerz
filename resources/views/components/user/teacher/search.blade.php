@@ -1,4 +1,4 @@
-<section class="teachers lg:grid lg:grid-cols-10 px-8 xl:px-0">
+<section class="teachers lg:grid lg:grid-cols-10 px-8 lg:px-0">
     <header class="lg:col-span-8 lg:col-start-2">
         <h2 class="color-two text-2xl text-left pt-24 xl:text-2xl russo">Buscador de profesores</h2>
         <p class="color-two text-lg xl:text-xl text-left overpass mt-2">Úneteles a miles de jugadores que buscan <span class="color-four">lo mismo</span> que vos</p>
@@ -122,7 +122,6 @@
 
 
     <form class="flex justify-center lg:justify-between my-4 py-2 pl-4 pr-2 lg:col-span-8 lg:col-start-2 mb-8 lg:mb-12 rounded" action="#">
-        
         <input class="rounded" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
         <div id="order" class="dropdown closed">
             <a class="dropdown-header dropdown-button" href="#">
@@ -147,7 +146,7 @@
     </form>            
 </section>
 
-<section class="list lg:grid lg:grid-cols-10 px-8 xl:px-0">
+<section class="list lg:grid lg:grid-cols-10 px-8 lg:px-0">
     <main class="lg:col-span-8 lg:col-start-2">
         @component('components.user.list',[
             'users' => $users,

@@ -15,12 +15,11 @@ ul.teachers .teacher .languages svg {
 }
 
 ul.teachers .image figure{
-    width: 100%;
-    height: 100%;
+    height: 22rem;
 }
 
 ul.teachers .image img {
-    width: 265px;
+    width: 100%;
     height: calc(100% + 2rem);
     object-fit: cover;
     object-position: top;
@@ -78,29 +77,24 @@ ul.teachers .teacher .profile .info .team-name .inner-text{
         width: 32px;
         object-fit: cover;
     }
+
+    ul.teachers .image figure{
+        width: calc(((100vw - 4rem) - 2rem) / 3);
+    }
 }
 
 /* ? LG */
 @media (min-width: 1024px) {
-    /*  */
+    ul.teachers .image figure {
+        width: calc(((((100vw / 10) * 8) - 2rem) / 10) * 3);
+    }
 }
 
 /* ? XL */
 @media (min-width: 1200px) {
     ul.teachers .image figure{
         width: calc((((((100vw - 17px) / 10) * 8) - 2rem) / 10) * 3);
-        height: 14rem;
-        max-height: 14rem;
         clip-path: polygon(0 -2rem, 100% -2rem, 100% 100%, 0 100%);
-    }
-
-    ul.teachers .image img {
-        width: 265px;
-        height: 400px;
-        object-fit: cover;
-        object-position: top;
-        position: relative;
-        top: -2rem;
     }
 }
 
