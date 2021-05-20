@@ -15,7 +15,7 @@
         </label>
     </div>
 
-    <form class="flex justify-center lg:justify-between mb-8 p-2 lg:col-span-8 lg:col-start-2 lg:mb-12 rounded" action="#">
+    <form class="flex justify-center lg:justify-between mb-8 py-2 pl-4 pr-2 lg:col-span-8 lg:col-start-2 lg:mb-12 rounded" action="#">
         <input class="overpass rounded" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
         <div id="order" class="dropdown closed">
             <a class="dropdown-header dropdown-button" href="#">
@@ -73,7 +73,9 @@
                 @endcomponent
             </div>
             <div class="btn-purple">
-                <a class="btn btn-one russo rouded" href="/users/{{ $user->slug }}/profile">Contactar</a>
+                <a class="btn btn-one btn-outline russo" href="/users/{{ $user->slug }}/profile">
+                    <span class="px-4 py-3">Contactar</span>
+                </a>
             </div>
         </li>
     @endforeach

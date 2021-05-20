@@ -16,7 +16,7 @@
         @endforeach
         @if (\Request::is('blog'))
             @if (count($posts) < 10)
-                <li class="card mr-4 info">
+                <li class="card mr-4 info mb-20">
                     <div>
                         <main class="card-body p-4">
                             <h4 class="color-four text-uppercase overpass">No hay más entradas que mostrar</h4>
@@ -25,7 +25,7 @@
                 </li>
             @endif
             @if (count($posts) >= 10)
-                <li class="card mr-4 info">
+                <li class="card mr-4 info mb-20">
                     <div>
                         <main class="card-body p-4">
                             <h4 class="color-four text-uppercase">Deslice hacia abajo para cargar más entradas</h4>
@@ -35,7 +35,7 @@
             @endif
         @endif
     @else
-        <li class="card mr-4 info">
+        <li class="card mr-4 info mb-20">
             <div>
                 <main class="card-body p-4">
                     <h4 class="color-white text-uppercase">No hay entradas que mostrar</h4>

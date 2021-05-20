@@ -13,16 +13,32 @@
     border-image-slice: 1;
 }
 
+.dropdown,
+.dropdown .dropdown-header,
+.dropdown .dropdown-content {
+    border-radius: .25rem;
+}
+
 .dropdown .dropdown-header h2 {
     font-size: 1.5rem;
 }
 
 .cart {
     border-radius: .25rem;
-    border: 1px solid;
-    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
-    border-image-slice: 1;
-    background-color: rgba(0,0,0,.5);
+    background-color: #161218;
+    position: relative;
+}
+
+.cart::before {
+    border-radius: .25rem;
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
 }
 
 .cart a {
@@ -97,15 +113,26 @@
 
 .methods .card a {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
-    border: 1px solid;
     min-height: 100%;
-    border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
-    border-image-slice: 1;
-    background: rgba(0,0,0,.5);
+    background-color: #161218;
     transition: background 500ms;
     text-transform: uppercase;
+    border-radius: .25rem;
+}
+
+.methods .card a::before {
+    border-radius: .25rem;
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
 }
 
 .methods .card a.active,
@@ -159,15 +186,15 @@ input[name="credits"]:focus {
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    /**/
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    /**/
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    
+    /**/
 }

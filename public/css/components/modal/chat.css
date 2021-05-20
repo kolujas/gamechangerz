@@ -177,7 +177,7 @@
     border-radius: 100vh;
 }
 
-#chat.modal #details header :is(span, p):hover {
+#chat.modal #details header :where(span, p):hover {
     color: var(--color-four);
 }
 
@@ -248,7 +248,7 @@
     background-color: var(--color-to-left);
 }
 
-#chat.modal #details main :is(li.to + li.to, li.from + li.from) div::before {
+#chat.modal #details main :where(li.to + li.to, li.from + li.from) div::before {
     display: none;
 }
 

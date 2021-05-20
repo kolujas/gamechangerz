@@ -48,7 +48,7 @@
                         </figure>
                     </a>
                     <a class="btn btn-outline btn-one mt-4 block" href="#">
-                        <span class="russo">Leer más</span>
+                        <span class="russo flex justify-center items-center rounded">Leer más</span>
                     </a>
                 </header>
             </div>

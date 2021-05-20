@@ -69,9 +69,9 @@ async function getUsers (role = 0) {
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-    if (URL.findOriginalRoute() === '/teachers') {
-        getUsers(1);
-    }
+    // if (URL.findOriginalRoute() === '/teachers') {
+    //     getUsers(1);
+    // }
     $('.filter-pagination').pagination({
         dataSource: users,
         pageSize: 10,

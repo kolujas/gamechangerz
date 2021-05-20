@@ -9,7 +9,7 @@ ul.blog.cards{
     --scroll-color-two-alternative: #1a141d;
 }
 
-ul.blog.cards .card > :is(a, div){
+ul.blog.cards .card > :where(a, div){
     display: block;
     border: 1px solid transparent;
     width: 66.666666vw;
@@ -25,7 +25,7 @@ ul.blog.cards .card h4 {
     white-space: nowrap;
 }
 
-ul.blog.cards .card > :is(a) h4 {
+ul.blog.cards .card > :where(a) h4 {
     text-overflow: ellipsis;
     max-width: 100%;
     overflow: hidden;

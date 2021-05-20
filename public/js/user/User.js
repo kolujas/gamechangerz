@@ -7,7 +7,8 @@ export class User extends Class {
     static userComponent (data) {
         let item = document.createElement('li');
         item.classList.add("p-4", "flex", "justify-between", "items-center", "gap-4", "lg:col-span-8", "lg:col-start-2", "degradado");
-            let header = document.createElement('header');
+            let header = document.createElement('a');
+            header.href = `/users/${ data.slug }/profile`;
             header.classList.add("flex");
             item.appendChild(header);
                 let photo = document.createElement('div');

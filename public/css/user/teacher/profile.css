@@ -141,6 +141,7 @@
      width: 100%;
      height: 100%;
      object-fit: cover;
+     border-radius: .25rem;
  }
 
 .teacher section.games .cards{
@@ -263,7 +264,7 @@ ul.abilities.cards .card > div:hover::before {
     width: 100%;
 }
 
-.teacher .tab-menu :is(table, tbody, tr) {
+.teacher .tab-menu :where(table, tbody, tr) {
     width: 100%;
 }
 
@@ -370,7 +371,7 @@ ul.abilities.cards .card > div:hover::before {
         padding-right: .5rem;
     }
 
-    .teacher .info .abilities.cards li:is(:nth-of-type(2), :last-of-type) > div {
+    .teacher .info .abilities.cards li:where(:nth-of-type(2), :last-of-type) > div {
         border: none;
     }
 
@@ -424,7 +425,7 @@ ul.abilities.cards .card > div:hover::before {
         overflow: hidden;
     }
 
-    .teacher .info .abilities.cards .card:is(:nth-of-type(3), :first-of-type) > div {
+    .teacher .info .abilities.cards .card:where(:nth-of-type(3), :first-of-type) > div {
         padding-left: 0;
     }
 

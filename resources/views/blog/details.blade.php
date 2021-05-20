@@ -19,12 +19,17 @@
             <p class="color-white texto-slogan py-4 text-2xl md:text-4xl md:px-20 lg:text-4xl lg:px-48 2xl:text-5xl russo">{{ $post->title }}</p>
             <div class="color-white py-4 2xl:text-lg">
                 <span class="overpass">By</span>
-                <a class="overpass" href="/users/{{ $post->user->slug }}">{{ $post->user->name }} ({{ $post->user->username }})</a>
+                @if ($post->user->id_role === 1)
+                    <a class="overpass btn btn-text btn-white" href="/users/{{ $post->user->slug }}">{{ $post->user->name }} ({{ $post->user->username }})</a>
+                @endif
+                @if ($post->user->id_role === 2)
+                    <span class="overpass btn btn-text btn-white">{{ $post->user->name }}</span>
+                @endif
             </span>
         </div>
     </header>
 
-    <section class="content mx-8 py-12 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0 overpass">
+    <section class="content mx-8 py-24 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0 overpass">
         {!! $post->description !!}
     </section>
 @endsection

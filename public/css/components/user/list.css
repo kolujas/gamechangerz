@@ -1,9 +1,3 @@
-ul.teachers .teacher {
-    border: 1px solid;
-    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    border-image-slice: 1;
-    background-color: var(--color-black);
-}
 
 ul.teachers .teacher h4 {
     font-size: 1.5rem;
@@ -17,16 +11,21 @@ ul.teachers .teacher .team-name {
 }
 
 ul.teachers .teacher .languages svg {
+    width: 1.5rem;
+}
+
+ul.teachers .image figure{
     width: 100%;
     height: 100%;
 }
 
-ul.teachers figure,
-ul.teachers img {
-    width: 100%;
-    height: 100%;
+ul.teachers .image img {
+    width: 265px;
+    height: calc(100% + 2rem);
     object-fit: cover;
-    object-position: bottom;
+    object-position: top;
+    position: relative;
+    top: -2rem;
 }
 
 ul.teachers .btn {
@@ -45,36 +44,67 @@ ul.teachers .abilities li svg {
     height: 2.5rem;
 }
 
+ul.teachers .teacher{
+    background-color: var(--color-black);
+    border-radius: .25rem;
+} 
+
+ul.teachers .teacher .profile .info{
+    width: fit-content;
+}
+
+ul.teachers .teacher .profile .info + .team-icon figure{
+    height: 100%;
+}
+
+ul.teachers .teacher .profile .info .team-name{
+    position: relative;
+    top: 1px;
+}
+
+ul.teachers .teacher .profile .info .team-name .inner-text{
+    position: relative;
+    top: 2px;
+} 
+
 /* ? MD */
 @media (min-width: 768px) {
-    ul.teachers .abilities li svg {
+    ul.teachers .teacher .abilities li svg {
         height: 2rem;
+    }
+
+    ul.teachers .teacher .team-icon figure img{
+        height: 56px;
+        width: 32px;
+        object-fit: cover;
     }
 }
 
 /* ? LG */
 @media (min-width: 1024px) {
-    /* ul.teachers .username {
-        max-width: 50%;
-    } */
-
-    ul.teachers .image {
-        /* max-height: 20rem; */
-    }
-
-    ul.teachers .image img {
-        /* min-height: 23rem; */
-        position: relative;
-        /* top: -3rem; */
-    }
+    /*  */
 }
 
 /* ? XL */
 @media (min-width: 1200px) {
-    
+    ul.teachers .image figure{
+        width: calc((((((100vw - 17px) / 10) * 8) - 2rem) / 10) * 3);
+        height: 14rem;
+        max-height: 14rem;
+        clip-path: polygon(0 -2rem, 100% -2rem, 100% 100%, 0 100%);
+    }
+
+    ul.teachers .image img {
+        width: 265px;
+        height: 400px;
+        object-fit: cover;
+        object-position: top;
+        position: relative;
+        top: -2rem;
+    }
 }
 
 /* ? 2XL */
 @media (min-width: 1536px) {
-    
+    /*  */
 }

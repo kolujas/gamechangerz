@@ -60,6 +60,7 @@
                 }
                 if ($user->id_role === 0) {
                     $review->and(['game']);
+                    $review->game->and(['files']);
                 }
                 foreach ($review->abilities as $review_ability) {
                     $review->stars = (isset($review->stars) ? $review->stars : 0) + $review_ability->stars;

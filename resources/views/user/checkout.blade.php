@@ -50,19 +50,19 @@
             <main id="methods" class="tab-menu">
                 <ul class="tabs tab-menu-list cards grid grid-cols-1 gap-4 md:grid-cols-3">
                     <li class="tab card">
-                        <a href="#mp" class="tab-button color-white p-4">
+                        <a href="#mp" class="tab-button color-white p-4 rounded">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                             <h4 class="pl-4 overpass">Mercado pago</h4>
                         </a>
                     </li>
                     <li class="tab card">
-                        <a href="#paypal" class="tab-button color-white p-4">
+                        <a href="#paypal" class="tab-button color-white p-4 rounded">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                             <h4 class="pl-4 overpass">Paypal</h4>
                         </a>
                     </li>
                     <li class="tab card">
-                        <a href="#skins" class="tab-button color-white p-4">
+                        <a href="#skins" class="tab-button color-white p-4 rounded">
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                             <h4 class="pl-4 overpass">Skins</h4>
                         </a>
@@ -86,8 +86,8 @@
             <label for="credits" class="color-grey md:col-end-2 mr-4 overpass">(300 créditos disponibles)</label>
         </section>
         <div class="flex justify-center md:justify-end lg:justify-center lg:col-start-2 lg:col-span-3">
-            <button class="btn btn-one btn-outline py-2 px-4" type="submit">
-                <span class="russo">Comenzar entrenamiento</span>
+            <button class="btn btn-one btn-outline" type="submit">
+                <span class="russo py-2 px-4">Comenzar entrenamiento</span>
             </button>
         </div>
     </form>
