@@ -53,7 +53,7 @@
         ], [
             'id_ability' => 6,
             'name' => 'Punteria',
-            'description' => '<span class="color-four">Elimina</span> al equipo contrario controlando el recoll del rifle.',
+            'description' => '<span class="color-four">Elimina</span> al equipo contrario controlando el recoil del rifle.',
             'image' => 'games/counter-strike-go/abilities/2/01-punteria.png',
             'background' => 'games/counter-strike-go/abilities/2/02-background.png',
             'icon' => 'components.svg.PunteriaSVG',
