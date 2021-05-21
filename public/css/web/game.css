@@ -378,7 +378,9 @@ ul.teachers .image figure{
 
 .profesores-destacados .payment .btn:hover {
     padding-right: 0;
-    border-bottom-color: var(--color-four);
+    border: none;
+    border-bottom: 2px solid var(--color-four);
+    box-shadow: none;
 }
 
 .profesores-destacados .payment .btn::before {
