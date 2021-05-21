@@ -2,8 +2,8 @@
     @if (count($users))
         @foreach ($users as $user)
             <li class="teacher">
-                <main class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
-                    <header class="profile lg:col-span-5 mt-4 ml-4 lg:my-4">
+                <main class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
+                    <header class="profile lg:col-span-6 mt-4 ml-4 lg:my-4">
                         <div class="grid gap-4 lg:flex lg:flex-wrap">
                             <section class="username">
                                 <h4 class="color-white russo">{{ $user->username }}</h4>
@@ -44,7 +44,7 @@
                             </section>
                         </div>
                     </header>
-                    <section class="image lg:col-span-3 row-span-2 md:row-span-1">
+                    <section class="image lg:col-span-4 row-span-2 md:row-span-1">
                         <div>
                             <figure>
                                 @foreach ($user->files as $key => $value)

@@ -1,10 +1,12 @@
 <aside id="games" class="modal">
     <section class="modal-content center">
-        <form class="p-12 pr-6 mr-6" id="games-form" action="/users/{{ $user->slug }}/games/update" method="post" class="grid">
+        <form class="pr-6" id="games-form" action="/users/{{ $user->slug }}/games/update" method="post" class="grid">
             @csrf
             @method('post')
-            <section>
-                <h3 class="color-four mb-12 russo">¿Cuál juego querés tener?</h3>
+            <main class="pl-12 pb-12 pr-6">
+                <header class="modal-header pt-12 mb-12">
+                    <h3 class="color-four mb-12 russo">¿Cuál juego querés tener?</h3>
+                </header>
                 @foreach ($games as $game)
                     @if ($game->active)
                         <label class="text-white input-option flex mb-6">
@@ -19,11 +21,11 @@
                     @endif
                 @endforeach
                 <div class="w-full flex justify-center mt-12">
-                    <button class="btn btn-one btn-outline px-4 py-2">
-                        <span class="russo">Confirmar</span>
+                    <button class="btn btn-one btn-outline">
+                        <span class="russo px-4 py-2">Confirmar</span>
                     </button>
                 </div>
-            </section>
+            </main>
         </form>
     </section>
 </aside>
