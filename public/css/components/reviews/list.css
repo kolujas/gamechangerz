@@ -1,0 +1,91 @@
+ul.reviews {
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+ul.reviews li > div {
+    min-width: 66.666666vw;
+    background-color: var(--color-black);
+    height: 100%;
+    min-height: 3rem;
+}
+
+ul.reviews li > div > div {
+    height: fit-content;
+}
+
+ul.reviews li:not(:last-of-type) {
+    padding-right: 2rem;
+}
+
+ul.reviews li:last-of-type {
+    padding-right: 2rem;
+}
+
+ul.reviews .title {
+    white-space: nowrap;
+}
+
+ul.reviews .card svg{
+    width: 24px;
+}
+
+ul.reviews li {
+    min-height: 3rem;
+}
+
+ul.reviews li div svg {
+    margin-left: .5rem;
+}
+
+ul.reviews li div div div div svg {
+    width: 1.8rem;
+}
+
+/* ? MD */
+@media (min-width: 768px) {
+    ul.reviews li > div {
+        min-width: 15rem;
+    }
+}
+
+/* ? LG */
+@media (min-width: 1024px) {
+    ul.reviews li:last-of-type {
+        padding-right: 0;
+    }
+}
+
+/* ? XL */
+@media (min-width: 1200px) {
+    ul.reviews li:first-of-type {
+        padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
+    }
+
+    ul.reviews .cards::after,
+    ul.reviews .cards::before {
+        content: '';
+        width: calc(100% / 6);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+}
+
+/* ? 2XL */
+@media (min-width: 1536px) {
+    ul.reviews .cards::-webkit-scrollbar-button {
+        width: 20%;
+        height: 20%;
+    }
+
+    ul.reviews .cards::before {
+        width: calc((100vw / 10) * 3);
+    }
+
+    ul.reviews .cards::after {
+        width: calc(100vw / 10);
+    }
+}

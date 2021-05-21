@@ -1,4 +1,4 @@
-<ul class="cards flex px-8 pb-4 lg:pr-0 xl:px-0 xl:col-span-6 mb-4">
+<ul class="reviews cards flex px-8 pb-4 lg:pr-0 xl:px-0 xl:col-span-6 mb-4">
     @foreach ($reviews as $review)
         <li class="card">
             <div class="flex p-8 rounded">

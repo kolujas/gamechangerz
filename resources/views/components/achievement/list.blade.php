@@ -1,4 +1,4 @@
-<ul class="cards flex px-8 pb-4 lg:pr-0 xl:px-0 mb-20 lg:mb-0">
+<ul class="achievements cards flex px-8 pb-4 lg:pr-0 xl:px-0 mb-20 lg:mb-0">
     @if (count($achievements))
         @foreach ($achievements as $achievement)
             <li class="card">

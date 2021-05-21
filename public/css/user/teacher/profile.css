@@ -150,9 +150,9 @@
     margin-top: 0; 
 }
 
-ul.abilities.cards .card > div:hover::before {
+/* ul.abilities.cards .card > div:hover::before {
     display: none;
-}
+} */
 
 .teacher ul.games header * {
     font-size: .7rem;
@@ -176,57 +176,8 @@ ul.abilities.cards .card > div:hover::before {
     padding-top: 0;
 }
 
-.teacher .achievements ul li{
-    white-space: nowrap;
-    min-width: fit-content;
-}
-
-.teacher .achievements ul, .teacher .reviews ul{
-    max-width: 100%;
-    overflow-x: scroll;
-}
-
-.teacher .reviews ul .title {
-    white-space: nowrap;
-}
-
-.teacher .reviews .card svg{
-    width: 24px;
-}
-
-.teacher .achievements ul li > div, .teacher .reviews ul li > div {
-    min-width: 66.666666vw;
-    background-color: var(--color-black);
-    height: 100%;
-    min-height: 3rem;
-}
-
-.teacher .achievements ul li > div > div, .teacher .reviews ul li > div > div {
-    height: fit-content;
-}
-
-.teacher .achievements ul li:not(:last-of-type), .teacher .reviews ul li:not(:last-of-type) {
-    padding-right: 2rem;
-}
-
-.teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
-    padding-right: 2rem;
-}
-
-.teacher .reviews ul li{
-    min-height: 3rem;
-}
-
 .teacher .tab-menu .tabs svg {
     height: 3rem;
-}
-
-.teacher .reviews ul li div svg{
-    margin-left: .5rem;
-}
-
-.teacher .reviews ul li div div div div svg {
-    width: 1.8rem;
 }
 
 .teacher .description div{
@@ -352,21 +303,11 @@ ul.abilities.cards .card > div:hover::before {
     font-family: var(--font-one);
 }
 
-/* #horarios .tab-content-list #online a{
-    position: relative;
-    border-radius: .25rem;
-}
-
-#horarios .tab-content-list #online a::before{
-    background: var(--color-black);
-}
- */
-
- .teacher .banner .profile{
+.teacher .banner .profile{
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: right;
+    object-position: calc(100% - 2rem) 0;
 }
 
 /* ? MD */
@@ -386,10 +327,6 @@ ul.abilities.cards .card > div:hover::before {
     .teacher .info .abilities.cards li:nth-of-type(2) > div,
     .teacher .info .abilities.cards li:last-of-type > div {
         border: none;
-    }
-
-    .teacher .achievements ul li > div, .teacher .reviews ul li > div {
-        min-width: 15rem;
     }
 
     .teacher .tab-menu .tab-menu-list .btn {
@@ -461,10 +398,6 @@ ul.abilities.cards .card > div:hover::before {
         grid-template-columns: initial;
     }
 
-    .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
-        padding-right: 0;
-    }
-
     .teacher .info .abilities.cards::after,
     .teacher .info .abilities.cards::before {
         display: none;
@@ -518,43 +451,12 @@ ul.abilities.cards .card > div:hover::before {
         padding-right: 10%;
     }
 
-    .teacher .achievements ul li:first-of-type, .teacher .reviews ul li:first-of-type {
+    .reviews > header {
         padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
-    }
-
-    .teacher .reviews header {
-        padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
-    }
-
-    .teacher .achievements .cards::after,
-    .teacher .achievements .cards::before,
-    .teacher .reviews .cards::after,
-    .teacher .reviews .cards::before {
-        content: '';
-        width: calc(100% / 6);
-        position: absolute;
-        top: 0;
-        height: 100%;
-        z-index: 1;
-        pointer-events: none;
     }
 }
 
 /* ? 2XL */
 @media (min-width: 1536px) {
-    .teacher .achievements .cards::-webkit-scrollbar-button,
-    .teacher .reviews .cards::-webkit-scrollbar-button {
-        width: 20%;
-        height: 20%;
-    }
-
-    .teacher .achievements .cards::before,
-    .teacher .reviews .cards::before {
-        width: calc((100vw / 10) * 3);
-    }
-
-    .teacher .achievements .cards::after,
-    .teacher .reviews .cards::after {
-        width: calc(100vw / 10);
-    }
+    /*  */
 }

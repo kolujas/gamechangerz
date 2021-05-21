@@ -1,0 +1,79 @@
+ul.achievements li {
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+ul.achievements {
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+ul.achievements li > div {
+    min-width: 66.666666vw;
+    background-color: var(--color-black);
+    height: 100%;
+    min-height: 3rem;
+}
+
+ul.achievements li > div > div {
+    height: fit-content;
+}
+
+ul.achievements li:not(:last-of-type) {
+    padding-right: 2rem;
+}
+
+ul.achievements li:last-of-type {
+    padding-right: 2rem;
+}
+
+/* ? MD */
+@media (min-width: 768px) {
+    ul.achievements li > div {
+        min-width: 15rem;
+    }
+}
+
+/* ? LG */
+@media (min-width: 1024px) {
+    ul.achievements li:last-of-type {
+        padding-right: 0;
+    }
+}
+
+/* ? XL */
+@media (min-width: 1200px) {
+    ul.achievements li:first-of-type {
+        padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
+    }
+
+    ul.achievements .cards::after,
+    ul.achievements .cards::before {
+        content: '';
+        width: calc(100% / 6);
+        position: absolute;
+        top: 0;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+}
+
+/* ? 2XL */
+@media (min-width: 1536px) {
+    ul.achievements .cards::-webkit-scrollbar-button,
+    ul.reviews .cards::-webkit-scrollbar-button {
+        width: 20%;
+        height: 20%;
+    }
+
+    ul.achievements .cards::before,
+    ul.reviews .cards::before {
+        width: calc((100vw / 10) * 3);
+    }
+
+    ul.achievements .cards::after,
+    ul.reviews .cards::after {
+        width: calc(100vw / 10);
+    }
+}

@@ -31,7 +31,7 @@
         <section class="lg:col-span-2 xl:col-span-5 xl:col-start-2 px-8 lg:pr-0 xl:px-0">
             @if (isset($user->files['banner']))
                 <figure class="flex justify-center mb-20 lg:mb-0 relative">
-                    <img class="opacity-40" src={{ asset("storage/" . $user->files['banner']) }} alt="Foto del profesor">
+                    <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
                     <img class="absolute profile" src={{ asset("storage/" . $user->files['profile']) }} alt="Foto del profesor">
                 </figure>
             @endif

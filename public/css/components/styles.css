@@ -1,4 +1,5 @@
 @import './abilities/list.css';
+@import './achievements/list.css';
 @import './animation.css';
 @import './blog/list.css';
 @import './button.css';
@@ -8,6 +9,7 @@
 @import './modal.css';
 @import './nav.css';
 @import './notification.css';
+@import './reviews/list.css';
 @import './sidebar.css';
 @import './tab.css';
 @import './user/list.css';

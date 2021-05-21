@@ -75,7 +75,7 @@ ul.blog.cards .card > a:hover::before {
     z-index: -1;
 }
 
-ul.blog.cards .card > a main {
+ul.blog.cards .card > :where(a, div) main {
     background-color: var(--color-black);
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
