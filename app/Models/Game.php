@@ -134,11 +134,11 @@
                 if (!count($files)) {
                     $this->files = false;
                 }
-                dd($files);
                 foreach ($files as $file) {
                     $fileExplode = explode(".", $file);
                     $fileExplode = explode("\\", $fileExplode[0]);
                     $fileExplode = explode("-", $fileExplode[1]);
+                    dd($fileExplode);
                     $this->files[$fileExplode[1]] = $file;
                 }
             } catch (\Throwable $th) {
