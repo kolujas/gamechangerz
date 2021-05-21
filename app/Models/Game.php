@@ -134,6 +134,7 @@
                 if (!count($files)) {
                     $this->files = false;
                 }
+                dd($files);
                 foreach ($files as $file) {
                     $fileExplode = explode(".", $file);
                     $fileExplode = explode("\\", $fileExplode[0]);
