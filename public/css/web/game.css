@@ -540,6 +540,10 @@ ul.teachers .image figure{
         flex-basis: 100%;
     }
 
+    ul.teachers .image figure {
+        clip-path: polygon(-2rem 0, calc(100% + 5rem) 0, calc(100% + 5rem) 100%, -2rem 100%);
+    }
+
     .profesores-destacados .teachers .image img {
         /* height: 100%;
         top: 0;
