@@ -150,9 +150,9 @@
     margin-top: 0; 
 }
 
-/* ul.abilities.cards .card > div:hover::before {
+.profile ul.abilities.cards .card > div:hover::before {
     display: none;
-} */
+}
 
 .teacher ul.games header * {
     font-size: .7rem;
