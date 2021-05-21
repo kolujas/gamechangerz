@@ -541,9 +541,26 @@ ul.teachers .image figure{
     }
 
     .profesores-destacados .teachers .image img {
-        height: 100%;
+        /* height: 100%;
         top: 0;
         width: 100%;
+        object-position: left top; */
+
+        height: 85%;
+        top: 15%;
+        left: -2rem;
+        max-width: calc(100% + 3.75rem);
+        width: calc(100% + 3.75rem);
+        object-fit: cover;
+        transition: 500ms;
+        object-position: center bottom;
+    }
+
+    .profesores-destacados .teachers .teacher:hover .image img {
+        height: 95%;
+        top: 5%;
+        max-width: calc(100% + 5rem);
+        width: calc(100% + 5rem);
     }
 
     ul.teachers .image figure{
