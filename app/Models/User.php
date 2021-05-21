@@ -58,7 +58,7 @@
          * * The Sluggable configuration for the Model.
          * @return array
          */
-        public function sluggable () {
+        public function sluggable (): array {
             return [
                 'slug' => [
                     'source'	=> 'username',
