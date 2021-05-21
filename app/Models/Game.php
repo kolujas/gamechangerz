@@ -136,10 +136,11 @@
                 }
                 foreach ($files as $file) {
                     $fileExplode = explode(".", $file);
-                    $fileExplode = explode("\\", $fileExplode[0]);
+                    $fileExplode = explode("/", $fileExplode[0]);
+                    $fileExplode = explode("\\", end($fileExplode));
+                    $fileExplode = explode("-", end($fileExplode));
                     dd($fileExplode);
-                    $fileExplode = explode("-", $fileExplode[1]);
-                    $this->files[$fileExplode[1]] = $file;
+                    $this->files[end($fileExplode)] = $file;
                 }
             } catch (\Throwable $th) {
                 throw $th;
