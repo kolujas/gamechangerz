@@ -139,7 +139,6 @@
                     $fileExplode = explode("/", $fileExplode[0]);
                     $fileExplode = explode("\\", end($fileExplode));
                     $fileExplode = explode("-", end($fileExplode));
-                    dd($fileExplode);
                     $this->files[end($fileExplode)] = $file;
                 }
             } catch (\Throwable $th) {
