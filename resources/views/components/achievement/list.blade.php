@@ -9,14 +9,13 @@
                     @if (!isset($achievement->svg))
                         @component('components.svg.TrofeoSVG')@endcomponent
                     @endif
-                    <span class="color-four font-bold pl-4 pr-2 overpass">{{ $achievement->title }}</span>
-                    <span class="overpass">{{ $achievement->description }}</span>
+                    <span class="title color-four font-bold pl-4 pr-2 overpass">{{ $achievement->title }}</span>
+                    <span class="description overpass">{{ $achievement->description }}</span>
                     @if (Auth::check() && Auth::user()->id_user === $user->id_user)
-                        
+                        <a href="#achievements" class="btn btn-icon btn-one p-2">
+                            <i class="fas fa-pen"></i>
+                        </a>
                     @endif
-                    <a href="#achievements" class="btn btn-icon btn-one p-2">
-                        <i class="fas fa-pen"></i>
-                    </a>
                 </div>
             </li>
         @endforeach
@@ -26,7 +25,7 @@
             <div class="color-white flex justify-center items-center py-4 px-8">
                 <span class="overpass">No tiene logros que mostrar</span>
                 <a href="#achievements" class="btn btn-icon btn-one p-2">
-                    <i class="fas fa-pen"></i>
+                    <i class="fas fa-plus"></i>
                 </a>
             </div>
         </li>

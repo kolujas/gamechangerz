@@ -39,10 +39,10 @@
     @endif
 
     @if (count($user->lessons) || $user->hours || $user->friends_length)
-        <div class="info">
+        <div class="info mt-8">
             <ul>
                 @if (count($user->lessons))
-                    <li class="color-white my-8 font-bold">
+                    <li class="color-white mb-8 font-bold">
                         <a href="#lessons" class="btn btn-text btn-white font-bold">
                             <span class="overpass">Total clases tomadas:</span>
                             <span class="color-four overpass">{{ count($user->lessons) }}</span>
@@ -100,8 +100,8 @@
     @if (Auth::check() && Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 0 && Auth::user()->id_role === 0)
         <div class="actions flex justify-end mt-8 mt-4">
             <div class="flex justify-end">
-                <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-outline btn-one py-2 px-4 ml-4">
-                    <span class="overpass">Agregar amigo</span>
+                <a href="/users/{{ $user->slug }}/friendship/request" class="btn btn-outline btn-one ml-4">
+                    <span class="russo py-2 px-4">Agregar amigo</span>
                 </a>
             </div>
     @endif
@@ -112,16 +112,16 @@
                     <span class="btn btn-outline btn-two not py-2 px-4 ml-4">
                         <span class="overpass">Solicitud enviada</span>
                     </span>
-                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three py-2 px-4 ml-4">
-                        <span class="overpass">Cancelar solicitud</span>
+                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three ml-4">
+                        <span class="russo py-2 px-4">Cancelar solicitud</span>
                     </a>
                 @endif
                 @if (Auth::user()->id_user !== $user->id_user_request)
-                    <a href="/users/{{ $user->slug }}/friendship/accept" class="btn btn-outline btn-one py-2 px-4 ml-4">
-                        <span class="overpass">Aceptar solicitud</span>
+                    <a href="/users/{{ $user->slug }}/friendship/accept" class="btn btn-outline btn-one ml-4">
+                        <span class="russo py-2 px-4">Aceptar solicitud</span>
                     </a>
-                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three py-2 px-4 ml-4">
-                        <span class="overpass">Cancelar solicitud</span>
+                    <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three ml-4">
+                        <span class="russo py-2 px-4">Cancelar solicitud</span>
                     </a>
                 @endif
             </div>
@@ -129,8 +129,8 @@
     @if (Auth::check() && Auth::user()->slug !== $user->slug && isset($user->isFriend) && $user->isFriend === 2 && Auth::user()->id_role === 0)
         <div class="actions flex justify-end mt-8">
             <div class="flex justify-end">
-                <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-outline btn-three py-2 px-4 ml-4">
-                    <span class="overpass">Eliminar amigo</span>
+                <a href="/users/{{ $user->slug }}/friendship/delete" class="btn btn-outline btn-three ml-4">
+                    <span class="russo py-2 px-4">Eliminar amigo</span>
                 </a>
             </div>
     @endif

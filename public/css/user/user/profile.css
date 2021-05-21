@@ -10,9 +10,18 @@
     right: 1rem;
 }
 
-.user .data > div{
+.user .data {
+    border-radius: .25rem;
+}
+
+.user > .abilities li > div {
+    border-radius: .25rem;
+}
+
+.user .data > div {
     background-color: var(--color-black);
     position: relative;
+    border-radius: .25rem;
 }
 
 .user .data .btn.btn-icon {

@@ -66,7 +66,7 @@
 }
 
 .teacher .profile .info .teampro input:disabled {
-    width: calc(var(--width) + 1px);
+    width: calc(var(--width) + 2px);
 }
 
 .teacher .profile .info .teampro input + span {
@@ -92,6 +92,7 @@
     width: 100%;
     resize: none;
     padding: 0;
+    min-height: 7rem;
     color: var(--color-two);
 }
 
@@ -183,6 +184,10 @@ ul.abilities.cards .card > div:hover::before {
 .teacher .achievements ul, .teacher .reviews ul{
     max-width: 100%;
     overflow-x: scroll;
+}
+
+.teacher .reviews ul .title {
+    white-space: nowrap;
 }
 
 .teacher .reviews .card svg{
@@ -371,7 +376,8 @@ ul.abilities.cards .card > div:hover::before {
         padding-right: .5rem;
     }
 
-    .teacher .info .abilities.cards li:where(:nth-of-type(2), :last-of-type) > div {
+    .teacher .info .abilities.cards li:nth-of-type(2) > div,
+    .teacher .info .abilities.cards li:last-of-type > div {
         border: none;
     }
 
@@ -507,10 +513,6 @@ ul.abilities.cards .card > div:hover::before {
 
     .teacher .achievements ul li:first-of-type, .teacher .reviews ul li:first-of-type {
         padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
-    }
-
-    .teacher .achievements ul li:last-of-type, .teacher .reviews ul li:last-of-type {
-        padding-right: calc((100% - (5rem * 5)) / 6);
     }
 
     .teacher .reviews header {

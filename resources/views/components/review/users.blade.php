@@ -4,7 +4,7 @@
             <div class="flex p-8 rounded">
                 <div class="flex items-start flex-wrap">
                     <div class="w-full flex justify-between items-center">
-                        <span class="color-two font-bold pr-1">{{ $review->title }}</span>
+                        <span class="title color-two font-bold pr-1">{{ $review->title }}</span>
                         <div class="flex">
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $review->stars)
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <p class="color-white mt-4 overpass">{{ $review->description }}</p>
-                    <div class="w-full flex justify-between items-center mt-4">
+                    <div class="w-full flex justify-between items-center">
                         <a href="/users/{{ ($review->users['from']->id_user === $user->id_user ? $review->users['to']->slug : $review->users['from']->slug) }}/profile" class="btn btn-text btn-one overpass">
                             <span>{{ ($review->users['from']->id_user === $user->id_user ? $review->users['to']->username : $review->users['from']->username) }}</span>
                         </a>
