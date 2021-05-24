@@ -8,7 +8,7 @@
             <div class="languages flex items-center">
                 <ul class="languages flex items-center ml-4">
                     @foreach ($user->languages as $language)
-                        <li class="mr-2 overpass" title={{ $language->name }}>@component($language->svg)@endcomponent</li>
+                        <li class="mr-2 overpass" title={{ $language->name }}>@component("components.svg." . $language->icon)@endcomponent</li>
                     @endforeach
                 </ul>
                 @if (Auth::check() && Auth::user()->id_user === $user->id_user)

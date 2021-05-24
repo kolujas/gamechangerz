@@ -36,7 +36,7 @@
         ])
         @endcomponent
     @endif
-    @if (Auth::check() && Auth::user()->id_user === $user->id_user && $user->id_role === 0)
+    @if ($user->id_user && $user->id_role === 0)
         @component('components.modal.lessons', [
             'lessons' => $user->lessons,
         ])

@@ -159,28 +159,8 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
-            if (\Request::is('users')) {
-                $users = User::where('id_role', '=', 0)->limit(10)->get();
-            }
-            if (\Request::is('teachers')) {
-                $users = User::where('id_role', '=', 1)->limit(10)->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get();
-            }
-            foreach ($users as $user) {
-                $user->and(['games']);  
-                foreach ($user->games as $game) {
-                    $game->and(['files']);
-                }
-                if ($user->id_role === 1) {
-                    $user->and(['abilities', 'days', 'files', 'languages', 'prices', 'teampro']);
-                    $days = Day::allDates($user->days);
-                }
-                if ($user->id_role === 0) {
-                    $user->and(['friends', 'lessons', 'hours', 'files']);
-                    $days = [];
-                }
-            }
             return view('user.search', [
-                'users' => $users,
+                'games' => Game::all(),
                 'error' => $error,
                 'search' => (object)[
                     'username' => $request->username,

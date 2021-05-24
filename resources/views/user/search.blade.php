@@ -20,15 +20,14 @@
 @section('main')
     @if (Request::is('users'))
         @component('components.user.user.search', [
-            'users'=> $users,
-            'search' => $search
+            'search' => $search,
         ])
         @endcomponent
     @endif
     @if (Request::is('teachers'))
         @component('components.user.teacher.search', [
-            'users'=> $users,
-            'search' => $search
+            'games'=> $games,
+            'search' => $search,
         ])
         @endcomponent
     @endif
@@ -40,7 +39,7 @@
 
 @section('js')
     <script>
-        let users = @json($users);
+        let users = [];
     </script>
 
     <script type="module" src={{ asset('js/user/search.js') }}></script>

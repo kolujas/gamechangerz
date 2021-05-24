@@ -118,28 +118,28 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
 
     let modals = {};
+    if (document.querySelector('#lessons.modal')) {
+        modals.lessons = new ModalJS({
+            id: 'lessons',
+        }, {
+            open: URL.findHashParameter() === 'lessons',
+            detectHash: true,
+            outsideClick: true,
+        });
+    }
+    if (document.querySelector('#friends.modal')) {
+        modals.friends = new ModalJS({
+            id: 'friends',
+        }, {
+            open: URL.findHashParameter() === 'friends',
+            detectHash: true,
+            outsideClick: true,
+        });
+    }
     if (authenticated) {
         if (document.querySelector('#games.modal')) {
             modals.games = new Modal({
                 id: 'games',
-            });
-        }
-        if (document.querySelector('#lessons.modal')) {
-            modals.lessons = new ModalJS({
-                id: 'lessons',
-            }, {
-                open: URL.findHashParameter() === 'lessons',
-                detectHash: true,
-                outsideClick: true,
-            });
-        }
-        if (document.querySelector('#friends.modal')) {
-            modals.friends = new ModalJS({
-                id: 'friends',
-            }, {
-                open: URL.findHashParameter() === 'friends',
-                detectHash: true,
-                outsideClick: true,
             });
         }
         if (document.querySelector('#achievements.modal')) {

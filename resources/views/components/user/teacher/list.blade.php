@@ -5,10 +5,10 @@
                 <main class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
                     <header class="profile lg:col-span-6 mt-4 ml-4 lg:my-4">
                         <div class="grid gap-4 lg:flex lg:flex-wrap">
-                            <section class="username">
-                                <h4 class="color-white russo">{{ $user->username }}</h4>
+                            <a href="/users{{ $user->slug }}/profile" class="username btn btn-text btn-white">
+                                <h4 class="russo">{{ $user->username }}</h4>
                                 <h5 class="color-grey overpass">{{ $user->name }}</h5>
-                            </section>
+                            </a>
                             <section class="teampro flex items-start">
                                 <div class="info">
                                     <span class="team-name px-1 text-center mb-3 overpass rounded">
@@ -18,7 +18,7 @@
                                     </span>
                                     <ul class="languages gap-3 flex items-center">
                                         @foreach ($user->languages as $language)
-                                            <li title="{{ $language->name }}">@component($language->svg)@endcomponent</li>
+                                            <li title="{{ $language->name }}">@component("components.svg." . $language->icon)@endcomponent</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -36,7 +36,7 @@
                                         @foreach ($game->abilities as $ability)
                                             <li class="flex justify-between items-center p-2 xl:px-3 rounded-sm">
                                                 <span class="color-white pr-2 russo">{{ $ability->name }}</span>
-                                                @component($ability->icon)@endcomponent
+                                                @component("components.svg." . $ability->icon)@endcomponent
                                             </li>
                                         @endforeach
                                     @endforeach
@@ -47,11 +47,7 @@
                     <section class="image lg:col-span-4 row-span-2 md:row-span-1">
                         <div>
                             <figure>
-                                @foreach ($user->files as $key => $value)
-                                    @if ($key === 'profile')
-                                        <img src={{ asset("storage/$value") }} alt="Device image">
-                                    @endif
-                                @endforeach
+                                <img src={{ asset("storage/" . $user->files['profile']) }} alt="{{ $user->username }} profile image">
                             </figure>
                         </div>
                     </section>

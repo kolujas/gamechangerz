@@ -17,7 +17,6 @@
 
 .users + .list ul.games a {
     border-radius: .25rem;
-    overflow: hidden;
 }
 
 .users input[type=search]::placeholder {
@@ -148,9 +147,13 @@
 .users .switch-content .slider.round:before {
     border-radius: 50%;
 }
-.users + .list > li{
+.users + .list > li.degradado{
     background: var(--color-black);
     margin-bottom: 2rem;
+}
+
+.users + .list .teammate.active figure {
+    border: 1px solid red;
 }
 
 .users + .list .teammate svg{
@@ -175,7 +178,7 @@
     top: 1px;
 }
 
-.users + .list > li:last-of-type {
+.users + .list > li.degradado:last-of-type {
     margin-bottom: 0;
 }
 
@@ -189,7 +192,7 @@
     border-image-slice: 1;
 }
 
-.users + .list li header :where(h3, span) {
+.users + .list li.degradado > a :where(h3, span) {
     max-width: 6ch;
     min-width: 6ch;
     overflow: hidden;
@@ -197,12 +200,12 @@
     text-overflow: ellipsis;
 }
 
-.users + .list li{
+.users + .list li.degradado{
     position: relative;
     border-radius: .25rem;
 }
 
-.users + .list li::before{
+.users + .list li.degradado::before{
     width: calc(100% + 2px);
     height: calc(100% + 2px);
     border-radius: .25rem;
@@ -244,17 +247,17 @@
         width: 8rem;
     }
 
-    .users + .list li > div:nth-child(3) p {
+    .users + .list li.degradado > div:nth-child(3) p {
         line-height: 2rem;
         font-size: 2rem;
     }
 
-    .users + .list li > div:nth-child(4){
+    .users + .list li.degradado > div:nth-child(4){
         min-width: 25%;
         width: 25%;
     }
 
-    .users + .list header span {
+    .users + .list li.degradado > a span {
         max-width: 8ch;
         min-width: 100%;
     }
@@ -292,17 +295,17 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    .users + .list li header h3 {
+    .users + .list li.degradado > a h3 {
         max-width: 12ch;
         min-width: 12ch;
     }
 
-    .users + .list li header span {
+    .users + .list li.degradado > a span {
         max-width: 18ch;
         min-width: 18ch;
     }
 
-    .users + .list li > div:nth-child(4){
+    .users + .list li.degradado > div:nth-child(4){
         min-width: 18rem;
         width: 18rem;
     }
@@ -310,7 +313,7 @@
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .users + .list li header :where(h3, span) {
+    .users + .list li.degradado > a :where(h3, span) {
         max-width: 30ch;
         min-width: 30ch;
     }

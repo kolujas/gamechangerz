@@ -14,29 +14,29 @@
          * @var array
          */
         protected $fillable = [
-            'id_language', 'name', 'svg', 'slug',
+            'id_language', 'name', 'icon', 'slug',
         ];
 
         /** @var array Language options */
         static $options = [[
             'id_language' => 1,
             'name' => 'Español',
-            'svg' => 'components.svg.ESPSVG',
+            'icon' => 'ESPSVG',
             'slug' => 'espanol',
         ], [
             'id_language' => 2,
             'name' => 'Inglés',
-            'svg' => 'components.svg.USASVG',
+            'icon' => 'USASVG',
             'slug' => 'ingles',
         ], [
             'id_language' => 3,
             'name' => 'Italiano',
-            'svg' => 'components.svg.ITASVG',
+            'icon' => 'ITASVG',
             'slug' => 'italiano',
         ], [
             'id_language' => 4,
             'name' => 'Portugués',
-            'svg' => 'components.svg.BRASVG',
+            'icon' => 'BRASVG',
             'slug' => 'portugues',
         ]];
 

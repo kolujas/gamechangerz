@@ -7,7 +7,7 @@
                         <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
                         <div class="color-white font-bold pr-1 flex flex-auto">
                             <span class="mr-2 overpass">{{ $ability->name }}</span>
-                            @component($ability->icon)@endcomponent
+                            @component("components.svg." . $ability->icon)@endcomponent
                         </div>
                         <div class="stars flex">
                             @for ($i = 1; $i <= 5; $i++)

@@ -26,16 +26,16 @@
     --dropdown-header-background-color-alternative: var(--color-one);
 }
 
-.teachers .dropdown label input[type=radio] {
+.teachers .dropdown label input {
     display: none;
 }
 
-.teachers .dropdown label input[type=radio] + span {
+.teachers .dropdown label input + span {
     transition: 600ms;
     color: var(--color-three);    
 }
 
-.teachers .dropdown label input[type=radio]:checked + span {
+.teachers .dropdown label input:checked + span {
     color: var(--color-white);    
 }
 
@@ -102,11 +102,12 @@
 
 .teachers .dropdown-content{
     width: fit-content;
+    min-width: 100%;
     z-index: 10;
     border-radius: .25rem;
 }
 
-.teachers .dropdown-content li label span{
+.teachers .dropdown-content li label span {
     white-space: nowrap;
 }
 
