@@ -38,5 +38,5 @@
 	path = public/submodules/FilterJS
 	url = https://github.com/JuanCruzAGB/FilterJS.git
 [submodule ".\\public\\submodules\\JuanCruzAGB"]
-	path = .\\public\\submodules\\JuanCruzAGB
+	path = public/submodules/JuanCruzAGB
 	url = https://github.com/JuanCruzAGB/JuanCruzAGB.git
