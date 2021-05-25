@@ -5,7 +5,7 @@
                 <main class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
                     <header class="profile lg:col-span-6 mt-4 ml-4 lg:my-4">
                         <div class="grid gap-4 lg:flex lg:flex-wrap">
-                            <a href="/users{{ $user->slug }}/profile" class="username btn btn-text btn-white">
+                            <a href="/users/{{ $user->slug }}/profile" class="username btn btn-text btn-white">
                                 <h4 class="russo">{{ $user->username }}</h4>
                                 <h5 class="color-grey overpass">{{ $user->name }}</h5>
                             </a>

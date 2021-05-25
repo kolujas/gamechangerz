@@ -112,7 +112,7 @@
                     </button>
                 </form>
                 <main class="lg:col-span-8 lg:col-start-2 2xl:col-start-3">
-                    @component('components.user.list', [
+                    @component('components.user.teacher.list', [
                         'users' => $game->users,
                     ])
                     @endcomponent

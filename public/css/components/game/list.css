@@ -87,3 +87,10 @@ ul.games figure img{
         /* width: 100%; */
     }
 }
+
+/* ? 3XL */
+@media(min-width: 1920px){
+    ul.games figure {
+        width: 12.7rem;
+    }
+}

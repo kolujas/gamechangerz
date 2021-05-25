@@ -47,15 +47,21 @@ ul.achievements li:last-of-type {
         padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
     }
 
-    ul.achievements .cards::after,
-    ul.achievements .cards::before {
+    ul.achievements.cards::after,
+    ul.achievements.cards::before {
         content: '';
-        width: calc(100% / 6);
+        width: 5rem;
         position: absolute;
         top: 0;
         height: 100%;
         z-index: 1;
         pointer-events: none;
+    }
+
+    ul.achievements.cards::before {
+        right: 0;
+        background: linear-gradient(90deg, transparent, var(--color-one));
+                
     }
 }
 
@@ -67,13 +73,11 @@ ul.achievements li:last-of-type {
         height: 20%;
     }
 
-    ul.achievements .cards::before,
-    ul.reviews .cards::before {
+    ul.achievements .cards::before{
         width: calc((100vw / 10) * 3);
     }
 
-    ul.achievements .cards::after,
-    ul.reviews .cards::after {
+    ul.achievements .cards::after{
         width: calc(100vw / 10);
     }
 }

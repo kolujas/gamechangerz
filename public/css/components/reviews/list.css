@@ -62,15 +62,21 @@ ul.reviews li div div div div svg {
         padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
     }
 
-    ul.reviews .cards::after,
-    ul.reviews .cards::before {
+    ul.reviews.cards::after,
+    ul.reviews.cards::before {
         content: '';
-        width: calc(100% / 6);
+        width: 5rem;
         position: absolute;
         top: 0;
         height: 100%;
         z-index: 1;
         pointer-events: none;
+    }
+
+    ul.reviews.cards::before {
+        right: 0;
+        background: linear-gradient(90deg, transparent, var(--color-one));
+                
     }
 }
 
