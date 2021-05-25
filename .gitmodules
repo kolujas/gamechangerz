@@ -1,6 +1,3 @@
-[submodule ".\\public\\submodules\\JuanCruzAGB"]
-	path = public/submodules/JuanCruzAGB
-	url = https://github.com/JuanCruzAGB/JuanCruzAGB.git
 [submodule ".\\public\\submodules\\ScrollDetectionJS"]
 	path = public/submodules/ScrollDetectionJS
 	url = https://github.com/JuanCruzAGB/ScrollDetectionJS.git
