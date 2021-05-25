@@ -175,7 +175,7 @@ ul.teachers .image figure{
 .video-section .service svg{
     display: inline-block;
     margin-left: .7rem;
-    /* height: 47px; */
+    height: 47px;
     width: 35px;
 }
 
