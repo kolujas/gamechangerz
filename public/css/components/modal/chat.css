@@ -1,3 +1,7 @@
+#chat.modal {
+    z-index: 1;
+}
+
 #chat.modal .modal-content::before {
     display: none;
 }
@@ -6,7 +10,7 @@
     --modal-background-color: transparent;
 }
 
-#chat.modal .modal-button {
+#chat.modal #list .modal-button {
     top: 0;
     right: 0;
     width: 2rem;
@@ -78,7 +82,7 @@
     opacity: 1;
 }
 
-#chat.modal #list .sections:not(:last-child) .header {
+#chat.modal #list .sections:not(:last-child) .header:not(.hidden) {
     display: block;
     font-size: 1.5rem;
 }
@@ -104,54 +108,6 @@
     overflow: hidden;
 }
 
-#chat.modal #list .sections > span {
-    position: relative;
-    text-shadow: var(--color-black) 5px 0px 0px,
-                 var(--color-black) 4.90033px 0.993347px 0px,
-                 var(--color-black) 4.60531px 1.94709px 0px,
-                 var(--color-black) 4.12668px 2.82321px 0px,
-                 var(--color-black) 3.48353px 3.58678px 0px,
-                 var(--color-black) 2.70151px 4.20736px 0px,
-                 var(--color-black) 1.81179px 4.6602px 0px,
-                 var(--color-black) 0.849836px 4.92725px 0px,
-                 var(--color-black) -0.145998px 4.99787px 0px,
-                 var(--color-black) -1.13601px 4.86924px 0px,
-                 var(--color-black) -2.08073px 4.54649px 0px,
-                 var(--color-black) -2.94251px 4.04248px 0px,
-                 var(--color-black) -3.68697px 3.37732px 0px,
-                 var(--color-black) -4.28444px 2.57751px 0px,
-                 var(--color-black) -4.71111px 1.67494px 0px,
-                 var(--color-black) -4.94996px 0.7056px 0px,
-                 var(--color-black) -4.99147px -0.291871px 0px,
-                 var(--color-black) -4.83399px -1.27771px 0px,
-                 var(--color-black) -4.48379px -2.2126px 0px,
-                 var(--color-black) -3.95484px -3.05929px 0px,
-                 var(--color-black) -3.26822px -3.78401px 0px,
-                 var(--color-black) -2.4513px -4.35788px 0px,
-                 var(--color-black) -1.53666px -4.75801px 0px,
-                 var(--color-black) -0.560763px -4.96845px 0px,
-                 var(--color-black) 0.437495px -4.98082px 0px,
-                 var(--color-black) 1.41831px -4.79462px 0px,
-                 var(--color-black) 2.34258px -4.41727px 0px,
-                 var(--color-black) 3.17346px -3.86382px 0px,
-                 var(--color-black) 3.87783px -3.15633px 0px,
-                 var(--color-black) 4.4276px -2.32301px 0px,
-                 var(--color-black) 4.80085px -1.39708px 0px,
-                 var(--color-black) 4.98271px -0.415447px 0px;
-}
-
-#chat.modal #list .sections:not(:last-child) > span::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transform: translateY(-50%);
-    background-color: var(--color-white);
-    z-index: -1;
-}
-
 #chat.modal #details > a {
     transition: 500ms;
 }
@@ -173,7 +129,7 @@
 #chat.modal #details header img {
     width: 38px;
     height: 38px;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 100vh;
 }
 
@@ -233,7 +189,7 @@
 }
 
 #chat.modal #details main li.to div {
-    background-image: linear-gradient(130deg, var(--color-to-left), var(--color-to-right));
+    background: linear-gradient(130deg, var(--color-to-left), var(--color-to-right));
     border-top-left-radius: 0;
     border-bottom-left-radius: 1rem;
 }
@@ -309,6 +265,7 @@
 
 #chat.modal #details footer form a {
     border-right: 1px solid var(--color-grey);
+    font-size: 1.5rem;
 }
 
 #chat.modal #details .question {

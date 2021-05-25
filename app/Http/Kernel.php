@@ -66,6 +66,8 @@ class Kernel extends HttpKernel
 
         // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
         'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
+        'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
+        'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
 
         'game.exist' => \App\Http\Middleware\CheckGameExist::class,
         'game.is.active' => \App\Http\Middleware\CheckGameIsActive::class,

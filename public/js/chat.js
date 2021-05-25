@@ -1,17 +1,37 @@
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 import { FetchServiceProvider as Fetch } from "../submodules/ProvidersJS/js/FetchServiceProvider.js";
+import { Filter as FilterJS } from "../submodules/FilterJS/js/Filter.js";
 import Class from "../submodules/JuanCruzAGB/js/Class.js";
 import Modal from './modal.js';
 import CountDown from "./CountDown.js";
+import Assigment from "./assigment.js";
+import { Validation as ValidationJS } from "../submodules/ValidationJS/js/Validation.js";
 
 const asset = document.querySelector('meta[name=asset]').content;
 
 export class Chat extends Class {
     constructor (props, chats = []) {
         super(props);
+        let instance = this;
         this.setProps('chats', chats);
-        this.createHTML();
-        this.createCountDown();
+        this.setModal();
+        document.querySelector(`#chat.modal #details form`).addEventListener('submit', function (e) {
+            e.preventDefault();
+            for (const chat of instance.props.chats) {
+                if (chat.id_chat === instance.opened) {
+                    instance.send(chat);
+                }
+            }
+        });
+        document.querySelector(`#chat.modal #list form`).addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+        if (document.querySelector(`#chat.modal #details form a`)) {
+            document.querySelector(`#chat.modal #details form a`).addEventListener('click', function (e) {
+                instance.addAssigment();
+            });
+        }
+        // this.createCountDown();
     }
 
     async getRole () {
@@ -25,7 +45,7 @@ export class Chat extends Class {
         }
     }
 
-    async createHTML () {
+    async setModal () {
         this.Modal = new Modal({
             id: 'list',
         });
@@ -33,17 +53,51 @@ export class Chat extends Class {
         this.list = this.html.children[0];
         this.details = this.html.children[1];
         await this.getRole();
-        this.detectChats();
-        this.generateHTMLChats();
+        this.detectRole();
+        this.generateList({
+            instance: this,
+            current: this.props.chats,
+        });
+        this.setFilter();
     }
 
-    detectChats () {
-        this.list.children[1].children[1].children[1].innerHTML = '';
-        this.list.children[1].children[2].children[1].innerHTML = '';
+    setFilter () {
+        if (parseInt(this.props.id_role) === 0) {
+            this.FilterJS = new FilterJS({
+                id: 'filter-chats',
+                order: [
+                    ['updated_at', 'DESC'],
+                ],
+                rules: {
+                    search: [['users:from.username', 'users:from.name', 'users:to.username', 'users:to.name']],
+            }}, {}, {
+                run: {
+                    function: this.generateList,
+                    params: {
+                        instance: this,
+            }}}, this.props.chats);
+        }
+        if (parseInt(this.props.id_role) === 1) {
+            this.FilterJS = new FilterJS({
+                id: 'filter-chats',
+                order: [
+                    ['updated_at', 'DESC'],
+                ],
+                rules: {
+                    search: [['users:to.username', 'users:to.name']],
+            }}, {}, {
+                run: {
+                    function: this.generateList,
+                    params: {
+                        instance: this,
+            }}}, this.props.chats);
+        }
+    }
+
+    detectRole () {
         if (this.props.id_role === 0) {
             this.showLessons();
             this.showFriends();
-            this.hideEmpty();
             let friends = 0;
             let lessons = 0;
             if (this.props.chats.length) {
@@ -73,6 +127,9 @@ export class Chat extends Class {
             this.hideFriends();
             this.showEmpty();
         }
+        if (this.props.chats.length) {
+            this.hideEmpty();
+        }
         if (!this.props.chats.length) {
             this.hideLessons();
             this.hideFriends();
@@ -80,45 +137,47 @@ export class Chat extends Class {
         }
     }
 
-    generateHTMLChats () {
-        let instance = this;
-        if (this.props.chats.length) {
-            for (const chat of this.props.chats) {
+    generateList (params) {
+        console.log(params);
+        params.instance.list.children[1].children[1].children[1].innerHTML = '';
+        params.instance.list.children[1].children[2].children[1].innerHTML = '';
+        if (params.current.length) {
+            for (const chat of params.current) {
                 let li = document.createElement('li');
                 li.classList.add('mt-4');
-                if (this.props.id_role === 0) {
+                if (params.instance.props.id_role === 0) {
                     if (chat.id_user_logged === chat.id_user_to) {
                         if (chat.users.from.id_role === 1) {
-                            this.list.children[1].children[1].children[1].appendChild(li);
+                            params.instance.list.children[1].children[1].children[1].appendChild(li);
                         }
                         if (chat.users.from.id_role === 0) {
-                            this.list.children[1].children[2].children[1].appendChild(li);
+                            params.instance.list.children[1].children[2].children[1].appendChild(li);
                         }
                     }
                     if (chat.id_user_logged === chat.id_user_from) {
-                        this.list.children[1].children[2].children[1].appendChild(li);
+                        params.instance.list.children[1].children[2].children[1].appendChild(li);
                     }
                 }
-                if (this.props.id_role === 1) {
-                    this.list.children[1].children[1].children[1].appendChild(li);
+                if (params.instance.props.id_role === 1) {
+                    params.instance.list.children[1].children[1].children[1].appendChild(li);
                 }
                     let link = document.createElement('a');
                     link.classList.add('flex', 'color-white', 'items-center', 'overpass');
                     link.href = `#chat-${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug }`;
                     li.appendChild(link);
                     link.addEventListener('click', function (e) {
-                        instance.open(chat.id_chat);
+                        params.instance.open(chat.id_chat);
                     });
                         let image = document.createElement('figure');
                         image.classList.add('image', 'mr-4');
                         link.appendChild(image);
                         let img = document.createElement('img');
                         image.appendChild(img);
-                            if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
+                            if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files['profile']) {
                                 img.src = `${ asset }img/resources/Group 15SVG.svg`;
                             }
-                            if (chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
-                                img.src = `${ asset }storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile }`;
+                            if (chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files['profile']) {
+                                img.src = `${ asset }storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files['profile'] }`;
                             }
     
                         let username = document.createElement('div');
@@ -138,37 +197,48 @@ export class Chat extends Class {
                             let icon = document.createElement('icon');
                             icon.classList.add('fas', 'fa-chevron-right');
                             span.appendChild(icon);
-                if (/chat-/.exec(URL.findHashParameter()) && URL.findHashParameter().split('chat-')[1] === chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug) {
-                    this.open(chat.id_chat);
-                }
+                // if (/chat-/.exec(URL.findHashParameter()) && URL.findHashParameter().split('chat-')[1] === chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug) {
+                //     this.open(chat.id_chat);
+                // }
             }
+        }
+        if (params.instance.list.children[1].children[1].children[1].innerHTML === '') {
+            let item = document.createElement('li');
+            item.classList.add('mt-4');
+            item.innerHTML = "No se encontraron resultados";
+            params.instance.list.children[1].children[1].children[1].appendChild(item);
+        }
+        if (params.instance.list.children[1].children[2].children[1].innerHTML === '') {
+            let item = document.createElement('li');
+            item.classList.add('mt-4', 'color-grey');
+            item.innerHTML = "No se encontraron resultados";
+            params.instance.list.children[1].children[2].children[1].appendChild(item);
         }
     }
 
     open (id_chat) {
+        this.opened = id_chat;
         this.Modal.setProps('id', 'list');
         this.Modal.changeModalContent();
-        this.changeChat(id_chat);
+        this.changeChat();
     }
 
-    changeChat (id_chat) {
-        let instance = this;
+    changeChat () {
         for (const chat of this.props.chats) {
-            if (chat.id_chat === id_chat) {
+            if (chat.id_chat === this.opened) {
                 this.details.children[1].children[0].innerHTML = '';
                 let header = this.details.children[0].children[1];
-                console.log(header);
                 header.innerHTML = '';
                 header.href = `/users/${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].slug }/profile`;
                     let figure = document.createElement('figure');
                     header.appendChild(figure);
                         let image = document.createElement('img');
                         image.alt = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } profile image`;
-                        if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
+                        if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files['profile']) {
                             image.src = `${ asset }img/resources/Group 15SVG.svg`;
                         }
-                        if (chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile) {
-                            image.src = `${ asset }storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files.profile }`;
+                        if (chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files['profile']) {
+                            image.src = `${ asset }storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].files['profile'] }`;
                         }
                         figure.appendChild(image);
                     let span = document.createElement('span');
@@ -177,18 +247,14 @@ export class Chat extends Class {
                     span.innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].name })`;
                 header.children[1].classList.add('overpass');
                 for (const message of chat.messages) {
-                    this.addMessage(chat.id_user_logged, message);
+                    this.addMessage(chat.id_user_logged, message, (chat.id_user_logged === chat.id_user_from ? chat.users['to'].slug : chat.users['from'].slug));
                 }
-                document.querySelector(`#chat.modal #details form`).addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    instance.send(chat);
-                });
                 break;
             }
         }
     }
 
-    addMessage (id_user_logged, message) {
+    addMessage (id_user_logged, message, slug) {
         let li = document.createElement('li');
         li.id = `message-${ message.id_message }`;
         this.details.children[1].children[0].appendChild(li);
@@ -205,8 +271,13 @@ export class Chat extends Class {
                 let div = document.createElement('div');
                 li.appendChild(div);
                     let link = document.createElement('a');
-                    link.href = `#assigment-${ message.assigment.slug }`;
+                    link.href = `#chat-${ slug }-assigment-${ message.assigment.slug }`;
                     link.classList.add('flex', 'justify-end', 'flex-wrap', 'p-4', 'mb-4', 'overpass');
+                    link.addEventListener('click', function (e) {
+                        modals.assigment.ModalJS.open({
+                            assigment: message.assigment 
+                        });
+                    });
                     div.appendChild(link);
                         let title = document.createElement('span');
                         title.classList.add('w-full', 'text-center', 'overpass');
@@ -248,7 +319,7 @@ export class Chat extends Class {
         }
         for (const message of data.chat.messages) {
             if (!document.querySelector(`#message-${ message.id_message }`)) {
-                this.addMessage(data.chat.id_user_logged, message);
+                this.addMessage(data.chat.id_user_logged, message, (data.chat.id_user_logged === data.chat.id_user_from ? data.chat.users['to'].slug : data.chat.users['from'].slug));
             }
         }
     }
@@ -267,7 +338,6 @@ export class Chat extends Class {
     }
 
     async reload (params) {
-    console.log('reload')
         params.chat.setProps('chats', []);
         params.chat.setLoadingState();
         params.chat.setProps('chats', await Chat.all(params.chat.props.token));
@@ -280,8 +350,11 @@ export class Chat extends Class {
         if (/chat-/.exec(URL.findHashParameter())) {
             this.refreshChat();
         }
-        this.detectChats();
-        this.generateHTMLChats();
+        this.detectRole();
+        this.generateList({
+            instance: this,
+            current: this.props.chats,
+        });
     }
 
     setFinishState () {
@@ -289,8 +362,11 @@ export class Chat extends Class {
         if (/chat-/.exec(URL.findHashParameter())) {
             this.refreshChat();
         }
-        this.detectChats();
-        this.generateHTMLChats();
+        this.detectRole();
+        this.generateList({
+            instance: this,
+            current: this.props.chats,
+        });
     }
 
     refreshChat () {
@@ -304,7 +380,8 @@ export class Chat extends Class {
         if (this.props.chats.length) {
             for (const chat of this.props.chats) {
                 if (URL.findHashParameter().split('chat-')[1] === chat.users[((chat.id_user_logged === chat.id_user_from) ? 'to' : 'from')].slug) {
-                    this.changeChat(chat.id_chat);
+                    this.opened = chat.id_chat;
+                    this.changeChat();
                 }
             }
         }
@@ -329,8 +406,8 @@ export class Chat extends Class {
         }
     }
 
-    hideLessonsTitle (title = false) {
-        this.list.children[1].children[1].children[1].classList.add('hidden');
+    hideLessonsTitle () {
+        this.list.children[1].children[1].children[0].classList.add('hidden');
     }
 
     hideFriends () {
@@ -339,6 +416,45 @@ export class Chat extends Class {
 
     hideEmpty () {
         this.list.children[1].children[3].classList.add('hidden');
+    }
+
+    addAssigment () {
+        let games = [];
+        for (const chat of this.props.chats) {
+            if (chat.id_chat === this.opened) {
+                games = (chat.id_user_logged === chat.id_user_from ? chat.users['from'].games : chat.users['to'].games);
+                break;
+            }
+        }
+        this.assigment = new Assigment({
+            games: games,
+        });
+        if (!validation['assigment-form'].ValidationJS) {
+            if (validation['assigment-form']) {
+                validation['assigment-form'] = new ValidationJS({
+                    id: 'assigment-form',
+                    rules: validation['assigment-form'].rules,
+                    messages: validation['assigment-form'].messages,
+                }, {
+                    submit: false,
+                }, {
+                    submit: {
+                        function: this.sendAssigment,
+                        params: {
+                            instance: this
+                }}});
+            } else {
+                console.error(`validation.assigment-form does not exist`);
+            }
+        }
+    }
+
+    async sendAssigment (params) {
+        let response = await Assigment.send(params.instance.opened, params.instance.props.token);
+        if (response.code === 200) {
+            modals.assigment.ModalJS.close();
+            params.instance.save(response.data);
+        }
     }
 
     static async all (token) {

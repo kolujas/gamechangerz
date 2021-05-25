@@ -9,14 +9,15 @@ import { Validation as ValidationJS } from "../submodules/ValidationJS/js/Valida
 export class Modal extends Class {
     constructor (props = {
         id: undefined,
-    }) {
-        super(props);
+    }, state = {}, callbacks = {}) {
+        super(props, state);
+        this.setCallbacks(callbacks);
         this.checkModalID();
     }
 
     checkModalID () {
         switch (this.props.id) {
-            case 'assigment':
+            case 'assigment-form':
                 this.generateAssigmentModalLogic();
                 this.youtubeConverter();
                 break;
@@ -62,8 +63,8 @@ export class Modal extends Class {
         this.setModalJS('assigment', {
             detectHash: true,
             outsideClick: true,
-            open: /assigment-/.exec(URL.findHashParameter()),
-        });
+            open: /^assigment-/.exec(URL.findHashParameter()),
+        }, this.callbacks);
     }
 
     generateGamesModalLogic () {
@@ -87,23 +88,25 @@ export class Modal extends Class {
     }
 
     setValidationJS () {
-        if (validation[this.props.id]) {
-            this.ValidationJS = new ValidationJS({
-                id: this.props.id,
-                rules: validation[this.props.id].rules,
-                messages: validation[this.props.id].messages,
-            }, {
-                submit: false,
-            }, {});
-        } else {
-            console.error(`validation.${ this.props.id } does not exist`);
+        if (!this.ValidationJS) {
+            if (validation[this.props.id]) {
+                this.ValidationJS = new ValidationJS({
+                    id: this.props.id,
+                    rules: validation[this.props.id].rules,
+                    messages: validation[this.props.id].messages,
+                }, {
+                    submit: false,
+                }, {});
+            } else {
+                console.error(`validation.${ this.props.id } does not exist`);
+            }
         }
     }
 
-    setModalJS (id, states) {
+    setModalJS (id = 'modal-1', states = {}, callbacks = {}) {
         this.ModalJS = new ModalJS({
             id: id,
-        }, states);
+        }, states, callbacks);
     }
 
     changeModalContent () {
@@ -208,7 +211,7 @@ export class Modal extends Class {
             }
             
             $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
-        })
+        });
     }
 }
 

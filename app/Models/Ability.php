@@ -130,4 +130,14 @@
             }
             return $abilities;
         }
+
+        static public function stringify ($abilitiesToParse = []) {
+            $abilities = [];
+            foreach ($abilitiesToParse as $id_ability) {
+                $abilities[] = [
+                    "id_ability" => $id_ability,
+                ];
+            }
+            return json_encode($abilities);
+        }
     }

@@ -84,7 +84,7 @@
         }
 
         /**
-         * * Get the Game info. 
+         * * Get the User info. 
          * @param array $columns
          * @throws
          */
@@ -414,7 +414,6 @@
                 throw $th;
             }
         }
-
         
         /** @var array Validation rules & messages. */
         static $validation = [

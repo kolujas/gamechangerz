@@ -26,13 +26,15 @@
                 Route::middleware(['api.assigment.exist'])->group(function () {
                     Route::get('/lessons/{id_lesson}/assigments/{slug}', [AssigmentController::class, 'get'])->name('api.assigment.get');
                 });
-                Route::post('/lessons/{id_lesson}/assigments/make', [AssigmentController::class, 'make'])->name('api.assigment.set');
+            });
+            Route::middleware('api.chat.exist')->group(function () {
+                Route::post('/lessons/chats/{id_chat}/assigments/make', [AssigmentController::class, 'make'])->name('api.assigment.set');
             });
 
 // ! ChatController - Controls the chats api.
             Route::get('/chats', [ChatController::class, 'all'])->name('api.chat.all');
             Route::middleware('api.user.exist')->group(function () {
-                Route::get('/chats/{id_user}', [ChatController::class, 'get'])->name('api.chat.get');
+                // Route::get('/chats/{id_user}', [ChatController::class, 'get'])->name('api.chat.get');
                 Route::post('/chats/{id_user}', [ChatController::class, 'send'])->name('api.chat.send');
             });
 

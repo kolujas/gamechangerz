@@ -277,7 +277,7 @@
 }
 
 .teacher .tab-menu input[type=number]:disabled {
-    width: calc(var(--width) + 15px);
+    width: calc(var(--width) + 18px);
 }
 
 .teacher .tab-menu input[type=number]:not(:disabled) {

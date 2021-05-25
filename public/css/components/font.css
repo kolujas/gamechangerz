@@ -29,3 +29,9 @@
 .color-grey{
     color: var(--color-grey);
 }
+
+.color-gradient{
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

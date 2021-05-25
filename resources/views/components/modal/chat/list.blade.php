@@ -4,17 +4,21 @@
     </a>
     <main>
         <form action="#" class="my-8">
-            <input class="py-2 px-4" placeholder="Busca a un amigo" type="search">
+            <input class="py-2 px-4 filter-control filter-chats rule-search" placeholder="Busca a un amigo" type="search">
             <button class="py-2 px-4" type="submit">
                 @component('components.svg.BuscarSVG')@endcomponent
             </button>
         </form>
         <div class="sections mb-8 hidden">
-            <span class="header color-white mb-8 overpass">Profesores</span>
+            <h2 class="header color-white mb-8 overpass">
+                <span>Profesores</span>
+            </h2>
             <ul></ul>
         </div>
         <div class="sections mb-8 hidden">
-            <span class="header color-white mb-8 overpass">Amigos</span>
+            <h2 class="header color-white mb-8 overpass">
+                <span>Amigos</span>
+            </h2>
             <ul></ul>
         </div>
         <div class="sections">

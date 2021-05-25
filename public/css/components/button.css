@@ -109,17 +109,17 @@
 .btn.btn-background {
     background: linear-gradient(130deg, var(--color-left), var(--color-right));
     color: var(--color-solid);
-    border-radius: 0;
+    border-radius: .25rem;
 }
 
 .btn.btn-background::before {
-    content: '';
+    /* content: ''; */
     position: absolute;
     left: -6px;
     top: -6px;
     width: calc(100% + 12px);
     height: calc(100% + 12px);
-    /* background: linear-gradient(130deg, var(--color-left), var(--color-right));; */
+    background: linear-gradient(130deg, var(--color-left), var(--color-right));;
     opacity: 0;
     z-index: -1;
     transition: 500ms;
