@@ -6,82 +6,60 @@
             <main class="pl-12 py-12 pr-6">
                 <div class="input-group grid">
                     <h3 class="color-four mb-4 overpass">Titulo</h3>
-                    <input class="form-input px-5 py-4 mb-4 overpass" type="text" name="title" id="title" placeholder="Titulo" value="">
+                    <input class="form-input px-5 py-4 mb-4 overpass" type="text" name="title" placeholder="Titulo" value="">
                     @if ($errors->has('title'))
-                        <span class="error support support-box support-title">{{ $errors->first('title') }}</span>
+                        <span class="color-white error support support-box mb-4 support-title">{{ $errors->first('title') }}</span>
                     @else
-                        <span class="error support support-box support-title"></span>
+                        <span class="color-white error support support-box mb-4 support-title"></span>
                     @endif
                 </div>
                 <div class="input-group grid my-2">
                     <h3 class="color-four mb-4 overpass">Descripción</h3>
-                <textarea placeholder="Descripción" class="descripcion mb-4 px-5 py-4 overpass" name="description" id="description" cols="30" rows="10"></textarea>
-                @if ($errors->has('description'))
-                    <span class="error support support-box support-description">{{ $errors->first('description') }}</span>
-                @else
-                    <span class="error support support-box support-description"></span>
-                @endif
+                    <textarea placeholder="Descripción" class="descripcion mb-4 px-5 py-4 overpass form-input" name="description" cols="30" rows="10"></textarea>
+                    @if ($errors->has('description'))
+                        <span class="color-white error support support-box mb-4 support-description">{{ $errors->first('description') }}</span>
+                    @else
+                        <span class="color-white error support support-box mb-4 support-description"></span>
+                    @endif
                 </div>
                 <div class="input-group grid my-2">
                     <h3 class="mb-4">
                         <span class="color-four overpass">Link al video</span>
-                        <span class="color-white overpass">Cómo mejorar tu puntería Parte 2</span>    
+                        <span class="color-white overpass"></span>    
                     </h3>
-                    <input class="mb-4 px-5 py-4 overpass" id="url" type="text" placeholder="http://youtube.be" name="url">
-                <div id="myVideo"></div>
+                    <input class="mb-4 px-5 py-4 overpass form-input" id="url" type="text" placeholder="http://youtube.be" name="url">
+                    <div id="myVideo"></div>
+                    @if ($errors->has('url'))
+                        <span class="color-white error support support-box mb-4 support-url">{{ $errors->first('url') }}</span>
+                    @else
+                        <span class="color-white error support support-box mb-4 support-url"></span>
+                    @endif
                 </div>
 
                 <div class="games-list my-8">
                     <div class="grid">
-                            <h3 class="color-four mb-4 overpass">Elegí un juego</h3>
-                        <select class="px-5 py-4">
-                            <option class="overpass" value="1" disabled>Elegi un juego</option>
-                            <option class="overpass" value="2">Counter Strike: Global Offensive</option>
-                            <option class="overpass" value="3">League of legends</option>
-                            <option class="overpass" value="4">Overwatch</option>
-                            <option class="overpass" value="5">Apex Legends</option>
+                        <h3 class="color-four mb-4 overpass">Elegí un juego</h3>
+                        <select class="px-5 py-4 form-input mb-4" name="id_game">
+                            <option class="overpass" selected disabled>Elegi un juego</option>
                         </select>
+                        @if ($errors->has('id_game'))
+                            <span class="color-white error support support-box mb-4 support-id_game">{{ $errors->first('id_game') }}</span>
+                        @else
+                            <span class="color-white error support support-box mb-4 support-id_game"></span>
+                        @endif
                     </div>
                 </div>
 
                 <div class="abilities">
-                    <h3 class="color-four mb-4 overpass">Habilidades</h3>
-                    <div class="flex flex-wrap">
-                        <label>
-                            <input class="hidden abilitie" name="" type="checkbox" value=""> 
-                            <div class="flex justify-between p-2 flex items-center">
-                                <span class="color-white mr-1 overpass">Puntería</span>
-                                @component('components.svg.PunteriaSVG')                                
-                                @endcomponent
-                            </div>
-                        </label> 
-                        <label>
-                            <input class="hidden abilitie" name="" type="checkbox" value=""> 
-                            <div class="flex justify-between p-2 flex items-center">
-                                <span class="color-white mr-1 overpass">Movilidad</span>
-                                @component('components.svg.MovilidadSVG')                                
-                                @endcomponent
-                            </div>
-                        </label> 
-                        <label>
-                            <input class="hidden abilitie" name="" type="checkbox" value=""> 
-                            <div class="flex justify-between p-2 flex items-center">
-                                <span class="color-white mr-1 overpass">Gamesense</span>
-                                @component('components.svg.GamesenseSVG')                                
-                                @endcomponent
-                            </div>
-                        </label> 
-                        <label>
-                            <input class="hidden abilitie" name="" type="checkbox" value=""> 
-                            <div class="flex justify-between p-2 flex items-center">
-                                <span class="color-white mr-1 overpass">Estrategia</span>
-                                @component('components.svg.EstSVG')                                
-                                @endcomponent
-                            </div>
-                        </label> 
-                    </div>
-                    <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center mt-12" type="submit">
-                        <span class="xl:text-lg">Enviar asignatura</span>
+                    <h3 class="color-four mb-4 overpass hidden">Habilidades</h3>
+                    <div class="flex flex-wrap"></div>
+                    @if ($errors->has('abilities'))
+                        <span class="color-white error support support-box support-abilities mb-4">{{ $errors->first('abilities') }}</span>
+                    @else
+                        <span class="color-white error support support-box support-abilities mb-4"></span>
+                    @endif
+                    <button class="btn btn-background btn-one form-submit assigment-form flex justify-center w-full rounded p-1 md:h-12 md:items-center mt-12" type="submit">
+                        <span class="py-2 px-4">Enviar asignatura</span>
                     </button>
                 </form>
             </section>

@@ -277,7 +277,7 @@
 }
 
 .teacher .tab-menu input[type=number]:disabled {
-    width: calc(var(--width) + 15px);
+    width: calc(var(--width) + 18px);
 }
 
 .teacher .tab-menu input[type=number]:not(:disabled) {
@@ -451,7 +451,7 @@
         padding-right: 10%;
     }
 
-    .reviews > header {
+    .teacher .reviews > header {
         padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
     }
 }

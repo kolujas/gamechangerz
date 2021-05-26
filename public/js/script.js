@@ -5,10 +5,26 @@ import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
 import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
 import Token from "./token.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
+import Assigment from "./assigment.js";
 
 async function getChats (token) {
     const chats = await Chat.all(token.data);
     new Chat({ token: token.data }, chats);
+}
+
+let hash = 'chat';
+
+function getChatHash (params) {
+    if (/chat/.exec(URL.findHashParameter())) {
+        hash = URL.findHashParameter();
+    }
+    new Assigment({
+        ...params.assigment
+    });
+}
+
+function setChatHash (params) {
+    window.history.pushState({}, document.title, `#${ hash }`);
 }
 
 function changeType (btn) {
@@ -49,7 +65,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     const token = Token.get();
-    let modals = {}
     if (!authenticated) {
         modals.login = new Modal({ id: 'login' });
         modals.signin = new Modal({ id: 'signin' });
@@ -69,7 +84,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
     
     if (authenticated) {
-        modals.assigment = new Modal({ id: 'assigment' });
+        modals.assigment = new Modal({ id: 'assigment-form' }, {}, {
+            open: {
+                function: getChatHash,
+        }, close: {
+                function: setChatHash,
+        }});
         if (document.querySelectorAll("a[href='/logout']").length) {
             for (const html of document.querySelectorAll("a[href='/logout']")) {
                 html.addEventListener('click', function (e) {
@@ -79,7 +99,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
             }
         }
         getChats(token);
-        new Modal({id: 'assigment'});
     } else if (token) {
         token.remove();
     }

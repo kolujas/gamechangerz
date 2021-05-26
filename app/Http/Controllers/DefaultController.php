@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Ability;
+    use App\Models\Assigment;
     use App\Models\Auth as AuthModel;
     use App\Models\Game;
     use App\Models\Post;
@@ -32,6 +33,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -54,6 +58,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -97,6 +104,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -124,6 +134,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -146,6 +159,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -168,6 +184,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -190,6 +209,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment-form' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
         }

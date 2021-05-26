@@ -44,6 +44,7 @@
             const validation = @json($validation);
             const authenticated = @json(Auth::check());
             var error = @json($error);
+            var modals = {};
             @if(Session::has('status'))
                 error = @json(Session::get('status'))
             @endif

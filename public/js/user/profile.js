@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
     }
 
-    let modals = {};
     if (document.querySelector('#lessons.modal')) {
         modals.lessons = new ModalJS({
             id: 'lessons',
@@ -162,15 +161,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
 
         if (document.querySelectorAll('.update-button').length) {
-            validation['update'].ValdiationJS = new ValidationJS({
-                id: 'update-form',
-                rules: validation['update'].rules,
-                messages: validation['update'].messages,
-            }, {}, {
-                invalid: {
-                    function: createErrorNotification,
-                    params: {},
-            }});
+            if (!validation['update'].ValdiationJS) {
+                validation['update'].ValdiationJS = new ValidationJS({
+                    id: 'update-form',
+                    rules: validation['update'].rules,
+                    messages: validation['update'].messages,
+                }, {}, {
+                    invalid: {
+                        function: createErrorNotification,
+                        params: {},
+                }});
+            }
             if (URL.findHashParameter() === 'update') {
                 changeProfileState('update');
             }

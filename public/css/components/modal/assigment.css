@@ -1,13 +1,33 @@
-#assigment.modal :where(.form-input, textarea, #url) {
+#assigment.modal {
+    z-index: 11;
+}
+
+#assigment.modal :where(.form-input, #url) {
     background-color: var(--color-one);
     padding-left: 1rem;
     color: #fff;
     font-size: .8rem;
     font-size: var(--font-one);
+    border-radius: .25rem;
+}
+
+#assigment.modal :where(:not(textarea).form-input, #url):disabled {
+    background: var(--color-black);
+    padding: 0;
+    color: var(--color-white);
+    appearance: none;
+}
+
+#assigment.modal [name='title'].form-input:disabled {
+    color: var(--color-four);
 }
 
 #assigment.modal #url{
     font-size: var(--font-one);
+}
+
+#assigment.modal #url:disabled {
+    display: none;
 }
 
 #assigment.modal :where(textarea, input)::placeholder {
@@ -23,11 +43,13 @@
     display: flex;
     justify-content: center;
     background-color: var(--color-one);
+    border-radius: .25rem;
 }
 
 #assigment.modal #myVideo iframe{
     width: 100%;
     height: 20rem;
+    border-radius: .25rem;
 }
 
 #assigment.modal h3{
@@ -38,26 +60,26 @@
     padding-right: 0.5rem;
 }
 
+#assigment.modal form .abilities label input:not(:disabled) div {
+    cursor: pointer;
+}
+
 #assigment.modal form .abilities label > div {
     border: 1px solid var(--color-white);
     opacity: .2;
-    cursor: pointer;
+    border-radius: .25rem;
 }
 
 #assigment.modal form .abilities label input[type=checkbox]:checked + div{
     opacity: 1;
 }
 
+#assigment.modal form .abilities label input[type=checkbox]:disabled:not(:checked) + div{
+    display: none;
+}
+
 #assigment.modal form .abilities label > div svg {
     height: 18px;
-}
-
-#assigment.modal form .abilities label:not(:last-of-type){
-    margin-right: 1rem;
-}
-
-#assigment.modal button{
-    border-radius: .3rem;
 }
 
 #assigment.modal .form-submit span{
@@ -70,9 +92,11 @@
     color: var(--color-grey);
     box-shadow: none;
     outline: none;
+    border-radius: .25rem;
 }
 
 #assigment .abilities label{
+    margin-right: 1rem;
     margin-bottom: 1rem;
 }
 
