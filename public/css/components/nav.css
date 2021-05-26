@@ -15,15 +15,33 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    .nav-menu{
+        padding: 0px 10%;
+    }
+
+    .nav-menu .landing-search{
+        height: 2.5rem;
+        padding-left: 1rem;
+        width: 14rem;
+        background-color: var(--color-one);
+        color: var(--color-grey);
+    }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    
+    .nav-menu .nav-title{
+        position: relative;
+        right: 5px;
+    }       
+
+    .nav-menu .landing-search{
+        width: 20rem;;
+    }
 }
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    
+    .nav-menu .landing-search{
+        width: 30rem;
 }

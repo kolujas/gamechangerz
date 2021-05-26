@@ -14,6 +14,15 @@
     <div class="nav-row">
 		<ul class="nav-menu-list">
 			<li>
+				<form class="flex justify-center lg:justify-between my-4 py-2 pl-4 pr-2 lg:col-span-8 lg:col-start-2 rounded" action="#">
+					@isset($search)
+						<input class="rounded landing-search" name="[username,name]" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
+					@else
+						<input class="rounded landing-search" name="[username,name]" placeholder="Busca por nombre, etc" type="search" value="">
+					@endisset
+				</form>          
+			</li>
+			<li>
 				<a href="https://www.twitch.tv" target="_blank" class="nav-link">
 					@component('components.svg.TwitchSVG')@endcomponent
 				</a>
