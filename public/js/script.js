@@ -6,6 +6,7 @@ import { Notification as NotificationJS } from "../submodules/NotificationJS/js/
 import Token from "./token.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 import Assigment from "./assigment.js";
+import { Modal as ModalJS } from "../submodules/ModalJS/js/Modal.js";
 
 async function getChats (token) {
     const chats = await Chat.all(token.data);
@@ -119,5 +120,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 changeType(this);
             });
         }
-    }
+    }    
 });
+
+

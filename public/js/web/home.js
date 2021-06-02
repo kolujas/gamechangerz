@@ -1,5 +1,9 @@
-import { FetchServiceProvider as Fetch } from '../../submodules/ProvidersJS/js/FetchServiceProvider.js';
+import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 
-document.addEventListener('DOMContentLoaded', async function (e) {
-    
+modals.poll = new ModalJS({
+    id: "poll",
+},{
+    detectHash: true,
+    open: true,
+    outsideClick: true
 });

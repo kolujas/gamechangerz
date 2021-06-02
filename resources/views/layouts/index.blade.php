@@ -78,6 +78,11 @@
             </a>
         @endif
 
+        @component('components.modal.layouts.poll', [
+            'error' => ($error ? $error : []),
+        ])
+        @endcomponent
+
         <aside id="notification-1" class="notification p-4 hidden"></aside>
     </body>
 </html>
