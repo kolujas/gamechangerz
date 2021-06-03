@@ -8,6 +8,10 @@
     object-fit: contain;
 }
 
+.poll .welcome{
+    font-size: 3rem;
+}
+
 .poll .dots li{
     width: 5px;
     height: 5px;
@@ -63,6 +67,7 @@
 .cards label img {
     height: 100%;
     width: 100%;
+    object-fit: cover;
     transition-duration: 0.2s;
     transform-origin: 50% 50%;
   }
@@ -82,12 +87,13 @@
     content: "";
     position: absolute;
     left: 9px;
-    top: 18px;
+    transform: translateY(-50%);
+    top: 50%;
     border-radius: 100vh;
     width: 18px;
     height: 18px;
-    background: var(--color-grey);
-    box-shadow: inset 0 0 0 1px var(--color-white);
+    background: var( --color-grey);
+    box-shadow: inset 0 0 0 1px var( --color-white);
     margin-right: 2rem;
   }
 
@@ -122,6 +128,12 @@
 
   .poll .text-cards .text-card label section *{
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+  .poll .text-cards .text-card input:not(:checked) + label section *{
+    background: var(--color-white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -184,12 +196,36 @@
 
 /* ? MD */
 @media(min-width: 768px){
-    /*  */
+    .modal .modal-content{
+        width: 50%;
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    /*  */
+    .poll .form-submit{
+        width: 15rem;
+    }
+
+    .poll .card input + label{
+        height: 12rem;
+    }
+
+    .poll .card #check-text{
+        height: auto;
+    }
+
+    .poll .dupla-poll button{
+        width: initial;
+    }
+
+    .poll .cards header h3{
+        font-size: 1.2rem;
+    }
+
+    .poll .cards header + main p{
+        font-size: .9rem;
+    }
 }
 
 /* ? XL */

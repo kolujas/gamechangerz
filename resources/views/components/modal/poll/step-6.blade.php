@@ -27,13 +27,13 @@
                 <a href=""></a>
             </li>            
         </ol>
-        <p class="overpass color-white py-4">Basado en tus respuestas te podría interesar las siguientes secciones...</p>
+        <p class="overpass color-white py-4 lg:pt-8 text-center lg:text-lg">Basado en tus respuestas te podría interesar las siguientes secciones...</p>
 
         <div class="py-6 cards">
-            <ul>
+            <ul class="grid my-4 lg:grid lg:grid-cols-2 lg:gap-8">
                 <li class="secciones card my-4 rounded">                    
                     <a class="p-4 block" href="#">
-                        <header class="flex justify-between items-center">
+                        <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Blog</h3>
                             <span class="color-white arrow text-center p-1">
                                 <i class="fas fa-chevron-right"></i>
@@ -47,7 +47,7 @@
                 </li>
                 <li class="secciones card my-4 rounded">
                     <a class="p-4 block" href="#">
-                        <header class="flex justify-between items-center">
+                        <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Noticias</h3>
                             <span class="color-white arrow text-center p-1">
                                 <i class="fas fa-chevron-right"></i>
@@ -60,7 +60,7 @@
                 </li>
                 <li class="secciones card my-4 rounded">
                     <a class="p-4 block" href="#">
-                        <header class="flex justify-between items-center">
+                        <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Otra sección</h3>
                             <span class="color-white arrow text-center p-1">
                                 <i class="fas fa-chevron-right"></i>
@@ -73,7 +73,7 @@
                 </li>
                 <li class="secciones card my-4 rounded">
                     <a class="p-4 block" href="#">
-                        <header class="flex justify-between items-center">
+                        <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Otra sección</h3>
                             <span class="color-white arrow text-center p-1">
                                 <i class="fas fa-chevron-right"></i>
@@ -85,15 +85,6 @@
                     </a>
                 </li>
               </ul>
-        </div>
-        
-        <div class="next-prev grid grid-cols-2 gap-8">
-            <button class="btn btn-background btn-one form-submit login flex justify-center rounded md:h-12 md:items-center opacity-50" type="submit">
-                <span class="russo py-2 px-4 xl:text-lg">Anterior</span>
-            </button>
-            <button class="btn btn-background btn-one form-submit login flex justify-center rounded md:h-12 md:items-center" type="submit">
-                <span class="russo py-2 px-4 xl:text-lg">Siguiente</span>
-            </button>
         </div>
     </div>
     </main>

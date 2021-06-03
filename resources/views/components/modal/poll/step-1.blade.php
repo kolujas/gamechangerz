@@ -4,7 +4,7 @@
             <figure>
                 <img src="{{ asset('img/logos/028-logotipo_original.png') }}" alt="Logo claro solido con fondo de Gamechangerz">
             </figure>
-            <h2 class="text-5xl color-white text-center russo xl:text-lg">Bienvenido</h2>
+            <h2 class="welcome color-white text-center russo xl:text-lg">Bienvenido</h2>
         </header>
 
         <ol class="dots flex justify-center">
@@ -32,9 +32,12 @@
             <p class="color-white overpass text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt eos, soluta iusto excepturi vel aperiam, accusamus officiis nemo tempora blanditiis praesentium beatae fuga bobeta?</p>
         </div>
         
+        <div class="lg:flex lg:justify-center">
             <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
                 <span class="russo xl:text-lg">Comenzar encuesta</span>
             </button>
+        </div>
+            
         </div>
     </main>
 </section>
