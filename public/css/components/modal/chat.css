@@ -1,5 +1,5 @@
 #chat.modal {
-    z-index: 1;
+    z-index: 10;
 }
 
 #chat.modal .modal-content::before {
@@ -53,6 +53,19 @@
 #chat.modal #list form svg {
     width: 1rem;
     height: 1rem;
+}
+
+#chat.modal #list ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#chat.modal #list li {
+    flex-basis: 100%;
+}
+
+#chat.modal #list ul li.order-0 {
+    margin-top: 0;
 }
 
 #chat.modal #list li a {

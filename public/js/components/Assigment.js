@@ -1,7 +1,12 @@
-import Class from "../submodules/JuanCruzAGB/js/Class.js";
-import { FetchServiceProvider as Fetch } from "../submodules/ProvidersJS/js/FetchServiceProvider.js";
+import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
+import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
+import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
+import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
 
-const asset = document.querySelector('meta[name=asset]').content;
+import Asset from "./Asset.js";
+
+let hash = 'chat';
 
 export class Assigment extends Class {
     constructor (props) {
@@ -196,25 +201,86 @@ export class Assigment extends Class {
                     let figure = document.createElement('figure');
                     div.appendChild(figure);
                         let image = document.createElement('img');
-                        image.src = `${ asset }img/abilities/${ ability.icon }.svg`;
+                        image.src = new Asset(`img/abilities/${ ability.icon }.svg`).route;
                         figure.appendChild(image);
         }
     }
+    
+    static getChatHash (params) {
+        if (/chat/.exec(URL.findHashParameter())) {
+            hash = URL.findHashParameter();
+        }
+        new Assigment({
+            ...params.assigment
+        });
+    }
+    
+    static setChatHash (params) {
+        window.history.pushState({}, document.title, `#${ hash }`);
+    }
 
-    static async send (id_chat, BearerToken) {
-        let formData = new FormData(document.querySelector(`#assigment.modal form`));
-        let token = formData.get('_token');
-        formData.delete('_token');
-        let query = await Fetch.send({
-            method: 'POST',
-            url: `/api/lessons/chats/${ id_chat }/assigments/make`,
+    static setModalJS (callback) {
+        modals.assigment = new ModalJS({
+            id: 'assigment',
         }, {
-            'Accept': 'application/json',
-            'Content-type': 'application/json; charset=UTF-8',
-            'X-CSRF-TOKEN': token,
-            'Authorization': "Bearer " + BearerToken,
-        }, formData);
-        return query.response;
+            outsideClick: true,
+            open: /^assigment-/.exec(URL.findHashParameter()),
+        }, {
+            open: { function: Assigment.getChatHash },
+            close: { function: Assigment.setChatHash }
+        });
+        this.setURLEvent();
+    }
+
+    static setURLEvent () {
+        document.querySelector('#assigment.modal input[name=url]').addEventListener("change", function(){
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = this.value.match(regExp);
+            let videoId;
+            if (match && match[2].length == 11) {
+                videoId = match[2];
+            }else {
+                videoId = 'error';
+            }
+            
+            $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
+        });
+    }
+
+    static setValidationJS (callback) {
+        if (validation.hasOwnProperty('assigment')) {
+            validation.assigment.ValidationJS = new ValidationJS({
+                id: 'assigment-form',
+                rules: validation.assigment.rules,
+                messages: validation.assigment.messages,
+            }, {
+                submit: false,
+            }, {
+                submit: {
+                    function: callback.function,
+                    params: callback.params
+            }});
+        } else {
+            console.error(`validation.assigment does not exist`);
+        }
+    }
+
+    static async submitForm (id_chat, BearerToken) {
+        if (!validation.assigment.ValidationJS.form.html.classList.contains('invalid')) {
+            let formData = new FormData(document.querySelector(`#assigment.modal #assigment-form`));
+            let token = formData.get('_token');
+            formData.delete('_token');
+            let query = await Fetch.send({
+                method: 'POST',
+                url: `/api/lessons/chats/${ id_chat }/assigments/make`,
+            }, {
+                'Accept': 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': token,
+                'Authorization': "Bearer " + BearerToken,
+            }, formData);
+            return query.response;
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-<form id="signin" action="/login" method="post" class="grid pr-6">
+<form id="signin" action="/login" method="post" class="grid pr-6 hidden">
     @csrf
     @method('post')
     <main class="signin pl-12 pb-12 pr-6">

@@ -1,5 +1,81 @@
 /* TODO Custom CSS */
 
+.filter-pagination ul {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-left: 2rem;
+    margin-right: 2rem;
+    background-color: var(--color-black);
+    border-radius: .25rem;
+}
+
+.filter-pagination ul::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px; 
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
+    border-radius: .25rem;
+}
+
+.filter-pagination ul li:not(:last-child) {
+    position: relative;
+}
+
+.filter-pagination ul li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    opacity: 1;
+}
+
+.filter-pagination ul li a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* font-weight: bold; */
+    font-size: .88rem;
+    border-radius: .25rem;
+    z-index: 1;
+    border-radius: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var( --color-white);
+    font-size: 1rem;
+    height: 2.5rem;
+}
+
+.filter-pagination ul li a:first-child {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.filter-pagination ul li a:last-child {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.filter-pagination ul li a:not([href]) {
+    opacity: .5;
+    color: var( --color-grey);
+}
+
+.filter-pagination ul li :where(a[href]):hover {
+    outline: none;
+    text-shadow: 0 0 1px var(--color-white), 0 0 5px var(--color-white), 2px 2px 2px rgba(206,89,55,0);
+}
+
 ul.blog.cards{
     overflow-x: hidden;
     flex-direction: column;
@@ -32,54 +108,14 @@ ul.blog.cards .card.info > :where(a, div) {
 
 ul.blog.cards .card.info .card-body {
     width: 100%;
-    position: relative;
 }
 
-ul.blog.cards .card.info .card-body::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 2px;
-    z-index: -1;
-    background-color: var(--color-grey);
+ul.blog.cards .card.info > :where(a, div) main {
+    background-color: transparent;
 }
 
 ul.blog.cards .card.info .card-body h4 {
     color: var(--color-grey);
-    text-shadow: var(--color-one) 5px 0px 0px,
-                 var(--color-one) 4.90033px 0.993347px 0px,
-                 var(--color-one) 4.60531px 1.94709px 0px,
-                 var(--color-one) 4.12668px 2.82321px 0px,
-                 var(--color-one) 3.48353px 3.58678px 0px,
-                 var(--color-one) 2.70151px 4.20736px 0px,
-                 var(--color-one) 1.81179px 4.6602px 0px,
-                 var(--color-one) 0.849836px 4.92725px 0px,
-                 var(--color-one) -0.145998px 4.99787px 0px,
-                 var(--color-one) -1.13601px 4.86924px 0px,
-                 var(--color-one) -2.08073px 4.54649px 0px,
-                 var(--color-one) -2.94251px 4.04248px 0px,
-                 var(--color-one) -3.68697px 3.37732px 0px,
-                 var(--color-one) -4.28444px 2.57751px 0px,
-                 var(--color-one) -4.71111px 1.67494px 0px,
-                 var(--color-one) -4.94996px 0.7056px 0px,
-                 var(--color-one) -4.99147px -0.291871px 0px,
-                 var(--color-one) -4.83399px -1.27771px 0px,
-                 var(--color-one) -4.48379px -2.2126px 0px,
-                 var(--color-one) -3.95484px -3.05929px 0px,
-                 var(--color-one) -3.26822px -3.78401px 0px,
-                 var(--color-one) -2.4513px -4.35788px 0px,
-                 var(--color-one) -1.53666px -4.75801px 0px,
-                 var(--color-one) -0.560763px -4.96845px 0px,
-                 var(--color-one) 0.437495px -4.98082px 0px,
-                 var(--color-one) 1.41831px -4.79462px 0px,
-                 var(--color-one) 2.34258px -4.41727px 0px,
-                 var(--color-one) 3.17346px -3.86382px 0px,
-                 var(--color-one) 3.87783px -3.15633px 0px,
-                 var(--color-one) 4.4276px -2.32301px 0px,
-                 var(--color-one) 4.80085px -1.39708px 0px,
-                 var(--color-one) 4.98271px -0.415447px 0px;
 }
 
 .post-content b {

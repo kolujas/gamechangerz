@@ -133,11 +133,11 @@
          * @param string $field 
          * @return boolean
          */
-        static public function has ($field) {
+        static public function has ($field = '') {
             $found = false;
             foreach (Hour::$options as $hour) {
                 $hour = new Hour($hour);
-                if ($hour->id_hour === $field) {
+                if (intval($hour->id_hour) === intval($field)) {
                     $found = true;
                 }
             }
@@ -152,7 +152,7 @@
         static public function one ($field = '') {
             foreach (Hour::$options as $hour) {
                 $hour = new Hour($hour);
-                if ($hour->id_hour === $field) {
+                if (intval($hour->id_hour) === intval($field)) {
                     return $hour;
                 }
             }

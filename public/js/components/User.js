@@ -1,10 +1,10 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import Game from "../Game.js";
 
-const asset = document.querySelector('meta[name=asset]').content;
+import Asset from "./Asset.js";
+import Game from "./Game.js";
 
 export class User extends Class {
-    static userComponent (data) {
+    static user (data) {
         let item = document.createElement('li');
         item.classList.add("p-4", "flex", "justify-between", "items-center", "gap-4", "lg:col-span-8", "lg:col-start-2", "degradado");
             let header = document.createElement('a');
@@ -18,7 +18,7 @@ export class User extends Class {
                     photo_figure.classList.add("profile-image");
                     photo.appendChild(photo_figure);
                         let image = document.createElement('img');
-                        image.src = `${ asset }${(data.files['profile'] ?  `storage/${ data.files['profile'] }` : `img/resources/Group 15SVG.svg`)}`;
+                        image.src = new Asset(`${(data.files['profile'] ?  `storage/${ data.files['profile'] }` : `img/resources/ProfileSVG.svg`)}`).route;
                         image.alt = `${ data.username } profile image`;
                         photo_figure.appendChild(image);
                 
@@ -43,7 +43,7 @@ export class User extends Class {
                 let teammate_figure = document.createElement('figure');
                 teammate.appendChild(teammate_figure);
                     let fist = document.createElement('img');
-                    fist.src = `${ asset }img/resources/ChoqueSVG.svg`;
+                    fist.src = new Asset(`img/resources/ChoqueSVG.svg`).route;
                     fist.alt = "Fist svg";
                     teammate_figure.appendChild(fist);
 
@@ -57,12 +57,12 @@ export class User extends Class {
 
                 let hours = document.createElement('p');
                 hours.classList.add("color-four");
-                hours.innerHTML = data.hours;
+                hours.innerHTML = data.lessonsDone;
                 lessons.appendChild(hours);
                 
             let games = document.createElement('div');
             games.classList.add("hidden", "md:block");
-            games.appendChild(Game.generateComponent('list', data.games))
+            games.appendChild(Game.component('list', data.games))
             item.appendChild(games);
             
             let actions = document.createElement('div');
@@ -79,7 +79,7 @@ export class User extends Class {
         return item;
     }
 
-    static teacherComponent (data) {
+    static teacher (data) {
         let item = document.createElement('li');
         item.classList.add('teacher');
             let main = document.createElement('main');
@@ -131,7 +131,7 @@ export class User extends Class {
                                             let figure = document.createElement('figure');
                                             li.appendChild(figure);
                                                 let img = document.createElement('img');
-                                                img.src = `${ asset }img/languages/${ language.icon }.svg`;
+                                                img.src = new Asset(`img/languages/${ language.icon }.svg`).route;
                                                 img.alt = `${ language.name } icon`;
                                                 figure.appendChild(img);
                                     }
@@ -144,7 +144,7 @@ export class User extends Class {
                                     let figure = document.createElement('figure');
                                     div.appendChild(figure);
                                         let logo = document.createElement('img');
-                                        logo.src = `${ asset }storage/${ data.teampro.logo }`;
+                                        logo.src = new Asset(`storage/${ data.teampro.logo }`).route;
                                         logo.alt = `${ data.teampro.name } logo`;
                                         figure.appendChild(logo);
                         
@@ -167,7 +167,7 @@ export class User extends Class {
                                             figure = document.createElement('figure');
                                             li.appendChild(figure);
                                                 let img = document.createElement('img');
-                                                img.src = `${ asset }img/abilities/${ ability.icon }.svg`;
+                                                img.src = new Asset(`img/abilities/${ ability.icon }.svg`).route;
                                                 img.alt = `${ ability.name } icon`;
                                                 figure.appendChild(img);
                                     }
@@ -181,7 +181,7 @@ export class User extends Class {
                         figure = document.createElement('figure');
                         div.appendChild(figure);
                             let img = document.createElement('img');
-                            img.src = `${ asset }storage/${ data.files['profile'] }`;
+                            img.src = new Asset(`storage/${ data.files['profile'] }`).route;
                             img.alt = `${ data.username } profile image`;
                             figure.appendChild(img);
 
@@ -235,13 +235,8 @@ export class User extends Class {
         return item;
     }
 
-    static generateComponent (name = '', data) {
-        switch (name) {
-            case 'user':
-                return User.userComponent(data);
-            case 'teacher':
-                return User.teacherComponent(data);
-        }
+    static component (name = '', data) {
+        return this[name](data);
     }
 }
 

@@ -19,24 +19,24 @@
         </div>
     @endif
     <ul class="tabs tab-menu-list cards grid gap-4 grid-cols-3 mb-8">
-        <li class="tab card flex justify-start">
-            <a href="#online" class="tab-button color-white">
+        <li id="tab-online" class="tab card flex justify-start">
+            <a href="#online" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline1SVG')@endcomponent
                     <h4 class="mt-4">Online</h4>
                 </div>
             </a>
         </li>
-        <li class="tab card flex justify-center">
-            <a href="#offline" class="tab-button color-white">
+        <li id="tab-offline" class="tab card flex justify-center">
+            <a href="#offline" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline2SVG')@endcomponent
                     <h4 class="mt-4 overpass">Offline</h4>
                 </div>
             </a>
         </li>
-        <li class="tab card flex justify-end">
-            <a href="#packs" class="tab-button color-white">
+        <li id="tab-packs" class="tab card flex justify-end">
+            <a href="#packs" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline3SVG')@endcomponent
                     <h4 class="mt-4 overpass">Packs</h4>

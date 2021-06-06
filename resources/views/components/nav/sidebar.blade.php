@@ -9,7 +9,7 @@
                         </figure>
                     @endif
                     @if (!Auth::user()->profile())
-                        @component('components.svg.Group 15SVG')@endcomponent
+                        @component('components.svg.ProfileSVG')@endcomponent
                     @endif
                 </div>
                 <div class="col-span-2 grid grid-cols-1 items-center">

@@ -114,6 +114,7 @@
          */
         static public function parse ($daysToParse = []) {
             $days = collect([]);
+            $months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
             foreach ($daysToParse as $data) {
                 if (isset($data->id_day) && !Day::has($data->id_day)) {
                     throw (object)[
@@ -122,13 +123,21 @@
                     ];
                 }
                 if (isset($data->date)) {
-                    $date = new Carbon($data->date);
-                    $data->id_day = $date->dayOfWeek;
+                    $data->date = new Carbon($data->date);
+                    $data->id_day = $data->date->dayOfWeek;
                 }
                 $aux = [
                     'day' => Day::one($data->id_day),
                     'hours' => collect([]),
                 ];
+                if (isset($data->date)) {
+                    $aux['date'] = $data->date->format('Y') . '-'. ((intval($data->date->format('n')) < 10) ? '0' . intval($data->date->format('n')) : intval($data->date->format('n'))) . '-'. $data->date->format('d');
+                    $aux['carbon'] = (object) [
+                        'day' => $data->date->format('d'),
+                        'month' => $months[$data->date->format('n')],
+                        'year' => $data->date->format('Y'),
+                    ];
+                }
                 if (isset($data->hours)) {
                     foreach ($data->hours as $hour) {
                         if (Hour::has($hour->id_hour)) {

@@ -1,9 +1,34 @@
+import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import Modal from "../modal.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
-import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
+
+import Achievement from "../components/Achievement.js";
+import Friend from "../components/Friend.js";
+import Game from "../components/Game.js";
+import Language from "../components/Language.js";
+import Lesson from "../components/Lesson.js";
+
+function setDefaultWidth (params) {
+    let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
+    let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");
+    prices_text[0].innerHTML = prices_input[0].value;
+    prices_text[1].innerHTML = prices_input[1].value;
+    prices_text[2].innerHTML = prices_input[2].value;
+    prices_input[0].setAttribute('style', `--width: ${ prices_text[0].offsetWidth }px`);
+    prices_input[1].setAttribute('style', `--width: ${ prices_text[1].offsetWidth }px`);
+    prices_input[2].setAttribute('style', `--width: ${ prices_text[2].offsetWidth }px`);
+    for (const key in prices_input) {
+        if (Object.hasOwnProperty.call(prices_input, key)) {
+            const input = prices_input[key];
+            input.addEventListener('keyup', function (e) {
+                e.preventDefault();
+                prices_text[key].innerHTML = this.value;
+                this.setAttribute('style', `--width: ${ prices_text[key].offsetWidth }px`);
+            });
+        }
+    }
+}
 
 function createErrorNotification (params) {
     for (const target in params.errors) {
@@ -59,8 +84,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
     new TabMenuJS({
         id: 'horarios'
     },{
-        open: ['online'],
-        active: 'online',
+        open: 'online',
+    }, {
+        function: setDefaultWidth,
     });
 
     if (document.querySelector(".teacher")) {
@@ -118,46 +144,20 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
 
     if (document.querySelector('#lessons.modal')) {
-        modals.lessons = new ModalJS({
-            id: 'lessons',
-        }, {
-            open: URL.findHashParameter() === 'lessons',
-            detectHash: true,
-            outsideClick: true,
-        });
+        Lesson.setModalJS();
     }
     if (document.querySelector('#friends.modal')) {
-        modals.friends = new ModalJS({
-            id: 'friends',
-        }, {
-            open: URL.findHashParameter() === 'friends',
-            detectHash: true,
-            outsideClick: true,
-        });
+        Friend.setModalJS();
     }
     if (authenticated) {
-        if (document.querySelector('#games.modal')) {
-            modals.games = new Modal({
-                id: 'games',
-            });
-        }
         if (document.querySelector('#achievements.modal')) {
-            modals.achievements = new ModalJS({
-                id: 'achievements',
-            }, {
-                open: URL.findHashParameter() === 'achievements',
-                detectHash: true,
-                outsideClick: true,
-            });
+            Achievement.setModalJS();
+        }
+        if (document.querySelector('#games.modal')) {
+            Game.setModalJS();
         }
         if (document.querySelector('#languages.modal')) {
-            modals.languages = new ModalJS({
-                id: 'languages',
-            }, {
-                open: URL.findHashParameter() === 'languages',
-                detectHash: true,
-                outsideClick: true,
-            });
+            Language.setModalJS();
         }
 
         if (document.querySelectorAll('.update-button').length) {

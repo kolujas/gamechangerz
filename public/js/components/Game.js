@@ -1,9 +1,21 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
+import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 
-const asset = document.querySelector('meta[name=asset]').content;
+import Asset from "./Asset.js";
 
 export class Game extends Class {
-    static itemComponent (game) {
+    static setModalJS () {
+        modals.games = new ModalJS({
+            id: 'games',
+        }, {
+            open: URL.findHashParameter() === 'games',
+            detectHash: true,
+            outsideClick: true,
+        });
+    }
+
+    static item (game) {
         let item = document.createElement('li');
         item.classList.add("card", "text-center");
         item.setAttribute("style", `--game-color-one: ${ game.colors[0] }; --game-color-two: ${ game.colors[1] };`);
@@ -35,17 +47,17 @@ export class Game extends Class {
                     let figure = document.createElement('figure');
                     main.appendChild(figure);
                         let image = document.createElement('img');
-                        image.src = `${ asset }${ game.files['background'] }`;
+                        image.src = new Asset(`${ game.files['background'] }`).route;
                         image.alt = `${ game.name } image`;
                         figure.appendChild(image);
         return item;
     }
 
-    static listComponent (data) {
+    static list (data) {
         let list = document.createElement('ul');
         list.classList.add("cards", "games", "mt-12", "grid", "md:grid-cols-2", "lg:grid-cols-4", "main");
             for (const game of data) {
-                list.appendChild(Game.itemComponent(game));
+                list.appendChild(Game.item(game));
             }
             if (!data.length) {
                 let item = document.createElement('li');
@@ -62,11 +74,8 @@ export class Game extends Class {
         return list;
     }
 
-    static generateComponent (name = '', data) {
-        switch (name) {
-            case 'list':
-                return Game.listComponent(data);
-        }
+    static component (name = '', data) {
+        return this[name](data);
     }
 }
 

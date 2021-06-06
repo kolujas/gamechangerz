@@ -1,5 +1,5 @@
-import { LocalStorageServiceProvider as LocalStorage } from "../submodules/ProvidersJS/js/LocalStorageServiceProvider.js";
-import Class from "../submodules/JuanCruzAGB/js/Class.js";
+import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { LocalStorageServiceProvider as LocalStorage } from "../../submodules/ProvidersJS/js/LocalStorageServiceProvider.js";
 
 const token_name = 'gamechangerz_access_token';
 

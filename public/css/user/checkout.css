@@ -1,10 +1,47 @@
-.dropdown {
-    --dropdown-header-background-color: var(--color-black); /* ? * Titles */
-    --dropdown-header-background-color-alternative: var(--color-black); /* ? * Titles efects */
-    --dropdown-button-color: var(--color-white); /* ? * Buttons */
-    --dropdown-button-color-alternative: var(--color-white); /* ? * Buttons efects */
-    --dropdown-button-background-color: transparent; /* ? * Buttons */
-    --dropdown-button-background-color-alternative: transparent; /* ? * Buttons efects */
+:root {
+    --dropdown-header-background-color: var(--color-black);
+    --dropdown-header-background-color-alternative: var(--color-black);
+    --dropdown-button-color: var(--color-white);
+    --dropdown-button-color-alternative: var(--color-white);
+    --dropdown-button-background-color: transparent;
+    --dropdown-button-background-color-alternative: transparent;
+    --dropdown-content-background-color: var(--color-black);
+
+    --calendar-color: var(--color-white);
+    --calendar-background-color: transparent;
+    --calendar-arrow-button-color: var(--color-black);
+    --calendar-arrow-button-background-color: var(--color-four);
+    --calendar-arrow-button-color-alternative: var(--color-black);
+    --calendar-arrow-button-background-color-alternative: var(--color-five);
+    --calendar-date-button-color: var(--color-white);
+    --calendar-date-button-background-color: transparent;
+    --calendar-date-button-color-alternative: var(--color-black);
+    --calendar-date-button-background-color-alternative: var(--color-four);
+    --calendar-date-button-disabled-color: var(--color-grey);
+    --calendar-date-button-disabled-background-color: transparent;
+    --calendar-today-date-button-border-inset-color: var(--color-black);
+    --calendar-today-date-button-border-color: var(--color-one);
+    --calendar-selected-date-border-inset-color: var(--color-one);
+    --calendar-selected-date-border-color: var(--color-four);
+}
+
+.calendar-input .days .date input:not(:disabled):checked.selected.withDate + .date-btn {
+    --calendar-selected-date-border-inset-color: var(--color-five);
+}
+
+.calendar-input .days .date input:not(:disabled):checked.withDate:not(.selected) + .date-btn {
+    box-shadow: inset 0 0 0 3px var(--color-five);
+}
+
+.calendar-input .month > div button,
+.calendar-input .days .date .date-btn {
+    border-radius: 100vh;
+}
+
+.calendar-input .days .date .date-btn {
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
 }
 
 .dropdown.opened .dropdown-header {
@@ -21,6 +58,12 @@
 
 .dropdown .dropdown-header h2 {
     font-size: 1.5rem;
+}
+
+.dropdown .dropdown-main {
+    width: 100%;
+    border-radius: .25rem;
+    background-color: var(--dropdown-content-background-color);
 }
 
 .cart {
@@ -49,44 +92,40 @@
     color: var(--color-five);
 }
 
-.calendar li {
+.hours li {
     min-height: fit-content;
 }
 
-.calendar input  {
+.hours input {
     display: none;
 }
 
-.calendar label.btn {
+.hours input:not(:disabled) + label:hover::before,
+.hours input:not(:disabled):checked + label::before {
+    --color-left: var(--color-five);
+    --color-right: var(--color-four);
+}
+
+.hours label span {
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-size: 1rem;
-    background-color: var(--color-black);
-    border: 1px solid var(--color-one);
-    transition: 500ms;
     white-space: nowrap;
+    font-size: 1rem;
+    position: relative;
 }
 
-.calendar input:not(:disabled) + label.btn {
+.hours input:not(:disabled) + label span {
     cursor: pointer;
 }
 
-.calendar input:disabled + label.btn {
+.hours input:disabled + label {
     opacity: .4;
     pointer-events: none;
 }
 
-.calendar input:not(:disabled) + label.btn:hover {
-    border: 1px solid var(--color-four);
-}
-
-.calendar input:not(:disabled):checked + label.btn {
-    background-color: var(--color-one);
-    border: 1px solid var(--color-four);
-}
-
-.calendar label.btn::after  {
+.hours label span::after {
     content: '';
     min-width: 1rem;
     height: 1rem;
@@ -95,35 +134,59 @@
     box-shadow: inset 0 0 0 3px var(--color-black),
                 0 0 0 3px var(--color-one);
     appearance: none;
-    transition: 500ms;
+    /* transition: 500ms; */
     border: none;
 }
 
-.calendar input:not(:disabled) + label.btn:hover::after {
+.hours input:not(:disabled):checked + label span {
+    --color-solid: var(--color-one);
+}
+
+.hours input:not(:disabled) + label span:hover::after {
     background: var(--color-four);
     box-shadow: inset 0 0 0 3px var(--color-black),
                 0 0 0 3px var(--color-four);
 }
 
-.calendar input:not(:disabled):checked + label.btn::after {
+.hours input:not(:disabled):checked + label span::after {
     background: var(--color-four);
-    box-shadow: inset 0 0 0 3px var(--color-black),
+    box-shadow: inset 0 0 0 3px var(--color-one),
                 0 0 0 3px var(--color-four);
 }
 
 .methods .card a {
-    display: flex;
     position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+}
+
+.methods .card a {
+    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100%;
+    width: 100%;
+}
+
+.methods .card a input {
+    display: none;
+}
+
+.methods .card a label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    width: 100%;
+    cursor: pointer;
     background-color: #161218;
     transition: background 500ms;
     text-transform: uppercase;
     border-radius: .25rem;
 }
 
-.methods .card a::before {
+.methods .card a label::before {
     border-radius: .25rem;
     content: '';
     position: absolute;
@@ -131,13 +194,26 @@
     left: -1px;
     width: calc(100% + 2px);
     height: calc(100% + 2px);
-    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    background: var(--color-white);
     z-index: -1;
 }
 
-.methods .card a.active,
-.methods .card a:hover {
+.methods .card a input:checked + label,
+.methods .card a.opened label,
+.methods .card a:hover label {
     background: var(--color-black);
+}
+
+.methods .card a input:checked + label::before {
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+}
+
+.methods svg {
+    width: 4rem;
+}
+
+.btn.btn-outline.btn-white {
+    height: fit-content;
 }
 
 button[type=submit].btn {
@@ -171,7 +247,7 @@ input[name="credits"]:focus {
     box-shadow: none;
 }
 
-.calendar .month {
+.calendar-input .month {
     font-family: 'Overpass';
 }
 

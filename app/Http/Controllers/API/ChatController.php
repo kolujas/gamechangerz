@@ -25,11 +25,17 @@
             }
 
             $lessons = collect();
-            foreach (Lesson::where('id_user_from', '=', $request->user()->id_user)->get() as $lesson) {
+            foreach (Lesson::where([
+                ['id_user_from', '=', $request->user()->id_user],
+                ['status', '>', 0],
+            ])->get() as $lesson) {
                 $lessons->push($lesson);
             }
 
-            foreach (Lesson::where('id_user_to', '=', $request->user()->id_user)->get() as $lesson) {
+            foreach (Lesson::where([
+                ['id_user_to', '=', $request->user()->id_user],
+                ['status', '>', 0],
+            ])->get() as $lesson) {
                 $lessons->push($lesson);
             }
 
@@ -89,6 +95,10 @@
                     $games->and(['abilities']);
                 }
                 $chat->type();
+
+                foreach ($chat->messages as $message) {
+                    $message->id_user_logged = $request->user()->id_user;
+                }
             }
 
             return response()->json([
@@ -122,12 +132,41 @@
                 ]);
             }
 
-            $chat = Chat::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->limit(1);
-            if (!$chat) {
+            $chats = collect();
+            foreach (Chat::where('id_user_from', '=', $request->user()->id_user)->get() as $chat) {
+                $chats->push($chat);
+            }
+
+            foreach (Chat::where('id_user_to', '=', $request->user()->id_user)->get() as $chat) {
+                $chats->push($chat);
+            }
+            
+            $found = false;
+            foreach ($chats as $chat) {
+                if ($chat->id_user_from === $request->user()->id_user) {
+                    if ($chat->id_user_to === intval($id_user)) {
+                        $found = true;
+                        break;
+                    }
+                }
+                if ($chat->id_user_to === $request->user()->id_user) {
+                    if ($chat->id_user_from === intval($id_user)) {
+                        $found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!$found) {
                 return response()->json([
                     'code' => 404,
                     'message' => 'Chat does not exist',
                 ]);
+            }
+
+            $chat->messages();
+            foreach ($chat->messages as $message) {
+                $message->id_user_logged = $request->user()->id_user;
             }
 
             return response()->json([
@@ -192,51 +231,54 @@
                 }
             }
 
-            if ($found) {
-                $messages = collect();
-                $id_message = 1;
-                foreach (json_decode($chat->messages) as $message) {
-                    $id_message = intval($message->id_message) + 1;
-                    $messages->push($message);
-                    if (count($messages) === 20) {
-                        $messages->shift();
-                    }
-                }
-                $messages->push([
-                    "id_message" => $id_message,
-                    "id_user" => $request->user()->id_user,
-                    "says" => $input->message,
-                ]);
-    
-                $input->messages = json_encode($messages);
-    
-                $chat->update((array) $input);
-    
-                $chat->id_user_logged = $request->user()->id_user;
-                $chat->users();
-                // $chat->messages();
-                $chat->users['from']->and(['files', 'games']);
-                foreach ($chat->users['from']->games as $games) {
-                    $games->and(['abilities']);
-                }
-                $chat->users['to']->and(['files', 'games']);
-                foreach ($chat->users['to']->games as $games) {
-                    $games->and(['abilities']);
-                }
-                $chat->type();
-    
+            if (!$found) {
                 return response()->json([
-                    'code' => 200,
-                    'message' => 'Success',
-                    'data' => [
-                        'chat' => $chat,
-                    ],
+                    'code' => 404,
+                    'message' => 'Chat does not exist',
                 ]);
             }
-    
+
+            $messages = collect();
+            $id_message = 1;
+            foreach (json_decode($chat->messages) as $message) {
+                $id_message = intval($message->id_message) + 1;
+                $messages->push($message);
+                if (count($messages) === 20) {
+                    $messages->shift();
+                }
+            }
+            $messages->push([
+                "id_message" => $id_message,
+                "id_user" => $request->user()->id_user,
+                "says" => $input->message,
+            ]);
+
+            $input->messages = json_encode($messages);
+
+            $chat->update((array) $input);
+
+            $chat->id_user_logged = $request->user()->id_user;
+            $chat->users();
+            $chat->users['from']->and(['files', 'games']);
+            foreach ($chat->users['from']->games as $games) {
+                $games->and(['abilities']);
+            }
+            $chat->users['to']->and(['files', 'games']);
+            foreach ($chat->users['to']->games as $games) {
+                $games->and(['abilities']);
+            }
+            $chat->type();
+
+            foreach ($chat->messages as $message) {
+                $message->id_user_logged = $request->user()->id_user;
+            }
+
             return response()->json([
-                'code' => 404,
-                'message' => 'Chat not found',
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'chat' => $chat,
+                ],
             ]);
         }
     }

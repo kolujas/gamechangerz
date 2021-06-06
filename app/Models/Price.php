@@ -24,10 +24,6 @@
          */
         static public function parse ($pricesToParse = []) {
             $prices = collect([]);
-            // $pricesToParse[] = (object)[
-            //     'id_lesson' => 3,
-            //     'price' => intval($pricesToParse[0]->price) * 3,
-            // ];
             foreach ($pricesToParse as $data) {
                 if (!Lesson::has($data->id_lesson)) {
                     throw (object)[

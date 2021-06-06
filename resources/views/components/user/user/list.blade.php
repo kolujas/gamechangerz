@@ -10,7 +10,7 @@
                             </figure>
                         @endif
                         @if (!isset($user->files['profile']))
-                            @component('components.svg.Group 15SVG')@endcomponent
+                            @component('components.svg.ProfileSVG')@endcomponent
                         @endif
                     </div>
                     <div>

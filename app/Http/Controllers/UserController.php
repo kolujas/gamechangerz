@@ -7,13 +7,18 @@
     use App\Models\Day;
     use App\Models\Game;
     use App\Models\Lesson;
+    use App\Models\MercadoPago;
     use App\Models\Post;
     use App\Models\Price;
     use App\Models\User;
     use Auth;
     use Cviebrock\EloquentSluggable\Services\SlugService;
+    use DB;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
+    use MercadoPago\Item;
+    use MercadoPago\Preference;
+    use MercadoPago\SDK;
 
     class UserController extends Controller {
         /**
@@ -144,7 +149,7 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
-                ], 'assigment-form' => (object)[
+                ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
                 ], 'update' => (object)[
@@ -176,7 +181,7 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
-                ], 'assigment-form' => (object)[
+                ], 'assigment' => (object)[
                     'rules' => Assigment::$validation['make']['rules'],
                     'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
@@ -204,6 +209,7 @@
                     $type = $price;
                 }
             }
+            
             return view('user.checkout', [
                 'user' => $user,
                 'type' => $type,
@@ -215,9 +221,12 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
-                ], 'assigment-form' => (object)[
+                ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'checkout' => (object)[
+                        'rules' => Lesson::$validation['checkout'][$type->slug]['rules'],
+                        'messages' => Lesson::$validation['checkout'][$type->slug]['messages']['es'],
                 ]],
             ]);
         }

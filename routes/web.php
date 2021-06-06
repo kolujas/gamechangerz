@@ -50,6 +50,11 @@
     Route::middleware(['auth', 'user.exist', 'user.not.checkout', 'user.is.teacher', 'lesson.type.exist'])->group(function () {
         Route::post('/users/{slug}/checkout/{type}', [LessonController::class, 'doCheckout'])->name('lesson.doCheckout');
     });
+    Route::middleware(['auth', 'lesson.exist', 'lesson.status.exist'])->group(function () {
+        Route::get('/lessons/{id_lesson}/checkout/{status}', [LessonController::class, 'showStatus'])->name('lesson.checkout.status');
+    });
+    // TODO Change to POST
+    Route::get('/lessons/notification', [LessonController::class, 'checkNotification'])->name('lesson.notification.check');
 
 // ! UserController - Controls the User pages.
     Route::get('/users', [UserController::class, 'search'])->name('user.searchUsers');

@@ -42,7 +42,7 @@
 							</figure>
 						@endif
 						@if (!Auth::user()->profile())
-							@component('components.svg.Group 15SVG')@endcomponent
+							@component('components.svg.ProfileSVG')@endcomponent
 						@endif
 					</a>
 					<ul class="dropdown-content px-4">

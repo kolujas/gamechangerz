@@ -7,7 +7,7 @@
                 </figure>
             @endif
             @if (!isset($user->files['profile']))
-                @component('components.svg.Group 15SVG')@endcomponent
+                @component('components.svg.ProfileSVG')@endcomponent
             @endif
         </div>
         <div class="username">
@@ -38,14 +38,14 @@
         </ul>
     @endif
 
-    @if (count($user->lessons) || $user->hours || $user->friends_length)
+    @if ($user->lessonsDone || $user->hours || $user->friends_length)
         <div class="info mt-8">
             <ul>
-                @if (count($user->lessons))
+                @if ($user->lessonsDone)
                     <li class="color-white mb-8 font-bold">
                         <a href="#lessons" class="btn btn-text btn-white font-bold">
                             <span class="overpass">Total clases tomadas:</span>
-                            <span class="color-four overpass">{{ count($user->lessons) }}</span>
+                            <span class="color-four overpass">{{ $user->lessonsDone }}</span>
                         </a>
                     </li>
                 @endif
@@ -71,7 +71,7 @@
                                             </figure>
                                         @endif
                                         @if (!($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
-                                            @component('components.svg.Group 15SVG')@endcomponent
+                                            @component('components.svg.ProfileSVG')@endcomponent
                                         @endif
                                     </a>
                                 @endif

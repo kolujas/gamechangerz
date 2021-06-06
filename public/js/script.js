@@ -1,30 +1,16 @@
-import Chat from "./chat.js";
 import { Dropdown as DropdownJS } from "../submodules/DropdownJS/js/Dropdown.js";
-import Modal from './modal.js';
 import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
 import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
-import Token from "./token.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
-import Assigment from "./assigment.js";
+
+import Assigment from "./components/Assigment.js";
+import Auth from "./components/Auth.js";
+import Chat from "./components/Chat.js";
+import Token from "./components/Token.js";
 
 async function getChats (token) {
     const chats = await Chat.all(token.data);
     new Chat({ token: token.data }, chats);
-}
-
-let hash = 'chat';
-
-function getChatHash (params) {
-    if (/chat/.exec(URL.findHashParameter())) {
-        hash = URL.findHashParameter();
-    }
-    new Assigment({
-        ...params.assigment
-    });
-}
-
-function setChatHash (params) {
-    window.history.pushState({}, document.title, `#${ hash }`);
 }
 
 function changeType (btn) {
@@ -66,30 +52,25 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     const token = Token.get();
     if (!authenticated) {
-        modals.login = new Modal({ id: 'login' });
-        modals.signin = new Modal({ id: 'signin' });
+        Auth.setModalJS();
     
         if (URL.findHashParameter()) {
             switch (URL.findHashParameter()) {
                 case 'login':
-                    modals.login.changeModalContent();
-                    modals.login.ModalJS.open();
+                    Auth.changeContent('login');
+                    modals.auth.open();
                     break;
                 case 'signin':
-                    modals.signin.changeModalContent();
-                    modals.signin.ModalJS.open();
+                    Auth.changeContent('signin');
+                    modals.auth.open();
                     break;
             }
         }
     }
     
     if (authenticated) {
-        modals.assigment = new Modal({ id: 'assigment-form' }, {}, {
-            open: {
-                function: getChatHash,
-        }, close: {
-                function: setChatHash,
-        }});
+        Assigment.setModalJS();
+
         if (document.querySelectorAll("a[href='/logout']").length) {
             for (const html of document.querySelectorAll("a[href='/logout']")) {
                 html.addEventListener('click', function (e) {

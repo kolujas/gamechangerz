@@ -41,7 +41,7 @@
     position: absolute;
     top: -1px;
     left: -1px;
-    background: linear-gradient(130deg , var(--color-five), var(--color-four));
+    background: linear-gradient(130deg , var(--color-left), var(--color-right));
     z-index: -1;
 }
 
@@ -145,28 +145,38 @@
     --color-left: var(--color-two);
     --color-right: var(--color-one);
     --border: var(--color-one);
+    --color-solid: var(--color-black);
 }
 
 .btn.btn-three {
     --color-left: var(--color-four);
     --color-right: var(--color-red);
     --border: var(--color-red);
+    --color-solid: var(--color-black);
+}
+
+.btn.btn-four {
+    --color-left: var(--color-three);
+    --color-right: var(--color-one);
+    --border: var(--color-one);
+    --color-solid: var(--color-black);
 }
 
 .btn.btn-white {
     --color-left: var(--color-five);
     --color-right: var(--color-white);
     --border: var(--color-black);
+    --color-solid: var(--color-black);
 }
 
 .btn.btn-grey {
     --color-left: var(--color-five);
     --color-right: var(--color-grey);
     --border: var(--color-black);
+    --color-solid: var(--color-black);
 }
 
 .btn.btn-icon.btn-white {
-    /* border: 1px solid var(--color-right); */
     color: var( --color-right);
 }
 

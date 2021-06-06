@@ -7,6 +7,7 @@
     use App\Models\Folder;
     use App\Models\Friend;
     use App\Models\Game;
+    use App\Models\Hour;
     use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\Post;
@@ -254,11 +255,16 @@
             $this->hours = 0;
             foreach ($this->lessons as $lesson) {
                 if ($lesson->id_type === 1 || $lesson->id_type === 3) {
-                    foreach (json_decode($lesson->days) as $day) {
-                        if (Hour::has($day->hour->id_hour)) {
-                            $hour = Hour::one($day->hour->id_hour);
-                            if (now() > $day->date . "T" . $hour->to) {
-                                $this->hours++;
+                    if ($lesson->status === 3) {
+                        $lesson->and(['days']);
+                        foreach ($lesson->days as $day) {
+                            foreach ($day['hours'] as $hour) {
+                                if (Hour::has($hour->id_hour)) {
+                                    $hour = Hour::one($hour->id_hour);
+                                    if (now() > $day['date'] . "T" . $hour->to) {
+                                        $this->hours++;
+                                    }
+                                }
                             }
                         }
                     }
@@ -285,35 +291,63 @@
         public function lessons () {
             $this->lessons = collect([]);
             if ($this->id_role === 0) {
-                foreach (Lesson::where('id_user_to', '=', $this->id_user)->get() as $lesson) {
-                    if ($lesson->id_type === 1) {
-                        $lesson->hours = 0;
-                        foreach (json_decode($lesson->days) as $day) {
-                            if (Hour::has($day->hour->id_hour)) {
-                                $hour = Hour::one($day->hour->id_hour);
-                                if (now() > $day->date . "T" . $hour->to) {
-                                    $lesson->hours++;
-                                }
-                            }
-                        }
-                    }
+                foreach (Lesson::where([
+                    ['id_user_to', '=', $this->id_user],
+                    ['status', '>', 0],
+                ])->get() as $lesson) {
+                    // if ($lesson->id_type === 1 || $lesson->id_type === 3) {
+                    //     $lesson->hours = 0;
+                    //     foreach (json_decode($lesson->days) as $day) {
+                    //         if (Hour::has($day->hour->id_hour)) {
+                    //             $hour = Hour::one($day->hour->id_hour);
+                    //             dd($day->date);
+                    //             if (now() > $day->date . "T" . $hour->to) {
+                    //                 $lesson->hours++;
+                    //             }
+                    //         }
+                    //     }
+                    // }
                     $this->lessons->push($lesson);
                 }
             }
             if ($this->id_role === 1) {
-                foreach (Lesson::where('id_user_from', '=', $this->id_user)->get() as $lesson) {
-                    if ($lesson->id_type === 1) {
-                        $lesson->hours = 0;
-                        foreach (json_decode($lesson->days) as $day) {
-                            if (Hour::has($day->hour->id_hour)) {
-                                $hour = Hour::one($day->hour->id_hour);
-                                if (now() > $day->date . "T" . $hour->to) {
-                                    $lesson->hours++;
+                foreach (Lesson::where([
+                    ['id_user_from', '=', $this->id_user],
+                    ['status', '>', 0],
+                ])->get() as $lesson) {
+                    // if ($lesson->id_type === 1 || $lesson->id_type === 3) {
+                    //     $lesson->hours = 0;
+                    //     foreach (json_decode($lesson->days) as $day) {
+                    //         if (Hour::has($day->hour->id_hour)) {
+                    //             $hour = Hour::one($day->hour->id_hour);
+                    //             if (now() > $day->date . "T" . $hour->to) {
+                    //                 $lesson->hours++;
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    $this->lessons->push($lesson);
+                }
+            }
+            $this->lessonsDone = 0;
+            foreach ($this->lessons as $lesson) {
+                if ($lesson->status === 3) {
+                    if ($lesson->id_type === 1 || $lesson->id_type === 3) {
+                        $lesson->and(['days']);
+                        foreach ($lesson->days as $day) {
+                            foreach ($day['hours'] as $hour) {
+                                if (Hour::has($hour->id_hour)) {
+                                    $hour = Hour::one($hour->id_hour);
+                                    if (now() > $day['date'] . "T" . $hour->to) {
+                                        $this->lessonsDone++;
+                                    }
                                 }
                             }
                         }
                     }
-                    $this->lessons->push($lesson);
+                    if ($lesson->id_type === 2) {
+                        $this->lessonsDone++;
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@
     use App\Models\Day;
     use App\Models\Folder;
     use Illuminate\Database\Eloquent\Model;
+    use Spatie\GoogleCalendar\Event;
 
     class Lesson extends Model {
         /** @var string Table name */
@@ -18,7 +19,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'days', 'id_type', 'name', 'svg', 'slug',
+            'id_user_from', 'id_user_to', 'days', 'id_type', 'name', 'svg', 'slug', 'status',
         ];
 
         /** @var array Lesson options */
@@ -69,18 +70,39 @@
             'online' => [
                 'rules' => [
                     'dates' => 'required',
+                    'dates.*' => 'required',
                     'hours' => 'required',
+                    'hours.*' => 'required',
                 ], 'messages' => [
                     'es' => [
                         'dates.required' => 'La fecha de la clase debe ser seleccionada.',
                         'hours.required' => 'El horario de la clase debe ser seleccionada.',
-        ]]]], 'signin' => [
-            'rules' => [
-                //
-            ], 'messages' => [
-                'es' => [
-                    //
-        ]]]];
+                        'dates.*.required' => 'No se seleccionó una fecha.',
+                        'hours.*.required' => 'No se seleccionó una hora.',
+            ]]], 'offline' => [
+                'rules' => [
+                    // 
+                ], 'messages' => [
+                    'es' => [
+                        // 
+            ]]], 'packs' => [
+                'rules' => [
+                    'dates' => 'required|array|max:4',
+                    'dates.*' => 'required',
+                    'hours' => 'required|array|min:4|max:4',
+                    'hours.*' => 'required',
+                ], 'messages' => [
+                    'es' => [
+                        'dates.required' => 'Las fechas de la clase deben ser seleccionadas.',
+                        'dates.array' => 'Las fechas deben estar en un array ([]).',
+                        'dates.max' => 'Máximo :max fechas deben ser seleccionadas.',
+                        'hours.required' => 'Las horas de la clase deben ser seleccionadas.',
+                        'hours.array' => 'Las horas deben estar en un array ([]).',
+                        'hours.min' => 'Mínimo :min horas deben ser seleccionadas.',
+                        'hours.max' => 'Máximo :max horas deben ser seleccionadas.',
+                        'dates.*.required' => 'No se seleccionó una fecha.',
+                        'hours.*.required' => 'No se seleccionó una hora.',
+        ]]]]];
 
         /**
          * * Get the Game info. 

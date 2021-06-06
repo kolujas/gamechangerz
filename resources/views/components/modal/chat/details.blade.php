@@ -4,16 +4,11 @@
             <i class="fas fa-chevron-left"></i>
         </a>
         <a href="#" class="color-white flex items-center">
-            @component('components.svg.Group 15SVG')@endcomponent
+            @component('components.svg.ProfileSVG')@endcomponent
             <span class="ml-2"></span>
         </a>
     </header>
     <main class="relative">
-        <ul class="mx-2 px-2 py-4">
-            <li>
-                <span class="color-grey block text-center mt-4 overpass">No hay mensajes, sé el primero en escribir</span>
-            </li>
-        </ul>
         <span class="question" title="Los mensajes se cargaran automáticamente cada 1 minuto">
             <i class="fas fa-question"></i>
         </span>

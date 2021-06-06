@@ -44,7 +44,3 @@
     'users' => [],
 ])
 @endcomponent
-
-<div class="grid md:grid-cols-3">
-    <div class="filter-pagination md:col-start-2 mb-20 mt-8"></div>
-</div>

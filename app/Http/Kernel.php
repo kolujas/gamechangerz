@@ -72,6 +72,8 @@ class Kernel extends HttpKernel
         'game.exist' => \App\Http\Middleware\CheckGameExist::class,
         'game.is.active' => \App\Http\Middleware\CheckGameIsActive::class,
 
+        'lesson.exist' => \App\Http\Middleware\CheckLessonExist::class,
+        'lesson.status.exist' => \App\Http\Middleware\CheckLessonStatusExist::class,
         'lesson.type.exist' => \App\Http\Middleware\CheckLessonTypeExist::class,
 
         'chat.exist' => \App\Http\Middleware\CheckChatExist::class,

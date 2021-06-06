@@ -205,7 +205,7 @@
     transition: 500ms;
 }
 
-.teacher .tab-menu .tabs a.active {
+.teacher .tab-menu .tabs a.opened {
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

@@ -1,11 +1,3 @@
 .tab-menu {
-    --tabmenu-title-color: cyan;
-    --tabmenu-button-color: purple;
-    --tabmenu-button-color-alternative: purple;
     --tabmenu-background-color: transparent;
-    --tabmenu-background-color-alternative: red;
-    --tabmenu-border-color: green;
-    --tabmenu-border-color-alternative: green;
-    --tabmenu-icon-color: blue;
-    --tabmenu-icon-color-alternative: blue;
 }

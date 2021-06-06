@@ -1,7 +1,8 @@
-import { Filter as FilterJS} from "../../submodules/FilterJS/js/Filter.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
+import { Filter as FilterJS} from "../../submodules/FilterJS/js/Filter.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import User from "./User.js";
+
+import User from "../components/User.js";
 
 let filter;
 
@@ -40,12 +41,12 @@ function makePages (data) {
 
 function addUser (user) {
     let list = document.querySelector('.users + .list');
-    list.appendChild(User.generateComponent('user', user));
+    list.appendChild(User.component('user', user));
 }
 
 function addTeacher (user) {
     let list = document.querySelector('.teachers + .list ul');
-    list.appendChild(User.generateComponent('teacher', user));
+    list.appendChild(User.component('teacher', user));
 }
 
 function updateUsersList (data) {

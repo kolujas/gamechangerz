@@ -15,6 +15,7 @@
                 $table->unsignedInteger('id_user_from');
                 $table->unsignedInteger('id_user_to');
                 $table->unsignedInteger('id_type');
+                $table->tinyInteger('status')->nullable()->default(1);
                 $table->json('days')->nullble()->default('[]');
                 $table->timestamps();
             });
