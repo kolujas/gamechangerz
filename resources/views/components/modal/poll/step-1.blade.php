@@ -1,10 +1,10 @@
-<section class="grid pr-6">
+<section id="step-1" class="grid step pr-6">
     <main class="poll pl-12 pb-12 pr-6 pt-12">
         <header class="modal-header mb-4">
-            <figure>
+            <figure class="mb-4">
                 <img src="{{ asset('img/logos/028-logotipo_original.png') }}" alt="Logo claro solido con fondo de Gamechangerz">
             </figure>
-            <h2 class="welcome color-white text-center russo xl:text-lg">Bienvenido</h2>
+            <h2 class="welcome color-white text-center russo xl:text-lg mb-4">Bienvenido</h2>
         </header>
 
         <ol class="dots flex justify-center">
@@ -33,7 +33,7 @@
         </div>
         
         <div class="lg:flex lg:justify-center">
-            <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
+            <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center poll-button next" type="submit">
                 <span class="russo xl:text-lg">Comenzar encuesta</span>
             </button>
         </div>

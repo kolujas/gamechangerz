@@ -1,4 +1,4 @@
-<section class="grid pr-6">
+<section id="step-2" class="grid step pr-6 hidden">
     <main class="poll pl-12 pb-12 pr-6 pt-12">
         <header class="modal-header mb-4">
             <figure>
@@ -53,10 +53,10 @@
         </div>
         
         <div class="next-prev grid grid-cols-2 gap-8 dupla-poll">
-            <button class="btn btn-background btn-one form-submit login flex justify-center rounded md:h-12 md:items-center opacity-50" type="submit">
+            <button class="btn btn-background btn-one form-submit login flex justify-center rounded md:h-12 md:items-center opacity-50 poll-button prev" type="submit">
                 <span class="russo py-2 px-4 xl:text-lg">Anterior</span>
             </button>
-            <button class="btn btn-background btn-one form-submit login flex justify-center rounded md:h-12 md:items-center" type="submit">
+            <button class="btn btn-background btn-one form-submit login flex justify-center rounded md:h-12 md:items-center poll-button next" type="submit">
                 <span class="russo py-2 px-4 xl:text-lg">Siguiente</span>
             </button>
         </div>

@@ -1,4 +1,4 @@
-<section class="grid pr-6">
+<section id="step-6" class="grid step pr-6 hidden">
     <main class="poll pl-12 pb-12 pr-6 pt-12">
         <header class="modal-header mb-4">
             <h2 class="text-4xl color-white text-center russo xl:text-lg">Gracias por responder</h2>
@@ -31,7 +31,7 @@
 
         <div class="py-6 cards">
             <ul class="grid my-4 lg:grid lg:grid-cols-2 lg:gap-8">
-                <li class="secciones card my-4 rounded">                    
+                <li class="secciones card my-4 lg:my-0 rounded">                    
                     <a class="p-4 block" href="#">
                         <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Blog</h3>
@@ -45,7 +45,7 @@
                         </main>
                     </a>
                 </li>
-                <li class="secciones card my-4 rounded">
+                <li class="secciones card my-4 lg:my-0 rounded">
                     <a class="p-4 block" href="#">
                         <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Noticias</h3>
@@ -58,7 +58,7 @@
                         </main>
                     </a>
                 </li>
-                <li class="secciones card my-4 rounded">
+                <li class="secciones card my-4 lg:my-0 rounded">
                     <a class="p-4 block" href="#">
                         <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Otra sección</h3>
@@ -71,7 +71,7 @@
                         </main>
                     </a>
                 </li>
-                <li class="secciones card my-4 rounded">
+                <li class="secciones card my-4 lg:my-0 rounded">
                     <a class="p-4 block" href="#">
                         <header class="flex justify-between items-center pb-4">
                             <h3 class="russo color-white">Otra sección</h3>

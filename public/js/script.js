@@ -6,10 +6,13 @@ import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServi
 import Assigment from "./components/Assigment.js";
 import Auth from "./components/Auth.js";
 import Chat from "./components/Chat.js";
+import Poll from "./components/Poll.js";
 import Token from "./components/Token.js";
 
+async function getChats(){
     const chats = await Chat.all(token.data);
     new Chat({ token: token.data }, chats);
+}    
 
 function changeType (btn) {
     let input;
@@ -98,7 +101,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 changeType(this);
             });
         }
-    }    
+    }
+    
+    new Poll();
 });
 
 

@@ -1,18 +1,18 @@
-.modal-header figure{
+#poll.modal .modal-header figure{
     height: 2rem;
 }
 
-.modal-header figure img{
+#poll.modal .modal-header figure img{
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.poll .welcome{
+#poll.modal .welcome{
     font-size: 3rem;
 }
 
-.poll .dots li{
+#poll.modal .dots li{
     width: 5px;
     height: 5px;
     border-radius: 10px;
@@ -20,15 +20,15 @@
     cursor: pointer;
 }
 
-.poll .dots li.active{
+#poll.modal .dots li.active{
     background-color: var(--color-four);
 }
 
-.poll p{
+#poll.modal p{
     line-height: 1.6rem;
 }
 
-.poll h2{
+#poll.modal h2{
     font-size: 1.4rem;
 }
 
@@ -83,7 +83,7 @@
     border-radius: .25rem;
 }
 
-.poll .cards .opcional label::after {
+#poll.modal .cards .opcional label::after {
     content: "";
     position: absolute;
     left: 9px;
@@ -138,30 +138,30 @@
     -webkit-text-fill-color: transparent;
 }
 
-.poll .text-cards li input:not(:checked) + label::before{
+#poll.modal .text-cards li input:not(:checked) + label::before{
     background: var(--color-white);
 }
 
 
-.poll .cards .text-cards li input:not(:checked) + label section *{
+#poll.modal .cards .text-cards li input:not(:checked) + label section *{
     background: var(--color-white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 
-.poll .cards .secciones{
+#poll.modal .cards .secciones{
     position: relative;
 }
 
-.poll .cards .secciones a{
+#poll.modal .cards .secciones a{
     background: url("/img/01-background.png") no-repeat center center;
     background-size: cover;
     position: inherit;
     border-radius: .25rem;
 }
 
-.poll .cards .arrow{
+#poll.modal .cards .arrow{
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     font-size: .8rem;
     width: 1.5rem;
@@ -175,7 +175,7 @@
     border-radius: 100vh;
 }
 
-.poll .cards .secciones::before{
+#poll.modal .cards .secciones::before{
     content: "";
     position: absolute;
     top: -1px;
@@ -187,7 +187,7 @@
     opacity: 0;
 }
 
-.poll .cards .secciones:hover::before{
+#poll.modal .cards .secciones:hover::before{
     opacity: 1;
 }
   
@@ -196,7 +196,7 @@
 
 /* ? MD */
 @media(min-width: 768px){
-    .modal .modal-content{
+    #poll.modal .modal-content {
         width: 50%;
     }
 }
