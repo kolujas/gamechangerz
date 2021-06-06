@@ -8,10 +8,8 @@ import Auth from "./components/Auth.js";
 import Chat from "./components/Chat.js";
 import Token from "./components/Token.js";
 
-async function getChats (token) {
     const chats = await Chat.all(token.data);
     new Chat({ token: token.data }, chats);
-}
 
 function changeType (btn) {
     let input;
@@ -100,5 +98,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 changeType(this);
             });
         }
-    }
+    }    
 });
+
+

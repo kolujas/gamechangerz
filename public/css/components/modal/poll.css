@@ -1,13 +1,231 @@
+.modal-header figure{
+    height: 2rem;
+}
+
+.modal-header figure img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.poll .welcome{
+    font-size: 3rem;
+}
+
+.poll .dots li{
+    width: 5px;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #692e1d;
+    cursor: pointer;
+}
+
+.poll .dots li.active{
+    background-color: var(--color-four);
+}
+
+.poll p{
+    line-height: 1.6rem;
+}
+
+.poll h2{
+    font-size: 1.4rem;
+}
+
+.cards ul {
+    list-style-type: none;
+  }
+  
+.cards li {
+    display: inline-block;
+  }
+  
+.cards input[type="radio"][id^="cb"] {
+    display: none;
+  }
+  
+.cards label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+.cards label:before{
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px; 
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
+    border-radius: .25rem;
+}
+  
+  
+.cards label img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition-duration: 0.2s;
+    transform-origin: 50% 50%;
+  }
+
+.cards :not(input:checked) + label{
+    opacity: .5;
+}
+
+.cards .opcional label span{
+    background: var(--color-one);
+    display: block;
+    color: var(--color-grey);
+    border-radius: .25rem;
+}
+
+.poll .cards .opcional label::after {
+    content: "";
+    position: absolute;
+    left: 9px;
+    transform: translateY(-50%);
+    top: 50%;
+    border-radius: 100vh;
+    width: 18px;
+    height: 18px;
+    background: var( --color-grey);
+    box-shadow: inset 0 0 0 1px var( --color-white);
+    margin-right: 2rem;
+  }
+
+  .poll .cards .opcional label span{
+      line-height: 1.2rem;
+  }
+
+
+  .poll .text-cards .text-card svg{
+        height: 2rem;
+  }
+
+ 
+
+  .poll .text-cards .text-card label::before{
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px; 
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-radius: .25rem;
+  }
+
+
+  .poll .text-cards .text-card label section {
+    position: inherit;
+    border-radius: .25rem;
+    background-color: var(--color-black);
+}
+
+  .poll .text-cards .text-card label section *{
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+  .poll .text-cards .text-card input:not(:checked) + label section *{
+    background: var(--color-white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.poll .text-cards li input:not(:checked) + label::before{
+    background: var(--color-white);
+}
+
+
+.poll .cards .text-cards li input:not(:checked) + label section *{
+    background: var(--color-white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.poll .cards .secciones{
+    position: relative;
+}
+
+.poll .cards .secciones a{
+    background: url("/img/01-background.png") no-repeat center center;
+    background-size: cover;
+    position: inherit;
+    border-radius: .25rem;
+}
+
+.poll .cards .arrow{
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    font-size: .8rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-one);
+    cursor: pointer;
+    padding: .5rem;
+    border-radius: 100vh;
+}
+
+.poll .cards .secciones::before{
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px; 
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    border-radius: .25rem;
+    opacity: 0;
+}
+
+.poll .cards .secciones:hover::before{
+    opacity: 1;
+}
+  
+  
 
 
 /* ? MD */
 @media(min-width: 768px){
-    /*  */
+    .modal .modal-content{
+        width: 50%;
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    /*  */
+    .poll .form-submit{
+        width: 15rem;
+    }
+
+    .poll .card input + label{
+        height: 12rem;
+    }
+
+    .poll .card #check-text{
+        height: auto;
+    }
+
+    .poll .dupla-poll button{
+        width: initial;
+    }
+
+    .poll .cards header h3{
+        font-size: 1.2rem;
+    }
+
+    .poll .cards header + main p{
+        font-size: .9rem;
+    }
 }
 
 /* ? XL */

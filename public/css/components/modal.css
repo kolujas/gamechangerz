@@ -37,6 +37,13 @@
     overflow: auto;
 }
 
+
+#poll.modal .modal-content section{
+    max-height: calc(100vh - 4rem);
+    width: 100%;
+    overflow: auto;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     .modal .modal-content > form {
