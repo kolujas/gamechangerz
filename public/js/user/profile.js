@@ -81,13 +81,15 @@ function changeProfileState (state) {
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-    new TabMenuJS({
-        id: 'horarios'
-    },{
-        open: 'online',
-    }, {
-        function: setDefaultWidth,
-    });
+    if (document.querySelector('#horarios.tab-menu')) {
+        new TabMenuJS({
+            id: 'horarios'
+        },{
+            open: 'online',
+        }, {
+            function: setDefaultWidth,
+        });
+    }
 
     if (document.querySelector(".teacher")) {
         let username_input = document.querySelector(".teacher .profile .info .username input");

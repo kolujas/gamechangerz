@@ -101,11 +101,16 @@
                 }
             }
 
+            $sorted = collect();
+            foreach ($chats->sortByDesc('updated_at') as $chat) {
+                $sorted->push($chat);
+            };
+
             return response()->json([
                 'code' => 200,
                 'message' => 'Success',
                 'data' => [
-                    'chats' => $chats,
+                    'chats' => $sorted,
                 ],
             ]);
         }

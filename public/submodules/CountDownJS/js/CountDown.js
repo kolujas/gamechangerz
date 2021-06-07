@@ -108,9 +108,9 @@ export class CountDown extends Class {
                     time: instance.time,
                     state: 202
                 });
-            }
-            if (parseInt(instance.time.days) <= 0 && parseInt(instance.time.hours) <= 0 &&parseInt( instance.time.minutes) <= 0 && parseInt(instance.time.seconds) <= 0) {
-                instance.stop();
+                if (parseInt(instance.time.days) <= 0 && parseInt(instance.time.hours) <= 0 &&parseInt( instance.time.minutes) <= 0 && parseInt(instance.time.seconds) <= 0) {
+                    instance.stop();
+                }
             }
         });
     }

@@ -31,6 +31,7 @@
     width: 100%;
 }
 
+#poll.modal .step > main,
 .modal .modal-content > form main {
     max-height: calc(100vh - 4rem);
     width: 100%;
@@ -57,36 +58,45 @@
         width: 50vw;
     }
 
+    #poll.modal .step > main::-webkit-scrollbar,
     .modal .modal-content > form main::-webkit-scrollbar {
         width: 5px;
         height: 5px;
     }
 
+    #poll.modal .step > main::-webkit-scrollbar-button,
     .modal .modal-content > form main::-webkit-scrollbar-button {
         width: 15%;
         height: 15%;
     }
 
+    #poll.modal .step > main::-webkit-scrollbar-thumb,
     .modal .modal-content > form main::-webkit-scrollbar-thumb {
         background: var(--color-white);
         border-radius: 100vh;
     }
 
+    #poll.modal .step > main::-webkit-scrollbar-thumb:hover,
     .modal .modal-content > form main::-webkit-scrollbar-thumb:hover,
+    #poll.modal .step > main::-webkit-scrollbar-thumb:active,
     .modal .modal-content > form main::-webkit-scrollbar-thumb:active {
         background: var(--color-grey);
     }
 
+    #poll.modal .step > main::-webkit-scrollbar-track,
     .modal .modal-content > form main::-webkit-scrollbar-track {
         background: black;
         border-radius: 100vh;
     }
 
+    #poll.modal .step > main::-webkit-scrollbar-track:hover,
     .modal .modal-content > form main::-webkit-scrollbar-track:hover,
+    #poll.modal .step > main::-webkit-scrollbar-track:active,
     .modal .modal-content > form main::-webkit-scrollbar-track:active {
         background: black;
     }
 
+    #poll.modal .step > main::-webkit-scrollbar-corner,
     .modal .modal-content > form main::-webkit-scrollbar-corner {
         background: transparent;
     }

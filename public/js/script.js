@@ -9,7 +9,7 @@ import Chat from "./components/Chat.js";
 import Poll from "./components/Poll.js";
 import Token from "./components/Token.js";
 
-async function getChats(){
+async function getChats(token) {
     const chats = await Chat.all(token.data);
     new Chat({ token: token.data }, chats);
 }    

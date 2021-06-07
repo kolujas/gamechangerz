@@ -30,8 +30,8 @@
         </ol>
 
         <div class="text-cards">
-            <ul class="grid my-4 lg:grid lg:grid-cols-2 lg:gap-8">
-                <li class="color-white my-3 text-card">
+            <ul class="grid my-8 lg:grid lg:grid-cols-2 lg:gap-8">
+                <li class="color-white my-4 lg:my-0 text-card">
                     <input class="hidden" name="option_poll" type="radio" id="card_radio" />
                     <label for="card_radio" class="block relative">
                         <section>
@@ -40,7 +40,7 @@
                         </section>
                     </label>
                 </li>
-                <li class="color-white my-3 text-card">
+                <li class="color-white my-4 lg:my-0 text-card">
                     <input class="hidden" name="option_poll" type="radio" id="card_radio2" />
                     <label for="card_radio2" class="block relative">
                         <section>

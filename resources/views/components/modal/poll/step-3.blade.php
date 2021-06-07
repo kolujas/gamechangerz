@@ -28,15 +28,15 @@
             </li>            
         </ol>
 
-        <div class="py-6 cards">
-            <ul class="lg:grid lg:grid-cols-2 lg:gap-6">
-                <li class="card my-4">
+        <div class="py-8 cards">
+            <ul class="lg:grid lg:grid-cols-2 lg:gap-8">
+                <li class="card my-4 lg:my-0">
                     <input name="option_poll" type="radio" id="cb1" />
                     <label for="cb1">
                       <img class="rounded" src="{{ asset('img/01-background.png') }}" alt="">
                     </label>
                 </li>
-                <li class="card my-4">
+                <li class="card my-4 lg:my-0">
                     <input name="option_poll" type="radio" id="cb2" />
                     <label for="cb2">
                       <img class="rounded" src="{{ asset('img/01-background.png') }}" alt="">

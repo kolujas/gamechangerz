@@ -47,28 +47,19 @@ export class Chat extends Class {
         if (params.instance.props.id_role === 1) {
             lessons = params.instance.props.chats;
         }
-        if (params.instance.sections.list.lessons.children.length > 1) {
-            for (const key in params.instance.sections.list.lessons.children) {
-                if (Object.hasOwnProperty.call(params.instance.sections.list.lessons.children, key)) {
-                    const child = params.instance.sections.list.lessons.children[key];
-                    if (parseInt(key) > 0) {
-                        child.parentNode.removeChild(child);
-                    }
-                }
-            }
+        
+        if (document.querySelector('#chat.modal #list ul#list-lessons')) {
+            params.instance.changeOrder(lessons, 'lessons');
         }
-        if (params.instance.sections.list.friends.children.length > 1) {
-            for (const key in params.instance.sections.list.friends.children) {
-                if (Object.hasOwnProperty.call(params.instance.sections.list.friends.children, key)) {
-                    const child = params.instance.sections.list.friends.children[key];
-                    if (parseInt(key) > 0) {
-                        child.parentNode.removeChild(child);
-                    }
-                }
-            }
+        if (!document.querySelector('#chat.modal #list ul#list-lessons')) {
+            params.instance.sections.list.lessons.appendChild(Chat.component('list', { chats: lessons, type: 'lessons' }));
         }
-        params.instance.sections.list.lessons.appendChild(Chat.component('list', { chats: lessons }));
-        params.instance.sections.list.friends.appendChild(Chat.component('list', { chats: friends }));
+        if (document.querySelector('#chat.modal #list ul#list-friends')) {
+            params.instance.changeOrder(friends, 'friends');
+        }
+        if (!document.querySelector('#chat.modal #list ul#list-friends')) {
+            params.instance.sections.list.friends.appendChild(Chat.component('list', { chats: friends, type: 'friends' }));
+        }
     }
 
     setDetails () {
@@ -108,6 +99,7 @@ export class Chat extends Class {
 
         document.querySelector(`#chat.modal #details header > a`).addEventListener('click', function (e) {
             instance.close();
+            instance.CountDownJS.details.pause();
         });
     }
 
@@ -178,18 +170,6 @@ export class Chat extends Class {
         this.setFilter();
     }
 
-    setLoadingState () {
-        this.setState('status', 404);
-        this.setChats({
-            instance: this,
-        });
-        this.FilterJS.changeData(this.props.chats);
-    }
-
-    setLoadingChatState () {
-        this.setState('status', 404);
-    }
-
     async getRole () {
         let query = await Fetch.get(`/api/role`, {
             'Accept': 'application/json',
@@ -225,9 +205,55 @@ export class Chat extends Class {
     changeChat () {
         for (const chat of this.props.chats) {
             if (chat.id_chat === this.opened) {
-                this.openChat(chat);
+                this.changeUserProfile(chat);
+                for (const message of chat.messages) {
+                    message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users['to'].slug : chat.users['from'].slug);
+                }
+                this.sections.details.main.innerHTML = '';
+                let span = document.createElement('span');
+                span.classList.add("question");
+                span.title = "Los mensajes se cargaran automáticamente cada 1 minuto";
+                this.sections.details.main.appendChild(span);
+                    let icon = document.createElement('i');
+                    icon.classList.add("fas", "fa-question");
+                    span.appendChild(icon);
+
+                    this.sections.details.main.appendChild(Message.component('list', { messages: chat.messages }));
                 break;
             }
+        }
+        this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
+    }
+
+    changeOrder (chats, type) {
+        let list = document.querySelector(`#chat.modal #list ul#list-${ type }`);
+        for (const key in chats) {
+            if (Object.hasOwnProperty.call(chats, key)) {
+                const chat = chats[key];
+                if (document.querySelector(`li#chat-${ chat.id_chat }`)) {
+                    let item = document.querySelector(`li#chat-${ chat.id_chat }`);
+                    for (const className of [...item.classList]) {
+                        item.classList.remove(className);
+                    }
+                    item.classList.add("mt-4", `order-${ key }`);
+                    continue;
+                }
+                list.appendChild(Chat.component('item', { chat: chat, key: key }));
+            }
+        }
+        childs: for (const child of [...this.sections.list[type].children[1].children]) {
+            for (const chat of chats) {
+                if (child.id === `chat-${ chat.id_chat }`) {
+                    continue childs;
+                }
+            }
+            child.parentNode.removeChild(child);
+        }
+        if (this.sections.list[type].children[1].innerHTML === '') {
+            let item = document.createElement('li');
+            item.classList.add("color-white");
+            item.innerHTML = "No se encontraron resultados";
+            list.appendChild(item);
         }
     }
 
@@ -317,7 +343,7 @@ export class Chat extends Class {
             this.CountDownJS = {};
         }
         let date = new Date();
-        date.getSeconds(date.getSeconds() + 1);
+        date.setMinutes(date.getMinutes() + 1);
         this.CountDownJS.details = new CountDownJS({
             scheduled_date_time: date,
         }, {
@@ -348,7 +374,7 @@ export class Chat extends Class {
         this.sections.list.html.classList.add('block');
         this.sections.details.html.classList.remove('block');
         this.sections.details.html.classList.add('hidden');
-        this.CountDownJS.list.continue();
+        this.CountDownJS.list.stop();
     }
 
     open (id_chat) {
@@ -362,39 +388,13 @@ export class Chat extends Class {
         this.createCountDownDetails();
     }
 
-    openChat (chat) {
-        this.changeUserProfile(chat);
-        for (const message of chat.messages) {
-            message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users['to'].slug : chat.users['from'].slug);
-        }
-        this.sections.details.main.innerHTML = '';
-        let span = document.createElement('span');
-        span.classList.add("question");
-        span.title = "Los mensajes se cargaran automáticamente cada 1 minuto";
-        this.sections.details.main.appendChild(span);
-            let icon = document.createElement('i');
-            icon.classList.add("fas", "fa-question");
-            span.appendChild(icon);
-        this.sections.details.main.appendChild(Message.component('list', { messages: chat.messages }));
-    }
-
     async reload (params) {
-        params.instance.setProps('chats', []);
-        params.instance.setLoadingState();
         params.instance.setProps('chats', await Chat.all(params.instance.props.token));
         params.instance.setFinishState();
         params.instance.createCountDownList();
     }
 
     async reloadChat (params) {
-        for (const chat of params.instance.props.chats) {
-            if (chat.id_chat === params.instance.opened) {
-                chat.messages = [];
-                params.instance.openChat(chat);
-                break;
-            }
-        }
-        params.instance.setLoadingChatState();
         let found = true;
         for (const chat of params.instance.props.chats) {
             if (chat.id_chat === params.instance.opened) {
@@ -404,7 +404,11 @@ export class Chat extends Class {
                     break;
                 }
                 chat.messages = response.messages;
-                params.instance.openChat(chat);
+                for (const message of chat.messages) {
+                    if (!document.querySelector(`li#message-${ message.id_message }`)) {
+                        params.instance.sections.details.main.children[1].appendChild(Message.component('item', message));
+                    }
+                }
                 break;
             }
         }
@@ -412,12 +416,14 @@ export class Chat extends Class {
             params.instance.close();
         }
         if (found) {
+            params.instance.sections.details.main.children[1].scrollTo(0, params.instance.sections.details.main.children[1].scrollHeight);
             params.instance.setFinishState();
             params.instance.createCountDownDetails();
         }
     }
 
     save (data) {
+        this.CountDownJS.details.stop();
         for (const key in this.props.chats) {
             if (Object.hasOwnProperty.call(this.props.chats, key)) {
                 const chat = this.props.chats[key];
@@ -436,6 +442,7 @@ export class Chat extends Class {
 
     async send (chat) {
         if (document.querySelector(`#chat.modal #details form input[name=message]`).value) {
+            this.CountDownJS.details.pause();
             let formData = new FormData(document.querySelector(`#chat.modal #details form`));
             let token = formData.get('_token');
             formData.delete('_token');
@@ -448,19 +455,27 @@ export class Chat extends Class {
                 'X-CSRF-TOKEN': token,
                 'Authorization': "Bearer " + this.props.token,
             }, formData);
-            if (query.response.code === 200) {
-                this.save(query.response.data);
-                document.querySelector(`#chat.modal #details form`).reset();
+            if (query.response.code !== 200) {
+                this.close();
+                this.CountDownJS.details.pause();
             }
+            if (query.response.code === 200) {
+                this.CountDownJS.details.stop();
+            }
+            document.querySelector(`#chat.modal #details form`).reset();
         }
     }
 
     async sendAssigment (params) {
         let response = await Assigment.submitForm(params.instance.opened, params.instance.props.token);
-        if (response.code === 200) {
-            modals.assigment.close();
-            params.instance.save(response.data);
+        if (response.code !== 200) {
+            params.instance.close();
+            params.instance.CountDownJS.details.pause();
         }
+        if (response.code === 200) {
+            params.instance.CountDownJS.details.stop();
+        }
+        modals.assigment.close();
     }
 
     static async all (token) {
@@ -542,25 +557,18 @@ export class Chat extends Class {
 
     static list (data) {
         let list = document.createElement('ul'), item;
+        list.id = `list-${ data.type }`;
         if (data.chats.length) {
             for (const key in data.chats) {
                 if (Object.hasOwnProperty.call(data.chats, key)) {
                     const chat = data.chats[key];
-                    // if (!document.querySelector(`#chat.modal #list li#chat-${ chat.id_chat }`)) {
-                        list.appendChild(this.component('item', { chat: chat, key: key }));
-                    //     continue;
-                    // }
-                    // item = document.querySelector(`#chat.modal #list li#chat-${ chat.id_chat }`);
-                    // for (const className of item.classList) {
-                    //     item.classList.remove(className);
-                    // }
-                    // item.classList.add("mt-4", `order-${ data.key }`);
+                    list.appendChild(this.component('item', { chat: chat, key: key }));
                 }
             }
         }
         if (!data.chats.length) {
             item = document.createElement('li');
-            item.classList.add("mt-4", "color-white");
+            item.classList.add("color-white");
             item.innerHTML = "No se encontraron resultados";
             list.appendChild(item);
         }
