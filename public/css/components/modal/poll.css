@@ -32,26 +32,26 @@
     font-size: 1.4rem;
 }
 
-.cards ul {
+#poll.modal .cards ul {
     list-style-type: none;
   }
   
-.cards li {
+#poll.modal .cards li {
     display: inline-block;
   }
   
-.cards input[type="radio"][id^="cb"] {
+#poll.modal .cards input[type="radio"][id^="cb"] {
     display: none;
   }
   
-.cards label {
+#poll.modal .cards label {
     display: block;
     position: relative;
     cursor: pointer;
     z-index: 1;
   }
 
-.cards label:before{
+#poll.modal .cards label:before{
     content: "";
     position: absolute;
     top: -1px;
@@ -64,7 +64,7 @@
 }
   
   
-.cards label img {
+#poll.modal .cards label img {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -72,11 +72,11 @@
     transform-origin: 50% 50%;
   }
 
-.cards :not(input:checked) + label{
+#poll.modal .cards :not(input:checked) + label{
     opacity: .5;
 }
 
-.cards .opcional label span{
+#poll.modal .cards .opcional label span{
     background: var(--color-one);
     display: block;
     color: var(--color-grey);
@@ -97,18 +97,15 @@
     margin-right: 2rem;
   }
 
-  .poll .cards .opcional label span{
-      line-height: 1.2rem;
-  }
+#poll.modal .cards .opcional label span{
+    line-height: 1.2rem;
+}
 
+#poll.modal .text-cards .text-card svg{
+    height: 2rem;
+}
 
-  .poll .text-cards .text-card svg{
-        height: 2rem;
-  }
-
- 
-
-  .poll .text-cards .text-card label::before{
+#poll.modal .text-cards .text-card label::before{
     content: "";
     position: absolute;
     top: -1px;
@@ -117,22 +114,21 @@
     height: calc(100% + 2px);
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     border-radius: .25rem;
-  }
+}
 
-
-  .poll .text-cards .text-card label section {
+#poll.modal .text-cards .text-card label section {
     position: inherit;
     border-radius: .25rem;
     background-color: var(--color-black);
 }
 
-  .poll .text-cards .text-card label section *{
+#poll.modal .text-cards .text-card label section *{
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-  .poll .text-cards .text-card input:not(:checked) + label section *{
+#poll.modal .text-cards .text-card input:not(:checked) + label section *{
     background: var(--color-white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -142,13 +138,11 @@
     background: var(--color-white);
 }
 
-
 #poll.modal .cards .text-cards li input:not(:checked) + label section *{
     background: var(--color-white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 
 #poll.modal .cards .secciones{
     position: relative;
@@ -190,9 +184,6 @@
 #poll.modal .cards .secciones:hover::before{
     opacity: 1;
 }
-  
-  
-
 
 /* ? MD */
 @media(min-width: 768px){
@@ -203,27 +194,27 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    .poll .form-submit{
+    #poll.modal .form-submit{
         width: 15rem;
     }
 
-    .poll .card input + label{
+    #poll.modal .card input + label{
         height: 12rem;
     }
 
-    .poll .card #check-text{
+    #poll.modal .card #check-text{
         height: auto;
     }
 
-    .poll .dupla-poll button{
+    #poll.modal .dupla-poll button{
         width: initial;
     }
 
-    .poll .cards header h3{
+    #poll.modal .cards header h3{
         font-size: 1.2rem;
     }
 
-    .poll .cards header + main p{
+    #poll.modal .cards header + main p{
         font-size: .9rem;
     }
 }

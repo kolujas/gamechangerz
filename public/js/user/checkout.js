@@ -49,14 +49,16 @@ function saveHour (params, hour) {
     console.log('new hour');
     let input = hours.shift();
     console.log({
-        index: (input.hasAttribute('data-selected') ? input.dataset.index : undefined),
+        index: (input.hasAttribute('data-index') ? input.dataset.index : undefined),
         date: (input.hasAttribute('data-date') ? input.dataset.date : undefined),
     });
     console.log('to');
-    if (document.querySelectorAll('ul.hours input').length) {
-        for (const html of document.querySelectorAll('ul.hours input')) {
-            if (parseInt(html.value) === parseInt(input.value)) {
-                html.checked = false;
+    if (input.hasAttribute('data-index')) {
+        if (document.querySelectorAll('ul.hours input').length) {
+            for (const html of document.querySelectorAll('ul.hours input')) {
+                if (parseInt(html.value) === parseInt(input.value) && html.dataset.date === input.dataset.date ) {
+                    html.checked = false;
+                }
             }
         }
     }
@@ -173,30 +175,48 @@ function addDay (date) {
 }
 
 function removeDate (params) {
-    let selected = calendar.props.selectedIndex.shift(), keys = [];
-    for (const key in [...calendar.htmls]) {
-        if (Object.hasOwnProperty.call(calendar.htmls, key)) {
-            const html = calendar.htmls[key];
+    let keys = [];
+    indexes: for (const key in [...calendar.props.selectedIndex]) {
+        if (Object.hasOwnProperty.call(calendar.props.selectedIndex, key)) {
+            const selected = calendar.props.selectedIndex[key];
+            for (const hour of [...hours]) {
+                if (parseInt(hour.dataset.index) === parseInt(selected.index) && selected.date === hour.dataset.date) {
+                    continue indexes;
+                }
+            }
+            keys.push(key);
+        }
+    }
+    let remove = 0, selected;
+    for (const key of keys) {
+        selected = calendar.props.selectedIndex.splice((key - remove), 1)[0];
+        console.log('remove date');
+        console.log(selected);
+        for (const html of [...calendar.htmls]) {
             if (html.value === selected.date) {
-                keys.push(key);
+                let date = calendar.htmls.splice((key - remove), 1)[0];
+                date.value = null;
+                calendar.htmls.push(date);
                 break;
             }
         }
-    }
-    let remove = 0;
-    for (const key of keys) {
-        let date = calendar.htmls.splice((key - remove), 1);
-        date.value = null;
-        calendar.htmls.push(date);
         remove++;
     }
-    console.log('remove date');
-    console.log(selected);
-    removeDay(selected.date);
-    for (const hour of hours) {
-        if (parseInt(hour.dataset.index) === selected.index && hour.dataset.date === selected.date) {
-            removeHour(selected);
+    if (remove) {
+        let found = false;
+        for (const hour of hours) {
+            if (parseInt(hour.dataset.index) === selected.index && hour.dataset.date === selected.date) {
+                removeHour(selected);
+                continue;
+            }
+            if (hour.dataset.date === selected.date) {
+                found = true;
+            }
         }
+        if (!found) {
+            removeDay(selected.date);
+        }
+        addDate(params);
     }
 }
 
@@ -219,7 +239,6 @@ function checkDates (params) {
     } else if (hourValues.length > 1) {
         if (hourValues.length === 4) {
             removeDate(params);
-            addDate(params);
         }
     }
 }
@@ -244,7 +263,7 @@ function removeHour (selected) {
     }
     hour.value = null;
     hour.removeAttribute('data-date');
-    hour.removeAttribute('data-selected');
+    hour.removeAttribute('data-index');
     hours.unshift(hour);
     let hourValues = [];
     for (const hour of hours) {
@@ -407,7 +426,7 @@ function printHours (params) {
                             item.appendChild(input);
                             for (const hour of hours) {
                                 if (hour.value) {
-                                    if (hour.value === input.value) {
+                                    if (hour.value === input.value && hour.dataset.date === input.dataset.date) {
                                         input.checked = true;
                                         if (parseInt(hour.dataset.index) !== parseInt(params.clicked.index)) {
                                             input.dataset.index = hour.dataset.index;
