@@ -29,13 +29,11 @@
     </header>
     
     @if (count($user->achievements))
-        <ul class="icons-list flex justify-center mt-8">
-            @foreach ($user->achievements as $achievement)
-                <li class="px-2" title="{{ $achievement->title }}: {{ $achievement->description }}">
-                    @component($achievement->icon)@endcomponent
-                </li>
-            @endforeach
-        </ul>
+        @component('components.achievement.icon-list', [
+            'achievements' => $user->achievements
+        ])
+            
+        @endcomponent
     @endif
 
     @if ($user->lessonsDone || $user->hours || $user->friends_length)

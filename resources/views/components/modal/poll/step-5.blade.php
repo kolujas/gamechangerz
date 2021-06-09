@@ -31,15 +31,22 @@
         <div class="py-8 cards">
             <ul class="grid lg:grid lg:grid-cols-2 lg:gap-8">
                 <li class="card my-4 lg:my-0">
-                    <input name="option_poll" type="radio" id="cb1" />
-                    <label for="cb1">
+                    <input name="option_poll-5" type="radio" id="cb1-5" />
+                    <label for="cb1-5">
                       <img class="rounded" src="{{ asset('img/01-background.png') }}" alt="">
                     </label>
                 </li>
                 <li class="card my-4 lg:my-0">
-                    <input name="option_poll" type="radio" id="cb2" />
-                    <label for="cb2">
+                    <input name="option_poll-5" type="radio" id="cb2-5" />
+                    <label for="cb2-5">
                       <img class="rounded" src="{{ asset('img/01-background.png') }}" alt="">
+                    </label>
+                </li>
+
+                <li class="card my-4 lg:my-0 opcional lg:col-span-2">
+                    <input class="hidden" type="radio" name="option_poll-5" id="cb3-5" />
+                    <label class="check-text" for="cb3-5">
+                        <span class="pl-10 py-2">Lorem ipsum dolor sit amet.</span>
                     </label>
                 </li>
               </ul>
