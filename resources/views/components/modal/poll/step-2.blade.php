@@ -44,8 +44,8 @@
                 </li>
 
                 <li class="card my-4 lg:my-0 opcional lg:col-span-2">
-                    <input class="hidden" type="checkbox" name="" id="cb3" />
-                    <label id="check-text" for="cb3">
+                    <input class="hidden" type="radio" name="option_poll" id="cb3" />
+                    <label class="check-text" for="cb3">
                         <span class="pl-10 py-2">Sólo, pero me interesa jugar con amigos</span>
                     </label>
                 </li>

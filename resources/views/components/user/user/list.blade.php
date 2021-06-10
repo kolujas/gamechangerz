@@ -25,6 +25,15 @@
                         @component('components.svg.ChoqueSVG')@endcomponent
                     </figure>
                 </div>
+
+
+                <div>
+                    @component('components.achievement.icon-list', [
+                        'achievements' => $user->achievements 
+                    ])   
+                    @endcomponent
+                </div>
+
                 <div class="hidden md:block">
                     <span class="color-white overpass">Clases tomadas</span>
                     <p class="color-four">{{ $user->hours }}</p>
@@ -35,6 +44,7 @@
                     ])
                     @endcomponent
                 </div>
+                
                 <div class="btn-purple">
                     <a class="btn btn-one btn-outline russo" href="/users/{{ $user->slug }}/profile">
                         <span class="px-4 py-3">Contactar</span>

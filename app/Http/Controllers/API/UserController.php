@@ -26,7 +26,7 @@
         public function users (Request $request) {
             $users = User::where('id_role', '=', 0)->get();
             foreach ($users as $user) {
-                $user->and(['lessons', 'games', 'files', 'hours']);
+                $user->and(['lessons', 'games', 'files', 'hours', 'achievements']);
                 foreach ($user->games as $game) {
                     $game->and(['files']);
                 }
