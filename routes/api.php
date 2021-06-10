@@ -27,7 +27,7 @@
                     Route::get('/lessons/{id_lesson}/assigments/{slug}', [AssigmentController::class, 'get'])->name('api.assigment.get');
                 });
             });
-            Route::middleware('api.chat.exist')->group(function () {
+            Route::middleware(['api.chat.exist', 'api.chat.is.available'])->group(function () {
                 Route::post('/lessons/chats/{id_chat}/assigments/make', [AssigmentController::class, 'make'])->name('api.assigment.set');
             });
 
@@ -35,7 +35,9 @@
             Route::get('/chats', [ChatController::class, 'all'])->name('api.chat.all');
             Route::middleware('api.user.exist')->group(function () {
                 Route::get('/chats/{id_user}', [ChatController::class, 'get'])->name('api.chat.get');
-                Route::post('/chats/{id_user}', [ChatController::class, 'send'])->name('api.chat.send');
+                Route::middleware('api.chat.is.available')->group(function () {
+                    Route::post('/chats/{id_user}', [ChatController::class, 'send'])->name('api.chat.send');
+                });
             });
 
 // ! FriendController - Controls the friends api. 

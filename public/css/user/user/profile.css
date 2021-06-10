@@ -86,8 +86,8 @@
     cursor: pointer;
 }
 
-.user .data .tag .teammate input:checked + span {
-    border: 1px solid red;
+.user .data .tag .teammate input:not(:checked) + span {
+    filter: grayscale();
 }
 
 .user .icons-list svg{

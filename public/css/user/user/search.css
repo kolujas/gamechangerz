@@ -152,8 +152,8 @@
     margin-bottom: 2rem;
 }
 
-.users + .list .teammate.active figure {
-    border: 1px solid red;
+.users + .list .teammate:not(.active) figure {
+    filter: grayscale();
 }
 
 .users + .list .teammate svg{

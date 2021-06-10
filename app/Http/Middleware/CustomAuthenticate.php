@@ -4,7 +4,7 @@
     use Auth;
     use Closure;
 
-    class CheckUserRoleIsUser {
+    class CustomAuthenticate {
         /**
          * Handle an incoming request.
          *
@@ -13,12 +13,12 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            if (Auth::user()->id_role !== 0) {
+            if (!Auth::check()) {
                 $request->session()->put('error', [
                     'code' => 403,
-                    'message' => "Debes ser un usuario para realizar esta acción",
+                    'message' => "Debes estar logueado para realizar esta acción",
                 ]);
-                return redirect()->back();
+                return redirect()->to(url()->previous() . '#login');
             }
             return $next($request);
         }

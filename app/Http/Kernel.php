@@ -65,8 +65,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
+        'auth.custom' => \App\Http\Middleware\CustomAuthenticate::class,
+
         'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
         'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
+        'api.chat.is.available' => \App\Http\Middleware\API\CheckChatIsAvailable::class,
         'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
 
         'game.exist' => \App\Http\Middleware\CheckGameExist::class,
@@ -75,8 +78,6 @@ class Kernel extends HttpKernel
         'lesson.exist' => \App\Http\Middleware\CheckLessonExist::class,
         'lesson.status.exist' => \App\Http\Middleware\CheckLessonStatusExist::class,
         'lesson.type.exist' => \App\Http\Middleware\CheckLessonTypeExist::class,
-
-        'chat.exist' => \App\Http\Middleware\CheckChatExist::class,
 
         'friendship.action.exist' => \App\Http\Middleware\CheckFriendshipActionExist::class,
         

@@ -19,7 +19,8 @@
         "laravel/framework": "^7.29",
         "laravel/passport": "9.x",
         "laravel/tinker": "^2.5",
-        "mercadopago/dx-php": "^2.3"
+        "mercadopago/dx-php": "^2.3",
+        "paypal/paypal-checkout-sdk": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -7,6 +7,7 @@
     use App\Models\Lesson;
     use App\Models\User;
     use Auth;
+    use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
@@ -85,16 +86,16 @@
 
             foreach ($chats as $chat) {
                 $chat->id_user_logged = $request->user()->id_user;
-                $chat->users();
-                $chat->users['from']->and(['files', 'games']);
-                foreach ($chat->users['from']->games as $games) {
-                    $games->and(['abilities']);
+                $chat->and(['users', 'available', 'type']);
+                if ($chat->users['from']->id_role === 1) {
+                    $chat->and(['ends']);
                 }
-                $chat->users['to']->and(['files', 'games']);
-                foreach ($chat->users['to']->games as $games) {
-                    $games->and(['abilities']);
+                foreach ($chat->users as $user) {
+                    $user->and(['files', 'games']);
+                    foreach ($user->games as $games) {
+                        $games->and(['abilities']);
+                    }
                 }
-                $chat->type();
 
                 foreach ($chat->messages as $message) {
                     $message->id_user_logged = $request->user()->id_user;
@@ -169,7 +170,7 @@
                 ]);
             }
 
-            $chat->messages();
+            $chat->and(['users', 'available', 'type', 'messages']);
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
             }
@@ -263,16 +264,13 @@
             $chat->update((array) $input);
 
             $chat->id_user_logged = $request->user()->id_user;
-            $chat->users();
-            $chat->users['from']->and(['files', 'games']);
-            foreach ($chat->users['from']->games as $games) {
-                $games->and(['abilities']);
+            $chat->and(['users', 'available', 'type']);
+            foreach ($chat->users as $user) {
+                $user->and(['files', 'games']);
+                foreach ($user->games as $games) {
+                    $games->and(['abilities']);
+                }
             }
-            $chat->users['to']->and(['files', 'games']);
-            foreach ($chat->users['to']->games as $games) {
-                $games->and(['abilities']);
-            }
-            $chat->type();
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;

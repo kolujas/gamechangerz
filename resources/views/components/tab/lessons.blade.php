@@ -94,7 +94,7 @@
                 AR$ <input type="number" name="prices[0]" class="form-input update-input" disabled value={{ $user->prices[0]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
             </span>
-            @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
+            @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto">
                     <span class="russo py-2 px-4">Contratar</span>
                 </a>
@@ -105,7 +105,7 @@
                 AR$ <input type="number" name="prices[1]" class="form-input update-input" disabled value={{ $user->prices[1]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
             </span>
-            @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
+            @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto">
                     <span class="russo py-2 px-4">Contratar</span>
                 </a>
@@ -160,7 +160,7 @@
                 AR$ <input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="100"/> / h
                 <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
             </span>
-            @if (Auth::check() && Auth::user()->slug !== $user->slug && Auth::user()->id_role === 0)
+            @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto rounded">
                     <span class="russo py-2 px-4">Contratar</span>
                 </a>

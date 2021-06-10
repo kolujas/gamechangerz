@@ -1,5 +1,6 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { CountDown as CountDownJS } from "../../submodules/CountDownJS/js/CountDown.js";
+import { InputDateMaker as InputDateMakerJS } from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
 import { Filter as FilterJS } from "../../submodules/FilterJS/js/Filter.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
@@ -71,21 +72,13 @@ export class Chat extends Class {
                 html: this.html.children[1],
                 header: this.html.children[1].children[0].children[1],
                 main: this.html.children[1].children[1],
+                footer: this.html.children[1].children[2],
             };
         }
     }
 
     setEventListeners () {
         const instance = this;
-
-        document.querySelector(`#chat.modal #details form`).addEventListener('submit', function (e) {
-            e.preventDefault();
-            for (const chat of instance.props.chats) {
-                if (chat.id_chat === instance.opened) {
-                    instance.send(chat);
-                }
-            }
-        });
 
         document.querySelector(`#chat.modal #list form`).addEventListener('submit', function (e) {
             e.preventDefault();
@@ -202,27 +195,50 @@ export class Chat extends Class {
         }
     }
 
-    changeChat () {
-        for (const chat of this.props.chats) {
+    async changeChat () {
+        let chat;
+        for (chat of this.props.chats) {
             if (chat.id_chat === this.opened) {
-                this.changeUserProfile(chat);
-                for (const message of chat.messages) {
-                    message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users['to'].slug : chat.users['from'].slug);
-                }
-                this.sections.details.main.innerHTML = '';
-                let span = document.createElement('span');
-                span.classList.add("question");
-                span.title = "Los mensajes se cargaran automáticamente cada 1 minuto";
-                this.sections.details.main.appendChild(span);
-                    let icon = document.createElement('i');
-                    icon.classList.add("fas", "fa-question");
-                    span.appendChild(icon);
-
-                    this.sections.details.main.appendChild(Message.component('list', { messages: chat.messages }));
                 break;
             }
         }
-        this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
+
+        this.changeUserProfile(chat);
+        this.sections.details.main.innerHTML = '';
+            let span = document.createElement('span');
+            span.classList.add("question");
+            span.title = "Los mensajes se cargaran automáticamente cada 1 minuto";
+            this.sections.details.main.appendChild(span);
+                let icon = document.createElement('i');
+                icon.classList.add("fas", "fa-question");
+                span.appendChild(icon);
+            
+        if (chat.hasOwnProperty('id_chat')) {
+            for (const message of chat.messages) {
+                message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users['to'].slug : chat.users['from'].slug);
+            }
+            this.sections.details.main.appendChild(Message.component('list', { messages: chat.messages, available: chat.available }));
+            this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
+        }
+
+        this.sections.details.footer.innerHTML = "";
+        
+        let response = await Chat.one(chat, this.props.token);
+        if (!response.hasOwnProperty('id_chat')) {
+            this.CountDownJS.details.pause();
+            this.close();
+        }
+
+        if (response.hasOwnProperty('id_chat')) {
+            if (chat.users['from'].id_role === 1) {
+                let date = new Date(chat.ends);
+                let span2 = document.createElement('span');
+                span2.classList.add("timer", "color-grey");
+                span2.innerHTML = `El chat estará disponible hasta la fecha <b class="mx-1">${ date.getDate() }/${ InputDateMakerJS.Months.es[date.getMonth()].number }/${ date.getFullYear() }</b> a las <b class="ml-1">${ ((date.getHours() < 10) ? `0${ date.getHours() }` : date.getHours()) }:${ ((date.getMinutes() < 10) ? `0${ date.getMinutes() }` : date.getMinutes()) }</b>`;
+                this.sections.details.main.appendChild(span2);
+            }
+            this.changeFooter(chat);
+        }
     }
 
     changeOrder (chats, type) {
@@ -301,6 +317,55 @@ export class Chat extends Class {
             span.classList.add("ml-2");
             this.sections.details.header.appendChild(span);
             span.innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? 'to' : 'from')].name })`;
+    }
+
+    changeFooter (chat) {
+        const instance = this;
+        if (chat.available) {
+            let form = document.createElement('form');
+            form.action = "#";
+            this.sections.details.footer.appendChild(form);
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                instance.send(chat);
+            });
+                let token = document.createElement('input');
+                token.value = document.querySelector('meta[name=csrf-token]').content;
+                token.name = "_token";
+                token.type = "hidden";
+                form.appendChild(token);
+
+                let message = document.createElement('input');
+                message.classList.add("py-2", "px-4", "overpass");
+                message.placeholder = "Escribe tu mensaje";
+                message.name = "message";
+                message.type = "text";
+                form.appendChild(message);
+
+                if (this.props.id_role === 1) {
+                    let link = document.createElement('a');
+                    link.href = "#assigment";
+                    link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
+                    form.appendChild(link);
+                        let icon = document.createElement('i');
+                        icon.classList.add("fas", "fa-paperclip", "color-gradient");
+                        link.appendChild(icon);
+                }
+
+                let button = document.createElement('button');
+                button.classList.add("py-2", "px-4");
+                form.appendChild(button);
+                    let img = document.createElement('img');
+                    img.src = new Asset("img/resources/SendSVG.svg").route;
+                    img.alt = "Send button icon";
+                    button.appendChild(img);
+        }
+        if (!chat.available) {
+            let paragraph = document.createElement('p');
+            paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
+            paragraph.innerHTML = "El chat no se encuentra activo";
+            this.sections.details.footer.appendChild(paragraph);
+        }
     }
 
     showUserChat () {

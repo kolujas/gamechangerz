@@ -96,17 +96,13 @@
             $chat->update((array) $input);
 
             $chat->id_user_logged = $request->user()->id_user;
-            $chat->users();
-            $chat->messages();
-            $chat->users['from']->and(['files', 'games']);
-            foreach ($chat->users['from']->games as $games) {
-                $games->and(['abilities']);
+            $chat->and(['users', 'available', 'type', 'messages']);
+            foreach ($chat->users as $user) {
+                $user->and(['files', 'games']);
+                foreach ($user->games as $games) {
+                    $games->and(['abilities']);
+                }
             }
-            $chat->users['to']->and(['files', 'games']);
-            foreach ($chat->users['to']->games as $games) {
-                $games->and(['abilities']);
-            }
-            $chat->type();
 
             return response()->json([
                 'code' => 200,
