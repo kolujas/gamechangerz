@@ -52,7 +52,8 @@
         ])
         @endcomponent
         @component('components.modal.languages', [
-            'languages' => $user->languages,
+            'languages' => $languages,
+            'user' => $user,
         ])
         @endcomponent
     @endif

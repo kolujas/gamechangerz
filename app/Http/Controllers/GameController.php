@@ -13,7 +13,7 @@
 
             $games = [];
             if (isset($input->games)) {
-                foreach ($input->games as $game => $value) {
+                foreach ($input->games as $game) {
                     if (Game::has($game)) {
                         $game = Game::find($game);
                         $game = (object) [

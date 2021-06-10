@@ -4,6 +4,7 @@
     use App\Http\Controllers\DefaultController;
     use App\Http\Controllers\FriendshipController;
     use App\Http\Controllers\GameController;
+    use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\LessonController;
     use App\Http\Controllers\UserController;
     use Illuminate\Support\Facades\Route;
@@ -73,5 +74,10 @@
     Route::middleware(['user.exist'])->group(function () {
         Route::middleware('auth.custom')->group(function () {
             Route::post('/users/{slug}/games/update', [GameController::class, 'user'])->name('game.user');
+        });
+
+// ! LanguageController - Controls the Language pages.
+        Route::middleware('auth.custom')->group(function () {
+            Route::post('/users/{slug}/languages/update', [LanguageController::class, 'user'])->name('language.user');
         });
     });

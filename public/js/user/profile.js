@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }
         if (document.querySelector('#languages.modal')) {
             Language.setModalJS();
+            Language.setValidationJS();
         }
 
         if (document.querySelectorAll('.update-button').length) {

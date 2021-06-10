@@ -6,6 +6,8 @@
 @import './font.css';
 @import './footer.css';
 @import './game/list.css';
+@import './game/options.css';
+@import './language/options.css';
 @import './modal.css';
 @import './nav.css';
 @import './notification.css';

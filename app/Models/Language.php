@@ -49,7 +49,7 @@
             $found = false;
             foreach (Language::$options as $language) {
                 $language = new Language($language);
-                if ($language->id_language === $field) {
+                if ($language->id_language === $field || $language->slug === $field) {
                     $found = true;
                 }
             }
@@ -64,7 +64,7 @@
         static public function one ($field = '') {
             foreach (Language::$options as $language) {
                 $language = new Language($language);
-                if ($language->id_language === $field) {
+                if ($language->id_language === $field || $language->slug === $field) {
                     return $language;
                 }
             }
@@ -90,4 +90,28 @@
             }
             return $languages;
         }
+
+        /**
+         * * Returns all the Language options.
+         * @param array $columns
+         * @return Language[]
+         */
+        static public function all ($columns = []) {
+            $languages = collect([]);
+            foreach (Language::$options as $language) {
+                $language = new Language($language);
+                $languages->push($language);
+            }
+            return $languages;
+        }
+        
+        /** @var array Validation rules & messages. */
+        static $validation = [
+            'user' => [
+                'rules' => [
+                    'languages' => 'required',
+                ], 'messages' => [
+                    'es' => [
+                        'languages.required' => 'Al menos 1 idioma es obligatorio.',
+        ]]]];
     }

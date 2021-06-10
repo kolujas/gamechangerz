@@ -1,0 +1,40 @@
+ul.games.options input {
+    display: none;
+}
+
+ul.games.options li.game.option label {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+ul.games.options li.game.option input:not(:checked) + label img {
+    filter: grayscale();
+}
+
+ul.games.options li.game.option label::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(130deg, var(--game-color-one), var(--game-color-two));
+    border-radius: .25rem;
+}
+
+ul.games.options li.game.option input:not(:checked) + label::before {
+    opacity: 0;
+}
+
+ul.games.options li.game.option label main {
+    border-radius: .25rem;
+    position: inherit;
+}
+
+ul.games.options li.game.option label main h3 {
+    background: var(--color-black);
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    font-size: 1rem;
+}

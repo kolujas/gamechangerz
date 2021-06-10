@@ -1,0 +1,18 @@
+ul.languages.options input {
+    display: none;
+}
+
+ul.languages.options li.language.option label {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+ul.languages.options li.language.option label svg {
+    min-width: 100%;
+    min-height: 40px;
+}
+
+ul.languages.options li.language.option input:not(:checked) + label svg {
+    filter: grayscale();
+}

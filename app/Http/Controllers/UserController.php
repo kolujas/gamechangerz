@@ -6,6 +6,7 @@
     use App\Models\Auth as AuthModel;
     use App\Models\Day;
     use App\Models\Game;
+    use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\MercadoPago;
     use App\Models\Post;
@@ -137,9 +138,11 @@
             foreach ($games as $game) {
                 $game->and(['files']);
             }
+            $languages = Language::all();
             return view('user.profile', [
                 'user' => $user,
                 'games' => $games,
+                'languages' => $languages,
                 'days' => $days,
                 'error' => $error,
                 'validation' => [
@@ -149,6 +152,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'languages' => (object)[
+                        'rules' => Language::$validation['user']['rules'],
+                        'messages' => Language::$validation['user']['messages']['es'],
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -209,7 +215,6 @@
                     $type = $price;
                 }
             }
-            
             return view('user.checkout', [
                 'user' => $user,
                 'type' => $type,
