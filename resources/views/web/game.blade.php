@@ -124,7 +124,7 @@
             <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24">
                 <header class="lg:col-span-8 lg:col-start-2 2xl:col-start-3 px-8 lg:px-0">
                     <h3 class="color-white mb-2 russo">Criterios de evaluación</h3>
-                    <p class="color-grey overpass font-thin">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
+                    <p class="color-grey overpass mb-6 font-thin">Practica cualquier habilidad dentro de nuestro gran <span class="color-four font-bold">catálogo</span></p>
                 </header>
                 <main class="lg:col-span-10 2xl:col-span-12 relative">
                     @component('components.abilities.list', [
