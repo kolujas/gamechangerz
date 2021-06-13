@@ -31,15 +31,16 @@
 
 // ! BlogController - Controls the Blog pages.
     Route::get('/blog', [BlogController::class, 'list'])->name('blog.list');
-    Route::middleware(['user.exist', 'post.exist'])->group(function () {
-        Route::get('/blog/{id_user}/{slug}', [BlogController::class, 'details'])->name('blog.details');
-    });
     Route::middleware('auth.custom')->group(function () {
-        Route::post('/blog/create', [BlogController::class, 'doCreate'])->name('blog.doCreate');
+        Route::get('/blog/post/create', [BlogController::class, 'showCreate'])->name('blog.showCreate');
+        Route::post('/blog/post/create', [BlogController::class, 'doCreate'])->name('blog.doCreate');
         Route::middleware(['post.exist'])->group(function () {
             Route::put('/blog/{slug}/update', [BlogController::class, 'doUpdate'])->name('blog.doUpdate');
             Route::delete('/blog/{slug}/delete', [BlogController::class, 'doDelete'])->name('blog.doDelete');
         });
+    });
+    Route::middleware(['user.exist', 'post.exist'])->group(function () {
+        Route::get('/blog/{id_user}/{slug}', [BlogController::class, 'details'])->name('blog.details');
     });
 
 // ! FriendshipController - Controls the User Friends

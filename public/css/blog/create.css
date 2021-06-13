@@ -1,0 +1,76 @@
+header.image{
+    min-height: 300px;
+    width: 100%;
+}
+
+header.image input {
+    background-color: var(--color-black);
+    border-radius: .25rem;
+}
+
+header.image a {
+    transition: 500ms;
+}
+
+header.image a:hover {
+    color: var(--color-four);
+}
+
+.content p{
+    color: var(--color-white);
+    /* padding: 2rem 0;     */
+}
+
+.content b{
+    color: var(--color-four);
+}
+
+.content i{
+    color: var(--color-five);
+}
+
+.content :where(h1, h2, h3, h4, h5) {
+    color: var(--color-four);
+}
+
+.degradado{
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    font-weight: bold;
+}
+
+header.image .fecha{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content h1{
+    font-size: 1.3rem;
+    font-family: var(--font-one);
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    /*  */
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    .content > *{
+        grid-column: span 8 / span 8;
+        grid-column-start: 2;
+    }
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    header.image{
+        height: 400px;
+    }
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    .content p{
+        font-size: 1.2rem;
+    }
+}

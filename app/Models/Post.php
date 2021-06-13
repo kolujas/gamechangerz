@@ -34,7 +34,7 @@
 
         /** @var array Validation rules & messages. */
         static $validation = [
-            'create' => [
+            'add' => [
                 'rules' => [
                     'title' => 'required|max:200',
                     'description' => 'required',
@@ -47,14 +47,10 @@
                         'image.mimetypes' => 'La imagen debe ser formato jpg/jpeg o png.',
             ]]], 'update' => [
                 'rules' => [
-                    'title' => 'required|max:200',
-                    'description' => 'required',
-                    'image' => 'nullable|mimetypes:image/jpeg,image/png',
+                    //
                 ], 'messages' => [
                     'es' => [
-                        'title.required' => 'El título es obligatorio.',
-                        'description.required' => 'La descripción es obligatoria.',
-                        'image.mimetypes' => 'La imagen debe ser formato jpg/jpeg o png.',
+                        //
             ]]], 'delete' => [
                 'rules' => [
                     //

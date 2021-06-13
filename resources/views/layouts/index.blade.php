@@ -19,7 +19,7 @@
         
         <!-- ? Tailwind CSS -->
         <link href={{ asset('css/app.css') }} rel="stylesheet">
-
+        
         {{-- ? Global CSS --}}
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
@@ -36,6 +36,7 @@
         <script src={{ asset('js/app.js') }}></script>
         <script src={{ asset('js/jquery/jquery-3.6.0.min.js') }}></script>
         <script src={{ asset('js/pagination.min.js') }}></script>
+        <script type="module" src={{ asset('js/ckeditor5/src/ckeditor.js') }}></script>
 
         {{-- ? External Repositories js --}}
 
