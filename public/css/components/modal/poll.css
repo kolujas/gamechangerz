@@ -39,6 +39,15 @@
 #poll.modal .cards li {
     display: inline-block;
   }
+
+#step-2 .poll .cards .card .image-text{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+
+
   
 #poll.modal .cards input[type="radio"][id^="cb"] {
     display: none;
@@ -230,7 +239,7 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    /*  */
+  
 }
 
 /* ? 2XL */

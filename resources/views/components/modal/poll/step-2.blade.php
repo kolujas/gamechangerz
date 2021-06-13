@@ -34,13 +34,23 @@
                     <input name="option_poll" type="radio" id="cb1" />
                     <label for="cb1">
                       <img class="rounded" src="{{ asset('img/01-background.png') }}" alt="">
+                      <div class="image-text">
+                        <p class="russo color-white">Sólo</p>
+                    </div>
                     </label>
+                    
                 </li>
                 <li class="card my-4 lg:my-0">
                     <input name="option_poll" type="radio" id="cb2" />
                     <label for="cb2">
                       <img class="rounded" src="{{ asset('img/01-background.png') }}" alt="">
+                      <div class="image-text flex justify-end flex-wrap">
+                        <p class="russo color-white text-right w-full">Con amigos</p>
+                        @component('components.svg.ChoqueSVG')
+                        @endcomponent
+                    </div>
                     </label>
+                    
                 </li>
 
                 <li class="card my-4 lg:my-0 opcional lg:col-span-2">

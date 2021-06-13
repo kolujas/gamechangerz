@@ -2,13 +2,13 @@
     @if (count($users))
         @foreach ($users as $user)
             <li class="teacher">
-                <main class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
+                <a href="/users/{{ $user->slug }}/profile" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
                     <header class="profile lg:col-span-6 mt-4 ml-4 lg:my-4">
                         <div class="grid gap-4 lg:flex lg:flex-wrap">
-                            <a href="/users/{{ $user->slug }}/profile" class="username btn btn-text btn-white">
+                            <div class="username btn btn-text btn-white">
                                 <h4 class="russo">{{ $user->username }}</h4>
                                 <h5 class="color-grey overpass">{{ $user->name }}</h5>
-                            </a>
+                            </div>
                             <section class="teampro flex items-start">
                                 <div class="info">
                                     <span class="team-name px-1 text-center mb-3 overpass rounded">
@@ -57,14 +57,14 @@
                                 <li class="color-five russo mb-2">Modalidad Online <br> AR$ {{ $user->prices[0]->price }}/h</li>
                                 <li class="color-white russo">Modalidad Offline <br> AR$ {{ $user->prices[1]->price }}/h</li>
                             </ul>
-                            <div>
+                            {{-- <div>
                                 <a class="btn btn-outline btn-one mobile-btn" href="/users/{{ $user->slug }}/profile">
                                     <span class="russo rounded">Ver horarios</span>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </section>
-                </main>
+                </a>
             </li>
         @endforeach
     @endif

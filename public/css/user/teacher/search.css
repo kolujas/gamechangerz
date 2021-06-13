@@ -100,6 +100,14 @@
     background-color: var(--color-black);
 }
 
+.teachers .dropdown.opened .dropdown-header {
+    background-color: var(--color-black);
+}
+
+.dropdown.opened .dropdown-header i{
+    transform: rotateX(180deg);
+}
+
 .teachers .dropdown-content{
     width: fit-content;
     min-width: 100%;
@@ -126,6 +134,28 @@
     z-index: -1;
     border-radius: .25rem;
 }
+
+
+.teachers #payment div{
+    background: var(--color-black);
+    color: var(--color-four);
+}
+
+.teachers input[type=range] {
+    -webkit-appearance: none;
+    background: var(--color-three);
+    height: .5rem;
+    border-radius: 5px;
+}
+
+.teachers input[type=range]::-webkit-slider-thumb {
+    height: 12px;
+    width: 12px;
+    border-radius: 100vw;
+    background: var(--color-four);
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
 
 /* ? MD */
 @media(min-width: 768px){

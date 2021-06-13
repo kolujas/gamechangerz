@@ -253,7 +253,7 @@ ul.teachers .image figure{
     border: none;
 }
 
-.teachers .teacher > main {
+.teachers .teacher > a {
     height: 100%;
     border-radius: .25rem;
 }
@@ -291,7 +291,7 @@ ul.teachers .image figure{
     overflow-x: auto;
 }
 
-.profesores-destacados .teacher > main {
+.profesores-destacados .teacher > a {
     background-color: var(--color-one);
 }
 
@@ -392,7 +392,7 @@ ul.teachers .image figure{
     display: none;
 } */
 
-.teacher > main {
+.teacher > a {
     background: url('../../img/01-background.png') no-repeat center center;
     background-size: cover;
 }
@@ -463,7 +463,7 @@ ul.teachers .image figure{
         margin-bottom: 0;
     }
 
-    .profesores-destacados .teacher > main {
+    .profesores-destacados .teacher > a {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 

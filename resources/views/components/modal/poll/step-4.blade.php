@@ -42,7 +42,7 @@
                                 @endcomponent
                             </h3>
 
-                            <p class="px-4 py-2 overpass">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis quos sapiente rem pariatur? Necessitatibus iure possimus illo aspernatur quisquam numquam!</p>
+                            <p class="px-4 py-2 overpass color-four">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis quos sapiente rem pariatur? Necessitatibus iure possimus illo aspernatur quisquam numquam!</p>
                         </section>
                     </label>
                 </li>
@@ -55,7 +55,7 @@
                                 @component('components.svg.ClaseOnline2SVG')
                                 @endcomponent
                             </h3>
-                            <p class="px-4 py-2 overpass">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis quos sapiente rem pariatur? Necessitatibus iure possimus illo aspernatur quisquam numquam!</p>
+                            <p class="px-4 py-2 overpass color-four">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis quos sapiente rem pariatur? Necessitatibus iure possimus illo aspernatur quisquam numquam!</p>
                         </section>
                     </label>
                 </li>

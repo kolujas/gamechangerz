@@ -104,7 +104,7 @@
 }
 
 .users .switch-content .degradado{
-    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five)); background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
 }
 
 .users .switch-content .slider {
@@ -117,7 +117,15 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: .4s;
+    background: var(--color-grey);
 }
+
+.users .switch-content input:checked + .slider {
+    background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five)); background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
+}
+
+
+
 
 .users .switch-content .slider:before {
     position: absolute;
