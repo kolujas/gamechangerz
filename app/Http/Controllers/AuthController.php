@@ -7,9 +7,36 @@
     use Carbon\Carbon;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Validator;
 
     class AuthController extends Controller {
+        /**
+         * * Confirm the User email.
+         * @param string $token User personal access token.
+         * @return [type]
+         */
+        public function confirm ($token) {
+            if (!DB::table('password_resets')->where('token', $token)->first()) {
+                return redirect('/')->with('status', [
+                    'code' => 403,
+                    'message' => 'Algo salió mal',
+                ]);
+            }
+
+            $password = DB::table('password_resets')->where('token', $token)->first();
+            $user = User::where('email', '=', $password->email)->first();
+            DB::table('password_resets')->where('token', $token)->delete();
+
+            $user->update([
+                'status' => 2,
+            ]);
+
+            Auth::attempt(['password' => $user->password, 'email' => $user->email], true);
+
+            return redirect("/users/$user->slug/profile");
+        }
+
         /**
          * * Log the User in the website.
          * @param Request $request
@@ -41,6 +68,26 @@
                         'message' => 'Correo, apodo, y/o contraseña incorrectos.',
                     ]);
                 }
+            }
+
+            if (Auth::user()->status !== 2) {
+                if (Auth::user()->status === 0) {
+                    $status = [
+                        'code' => 403,
+                        'message' => 'Usuario baneado',
+                    ];
+                }
+                if (Auth::user()->status === 1) {
+                    $status = [
+                        'code' => 403,
+                        'message' => 'Correo pendiente de aprobación',
+                    ];
+                }
+                foreach (Auth::user()->tokens as $token) {
+                    $token->delete();
+                }
+                Auth::logout();
+                return redirect('/')->with('status', $status);
             }
 
             $user = Auth::user();

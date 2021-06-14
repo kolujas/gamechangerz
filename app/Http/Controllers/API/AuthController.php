@@ -3,13 +3,16 @@
 
     use App\Http\Controllers\Controller;
     use App\Models\Auth as Model;
+    use App\Models\Mail;
     use App\Models\User;
     use Auth;
     use Carbon\Carbon;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Facades\Validator;
+    use Illuminate\Support\Str;
 
     class AuthController extends Controller {
         /**
@@ -40,16 +43,38 @@
                 }
             }
 
-            $user = Auth::user();
-            $token = $user->createToken('Personal Access Token')->accessToken;
+            if (Auth::user()->status !== 2) {
+                if (Auth::user()->status === 0) {
+                    $status = [
+                        'code' => 403,
+                        'message' => 'Usuario baneado',
+                    ];
+                }
+                if (Auth::user()->status === 1) {
+                    $status = [
+                        'code' => 403,
+                        'message' => 'Correo pendiente de aprobación',
+                    ];
+                }
+                foreach (Auth::user()->tokens as $token) {
+                    $token->delete();
+                }
+                Auth::logout();
+            }
+            if (Auth::user()->status === 200) {
+                $user = Auth::user();
+                $token = $user->createToken('Personal Access Token')->accessToken;
+
+                $status = [
+                    'code' => 200,
+                    'message' => 'Success',
+                    'data' => [
+                        'token' => $token,
+                    ],
+                ];
+            }
             
-            return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'token' => $token,
-                ],
-            ]);
+            return response()->json($status);
         }
 
         /**
@@ -78,12 +103,24 @@
                 'id_language' => $input->language,
             ]]);
             $input->password = Hash::make($password);
+            $input->status = 1;
+
+            DB::table('password_resets')->insert([
+                'email' => $input->email,
+                'token' => Str::random(60),
+                'created_at' => Carbon::now(),
+            ]);
+
+            $input->token = DB::table('password_resets')->where('email', $input->email)->first()->token;
 
             try {
                 $user = User::create((array) $input);
                 $user->update([
                     'folder' => "users/$user->id_user",
                 ]);
+                $mail = new Mail([
+                    "id_mail" => 1,
+                ], $input);
             } catch (\Throwable $th) {
                 dd($th);
             }
