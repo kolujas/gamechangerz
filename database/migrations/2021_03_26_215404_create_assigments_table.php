@@ -18,6 +18,7 @@
                 $table->text('description')->nullble();
                 $table->string('url')->nullble();
                 $table->json('abilities')->nullble()->default('[]');
+                $table->unsignedInteger('id_game')->nullable();
                 $table->timestamps();
             });
         }

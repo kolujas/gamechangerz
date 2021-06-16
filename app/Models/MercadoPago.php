@@ -10,12 +10,24 @@
     use MercadoPago\SDK;
 
     class MercadoPago {
-        static public function createPreference ($data) {
+        public $preference;
+
+        /**
+         * * Creates an instance of MercadoPago.
+         * @param array $attributes
+         */
+        public function __construct (array $attributes = array()) {
+            parent::__construct($attributes);
+
             // * Set the MercadoPago access token
             SDK::setAccessToken(config("services.mercadopago.token"));
 
             // * Create a Preference
-            $preference = new Preference();
+            $this->preference = new Preference();
+        }
+
+        static public function createPreference ($data) {
+            $instance = new this();
 
             // * Set the Preference Item
             $item = new Item();
@@ -25,10 +37,10 @@
             $item->currency_id = 'ARS';
             $item->unit_price = $data->price;
 
-            $preference->items = [$item];
+            $instance->preference->items = [$item];
 
             // * Set the Preference URLs
-            $preference->back_urls = [
+            $instance->preference->back_urls = [
                 "success" => route('lesson.checkout.status', [
                     'id_lesson' => $data->id,
                     'status' => 2,
@@ -42,11 +54,11 @@
                     'status' => 0,
                 ]),
             ];
-            $preference->auto_return = "approved";
+            $instance->preference->auto_return = "approved";
 
             // * Save & send the Preference init point
-            $preference->save();
-            return $preference->init_point;
+            $instance->preference->save();
+            return $instance->preference->init_point;
         }
 
         static public function getDataID ($id) {

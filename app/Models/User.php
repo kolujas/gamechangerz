@@ -35,7 +35,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'date_of_birth', 'description', 'email', 'folder', 'games', 'id_role', 'teampro', 'languages', 'lessons', 'name', 'password', 'prices', 'slug', 'teammate', 'username', 'important', 'stars', 'days',
+            'achievements', 'date_of_birth', 'days', 'description', 'email', 'folder', 'games', 'id_role', 'important', 'languages', 'lessons', 'name', 'password', 'prices', 'slug', 'stars', 'status', 'teammate', 'teampro', 'token', 'username'
         ];
 
         /**
@@ -54,34 +54,31 @@
         protected $casts = [
             'email_verified_at' => 'datetime',
         ];
-        
+
         /**
-         * * The Sluggable configuration for the Model.
+         * * Get the User Abilities.
          * @return array
          */
-        public function sluggable (): array {
-            return [
-                'slug' => [
-                    'source'	=> 'username',
-                    'onUpdate'	=> true,
-                ]
+        public function abilities () {
+            $abilities = [
+                (object) ['id_ability' => 1, 'stars' => 0],
+                (object) ['id_ability' => 2, 'stars' => 0],
+                (object) ['id_ability' => 3, 'stars' => 0],
+                (object) ['id_ability' => 4, 'stars' => 0]
             ];
+            $this->abilities = Ability::parse($abilities);
         }
 
         /**
-         * * Get the User Posts.
-         * @return array
+         * * Get the User Achievements.
+         * @throws
          */
-        public function posts () {
-            return $this->hasMany(Post::class, 'id_user', 'id_user');
-        }
-
-        /**
-         * * Get the User Reviews.
-         * @return array
-         */
-        public function reviews () {
-            return $this->hasMany(Review::class, 'id_user_to', 'id_user');
+        public function achievements () {
+            try {
+                $this->achievements = Achievement::parse(json_decode($this->achievements));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
         }
 
         /**
@@ -126,37 +123,14 @@
                         case 'role':
                             $this->role();
                             break;
+                        case 'status':
+                            $this->status();
+                            break;
                         case 'teampro':
                             $this->teampro();
                             break;
                     }
                 }
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
-
-        /**
-         * * Get the User Abilities.
-         * @return array
-         */
-        public function abilities () {
-            $abilities = [
-                (object) ['id_ability' => 1, 'stars' => 0],
-                (object) ['id_ability' => 2, 'stars' => 0],
-                (object) ['id_ability' => 3, 'stars' => 0],
-                (object) ['id_ability' => 4, 'stars' => 0]
-            ];
-            $this->abilities = Ability::parse($abilities);
-        }
-
-        /**
-         * * Get the User Achievements.
-         * @throws
-         */
-        public function achievements () {
-            try {
-                $this->achievements = Achievement::parse(json_decode($this->achievements));
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -295,18 +269,6 @@
                     ['id_user_to', '=', $this->id_user],
                     ['status', '>', 0],
                 ])->get() as $lesson) {
-                    // if ($lesson->id_type === 1 || $lesson->id_type === 3) {
-                    //     $lesson->hours = 0;
-                    //     foreach (json_decode($lesson->days) as $day) {
-                    //         if (Hour::has($day->hour->id_hour)) {
-                    //             $hour = Hour::one($day->hour->id_hour);
-                    //             dd($day->date);
-                    //             if (now() > $day->date . "T" . $hour->to) {
-                    //                 $lesson->hours++;
-                    //             }
-                    //         }
-                    //     }
-                    // }
                     $this->lessons->push($lesson);
                 }
             }
@@ -315,17 +277,6 @@
                     ['id_user_from', '=', $this->id_user],
                     ['status', '>', 0],
                 ])->get() as $lesson) {
-                    // if ($lesson->id_type === 1 || $lesson->id_type === 3) {
-                    //     $lesson->hours = 0;
-                    //     foreach (json_decode($lesson->days) as $day) {
-                    //         if (Hour::has($day->hour->id_hour)) {
-                    //             $hour = Hour::one($day->hour->id_hour);
-                    //             if (now() > $day->date . "T" . $hour->to) {
-                    //                 $lesson->hours++;
-                    //             }
-                    //         }
-                    //     }
-                    // }
                     $this->lessons->push($lesson);
                 }
             }
@@ -350,6 +301,14 @@
                     }
                 }
             }
+        }
+
+        /**
+         * * Get the User Posts.
+         * @return array
+         */
+        public function posts () {
+            return $this->hasMany(Post::class, 'id_user', 'id_user');
         }
 
         /**
@@ -386,6 +345,14 @@
         }
 
         /**
+         * * Get the User Reviews.
+         * @return array
+         */
+        public function reviews () {
+            return $this->hasMany(Review::class, 'id_user_to', 'id_user');
+        }
+
+        /**
          * * Get the User Role.
          * @return array
          */
@@ -402,6 +369,50 @@
                 throw $th;
             }
         }
+        
+        /**
+         * * The Sluggable configuration for the Model.
+         * @return array
+         */
+        public function sluggable (): array {
+            return [
+                'slug' => [
+                    'source'	=> 'username',
+                    'onUpdate'	=> true,
+                ]
+            ];
+        }
+
+        /**
+         * * Get the User status.
+         * @throws
+         */
+        public function status () {
+            try {
+                switch ($this->status) {
+                    case 0:
+                        $this->status = (object) [
+                            "id_status" => 0,
+                            "name" => "Banned",
+                        ];
+                        break;
+                    case 1:
+                        $this->status = (object) [
+                            "id_status" => 1,
+                            "name" => "Email confirmation pending",
+                        ];
+                        break;
+                    case 2:
+                        $this->status = (object) [
+                            "id_status" => 2,
+                            "name" => "Available",
+                        ];
+                        break;
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
 
         /**
          * * Get the User Teampro.
@@ -410,40 +421,6 @@
         public function teampro () {
             try {
                 $this->teampro = Teampro::parse((array) json_decode($this->teampro), $this);
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
-
-        /**
-         * * Fidn and returns the User by a Game.
-         * @param ine $id_game
-         * @return User[]
-         * @throws
-         */
-        static public function findByGame ($id_game = '', $id_role = false) {
-            try {
-                $users = collect([]);
-                $usersToSearch = User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get();
-                foreach ($usersToSearch as $user) {
-                    if ($id_role && $user->id_role === $id_role) {
-                        $user->and(['games']);
-                        foreach ($user->games as $game) {
-                            if ($game->id_game === $id_game) {
-                                $users->push($user);
-                            }
-                        }
-                    }
-                    if (!$id_role) {
-                        $user->and(['games']);
-                        foreach ($user->games as $game) {
-                            if ($game->id_game === $id_game) {
-                                $users->push($user);
-                            }
-                        }
-                    }
-                }
-                return $users;
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -485,6 +462,40 @@
                             'teampro_name.required' => 'El nombre de tu equipo es obligatorio.',
                             'teampro_name.max' => 'El nombre de tu equipo no puede tener más de :max caracteres.',
         ]]]]];
+
+        /**
+         * * Fidn and returns the User by a Game.
+         * @param ine $id_game
+         * @return User[]
+         * @throws
+         */
+        static public function findByGame ($id_game = '', $id_role = false) {
+            try {
+                $users = collect([]);
+                $usersToSearch = User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get();
+                foreach ($usersToSearch as $user) {
+                    if ($id_role && $user->id_role === $id_role) {
+                        $user->and(['games']);
+                        foreach ($user->games as $game) {
+                            if ($game->id_game === $id_game) {
+                                $users->push($user);
+                            }
+                        }
+                    }
+                    if (!$id_role) {
+                        $user->and(['games']);
+                        foreach ($user->games as $game) {
+                            if ($game->id_game === $id_game) {
+                                $users->push($user);
+                            }
+                        }
+                    }
+                }
+                return $users;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
 
        /**
         * * Replace the unique {id_user} rule.

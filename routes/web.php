@@ -12,6 +12,7 @@
 // ! AuthController - Controls the authentication pages.
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/signin', [AuthController::class, 'signin'])->name('auth.signin');
+    Route::get('/email/{token}/confirm', [AuthController::class, 'confirm'])->name('auth.confirm');
     Route::middleware('auth.custom')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     });
@@ -31,24 +32,25 @@
 
 // ! BlogController - Controls the Blog pages.
     Route::get('/blog', [BlogController::class, 'list'])->name('blog.list');
-    Route::middleware(['user.exist', 'post.exist'])->group(function () {
-        Route::get('/blog/{id_user}/{slug}', [BlogController::class, 'details'])->name('blog.details');
-    });
     Route::middleware('auth.custom')->group(function () {
-        Route::post('/blog/create', [BlogController::class, 'doCreate'])->name('blog.doCreate');
+        Route::get('/blog/post/create', [BlogController::class, 'showCreate'])->name('blog.showCreate');
+        Route::post('/blog/post/create', [BlogController::class, 'doCreate'])->name('blog.doCreate');
         Route::middleware(['post.exist'])->group(function () {
             Route::put('/blog/{slug}/update', [BlogController::class, 'doUpdate'])->name('blog.doUpdate');
             Route::delete('/blog/{slug}/delete', [BlogController::class, 'doDelete'])->name('blog.doDelete');
         });
     });
+    Route::middleware(['user.exist', 'user.status', 'post.exist'])->group(function () {
+        Route::get('/blog/{id_user}/{slug}', [BlogController::class, 'details'])->name('blog.details');
+    });
 
 // ! FriendshipController - Controls the User Friends
-    Route::middleware(['user.exist', 'friendship.action.exist'])->group(function () {
+    Route::middleware(['user.exist', 'user.status', 'friendship.action.exist'])->group(function () {
         Route::get('/users/{slug}/friendship/{action}', [FriendshipController::class, 'call'])->name('friendship.call');
     });
 
 // ! LessonController - Controls the Lessom pages.
-    Route::middleware(['auth.custom', 'user.exist', 'user.not.checkout', 'user.is.teacher', 'lesson.type.exist'])->group(function () {
+    Route::middleware(['auth.custom', 'user.exist', 'user.status', 'user.not.checkout', 'user.is.teacher', 'lesson.type.exist'])->group(function () {
         Route::post('/users/{slug}/checkout/{type}', [LessonController::class, 'doCheckout'])->name('lesson.doCheckout');
     });
     Route::middleware(['auth.custom', 'lesson.exist', 'lesson.status.exist'])->group(function () {
@@ -60,7 +62,7 @@
 // ! UserController - Controls the User pages.
     Route::get('/users', [UserController::class, 'search'])->name('user.searchUsers');
     Route::get('/teachers', [UserController::class, 'search'])->name('user.searchTeachers');
-    Route::middleware(['user.exist'])->group(function () {
+    Route::middleware(['user.exist', 'user.status'])->group(function () {
         Route::middleware('auth.custom')->group(function () {
             Route::post('/users/{slug}/update', [UserController::class, 'update'])->name('user.update');
         });
@@ -71,7 +73,7 @@
     });
 
 // ! GameController - Controls the Game pages.
-    Route::middleware(['user.exist'])->group(function () {
+    Route::middleware(['user.exist', 'user.status'])->group(function () {
         Route::middleware('auth.custom')->group(function () {
             Route::post('/users/{slug}/games/update', [GameController::class, 'user'])->name('game.user');
         });

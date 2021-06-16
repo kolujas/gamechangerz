@@ -12,6 +12,31 @@
     use Storage;
 
     class BlogController extends Controller {
+        public function showCreate (Request $request) {
+            $error = null;
+            if ($request->session()->has('error')) {
+                $error = (object) $request->session()->pull('error');
+                // dd($error)
+            }
+            return view('blog.create', [
+                'error' => $error,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
+                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                ], 'signin' => (object)[
+                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
+                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                ], 'assigment' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'post' => (object)[
+                        'rules' => Post::$validation['add']['rules'],
+                        'messages' => Post::$validation['add']['messages']['es'],
+                ]],
+            ]);
+        }
+
         /**
          * * Control the Blog list page.
          * @return [type]

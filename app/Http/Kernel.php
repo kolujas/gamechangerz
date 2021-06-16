@@ -67,9 +67,9 @@ class Kernel extends HttpKernel
         // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
         'auth.custom' => \App\Http\Middleware\CustomAuthenticate::class,
 
-        'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
         'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
         'api.chat.is.available' => \App\Http\Middleware\API\CheckChatIsAvailable::class,
+        'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
         'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
 
         'game.exist' => \App\Http\Middleware\CheckGameExist::class,
@@ -83,9 +83,10 @@ class Kernel extends HttpKernel
         
         'post.exist' => \App\Http\Middleware\CheckPostExist::class,
 
-        'user.not.checkout' => \App\Http\Middleware\CheckUserDoesNotOwnCheckout::class,
         'user.exist' => \App\Http\Middleware\CheckUserExist::class,
         'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
+        'user.not.checkout' => \App\Http\Middleware\CheckUserDoesNotOwnCheckout::class,
         'user.role.is.user' => \App\Http\Middleware\CheckUserRoleIsUser::class,
+        'user.status' => \App\Http\Middleware\CheckUserStatus::class,
     ];
 }

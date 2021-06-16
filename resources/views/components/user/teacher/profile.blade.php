@@ -111,7 +111,7 @@
             <h3 class="color-white mb-8 px-8 xl:px-0 flex items-center">
                 <span class="mr-2 russo">Contenido</span>
                 @if (Auth::check() && Auth::user()->id_user === $user->id_user)
-                    <a href="/post/add" class="btn btn-icon btn-one p-2 rounded">
+                    <a href="/blog/post/create" class="btn btn-icon btn-one p-2 rounded">
                         <i class="fas fa-plus"></i>
                     </a>
                 @endif
