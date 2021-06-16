@@ -164,6 +164,10 @@ ul.teachers .image figure{
     border-radius: .25rem;
 }
 
+.video-section .services .service:hover h4{
+    color: var(--color-four);
+}
+
 .video-section .service:last-of-type {
     margin-bottom: 0;
 }
@@ -177,6 +181,10 @@ ul.teachers .image figure{
     margin-left: .7rem;
     height: 47px;
     width: 35px;
+}
+
+.video-section .services .service:hover svg .cls-1{
+    fill: var(--color-four);
 }
 
 /* buscador (usuarios) */
@@ -400,6 +408,7 @@ ul.teachers .image figure{
 .teachers .teacher:not(:last-child){
     margin-bottom: 2.5rem;
 }
+
 
 /* ? MD */
 @media(min-width: 768px){

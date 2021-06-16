@@ -13,11 +13,11 @@
 @endsection
 
 @section('main')
-    <main class="main">
+    <main class="main">        
         <header class="flex justify-center items-center pt-12">
             <h2 class="text-center color-white russo">Toma clases con <span class="color-four">profesionales</span></h2>
         </header>
-        
+           
         @component('components.game.list', [
             'games' => $games
         ])

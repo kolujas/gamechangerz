@@ -211,6 +211,14 @@
     -webkit-text-fill-color: transparent;
 }
 
+.teacher .tab-menu .tabs a.opened svg .cls-1{
+    fill: var(--color-four); 
+}
+
+.teacher .tab-menu .tabs a:not(.opened) svg .cls-1{
+    fill: var(--color-three); 
+}
+
 .teacher .tab-menu .tabs a > div {
     max-width: fit-content;
     text-align: center;

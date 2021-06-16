@@ -275,6 +275,10 @@
     margin-top: .5rem;
 }
 
+.user .reviews > ul > li svg{
+    width: 40px;
+}
+
 /* ? MD */
 @media (min-width: 768px) {
     .user .data .btn.btn-icon {

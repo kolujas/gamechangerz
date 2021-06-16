@@ -203,6 +203,10 @@
     opacity: 1;
 }
 
+#poll.modal .text-cards .text-card input:checked + label svg .cls-1{
+    fill: var(--color-four);
+}
+
 /* ? MD */
 @media(min-width: 768px){
     #poll.modal .modal-content {
