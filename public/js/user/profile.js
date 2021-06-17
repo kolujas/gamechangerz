@@ -1,9 +1,11 @@
+import { InputFileMaker as InputFileMakerJS } from "../../submodules/InputFileMakerJS/js/InputFileMaker.js";
 import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
 
 import Achievement from "../components/Achievement.js";
+import Asset from "../components/Asset.js";
 import Friend from "../components/Friend.js";
 import Game from "../components/Game.js";
 import Language from "../components/Language.js";
@@ -90,8 +92,44 @@ document.addEventListener('DOMContentLoaded', function (e) {
             function: setDefaultWidth,
         });
     }
+    
+    if (document.querySelector("form.user")) {
+        new InputFileMakerJS({
+            id: 'profile',
+            message: '',
+            button: '',
+            name: 'profile',
+            accept: ['image/jpeg', 'image/png'],
+            classes: {
+                input: ['form-input', 'update-input'],
+                message: ['hidden'],
+                button: ['update-input'],
+            },
+        }, {
+            generate: document.querySelector('form.user .profile-image'),
+            image: new Asset(((images.hasOwnProperty('profile')) ? `storage/${ images.profile }` : "img/resources/ProfileSVG.svg")).route,
+            disabled: true,
+        });
+        
+        new InputFileMakerJS({
+            id: 'banner',
+            message: '',
+            button: '',
+            name: 'banner',
+            accept: ['image/jpeg', 'image/png'],
+            classes: {
+                input: ['form-input', 'update-input'],
+                message: ['russo'],
+                button: ['update-input'],
+            },
+        }, {
+            generate: document.querySelector('.user .banner figure'),
+            image: new Asset(((images.hasOwnProperty('banner')) ? `storage/${ images.banner }` : "storage/web/01-banner.png")).route,
+            disabled: true,
+        });
+    }
 
-    if (document.querySelector(".teacher")) {
+    if (document.querySelector("form.teacher")) {
         let username_input = document.querySelector(".teacher .profile .info .username input");
         let username_text = document.querySelector(".teacher .profile .info .username span");
         username_text.innerHTML = username_input.value;
@@ -143,6 +181,41 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 }
             }
         }
+        
+        new InputFileMakerJS({
+            id: 'profile',
+            message: '',
+            button: '',
+            name: 'profile',
+            accept: ['image/png'],
+            classes: {
+                input: ['form-input', 'update-input'],
+                message: ['russo'],
+                image: ['absolute', 'profile'],
+                button: ['update-input'],
+            },
+        }, {
+            generate: document.querySelector('.teacher .banner figure'),
+            image: new Asset(`storage/${ images.profile }`).route,
+            disabled: true,
+        });
+        
+        new InputFileMakerJS({
+            id: 'teampro',
+            message: '',
+            button: '',
+            name: 'teampro',
+            accept: ['image/png'],
+            classes: {
+                input: ['form-input', 'update-input'],
+                message: ['hidden'],
+                button: ['update-input'],
+            },
+        }, {
+            generate: document.querySelector('.teacher .info .teampro figure'),
+            image: new Asset(`storage/${ images.teampro }`).route,
+            disabled: true,
+        });
     }
 
     if (document.querySelector('#lessons.modal')) {

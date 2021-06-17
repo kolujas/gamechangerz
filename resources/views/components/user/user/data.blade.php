@@ -1,14 +1,7 @@
 <div class="p-8">
     <header class="tag flex items-center">
         <div class="pr-4">
-            @if (isset($user->files['profile']))
-                <figure class="profile-image">
-                    <img src={{ asset("storage/" . $user->files['profile']) }} alt="{{ $user->username }} profile image">
-                </figure>
-            @endif
-            @if (!isset($user->files['profile']))
-                @component('components.svg.ProfileSVG')@endcomponent
-            @endif
+        <figure class="profile-image relative"></figure>
         </div>
         <div class="username">
             <h3 class="color-white mb-2 overpass"><input class="update-input form-input russo" placeholder="Apodo" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>

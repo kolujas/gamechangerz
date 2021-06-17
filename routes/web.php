@@ -4,6 +4,7 @@
     use App\Http\Controllers\DefaultController;
     use App\Http\Controllers\FriendshipController;
     use App\Http\Controllers\GameController;
+    use App\Http\Controllers\GoogleController;
     use App\Http\Controllers\LanguageController;
     use App\Http\Controllers\LessonController;
     use App\Http\Controllers\UserController;
@@ -44,9 +45,14 @@
         Route::get('/blog/{id_user}/{slug}', [BlogController::class, 'details'])->name('blog.details');
     });
 
-// ! FriendshipController - Controls the User Friends
+// ! FriendshipController - Controls the User Friends.
     Route::middleware(['user.exist', 'user.status', 'friendship.action.exist'])->group(function () {
         Route::get('/users/{slug}/friendship/{action}', [FriendshipController::class, 'call'])->name('friendship.call');
+    });
+
+// ! GoogleController - Controls the Google pages.
+    Route::middleware('auth.custom')->group(function () {
+        Route::get('/google/oauth', [GoogleController::class, 'store'])->name('google.store');
     });
 
 // ! LessonController - Controls the Lessom pages.
@@ -63,7 +69,7 @@
     Route::get('/users', [UserController::class, 'search'])->name('user.searchUsers');
     Route::get('/teachers', [UserController::class, 'search'])->name('user.searchTeachers');
     Route::middleware(['user.exist', 'user.status'])->group(function () {
-        Route::middleware('auth.custom')->group(function () {
+        Route::middleware(['auth.custom', 'auth.is.user'])->group(function () {
             Route::post('/users/{slug}/update', [UserController::class, 'update'])->name('user.update');
         });
         Route::get('/users/{slug}/profile', [UserController::class, 'profile'])->name('user.profile');

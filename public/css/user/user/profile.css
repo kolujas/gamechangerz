@@ -1,7 +1,60 @@
-.user .banner img {
+.user .banner figure .input-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 60vh;
     object-fit: cover;
+}
+
+.user .banner figure input:disabled ~ :where(.input-message, .support, .input-button) {
+    display: none;
+}
+
+.user .banner figure .input-button {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: calc(100% - 4rem);
+    height: calc(60vh - 4rem);
+    border-radius: .25rem;
+    border: 2px solid var(--color-grey);
+    opacity: .5;
+}
+
+.user .banner figure .input-message {
+    font-size: 1.5rem;
+}
+
+.user .banner figure :where(.input-message, .support) {
+    position: absolute;
+    left: 50%;
+    bottom: calc(2rem + 2px);
+    transform: translateX(-50%);
+    color: var(--color-grey);
+    z-index: 3;
+    opacity: .5;
+    text-shadow: var(--color-one) 3px 0px 0px, var(--color-one) 2.83487px 0.981584px 0px, var(--color-one) 2.35766px 1.85511px 0px, var(--color-one) 1.62091px 2.52441px 0px, var(--color-one) 0.705713px 2.91581px 0px, var(--color-one) -0.287171px 2.98622px 0px, var(--color-one) -1.24844px 2.72789px 0px, var(--color-one) -2.07227px 2.16926px 0px, var(--color-one) -2.66798px 1.37182px 0px, var(--color-one) -2.96998px 0.42336px 0px, var(--color-one) -2.94502px -0.571704px 0px, var(--color-one) -2.59586px -1.50383px 0px, var(--color-one) -1.96093px -2.27041px 0px, var(--color-one) -1.11013px -2.78704px 0px, var(--color-one) -0.137119px -2.99686px 0px, var(--color-one) 0.850987px -2.87677px 0px, var(--color-one) 1.74541px -2.43999px 0px, var(--color-one) 2.44769px -1.73459px 0px, var(--color-one) 2.88051px -0.838247px 0px;
+}
+
+.user .banner figure .support {
+    bottom: -9rem;
+    opacity: 1;
+    height: 2rem;
+    line-height: 2rem;
+    display: block;
+}
+
+.user .banner figure :where(.input-button, .input-message) {
+    transition: 500ms;
+}
+
+.user .banner figure:hover :where(.input-button, .input-message) {
+    opacity: 1;
+}
+
+.user .profile-image input:disabled ~ :where(.input-message, .support, .input-button) {
+    display: none;
 }
 
 .user .banner .actions {
@@ -12,6 +65,37 @@
 
 .user .data {
     border-radius: .25rem;
+}
+
+.user .profile-image .input-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100vh;
+    border: 2px solid var(--color-grey);
+    opacity: .5;
+    transition: 500ms;
+    z-index: 2;
+}
+
+.user .profile-image:hover .input-button {
+    opacity: 1;
+}
+
+.user .profile-image input:disabled ~ :where(.input-message, .support, .input-button) {
+    display: none;
+}
+
+.user .profile-image .input-message {
+    display: none;
+}
+
+.user .profile-image .input-image {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .user > .abilities li > div {
@@ -74,6 +158,8 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    background-color: var(--color-black);
+    border-radius: 100vh;
 }
 
 .user .data .tag .teammate span {

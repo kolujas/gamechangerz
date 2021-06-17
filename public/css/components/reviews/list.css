@@ -71,6 +71,7 @@ ul.reviews li div div div div svg {
         height: 100%;
         z-index: 1;
         pointer-events: none;
+        z-index: 2;
     }
 
     ul.reviews.cards::before {

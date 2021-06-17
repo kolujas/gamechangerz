@@ -34,7 +34,12 @@
 
             Auth::attempt(['password' => $user->password, 'email' => $user->email], true);
 
-            return redirect("/users/$user->slug/profile");
+            // if (config('app.env') === 'local') {
+                return redirect("/users/$user->slug/profile");
+            // }
+
+            // $google = new Google();
+            // return redirect($google->createAuthUrl());
         }
 
         /**

@@ -61,7 +61,7 @@
                 }
                 Auth::logout();
             }
-            if (Auth::user()->status === 200) {
+            if (Auth::user()->status === 2) {
                 $user = Auth::user();
                 $token = $user->createToken('Personal Access Token')->accessToken;
 

@@ -5,6 +5,7 @@
 @endsection
 
 @section('css')
+    <link rel="stylesheet" href={{ asset('submodules/InputFileMakerJS/css/styles.css') }}>
     <link rel="stylesheet" href={{ asset('css/user/profile.css') }}>
 @endsection
 
@@ -64,5 +65,13 @@
 @endsection
 
 @section('js')
+    <script>
+        @if ($user->id_role === 0)
+            const images = @json($user->files);
+        @endif
+        @if ($user->id_role === 1)
+            const images = @json($user->files);
+        @endif
+    </script>
     <script type="module" src={{ asset('js/user/profile.js') }}></script>
 @endsection

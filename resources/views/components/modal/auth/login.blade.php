@@ -9,7 +9,7 @@
             <h2 class="color-four text-center russo xl:text-lg">Iniciar sesión</h2>
         </header>
         <label class="input-group grid mb-6">
-            <input class="form-input px-5 py-4 overpass" type="text" name="login_data" id="login_data" placeholder="Email" value={{ old('login_data', '') }}>
+            <input class="form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email" value={{ old('login_data', '') }}>
             @if ($errors->has('login_data'))
                 <span class="error support support-box hidden support-login_data overpass">{{ $errors->first('login_data') }}</span>
             @else
@@ -18,7 +18,7 @@
         </label>
         <label class="input-group grid mb-8">
             <div class="flex justify-between">
-                <input class="form-input px-5 py-4 overpass" type="password" name="login_password" id="login_password" placeholder="Contraseña">
+                <input class="form-input px-5 py-4 overpass" type="password" tabindex="2" name="login_password" id="login_password" placeholder="Contraseña">
                 <button class="seePassword input-login_password">
                     <i class="fas fa-eye"></i>
                 </button>
@@ -31,7 +31,7 @@
         </label>
         <div class="submit-group">
             <label class="text-white input-option flex mb-6">
-                <input class="overpass" type="checkbox" name="login_remember">
+                <input class="overpass" type="checkbox" tabindex="3" name="login_remember">
                 <div class="input-box mr-2"></div>
                 <div class="input-text">
                     <span class="overpass">Recuerdame</span>

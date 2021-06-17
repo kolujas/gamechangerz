@@ -31,7 +31,11 @@
                     <span>{{ old('teampro_name', $user->teampro->name) }}</span>
                 </div>
                 <figure>
-                    <img src={{ asset("storage/" . $user->teampro->logo) }} alt="{{ $user->teampro->name }} logo"/>
+                    @if ($errors->has('profile'))
+                        <span class="error support support-box hidden support-profile russo">{{ $errors->first('profile') }}</span>
+                    @else
+                        <span class="error support support-box hidden support-profile russo"></span>
+                    @endif
                 </figure>
             </div>
         </section>

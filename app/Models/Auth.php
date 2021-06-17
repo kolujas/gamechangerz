@@ -17,7 +17,7 @@
             ]]], 'signin' => [
                 'rules' => [
                     'username' => 'required|unique:users',
-                    'email' => 'required|email|unique:users',
+                    'email' => 'required|email|unique:users|regex:/^[a-z]*@gmail\.com(\.[a-z]*)?$/i',
                     'password' => 'required|confirmed',
                     'date' => 'nullable|date',
                     'language' => 'required',
@@ -27,8 +27,9 @@
                         'username.required' => 'El apodo es obligatorio.',
                         'username.unique' => 'Ese apodo ya se encuentra en uso.',
                         'email.required' => 'El correo es obligatorio.',
-                        'email.email' => 'El correo debe ser formato mail (ejemplo@correo.com).',
+                        'email.email' => 'El correo debe ser formato mail (ejemplo@gmail.com).',
                         'email.unique' => 'Ese correo ya se encuentra en uso.',
+                        'email.regex' => 'El correo debe ser gmail (ejemplo@gmail.com).',
                         'password.required' => 'La contraseña es obligatoria.',
                         'password.confirmed' => 'Las contraseñas no coinciden.',
                         'date.date' => 'La fecha de nacimiento debe ser formato fecha (2021-01-01).',

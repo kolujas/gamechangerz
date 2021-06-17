@@ -10,24 +10,18 @@
     use MercadoPago\SDK;
 
     class MercadoPago {
-        public $preference;
-
-        /**
-         * * Creates an instance of MercadoPago.
-         * @param array $attributes
-         */
-        public function __construct (array $attributes = array()) {
-            parent::__construct($attributes);
-
-            // * Set the MercadoPago access token
-            SDK::setAccessToken(config("services.mercadopago.token"));
+        static public function createPreference ($data) {
+            if (config('app.env') === 'production') {
+                // * Set the MercadoPago access token
+                SDK::setAccessToken(config("services.mercadopago.token"));
+            }
+            if (config('app.env') !== 'production') {
+                // * Set the MercadoPago sandbox access token
+                SDK::setAccessToken(config("services.mercadopago.sandbox.token"));
+            }
 
             // * Create a Preference
-            $this->preference = new Preference();
-        }
-
-        static public function createPreference ($data) {
-            $instance = new this();
+            $preference = new Preference();
 
             // * Set the Preference Item
             $item = new Item();
@@ -37,10 +31,10 @@
             $item->currency_id = 'ARS';
             $item->unit_price = $data->price;
 
-            $instance->preference->items = [$item];
+            $preference->items = [$item];
 
             // * Set the Preference URLs
-            $instance->preference->back_urls = [
+            $preference->back_urls = [
                 "success" => route('lesson.checkout.status', [
                     'id_lesson' => $data->id,
                     'status' => 2,
@@ -54,16 +48,22 @@
                     'status' => 0,
                 ]),
             ];
-            $instance->preference->auto_return = "approved";
+            $preference->auto_return = "approved";
 
             // * Save & send the Preference init point
-            $instance->preference->save();
-            return $instance->preference->init_point;
+            $preference->save();
+            return $preference->init_point;
         }
 
         static public function getDataID ($id) {
-            // * Set the MercadoPago access token
-            SDK::setAccessToken(config("services.mercadopago.token"));
+            if (config('app.env') === 'production') {
+                // * Set the MercadoPago access token
+                SDK::setAccessToken(config("services.mercadopago.token"));
+            }
+            if (config('app.env') !== 'production') {
+                // * Set the MercadoPago sandbox access token
+                SDK::setAccessToken(config("services.mercadopago.sandbox.token"));
+            }
 
             // * Get the Merchant order
             $merchant_order = null;

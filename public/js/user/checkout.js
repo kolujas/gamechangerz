@@ -46,13 +46,13 @@ function parseDate (date) {
 }
 
 function saveHour (params, hour) {
-    console.log('new hour');
+    // console.log('new hour');
     let input = hours.shift();
-    console.log({
-        index: (input.hasAttribute('data-index') ? input.dataset.index : undefined),
-        date: (input.hasAttribute('data-date') ? input.dataset.date : undefined),
-    });
-    console.log('to');
+    // console.log({
+    //     index: (input.hasAttribute('data-index') ? input.dataset.index : undefined),
+    //     date: (input.hasAttribute('data-date') ? input.dataset.date : undefined),
+    // });
+    // console.log('to');
     if (input.hasAttribute('data-index')) {
         if (document.querySelectorAll('ul.hours input').length) {
             for (const html of document.querySelectorAll('ul.hours input')) {
@@ -73,12 +73,13 @@ function saveHour (params, hour) {
     }
     input.dataset.index = index;
     input.value = hour.id_hour;
+    input.checked = true;
     hours.push(input);
-    console.log({
-        index: index,
-        date: params.clicked.date,
-        input: params.clicked.input,
-    });
+    // console.log({
+    //     index: index,
+    //     date: params.clicked.date,
+    //     input: params.clicked.input,
+    // });
     let hourValues = [];
     for (const hour of hours) {
         if (hour.value) {
@@ -88,16 +89,16 @@ function saveHour (params, hour) {
             });
         }
     }
-    console.log('hours');
-    console.log([...hourValues]);
-    console.log('indexes');
-    console.log([...calendar.props.selectedIndex]);
+    // console.log('hours');
+    // console.log([...hourValues]);
+    // console.log('indexes');
+    // console.log([...calendar.props.selectedIndex]);
     checkDates(params);
     addDay(params.clicked.date);
 }
 
 function addDate (params) {
-    console.log('add date');
+    // console.log('add date');
     let date = calendar.htmls.shift();
     date.value = hours[hours.length - 1].dataset.date;
     calendar.htmls.push(date);
@@ -112,7 +113,7 @@ function addDate (params) {
         date: date.value,
         input: params.clicked.input,
     }
-    console.log(selected);
+    // console.log(selected);
     if (calendar.props.selectedIndex.length === calendar.props.quantity) {
         calendar.props.selectedIndex.shift();
     }
@@ -126,21 +127,21 @@ function addDate (params) {
             });
         }
     }
-    console.log('hours');
-    console.log([...hourValues]);
-    console.log('indexes');
-    console.log([...calendar.props.selectedIndex]);
+    // console.log('hours');
+    // console.log([...hourValues]);
+    // console.log('indexes');
+    // console.log([...calendar.props.selectedIndex]);
     addDay(params.clicked.date);
 }
 
 function removeDay (date) {
-    console.log('remove day');
+    // console.log('remove day');
     for (const day of calendar.days) {
         if (day.dataset.date === date) {
             if (day.classList.contains('withDate')) {
                 day.classList.remove('withDate');
             }
-            console.log(day);
+            // console.log(day);
             day.checked = false;
             break;
         }
@@ -148,7 +149,7 @@ function removeDay (date) {
 }
 
 function addDay (date) {
-    console.log('add day');
+    // console.log('add day');
     let hourValues = [];
     for (const hour of hours) {
         if (hour.value) {
@@ -167,7 +168,7 @@ function addDay (date) {
                     }
                 }
             }
-            console.log(day);
+            // console.log(day);
             day.checked = true;
             break;
         }
@@ -190,8 +191,8 @@ function removeDate (params) {
     let remove = 0, selected;
     for (const key of keys) {
         selected = calendar.props.selectedIndex.splice((key - remove), 1)[0];
-        console.log('remove date');
-        console.log(selected);
+        // console.log('remove date');
+        // console.log(selected);
         for (const html of [...calendar.htmls]) {
             if (html.value === selected.date) {
                 let date = calendar.htmls.splice((key - remove), 1)[0];
@@ -244,8 +245,8 @@ function checkDates (params) {
 }
 
 function removeHour (selected) {
-    console.log('remove hour');
-    console.log(selected);
+    // console.log('remove hour');
+    // console.log(selected);
     let hour, keys = [];
     for (const key in [...hours]) {
         if (Object.hasOwnProperty.call(hours, key)) {
@@ -264,6 +265,7 @@ function removeHour (selected) {
     hour.value = null;
     hour.removeAttribute('data-date');
     hour.removeAttribute('data-index');
+    hour.checked = false;
     hours.unshift(hour);
     let hourValues = [];
     for (const hour of hours) {
@@ -274,10 +276,10 @@ function removeHour (selected) {
             });
         }
     }
-    console.log('hours');
-    console.log([...hourValues]);
-    console.log('indexes');
-    console.log([...calendar.props.selectedIndex]);
+    // console.log('hours');
+    // console.log([...hourValues]);
+    // console.log('indexes');
+    // console.log([...calendar.props.selectedIndex]);
     let found = false;
     for (const hour of hours) {
         if (hour.dataset.date === selected.date) {
@@ -334,7 +336,7 @@ function sort () {
 }
 
 function orderHours (params) {
-    console.log('order hours');
+    // console.log('order hours');
     hours.sort(sort());
     let hourValues = [];
     for (const hour of hours) {
@@ -346,10 +348,10 @@ function orderHours (params) {
             });
         }
     }
-    console.log('hours');
-    console.log([...hourValues]);
-    console.log('indexes');
-    console.log([...calendar.props.selectedIndex]);
+    // console.log('hours');
+    // console.log([...hourValues]);
+    // console.log('indexes');
+    // console.log([...calendar.props.selectedIndex]);
 }
 
 function checkHours (params) {

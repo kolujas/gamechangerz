@@ -3,6 +3,7 @@
 
     use App\Models\Auth as AuthModel;
     use App\Models\Assigment;
+    use App\Models\Event;
     use App\Models\Hour;
     use App\Models\Lesson;
     use App\Models\MercadoPago;
@@ -28,10 +29,8 @@
 
             $validator = Validator::make($request->all(), Lesson::$validation['checkout']['online']['rules'], Lesson::$validation['checkout']['online']['messages']['es']);
             if ($validator->fails()) {
-                // dd($validator->errors()->messages());
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-            dd($input);
 
             $days = collect([]);
             for ($i=0; $i < count($input->dates); $i++) {
@@ -69,20 +68,23 @@
 
             $input->days = json_encode($days);
             $input->id_type = $type->id_type;
-            // foreach ($input->dates as $key => $date) {
-            //     $data = (object) [];
-            //     $data->users = [
-            //         'from' => $user,
-            //         'to' => Auth::user(),
-            //     ];
-            //     $data->name = ($type->id_type === 3 ? "4 Clases" : "1 Clase") . ($type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users['from']->username;
-            //     $data->description = "Clase reservada desde el sitio web GameChangerZ";
-            //     $data->startDateTime = new Carbon($date."T".Hour::one($input->hours[$key])->from);
-            //     $data->endDateTime = new Carbon($date."T".Hour::one($input->hours[$key])->to);
-
-            //     Lesson::setEvent($data);
-            // }
-            
+            if (config('app.env') !== 'local') {
+                if ($type->id_type === 1 || $type->id_type === 3) {
+                    foreach ($input->dates as $key => $date) {
+                        $data = (object) [];
+                        $data->users = [
+                            'from' => $user,
+                            'to' => Auth::user(),
+                        ];
+                        $data->name = ($type->id_type === 3 ? "4 Clases" : "1 Clase") . ($type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users['from']->username;
+                        $data->description = "Clase reservada desde el sitio web GameChangerZ";
+                        $data->startDateTime = new Carbon($date."T".Hour::one($input->hours[$key])->from);
+                        $data->endDateTime = new Carbon($date."T".Hour::one($input->hours[$key])->to);
+        
+                        Event::Create($data);
+                    }
+                }
+            }
             $lesson = Lesson::create((array) $input);
 
             switch ($input->method) {
@@ -115,10 +117,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -131,10 +133,11 @@
 
             $status = MercadoPago::getStatus($_GET["topic"], $_GET["id"]);
             
-            if ($status === 200) {
-                $id_lesson = MercadoPago::getDataID($_GET["id"]);
-                $lesson
-                return response([], 200);
-            }
+            dd($status);
+            // if ($status === 200) {
+                // $id_lesson = MercadoPago::getDataID($_GET["id"]);
+                // $lesson
+                // return response([], 200);
+            // }
         }
     }

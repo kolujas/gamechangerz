@@ -2,16 +2,13 @@
     @csrf
     @method('POST')
     <section class="banner relative lg:col-span-3 xl:col-span-10">
-        @if (isset($user->files['banner']))
-            <figure>
-                <img src={{ asset("storage/" . $user->files['banner']) }} alt="{{ $user->username }} banner">
-            </figure>
-        @endif
-        @if (!isset($user->files['banner']))
-            <figure>
-                <img src={{ asset("storage/web/01-banner.png") }} alt="Advertising banner">
-            </figure>
-        @endif
+        <figure>
+            @if ($errors->has('banner'))
+                <span class="error support support-box hidden support-banner russo">{{ $errors->first('banner') }}</span>
+            @else
+                <span class="error support support-box hidden support-banner russo"></span>
+            @endif
+        </figure>
         @if (Auth::check() && Auth::user()->id_user === $user->id_user)
             <div class="actions">
                 <a href="#update" class="update-button btn btn-icon btn-one p-2 mb-2">

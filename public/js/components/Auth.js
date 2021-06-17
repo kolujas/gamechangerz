@@ -24,22 +24,22 @@ export class Auth extends Class {
                 });
             }
         }
-        document.querySelector(`#auth.modal .modal-content #login [type=submit]`).addEventListener('click', function (e) {
-            e.preventDefault();
-            Auth.submitForm('login');
-        });
-        document.querySelector(`#auth.modal .modal-content #login`).addEventListener('submit', function (e) {
-            e.preventDefault();
-            Auth.submitForm('login');
-        });
-        document.querySelector(`#auth.modal .modal-content #signin [type=submit]`).addEventListener('click', function (e) {
-            e.preventDefault();
-            Auth.submitForm('signin');
-        });
-        document.querySelector(`#auth.modal .modal-content #signin`).addEventListener('submit', function (e) {
-            e.preventDefault();
-            Auth.submitForm('signin');
-        });
+        // document.querySelector(`#auth.modal .modal-content #login [type=submit]`).addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     Auth.submitForm('login');
+        // });
+        // document.querySelector(`#auth.modal .modal-content #login`).addEventListener('submit', function (e) {
+        //     e.preventDefault();
+        //     Auth.submitForm('login');
+        // });
+        // document.querySelector(`#auth.modal .modal-content #signin [type=submit]`).addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     Auth.submitForm('signin');
+        // });
+        // document.querySelector(`#auth.modal .modal-content #signin`).addEventListener('submit', function (e) {
+        //     e.preventDefault();
+        //     Auth.submitForm('signin');
+        // });
     }
 
     static setModalJS () {
@@ -60,7 +60,12 @@ export class Auth extends Class {
                 messages: validation.login.messages,
             }, {
                 submit: false,
-            });
+            }, {
+                submit: {
+                    function: this.submit,
+                    params: {
+                        section: 'login',
+            }}});
         } else {
             console.error(`validation.login does not exist`);
         }
@@ -71,7 +76,12 @@ export class Auth extends Class {
                 messages: validation.signin.messages,
             }, {
                 submit: false,
-            });
+            }, {
+                submit: {
+                    function: this.submit,
+                    params: {
+                        section: 'signin',
+            }}});
         } else {
             console.error(`validation.signin does not exist`);
         }
@@ -84,35 +94,33 @@ export class Auth extends Class {
         document.querySelector(`#auth.modal .modal-content #${ (section === 'login' ? 'signin' : 'login') }`).classList.add('hidden');
     }
 
-    static async submitForm (section) {
-        if (!validation[section].ValidationJS.form.html.classList.contains('invalid')) {
-            let formData = new FormData(validation[section].ValidationJS.form.html);
-            let token = formData.get('_token');
-            formData.delete('_token');
-            let query = await Fetch.send({
-                method: 'POST',
-                url: `/api/${ section }`,
-            }, {
-                'Accept': 'application/json',
-                'Content-type': 'application/json; charset=UTF-8',
-                'X-CSRF-TOKEN': token,
-            }, formData);
-            if (query.response.code === 200) {
-                Token.save(query.response.data.token);
-                validation[section].ValidationJS.form.html.submit();
-            }
-            if (query.response.code !== 200) {
-                new NotificationJS(query.response, {
-                    open: true,
-                });
-                for (const key in query.response.data.errors) {
-                    if (Object.hasOwnProperty.call(query.response.data.errors, key)) {
-                        const errors = query.response.data.errors[key];
-                        let span = document.querySelector(`form#${ section } .support-${ section }_${ key }`);
-                        for (const error of errors) {
-                            span.innerHTML = error;
-                            span.classList.remove('hidden');
-                        }
+    static async submit (params = []) {
+        let formData = new FormData(params.form.html);
+        let token = formData.get('_token');
+        formData.delete('_token');
+        let query = await Fetch.send({
+            method: 'POST',
+            url: `/api/${ params.section }`,
+        }, {
+            'Accept': 'application/json',
+            'Content-type': 'application/json; charset=UTF-8',
+            'X-CSRF-TOKEN': token,
+        }, formData);
+        if (query.response.code === 200) {
+            Token.save(query.response.data.token);
+            params.form.html.submit();
+        }
+        if (query.response.code !== 200) {
+            new NotificationJS(query.response, {
+                open: true,
+            });
+            for (const key in query.response.data.errors) {
+                if (Object.hasOwnProperty.call(query.response.data.errors, key)) {
+                    const errors = query.response.data.errors[key];
+                    let span = document.querySelector(`form#${ params.section } .support-${ params.section }_${ key }`);
+                    for (const error of errors) {
+                        span.innerHTML = error;
+                        span.classList.remove('hidden');
                     }
                 }
             }

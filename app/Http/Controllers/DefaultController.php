@@ -5,6 +5,7 @@
     use App\Models\Assigment;
     use App\Models\Auth as AuthModel;
     use App\Models\Game;
+    use App\Models\Google;
     use App\Models\Post;
     use App\Models\User;
     use Illuminate\Http\Request;
@@ -29,10 +30,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -54,10 +55,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -100,10 +101,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -130,10 +131,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -155,10 +156,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -180,10 +181,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
@@ -205,10 +206,10 @@
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => AuthModel::$validation['login']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => AuthModel::$validation['signin']['messages']['es'],
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
