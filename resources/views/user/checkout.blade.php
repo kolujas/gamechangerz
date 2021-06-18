@@ -73,7 +73,7 @@
                         <a href="#mercadopago" class="tab-button color-white">
                             <input type="radio" name="method" id="input-mercadopago" value="mercadopago" checked />
                             <label for="input-mercadopago" class="p-8">
-                                @component('components.svg.ClaseOnline2SVG')@endcomponent
+                                @component('components.svg.MercadoPagoSVG')@endcomponent
                                 <h4 class="pl-4 overpass">Mercado pago</h4>
                             </label>
                         </a>
@@ -82,7 +82,7 @@
                         <a href="#paypal" class="tab-button color-white">
                             <input type="radio" name="method" id="input-paypal" value="paypal" />
                             <label for="input-paypal" class="p-8">
-                                @component('components.svg.ClaseOnline2SVG')@endcomponent
+                                @component('components.svg.PayPalSVG')@endcomponent
                                 <h4 class="pl-4 overpass">Paypal</h4>
                             </label>
                         </a>

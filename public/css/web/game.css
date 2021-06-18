@@ -114,8 +114,15 @@ ul.teachers .image figure{
     object-position: left;
 }
 
+.video-section{
+    background-image: url("/img/02-background.png");
+    background-size: cover;
+    background-position: top right;
+    margin: 0;
+}
+
 .video-section header figure{
-    width: 3rem;
+    width: 7rem;
     height: 100%;
 }
 
@@ -255,6 +262,13 @@ ul.teachers .image figure{
     color: var(--color-grey);
 }
 
+.profesores-destacados{
+    background-image: url("/img/02-background.png");
+    background-size: cover;
+    background-position: top right;
+    margin: 0;
+}
+
 .teachers .teacher {
     position: relative;
     border-radius: .25rem;
@@ -287,7 +301,7 @@ ul.teachers .image figure{
 .aside {
     background: url('../../storage/web/01-banner.png') no-repeat center center;
     background-size: cover;
-    min-height: 20rem;
+    height: 60vh;
     width: 100%;
 }
 
@@ -407,6 +421,17 @@ ul.teachers .image figure{
 
 .teachers .teacher:not(:last-child){
     margin-bottom: 2.5rem;
+}
+
+.posts{
+    background-image: url("/img/02-background.png");
+    background-size: cover;
+    background-position: top right;
+    margin: 0;
+}
+
+.posts h3{
+    padding-top: 6rem;
 }
 
 

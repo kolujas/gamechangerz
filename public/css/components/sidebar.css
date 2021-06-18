@@ -1,6 +1,6 @@
 .sidebar .sidebar-header,
 .sidebar .sidebar-footer {
-    border-color: var(--color-four);
+    height: fit-content;
 }
 
 .sidebar .sidebar-header .sidebar-title {
@@ -19,6 +19,14 @@
 
 .sidebar .sidebar-footer .sidebar-footer-menu-list {
     justify-content: flex-end;
+}
+
+.sidebar-content nav{
+    width: 25%;
+}
+
+.sidebar .sidebar-header{
+    padding: 0 2rem;
 }
 
 /* ? MD */

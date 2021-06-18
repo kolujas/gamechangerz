@@ -184,6 +184,7 @@
     transition: background 500ms;
     text-transform: uppercase;
     border-radius: .25rem;
+    height: 8rem;
 }
 
 .methods .card a label::before {
@@ -210,6 +211,7 @@
 
 .methods svg {
     width: 4rem;
+    height: fit-content;
 }
 
 .btn.btn-outline.btn-white {

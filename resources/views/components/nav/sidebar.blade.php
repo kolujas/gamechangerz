@@ -1,5 +1,8 @@
 <div id="menu" class="sidebar left closed push-body">
-    <div class="sidebar-header grid items-center justify-between">
+    <div class="sidebar-header grid items-center justify-between flex-wrap">
+        <figure class="w-full flex justify-center">
+            <img class="my-8 w-32" src={{ asset("/img/logos/008-isologo_original_solido.png")}} alt="Logo solido de GCZ">
+        </figure>
         @if (Auth::check())
             <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-title grid grid-cols-3 items-center">
                 <div class="pr-2">
@@ -41,7 +44,7 @@
         @endif
     </div>
 
-    <div class="sidebar-content">
+    <div class="sidebar-content px-4">
         <ul class="sidebar-menu-list">
             @if (Auth::check())
                 @if (Auth::user()->credits)
@@ -75,9 +78,36 @@
                 </li>
             @endif
         </ul>
+
+        <nav class="grid grid-cols-2 items-center py-8">
+            <h4 class="col-span-3 font-bold pb-4 pl-5 color-white">Redes</h4>
+            <ul class="col-start-1">
+                <li class="my-4 pl-4">
+                    <a href="#">@component('components.svg.TwSVG')@endcomponent</a>
+                </li>
+                <li class="my-4 pl-4">
+                    <a href="#">@component('components.svg.TwitchSVG')@endcomponent</a>
+                </li>
+                <li class="my-4 pl-4">
+                    <a href="#">@component('components.svg.IgSVG')@endcomponent</a>
+                </li>
+            </ul>
+            <ul> 
+                <li class="my-4 pl-4">
+                    <a href="#">@component('components.svg.FbSVG')@endcomponent</a>
+                </li>
+                <li class="my-4 pl-4">
+                    <a href="#">@component('components.svg.YtSVG')@endcomponent</a>
+                </li>
+                <li class="my-4 pl-4">
+                    <a href="#">@component('components.svg.WppSVG')@endcomponent</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-    <div class="sidebar-footer">
+   
+    {{-- <div class="sidebar-footer">
         <ul class="sidebar-footer-menu-list">
             <li>
                 <a href="#" class="sidebar-footer-link nav-link p-0 mr-4">
@@ -90,5 +120,5 @@
                 </a>
             </li>
         </ul>
-    </div>
+    </div> --}}
 </div>
