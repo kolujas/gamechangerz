@@ -433,14 +433,16 @@
                     'rules' => [
                         'username' => 'required|unique:users,username,{id_user},id_user|max:25',
                         'name' => 'max:25',
-                        // 'profile' => 'mimetype:image/png,image/jpeg',
-                        // 'banner' => 'mimetype:image/png,image/jpeg',
+                        'profile' => 'mimetypes:image/png,image/jpeg',
+                        'banner' => 'mimetypes:image/png,image/jpeg',
                     ], 'messages' => [
                         'es' => [
                             'username.required' => 'El apodo es obligatorio.',
                             'username.unique' => 'Ese apodo ya esta en uso.',
                             'username.max' => 'El apodo no puede tener más de :max caracteres.',
                             'name.max' => 'El nombre no puede tener más de :max caracteres.',
+                            'profile.mimetypes' => 'La foto de perfil debe ser una imagen .jpeg/jpg o .png',
+                            'banner.mimetypes' => 'La foto del banner debe ser una imagen .jpeg/jpg o .png',
             ]]]], 'teacher' => [
                 'update' => [
                     'rules' => [
@@ -448,7 +450,8 @@
                         'name' => 'required|max:25',
                         'description' => 'max:255',
                         'teampro_name' => 'required|max:25',
-                        // 'teampro_logo' => 'required|mimetype:image/png,image/jpeg',
+                        'teampro_logo' => 'required|mimetypes:image/png',
+                        'profile' => 'mimetypes:image/png',
                         // 'prices' => 'required',
                         // 'hours' => 'required',
                     ], 'messages' => [
@@ -461,6 +464,8 @@
                             'description.max' => 'La descripción no puede tener más de :max caracteres.',
                             'teampro_name.required' => 'El nombre de tu equipo es obligatorio.',
                             'teampro_name.max' => 'El nombre de tu equipo no puede tener más de :max caracteres.',
+                            'teampro_logo.mimetypes' => 'La foto de tu equipo debe ser una imagen .png',
+                            'profile.mimetypes' => 'La foto de perfil debe ser una imagen .png',
         ]]]]];
 
         /**

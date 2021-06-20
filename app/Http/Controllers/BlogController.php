@@ -18,8 +18,9 @@
                 $error = (object) $request->session()->pull('error');
                 // dd($error)
             }
-            return view('blog.create', [
+            return view('blog.details', [
                 'error' => $error,
+                'post' => false,
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),

@@ -85,6 +85,7 @@
 
 .teacher .info .teampro figure .input-image {
     position: inherit;
+    z-index: 1;
 }
 
 .teacher .info .teampro figure .input-button {

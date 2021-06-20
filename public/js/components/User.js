@@ -1,9 +1,27 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
 
 import Asset from "./Asset.js";
 import Game from "./Game.js";
 
 export class User extends Class {
+    static setValidationJS (params = {}) {
+        if (validation.hasOwnProperty('update')) {
+            console.log(validation.update);
+            validation.update.ValidationJS = new ValidationJS({
+                id: 'update-form',
+                rules: validation.update.rules,
+                messages: validation.update.messages,
+            }, {}, {
+                invalid: {
+                    function: params.function,
+                    params: params.params,
+            }});
+        } else {
+            console.error(`validation.update does not exist`);
+        }
+    }
+
     static user (data) {
         let item = document.createElement('li');
         item.classList.add("p-4", "flex", "justify-between", "items-center", "gap-4", "lg:col-span-8", "lg:col-start-2", "degradado");

@@ -28,15 +28,10 @@
     </section>
     
     <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4">
-        <section class="lg:col-span-2 xl:col-span-6 px-8 lg:pr-0 xl:px-0">
+        <section class="lg:col-span-2 xl:col-span-6 lg:pr-0 xl:px-0">
             @if (isset($user->files['banner']))
-                <figure class="flex justify-center mb-4 lg:mb-4 lg:mb-0 relative">
+                <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mb-0 relative">
                     <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
-                    @if ($errors->has('profile'))
-                        <span class="error support support-box hidden support-profile russo">{{ $errors->first('profile') }}</span>
-                    @else
-                        <span class="error support support-box hidden support-profile russo"></span>
-                    @endif
                 </figure>
             @endif
             @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)

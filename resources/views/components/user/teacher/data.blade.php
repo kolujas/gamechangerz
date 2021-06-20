@@ -30,13 +30,7 @@
                     <input name="teampro_name" disabled placeholder="Nombre" class="form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
                     <span>{{ old('teampro_name', $user->teampro->name) }}</span>
                 </div>
-                <figure>
-                    @if ($errors->has('profile'))
-                        <span class="error support support-box hidden support-profile russo">{{ $errors->first('profile') }}</span>
-                    @else
-                        <span class="error support support-box hidden support-profile russo"></span>
-                    @endif
-                </figure>
+                <figure></figure>
             </div>
         </section>
 

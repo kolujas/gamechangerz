@@ -16,10 +16,3 @@ new InputFileMakerJS({
     generate: document.querySelector('header.image .background'),
     image: new Asset("img/01-background.png").route,
 });
-// InlineEditor.create( document.querySelector( '#editor' ) )
-//     .then( editor => {
-//         console.log( editor );
-//     } )
-//     .catch( error => {
-//         console.error( error );
-//     } );

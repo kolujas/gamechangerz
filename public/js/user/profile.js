@@ -2,7 +2,6 @@ import { InputFileMaker as InputFileMakerJS } from "../../submodules/InputFileMa
 import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
 
 import Achievement from "../components/Achievement.js";
 import Asset from "../components/Asset.js";
@@ -10,6 +9,7 @@ import Friend from "../components/Friend.js";
 import Game from "../components/Game.js";
 import Language from "../components/Language.js";
 import Lesson from "../components/Lesson.js";
+import User from "../components/User.js";
 
 function setDefaultWidth (params) {
     let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
@@ -37,7 +37,8 @@ function createErrorNotification (params) {
         if (Object.hasOwnProperty.call(params.errors, target)) {
             const errors = params.errors[target];
             for (const error of errors) {
-                new NotificationJS({
+                let index = document.querySelectorAll('.notification').length;
+                let notification = new NotificationJS({
                     id: `notification-${ target }`,
                     code: 404,
                     message: error,
@@ -46,6 +47,8 @@ function createErrorNotification (params) {
                     open: true,
                     insertBefore: document.querySelector('#notification-1'),
                 });
+                notification.setProps('index', index);
+                notification.html.setAttribute('style', `--index: ${ index }`);
             }
         }
     }
@@ -204,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             id: 'teampro',
             message: '',
             button: '',
-            name: 'teampro',
+            name: 'teampro_logo',
             accept: ['image/png'],
             classes: {
                 input: ['form-input', 'update-input'],
@@ -238,15 +241,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         if (document.querySelectorAll('.update-button').length) {
             if (!validation['update'].ValdiationJS) {
-                validation['update'].ValdiationJS = new ValidationJS({
-                    id: 'update-form',
-                    rules: validation['update'].rules,
-                    messages: validation['update'].messages,
-                }, {}, {
-                    invalid: {
-                        function: createErrorNotification,
-                        params: {},
-                }});
+                User.setValidationJS({
+                    function: createErrorNotification,
+                    params: {}
+                });
             }
             if (URL.findHashParameter() === 'update') {
                 changeProfileState('update');

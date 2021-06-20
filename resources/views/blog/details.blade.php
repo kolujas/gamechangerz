@@ -1,10 +1,16 @@
 @extends('layouts.default')
 
 @section('title')
-    {{$post->title}} | GameChangerZ
+    @if ($post)
+        {{ $post->title }} | GameChangerZ
+    @endif
+    @if (!$post)
+        Agregar artículo | GameChangerZ
+    @endif
 @endsection
 
 @section('css')
+    <link rel="stylesheet" href={{ asset('submodules/InpuFileMakerJS/css/styles.css') }}>
     <link rel="stylesheet" href={{ asset('css/blog/details.css') }}>
 @endsection
 
@@ -13,25 +19,85 @@
 @endsection
 
 @section('main')
-    <header class="image flex justify-center items-center" style='background: url({{ asset("storage/$post->image") }}) no-repeat center center; background-size: cover;'>
-        <div class="text-center">
-            <p class="fecha degradado 2xl:text-lg overpass">En otras noticias <span class="text-sm">|</span><span class="fecha-borde"> {{ $post->date }}</span></p>
-            <p class="color-white texto-slogan py-4 text-2xl md:text-4xl md:mx-20 md:px-2 lg:text-4xl lg:mx-48 2xl:text-5xl russo">{{ $post->title }}</p>
-            <div class="color-white py-4 2xl:text-lg">
-                <span class="overpass">Por</span>
-                @if ($post->user->id_role === 1)
-                    <a class="overpass btn btn-text btn-white" href="/users/{{ $post->user->slug }}">{{ $post->user->name }} ({{ $post->user->username }})</a>
+    <form action="#">
+        <header class="image flex justify-center items-center">
+            <div class="background">
+                @if ($errors->has('image'))
+                    <span class="error support support-box hidden support-image russo">{{ $errors->first('image') }}</span>
+                @else
+                    <span class="error support support-box hidden support-image russo"></span>
                 @endif
-                @if ($post->user->id_role === 2)
-                    <span class="overpass btn btn-text btn-white">{{ $post->user->name }}</span>
+            </div>
+            <div class="title text-center">
+                <p class="fecha degradado 2xl:text-lg overpass">En otras noticias @if ($post)
+                    <span class="text-sm">|</span> <span class="fecha-borde">{{ $post->date }}</span>
+                @endif</p>
+                @if ($post)
+                    <textarea disabled name="title" class="color-white text-center texto-slogan py-4 text-2xl md:text-4xl md:px-2 lg:text-4xl 2xl:text-5xl russo form-input" placeholder="Título">{{ old('title', $post->title) }}</textarea>
                 @endif
-            </span>
+                @if (!$post)
+                    <textarea name="title" class="color-white text-center texto-slogan py-4 text-2xl md:text-4xl md:px-2 lg:text-4xl 2xl:text-5xl russo form-input" placeholder="Título">{!! old('title') !!}</textarea>
+                @endif
+                @if ($errors->has('title'))
+                    <span class="error support support-box hidden support-title mt-2 overpass">{{ $errors->first('title') }}</span>
+                @else
+                    <span class="error support support-box hidden support-title mt-2 overpass"></span>
+                @endif
+                <div class="user color-white mb-4 2xl:text-lg">
+                    <span class="overpass">Por</span>
+                    @if ($post)
+                        @if ($post->user->id_role === 1)
+                            <a class="overpass btn btn-text btn-white" href="/users/{{ $post->user->slug }}">{{ $post->user->name }} ({{ $post->user->username }})</a>
+                        @endif
+                        @if ($post->user->id_role === 2)
+                            <span class="overpass btn btn-text btn-white">{{ $post->user->name }}</span>
+                        @endif
+                    @endif
+                    @if (!$post)
+                        @if (Auth::user()->id_role === 1)
+                            <a class="overpass btn btn-text btn-white" href="/users/{{ Auth::user()->slug }}">{{ Auth::user()->name }} ({{ Auth::user()->username }})</a>
+                        @endif
+                        @if (Auth::user()->id_role === 2)
+                            <span class="overpass btn btn-text btn-white">{{ Auth::user()->name }}</span>
+                        @endif
+                    @endif
+                </div>
+            </div>
+        </header>
+    
+        <section class="content mx-8 py-24 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0 overpass">
+            @if ($post)
+                <textarea id="editor" name="description" disabled class="form-input">{!! old('description',     $post->description) !!}</textarea>
+            @endif
+            @if (!$post)
+                <textarea id="editor" name="description" class="form-input" placeholder="Descripción">{!! old('description') !!}</textarea>
+            @endif
+            @if ($errors->has('description'))
+                <span class="error support support-box hidden support-description mt-2 overpass">{{ $errors->first('description') }}</span>
+            @else
+                <span class="error support support-box hidden support-description mt-2 overpass"></span>
+            @endif
+        </section>
+    
+        <div class="actions">
+            @if (Auth::check() && $post && Auth::user()->id_user === $post->id_user)
+                <a href="#update" class="update-button edit btn btn-icon btn-one p-2">
+                    <i class="fas fa-pen"></i>
+                </a>
+                <button type="submit" class="form-submit update-button confirm hidden btn btn-icon btn-white p-2 mb-2">
+                    <i class="fas fa-check"></i>
+                </button>
+                <a href="#" class="update-button cancel hidden btn btn-icon btn-three p-2 mb-2">
+                    <i class="fas fa-times"></i>
+                </a>
+            @endif
+            @if (!$post)
+                <button type="submit" class="form-submit btn btn-icon btn-white p-2 mb-2">
+                    <i class="fas fa-check"></i>
+                </button>
+            @endif
         </div>
-    </header>
-
-    <section class="content mx-8 py-24 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0 overpass">
-        {!! $post->description !!}
-    </section>
+    </form>
 @endsection
 
 @section('footer')
@@ -39,5 +105,8 @@
 @endsection
 
 @section('js')
+    <script>
+        const post = @json($post);
+    </script>
     <script type="module" src={{ asset('js/blog/details.js') }}></script>
 @endsection
