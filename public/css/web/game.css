@@ -141,6 +141,7 @@ ul.teachers .image figure{
     width: 100%;
     height: 15rem;
     border-radius: .25rem;
+    position: inherit;
     /* border: 1px solid;
     border-image-source: linear-gradient(130deg, var(--color-five), var(--color-four));
     border-image-slice: 1; */
