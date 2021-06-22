@@ -1,6 +1,8 @@
 import { InputFileMaker as InputFileMakerJS } from "../../submodules/InputFileMakerJS/js/InputFileMaker.js";
+// import { Editor as InlineEditor } from "../ckeditor5/src/ckeditor.js";
 
 import Asset from "../components/Asset.js";
+import Post from "../components/Post.js";
 
 new InputFileMakerJS({
     id: 'banner',
@@ -14,6 +16,12 @@ new InputFileMakerJS({
     },
 }, {
     generate: document.querySelector('header.image .background'),
-    image: new Asset(((post) ? `storage/${ post.image }` : "img/01-background.png")).route,
+    image: (post ? new Asset(`storage/${ post.image }`).route : false),
     disabled: post !== false
 });
+
+Post.setValidationJS();
+
+window.ckeditor.create( document.querySelector( '#editor' ), {
+    toolbar: [ 'heading', 'bold', 'italic', '|', 'undo', 'redo', ]
+} );

@@ -11,6 +11,8 @@ import Language from "../components/Language.js";
 import Lesson from "../components/Lesson.js";
 import User from "../components/User.js";
 
+console.log(files);
+
 function setDefaultWidth (params) {
     let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
     let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             },
         }, {
             generate: document.querySelector('form.user .profile-image'),
-            image: new Asset(((images.hasOwnProperty('profile')) ? `storage/${ images.profile }` : "img/resources/ProfileSVG.svg")).route,
+            image: new Asset(((files.hasOwnProperty('profile')) ? `storage/${ files.profile }` : "img/resources/ProfileSVG.svg")).route,
             disabled: true,
         });
         
@@ -127,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             },
         }, {
             generate: document.querySelector('.user .banner figure'),
-            image: new Asset(((images.hasOwnProperty('banner')) ? `storage/${ images.banner }` : "storage/web/01-banner.png")).route,
+            image: new Asset(((files.hasOwnProperty('banner')) ? `storage/${ files.banner }` : "storage/web/01-banner.png")).route,
             disabled: true,
         });
     }
@@ -199,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             },
         }, {
             generate: document.querySelector('.teacher .banner figure'),
-            image: new Asset(`storage/${ images.profile }`).route,
+            image: new Asset(`storage/${ files.profile }`).route,
             disabled: true,
         });
         
@@ -216,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             },
         }, {
             generate: document.querySelector('.teacher .info .teampro figure'),
-            image: new Asset(`storage/${ images.teampro }`).route,
+            image: new Asset(`storage/${ files.teampro }`).route,
             disabled: true,
         });
     }

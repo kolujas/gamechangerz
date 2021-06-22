@@ -1,3 +1,82 @@
+:root {
+    --ck-color-base-foreground: var(--color-black) !important;
+    --ck-color-base-background: var(--color-black) !important;
+    --ck-color-base-border: var(--color-black) !important;
+    /* --ck-color-base-action: #61b045; */
+    /* --ck-color-base-focus: #6cb5f9; */
+    --ck-color-base-text: var(--color-four) !important;
+    --ck-color-base-active: linear-gradient(130deg, var(--color-five), var(--color-four)) !important;
+    --ck-color-base-active-focus: linear-gradient(130deg, var(--color-five), var(--color-four)) !important;
+    /* --ck-color-base-error: #db3700; */
+    /* --ck-color-focus-border-coordinates: 208,79%,51%; */
+    /* --ck-color-focus-border: hsl(var(--ck-color-focus-border-coordinates)); */
+    /* --ck-color-focus-outer-shadow: #bcdefb; */
+    /* --ck-color-focus-disabled-shadow: rgba(119,186,248,0.3); */
+    /* --ck-color-focus-error-shadow: rgba(255,64,31,0.3); */
+    /* --ck-color-text: var(--ck-color-base-text); */
+    /* --ck-color-shadow-drop: rgba(0,0,0,0.15); */
+    /* --ck-color-shadow-drop-active: rgba(0,0,0,0.2); */
+    /* --ck-color-shadow-inner: rgba(0,0,0,0.1); */
+    /* --ck-color-button-default-background: transparent; */
+    --ck-color-button-default-hover-background: #000 !important;
+    --ck-color-button-default-active-background: #000 !important;
+    /* --ck-color-button-default-active-shadow: #bfbfbf; */
+    /* --ck-color-button-default-disabled-background: transparent; */
+    --ck-color-button-on-background: #000 !important;
+    --ck-color-button-on-hover-background: #000 !important;
+    --ck-color-button-on-active-background: #000 !important;
+    /* --ck-color-button-on-active-shadow: #a1a1a1; */
+    /* --ck-color-button-on-disabled-background: #dedede; */
+    /* --ck-color-button-action-background: var(--ck-color-base-action); */
+    /* --ck-color-button-action-hover-background: #579e3d; */
+    /* --ck-color-button-action-active-background: #53973b; */
+    /* --ck-color-button-action-active-shadow: #498433; */
+    /* --ck-color-button-action-disabled-background: #7ec365; */
+    /* --ck-color-button-action-text: var(--ck-color-base-background); */
+    /* --ck-color-button-save: #008a00; */
+    /* --ck-color-button-cancel: #db3700; */
+    /* --ck-color-switch-button-off-background: #b0b0b0; */
+    /* --ck-color-switch-button-off-hover-background: #a3a3a3; */
+    /* --ck-color-switch-button-on-background: var(--ck-color-button-action-background); */
+    /* --ck-color-switch-button-on-hover-background: #579e3d; */
+    /* --ck-color-switch-button-inner-background: var(--ck-color-base-background); */
+    /* --ck-color-switch-button-inner-shadow: rgba(0,0,0,0.1); */
+    /* --ck-color-dropdown-panel-background: var(--ck-color-base-background); */
+    /* --ck-color-dropdown-panel-border: var(--ck-color-base-border); */
+    /* --ck-color-input-background: var(--ck-color-base-background); */
+    /* --ck-color-input-border: #c7c7c7; */
+    /* --ck-color-input-error-border: var(--ck-color-base-error); */
+    /* --ck-color-input-text: var(--ck-color-base-text); */
+    /* --ck-color-input-disabled-background: #f2f2f2; */
+    /* --ck-color-input-disabled-border: #c7c7c7; */
+    /* --ck-color-input-disabled-text: #757575; */
+    /* --ck-color-list-background: var(--ck-color-base-background); */
+    /* --ck-color-list-button-hover-background: var(--ck-color-button-default-hover-background); */
+    /* --ck-color-list-button-on-background: var(--ck-color-base-active); */
+    /* --ck-color-list-button-on-background-focus: var(--ck-color-base-active-focus); */
+    /* --ck-color-list-button-on-text: var(--ck-color-base-background); */
+    /* --ck-color-panel-background: var(--ck-color-base-background); */
+    /* --ck-color-panel-border: var(--ck-color-base-border); */
+    /* --ck-color-toolbar-background: var(--ck-color-base-foreground); */
+    /* --ck-color-toolbar-border: var(--ck-color-base-border); */
+    /* --ck-color-tooltip-background: var(--ck-color-base-text); */
+    /* --ck-color-tooltip-text: var(--ck-color-base-background); */
+    /* --ck-color-engine-placeholder-text: #707070; */
+    /* --ck-color-upload-bar-background: #6cb5f9; */
+    /* --ck-color-link-default: #0000f0; */
+    /* --ck-color-link-selected-background: rgba(31,177,255,0.1); */
+    /* --ck-color-link-fake-selection: rgba(31,177,255,0.3); */
+    /* --ck-disabled-opacity: .5; */
+    /* --ck-focus-outer-shadow-geometry: 0 0 0 3px; */
+    /* --ck-focus-outer-shadow: var(--ck-focus-outer-shadow-geometry) var(--ck-color-focus-outer-shadow); */
+    /* --ck-focus-disabled-outer-shadow: var(--ck-focus-outer-shadow-geometry) var(--ck-color-focus-disabled-shadow); */
+    /* --ck-focus-error-outer-shadow: var(--ck-focus-outer-shadow-geometry) var(--ck-color-focus-error-shadow); */
+    /* --ck-focus-ring: 1px solid var(--ck-color-focus-border); */
+    /* --ck-font-size-base: 13px; */
+    /* --ck-line-height-base: 1.84615; */
+    /* --ck-font-face: Helvetica,Arial,Tahoma,Verdana,Sans-Serif; */
+}
+
 header.image {
     position: relative;
     min-height: 300px;
@@ -8,8 +87,13 @@ header.image .background {
     position: absolute;
     top: 0;
     left: 0;
+    /* width: 100%;
+    height: 100%; */
     width: 100%;
-    height: 100%;
+    height: 60vh;
+    background: url('../../../img/01-background.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 header.image .background input:disabled ~ :where(.input-button, .input-message, .support) {
@@ -78,7 +162,7 @@ header.image .title {
 
 header.image .title > * {
     pointer-events: initial;
-    width: fit-content;
+    /* width: fit-content; */
 }
 
 header.image .title textarea {
@@ -94,6 +178,7 @@ header.image .title textarea:not(:disabled) {
     text-shadow: none;
 }
 
+header.image .title .support,
 header.image .title .user {
     text-shadow: var(--color-one) 3px 0px 0px, var(--color-one) 2.83487px 0.981584px 0px, var(--color-one) 2.35766px 1.85511px 0px, var(--color-one) 1.62091px 2.52441px 0px, var(--color-one) 0.705713px 2.91581px 0px, var(--color-one) -0.287171px 2.98622px 0px, var(--color-one) -1.24844px 2.72789px 0px, var(--color-one) -2.07227px 2.16926px 0px, var(--color-one) -2.66798px 1.37182px 0px, var(--color-one) -2.96998px 0.42336px 0px, var(--color-one) -2.94502px -0.571704px 0px, var(--color-one) -2.59586px -1.50383px 0px, var(--color-one) -1.96093px -2.27041px 0px, var(--color-one) -1.11013px -2.78704px 0px, var(--color-one) -0.137119px -2.99686px 0px, var(--color-one) 0.850987px -2.87677px 0px, var(--color-one) 1.74541px -2.43999px 0px, var(--color-one) 2.44769px -1.73459px 0px, var(--color-one) 2.88051px -0.838247px 0px;
 }
@@ -106,13 +191,12 @@ header.image .tile a:hover {
     color: var(--color-four);
 }
 
-section.content textarea {
-    width: 100%;
-    background-color: transparent;
-    color: var(--color-white);
+#editor {
+    border: 2px solid var(--color-grey);
+    border-radius: .25rem;
 }
 
-section.content b {
+section.content strong {
     color: var(--color-four);
 }
 
@@ -134,15 +218,48 @@ header.image .fecha {
     -webkit-text-fill-color: transparent;
 }
 
-section.content h1 {
-    font-size: 1.3rem;
-    font-family: var(--font-one);
+section.content label.btn.btn-outline span {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+}
+
+section.content label.btn.btn-outline span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+}
+
+section.content label input {
+    background-color: var(--color-black);
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
 }
 
 div.actions {
     position: fixed;
     right: 3.25rem;
     bottom: 7.5rem;
+}
+
+section.content p {
+    color: var(--color-white);
+}
+
+section.content :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-one);
+}
+
+.ck.ck-toolbar {
+    background: var(--color-black);
+}
+
+.ck.ck-button, a.ck.ck-button {
+    color: var(--color-four);
 }
 
 /* ? MD */

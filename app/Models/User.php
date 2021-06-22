@@ -432,9 +432,9 @@
                 'update' => [
                     'rules' => [
                         'username' => 'required|unique:users,username,{id_user},id_user|max:25',
-                        'name' => 'max:25',
-                        'profile' => 'mimetypes:image/png,image/jpeg',
-                        'banner' => 'mimetypes:image/png,image/jpeg',
+                        'name' => 'nullable|max:25',
+                        'profile' => 'nullable|mimetypes:image/png,image/jpeg',
+                        'banner' => 'nullable|mimetypes:image/png,image/jpeg',
                     ], 'messages' => [
                         'es' => [
                             'username.required' => 'El apodo es obligatorio.',
@@ -448,10 +448,10 @@
                     'rules' => [
                         'username' => 'required|unique:users,username,{id_user},id_user|max:25',
                         'name' => 'required|max:25',
-                        'description' => 'max:255',
+                        'description' => 'nullable|max:255',
                         'teampro_name' => 'required|max:25',
-                        'teampro_logo' => 'required|mimetypes:image/png',
-                        'profile' => 'mimetypes:image/png',
+                        'teampro_logo' => 'nullable|mimetypes:image/png',
+                        'profile' => 'nullable|mimetypes:image/png',
                         // 'prices' => 'required',
                         // 'hours' => 'required',
                     ], 'messages' => [

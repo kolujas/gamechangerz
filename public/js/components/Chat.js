@@ -45,7 +45,7 @@ export class Chat extends Class {
                 }
             }
         }
-        if (params.instance.props.id_role === 1) {
+        if (params.instance.props.id_role !== 0) {
             lessons = params.instance.props.chats;
         }
         
@@ -112,7 +112,7 @@ export class Chat extends Class {
                         params: { instance: this }
                 }}, this.props.chats);
             }
-            if (parseInt(this.props.id_role) === 1) {
+            if (parseInt(this.props.id_role) !== 0) {
                 this.FilterJS = new FilterJS({
                     id: 'filter-chats',
                     order: [
@@ -179,11 +179,8 @@ export class Chat extends Class {
         if (this.props.id_role === 0) {
             this.showUserChat();
         }
-        if (this.props.id_role === 1) {
+        if (this.props.id_role !== 0) {
             this.showTeacherChat();
-        }
-        if (this.props.id_role !== 0 && this.props.id_role !== 1) {
-            this.showAdminChat();
         }
         if (this.props.chats.length) {
             this.sections.list.empty.classList.add("hidden");
@@ -231,7 +228,7 @@ export class Chat extends Class {
 
         if (response.hasOwnProperty('id_chat')) {
             if (chat.users['from'].id_role === 1) {
-                let date = new Date(chat.ends);
+                let date = new Date(chat.end_at);
                 let span2 = document.createElement('span');
                 span2.classList.add("timer", "color-grey");
                 span2.innerHTML = `El chat estará disponible hasta la fecha <b class="mx-1">${ date.getDate() }/${ InputDateMakerJS.Months.es[date.getMonth()].number }/${ date.getFullYear() }</b> a las <b class="ml-1">${ ((date.getHours() < 10) ? `0${ date.getHours() }` : date.getHours()) }:${ ((date.getMinutes() < 10) ? `0${ date.getMinutes() }` : date.getMinutes()) }</b>`;
@@ -395,12 +392,6 @@ export class Chat extends Class {
         this.sections.list.lessons.classList.remove("hidden");
         this.sections.list.lessons.children[0].classList.add("hidden");
         this.sections.list.friends.classList.add("hidden");
-    }
-
-    showAdminChat () {
-        this.sections.list.lessons.classList.add("hidden");
-        this.sections.list.friends.classList.remove("hidden");
-        this.sections.list.friends.children[0].classList.add("hidden");
     }
 
     createCountDownDetails () {

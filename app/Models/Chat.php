@@ -33,8 +33,8 @@
                         case 'available':
                             $this->available();
                             break;
-                        case 'ends':
-                            $this->ends();
+                        case 'end_at':
+                            $this->end_at();
                             break;
                         case 'messages':
                             $this->messages();
@@ -86,31 +86,44 @@
                     }
                 }
             }
+            if ($id_role === 2) {
+                $this->available = true;
+            }
         }
 
-        public function ends () {
+        public function end_at () {
             $lesson = Lesson::where([
                 ['id_user_from', '=', $this->users['from']->id_user],
                 ['id_user_to', '=', $this->users['to']->id_user]
             ])->get()[0];
             $lesson->and(['days']);
             foreach ($lesson->days as $date) {
-                foreach ($date['hours'] as $hour) {
-                    if (!isset($to)) {
-                        $to = $hour->to;
+                if (count($date['hours'])) {
+                    foreach ($date['hours'] as $hour) {
+                        if (!isset($to)) {
+                            $to = $hour->to;
+                        }
+                        if ($to < $hour->to) {
+                            $to = $hour->to;
+                        }
                     }
-                    if ($to < $hour->to) {
-                        $to = $hour->to;
+                    if (!isset($end_at)) {
+                        $end_at = $date['date'] . "T" . $to;
+                    }
+                    if ($end_at < $date['date'] . "T" . $to) {
+                        $end_at = $date['date'] . "T" . $to;
                     }
                 }
-                if (!isset($ends)) {
-                    $ends = $date['date'] . "T" . $hour->to;
-                }
-                if ($ends < $date['date'] . "T" . $hour->to) {
-                    $ends = $date['date'] . "T" . $hour->to;
+                if (!count($date['hours'])) {
+                    if (!isset($end_at)) {
+                        $end_at = $date['date'];
+                    }
+                    if ($end_at < $date['date']) {
+                        $end_at = $date['date'];
+                    }
                 }
             }
-            $this->ends = $ends;
+            $this->end_at = $end_at;
         } 
 
         /**
