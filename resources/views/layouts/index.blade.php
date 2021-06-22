@@ -49,7 +49,7 @@
                 error = @json(Session::get('status'))
             @endif
         </script>
-        <script type="module" src={{ asset('js/script.js') }}></script>
+        <script type="module" src={{ asset('js/script.js?v=0.0.1') }}></script>
 
         {{-- ? Added extras section --}}
         @yield('extras')
