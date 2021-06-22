@@ -17,28 +17,28 @@
         /**
          * * Create a new Mail instance.
          * @param array $attributes
-         * @param object $data
+         * @param array $data
          * @return void
          */
-        public function __construct ($attributes = [], $data) {
+        public function __construct ($attributes = [], $data = []) {
             parent::__construct(Mail::parseAttributes($attributes));
             $this->send($data);
         }
 
         /**
          * * Send the Mail.
-         * @param object $data
+         * @param array $data
          * @return [type]
          */
-        public function send ($data) {
+        public function send ($data = []) {
             switch ($this->id_mail) {
                 case 1:
                     $mail = new ConfirmationMail((object) [
-                        "token" => $data->token,
+                        "token" => $data['token'],
                     ]);
                     break;
             }
-            MailService::to($data->email)->send($mail);
+            MailService::to($data['email'])->send($mail);
         }
 
        /**

@@ -42,7 +42,7 @@
                     ]);
                 }
             }
-
+            
             if (Auth::user()->status !== 2) {
                 if (Auth::user()->status === 0) {
                     $status = [
@@ -60,6 +60,8 @@
                     $token->delete();
                 }
                 Auth::logout();
+            
+                return response()->json($status);
             }
             if (Auth::user()->status === 2) {
                 $user = Auth::user();
@@ -111,8 +113,6 @@
                 'created_at' => Carbon::now(),
             ]);
 
-            $input->token = DB::table('password_resets')->where('email', $input->email)->first()->token;
-
             try {
                 $user = User::create((array) $input);
                 $user->update([
@@ -120,7 +120,10 @@
                 ]);
                 $mail = new Mail([
                     "id_mail" => 1,
-                ], $input);
+                ], [
+                    'email' => $input->email,
+                    'token' => DB::table('password_resets')->where('email', $input->email)->first()->token,
+                ]);
             } catch (\Throwable $th) {
                 dd($th);
             }
