@@ -1,4 +1,4 @@
-<form id="update-form" action="/users/{{ $user->slug }}/update" method="post"  class="teacher">
+<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" enctype="multipart/form-data" class="teacher">
     @csrf
     @method('POST')
     <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-10 lg:gap-20">
@@ -29,11 +29,11 @@
     
     <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4">
         <section class="lg:col-span-2 xl:col-span-6 lg:pr-0 xl:px-0">
-            @if (isset($user->files['banner']))
+            {{-- @if (isset($user->files['profile'])) --}}
                 <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mb-0 relative">
                     <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
                 </figure>
-            @endif
+            {{-- @endif --}}
             @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)
                 <section class="achievements relative">
                     @component('components.achievement.list', [

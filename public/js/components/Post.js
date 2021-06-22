@@ -1,8 +1,25 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
 
 import Asset from "./Asset.js";
-
 export class Post extends Class {
+    static setValidationJS () {
+        if (validation.hasOwnProperty('add')) {
+            validation.add.ValidationJS = new ValidationJS({
+                id: 'post',
+                rules: validation.add.rules,
+                messages: validation.add.messages,
+            });
+        }
+        if (validation.hasOwnProperty('update')) {
+            validation.update.ValidationJS = new ValidationJS({
+                id: 'post',
+                rules: validation.update.rules,
+                messages: validation.update.messages,
+            });
+        }
+    }
+
     static item (data) {
         let item = document.createElement('li');
         item.classList.add("card", "mr-8");

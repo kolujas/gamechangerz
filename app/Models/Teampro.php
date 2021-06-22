@@ -25,4 +25,16 @@
                 'logo' => (isset($user->files['teampro']) ? $user->files['teampro'] : null),
             ]);
         }
+
+        /**
+         * * Creates the teampro JSON.
+         * @param string $teampro
+         * @return [type]
+         */
+        static public function stringify (string $teampro) {
+            $days = [
+                'name' => $teampro,
+            ];
+            return json_encode($days);
+        }
     }

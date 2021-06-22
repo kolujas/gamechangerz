@@ -10,7 +10,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('submodules/InpuFileMakerJS/css/styles.css') }}>
+    <link rel="stylesheet" href={{ asset('submodules/InputFileMakerJS/css/styles.css') }}>
     <link rel="stylesheet" href={{ asset('css/blog/details.css') }}>
 @endsection
 
@@ -19,7 +19,7 @@
 @endsection
 
 @section('main')
-    <form action="#">
+    <form id="post" action="#">
         <header class="image flex justify-center items-center">
             <div class="background">
                 @if ($errors->has('image'))
@@ -39,9 +39,9 @@
                     <textarea name="title" class="color-white text-center texto-slogan py-4 text-2xl md:text-4xl md:px-2 lg:text-4xl 2xl:text-5xl russo form-input" placeholder="Título">{!! old('title') !!}</textarea>
                 @endif
                 @if ($errors->has('title'))
-                    <span class="error support support-box hidden support-title mt-2 overpass">{{ $errors->first('title') }}</span>
+                    <span class="error support support-box hidden support-title block w-full color-white mt-2 overpass">{{ $errors->first('title') }}</span>
                 @else
-                    <span class="error support support-box hidden support-title mt-2 overpass"></span>
+                    <span class="error support support-box hidden support-title block w-full color-white mt-2 overpass"></span>
                 @endif
                 <div class="user color-white mb-4 2xl:text-lg">
                     <span class="overpass">Por</span>
@@ -67,15 +67,39 @@
     
         <section class="content mx-8 py-24 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0 overpass">
             @if ($post)
-                <textarea id="editor" name="description" disabled class="form-input">{!! old('description',     $post->description) !!}</textarea>
+                <div id="editor">{!! old('description',     $post->description) !!}</div>
             @endif
             @if (!$post)
-                <textarea id="editor" name="description" class="form-input" placeholder="Descripción">{!! old('description') !!}</textarea>
+                <div id="editor">{!! old('description') !!}</div>
             @endif
             @if ($errors->has('description'))
-                <span class="error support support-box hidden support-description mt-2 overpass">{{ $errors->first('description') }}</span>
+                <span class="error support support-box hidden color-white support-description mt-2 overpass">{{ $errors->first('description') }}</span>
             @else
-                <span class="error support support-box hidden support-description mt-2 overpass"></span>
+                <span class="error support support-box hidden color-white support-description mt-2 overpass"></span>
+            @endif
+            @if ($post)
+                <div class="lg:col-span-10 flex justify-center">
+                    <label class="btn btn-one btn-outline hidden">
+                        <span class="px-4 py-2">Ver más:</span>
+                        <input name="link" disabled class="form-input px-4 py-2" type="url" value="{{ old('link', $post->link) }}" />
+                    </label>
+                    <a href="{{ $post->link }}" target="_blank" class="btn btn-one btn-outline">
+                        <span class="py-2 px-4">Ver más</span>
+                    </a>
+                </div>
+            @endif
+            @if (!$post)
+                <div class="lg:col-span-10 flex justify-center">
+                    <label class="btn btn-one btn-outline">
+                        <span class="px-4 py-2">Ver más:</span>
+                        <input name="link" class="form-input px-4 py-2" type="text" value="{{ old('link') }}" />
+                    </label>
+                </div>
+            @endif
+            @if ($errors->has('link'))
+                <span class="error support support-box hidden color-white support-link mt-2 overpass">{{ $errors->first('link') }}</span>
+            @else
+                <span class="error support support-box hidden color-white support-link mt-2 overpass"></span>
             @endif
         </section>
     

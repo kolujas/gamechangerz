@@ -31,7 +31,7 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
-                ], 'post' => (object)[
+                ], 'add' => (object)[
                         'rules' => Post::$validation['add']['rules'],
                         'messages' => Post::$validation['add']['messages']['es'],
                 ]],
@@ -95,6 +95,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'update' => (object)[
+                        'rules' => Post::$validation['update']['rules'],
+                        'messages' => Post::$validation['update']['messages']['es'],
                 ]],
             ]);
         }

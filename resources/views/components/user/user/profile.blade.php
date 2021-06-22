@@ -1,4 +1,4 @@
-<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" class="user lg:grid lg:grid-cols-3 xl:grid-cols-10 lg:gap-20 lg:pb-20 lg:relative">
+<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" enctype="multipart/form-data" class="user lg:grid lg:grid-cols-3 xl:grid-cols-10 lg:gap-20 lg:pb-20 lg:relative">
     @csrf
     @method('POST')
     <section class="banner relative lg:col-span-3 xl:col-span-10">

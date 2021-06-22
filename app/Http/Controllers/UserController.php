@@ -11,15 +11,18 @@
     use App\Models\MercadoPago;
     use App\Models\Post;
     use App\Models\Price;
+    use App\Models\Teampro;
     use App\Models\User;
     use Auth;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use DB;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
+    use Intervention\Image\ImageManagerStatic as Image;
     use MercadoPago\Item;
     use MercadoPago\Preference;
     use MercadoPago\SDK;
+    use Storage;
 
     class UserController extends Controller {
         /**
@@ -244,9 +247,10 @@
          */
         public function update (Request $request, $slug) {
             $user = User::where('slug', '=', $slug)->get()[0];
+            $user->and(['files']);
             
             $input = (object) $request->all();
-
+            
             $validator = Validator::make((array) $input, User::replaceUniqueIDUser(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
@@ -255,6 +259,22 @@
             if ($user->username !== $input->username) {
                 $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
             }
+            
+            if ($request->hasFile('profile')) {
+                $filepath = "users/$user->id_user/01-profile." . $request->profile->extension();
+                if (isset($user->files['profile'])) {
+                    Storage::delete($user->files['profile']);
+                }
+                
+                $file = Image::make($request->file('profile'))
+                        ->resize(350, 400, function($constrait){
+                            $constrait->aspectRatio();
+                            $constrait->upsize();
+                        });
+
+                Storage::put($filepath, (string) $file->encode());
+            }
+
             if ($user->id_role === 0) {
                 if (!isset($input->teammate)) {
                     $input->teammate = 0;
@@ -264,14 +284,48 @@
                 if (!isset($input->name)) {
                     $input->name = null;
                 }
+            
+                if ($request->hasFile('banner')) {
+                    $filepath = "users/$user->id_user/02-banner." . $request->banner->extension();
+                    if (isset($user->files['banner'])) {
+                        Storage::delete($user->files['banner']);
+                    }
+                    
+                    $file = Image::make($request->file('banner'))
+                            ->resize(1349, 395, function($constrait){
+                                $constrait->aspectRatio();
+                                $constrait->upsize();
+                            });
+    
+                    Storage::put($filepath, (string) $file->encode());
+                }
             }
+
             if ($user->id_role === 1) {
                 if (!isset($input->description)) {
                     $input->description = null;
                 }
                 $input->days = Day::stringify($input->days);
                 $input->prices = Price::stringify($input->prices);
+                $input->teampro = Teampro::stringify($input->teampro_name);
+            
+                if ($request->hasFile('teampro_logo')) {
+                    $filepath = "users/$user->id_user/02-teampro." . $request->teampro_logo->extension();
+                    if (isset($user->files['teampro'])) {
+                        Storage::delete($user->files['teampro']);
+                    }
+                    
+                    $file = Image::make($request->file('teampro_logo'))
+                            ->resize(40, 56, function($constrait){
+                                $constrait->aspectRatio();
+                                $constrait->upsize();
+                            });
+    
+                    Storage::put($filepath, (string) $file->encode());
+                }
             }
+
+            unset($user->files);
 
             $user->update((array) $input);
             

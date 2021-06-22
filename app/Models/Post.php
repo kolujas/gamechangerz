@@ -16,7 +16,7 @@
          * @var array
          */
         protected $fillable = [
-            'description', 'image', 'id_user', 'title', 'slug',
+            'description', 'image', 'id_user', 'link', 'title', 'slug',
         ];
         
         /**
@@ -39,24 +39,26 @@
                     'title' => 'required|max:200',
                     'description' => 'required',
                     'image' => 'required|mimetypes:image/jpeg,image/png',
+                    'link' => 'nullable|url',
                 ], 'messages' => [
                     'es' => [
                         'title.required' => 'El título es obligatorio.',
                         'description.required' => 'La descripción es obligatoria.',
                         'image.required' => 'La imagen es obligatoria.',
                         'image.mimetypes' => 'La imagen debe ser formato jpg/jpeg o png.',
+                        'link.url' => 'El link debe ser formatio URL (https://ejemplo.com)',
             ]]], 'update' => [
                 'rules' => [
-                    //
+                    'title' => 'required|max:200',
+                    'description' => 'required',
+                    'image' => 'nullable|mimetypes:image/jpeg,image/png',
+                    'link' => 'nullable|url',
                 ], 'messages' => [
                     'es' => [
-                        //
-            ]]], 'delete' => [
-                'rules' => [
-                    //
-                ], 'messages' => [
-                    'es' => [
-                        //
+                        'title.required' => 'El título es obligatorio.',
+                        'description.required' => 'La descripción es obligatoria.',
+                        'image.mimetypes' => 'La imagen debe ser formato jpg/jpeg o png.',
+                        'link.url' => 'El link debe ser formatio URL (https://ejemplo.com)',
         ]]]];
 
         /**

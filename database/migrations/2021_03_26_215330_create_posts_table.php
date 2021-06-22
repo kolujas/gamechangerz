@@ -16,6 +16,7 @@
                 $table->string('title');
                 $table->text('description')->nullble();
                 $table->string('image');
+                $table->string('link')->nullable();
                 $table->string('slug');
                 $table->timestamps();
             });

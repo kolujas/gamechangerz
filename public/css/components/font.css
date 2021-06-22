@@ -30,6 +30,10 @@
     color: var(--color-grey);
 }
 
+.color-red{
+    color: var(--color-red);
+}
+
 .color-gradient{
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     -webkit-background-clip: text;

@@ -67,10 +67,10 @@
 @section('js')
     <script>
         @if ($user->id_role === 0)
-            const images = @json($user->files);
+            const files = @json($user->files);
         @endif
         @if ($user->id_role === 1)
-            const images = @json($user->files);
+            const files = @json($user->files);
         @endif
     </script>
     <script type="module" src={{ asset('js/user/profile.js') }}></script>

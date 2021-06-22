@@ -7,7 +7,6 @@ import Game from "./Game.js";
 export class User extends Class {
     static setValidationJS (params = {}) {
         if (validation.hasOwnProperty('update')) {
-            console.log(validation.update);
             validation.update.ValidationJS = new ValidationJS({
                 id: 'update-form',
                 rules: validation.update.rules,

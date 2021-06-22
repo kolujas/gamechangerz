@@ -75,6 +75,21 @@
                 }
             }
 
+            if ($request->user()->id_role === 2) {
+                foreach (User::where('id_role', '=', 2)->get() as $user) {
+                    if ($user->id_user !== $request->user()->id_user) {
+                        if (!Chat::exist($request->user()->id_user, $user->id_user)) {
+                            Chat::create([
+                                'id_chat' => null,
+                                'id_user_from' => $request->user()->id_user,
+                                'id_user_to' => $user->id_user,
+                                'messages' => "[]",
+                            ]);
+                        }
+                    }
+                }
+            }
+
             $chats = collect();
             foreach (Chat::where('id_user_from', '=', $request->user()->id_user)->orderBy('updated_at', 'DESC')->get() as $chat) {
                 $chats->push($chat);

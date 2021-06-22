@@ -16,13 +16,6 @@
     <main class="main">
         @if ($game->active)
             <section class="slider-container">
-                <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
-                    <h2 class="color-white russo text-5xl md:text-6xl mb-8">Aprende de los <span class="color-four">mejores</span></h2>
-                    <p class="mb-8 slider-text color-white overpass text-xl">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
-                    <button class="btn btn-outline btn-one">
-                        <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
-                    </button>
-                </header>
                 <main class="swiper-container">
                     <div class="arrows flex">
                         <div class="swiper-button-prev p-2 ml-4 flex justify-center items-center">
@@ -33,12 +26,19 @@
                         </div>
                     </div>
                     <div class="swiper-wrapper">
-                        <figure class="swiper-slide">
+                        <section class="swiper-slide">
+                            <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
+                                <h2 class="color-white russo text-5xl md:text-6xl mb-8">Aprende de los <span class="color-four">mejores</span></h2>
+                                <p class="mb-8 slider-text color-white overpass text-xl">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
+                                <button class="btn btn-outline btn-one">
+                                    <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
+                                </button>
+                            </header>
                             <img src="{{ asset($game->files['banner']) }}" alt="Game banner">
-                        </figure>
-                        <figure class="swiper-slide">
+                        </section>
+                        <section class="swiper-slide">
                             <img src="{{ asset('storage/web/01-banner.png') }}" alt="Ads banner">
-                        </figure>   
+                        </section>   
                     </div>
                 </main>
             </section>
@@ -119,7 +119,9 @@
                 </main>
             </section>
             
-            <aside class="aside lg:h-screen lg:w-full"></aside>
+            <aside class="aside lg:h-screen lg:w-full">
+                <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de GameChangerZ">
+            </aside>
     
             <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24">
                 <header class="lg:col-span-8 lg:col-start-2 2xl:col-start-3 px-8 lg:px-0">
@@ -135,7 +137,9 @@
             </section>
         @else
             <section class="coming-soon flex justify-center items-center mb-8" style="--color-one: {{ $game->colors[0] }}; --color-two: {{ $game->colors[1] }}">
-                <aside style="background: url({{ asset('/img/' . $game->files['background']) }}) no-repeat -70px top; background-size: cover;"></aside>
+                <aside>
+                    <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de GameChangerZ">
+                </aside>
                 <header>
                     <h2 class="color-white"><span class="color-four">{{ $game->name }}</span> coming soon</h2>
                 </header>
