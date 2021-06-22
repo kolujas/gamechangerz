@@ -13,6 +13,7 @@ npm-debug.log
 yarn-error.log
 
 /public/.htaccess
+/pubic/images/vendor
 /database/*.sql
 /database/seeds
 /storage/*.json
