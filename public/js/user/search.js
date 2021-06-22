@@ -88,7 +88,7 @@ function createUsersFilter () {
             ['stars', 'DESC'],
             'username',
         ], rules: {
-            search: [['username','name']],
+            search: [['username','name'], '=', document.querySelector('input[type=search].filter-control').value],
             teammate: true,
         },
     }, {}, {
@@ -108,7 +108,7 @@ function createTeachersFilter () {
             ['stars', 'DESC'],
             'username',
         ], rules: {
-            search: [['username','name']],
+            search: [['username','name'], '=', document.querySelector('input[type=search].filter-control').value],
             games: 'games:*.slug',
             price: ['prices:[0,1].price', '<=', null, false],
             time: 'days:*.hours:*.time',
