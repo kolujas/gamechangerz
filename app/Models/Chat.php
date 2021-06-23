@@ -95,7 +95,7 @@
             $lesson = Lesson::where([
                 ['id_user_from', '=', $this->users['from']->id_user],
                 ['id_user_to', '=', $this->users['to']->id_user]
-            ])->get()[0];
+            ])->first();
             $lesson->and(['days']);
             foreach ($lesson->days as $date) {
                 if (count($date['hours'])) {

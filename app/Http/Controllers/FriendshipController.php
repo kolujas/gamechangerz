@@ -30,7 +30,7 @@
         }
 
         public function accept (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->get()[0];
+            $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
             $found = false;
             foreach ($user->friends as $friend) {
@@ -61,7 +61,7 @@
         }
 
         public function cancel (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->get()[0];
+            $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
             $found = false;
             foreach ($user->friends as $friend) {
@@ -84,7 +84,7 @@
         }
 
         public function delete (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->get()[0];
+            $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
             $found = false;
             foreach ($user->friends as $friend) {
@@ -107,7 +107,7 @@
         }
 
         public function request (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->get()[0];
+            $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
             $found = false;
             foreach ($user->friends as $friend) {

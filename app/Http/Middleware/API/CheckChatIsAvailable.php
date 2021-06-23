@@ -22,7 +22,7 @@
             ])->orwhere([
                 ['id_user_from', '=', $request->user()->id_user],
                 ['id_user_to', '=', $field]
-            ])->get()[0] : Chat::find($field));
+            ])->first() : Chat::find($field));
             $chat->and(['users', 'available']);
 
             if (!$chat->available) {

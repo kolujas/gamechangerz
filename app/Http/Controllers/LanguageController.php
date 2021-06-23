@@ -7,7 +7,7 @@
 
     class LanguageController extends Controller {
         public function user (Request $request, $slug) {
-            $user = User::where('slug', '=', $slug)->get()[0];
+            $user = User::where('slug', '=', $slug)->first();
 
             $input = (object) $request->all();
 

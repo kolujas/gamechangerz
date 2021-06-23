@@ -59,6 +59,10 @@ ul.blog.cards .card .post-content {
     -webkit-box-orient: vertical;
 }
 
+ul.blog.cards .card .post-content > * {
+    font-size: 1rem;
+}
+
 ul.blog.cards .card > a {
     position: relative;
 }

@@ -2,9 +2,13 @@
     namespace App\Models;
 
     use App\Models\User;
+    use Cviebrock\EloquentSluggable\Sluggable;
+    use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
     use Illuminate\Database\Eloquent\Model;
 
     class Post extends Model {
+        use Sluggable, SluggableScopeHelpers;
+
         /** @var string Table name */
         protected $table = 'posts';
         
@@ -32,9 +36,32 @@
             ];
         }
 
+        /**
+         * * Get the Post User.
+         * @return array
+         */
+        public function user () {
+            return $this->belongsTo(User::class, 'id_user', 'id_user');
+        }
+
+        /**
+         * * Check if the Post has an action.
+         * @param string $name
+         * @return boolean
+         */
+        static public function hasAction (string $name) {
+            switch (strtoupper($name)) {
+                case 'UPDATE':
+                case 'DELETE':
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         /** @var array Validation rules & messages. */
         static $validation = [
-            'add' => [
+            'create' => [
                 'rules' => [
                     'title' => 'required|max:200',
                     'description' => 'required',
@@ -59,13 +86,12 @@
                         'description.required' => 'La descripción es obligatoria.',
                         'image.mimetypes' => 'La imagen debe ser formato jpg/jpeg o png.',
                         'link.url' => 'El link debe ser formatio URL (https://ejemplo.com)',
+            ]]], 'delete' => [
+                'rules' => [
+                    'message' => 'required|regex:/^BORRAR$/',
+                ], 'messages' => [
+                    'es' => [
+                        'message.required' => 'El mensaje es obligatorio.',
+                        'message.regex' => 'El mensaje debe decir BORRAR.',
         ]]]];
-
-        /**
-         * * Get the Post User.
-         * @return array
-         */
-        public function user () {
-            return $this->belongsTo(User::class, 'id_user', 'id_user');
-        }
     }

@@ -35,7 +35,7 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
-            $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->get()[0];
+            $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->first();
             $user->and(['achievements', 'games', 'role']);
             foreach ($user->games as $game) {
                 $game->and(['files']);
@@ -208,7 +208,7 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
-            $user = User::where('slug', '=', $slug)->get()[0];
+            $user = User::where('slug', '=', $slug)->first();
             $user->and(['lessons', 'prices', 'days']);
             foreach ($user->lessons as $lesson) {
                 $lesson->and(['days']);
@@ -246,7 +246,7 @@
          * @return [type]
          */
         public function update (Request $request, $slug) {
-            $user = User::where('slug', '=', $slug)->get()[0];
+            $user = User::where('slug', '=', $slug)->first();
             $user->and(['files']);
             
             $input = (object) $request->all();

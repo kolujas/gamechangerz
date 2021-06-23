@@ -14,9 +14,53 @@
     use Illuminate\Support\Facades\Validator;
 
     class LessonController extends Controller {
-        public function doCheckout (Request $request, $slug, $type) {
+        /**
+         * * Check the Notification
+         * @param Request $request
+         * @param string $type Notification type.
+         * @return [type]
+         */
+        public function checkNotification (Request $request, string $type) {
+            // * Check the Notification type
+            switch ($type) {
+                case 'mercadopago':
+                    // * Creates the MercadoPago
+                    $MP = new MercadoPago();
+        
+                    // * Check the request topic
+                    switch ($request->topic) {
+                        case "payment":
+                            // * Set the MercadoPago Payment
+                            $MP->payment($request->id);
+                            
+                            // * Check the Payment status
+                            if ($MP->payment->status === 'approved') {
+                                // * Get the external Preference & updates
+                                $lesson = Lesson::find($MP->payment->external_preference);
+                
+                                $lesson->update([
+                                    'status' => 2,
+                                ]);
+                            }
+                            break;
+                    }
+                    break;
+                case 'paypal':
+                    
+                    break;
+            }
+        }
+
+        /**
+         * * Creates a new Lesson & redirects to MercadoPago or PayPal.
+         * @param Request $request
+         * @param string $slug User slug.
+         * @param string $type Type of Lesson.
+         * @return [type]
+         */
+        public function doCheckout (Request $request, string $slug, string $type) {
             $input = (object) $request->all();
-            $user = User::where('slug', '=', $slug)->get()[0];
+            $user = User::where('slug', '=', $slug)->first();
 
             foreach (Lesson::$options as $lesson) {
                 $lesson = (object) $lesson;
@@ -94,14 +138,35 @@
                         'title' => ($type->id_type === 3 ? "4 Clases" : "1 Clase") . ($type->id_type === 2 ? " Offline" : " Online") . " de " . $user->username,
                         'price' => $user->prices[$type->id_type - 1]->price,
                     ];
-                    $url = MercadoPago::createPreference($data);
+
+                    // * Creates the MercadoPago
+                    $MP = new MercadoPago($data);
+
+                    // * Set the MercadoPago Items
+                    $MP->items([$data]);
+
+                    // * Set the MercadoPago Preference
+                    $MP->preference($data);
+
+                    // * Get the Preferce URL
+                    $url = $MP->preference->init_point;
+                    break;
+                case 'paypal':
+                    
                     break;
             }
 
             return redirect($url);
         }
 
-        public function showStatus (Request $request, $id_lesson, $status) {
+        /**
+         * * Show the Lesson status.
+         * @param Request $request
+         * @param string $id_lesson
+         * @param string $status
+         * @return [type]
+         */
+        public function showStatus (Request $request, string $id_lesson, string $status) {
             $lesson = Lesson::find($id_lesson);
             $lesson->and(['days']);
 
@@ -126,18 +191,5 @@
                         'messages' => Assigment::$validation['make']['messages']['es'],
                 ]],
             ]);
-        }
-
-        public function checkNotification (Request $request) {
-            $input = (object) $request->all();
-
-            $status = MercadoPago::getStatus($_GET["topic"], $_GET["id"]);
-            
-            dd($status);
-            // if ($status === 200) {
-                // $id_lesson = MercadoPago::getDataID($_GET["id"]);
-                // $lesson
-                // return response([], 200);
-            // }
         }
     }

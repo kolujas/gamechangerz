@@ -114,11 +114,11 @@ ul.blog.cards .card.info > :where(a, div) main {
     background-color: transparent;
 }
 
-ul.blog.cards .card.info .card-body h4 {
+ul.blog.cards .card.info .card-body :where(h1, h2, h3, h4, h5, h6) {
     color: var(--color-grey);
 }
 
-.post-content b {
+.post-content strong {
     color: var(--color-four);
 }
 

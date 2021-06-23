@@ -4,7 +4,7 @@
     use Closure;
     use Illuminate\Http\Request;
 
-    class CheckUserDoesNotOwnCheckout {
+    class CheckAuthenticateNotUser {
         /**
          * Handle an incoming request.
          *
@@ -17,7 +17,7 @@
             if ($request->user()->slug === $slug) {
                 $request->session()->put('error', [
                     'code' => 403,
-                    'message' => "You can not access your own checkout",
+                    'message' => "You can not access here",
                 ]);
                 return redirect()->back();
             }
