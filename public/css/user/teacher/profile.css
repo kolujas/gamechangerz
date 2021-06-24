@@ -391,6 +391,7 @@
     object-position: calc(100% - 2rem) 0;
 }
 
+
 /* ? MD */
 @media (min-width: 768px) {
     .teacher .info .abilities.cards li {
