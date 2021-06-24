@@ -41,13 +41,15 @@
             }
 
             foreach ($lessons as $lesson) {
-                if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
-                    Chat::create([
-                        'id_chat' => null,
-                        'id_user_from' => $lesson->id_user_from,
-                        'id_user_to' => $lesson->id_user_to,
-                        'messages' => "[]",
-                    ]);
+                if ($lesson->status === 2) {
+                    if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
+                        Chat::create([
+                            'id_chat' => null,
+                            'id_user_from' => $lesson->id_user_from,
+                            'id_user_to' => $lesson->id_user_to,
+                            'messages' => "[]",
+                        ]);
+                    }
                 }
             }
 
@@ -103,7 +105,7 @@
                 $chat->id_user_logged = $request->user()->id_user;
                 $chat->and(['users', 'available', 'type']);
                 if ($chat->users['from']->id_role === 1) {
-                    $chat->and(['ends']);
+                    $chat->and(['end_at']);
                 }
                 foreach ($chat->users as $user) {
                     $user->and(['files', 'games']);

@@ -1,10 +1,9 @@
 <?php
     namespace App\Http\Middleware;
 
-    use App\Models\User;
     use Closure;
 
-    class CheckAuthenticateIsUser {
+    class CheckNotificationTypeExist {
         /**
          * Handle an incoming request.
          *
@@ -13,11 +12,11 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            $field = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
-            if ((!is_null($request->route()->parameter('id_user')) ? intval($field) !== $request->user()->id_user : $field !== $request->user()->slug)) {
+            $type = $request->route()->parameter('type');
+            if ($status !== 'mercadopago' && $status !== 'paypal') {
                 $request->session()->put('error', [
-                    'code' => 403,
-                    'message' => "You are not this User",
+                    'code' => 404,
+                    'message' => "Notification \"$type\" does not exist",
                 ]);
                 return redirect()->back();
             }

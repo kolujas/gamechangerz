@@ -19,11 +19,13 @@
 @endsection
 
 @section('main')
-    <form id="post" action="#">
+    <form id="post" action="#" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('POST')
         <header class="image flex justify-center items-center">
             <div class="background">
                 @if ($errors->has('image'))
-                    <span class="error support support-box hidden support-image russo">{{ $errors->first('image') }}</span>
+                    <span class="error support support-box support-image russo">{{ $errors->first('image') }}</span>
                 @else
                     <span class="error support support-box hidden support-image russo"></span>
                 @endif
@@ -67,10 +69,12 @@
     
         <section class="content mx-8 py-24 lg:grid lg:grid-cols-10 lg:gap-8 lg:mx-0 overpass">
             @if ($post)
-                <div id="editor">{!! old('description',     $post->description) !!}</div>
+                <div id="editor">{!! old('description', $post->description) !!}</div>
+                <textarea name="description" disabled class="form-input hidden">{!! old('description', $post->description) !!}</textarea>
             @endif
             @if (!$post)
                 <div id="editor">{!! old('description') !!}</div>
+                <textarea name="description" class="form-input hidden">{!! old('description') !!}</textarea>
             @endif
             @if ($errors->has('description'))
                 <span class="error support support-box hidden color-white support-description mt-2 overpass">{{ $errors->first('description') }}</span>
@@ -105,22 +109,31 @@
     
         <div class="actions">
             @if (Auth::check() && $post && Auth::user()->id_user === $post->id_user)
-                <a href="#update" class="update-button edit btn btn-icon btn-one p-2">
+                <a href="#update" class="update-button edit btn btn-icon btn-one p-2 mb-2">
                     <i class="fas fa-pen"></i>
                 </a>
-                <button type="submit" class="form-submit update-button confirm hidden btn btn-icon btn-white p-2 mb-2">
+                <a href="#delete" class="delete-button edit btn btn-icon btn-one p-2">
+                    <i class="fas fa-trash"></i>
+                </a>
+                <button type="submit" class="form-submit confirm-button hidden btn btn-icon btn-white p-2 mb-2">
                     <i class="fas fa-check"></i>
                 </button>
-                <a href="#" class="update-button cancel hidden btn btn-icon btn-three p-2 mb-2">
+                <a href="#" class="cancel-button hidden btn btn-icon btn-three p-2">
                     <i class="fas fa-times"></i>
                 </a>
             @endif
             @if (!$post)
-                <button type="submit" class="form-submit btn btn-icon btn-white p-2 mb-2">
+                <button type="submit" class="form-submit btn btn-icon btn-white p-2">
                     <i class="fas fa-check"></i>
                 </button>
             @endif
         </div>
+
+        {{-- ? Delete message modal --}}
+        @component('components.modal.delete', [
+            'error' => ($error ? $error : []),
+        ])
+        @endcomponent
     </form>
 @endsection
 

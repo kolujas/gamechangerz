@@ -73,5 +73,5 @@
             const files = @json($user->files);
         @endif
     </script>
-    <script type="module" src={{ asset('js/user/profile.js') }}></script>
+    <script type="module" src={{ asset('js/user/profile.js?v=0.0.1') }}></script>
 @endsection

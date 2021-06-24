@@ -37,17 +37,15 @@
          * @param string $name
          * @return boolean
          */
-        static public function hasAction ($name) {
+        static public function hasAction (string $name) {
             switch (strtoupper($name)) {
                 case 'ACCEPT':
                 case 'CANCEL':
                 case 'DELETE':
                 case 'REQUEST':
                     return true;
-                    break;
                 default:
                     return false;
-                    break;
             }
         }
 

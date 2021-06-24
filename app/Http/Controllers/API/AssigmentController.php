@@ -63,7 +63,7 @@
             ])->orwhere([
                 ['id_user_from', '=', $chat->id_user_to],
                 ['id_user_to', '=', $chat->id_user_from],
-            ])->get()[0];
+            ])->first();
 
             try {
                 $input->abilities = Ability::stringify($input->abilities);

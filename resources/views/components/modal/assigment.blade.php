@@ -61,8 +61,8 @@
                     <button class="btn btn-background btn-one form-submit assigment-form flex justify-center w-full rounded p-1 md:h-12 md:items-center mt-12" type="submit">
                         <span class="py-2 px-4">Enviar asignatura</span>
                     </button>
-                </form>
-            </section>
+                </div>
+            </main>
         </form>
     </section>
 </aside>

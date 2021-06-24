@@ -7,7 +7,7 @@
 
     class GameController extends Controller {
         public function user (Request $request, $slug) {
-            $user = User::where('slug', '=', $slug)->with('reviews')->get()[0];
+            $user = User::where('slug', '=', $slug)->with('reviews')->first();
 
             $input = (object) $request->all();
 

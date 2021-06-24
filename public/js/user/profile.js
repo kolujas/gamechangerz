@@ -11,8 +11,6 @@ import Language from "../components/Language.js";
 import Lesson from "../components/Lesson.js";
 import User from "../components/User.js";
 
-console.log(files);
-
 function setDefaultWidth (params) {
     let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
     let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");

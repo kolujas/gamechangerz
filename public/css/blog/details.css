@@ -191,7 +191,7 @@ header.image .tile a:hover {
     color: var(--color-four);
 }
 
-#editor {
+#editor:not(.ck-read-only) {
     border: 2px solid var(--color-grey);
     border-radius: .25rem;
 }
@@ -244,6 +244,7 @@ div.actions {
     position: fixed;
     right: 3.25rem;
     bottom: 7.5rem;
+    z-index: 21;
 }
 
 section.content p {
@@ -260,6 +261,17 @@ section.content :where(h1, h2, h3, h4, h5, h6) {
 
 .ck.ck-button, a.ck.ck-button {
     color: var(--color-four);
+}
+
+.ck.ck-editor__editable_inline.ck-blurred ::selection {
+    background: var(--color-four) !important;
+    color: var(--color-white) !important;
+}
+
+#post .modal input {
+    background: #000;
+    border-radius: .25rem;
+    color: var(--color-white);
 }
 
 /* ? MD */
