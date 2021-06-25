@@ -66,6 +66,22 @@
     background-color: var(--dropdown-content-background-color);
 }
 
+.mercadopago-button {
+    display: none !important;
+}
+
+.paypal-buttons {
+    display: none;
+}
+
+.paypal-button-row.paypal-button-layout-vertical {
+    margin-bottom: 0;
+}
+
+.paypal-button-number-1 {
+    display: none !important;
+}
+
 .cart {
     border-radius: .25rem;
     background-color: #161218;

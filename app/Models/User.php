@@ -267,7 +267,7 @@
             if ($this->id_role === 0) {
                 foreach (Lesson::where([
                     ['id_user_to', '=', $this->id_user],
-                    ['status', '>', 0],
+                    ['status', '=', 3],
                 ])->get() as $lesson) {
                     $this->lessons->push($lesson);
                 }

@@ -23,7 +23,7 @@ new InputFileMakerJS({
 });
 
 (async (params) => {
-    editor = await window.ckeditor.create( document.querySelector( '#editor' ), {
+    editor = await window.CKEditor.create( document.querySelector( '#editor' ), {
         toolbar: [ 'heading', 'bold', 'italic', '|', 'undo', 'redo', ],
     } );
 

@@ -27,4 +27,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-window.ckeditor = require( '@ckeditor/ckeditor5-build-inline' );
+window.CKEditor = require( '@ckeditor/ckeditor5-build-inline' );

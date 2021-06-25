@@ -13,7 +13,7 @@
          */
         public function handle ($request, Closure $next) {
             $type = $request->route()->parameter('type');
-            if ($status !== 'mercadopago' && $status !== 'paypal') {
+            if ($status !== 'mercadopago') {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Notification \"$type\" does not exist",

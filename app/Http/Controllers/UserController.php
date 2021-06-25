@@ -203,22 +203,29 @@
          * @param string $type User type of Lesson.
          * @return [type]
          */
-        public function checkout (Request $request, $slug, $type) {
+        public function checkout (Request $request, string $slug, string $typeSearched) {
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
+            
             $user = User::where('slug', '=', $slug)->first();
-            $user->and(['lessons', 'prices', 'days']);
-            foreach ($user->lessons as $lesson) {
-                $lesson->and(['days']);
-            }
+            $user->and(['prices', 'days']);
             foreach ($user->prices as $price) {
-                if ($price->slug === $type) {
+                if ($price->slug === $typeSearched) {
                     $type = $price;
                 }
             }
+
+            $lesson = Lesson::create([
+                'id_user_from' => $user->id_user,
+                'id_user_to' => Auth::user()->id_user,
+                'id_type' => $type->id_type,
+                'status' => 1,
+            ]);
+
             return view('user.checkout', [
+                'lesson' => $lesson,
                 'user' => $user,
                 'type' => $type,
                 'error' => $error,

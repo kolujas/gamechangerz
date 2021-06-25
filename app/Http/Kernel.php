@@ -65,17 +65,19 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
-        'auth.custom' => \App\Http\Middleware\CustomAuthenticate::class,
-        'auth.is.user' => \App\Http\Middleware\CheckAuthenticateIsUser::class,
-        'auth.is.lesson.user' => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
-        'auth.role.is.admin' => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,
-        'auth.role.is.user' => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
-        'auth.role.not.user' => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,
 
         'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
         'api.chat.is.available' => \App\Http\Middleware\API\CheckChatIsAvailable::class,
         'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
         'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
+        
+        'auth.custom' => \App\Http\Middleware\CustomAuthenticate::class,
+        'auth.is.user' => \App\Http\Middleware\CheckAuthenticateIsUser::class,
+        'auth.not.user' => \App\Http\Middleware\CheckAuthenticateNotUser::class,
+        'auth.is.lesson.user' => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
+        'auth.role.is.admin' => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,
+        'auth.role.is.user' => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
+        'auth.role.not.user' => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,
 
         'friendship.action.exist' => \App\Http\Middleware\CheckFriendshipActionExist::class,
 
@@ -93,7 +95,6 @@ class Kernel extends HttpKernel
 
         'user.exist' => \App\Http\Middleware\CheckUserExist::class,
         'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
-        'user.not.checkout' => \App\Http\Middleware\CheckUserDoesNotOwnCheckout::class,
         'user.status' => \App\Http\Middleware\CheckUserStatus::class,
     ];
 }

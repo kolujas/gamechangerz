@@ -41,6 +41,28 @@
         ]];
 
         /**
+         * * Get the Game info. 
+         * @param array $columns
+         * @throws
+         */
+        public function and ($columns = []) {
+            try {
+                foreach ($columns as $column) {
+                    switch ($column) {
+                        case 'days':
+                            $this->days();
+                            break;
+                        case 'type':
+                            $this->type();
+                            break;
+                    }
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
          * * Get the Lesson Hours.
          * @return array
          */
@@ -64,8 +86,64 @@
             }
         }
 
+        /**
+         * * Get the Lesson Type.
+         * @return array
+         */
+        public function type () {
+            try {
+                foreach (Lesson::$options as $lesson) {
+                    $lesson = (object) $lesson;
+                    if ($lesson->slug === $this->id_type) {
+                        $this->type = $lesson;
+                    }
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
+         * * Check if a Lesson exists.
+         * @param string $field 
+         * @return boolean
+         */
+        static public function has ($field) {
+            $found = false;
+            foreach (Lesson::$options as $lesson) {
+                $lesson = new Lesson($lesson);
+                if ($lesson->id_type === $field || $lesson->slug === $field) {
+                    $found = true;
+                }
+            }
+            return $found;
+        }
+
+        /**
+         * * Returns a Lesson.
+         * @param string $field
+         * @return Lesson
+         */
+        static public function one ($field = '') {
+            foreach (Lesson::$options as $lesson) {
+                $lesson = new Lesson($lesson);
+                if ($lesson->id_type === $field) {
+                    return $lesson;
+                }
+            }
+        }
+
         /** @var array Validation rules & messages. */
         static $validation = [
+        'update' => [
+            'rules' => [
+                'dates' => 'required',
+                'hours' => 'required',
+            ], 'messages' => [
+                'es' => [
+                    'dates.required' => 'La fecha de la clase debe ser seleccionada.',
+                    'hours.required' => 'El horario de la clase debe ser seleccionada.',
+        ]]],
         'checkout' => [
             'online' => [
                 'rules' => [
@@ -103,53 +181,4 @@
                         'dates.*.required' => 'No se seleccionó una fecha.',
                         'hours.*.required' => 'No se seleccionó una hora.',
         ]]]]];
-
-        /**
-         * * Get the Game info. 
-         * @param array $columns
-         * @throws
-         */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
-                    switch ($column) {
-                        case 'days':
-                            $this->days();
-                            break;
-                    }
-                }
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
-
-        /**
-         * * Check if a Lesson exists.
-         * @param string $field 
-         * @return boolean
-         */
-        static public function has ($field) {
-            $found = false;
-            foreach (Lesson::$options as $lesson) {
-                $lesson = new Lesson($lesson);
-                if ($lesson->id_type === $field || $lesson->slug === $field) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Returns a Lesson.
-         * @param string $field
-         * @return Lesson
-         */
-        static public function one ($field = '') {
-            foreach (Lesson::$options as $lesson) {
-                $lesson = new Lesson($lesson);
-                if ($lesson->id_type === $field) {
-                    return $lesson;
-                }
-            }
-        }
     }

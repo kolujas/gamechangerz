@@ -86,6 +86,7 @@
         public function delete (Request $request) {
             $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
+
             $found = false;
             foreach ($user->friends as $friend) {
                 if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
@@ -93,13 +94,16 @@
                     break;
                 }
             }
+
             if (!$found) {
                 return [
                     'code' => 403,
                     'message' => "You are not $request->slug's friend",
                 ];
             }
+
             $found->delete();
+
             return [
                 'code' => 200,
                 'message' => 'Amigo eliminado',

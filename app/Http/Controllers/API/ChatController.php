@@ -28,20 +28,20 @@
             $lessons = collect();
             foreach (Lesson::where([
                 ['id_user_from', '=', $request->user()->id_user],
-                ['status', '>', 0],
+                ['status', '=', 3],
             ])->get() as $lesson) {
                 $lessons->push($lesson);
             }
 
             foreach (Lesson::where([
                 ['id_user_to', '=', $request->user()->id_user],
-                ['status', '>', 0],
+                ['status', '=', 3],
             ])->get() as $lesson) {
                 $lessons->push($lesson);
             }
 
             foreach ($lessons as $lesson) {
-                if ($lesson->status === 2) {
+                if ($lesson->status === 3) {
                     if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
                         Chat::create([
                             'id_chat' => null,

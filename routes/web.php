@@ -58,8 +58,8 @@
         Route::get('/google/oauth', [GoogleController::class, 'store'])->name('google.store');
 
 // ! LessonController - Controls the Lessom pages.
-        Route::middleware(['auth.not.user', 'user.exist', 'user.status', 'user.is.teacher', 'lesson.type.exist'])->group(function () {
-            Route::post('/users/{slug}/checkout/{type}', [LessonController::class, 'doCheckout'])->name('lesson.doCheckout');
+        Route::middleware(['auth.not.user', 'lesson.exist'])->group(function () {
+            Route::post('/lessons/{id_lesson}/checkout', [LessonController::class, 'checkout'])->name('lesson.checkout');
         });
         Route::middleware(['lesson.exist', 'lesson.status.exist', 'auth.is.lesson.user'])->group(function () {
             Route::get('/lessons/{id_lesson}/checkout/{status}', [LessonController::class, 'showStatus'])->name('lesson.checkout.status');

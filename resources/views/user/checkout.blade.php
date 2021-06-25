@@ -13,7 +13,7 @@
 @endsection
 
 @section('main')
-    <form id="checkout" action="/users/{{ $user->slug }}/checkout/{{ $type->slug }}" class="grid gap-20 md:grid-cols-3 lg:grid-cols-10 items-center md:items-start py-32 px-8 lg:px-0" method="post">
+    <form id="checkout" action="/lessons/{{ $lesson->id_lesson  }}/checkout" class="grid gap-20 md:grid-cols-3 lg:grid-cols-10 items-center md:items-start py-32 px-8 lg:px-0" method="post">
         @csrf
         @method('POST')
         <section class="cart md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-8">
@@ -91,16 +91,12 @@
                 <ul class="tab-content-list mt-8">
                     <li id="mercadopago" class="tab-content">
                         <section>
-                            <main>
-                                <p class="overpass color-grey">Paga con MercadoPago con cualquier metodo que desees.</p>
-                            </main>
+                            <main></main>
                         </section>
                     </li>
                     <li id="paypal" class="tab-content">
                         <section>
-                            <main>
-                                <p class="overpass color-grey">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam consectetur deserunt quod officiis quibusdam, eveniet illum tenetur sit voluptates earum iste, officia tempore odio aliquid. Sunt nesciunt eos perferendis quibusdam!</p>
-                            </main>
+                            <main></main>
                         </section>
                     </li>
                 </ul>
@@ -132,12 +128,12 @@
 @endsection
 
 @section('js')
+    <script src="https://www.paypal.com/sdk/js?client-id=AY9RENrD9cYtrxpDlu0jHtotUudn2ugvA3tHzvz07k61XtznIu9KILPz-k05P1ecoMVMUCWj9PaBaOnz&disable-funding=credit,card" data-namespace="paypal_sdk"></script>
     <script>
-        @if (count($user->days))
-            const type = @json($type);
-            const days = @json($user->days);
-            const lessons = @json($user->lessons);
-        @endif
+        const days = @json($user->days);
+        const lesson = @json($lesson);
+        const type = @json($type);
+        const slug = "{{ $user->slug }}";
     </script>
     <script type="module" src={{ asset('js/user/checkout.js') }}></script>
 @endsection

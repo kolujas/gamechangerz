@@ -39,61 +39,53 @@
                                 $lesson = Lesson::find($MP->payment->external_preference);
                 
                                 $lesson->update([
-                                    'status' => 2,
+                                    'status' => 3,
                                 ]);
                             }
                             break;
                     }
                     break;
                 case 'paypal':
-                    
                     break;
             }
         }
 
         /**
-         * * Creates a new Lesson & redirects to MercadoPago or PayPal.
+         * * Update a Lesson & redirects to MercadoPago.
          * @param Request $request
-         * @param string $slug User slug.
-         * @param string $type Type of Lesson.
+         * @param string $id_lesson
          * @return [type]
          */
-        public function doCheckout (Request $request, string $slug, string $type) {
+        public function checkout (Request $request, string $id_lesson) {
             $input = (object) $request->all();
-            $user = User::where('slug', '=', $slug)->first();
-
-            foreach (Lesson::$options as $lesson) {
-                $lesson = (object) $lesson;
-                if ($lesson->slug === $type) {
-                    $type = $lesson;
-                }
-            }
-
-            $user->and(['prices']);
 
             $validator = Validator::make($request->all(), Lesson::$validation['checkout']['online']['rules'], Lesson::$validation['checkout']['online']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
+            $lesson = Lesson::find($id_lesson);
+
             $days = collect([]);
             for ($i=0; $i < count($input->dates); $i++) {
                 foreach (Lesson::where([
-                    ['id_user_from', '=', $user->id_user],
+                    ['id_user_from', '=', $lesson->id_user_from],
                     ['status', '>', 0],
                 ])->get() as $lesson) {
                     $lesson->and(['days']);
-                    foreach ($lesson->days as $day) {
-                        $day = (object) $day;
-                        foreach ($day->hours as $hour) {
-                            if ($hour->id_hour === intval($input->hours[$i])) {
-                                if ($day->date === $input->dates[$i]) {
-                                    $date = $input->dates[$i];
-                                    $hours = $hour->from . " - " . $hour->to;
-                                    return redirect()->back()->withInput()->with('status', [
-                                        'code' => 500,
-                                        'message' => "La fecha $date entre las $hours ya fue tomada.",
-                                    ]);
+                    if ($lesson->id_lesson !== intval($id_lesson)) {
+                        foreach ($lesson->days as $day) {
+                            $day = (object) $day;
+                            if ($day->date === $input->dates[$i]) {
+                                foreach ($day->hours as $hour) {
+                                    if ($hour->id_hour === intval($input->hours[$i])) {
+                                        $date = $input->dates[$i];
+                                        $hours = $hour->from . " - " . $hour->to;
+                                        return redirect()->back()->withInput()->with('status', [
+                                            'code' => 500,
+                                            'message' => "La fecha $date entre las $hours ya fue tomada.",
+                                        ]);
+                                    }
                                 }
                             }
                         }
@@ -107,20 +99,20 @@
                 ]);
             }
 
-            $input->id_user_from = $user->id_user;
-            $input->id_user_to = Auth::user()->id_user;
-
+            $lesson = Lesson::find($id_lesson);
             $input->days = json_encode($days);
-            $input->id_type = $type->id_type;
+            $lesson->update((array) $input);
+            $lesson->and(['type']);
+
             if (config('app.env') !== 'local') {
-                if ($type->id_type === 1 || $type->id_type === 3) {
+                if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
                     foreach ($input->dates as $key => $date) {
                         $data = (object) [];
                         $data->users = [
                             'from' => $user,
                             'to' => Auth::user(),
                         ];
-                        $data->name = ($type->id_type === 3 ? "4 Clases" : "1 Clase") . ($type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users['from']->username;
+                        $data->name = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users['from']->username;
                         $data->description = "Clase reservada desde el sitio web GameChangerZ";
                         $data->startDateTime = new Carbon($date."T".Hour::one($input->hours[$key])->from);
                         $data->endDateTime = new Carbon($date."T".Hour::one($input->hours[$key])->to);
@@ -129,35 +121,34 @@
                     }
                 }
             }
-            $lesson = Lesson::create((array) $input);
 
             switch ($input->method) {
                 case 'mercadopago':
                     $data = (object) [
                         'id' => $lesson->id_lesson,
-                        'title' => ($type->id_type === 3 ? "4 Clases" : "1 Clase") . ($type->id_type === 2 ? " Offline" : " Online") . " de " . $user->username,
-                        'price' => $user->prices[$type->id_type - 1]->price,
+                        'title' => ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $user->username,
+                        'price' => $user->prices[$lesson->type->id_type - 1]->price,
                     ];
 
-                    // * Creates the MercadoPago
                     $MP = new MercadoPago($data);
-
-                    // * Set the MercadoPago Items
                     $MP->items([$data]);
-
-                    // * Set the MercadoPago Preference
                     $MP->preference($data);
-
-                    // * Get the Preferce URL
                     $url = $MP->preference->init_point;
                     break;
                 case 'paypal':
-                    
+                    $lesson->update([
+                        'status' => 3,
+                    ]);
+                    $url = route('lesson.checkout.status', [
+                        'id_lesson' => $lesson->id_lesson,
+                        'status' => 2,
+                    ]);
                     break;
             }
 
             return redirect($url);
         }
+
 
         /**
          * * Show the Lesson status.
