@@ -32,6 +32,11 @@
                 </div>
                 <figure></figure>
             </div>
+
+            {{-- <div>
+                <button class="">Credenciales de MercadoPago</button>
+            </div> --}}
+            
         </section>
 
         <ul class="cards abilities flex md:flex-wrap px-8 pr-0 xl:px-0 pb-4">

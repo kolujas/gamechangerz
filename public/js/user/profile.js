@@ -97,6 +97,22 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
     
     if (document.querySelector("form.user")) {
+
+        for (const btn of document.querySelectorAll('.user .reviews header a:last-child')) {
+            btn.addEventListener('click', function(e){
+                e.preventDefault();
+                this.parentNode.parentNode.nextElementSibling.classList.remove("hidden")
+            });         
+        }
+
+        for (const megaBtn of document.querySelectorAll('.mega-cardota')) {
+            megaBtn.addEventListener('mouseleave', function(e){
+                e.preventDefault();
+                this.children[1].classList.add("hidden");
+            })
+        }
+
+
         new InputFileMakerJS({
             id: 'profile',
             message: '',
