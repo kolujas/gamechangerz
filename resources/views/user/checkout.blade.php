@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('css/user/checkout.css') }}>
+    <link rel="stylesheet" href={{ asset('css/user/checkout.css?v=0.0.1') }}>
 @endsection
 
 @section('nav')
@@ -103,13 +103,16 @@
             </main>
         </section>
         <section class="credits grid gap-8 grid-cols-1 md:grid-cols-2 md:col-start-1 md:col-span-2 lg:col-start-2 lg:col-span-8">
-            <label class="grid gap-4">
-                <input id="credits" type="number" name="credits" class="overpass xl:text-lg focus:outline-none border-0" placeholder="Usar creditos:">
-                @if (Auth::user()->credits)
+            @if (Auth::user()->credits)
+                <label class="grid gap-4">
+                    <input id="credits" type="number" name="credits" class="overpass xl:text-lg focus:outline-none border-0" placeholder="Usar creditos:">
                     <span class="color-grey overpass">({{ Auth::user()->credits }} créditos disponibles)</span>
-                @endif
-            </label>
-            <div class="flex justify-end">
+                </label>
+                <div class="flex justify-end">
+            @endif
+            @if (!Auth::user()->credits)
+                <div class="md:col-start-2 flex justify-end">
+            @endif
                 <a href="#" class="btn btn-white btn-outline">
                     <span class="py-2 px-4 russo">¿Cómo cargar créditos?</span>
                 </a>

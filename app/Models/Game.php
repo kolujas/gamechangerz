@@ -24,7 +24,7 @@
             'alias' => 'CSGO',
             'folder' => 'games/counter-strike-go',
             'slug' => 'counter-strike-go',
-            'abilities' => [['id_ability' => 5],['id_ability' => 6]],
+            'abilities' => [['id_ability' => 5],['id_ability' => 6],['id_ability' => 7],['id_ability' => 8]],
             'colors' => ['#FBF19C', '#ED6744'],
             'active' => true,
         ], [

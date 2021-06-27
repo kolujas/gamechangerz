@@ -61,6 +61,28 @@
             'slug' => 'punteria',
             'stars' => null,
             'id_game' => 1,
+        ], [
+            'id_ability' => 7,
+            'name' => 'Lorem impsum',
+            'description' => '<span class="color-four">Lorem</span> ipsum dolor sit amet consectetur, adipisicing elit.',
+            'image' => 'games/counter-strike-go/abilities/3/01-punteria.png',
+            'background' => 'games/counter-strike-go/abilities/3/02-background.png',
+            'icon' => 'PunteriaSVG',
+            'difficulty' => 1,
+            'slug' => 'lorem-impsum',
+            'stars' => null,
+            'id_game' => 1,
+        ], [
+            'id_ability' => 8,
+            'name' => 'Dolor sit',
+            'description' => '<span class="color-four">Lorem</span> ipsum dolor sit amet consectetur, adipisicing elit.',
+            'image' => 'games/counter-strike-go/abilities/4/01-punteria.png',
+            'background' => 'games/counter-strike-go/abilities/4/02-background.png',
+            'icon' => 'PunteriaSVG',
+            'difficulty' => 1,
+            'slug' => 'dolor-sit',
+            'stars' => null,
+            'id_game' => 1,
         ]];
 
         /**

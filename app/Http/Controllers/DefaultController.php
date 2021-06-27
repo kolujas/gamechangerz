@@ -94,7 +94,7 @@
             foreach ($posts as $post) {
                 $post->date = $this->dateToHuman($post->updated_at);
             }
-            return view('web.game', [
+            return view('web.landing', [
                 'game' => $game,
                 'posts' => $posts,
                 'error' => $error,

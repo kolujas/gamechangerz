@@ -67,6 +67,10 @@ ul.blog.cards .card > a {
     position: relative;
 }
 
+ul.blog.cards .card > a > * {
+    position: inherit;
+}
+
 ul.blog.cards .card > a:hover::before {
     content: "";
     position: absolute;
@@ -76,7 +80,6 @@ ul.blog.cards .card > a:hover::before {
     height: calc(100% + 2px);
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     border-radius: .25rem;
-    z-index: -1;
 }
 
 ul.blog.cards .card > :where(a, div) main {

@@ -14,6 +14,9 @@ const token = Token.get();
 
 paypal_sdk.Buttons({
     onInit: function(data, actions) {
+        if (parseInt(type.id_type) !== 2 ) {
+
+        }
         actions.disable();
         paypalActions = actions;
     },
@@ -797,13 +800,13 @@ function submit (params) {
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
-    new DropdownJS({
-        id: 'date-1',
-    }, {
-        open: true,
-    });
-
     if (type.id_type !== 2) {
+        new DropdownJS({
+            id: 'date-1',
+        }, {
+            open: true,
+        });
+
         let enableDays = [];
         for (const day of days) {
             enableDays.push(day.day.id_day);

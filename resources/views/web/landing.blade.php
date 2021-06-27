@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href={{ asset('css/web/game.css') }}>
+    <link rel="stylesheet" href={{ asset('css/web/landing.css') }}>
 @endsection
 
 @section('nav')
@@ -43,10 +43,8 @@
                 </main>
             </section>
     
-            <section class="video-section grid grid-cols-1 md:grid-cols-3 lg:grid-cols-10 2xl:grid-cols-12 items-center md:items-start px-8 lg:px-0">
-            {{-- <section class="video-section lg:flex lg:justify-center lg:flex-wrap px-8"> --}}
-                <header class="md:col-span-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 pt-8 mb-8 flex justify-center flex-wrap">
-                {{-- <header class="lg:w-full"> --}}
+            <section class="hive video-section grid grid-cols-1 md:grid-cols-3 lg:grid-cols-10 2xl:grid-cols-12 items-center md:items-start px-8 lg:px-0">
+                <header class="md:col-span-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 pt-24 mb-8 flex justify-center flex-wrap">
                     <figure>
                         <img src="{{ asset('img/logos/008-isologo_original_solido.png') }}" alt="Logo claro solido de Gamechangerz">
                     </figure>
@@ -57,12 +55,10 @@
                 </header>
                 
                 <div class="flex justify-center md:col-span-3 lg:col-span-8 lg:col-start-2 xl:col-span-6 xl:col-start-3 2xl:col-start-4 mb-24 iframe-padrino">
-                {{-- <div class="pt-4 flex justify-center lg:w-full pb-12"> --}}
                     <iframe src="https://www.youtube.com/embed/uJNd8OzFt58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
         
                 <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6 pb-24">
-                {{-- <div class="services grid grid-cols-1 md:grid-cols-3 md:gap-4 pb-12"> --}}
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
                             <span class="russo text-2xl md:text-xl xl:text-3xl">Clases Online</span>
@@ -87,7 +83,7 @@
                 </div>
             </section>
     
-            <section class="banner-buscador lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24 px-8 md:px-24 lg:px-0 mb-12">
+            <section class="banner-buscador lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24 px-8 md:px-24 lg:px-0">
                 <header class="text-left lg:col-span-8 lg:col-start-2 2xl:col-start-3 mb-8">
                     <h3 class="color-white mb-2 russo uppercase">Los usuarios</h3>
                     <p class="color-white overpass">Úneteles a miles de jugadores que buscan <span class="color-four font-bold">lo mismo</span> que vos</p>
@@ -100,7 +96,7 @@
                 </form>        
             </section>
     
-            <section class="profesores-destacados lg:grid lg:grid-cols-10 2xl:grid-cols-12 px-8 py-12 mb-12 md:px-24 lg:px-0">
+            <section class="hive profesores-destacados lg:grid lg:grid-cols-10 2xl:grid-cols-12 px-8 py-24 md:px-24 lg:px-0">
                 <header class="text-left lg:col-span-8 lg:col-start-2 2xl:col-start-3 mb-8">
                     <h3 class="color-three mb-2 russo uppercase">Profesores desatacados</h3>
                     <p class="color-two xl:text-lg overpass">Conoce a los mejores mentores y aprende <span class="color-four">directamente</span> de ellos</p>
@@ -146,7 +142,7 @@
             </section>
         @endif
     
-        <section class="posts lg:grid lg:grid-cols-10 2xl:grid-cols-12 my-24 pb-2">
+        <section class="hive posts lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24">
             <header class="lg:col-span-8 lg:col-start-2 2xl:col-start-3 mb-8 px-8 lg:px-0">
                 <h3 class="color-three mb-2 russo uppercase">Visita nuestro blog</h3>
                 <p class="color-three lg:text-lg overpass">Encontrarás los <span class="color-four font-bold">tips</span> mas valiosos y las discusiones mas interesantes </p>
@@ -167,7 +163,7 @@
 
 @section('js')
     <script src={{ asset('js/swiper/swiper-bundle.min.js') }}></script>
-    <script type="module" src={{ asset('js/web/game.js') }}></script>
+    <script type="module" src={{ asset('js/web/landing.js') }}></script>
 
     <script>
         var swiper = new Swiper('.swiper-container', {

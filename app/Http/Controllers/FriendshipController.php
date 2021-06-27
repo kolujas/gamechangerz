@@ -7,31 +7,35 @@
     use Illuminate\Http\Request;
 
     class FriendshipController extends Controller {
-        public function call (Request $request, $slug, $action) {
+        /**
+         * * Executes the Friendship function.
+         * @param Request $request
+         * @param string $slug
+         * @param string $action
+         * @return [type]
+         */
+        public function call (Request $request, string $slug, string $action) {
             switch (strtoupper($action)) {
                 case 'ACCEPT':
-                    $response = (object) $this->accept($request);
-                    break;
+                    return $this->accept($request);
                 case 'CANCEL':
-                    $response = (object) $this->cancel($request);
-                    break;
+                    return $this->cancel($request);
                 case 'DELETE':
-                    $response = (object) $this->delete($request);
-                    break;
+                    return $this->delete($request);
                 case 'REQUEST':
-                    $response = (object) $this->request($request);
-                    break;
+                    return $this->request($request);
             }
-            if ($response->code !== 200) {
-                $request->session()->put('error', $response);
-                return redirect("/users/$slug/profile");
-            }
-            return redirect("/users/$slug/profile")->with('status', $response);
         }
 
+        /**
+         * * Accepts the Friendship.
+         * @param Request $request
+         * @return [type]
+         */
         public function accept (Request $request) {
             $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
+
             $found = false;
             foreach ($user->friends as $friend) {
                 if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
@@ -39,50 +43,68 @@
                     break;
                 }
             }
+
             if (!$found) {
-                return [
+                return redirect("/users/$slug/profile")->with('status', [
                     'code' => 403,
                     'message' => "You are not $request->slug's friend",
-                ];
+                ]);
             }
+
             if ($found->accepted) {
-                return [
+                return redirect("/users/$slug/profile")->with('status', [
                     'code' => 403,
                     'message' => "Friendship request accepted",
-                ];
+                ]);
             }
+
             $found->update([
                 'accepted' => 1,
             ]);
-            return [
+
+            return redirect("/users/$slug/profile")->with('status', [
                 'code' => 200,
                 'message' => 'Solicitud aceptada',
-            ];
+            ]);
         }
 
+        /**
+         * * Cancel the Friendship.
+         * @param Request $request
+         * @return [type]
+         */
         public function cancel (Request $request) {
             $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
             $found = false;
+            
             foreach ($user->friends as $friend) {
                 if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
                     $found = $friend;
                     break;
                 }
             }
+
             if (!$found) {
-                return [
+                return redirect("/users/$slug/profile")->with('status', [
                     'code' => 403,
                     'message' => "You are not $request->slug's friend",
-                ];
+                ]);
             }
+
             $found->delete();
-            return [
+
+            return redirect("/users/$slug/profile")->with('status', [
                 'code' => 200,
                 'message' => 'Solicitud cancelada',
-            ];
+            ]);
         }
 
+        /**
+         * * Delete the Friendship.
+         * @param Request $request
+         * @return [type]
+         */
         public function delete (Request $request) {
             $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
@@ -96,23 +118,39 @@
             }
 
             if (!$found) {
-                return [
+                return redirect("/users/$slug/profile")->with('status', [
                     'code' => 403,
                     'message' => "You are not $request->slug's friend",
-                ];
+                ]);
             }
+
+            $chat = Chat::where([
+                ['id_user_from', '=', $found->id_user_from],
+                ['id_user_to', '=', $found->id_user_to],
+            ])->orwhere([
+                ['id_user_from', '=', $found->id_user_to],
+                ['id_user_to', '=', $found->id_user_from],
+            ])->first();
+
+            $chat->delete();
 
             $found->delete();
 
-            return [
+            return redirect("/users/$slug/profile")->with('status', [
                 'code' => 200,
                 'message' => 'Amigo eliminado',
-            ];
+            ]);
         }
 
+        /**
+         * * Request a Friendship.
+         * @param Request $request
+         * @return [type]
+         */
         public function request (Request $request) {
             $user = User::where('slug', '=', $request->slug)->first();
             $user->and(['friends']);
+
             $found = false;
             foreach ($user->friends as $friend) {
                 if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
@@ -120,20 +158,23 @@
                     break;
                 }
             }
+
             if ($found) {
-                return [
+                return redirect("/users/$slug/profile")->with('status', [
                     'code' => 403,
                     'message' => "You are \"$request->slug\"'s friend",
-                ];
+                ]);
             }
+
             $friend = Friend::create([
                 'id_user_from' => Auth::user()->id_user,
                 'id_user_to' => $user->id_user,
                 'accepted' => 0,
             ]);
-            return [
+
+            return redirect("/users/$slug/profile")->with('status', [
                 'code' => 200,
                 'message' => 'Solicitud enviada',
-            ];
+            ]);
         }
     }

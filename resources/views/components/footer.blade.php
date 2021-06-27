@@ -4,19 +4,19 @@
             <h4 class="font-bold pb-4 overpass">Navegación</h4>
             <ul>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Inicio</a>
+                    <a class="overpass btn btn-grey btn-text" href="/">Inicio</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Profesores</a>
+                    <a class="overpass btn btn-grey btn-text" href="/teachers">Profesores</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Aprendices</a>
+                    <a class="overpass btn btn-grey btn-text" href="/users">Aprendices</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Mi cuenta</a>
+                    <a class="overpass btn btn-grey btn-text" href="/users/{{ Auth::user()->slug }}/profile">Mi cuenta</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Blog</a>
+                    <a class="overpass btn btn-grey btn-text" href="/blog">Blog</a>
                 </li>
             </ul>
         </nav>
@@ -33,10 +33,10 @@
                     <a class="overpass btn btn-grey btn-text" href="#">Afiliados</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Términos de servicio</a>
+                    <a class="overpass btn btn-grey btn-text" href="/terms-&-conditions">Términos de servicio</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Políticas de privacidad</a>
+                    <a class="overpass btn btn-grey btn-text" href="/privacy-politics">Políticas de privacidad</a>
                 </li>
             </ul>
         </nav>
@@ -44,31 +44,31 @@
             <h4 class="col-span-3 font-bold pb-4 pl-5">Redes</h4>
             <ul class="col-start-1">
                 <li class="my-4 pl-4">
-                    <a href="#">@component('components.svg.TwSVG')@endcomponent</a>
+                    <a href="https://twitter.com" target="_blank">@component('components.svg.TwSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="#">@component('components.svg.TwitchSVG')@endcomponent</a>
+                    <a href="https://www.youtube.com" target="_blank">@component('components.svg.TwitchSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="#">@component('components.svg.IgSVG')@endcomponent</a>
+                    <a href="https://www.instagram.com" target="_blank">@component('components.svg.IgSVG')@endcomponent</a>
                 </li>
             </ul>
             <ul> 
                 <li class="my-4 pl-4">
-                    <a href="#">@component('components.svg.FbSVG')@endcomponent</a>
+                    <a href="https://www.facebook.com/" target="_blank">@component('components.svg.FbSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="#">@component('components.svg.YtSVG')@endcomponent</a>
+                    <a href="https://www.youtube.com" target="_blank">@component('components.svg.YtSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="#">@component('components.svg.WppSVG')@endcomponent</a>
+                    <a href="https://wa.me" target="_blank">@component('components.svg.WppSVG')@endcomponent</a>
                 </li>
             </ul>
         </nav>
         <nav class="grid grid-cols-1 items-center m-auto py-8 pr-4">
-            <div>
+            <a href="/">
                 <img class="footer-logo" src={{ asset('img/logos/008-isologo_original_solido.png') }} alt="Gamechangerz's logo">
-            </div>
+            </a>
         </nav>
     </header>
     <section class="copy-text px-8 md:px-12 lg:px-20">
@@ -79,10 +79,10 @@
     
         <ul class="text-center policy-ul flex justify-center">
             <li class="pb-2 md:pb-0 px-2 md:px-4">
-                <a class="overpass btn btn-white btn-text" href="#">Terminos de Servicio </a>
+                <a class="overpass btn btn-white btn-text" href="/terms-&-conditions">Terminos de Servicio </a>
             </li>
             <li class="pb-2 md:pb-0 lg:pl-2 px-2 md:px-4 orange-border">
-                <a class="overpass btn btn-white btn-text" href="#">Políticas de privacidad</a>
+                <a class="overpass btn btn-white btn-text" href="/privacy-politics">Políticas de privacidad</a>
             </li>
             <li class="pb-2 md:pb-0 lg:pl-2 px-2 md:px-4 orange-border">
                 <a class="overpass btn btn-white btn-text" href="#">Accesibilidad</a>

@@ -1,5 +1,4 @@
 import { Dropdown as DropdownJS } from "../submodules/DropdownJS/js/Dropdown.js";
-import { HTMLCreator as HTMLCreatorJS } from "../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
 import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
