@@ -147,6 +147,22 @@ async function getUsers (role = 0) {
     }
 }
 
+function changePrices(){
+    // Get slider values
+    var slides = document.querySelectorAll(".range-slider input");
+    var slide1 = parseFloat( slides[0].value );
+    var slide2 = parseFloat( slides[1].value );
+    // Neither slider will clip the other, so make sure we determine which is larger
+    if( slide1 > slide2 ){
+        var tmp = slide2;
+        slide2 = slide1;
+        slide1 = tmp; 
+    }
+    
+    var displayElement = document.querySelector(".range-slider span");
+        displayElement.innerHTML = "$ " + slide1 + " - $" + slide2 + "$";
+  }
+
 document.addEventListener('DOMContentLoaded', function (e) {
     if (URL.findOriginalRoute() === '/users') {
         getUsers(0);
@@ -154,4 +170,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (URL.findOriginalRoute() === '/teachers') {
         getUsers(1);
     }
+
+     // Initialize Sliders
+    for (const input of document.querySelectorAll(".range-slider input")) {
+        input.addEventListener("input", function(){
+            changePrices();
+        })
+    }
+    changePrices();
 });
+
+
+
+  
+ 

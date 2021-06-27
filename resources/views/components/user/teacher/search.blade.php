@@ -65,9 +65,13 @@
         </div>
 
         <div id="payment" class="z-10 ml-3">
-            <div class="rounded p-2" href="#">
-                <span class="overpass">$</span>
-                <input type="range" name="prices[price]" min="0" max="500" step="1" class="filter-control filter-teachers rule-price">
+            <div class="rounded p-2 range-slider" href="#">
+                <span class="overpass block"></span>
+                {{-- <input type="range" name="prices[price]" min="0" max="500" step="1" class="filter-control filter-teachers rule-price"> --}}
+                <div class="relative w-full h-3">
+                    <input multiple name="prices[price]" value="500" min="500" max="50000" step="500" type="range">
+                    <input multiple name="prices_two[price]" value="50000" min="500" max="50000" step="500" type="range">
+                </div>
             </div>
         </div>
     </div>
