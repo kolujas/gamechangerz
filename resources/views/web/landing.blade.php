@@ -163,6 +163,7 @@
 
 @section('js')
     <script src={{ asset('js/swiper/swiper-bundle.min.js') }}></script>
+    <script src={{ asset('js/scrollreveal.min.js') }}></script>
     <script type="module" src={{ asset('js/web/landing.js') }}></script>
 
     <script>
