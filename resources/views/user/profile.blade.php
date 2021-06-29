@@ -50,6 +50,7 @@
     @if (Auth::check() && Auth::user()->id_user === $user->id_user && $user->id_role === 1)
         @component('components.modal.achievements', [
             'achievements' => $user->achievements,
+            'user' => $user,
         ])
         @endcomponent
         @component('components.modal.languages', [
@@ -71,6 +72,7 @@
         @endif
         @if ($user->id_role === 1)
             const files = @json($user->files);
+            const achievements = @json($user->achievements);
         @endif
     </script>
     <script type="module" src={{ asset('js/user/profile.js?v=0.0.1') }}></script>

@@ -1,0 +1,81 @@
+<?php
+    namespace App\Http\Controllers;
+
+    use app\Models\Achievement;
+    use app\Models\User;
+    use Illuminate\Http\Request;
+
+    class AchievementController extends Controller {
+        public function update (Request $request, $slug) {
+            $user = User::where('slug', '=', $slug)->first();
+            $user->and(["achievements"]);
+
+            $input = (object) $request->all();
+
+            $achievements = [];
+            foreach ($user->achievements as $achievement) {
+                if (isset($input->title)) {
+                    foreach ($input->title as $id_achievement => $title) {
+                        if (intval($id_achievement) === intval($achievement->id_achievement)) {
+                            continue 2;
+                        }
+                    }
+                }
+                if (isset($input->message)) {
+                    foreach ($input->message as $id_achievement => $message) {
+                        if (intval($id_achievement) === intval($achievement->id_achievement) && $message === "BORRAR") {
+                            continue 2;
+                        }
+                    }
+                }
+                $achievements[] = [
+                    "id_achievement" => $achievement->id_achievement,
+                    "title" => $achievement->title,
+                    "description" => $achievement->description,
+                    "icon" => "components.svg.TrofeoSVG",
+                ];
+            }
+            // dd($achievements);
+
+            if (isset($input->title)) {
+                foreach ($input->title as $id_achievement => $title) {
+                    foreach ($user->achievements as $achievement) {
+                        if (intval($id_achievement) === intval($achievement->id_achievement)) {
+                            break;
+                        }
+                        $achievement = false;
+                    }
+                    foreach ($input->description as $description_id_achievement => $description) {
+                        if (intval($id_achievement) === intval($description_id_achievement)) {
+                            break;
+                        }
+                        $description = false;
+                    }
+                    if (!$achievement) {
+                        if (!$title || !$description) {
+                            continue;
+                        }
+                    }
+                    $achievements[] = [
+                        "id_achievement" => $id_achievement,
+                        "title" => ($title ? $title : $achievement->title),
+                        "description" => ($description ? $description : $achievement->description),
+                        "icon" => "components.svg.TrofeoSVG",
+                    ];
+                }
+            }
+            
+            usort($achievements, function ($a, $b) {
+                return strcmp($a['id_achievement'], $b['id_achievement']);
+            });
+
+            $user->update([
+                "achievements" => json_encode($achievements),
+            ]);
+            
+            return redirect("/users/$user->slug/profile")->with('status', [
+                'code' => 200,
+                'message' => 'Logros actualizados correctamente.',
+            ]);
+        }
+    }

@@ -245,7 +245,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
     if (authenticated) {
         if (document.querySelector('#achievements.modal')) {
-            Achievement.setModalJS();
+            Achievement.setModalJS(achievements);
+            for (const btn of document.querySelectorAll('ul.achievements.cards .btn')) {
+                btn.addEventListener("click", function (e) {
+                    modals.achievements.open();
+                });
+            }
         }
         if (document.querySelector('#games.modal')) {
             Game.setModalJS();

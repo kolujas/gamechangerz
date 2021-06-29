@@ -15,3 +15,31 @@
 #achievements.modal .tabla tbody tr td input:disabled{
     background-color: var(--color-black);
 }
+
+#achievements.modal .tabla tbody tr td .actions {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#achievements.modal .tabla tbody tr td input.opacity {
+    opacity: .25;
+}
+
+#achievements.modal .tabla tbody tr td input.message {
+    position: absolute;
+    top: 50%;
+    right: 3rem;
+    transform: translateY(-50%);
+    width: 16rem;
+    z-index: 1;
+}
+
+#achievements.modal footer {
+    position: sticky;
+    bottom: 0;
+    padding-bottom: 3rem;
+    z-index: 2;
+    background: linear-gradient(180deg, transparent, var(--color-black) 40%);
+}

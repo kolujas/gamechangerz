@@ -69,11 +69,11 @@
         static public function parse ($achievementsToParse = []) {
             $achievements = collect([]);
             foreach ($achievementsToParse as $data) {
-                if (isset($data->id_achievement) && Achievement::has($data->id_achievement)) {
+                if (Achievement::has($data->id_achievement)) {
                     $achievement = Achievement::one($data->id_achievement);
                     $achievements->push($achievement);
                 }
-                if (!isset($data->id_achievement) || !Achievement::has($data->id_achievement)) {
+                if (!Achievement::has($data->id_achievement)) {
                     $achievement = new Achievement((array) $data);
                     $achievements->push($achievement);
                 }

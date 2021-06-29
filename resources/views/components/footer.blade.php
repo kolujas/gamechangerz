@@ -13,7 +13,12 @@
                     <a class="overpass btn btn-grey btn-text" href="/users">Aprendices</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="/users/{{ Auth::user()->slug }}/profile">Mi cuenta</a>
+                    @if (Auth::check())
+                        <a class="overpass btn btn-grey btn-text" href="/users/{{ Auth::user()->slug }}/profile">Mi cuenta</a>
+                    @endif
+                    @if (!Auth::check())
+                        <a class="overpass btn btn-grey btn-text" href="#login">Mi cuenta</a>
+                    @endif
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="/blog">Blog</a>

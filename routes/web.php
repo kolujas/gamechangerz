@@ -1,4 +1,5 @@
 <?php
+    use App\Http\Controllers\AchievementController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\BlogController;
     use App\Http\Controllers\DefaultController;
@@ -81,8 +82,11 @@
     Route::middleware(['auth.custom', 'auth.is.user'])->group(function () {
         Route::post('/users/{slug}/update', [UserController::class, 'update'])->name('user.update');
 
+// ! AchievementController - Controls the Achievement pages.
+        Route::post('/users/{slug}/achievements/update', [AchievementController::class, 'update'])->name('achievement.update');
+
 // ! GameController - Controls the Game pages.
-        Route::post('/users/{slug}/games/update', [GameController::class, 'user'])->name('game.user');
+        Route::post('/users/{slug}/games/update', [GameController::class, 'update'])->name('game.update');
 
 // ! LanguageController - Controls the Language pages.
         Route::post('/users/{slug}/languages/update', [LanguageController::class, 'user'])->name('language.user');
