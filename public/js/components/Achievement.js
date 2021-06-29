@@ -195,8 +195,10 @@ export class Achievement extends Class {
                 tr.parentNode.removeChild(tr);
                 break;
         }
-        for (const btn of params.instance.btns) {
-            btn.html.classList.toggle("hidden");
+        if (params.state !== "remove") {
+            for (const btn of params.instance.btns) {
+                btn.html.classList.toggle("hidden");
+            }
         }
     }
 
