@@ -91,11 +91,13 @@
                 @endforeach
             </table>
             <div class="flex justify-center">
-                <span class="text-center color-five mt-4 russo">
-                    AR$ <input type="number" name="prices[0]" class="form-input update-input" disabled value={{ $user->prices[0]->price }} placeholder="100"/>
+                <span class="text-center color-five mt-4 p-2 russo">
+                    AR$ <input type="number" name="prices[0]" class="form-input update-input p-2" disabled value={{ $user->prices[0]->price }} placeholder="100"/>
                     <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
                 </span>
-                <span class="text-center color-five mt-4 russo">U$D 400 </span>
+                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                    U$D <span class="p-2">400</span>    
+                </span>
             </div>
             
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)
@@ -105,10 +107,15 @@
             @endif
         </li>
         <li id="offline" class="tab-content closed">
-            <span class="block text-center color-five russo">
-                AR$ <input type="number" name="prices[1]" class="form-input update-input" disabled value={{ $user->prices[1]->price }} placeholder="100"/>
-                <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
-            </span>
+            <div class="flex justify-center">
+                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                    AR$ <input type="number" name="prices[1]" class="form-input update-input p-2" disabled value={{ $user->prices[1]->price }} placeholder="100"/>
+                    <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
+                </span>
+                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                    U$D <span class="p-2">400</span>    
+                </span>
+            </div>
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[1]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto">
                     <span class="russo py-2 px-4">Contratar</span>
@@ -160,10 +167,15 @@
                     </tr>
                 @endforeach
             </table>
-            <span class="block text-center color-five russo">
-                AR$ <input type="number" name="prices[2]" class="form-input update-input" disabled value={{ $user->prices[2]->price }} placeholder="100"/> / h
-                <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
-            </span>
+            <div class="flex justify-center">
+                <span class="text-center color-five mt-4 p-2 russo">
+                    AR$ <input type="number" name="prices[2]" class="form-input update-input p-2" disabled value={{ $user->prices[2]->price }} placeholder="100"/>
+                    <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
+                </span>
+                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                    U$D <span class="p-2">400</span>    
+                </span>
+            </div>
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto rounded">
                     <span class="russo py-2 px-4">Contratar</span>

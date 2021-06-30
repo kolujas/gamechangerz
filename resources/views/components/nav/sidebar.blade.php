@@ -31,10 +31,10 @@
         @endif
         @if (!Auth::check())
             <a href="#login" class="sidebar-title grid grid-cols-3 items-center">
-                <div class="pr-2">
+                <div class="pr-2 mt-8">
                     <i class="link-icon fas fa-sign-in-alt"></i>
                 </div>
-                <div class="col-span-2 grid grid-cols-1 items-center">
+                <div class="col-span-2 grid grid-cols-1 items-center mt-8">
                     <span>Ingresar</span>
                 </div>
             </a>
@@ -61,7 +61,7 @@
                 </li>
             @endif
             <li>
-                <a href="/teachers" class="sidebar-link nav-link p-0">
+                <a href="/teachers" class="sidebar-link nav-link p-0 mt-8">
                     <span class="link-text">Profesores</span>
                 </a>
             </li>
@@ -78,7 +78,10 @@
                 </li>
             @endif
         </ul>
+    </div>
 
+   
+    <div class="sidebar-footer">
         <nav class="grid grid-cols-2 items-center py-8">
             <h4 class="col-span-3 font-bold pb-4 pl-5 color-white">Redes</h4>
             <ul class="col-start-1">
@@ -105,20 +108,4 @@
             </ul>
         </nav>
     </div>
-
-   
-    {{-- <div class="sidebar-footer">
-        <ul class="sidebar-footer-menu-list">
-            <li>
-                <a href="#" class="sidebar-footer-link nav-link p-0 mr-4">
-                    @component('components.svg.TwitchSVG')@endcomponent
-                </a>
-            </li>
-            <li>
-                <a href="#" class="sidebar-footer-link nav-link p-0">
-                    @component('components.svg.YtSVG')@endcomponent
-                </a>
-            </li>
-        </ul>
-    </div> --}}
 </div>

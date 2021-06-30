@@ -7,3 +7,11 @@ modals.poll = new ModalJS({
     open: true,
     outsideClick: true
 });
+
+const sr = ScrollReveal();
+
+sr.reveal('#poll.modal .modal-content', {
+    duration: 1500,
+    ease: 'ease-in-out',
+})
+
