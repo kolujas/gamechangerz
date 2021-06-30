@@ -359,6 +359,7 @@
 
 .teacher .tab-menu .tab-content > div > span{
     border: 1px solid var(--color-four);
+    /* border-radius: .25rem; */
 }
 
 .teacher .tab-menu input[type=number]::-webkit-inner-spin-button, 

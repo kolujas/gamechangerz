@@ -14,6 +14,7 @@
     use App\Models\Teampro;
     use App\Models\User;
     use Auth;
+    use Carbon\Carbon;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use DB;
     use Illuminate\Http\Request;
@@ -177,6 +178,7 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
+
             return view('user.search', [
                 'games' => Game::all(),
                 'error' => $error,
@@ -217,12 +219,23 @@
                 }
             }
 
-            $lesson = Lesson::create([
-                'id_user_from' => $user->id_user,
-                'id_user_to' => Auth::user()->id_user,
-                'id_type' => $type->id_type,
-                'status' => 1,
-            ]);
+            foreach (Lesson::where('status', '=', '1')->get() as $lesson) {
+                if ($lesson->id_user_to === Auth::user()->id_user && $lesson->id_user_from === $user->id_user) {
+                    break;
+                } else if (Carbon::parse($lesson->updated_at)->diffInMinutes(Carbon::now()) === 5) {
+                    $lesson->delete();
+                }
+                $lesson = false;
+            }
+
+            if (!$lesson) {
+                $lesson = Lesson::create([
+                    'id_user_from' => $user->id_user,
+                    'id_user_to' => Auth::user()->id_user,
+                    'id_type' => $type->id_type,
+                    'status' => 1,
+                ]);
+            }
 
             return view('user.checkout', [
                 'lesson' => $lesson,

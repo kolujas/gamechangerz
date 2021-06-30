@@ -91,11 +91,11 @@
                 @endforeach
             </table>
             <div class="flex justify-center">
-                <span class="text-center color-five mt-4 p-2 russo">
+                <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
                     AR$ <input type="number" name="prices[0]" class="form-input update-input p-2" disabled value={{ $user->prices[0]->price }} placeholder="100"/>
                     <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
                 </span>
-                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
                     U$D <span class="p-2">400</span>    
                 </span>
             </div>
@@ -108,11 +108,11 @@
         </li>
         <li id="offline" class="tab-content closed">
             <div class="flex justify-center">
-                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
                     AR$ <input type="number" name="prices[1]" class="form-input update-input p-2" disabled value={{ $user->prices[1]->price }} placeholder="100"/>
                     <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
                 </span>
-                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
                     U$D <span class="p-2">400</span>    
                 </span>
             </div>
@@ -168,11 +168,11 @@
                 @endforeach
             </table>
             <div class="flex justify-center">
-                <span class="text-center color-five mt-4 p-2 russo">
+                <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
                     AR$ <input type="number" name="prices[2]" class="form-input update-input p-2" disabled value={{ $user->prices[2]->price }} placeholder="100"/>
                     <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
                 </span>
-                <span class="text-center color-five mt-4 p-2 russo flex items-center">
+                <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
                     U$D <span class="p-2">400</span>    
                 </span>
             </div>
