@@ -69,7 +69,7 @@
         public function teachers (Request $request) {
             $users = User::where('id_role', '=', 1)->get();
             foreach ($users as $user) {
-                $user->and(['games', 'files', 'prices', 'teampro', 'languages']);
+                $user->and(['games', 'files', 'prices', 'teampro', 'languages', 'days']);
                 foreach ($user->games as $game) {
                     $game->and(['abilities', 'files']);
                 }

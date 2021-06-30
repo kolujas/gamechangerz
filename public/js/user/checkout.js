@@ -632,6 +632,23 @@ function checkHours (params) {
  * * Check if the PayPal has to be enable or not.
  */
 function checkPayPalState () {
+    // * Get the Hours
+    let hourValues = [];
+    for (const hour of hours) {
+        if (hour.value) {
+            hourValues.push({
+                index: parseInt(hour.dataset.index),
+                date: hour.dataset.date,
+            });
+        }
+    }
+
+    // * Get the Dates
+    let dateValues = [];
+    for (const selected of calendar.props.selectedIndex) {
+        dateValues.push(selected);
+    }
+    
     // ? If the quantity of Dates & Hours is less than the correct one
     if (dateValues.length < calendar.props.quantity && hourValues.length < calendar.props.quantity) {
         // * Disable PayPal

@@ -100,6 +100,34 @@ function createUsersFilter () {
 }
 
 function createTeachersFilter () {
+    let max = 0, min = 0;
+    for (const user of users) {
+        for (const price of user.prices) {
+            if (!min) {
+                min = parseInt(price.price);
+            }
+            if (!max) {
+                max = parseInt(price.price);
+            }
+            if (max < parseInt(price.price)) {
+                max = parseInt(price.price);
+            }
+            if (min > parseInt(price.price)) {
+                min = parseInt(price.price);
+            }
+        }
+    }
+    for (const input of document.querySelectorAll(".range-slider input")) {
+        if (input.name === "min-price") {
+            input.value = min;
+        }
+        if (input.name === "max-price") {
+            input.value = max;
+        }
+        input.max = max;
+        input.min = min;
+    }
+    changeText();
     filter = new FilterJS({
         id: 'filter-teachers',
         limit: 10,
@@ -110,8 +138,9 @@ function createTeachersFilter () {
         ], rules: {
             search: [['username','name'], '=', document.querySelector('input[type=search].filter-control').value],
             games: 'games:*.slug',
-            price: ['prices:[0,1].price', '<=', null, false],
-            time: 'days:*.hours:*.time',
+            "min-price": ['prices:*.price', '>=', null, false],
+            "max-price": ['prices:*.price', '<=', null, false],
+            time: ['days:*.hours:*.time', '==', null, false],
         },
     }, {}, {
         run: {
@@ -147,21 +176,76 @@ async function getUsers (role = 0) {
     }
 }
 
-function changePrices(){
-    // Get slider values
-    var slides = document.querySelectorAll(".range-slider input");
-    var slide1 = parseFloat( slides[0].value );
-    var slide2 = parseFloat( slides[1].value );
-    // Neither slider will clip the other, so make sure we determine which is larger
-    if( slide1 > slide2 ){
-        var tmp = slide2;
-        slide2 = slide1;
-        slide1 = tmp; 
+/**
+ * * Change slider text values.
+ */
+function changeText () {
+    // * Get bar inputs
+    let minBar = document.querySelector(".range-slider input.range-slider-bar.min");
+    let maxBar = document.querySelector(".range-slider input.range-slider-bar.max");
+
+    // * Get text inputs
+    let minText = document.querySelector(".range-slider input.range-slider-text.min");
+    let maxText = document.querySelector(".range-slider input.range-slider-text.max");
+
+    // * Get values
+    let minValue = parseFloat(minBar.value);
+    let maxValue = parseFloat(maxBar.value);
+
+    // * Determine which is larger
+    if (minValue > maxValue) {
+        // * Save temporally the larger
+        let tmp = {
+            name: maxBar.name,
+            value: maxValue
+        };
+
+        // * Replace the second slide
+        maxBar.name = minBar.name;
+        maxValue = minValue;
+        
+        // * Replace the first slide
+        minBar.name = tmp.name;
+        minValue = tmp.value; 
     }
     
-    var displayElement = document.querySelector(".range-slider span");
-        displayElement.innerHTML = "$ " + slide1 + " - $" + slide2 + "$";
-  }
+    // * Put the text
+    maxText.max = maxValue;
+    maxText.min = minValue;
+    maxText.value = maxValue;
+    minText.max = maxValue;
+    minText.min = minValue;
+    minText.value = minValue;
+
+    changeTextWidth();
+}
+
+/**
+ * * Change slider bar values.
+ */
+function changeBar () {
+    // * Get bar inputs
+    let minBar = document.querySelector(".range-slider input.range-slider-bar.min");
+    let maxBar = document.querySelector(".range-slider input.range-slider-bar.max");
+
+    // * Get text inputs
+    let minText = document.querySelector(".range-slider input.range-slider-text.min");
+    let maxText = document.querySelector(".range-slider input.range-slider-text.max");
+
+    // * Change the bar inputs value
+    minBar.value = minText.value;
+    maxBar.value = maxText.value;
+
+    changeTextWidth();
+}
+
+function changeTextWidth () {
+    for (const input of document.querySelectorAll(".range-slider .range-slider-text")) {
+        let label = document.querySelector(`.range-slider label[for="${ input.id }"]`);
+        label.innerHTML = input.value;
+        input.setAttribute('style', `--width: ${ label.offsetWidth }px`);
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function (e) {
     if (URL.findOriginalRoute() === '/users') {
@@ -171,16 +255,18 @@ document.addEventListener('DOMContentLoaded', function (e) {
         getUsers(1);
     }
 
-     // Initialize Sliders
-    for (const input of document.querySelectorAll(".range-slider input")) {
+    // * Apply Sliders events
+    for (const input of document.querySelectorAll(".range-slider input.range-slider-bar")) {
         input.addEventListener("input", function(){
-            changePrices();
+            changeText();
         })
     }
-    changePrices();
+    for (const input of document.querySelectorAll(".range-slider input.range-slider-text")) {
+        input.addEventListener("input", function(){
+            changeBar();
+        })
+    }
+
+    // * Set default values
+    changeText();
 });
-
-
-
-  
- 

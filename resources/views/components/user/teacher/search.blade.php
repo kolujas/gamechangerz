@@ -45,35 +45,56 @@
             <ul class="dropdown-content">                        
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-control filter-teachers rule-time" name="days[1]">
+                        <input type="checkbox" class="filter-control filter-teachers rule-time" name="days[1]" value="1">
                         <span class="overpass">Mañana</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-control filter-teachers rule-time" name="days[2]">
+                        <input type="checkbox" class="filter-control filter-teachers rule-time" name="days[2]" value="2">
                         <span class="overpass">Tarde</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-control filter-teachers rule-time" name="days[3]">
+                        <input type="checkbox" class="filter-control filter-teachers rule-time" name="days[3]" value="3">
                         <span class="overpass">Noche</span>
                     </label>
                 </li>
             </ul>
         </div>
 
-        <div id="payment" class="z-10 ml-3">
+        <div id="price" class="dropdown closed z-10 ml-3 range-slider">
+            <a class="dropdown-header dropdown-button rounded p-2" href="#">
+                <span class="overpass">Precio</span>
+                <i class="fas fa-chevron-down color-four"></i>
+            </a>
+            <ul class="dropdown-content">                        
+                <li>
+                    <div class="flex items-center overpass color-three mb-2">
+                        <input id="min" class="range-slider-text filter-control filter-teachers rule-min-price min p-2" type="number" name="min-price" value="1" min="1" max="50000">
+                        <label for="min">1</label>
+                        <span class="mx-2">-</span>
+                        <input id="max" class="range-slider-text filter-control filter-teachers rule-max-price max p-2" type="number" name="max-price" value="50000" min="1" max="50000">
+                        <label for="max">50000</label>
+                    </div>
+                    <div class="relative w-full h-3">
+                        <input multiple class="range-slider-bar filter-control filter-teachers rule-min-price min" name="min-price" value="1" min="1" max="50000" step="1" type="range">
+                        <input multiple class="range-slider-bar filter-control filter-teachers rule-max-price max" name="max-price" value="50000" min="1" max="50000" step="1" type="range">
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        {{-- <div id="payment" class="z-10 ml-3">
             <div class="rounded p-2 range-slider" href="#">
                 <span class="overpass block"></span>
-                {{-- <input type="range" name="prices[price]" min="0" max="500" step="1" class="filter-control filter-teachers rule-price"> --}}
                 <div class="relative w-full h-3">
-                    <input multiple name="prices[price]" value="500" min="500" max="50000" step="500" type="range">
-                    <input multiple name="prices_two[price]" value="50000" min="500" max="50000" step="500" type="range">
+                    <input multiple name="min-price" value="1" min="1" max="50000" step="1" type="range">
+                    <input multiple name="max-price" value="50000" min="1" max="50000" step="1" type="range">
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 

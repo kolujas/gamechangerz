@@ -119,6 +119,28 @@
     white-space: nowrap;
 }
 
+.teachers .range-slider .range-slider-text {
+    background: var(--color-black);
+    width: calc(var(--width) + 1rem);
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.teachers .range-slider .range-slider-text::-webkit-inner-spin-button, 
+.teachers .range-slider .range-slider-text::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+.teachers .range-slider .range-slider-text:focus {
+    background: #000;
+}
+
+.teachers .range-slider label {
+    position: fixed;
+    left: -100000rem;
+}
+
 .teachers .teacher main{
     position: relative;
 }
