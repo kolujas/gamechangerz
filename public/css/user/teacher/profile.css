@@ -350,25 +350,33 @@
 }
 
 .teacher .tab-menu input[type=number] {
+    width: calc(var(--width) + 1rem);
+    min-width: 2.8rem;
     background-color: transparent;
-    padding: 0;
     max-width: 10rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    -moz-appearance: textfield;
 }
 
-.teacher .tab-menu input[type=number]:disabled {
-    width: calc(var(--width) + 18px);
+.teacher .tab-menu .tab-content > div > span{
+    border: 1px solid var(--color-four);
+}
+
+.teacher .tab-menu input[type=number]::-webkit-inner-spin-button, 
+.teacher .tab-menu input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* .teacher .tab-menu input[type=number]:disabled {
+    width: calc(var(--width) + 1rem);
 }
 
 .teacher .tab-menu input[type=number]:not(:disabled) {
-    width: calc(var(--width) + 2.5rem);
     min-width: 2.8rem;
-}
+} */
 
 .teacher .tab-menu input[type=number]:not([disabled]) {
     background-color: black;
-    padding: .25rem .5rem;
 }
 
 .teacher .tab-menu input[type=number] + span {

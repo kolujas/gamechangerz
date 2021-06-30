@@ -30,5 +30,6 @@
 @endsection
 
 @section('js')
+    <script src={{ asset('js/scrollreveal.min.js') }}></script> 
     <script type="module" src={{ asset('js/web/home.js') }}></script>
 @endsection
