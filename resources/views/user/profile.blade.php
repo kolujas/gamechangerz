@@ -44,6 +44,7 @@
         @endcomponent
         @component('components.modal.friends', [
             'friends' => $user->friends,
+            'user' => $user,
         ])
         @endcomponent
     @endif

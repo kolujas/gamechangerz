@@ -1,4 +1,4 @@
-<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" enctype="multipart/form-data" class="teacher hive">
+<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" enctype="multipart/form-data" class="teacher hive pb-16">
     @csrf
     @method('POST')
     <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-10 lg:gap-20">
@@ -27,7 +27,7 @@
         </section>            
     </section>
     
-    <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4">
+    <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4 lg:mb-20">
         <section class="lg:col-span-2 xl:col-span-6 lg:pr-0 xl:px-0">
             {{-- @if (isset($user->files['profile'])) --}}
                 <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mb-0 relative">
@@ -105,7 +105,7 @@
         </main>
     </section>
 
-    <section class="content mb-16 pb-4 xl:grid xl:grid-cols-10">
+    <section class="content pb-4 xl:grid xl:grid-cols-10">
         <header class="xl:col-span-8 xl:col-start-2">
             <h3 class="color-white mb-8 px-8 xl:px-0 flex items-center">
                 <span class="mr-2 russo">Contenido</span>

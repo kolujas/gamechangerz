@@ -55,6 +55,9 @@
                         case 'type':
                             $this->type();
                             break;
+                        case 'users':
+                            $this->users();
+                            break;
                     }
                 }
             } catch (\Throwable $th) {
@@ -94,10 +97,27 @@
             try {
                 foreach (Lesson::$options as $lesson) {
                     $lesson = (object) $lesson;
-                    if ($lesson->slug === $this->id_type) {
+                    if ($lesson->id_type === $this->id_type) {
                         $this->type = $lesson;
                     }
                 }
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        /**
+         * * Get the Lesson Users.
+         * @return array
+         */
+        public function users () {
+            try {
+                $this->users = (object) [
+                    'from' => User::find($this->id_user_from),
+                    'to' => User::find($this->id_user_to),
+                ];
+                $this->users->from->and(['files']);
+                $this->users->to->and(['files']);
             } catch (\Throwable $th) {
                 throw $th;
             }

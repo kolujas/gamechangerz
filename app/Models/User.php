@@ -229,7 +229,7 @@
             $this->hours = 0;
             foreach ($this->lessons as $lesson) {
                 if ($lesson->id_type === 1 || $lesson->id_type === 3) {
-                    if ($lesson->status === 3) {
+                    if ($lesson->status > 2) {
                         $lesson->and(['days']);
                         foreach ($lesson->days as $day) {
                             foreach ($day['hours'] as $hour) {
@@ -267,8 +267,9 @@
             if ($this->id_role === 0) {
                 foreach (Lesson::where([
                     ['id_user_to', '=', $this->id_user],
-                    ['status', '=', 3],
+                    ['status', '>', 3],
                 ])->get() as $lesson) {
+                    $lesson->and(['type', 'users']);
                     $this->lessons->push($lesson);
                 }
             }
@@ -282,23 +283,8 @@
             }
             $this->lessonsDone = 0;
             foreach ($this->lessons as $lesson) {
-                if ($lesson->status === 3) {
-                    if ($lesson->id_type === 1 || $lesson->id_type === 3) {
-                        $lesson->and(['days']);
-                        foreach ($lesson->days as $day) {
-                            foreach ($day['hours'] as $hour) {
-                                if (Hour::has($hour->id_hour)) {
-                                    $hour = Hour::one($hour->id_hour);
-                                    if (now() > $day['date'] . "T" . $hour->to) {
-                                        $this->lessonsDone++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if ($lesson->id_type === 2) {
-                        $this->lessonsDone++;
-                    }
+                if ($lesson->status === 4) {
+                    $this->lessonsDone++;
                 }
             }
         }

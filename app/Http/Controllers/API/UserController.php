@@ -88,13 +88,18 @@
          * @return JSON
          */
         public function users (Request $request) {
-            $users = User::where('id_role', '=', 0)->get();
+            $users = User::where([
+                ['id_role', '=', 0],
+                ['status', '>', 1],
+            ])->get();
+
             foreach ($users as $user) {
                 $user->and(['lessons', 'games', 'files', 'hours', 'achievements']);
                 foreach ($user->games as $game) {
                     $game->and(['files']);
                 }
             }
+
             return response()->json([
                 'code' => 200,
                 'message' => 'Success',

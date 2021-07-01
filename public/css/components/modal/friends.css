@@ -1,0 +1,68 @@
+#friends.modal main ul {
+    max-height: 20rem;
+    overflow: auto;
+}
+
+#friends.modal main ul li:not(:first-child) {
+    margin-top: 1rem;
+}
+
+#friends.modal main ul li span {
+    max-width: 10rem;
+    min-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ? MD */
+@media (min-width: 768px) {
+    /*  */
+}
+
+/* ? LG */
+@media (min-width: 1024px) {
+    #friends.modal main ul::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    #friends.modal main ul::-webkit-scrollbar-button {
+        width: 15%;
+        height: 15%;
+    }
+
+    #friends.modal main ul::-webkit-scrollbar-thumb {
+        background: var(--color-white);
+        border-radius: 100vh;
+    }
+
+    #friends.modal main ul::-webkit-scrollbar-thumb:hover,
+    #friends.modal main ul::-webkit-scrollbar-thumb:active {
+        background: var(--color-grey);
+    }
+
+    #friends.modal main ul::-webkit-scrollbar-track {
+        background: black;
+        border-radius: 100vh;
+    }
+
+    #friends.modal main ul::-webkit-scrollbar-track:hover,
+    #friends.modal main ul::-webkit-scrollbar-track:active {
+        background: black;
+    }
+
+    #friends.modal main ul::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+/* ? XL */
+@media (min-width: 1200px) {
+    /*  */
+}
+
+/* ? 2XL */
+@media (min-width: 1536px) {
+    /*  */
+}

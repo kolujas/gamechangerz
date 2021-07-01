@@ -1,7 +1,7 @@
 <div class="p-8">
     <header class="tag flex items-center">
         <div class="pr-4">
-        <figure class="profile-image relative"></figure>
+            <figure class="profile-image relative"></figure>
         </div>
         <div class="username">
             <h3 class="color-white mb-2 overpass"><input class="update-input form-input russo" placeholder="Apodo" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
