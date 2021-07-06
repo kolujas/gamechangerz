@@ -49,7 +49,7 @@
     @if (count($user->games) && count($user->games[0]->abilities))
         <section class="abilities relative lg:col-span-2 xl:col-span-5 mb-20 lg:mb-0 lg:pr-8 xl:pr-0">
             <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
-                <h3 class="color-white russo">Habilidades</h3>
+                <h3 class="color-white russo">Promedio de evaluaciones</h3>
             </header>
             @component('components.abilities.listByGame', [
                 'games' => $user->games,
@@ -61,7 +61,7 @@
     @if (count($user->reviews))
         <section class="reviews relative lg:col-span-2 xl:col-span-5 mb-16 lg:mb-0 lg:pr-8 xl:pr-0">
             <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
-                <h3 class="color-white russo">Reseñas</h3>
+                <h3 class="color-white russo uppercase">Reseñas</h3>
             </header>
             @component('components.review.teachers', [
                 'reviews' => $user->reviews,

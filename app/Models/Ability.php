@@ -41,8 +41,8 @@
             'stars' => null,
         ], [
             'id_ability' => 5,
-            'name' => 'Precisión',
-            'description' => '<span class="color-four">Derriba</span> a tus enemigos desde lejos practicando con el AWP.',
+            'name' => 'Movimentación',
+            'description' => 'Es la capacidad de un jugador de saber posicionarse en el mapa, defensiva u ofensivamente, para ponerse en situaciones de ventaja.',
             'image' => 'games/counter-strike-go/abilities/1/01-precision.png',
             'background' => 'games/counter-strike-go/abilities/1/02-background.png',
             'icon' => 'PunteriaSVG',
@@ -52,8 +52,8 @@
             'id_game' => 1,
         ], [
             'id_ability' => 6,
-            'name' => 'Punteria',
-            'description' => '<span class="color-four">Elimina</span> al equipo contrario controlando el recoil del rifle.',
+            'name' => 'Weapon Skills',
+            'description' => 'Desde AWP y rifles hasta pistolas y SMGs; todo buen jugador necesita conocer cómo funciona cada una de ellas a la perfección',
             'image' => 'games/counter-strike-go/abilities/2/01-punteria.png',
             'background' => 'games/counter-strike-go/abilities/2/02-background.png',
             'icon' => 'PunteriaSVG',
@@ -63,8 +63,8 @@
             'id_game' => 1,
         ], [
             'id_ability' => 7,
-            'name' => 'Lorem impsum',
-            'description' => '<span class="color-four">Lorem</span> ipsum dolor sit amet consectetur, adipisicing elit.',
+            'name' => 'Conocimiento Táctico',
+            'description' => 'Aprende tanto a analizar y reproducir como a crear tus propias estrategias para estar siempre un paso adelante.',
             'image' => 'games/counter-strike-go/abilities/3/01-punteria.png',
             'background' => 'games/counter-strike-go/abilities/3/02-background.png',
             'icon' => 'PunteriaSVG',
@@ -74,8 +74,8 @@
             'id_game' => 1,
         ], [
             'id_ability' => 8,
-            'name' => 'Dolor sit',
-            'description' => '<span class="color-four">Lorem</span> ipsum dolor sit amet consectetur, adipisicing elit.',
+            'name' => 'Conocimiento de Rol',
+            'description' => 'Qué tan bien sepas adaptar tu estilo de juego al rol que cumplas en tu equipo va a ser el factor que defina el desenlace del partido.',
             'image' => 'games/counter-strike-go/abilities/4/01-punteria.png',
             'background' => 'games/counter-strike-go/abilities/4/02-background.png',
             'icon' => 'PunteriaSVG',
