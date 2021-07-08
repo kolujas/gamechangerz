@@ -1,5 +1,4 @@
 import { Dropdown as DropdownJS } from "../submodules/DropdownJS/js/Dropdown.js";
-import { NavMenu as NavMenuJS } from '../submodules/NavMenuJS/js/NavMenu.js';
 import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
 import { URLServiceProvider as URL } from "../submodules/ProvidersJS/js/URLServiceProvider.js";
 
@@ -36,12 +35,7 @@ function changeType (btn) {
 }
 
 document.addEventListener('DOMContentLoaded', (e) => {
-    new NavMenuJS({
-        id: "nav-id",
-        sidebar: {
-            id: ["menu"],
-            position: ["left"],
-    }});
+    
 
     if (document.querySelectorAll('.dropdown').length) {
         for (const html of document.querySelectorAll('.dropdown')) {
