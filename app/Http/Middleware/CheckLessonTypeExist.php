@@ -15,13 +15,16 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('type');
+
             if (!Lesson::has($slug)) {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Lesson \"$slug\" type does not exist",
                 ]);
+
                 return redirect()->back();
             }
+            
             return $next($request);
         }
     }

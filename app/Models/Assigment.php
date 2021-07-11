@@ -9,10 +9,16 @@
     class Assigment extends Model {
         use Sluggable, SluggableScopeHelpers;
 
-        /** @var string Table name */
+        /**
+         * * Table name.
+         * @var string
+         */
         protected $table = 'assigments';
         
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_assigment';
 
         /**
@@ -24,21 +30,12 @@
         ];
 
         /**
-         * * Get the Assigment Abilities.
-         * @return array
+         * * Set the Assigment info. 
+         * @param array [$columns]
          */
-        public function abilities () {
-            $this->abilities = Ability::parse(json_decode($this->abilities));
-        }
-
-        /**
-         * * Get the Assigment info. 
-         * @param array $columns
-         * @throws
-         */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
                     switch ($column) {
                         case 'abilities':
                             $this->abilities();
@@ -47,22 +44,29 @@
                             $this->game();
                             break;
                     }
+                    continue;
                 }
-            } catch (\Throwable $th) {
-                throw $th;
+                switch ($column[0]) {
+                    default:
+                        break;
+                }
             }
         }
 
         /**
-         * * Get the Assigment Game.
-         * @throws
+         * * Set the Assigment Abilities.
+         */
+        public function abilities () {
+            $this->abilities = Ability::parse($this->abilities);
+        }
+
+        /**
+         * * Set the Assigment Game.
          */
         public function game () {
-            try {
-                $this->game = Game::one($this->id_game);
-            } catch (\Throwable $th) {
-                throw $th;
-            }
+            $this->game = Game::find($this->id_game);
+
+            $this->game->and(['abilities']);
         }
         
         /**
@@ -77,8 +81,33 @@
                 ]
             ];
         }
+
+        /**
+         * * Get all the Assigments from a Lesson.
+         * @param int $id_lesson
+         * @return Assigment[]
+         */
+        static public function allFromLesson (int $id_lesson) {
+            $assigments = Assigment::where("id_lesson", "=", $id_lesson)->get();
+
+            return $assigments;
+        }
+
+        /**
+         * * Get a Assigment by the slug.
+         * @param string $slug
+         * @return Assigment
+         */
+        static public function findBySlug (string $slug = '') {
+            $assigment = Assigment::where('slug', '=', $slug)->first();
+
+            return $assigment;
+        }
         
-        /** @var array Validation rules & messages. */
+        /**
+         * * Validation rules & messages.
+         * @var array
+         */
         static $validation = [
             'make' => [
                 'rules' => [

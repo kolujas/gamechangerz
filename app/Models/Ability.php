@@ -1,10 +1,14 @@
 <?php
     namespace App\Models;
 
+    use App\Models\Game;
     use Illuminate\Database\Eloquent\Model;
 
     class Ability extends Model {
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_ability';
 
         /**
@@ -12,20 +16,162 @@
          * @var array
          */
         protected $fillable = [
-            'id_ability', 'name', 'description', 'slug', 'stars', 'image', 'background', 'icon', 'difficulty', 'id_game',
+            'id_ability', 'description', 'difficulty', 'folder', 'icon', 'id_game', 'name', 'slug', 'stars',
         ];
 
+        /**
+         * * Set the Ability info. 
+         * @param array [$columns]
+         */
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
+                    switch ($column) {
+                        case "game":
+                            $this->game();
+                            break;
+                        case "files":
+                            $this->files();
+                            break;
+                        case "stars":
+                            $this->stars();
+                            break;
+                    }
+                    continue;
+                }
+                switch ($column[0]) {
+                    case 'stars':
+                        $this->stars($column[1]);
+                        break;
+                }
+            }
+        }
+
+        /**
+         * * Set the Ability Game.
+         */
+        public function game () {
+            $this->game = Game::find($this->id_game);
+        }
+
+        /**
+         * * Set the Game Files.
+         */
+        public function files () {
+            $this->game();
+
+            $this->files = collect();
+            $files = Folder::getFiles($this->game->folder . "/abilities/$this->id_ability", false);
+
+            foreach ($files as $file) {
+                $fileExplode = explode(".", $file);
+                $fileExplode = explode("/", $fileExplode[0]);
+                $fileExplode = explode("\\", end($fileExplode));
+                $fileExplode = explode("-", end($fileExplode));
+                $this->files[end($fileExplode)] = preg_replace("~\\\\~", "/", $file);
+            }
+        }
+
+        /**
+         * * Set the Ability stars.
+         * @param int $stars
+         */
+        public function stars (int $stars = 0) {
+            $this->stars = $stars;
+        }
+
+        /**
+         * * Get all the Abilities from a Game.
+         * @param int $id_game
+         * @return Ability[]
+         */
+        static public function allFromGame (int $id_game) {
+            $abilities = Ability::where("id_game", "=", $id_game)->get();
+
+            return $abilities;
+        }
+
+        /**
+         * * Returns the Ability options.
+         * @param array [$abilities] Example: [["id_ability"=>1,"stars"=>3.5]]
+         * @param bool [$all=true]
+         * @return Ability[]
+         */
+        static public function options (array $abilities = [], bool $all = true) {
+            $collection = collect();
+
+            foreach (Ability::$options as $option) {
+                $option = new Ability($option);
+                $found = false;
+                
+                foreach ($abilities as $data) {
+                    if ($option->id_ability === $data['id_ability']) {
+                        $option->stars = (isset($data['stars']) ? $data['stars'] : 0);
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if ($all || $found) {
+                    $collection->push($option);
+                }
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Parse an Abilities array.
+         * @param string [$abilities] Example: "[{\"id_ability\":1,\"stars\":3.5}]"
+         * @return Ability[]
+         */
+        static public function parse (string $abilities = '') {
+            $collection = collect();
+            
+            foreach (json_decode($abilities) as $data) {
+                $ability = Ability::find($data->id_ability);
+                
+                $ability->and([['stars', (isset($data->stars) ? $data->stars : 0)]]);
+
+                $collection->push($ability);
+            }
+            
+            return $collection;
+        }
+
+        /**
+         * * Stringify an Abilities array.
+         * @param array [$abilities] Example: [["id_ability"=>1,"stars"=>3.5]]
+         * @return string
+         */
+        static public function stringify (array $abilities = []) {
+            $collection = collect();
+
+            foreach ($abilities as $data) {
+                $collection->push([
+                    "id_ability" => $data['id_ability'],
+                    "stars" => (isset($data['stars']) ? $data['stars'] : 0),
+                ]);
+            }
+
+            return $collection->toJson();
+        }
+
+        /**
+         * * Ability options.
+         * @var array
+         */
         static $options = [[
             'id_ability' => 1,
-            'name' => 'Paciencia',
+            'name' => 'Comunicación',
             'description' => '',
-            'slug' => 'paciencia',
+            'slug' => 'comunicacion',
             'stars' => null,
         ], [
             'id_ability' => 2,
-            'name' => 'Conexión',
+            'name' => 'Flexibilidad',
             'description' => '',
-            'slug' => 'conexion',
+            'slug' => 'flexibilidad',
             'stars' => null,
         ], [
             'id_ability' => 3,
@@ -35,131 +181,9 @@
             'stars' => null,
         ], [
             'id_ability' => 4,
-            'name' => 'Puntualidad',
+            'name' => 'Experiencia',
             'description' => '',
-            'slug' => 'puntualidad',
+            'slug' => 'experiencia',
             'stars' => null,
-        ], [
-            'id_ability' => 5,
-            'name' => 'Precisión',
-            'description' => '<span class="color-four">Derriba</span> a tus enemigos desde lejos practicando con el AWP.',
-            'image' => 'games/counter-strike-go/abilities/1/01-precision.png',
-            'background' => 'games/counter-strike-go/abilities/1/02-background.png',
-            'icon' => 'PunteriaSVG',
-            'difficulty' => 3,
-            'slug' => 'precision',
-            'stars' => null,
-            'id_game' => 1,
-        ], [
-            'id_ability' => 6,
-            'name' => 'Punteria',
-            'description' => '<span class="color-four">Elimina</span> al equipo contrario controlando el recoil del rifle.',
-            'image' => 'games/counter-strike-go/abilities/2/01-punteria.png',
-            'background' => 'games/counter-strike-go/abilities/2/02-background.png',
-            'icon' => 'PunteriaSVG',
-            'difficulty' => 1,
-            'slug' => 'punteria',
-            'stars' => null,
-            'id_game' => 1,
-        ], [
-            'id_ability' => 7,
-            'name' => 'Lorem impsum',
-            'description' => '<span class="color-four">Lorem</span> ipsum dolor sit amet consectetur, adipisicing elit.',
-            'image' => 'games/counter-strike-go/abilities/3/01-punteria.png',
-            'background' => 'games/counter-strike-go/abilities/3/02-background.png',
-            'icon' => 'PunteriaSVG',
-            'difficulty' => 1,
-            'slug' => 'lorem-impsum',
-            'stars' => null,
-            'id_game' => 1,
-        ], [
-            'id_ability' => 8,
-            'name' => 'Dolor sit',
-            'description' => '<span class="color-four">Lorem</span> ipsum dolor sit amet consectetur, adipisicing elit.',
-            'image' => 'games/counter-strike-go/abilities/4/01-punteria.png',
-            'background' => 'games/counter-strike-go/abilities/4/02-background.png',
-            'icon' => 'PunteriaSVG',
-            'difficulty' => 1,
-            'slug' => 'dolor-sit',
-            'stars' => null,
-            'id_game' => 1,
         ]];
-
-        /**
-         * * Returns a Ability.
-         * @param string $id_ability
-         * @return Ability
-         */
-        static public function one ($id_ability = '') {
-            foreach (Ability::$options as $ability) {
-                $ability = new Ability($ability);
-                if ($ability->id_ability === $id_ability) {
-                    return $ability;
-                }
-            }
-        }
-
-        /**
-         * * Check if a Ability exists.
-         * @param string $id_ability 
-         * @return boolean
-         */
-        static public function has ($id_ability) {
-            $found = false;
-            foreach (Ability::$options as $game) {
-                $game = new Ability($game);
-                if ($game->id_ability === $id_ability) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Find & returns a Ability.
-         * @param string $id_ability
-         * @return Ability
-         * @throws
-         */
-        static public function find ($id_ability = '') {
-            if (!Ability::has($id_ability)) {
-                throw (object)[
-                    'code' => 404,
-                    'message' => "Ability with id = \"$id_ability\" does not exist",
-                ];
-            }
-            return Ability::one($id_ability);
-        }
-
-        /**
-         * * Parse an Abilities array.
-         * @param array $abilitiesToParse Example: "[{\"id_ability\":1,\"stars\":3.5}]"
-         * @return Ability[]
-         * @throws
-         */
-        static public function parse ($abilitiesToParse = []) {
-            $abilities = collect([]);
-            foreach ($abilitiesToParse as $data) {
-                if (!Ability::has($data->id_ability)) {
-                    throw (object)[
-                        'code' => 404,
-                        'message' => "Ability with id = \"$data->id_ability\" does not exist",
-                    ];
-                }
-                $ability = Ability::one($data->id_ability);
-                $ability->stars = (isset($data->stars) ? $data->stars : $ability->stars);
-                $abilities->push($ability);
-            }
-            return $abilities;
-        }
-
-        static public function stringify ($abilitiesToParse = []) {
-            $abilities = [];
-            foreach ($abilitiesToParse as $id_ability) {
-                $abilities[] = [
-                    "id_ability" => $id_ability,
-                ];
-            }
-            return json_encode($abilities);
-        }
     }

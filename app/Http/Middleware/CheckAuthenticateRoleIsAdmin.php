@@ -17,8 +17,10 @@
                     'code' => 403,
                     'message' => "You must be an Admin to perform this action",
                 ]);
+
                 return redirect()->back();
             }
+            
             return $next($request);
         }
     }

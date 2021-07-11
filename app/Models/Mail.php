@@ -18,9 +18,8 @@
          * * Create a new Mail instance.
          * @param array $attributes
          * @param array $data
-         * @return void
          */
-        public function __construct ($attributes = [], $data = []) {
+        public function __construct (array $attributes = [], array $data = []) {
             parent::__construct(Mail::parseAttributes($attributes));
             $this->send($data);
         }
@@ -28,9 +27,8 @@
         /**
          * * Send the Mail.
          * @param array $data
-         * @return [type]
          */
-        public function send ($data = []) {
+        public function send (array $data = []) {
             switch ($this->id_mail) {
                 case 1:
                     $mail = new ConfirmationMail((object) [
@@ -46,7 +44,7 @@
         * @param array $attributes
         * @return array
         */
-        static function parseAttributes ($attributes = []) {
+        static function parseAttributes (array $attributes = []) {
             switch ($attributes['id_mail']) {
                 case 1:
                     $attributes['name'] = "Confirmation";

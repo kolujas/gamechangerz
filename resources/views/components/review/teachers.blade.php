@@ -3,11 +3,10 @@
         <li class="card">
             <div class="relative mega-cardota">            
                 <div class="flex p-4 pb-0 grid grid-cols-2 gap-8 xl:gap-6 cardota md:grid-cols-4 2xl:grid-cols-6">
-                
                     <div class="ability flex items-start flex-wrap">
                         <div class="color-white font-bold w-full flex flex-auto items-center">
                             <span class="mr-2 w-full overpass">{{ $review->lesson->name }}</span>
-                            @component($review->lesson->svg)@endcomponent
+                            @component($review->lesson->type->svg)@endcomponent
                         </div>
                         @component('components.game.list', [
                             "games" => [$review->game]
@@ -35,18 +34,18 @@
                         </div>
                         <div class="image">
                             <figure>
-                                <img src={{ asset("/storage/" . $review->users['from']->files['profile']) }} alt="Foto del profesor">
+                                <img src={{ asset("/storage/" . $review->users->from->files['profile']) }} alt="Foto del profesor">
                             </figure>
                         </div>
                     </div>
                     
                 
                     <header class="grid pb-4">
-                        <a href="/users/{{ $review->users['from']->slug }}/profile" class="btn btn-text btn-white grid grid-cols-2">
-                            <h3 class="text-2xl col-span-2 russo">{{ $review->users['from']->username }}</h3>
-                            <span class="overpass">{{ $review->users['from']->name }}</span>
+                        <a href="/users/{{ $review->users->from->slug }}/profile" class="btn btn-text btn-white grid grid-cols-2">
+                            <h3 class="text-2xl col-span-2 russo">{{ $review->users->from->username }}</h3>
+                            <span class="overpass">{{ $review->users->from->name }}</span>
                             <figure>
-                                <img src={{ asset("/storage/" . $review->users['from']->teampro->logo) }} alt="{{ $review->users['from']->teampro->name }}">
+                                <img src={{ asset("/storage/" . $review->users->from->teampro->logo) }} alt="{{ $review->users->from->teampro->name }}">
                             </figure>
                         </a>
                         <a class="btn btn-outline btn-one mt-4 block" href="#">
@@ -54,8 +53,9 @@
                         </a>
                     </header>
                 </div>
-                <div class="content hidden flex justify-center items-center color-white px-8">
-                    <p class="overpass">{{ $review->description }}</p>
+                <div class="content hidden flex justify-center content-center flex-wrap items-center color-white px-8">
+                    <h4 class="russo w-full mb-4">{{ $review->title }}</h4>
+                    <p class="overpass w-full">{{ $review->description }}</p>
                 </div>
             </div>
         </li>

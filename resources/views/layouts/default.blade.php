@@ -27,7 +27,7 @@
 
 @section('extras')
     {{-- Layout JS --}}
-    <script src={{ asset('js/layouts/default.js') }}></script>
+    <script type="module" src={{ asset('js/layouts/default.js') }}></script>
 
     @yield('js')
 @endsection

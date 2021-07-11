@@ -30,9 +30,9 @@
                             <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
                                 <h2 class="color-white russo text-5xl md:text-6xl mb-8">Aprende de los <span class="color-four">mejores</span></h2>
                                 <p class="mb-8 slider-text color-white overpass text-xl">Domina las habilidades que quieras con nuestra gran seleccion de expertos en CSGO.</p>
-                                <button class="btn btn-outline btn-one">
+                                <a href="/teachers" class="btn btn-outline btn-one">
                                     <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
-                                </button>
+                                </a>
                             </header>
                             <img src="{{ asset($game->files['banner']) }}" alt="Game banner">
                         </section>

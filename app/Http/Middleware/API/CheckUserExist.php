@@ -14,13 +14,16 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $name = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
-            if ((!is_null($request->route()->parameter('id_user')) ? !User::find($name) : !count(User::where('slug', '=', $name)->get()))) {
+            $field = (!is_null($request->route()->parameter('id_user')) ? 'id_user' : 'slug');
+            $value = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
+
+            if (!User::where($field, '=', $value)->first()) {
                 return response()->json([
                     'code' => 404,
-                    'message' => "User \"$name\" does not exist",
+                    'message' => "User \"$value\" does not exist",
                 ]);
             }
+
             return $next($request);
         }
     }

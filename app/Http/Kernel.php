@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
 
         'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
         'api.chat.is.available' => \App\Http\Middleware\API\CheckChatIsAvailable::class,
+        'api.chat.lesson.is.offline' => \App\Http\Middleware\API\CheckChatLessonIsOffline::class,
         'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
         'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
         
@@ -75,6 +76,7 @@ class Kernel extends HttpKernel
         'auth.is.user' => \App\Http\Middleware\CheckAuthenticateIsUser::class,
         'auth.not.user' => \App\Http\Middleware\CheckAuthenticateNotUser::class,
         'auth.is.lesson.user' => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
+        'auth.lesson.end' => \App\Http\Middleware\CheckAuthenticateLessonEnded::class,
         'auth.role.is.admin' => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,
         'auth.role.is.user' => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
         'auth.role.not.user' => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,

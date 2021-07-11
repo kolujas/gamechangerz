@@ -6,7 +6,10 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Role extends Model {
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name
+         * @var string
+         */
         protected $primaryKey = 'id_role';
 
         /**
@@ -17,48 +20,51 @@
             'id_role', 'name', 'slug',
         ];
 
-        /** @var array Role options */
-        static $options = [[
-                'id_role' => 0,
-                'name' => 'User',
-                'slug' => 'user',
-            ], [
-                'id_role' => 1,
-                'name' => 'Teacher',
-                'slug' => 'teacher',
-            ], [
-                'id_role' => 2,
-                'name' => 'Admin',
-                'slug' => 'admin',
-        ]];
-
         /**
          * * Check if a Role exists.
-         * @param string $field 
-         * @return boolean
+         * @param int $id_role
+         * @return bool
          */
-        static public function has ($field) {
-            $found = false;
-            foreach (Role::$options as $role) {
-                $role = new Role($role);
-                if ($role->id_role === $field) {
-                    $found = true;
+        static public function has (int $id_role) {
+            foreach (Role::$options as $option) {
+                if ($option['id_role'] === $id_role) {
+                    return true;
                 }
             }
-            return $found;
+
+            return false;
         }
 
         /**
          * * Returns a Role.
-         * @param string $field
+         * @param int $id_role
          * @return Role
          */
-        static public function one ($field = '') {
-            foreach (Role::$options as $role) {
-                $role = new Role($role);
-                if ($role->id_role === $field) {
-                    return $role;
+        static public function option (int $id_role) {
+            foreach (Role::$options as $option) {
+                if ($option['id_role'] === $id_role) {
+                    return new Role($option);
                 }
             }
+
+            dd("Role \"$id_role\" not found");
         }
+
+        /**
+         * * Role options.
+         * @var array
+         */
+        static $options = [[
+            'id_role' => 0,
+            'name' => 'User',
+            'slug' => 'user',
+        ], [
+            'id_role' => 1,
+            'name' => 'Teacher',
+            'slug' => 'teacher',
+        ], [
+            'id_role' => 2,
+            'name' => 'Admin',
+            'slug' => 'admin',
+        ]];
     }

@@ -8,10 +8,16 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Review extends Model {
-        /** @var string Table name */
+        /**
+         * * Table name.
+         * @var string
+         */
         protected $table = 'reviews';
         
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_review';
 
         /**
@@ -19,17 +25,16 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'title', 'description', 'abilities', 'slug',
+            'id_user_from', 'id_user_to', 'title', 'description', 'abilities', 'slug', "stars",
         ];
 
         /**
-         * * Get the Game info. 
-         * @param array $columns
-         * @throws
+         * * Set the Review info. 
+         * @param array [$columns]
          */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
                     switch ($column) {
                         case 'abilities':
                             $this->abilities();
@@ -44,51 +49,80 @@
                             $this->users();
                             break;
                     }
+                    continue;
                 }
-            } catch (\Throwable $th) {
-                throw $th;
+                switch ($column[0]) {
+                    default:
+                        break;
+                }
             }
         }
 
         /**
-         * * Get the User Abilities.
-         * @return array
+         * * Set the Review Abilities.
          */
         public function abilities () {
-            $this->abilities = Ability::parse(json_decode($this->abilities));
+            $this->users();
+
+            if ($this->users->to->id_role === 0) {
+                $this->abilities = Ability::parse($this->abilities);
+            }
+            if ($this->users->to->id_role === 1) {
+                $abilities = collect();
+
+                foreach (json_decode($this->abilities) as $ability) {
+                    $ability = new Ability((array) $ability);
+                    $abilities->push($ability);
+                }
+
+                $this->abilities = Ability::options($abilities->toArray());
+            }
         }
 
         /**
-         * * Get the Review Lesson.
-         * @return array
-         * @throws
+         * * Set the Review Game.
+         */
+        public function game () {
+            $this->game = Game::find($this->id_game);
+            $this->game->and(['colors', 'files']);
+        }
+
+        /**
+         * * Set the Review Lesson.
          */
         public function lesson () {
-            if (!Lesson::has($this->id_lesson)) {
-                throw (object)[
-                    'code' => 404,
-                    'message' => "Lesson with id = \"$this->id_lesson\" does not exist",
-                ];
-            }
-            $this->lesson = Lesson::one($this->id_lesson);
+            $this->lesson = Lesson::find($this->id_lesson);
+            $this->lesson->and(['type']);
         }
 
         /**
-         * * Get the Review Users.
-         * @return array
+         * * Set the Review Users.
          */
         public function users () {
-            $this->users = [
+            $this->users = (object) [
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
+
+            $this->users->from->and(['files']);
+            $this->users->to->and(['files']);
+
+            if ($this->users->from->id_role === 1) {
+                $this->users->from->and(['teampro']);
+            }
+            if ($this->users->to->id_role === 1) {
+                $this->users->to->and(['teampro']);
+            }
         }
 
         /**
-         * * Get the Review Game.
-         * @return array
+         * * Get all the Reviews done to an User.
+         * @param int $id_user
+         * @return Review[]
          */
-        public function game () {
-            $this->game = Game::getByAbility($this->abilities);
+        static public function allToUser (int $id_user) {
+            $reviews = Review::where("id_user_to", "=", $id_user)->get();
+
+            return $reviews;
         }
     }

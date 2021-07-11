@@ -6,13 +6,19 @@
     use Illuminate\Http\Request;
 
     class AchievementController extends Controller {
-        public function update (Request $request, $slug) {
-            $user = User::where('slug', '=', $slug)->first();
+        /**
+         * * Update the User Achievements
+         * @param Request $request
+         * @param string $slug
+         * @return [type]
+         */
+        public function update (Request $request, string $slug) {
+            $user = User::findBySlug($slug);
             $user->and(["achievements"]);
 
             $input = (object) $request->all();
 
-            $achievements = [];
+            $achievements = collect();
             foreach ($user->achievements as $achievement) {
                 if (isset($input->title)) {
                     foreach ($input->title as $id_achievement => $title) {
@@ -28,14 +34,13 @@
                         }
                     }
                 }
-                $achievements[] = [
+                $achievements->push([
                     "id_achievement" => $achievement->id_achievement,
                     "title" => $achievement->title,
                     "description" => $achievement->description,
                     "icon" => "components.svg.TrofeoSVG",
-                ];
+                ]);
             }
-            // dd($achievements);
 
             if (isset($input->title)) {
                 foreach ($input->title as $id_achievement => $title) {
@@ -56,21 +61,23 @@
                             continue;
                         }
                     }
-                    $achievements[] = [
+                    $achievements->push([
                         "id_achievement" => $id_achievement,
                         "title" => ($title ? $title : $achievement->title),
                         "description" => ($description ? $description : $achievement->description),
                         "icon" => "components.svg.TrofeoSVG",
-                    ];
+                    ]);
                 }
             }
+
+            $achievements = $achievements->toArray();
             
             usort($achievements, function ($a, $b) {
                 return strcmp($a['id_achievement'], $b['id_achievement']);
             });
 
             $user->update([
-                "achievements" => json_encode($achievements),
+                "achievements" => Achievement::stringify($achievements),
             ]);
             
             return redirect("/users/$user->slug/profile")->with('status', [

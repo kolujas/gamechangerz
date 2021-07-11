@@ -84,12 +84,6 @@ export class Chat extends Class {
             e.preventDefault();
         });
 
-        if (document.querySelector(`#chat.modal #details form a`)) {
-            document.querySelector(`#chat.modal #details form a`).addEventListener('click', function (e) {
-                instance.addAssigment();
-            });
-        }
-
         document.querySelector(`#chat.modal #details header > a`).addEventListener('click', function (e) {
             instance.close();
             instance.CountDownJS.details.pause();
@@ -212,7 +206,7 @@ export class Chat extends Class {
             
         if (chat.hasOwnProperty('id_chat')) {
             for (const message of chat.messages) {
-                message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users['to'].slug : chat.users['from'].slug);
+                message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users.to.slug : chat.users.from.slug);
             }
             this.sections.details.main.appendChild(Message.component('list', { messages: chat.messages, available: chat.available }));
             this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
@@ -227,11 +221,12 @@ export class Chat extends Class {
         }
 
         if (response.hasOwnProperty('id_chat')) {
-            if (chat.users['from'].id_role === 1) {
-                let date = new Date(chat.end_at);
+            if (chat.users.from.id_role === 1) {
+                let start_date = new Date(chat.lesson.start_at.replaceAll("-", "/").split("T").shift());
+                let end_date = new Date(chat.lesson.end_at.replaceAll("-", "/").split("T").shift());
                 let span2 = document.createElement('span');
                 span2.classList.add("timer", "color-grey");
-                span2.innerHTML = `El chat estará disponible hasta la fecha <b class="mx-1">${ date.getDate() }/${ InputDateMakerJS.Months.es[date.getMonth()].number }/${ date.getFullYear() }</b> a las <b class="ml-1">${ ((date.getHours() < 10) ? `0${ date.getHours() }` : date.getHours()) }:${ ((date.getMinutes() < 10) ? `0${ date.getMinutes() }` : date.getMinutes()) }</b>`;
+                span2.innerHTML = `El chat estará disponible entre la fecha <b class="mx-1">${ ((start_date.getDate() < 10) ? `0${ start_date.getDate() }` : start_date.getDate()) }/${ InputDateMakerJS.Months.es[start_date.getMonth()].number }/${ start_date.getFullYear() }</b> y <b class="ml-1">${ ((end_date.getDate() < 10) ? `0${ end_date.getDate() }` : end_date.getDate()) }/${ InputDateMakerJS.Months.es[end_date.getMonth()].number }/${ end_date.getFullYear() }</b>`;
                 this.sections.details.main.appendChild(span2);
             }
             this.changeFooter(chat);
@@ -271,15 +266,15 @@ export class Chat extends Class {
     }
 
     addAssigment () {
-        let games = [];
-        for (const chat of this.props.chats) {
+        let chat;
+        for (chat of this.props.chats) {
             if (chat.id_chat === this.opened) {
-                games = (chat.id_user_logged === chat.id_user_from ? chat.users['from'].games : chat.users['to'].games);
                 break;
             }
+            chat = false;
         }
         new Assigment({
-            games: games,
+            games: chat.users.from.games,
         });
         Assigment.setValidationJS({
             function: this.sendAssigment,
@@ -319,49 +314,73 @@ export class Chat extends Class {
     changeFooter (chat) {
         const instance = this;
         if (chat.available) {
-            let form = document.createElement('form');
-            form.action = "#";
-            this.sections.details.footer.appendChild(form);
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                instance.send(chat);
-            });
-                let token = document.createElement('input');
-                token.value = document.querySelector('meta[name=csrf-token]').content;
-                token.name = "_token";
-                token.type = "hidden";
-                form.appendChild(token);
-
-                let message = document.createElement('input');
-                message.classList.add("py-2", "px-4", "overpass");
-                message.placeholder = "Escribe tu mensaje";
-                message.name = "message";
-                message.type = "text";
-                form.appendChild(message);
-
-                if (this.props.id_role === 1) {
+            if (chat.users.from.id_role === 1) {
+                let paragraph = document.createElement('p');
+                paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
+                paragraph.innerHTML = `${ 4 - chat.lesson.assigments.length } tareas pendientes`;
+                this.sections.details.footer.appendChild(paragraph);
+                
+                if (chat.users.from.id_user === chat.id_user_logged) {
                     let link = document.createElement('a');
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    form.appendChild(link);
+                    if (chat.lesson.assigments.length === 4) {
+                        link.classList.add("disabled");
+                    }
+                    this.sections.details.footer.appendChild(link);
+                    link.addEventListener('click', function (e) {
+                        if (chat.lesson.assigments.length < 4) {
+                            instance.addAssigment();
+                        }
+                    });
                         let icon = document.createElement('i');
                         icon.classList.add("fas", "fa-paperclip", "color-gradient");
                         link.appendChild(icon);
                 }
+            }
+            if (chat.users.from.id_role === 0) {
+                let form = document.createElement('form');
+                form.action = "#";
+                this.sections.details.footer.appendChild(form);
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    instance.send(chat);
+                });
+                    let token = document.createElement('input');
+                    token.value = document.querySelector('meta[name=csrf-token]').content;
+                    token.name = "_token";
+                    token.type = "hidden";
+                    form.appendChild(token);
+    
+                    let message = document.createElement('input');
+                    message.classList.add("py-2", "px-4", "overpass");
+                    message.placeholder = "Escribe tu mensaje";
+                    message.name = "message";
+                    message.type = "text";
+                    form.appendChild(message);
 
-                let button = document.createElement('button');
-                button.classList.add("py-2", "px-4");
-                form.appendChild(button);
-                    let img = document.createElement('img');
-                    img.src = new Asset("img/resources/SendSVG.svg").route;
-                    img.alt = "Send button icon";
-                    button.appendChild(img);
+                    let button = document.createElement('button');
+                    button.classList.add("py-2", "px-4");
+                    form.appendChild(button);
+                        let img = document.createElement('img');
+                        img.src = new Asset("img/resources/SendSVG.svg").route;
+                        img.alt = "Send button icon";
+                        button.appendChild(img);
+            }
         }
         if (!chat.available) {
-            let paragraph = document.createElement('p');
-            paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
-            paragraph.innerHTML = "El chat no se encuentra activo";
-            this.sections.details.footer.appendChild(paragraph);
+            if (chat.users.from.id_user === chat.id_user_logged) {
+                let paragraph = document.createElement('p');
+                paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
+                paragraph.innerHTML = "El chat no se encuentra activo";
+                this.sections.details.footer.appendChild(paragraph);
+            }
+            if (chat.users.from.id_user !== chat.id_user_logged) {
+                let paragraph = document.createElement('p');
+                paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
+                paragraph.innerHTML = "4 tareas pendientes";
+                this.sections.details.footer.appendChild(paragraph);
+            }
         }
     }
 
@@ -372,10 +391,10 @@ export class Chat extends Class {
         let lessons = 0;
         if (this.props.chats.length) {
             for (const chat of this.props.chats) {
-                if (chat.id_type === 1) {
+                if (chat.users.from.id_role === 0) {
                     friends++;
                 }
-                if (chat.id_type === 2) {
+                if (chat.users.from.id_role === 1) {
                     lessons++;
                 }
             }
@@ -494,6 +513,9 @@ export class Chat extends Class {
                 this.addMessage(message);
             }
         }
+
+        this.sections.details.footer.innerHTML = "";
+        this.changeFooter(data.chat);
     }
 
     async send (chat) {
@@ -517,6 +539,7 @@ export class Chat extends Class {
             }
             if (query.response.code === 200) {
                 this.CountDownJS.details.stop();
+                this.save(query.response.data);
             }
             document.querySelector(`#chat.modal #details form`).reset();
         }
@@ -530,6 +553,7 @@ export class Chat extends Class {
         }
         if (response.code === 200) {
             params.instance.CountDownJS.details.stop();
+            params.instance.save(response.data);
         }
         modals.assigment.close();
     }

@@ -17,8 +17,10 @@
                     'code' => 403,
                     'message' => "Debes ser un usuario para realizar esta acción",
                 ]);
+                
                 return redirect()->back();
             }
+
             return $next($request);
         }
     }

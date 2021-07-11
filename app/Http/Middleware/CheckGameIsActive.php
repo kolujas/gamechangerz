@@ -15,14 +15,17 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
-            $game = Game::one($slug);
+            $game = Game::findBySlug($slug);
+
             if (!$game->active) {
                 $request->session()->put('error', [
                     'code' => 403,
                     'message' => "Game \"$game->name\" is not active",
                 ]);
+
                 return redirect()->back();
             }
+
             return $next($request);
         }
     }

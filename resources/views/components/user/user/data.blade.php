@@ -34,10 +34,8 @@
             <ul>
                 @if ($user->lessonsDone)
                     <li class="color-white mb-8 font-bold">
-                        <a href="#lessons" class="btn btn-text btn-white font-bold">
-                            <span class="overpass">Total clases tomadas:</span>
-                            <span class="color-four overpass">{{ $user->lessonsDone }}</span>
-                        </a>
+                        <span class="overpass">Total clases tomadas:</span>
+                        <span class="color-four overpass">{{ $user->lessonsDone }}</span>
                     </li>
                 @endif
                 @if ($user->hours)

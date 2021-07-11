@@ -13,15 +13,17 @@
          * @return mixed
          */
         public function handle($request, Closure $next) {
-            $id_lesson = $request->route()->parameter('id_lesson');
-            $lesson = Lesson::one($slug);
-            if ($lesson->id_user_to !== $request->user()->id_user) {
+            $lesson = Lesson::find($request->route()->parameter('id_lesson'));
+
+            if ($lesson->id_user_from !== $request->user()->id_user && $lesson->id_user_to !== $request->user()->id_user) {
                 $request->session()->put('error', [
                     'code' => 403,
                     'message' => "You are not owner of this Lesson",
                 ]);
+
                 return redirect()->back();
             }
+
             return $next($request);
         }
     }

@@ -6,24 +6,18 @@
     use Illuminate\Http\Request;
 
     class LanguageController extends Controller {
-        public function user (Request $request, $slug) {
-            $user = User::where('slug', '=', $slug)->first();
+        /**
+         * * Update the User Languages.
+         * @param Request $request
+         * @param string $slug
+         * @return [type]
+         */
+        public function update (Request $request, string $slug) {
+            $user = User::findBySlug($slug);
 
             $input = (object) $request->all();
 
-            $languages = [];
-            if (isset($input->languages)) {
-                foreach ($input->languages as $language) {
-                    if (Language::has($language)) {
-                        $language = Language::one($language);
-                        $languages[] = (object) [
-                            "id_language" => $language->id_language,
-                        ];
-                    }
-                }
-            }
-
-            $input->languages = json_encode($languages);
+            $input->languages = Language::stringify($input->languages);
 
             $user->update((array) $input);
             

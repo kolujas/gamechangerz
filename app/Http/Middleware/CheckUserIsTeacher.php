@@ -14,14 +14,17 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $user = User::where('slug', '=', $request->route()->parameter('slug'))->first();
+            $user = User::findBySlug($request->route()->parameter('slug'));
+
             if ($user->id_role !== 1) {
                 $request->session()->put('error', [
                     'code' => 403,
                     'message' => "$user->username is not a teacher",
                 ]);
+
                 return redirect()->back();
             }
+            
             return $next($request);
         }
     }

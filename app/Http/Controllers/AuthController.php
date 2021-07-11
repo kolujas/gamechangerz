@@ -25,7 +25,7 @@
             }
 
             $password = DB::table('password_resets')->where('token', $token)->first();
-            $user = User::where('email', '=', $password->email)->first();
+            $user = User::findByEmail($password->email);
             DB::table('password_resets')->where('token', $token)->delete();
 
             $user->update([
@@ -56,6 +56,7 @@
                     $string = "signin_";
                 }
             }
+
             $input = (object) $this->decodeInput($request->all(), $string);
             if ($string === "signin_") {
                 $input->data = $input->email;
@@ -88,10 +89,13 @@
                         'message' => 'Correo pendiente de aprobación',
                     ];
                 }
+
                 foreach (Auth::user()->tokens as $token) {
                     $token->delete();
                 }
+
                 Auth::logout();
+
                 return redirect('/')->with('status', $status);
             }
 
@@ -108,7 +112,9 @@
             foreach (Auth::user()->tokens as $token) {
                 $token->delete();
             }
+
             Auth::logout();
+            
             return redirect('/')->with('status', [
                 'code' => 200,
                 'message' => 'Sesión Cerrada.',

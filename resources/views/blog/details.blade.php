@@ -31,10 +31,8 @@
                 @endif
             </div>
             <div class="title text-center">
-                <p class="fecha degradado 2xl:text-lg overpass">En otras noticias @if ($post)
-                    <span class="text-sm">|</span> <span class="fecha-borde">{{ $post->date }}</span>
-                @endif</p>
                 @if ($post)
+                    <p class="fecha degradado 2xl:text-lg overpass w-full">{{ $post->date->dateForHumans }}</p>
                     <textarea disabled name="title" class="color-white text-center texto-slogan py-4 text-2xl md:text-4xl md:px-2 lg:text-4xl 2xl:text-5xl russo form-input" placeholder="Título">{{ old('title', $post->title) }}</textarea>
                 @endif
                 @if (!$post)
@@ -82,7 +80,9 @@
                 <span class="error support support-box hidden color-white support-description mt-2 overpass"></span>
             @endif
             @if ($post)
-                <div class="lg:col-span-10 flex justify-center">
+                <div class="lg:col-span-10 flex justify-center @if (!$post->link)
+                    hidden
+                @endif">
                     <label class="btn btn-one btn-outline hidden">
                         <span class="px-4 py-2">Ver más:</span>
                         <input name="link" disabled class="form-input px-4 py-2" type="url" value="{{ old('link', $post->link) }}" />

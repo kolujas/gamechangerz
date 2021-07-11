@@ -46,7 +46,7 @@ export class Post extends Class {
                     
                     let date = document.createElement('span');
                     date.classList.add("color-grey", "block", "mb-4", "overpass");
-                    date.innerHTML = data.date;
+                    date.innerHTML = data.date.timeForHumans;
                     main.appendChild(date);
 
                     let description = document.createElement('div');

@@ -13,13 +13,16 @@
          */
         public function handle ($request, Closure $next) {
             $type = $request->route()->parameter('type');
-            if ($status !== 'mercadopago') {
+
+            if ($type !== 'mercadopago') {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Notification \"$type\" does not exist",
                 ]);
+
                 return redirect()->back();
             }
+            
             return $next($request);
         }
     }

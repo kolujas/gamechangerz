@@ -14,6 +14,7 @@ export class Assigment extends Class {
         if (this.props.games) {
             this.createGameOptions(this.props.games);
             this.createAssigmentUpdate();
+            modals.assigment.open();
         }
         if (this.props.id_assigment) {
             this.createGameOptions();
@@ -249,17 +250,19 @@ export class Assigment extends Class {
 
     static setValidationJS (callback) {
         if (validation.hasOwnProperty('assigment')) {
-            validation.assigment.ValidationJS = new ValidationJS({
-                id: 'assigment-form',
-                rules: validation.assigment.rules,
-                messages: validation.assigment.messages,
-            }, {
-                submit: false,
-            }, {
-                submit: {
-                    function: callback.function,
-                    params: callback.params
-            }});
+            if (!validation.assigment.hasOwnProperty('ValidationJS')) {
+                validation.assigment.ValidationJS = new ValidationJS({
+                    id: 'assigment-form',
+                    rules: validation.assigment.rules,
+                    messages: validation.assigment.messages,
+                }, {
+                    submit: false,
+                }, {
+                    submit: {
+                        function: callback.function,
+                        params: callback.params
+                }});
+            }
         } else {
             console.error(`validation.assigment does not exist`);
         }

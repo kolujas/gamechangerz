@@ -7,10 +7,16 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Chat extends Model {
-        /** @var string Table name */
+        /**
+         * * Table name.
+         * @var string
+         */
         protected $table = 'chats';
         
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_chat';
 
         /**
@@ -22,143 +28,156 @@
         ];
 
         /**
-         * * Get the User info. 
-         * @param array $columns
-         * @throws
+         * * Set the Chat info. 
+         * @param array [$columns]
          */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
                     switch ($column) {
                         case 'available':
                             $this->available();
                             break;
-                        case 'end_at':
-                            $this->end_at();
+                        case 'lesson':
+                            $this->lesson();
                             break;
                         case 'messages':
                             $this->messages();
-                            break;
-                        case 'type':
-                            $this->type();
                             break;
                         case 'users':
                             $this->users();
                             break;
                     }
+                    continue;
                 }
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
-
-        public function available () {
-            foreach ($this->users as $user) {
-                if ($user->id_user === $this->id_user_from) {
-                    $id_role = $user->id_role;
-                    break;
-                }
-            }
-            
-            if ($id_role === 0) {
-                $this->available = true;
-            }
-            if ($id_role === 1) {
-                $now = Carbon::now();
-                
-                $this->available = false;
-                $user->and(['days']);
-                foreach ($user->days as $date) {
-                    $date = (object) $date;
-                    if ($now->dayOfWeek === $date->day->id_day) {
-                        $this->available = true;
+                switch ($column[0]) {
+                    default:
                         break;
-                    }
                 }
-    
-                if ($this->available) {
-                    $this->available = false;
-                    foreach ($date->hours as $hour) {
-                        if ($now->format("H:i") > $hour->from && $now->format("H:i") < $hour->from) {
-                            $this->available = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if ($id_role === 2) {
-                $this->available = true;
             }
         }
-
-        public function end_at () {
-            $lesson = Lesson::where([
-                ['id_user_from', '=', $this->users['from']->id_user],
-                ['id_user_to', '=', $this->users['to']->id_user]
-            ])->first();
-            $lesson->and(['days']);
-            foreach ($lesson->days as $date) {
-                if (count($date['hours'])) {
-                    foreach ($date['hours'] as $hour) {
-                        if (!isset($to)) {
-                            $to = $hour->to;
-                        }
-                        if ($to < $hour->to) {
-                            $to = $hour->to;
-                        }
-                    }
-                    if (!isset($end_at)) {
-                        $end_at = $date['date'] . "T" . $to;
-                    }
-                    if ($end_at < $date['date'] . "T" . $to) {
-                        $end_at = $date['date'] . "T" . $to;
-                    }
-                }
-                if (!count($date['hours'])) {
-                    if (!isset($end_at)) {
-                        $end_at = $date['date'];
-                    }
-                    if ($end_at < $date['date']) {
-                        $end_at = $date['date'];
-                    }
-                }
-            }
-            $this->end_at = $end_at;
-        } 
 
         /**
-         * * Parse the Chat Messages.
+         * * Set if the Chat is available.
+         */
+        public function available () {
+            $user = User::find($this->id_user_from);
+            
+            if ($user->id_role === 0 || $user->id_role === 2) {
+                $this->available = true;
+            }
+            if ($user->id_role === 1) {
+                $this->lesson();
+
+                $now = Carbon::now();
+                $this->available = false;
+                
+                if ($now > $this->lesson->start_at && $now < $this->lesson->end_at) {
+                    $this->available = true;
+                }
+            }
+        }
+
+        /**
+         * * Set the chat Lesson.
+         */
+        public function lesson () {
+            $this->lesson = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
+            
+            $this->lesson->and(['assigments', 'days', 'end_at', 'start_at']);
+        }
+
+        /**
+         * * Set the Chat Messages.
          */
         public function messages () {
-            $this->messages = Message::parse(json_decode($this->messages));
+            $this->messages = Message::parse($this->messages);
         }
 
         /**
-         * * Parse the Chat type
-         */
-        public function type () {
-            $this->messages();
-            $this->id_type = 1;
-            foreach ($this->messages as $message) {
-                if (isset($message->id_assigment)) {
-                    $this->id_type = 2;
-                    break;
-                }
-            }
-        }
-
-        /**
-         * * Get the Chat Users.
-         * @return array
+         * * Set the Chat Users.
          */
         public function users () {
-            $this->users = [
+            $this->users = (object) [
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
+
+            $this->users->from->and(['files', 'games']);
+            $this->users->to->and(['files', 'games']);
         }
 
-        /** @var array Validation rules & messages. */
+        /**
+         * * Get all the Chats from an User.
+         * @param int $id_user
+         * @return Chat[]
+         */
+        static public function allFromUser (int $id_user) {
+            $chats = Chat::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->orderBy('updated_at', 'DESC')->get();
+
+            return $chats;
+        }
+
+        /**
+         * * Check if a Chat exist by the Users.
+         * @param int $id_user_1
+         * @param int $id_user_2
+         * @return bool
+         */
+        static public function exist (int $id_user_1, int $id_user_2) {
+            $chat = Chat::findByUsers($id_user_1, $id_user_2);
+
+            if (!$chat) {
+                return false;
+            }
+
+            return true;
+        }
+
+        /**
+         * * Get a Chat by the Users.
+         * @param int $id_user_1
+         * @param int $id_user_2
+         * @return Chat
+         */
+        static public function findByUsers (int $id_user_1, int $id_user_2) {
+            $chat = Chat::where([
+                ['id_user_from', '=', $id_user_1],
+                ['id_user_to', '=', $id_user_2],
+            ])->orwhere([
+                ['id_user_from', '=', $id_user_2],
+                ['id_user_to', '=', $id_user_1],
+            ])->first();
+
+            return $chat;
+        }
+       
+        /**
+         * * Add a new Chat Message
+         * @param array $data
+         */
+        public function addMessage (array $data = []) {
+            $messages = collect();
+            $id_message = 1;
+
+            foreach (json_decode($this->messages) as $message) {
+                $id_message = intval($message->id_message) + 1;
+                $messages->push($message);
+            }
+
+            $data["id_message"] = $id_message;
+
+            $messages->push($data);
+
+            $this->update([
+                'messages' => $messages->toJson(),
+            ]);
+        }
+
+        /**
+         * * Validation rules & messages.
+         * @var array
+         */
         static $validation = [
             'send' => [
                 'rules' => [
@@ -167,20 +186,4 @@
                     'es' => [
                         'message.required' => 'El mensaje es obligatorio.',
         ]]]];
-
-        /**
-         * * Check if a Chat exist by the Users
-         * @param int $id_user_1
-         * @param int $id_user_2
-         * @return boolean
-         */
-        static public function exist ($id_user_1, $id_user_2) {
-            return count(Chat::where([
-                ['id_user_from', '=', $id_user_1],
-                ['id_user_to', '=', $id_user_2]
-            ])->orwhere([
-                ['id_user_from', '=', $id_user_2],
-                ['id_user_to', '=', $id_user_1]
-            ])->get()) > 0;
-        }
     }

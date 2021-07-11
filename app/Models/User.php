@@ -24,10 +24,16 @@
     class User extends Authenticatable {
         use HasApiTokens, Notifiable, Sluggable, SluggableScopeHelpers;
 
-        /** @var string Table name */
+        /**
+         * * Table name.
+         * @var string
+         */
         protected $table = 'users';
         
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_user';
 
         /**
@@ -56,39 +62,12 @@
         ];
 
         /**
-         * * Get the User Abilities.
-         * @return array
+         * * Set the User info. 
+         * @param array [$columns]
          */
-        public function abilities () {
-            $abilities = [
-                (object) ['id_ability' => 1, 'stars' => 0],
-                (object) ['id_ability' => 2, 'stars' => 0],
-                (object) ['id_ability' => 3, 'stars' => 0],
-                (object) ['id_ability' => 4, 'stars' => 0]
-            ];
-            $this->abilities = Ability::parse($abilities);
-        }
-
-        /**
-         * * Get the User Achievements.
-         * @throws
-         */
-        public function achievements () {
-            try {
-                $this->achievements = Achievement::parse(json_decode($this->achievements));
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
-
-        /**
-         * * Get the User info. 
-         * @param array $columns
-         * @throws
-         */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
                     switch ($column) {
                         case 'abilities':
                             $this->abilities();
@@ -117,8 +96,14 @@
                         case 'lessons':
                             $this->lessons();
                             break;
+                        case 'posts':
+                            $this->posts();
+                            break;
                         case 'prices':
                             $this->prices();
+                            break;
+                        case 'reviews':
+                            $this->reviews();
                             break;
                         case 'role':
                             $this->role();
@@ -130,114 +115,129 @@
                             $this->teampro();
                             break;
                     }
+                    continue;
                 }
-            } catch (\Throwable $th) {
-                throw $th;
+                switch ($column[0]) {
+                    default:
+                        break;
+                }
             }
         }
 
         /**
-         * * Get the User Chats.
-         * @return array
+         * * Set the User Abilities.
          */
-        public function chats () {
-            $this->chats = collect([]);
-            foreach (Chat::where('id_user_from', '=', $this->id_user)->get() as $chat) {
-                $this->chats->push($chat);
-            }
-            foreach (Chat::where('id_user_to', '=', $this->id_user)->get() as $chat) {
-                $this->chats->push($chat);
-            }
-            $this->chats->sort(function ($a, $b) {
-                return ($a->updated_at < $b->updated_at) ? -1 : 1;
-            });
-        }
+        public function abilities () {
+            $this->reviews();
+            $this->abilities = Ability::options();
 
-        /**
-         * * Get the User Days.
-         * @throws
-         */
-        public function days () {
-            try {
-                $days = json_decode($this->days);
-                foreach ($days as $day) {
-                    if (!is_array($day->hours)) {
-                        $day->hours = json_decode($day->hours);
+            foreach ($this->abilities as $ability) {
+                $quantity = 0;
+                $stars = 0;
+
+                foreach ($this->reviews as $review) {
+                    foreach ($review->abilities as $reviewAbility) {
+                        if ($ability->id_ability === $reviewAbility->id_ability) {
+                            $stars += $reviewAbility->stars;
+                            $quantity++;
+                            continue 2;
+                        }
                     }
                 }
-                $this->days = Day::parse($days);
-            } catch (\Throwable $th) {
-                throw $th;
+
+                $ability->and([['stars', (($stars && $quantity) ? $stars / $quantity : 0)]]);
             }
         }
 
         /**
-         * * Get the User Files.
-         * @return array
+         * * Set the User Achievements.
+         */
+        public function achievements () {
+            $this->achievements = Achievement::parse($this->achievements);
+            if ($this->id_role === 0) {
+                foreach (Achievement::options() as $achievement) {
+                    // TODO: Add Achievement
+                    if (false) {
+                        $this->achievements->push($achievement);
+                    }
+                }
+            }
+        }
+
+        /**
+         * * Set the User Chats.
+         */
+        public function chats () {
+            $this->chats = collect();
+            foreach (Chat::allFromUser($this->id_user)->get() as $chat) {
+                $this->chats->push($chat);
+            }
+        }
+
+        /**
+         * * Set the User Days.
+         */
+        public function days () {
+            // * id_user = 4
+            $this->days = Day::parse($this->days);
+        }
+
+        /**
+         * * Set the User Files.
          */
         public function files () {
-            try {
-                $this->files = collect([]);
-                $files = Folder::getFiles($this->folder);
-                if (!count($files)) {
-                    $this->files = false;
-                }
-                foreach ($files as $file) {
-                    $fileExplode = explode(".", $file);
-                    $fileExplode = explode("-", $fileExplode[0]);
-                    $this->files[$fileExplode[1]] = $file;
-                }
-            } catch (\Throwable $th) {
-                throw $th;
+            $this->files = collect();
+            $files = Folder::getFiles($this->folder);
+
+            if (!count($files)) {
+                $this->files = false;
+            }
+
+            foreach ($files as $file) {
+                $fileExplode = explode(".", $file);
+                $fileExplode = explode("-", $fileExplode[0]);
+                $this->files[$fileExplode[1]] = $file;
             }
         }
 
         /**
-         * * Get the User Friends.
-         * @return array
+         * * Set the User Friends.
          */
         public function friends () {
-            $this->friends = collect([]);
-            foreach (Friend::where('id_user_from', '=', $this->id_user)->get() as $friend) {
-                $this->friends->push($friend);
-            }
-            foreach (Friend::where('id_user_to', '=', $this->id_user)->get() as $friend) {
+            $this->friends = collect();
+
+            foreach (Friend::allFromUser($this->id_user) as $friend) {
                 $this->friends->push($friend);
             }
         }
 
         /**
-         * * Get the User Games.
-         * @throws
+         * * Set the User Games.
          */
         public function games () {
-            try {
-                $this->games = Game::parse(json_decode($this->games));
-                foreach ($this->games as $game) {
-                    $game->and(['abilities']);
-                }
-            } catch (\Throwable $th) {
-                throw $th;
+            $this->games = Game::parse($this->games);
+            
+            foreach ($this->games as $game) {
+                $game->and(['colors', 'files']);
             }
         }
 
         /**
-         * * Get the User Lessons.
-         * @return array
+         * * Set the User Lessons.
          */
         public function hours () {
+            $this->lessons();
             $this->hours = 0;
+
             foreach ($this->lessons as $lesson) {
                 if ($lesson->id_type === 1 || $lesson->id_type === 3) {
                     if ($lesson->status > 2) {
                         $lesson->and(['days']);
+
                         foreach ($lesson->days as $day) {
-                            foreach ($day['hours'] as $hour) {
-                                if (Hour::has($hour->id_hour)) {
-                                    $hour = Hour::one($hour->id_hour);
-                                    if (now() > $day['date'] . "T" . $hour->to) {
-                                        $this->hours++;
-                                    }
+                            foreach ($day->hours as $hour) {
+                                if (now() > $day->date . "T" . $hour->to) {
+                                    $this->hours++;
                                 }
                             }
                         }
@@ -247,41 +247,33 @@
         }
 
         /**
-         * * Get the User Languages.
-         * @throws
+         * * Set the User Languages.
          */
         public function languages () {
-            try {
-                $this->languages = Language::parse(json_decode($this->languages));
-            } catch (\Throwable $th) {
-                throw $th;
-            }
+            $this->languages = Language::parse($this->languages);
         }
 
         /**
-         * * Get the User Lessons.
-         * @return array
+         * * Set the User Lessons.
          */
         public function lessons () {
-            $this->lessons = collect([]);
+            $this->lessons = collect();
+
             if ($this->id_role === 0) {
-                foreach (Lesson::where([
-                    ['id_user_to', '=', $this->id_user],
-                    ['status', '>', 3],
-                ])->get() as $lesson) {
+                foreach (Lesson::allDoneFromUser($this->id_user) as $lesson) {
                     $lesson->and(['type', 'users']);
                     $this->lessons->push($lesson);
                 }
             }
             if ($this->id_role === 1) {
-                foreach (Lesson::where([
-                    ['id_user_from', '=', $this->id_user],
-                    ['status', '>', 0],
-                ])->get() as $lesson) {
+                foreach (Lesson::allFromTeacher($this->id_user) as $lesson) {
+                    $lesson->and(['days']);
                     $this->lessons->push($lesson);
                 }
             }
+
             $this->lessonsDone = 0;
+
             foreach ($this->lessons as $lesson) {
                 if ($lesson->status === 4) {
                     $this->lessonsDone++;
@@ -294,66 +286,51 @@
          * @return array
          */
         public function posts () {
-            return $this->hasMany(Post::class, 'id_user', 'id_user');
+            $this->posts = Post::allFromUser($this->id_user);
         }
 
         /**
-         * * Get the User Prices.
-         * @throws
+         * * Set the User Prices.
          */
         public function prices () {
-            try {
-                $this->prices = Price::parse(json_decode($this->prices));
-            } catch (\Throwable $th) {
-                throw $th;
-            }
+            $this->prices = Price::parse($this->prices);
         }
 
         /**
-         * * Get the User profile image.
-         * @throws
+         * * Set the User profile image.
+         * @return string|false
          */
         public function profile () {
-            try {
-                foreach (Folder::getFiles($this->folder) as $file) {
-                    if (strpos($file, '-')) {
-                        $fileExplode = explode('-', $file);
-                        $fileExplode = explode('.', $fileExplode[1]);
-                        if ($fileExplode[0] === 'profile') {
-                            return $file;
-                        }
+            foreach (Folder::getFiles($this->folder) as $file) {
+                if (strpos($file, '-')) {
+                    $fileExplode = explode('-', $file);
+                    $fileExplode = explode('.', $fileExplode[1]);
+                    if ($fileExplode[0] === 'profile') {
+                        return $file;
                     }
                 }
-                return false;
-            } catch (\Throwable $th) {
-                throw $th;
             }
+
+            return false;
         }
 
         /**
-         * * Get the User Reviews.
-         * @return array
+         * * Set the User Reviews.
          */
         public function reviews () {
-            return $this->hasMany(Review::class, 'id_user_to', 'id_user');
+            $this->reviews = collect();
+            
+            foreach (Review::allToUser($this->id_user) as $review) {
+                $review->and(['abilities', 'lesson', 'game']);
+                $this->reviews->push($review);
+            }
         }
 
         /**
-         * * Get the User Role.
-         * @return array
+         * * Set the User Role.
          */
         public function role () {
-            try {
-                if (!Role::has($this->id_role)) {
-                    throw (object)[
-                        'code' => 404,
-                        'message' => "Role with id = \"$this->id_role\" does not exist",
-                    ];
-                }
-                $this->role = Role::one($this->id_role);
-            } catch (\Throwable $th) {
-                throw $th;
-            }
+            $this->role = Role::option($this->id_role);
         }
         
         /**
@@ -370,46 +347,123 @@
         }
 
         /**
-         * * Get the User status.
-         * @throws
+         * * Set the User status.
          */
         public function status () {
-            try {
-                switch ($this->status) {
-                    case 0:
-                        $this->status = (object) [
-                            "id_status" => 0,
-                            "name" => "Banned",
-                        ];
-                        break;
-                    case 1:
-                        $this->status = (object) [
-                            "id_status" => 1,
-                            "name" => "Email confirmation pending",
-                        ];
-                        break;
-                    case 2:
-                        $this->status = (object) [
-                            "id_status" => 2,
-                            "name" => "Available",
-                        ];
-                        break;
-                }
-            } catch (\Throwable $th) {
-                throw $th;
+            switch ($this->status) {
+                case 0:
+                    $this->status = (object) [
+                        "id_status" => 0,
+                        "name" => "Banned",
+                    ];
+                    break;
+                case 1:
+                    $this->status = (object) [
+                        "id_status" => 1,
+                        "name" => "Email confirmation pending",
+                    ];
+                    break;
+                case 2:
+                    $this->status = (object) [
+                        "id_status" => 2,
+                        "name" => "Available",
+                    ];
+                    break;
             }
         }
 
         /**
-         * * Get the User Teampro.
-         * @throws
+         * * Set the User Teampro.
          */
         public function teampro () {
-            try {
-                $this->teampro = Teampro::parse((array) json_decode($this->teampro), $this);
-            } catch (\Throwable $th) {
-                throw $th;
+            $this->teampro = Teampro::parse($this->teampro, $this);
+        }
+
+        /**
+         * * Get all the Users with id_role = 2.
+         * @return User[]
+         */
+        static public function allAdmins () {
+            $users = User::where('id_role', '=', 2)->get();
+
+            return $users;
+        }
+
+        /**
+         * * Get a User by the email.
+         * @param string $email
+         * @return User
+         */
+        static public function findByEmail (string $email = '') {
+            $user = User::where('email', '=', $email)->first();
+
+            return $user;
+        }
+
+        /**
+         * * Fidn and returns the User by a Game.
+         * @param int $id_game
+         * @return User[]
+         */
+        static public function findByGame (int $id_game, $id_role = false) {
+            $users = collect();
+
+            foreach (User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get() as $user) {
+                if ($id_role && $user->id_role === $id_role) {
+                    $user->and(['games']);
+
+                    foreach ($user->games as $game) {
+                        if ($game->id_game === $id_game) {
+                            $users->push($user);
+                        }
+                    }
+                }
+                if (!$id_role) {
+                    $user->and(['games']);
+
+                    foreach ($user->games as $game) {
+                        if ($game->id_game === $id_game) {
+                            $users->push($user);
+                        }
+                    }
+                }
             }
+
+            return $users;
+        }
+
+        /**
+         * * Get a User by the slug.
+         * @param string $slug
+         * @return User
+         */
+        static public function findBySlug (string $slug = '') {
+            $user = User::where('slug', '=', $slug)->first();
+
+            return $user;
+        }
+
+        /**
+         * * Set the Users with id_role = 1.
+         * @return User[]
+         */
+        static public function teachers () {
+            $users = User::where('id_role', '=', 1)->get();
+
+            return $users;
+        }
+
+        /**
+         * * Set the Users with id_role = 0.
+         * @return User[]
+         */
+        static public function users () {
+            $users = User::where([
+                ['id_role', '=', 0],
+                ['status', '>', 1],
+            ])->get();
+
+            return $users;
         }
         
         /** @var array Validation rules & messages. */
@@ -453,48 +507,4 @@
                             'teampro_logo.mimetypes' => 'La foto de tu equipo debe ser una imagen .png',
                             'profile.mimetypes' => 'La foto de perfil debe ser una imagen .png',
         ]]]]];
-
-        /**
-         * * Fidn and returns the User by a Game.
-         * @param ine $id_game
-         * @return User[]
-         * @throws
-         */
-        static public function findByGame ($id_game = '', $id_role = false) {
-            try {
-                $users = collect([]);
-                $usersToSearch = User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get();
-                foreach ($usersToSearch as $user) {
-                    if ($id_role && $user->id_role === $id_role) {
-                        $user->and(['games']);
-                        foreach ($user->games as $game) {
-                            if ($game->id_game === $id_game) {
-                                $users->push($user);
-                            }
-                        }
-                    }
-                    if (!$id_role) {
-                        $user->and(['games']);
-                        foreach ($user->games as $game) {
-                            if ($game->id_game === $id_game) {
-                                $users->push($user);
-                            }
-                        }
-                    }
-                }
-                return $users;
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
-
-       /**
-        * * Replace the unique {id_user} rule.
-        * @param mixed $rules Rules to replace.
-        * @param mixed $id_user User primary key to put.
-        * @return string
-        */
-        static function replaceUniqueIDUser ($rules, $id_user) {
-            return preg_replace("({[a-z_]*})", $id_user, $rules);
-        }
     }

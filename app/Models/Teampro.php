@@ -15,26 +15,27 @@
         ];
 
         /**
-         * * Returns a Teampro.
-         * @param string $data = "{\"name\":\"astralis\"}"
+         * * Parse a Teampro.
+         * @param string $data Example: "{\"name\":\"astralis\"}"
+         * @param User|null $user
          * @return Teampro
          */
-        static public function parse ($data = [], $user = null) {
+        static public function parse (string $data, $user = null) {
+            $data = json_decode($data);
             return new Teampro([
-                'name' => (isset($data['name']) ? $data['name'] : null),
+                'name' => $data->name,
                 'logo' => (isset($user->files['teampro']) ? $user->files['teampro'] : null),
             ]);
         }
 
         /**
-         * * Creates the teampro JSON.
-         * @param string $teampro
-         * @return [type]
+         * * Stringify a Games array.
+         * @param string $name
+         * @return string
          */
-        static public function stringify (string $teampro) {
-            $days = [
-                'name' => $teampro,
-            ];
-            return json_encode($days);
+        static public function stringify (string $name = '') {
+            return json_encode([
+                'name' => $name,
+            ]);
         }
     }

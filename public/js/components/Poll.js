@@ -1,4 +1,6 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
+
 import Step from "./Step.js";
 
 export class Poll extends Class{
@@ -10,6 +12,7 @@ export class Poll extends Class{
         this.setHTML("#poll.modal");
         this.setSteps();
         this.setEventsListener();
+        this.setModalJS();
     }
 
     setEventsListener(){
@@ -38,7 +41,6 @@ export class Poll extends Class{
     }
 
     next(){
-
         this.setState("page", `step-${parseInt(this.state.page.split("-").pop()) + 1}`);
         for (const step of this.steps){
             step.close();
@@ -53,6 +55,16 @@ export class Poll extends Class{
             this.steps = Step.all();
         }
         
+    }
+    
+    setModalJS () {
+        modals.poll = new ModalJS({
+            id: "poll",
+        },{
+            detectHash: true,
+            open: true,
+            outsideClick: true
+        });
     }
 }
 
