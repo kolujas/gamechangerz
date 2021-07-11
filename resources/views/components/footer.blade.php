@@ -1,6 +1,6 @@
 <footer class="footer pt-8">
     <header class="grid grid-cols-2 md:grid-cols-4">
-        <nav class="py-8 m-auto">
+        <nav class="py-8 m-auto mt-0">
             <h4 class="font-bold pb-4 overpass">Navegación</h4>
             <ul>
                 <li>
@@ -25,9 +25,18 @@
                 </li>
             </ul>
         </nav>
-        <nav class="py-8 m-auto">
+        <nav class="py-8 m-auto mt-0">
             <h4 class="font-bold pb-4">Soporte</h4>
             <ul>
+                <li>
+                    <a class="overpass btn btn-grey btn-text" href="#">Postulate como profesor</a>
+                </li>
+                <li>
+                    <a class="overpass btn btn-grey btn-text" href="#">Contacto</a>
+                </li>
+                <li>
+                    <a class="overpass btn btn-grey btn-text" href="#">Código de conducta</a>
+                </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="#">FAQ</a>
                 </li>
@@ -45,7 +54,7 @@
                 </li>
             </ul>
         </nav>
-        <nav class="grid grid-cols-3 items-center m-auto py-8">
+        <nav class="grid grid-cols-3 items-center m-auto py-8 mt-0">
             <h4 class="col-span-3 font-bold pb-4 pl-5">Redes</h4>
             <ul class="col-start-1">
                 <li class="my-4 pl-4">

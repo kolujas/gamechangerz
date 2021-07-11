@@ -1,0 +1,6 @@
+.tab-menu{
+    --tabmenu-button-color: var(--color-four);
+    --tabmenu-button-color-alternative: var(--color-black);
+    --tabmenu-background-color: var(--color-black);
+    --tabmenu-background-color-alternative: linear-gradient(130deg, var(--color-five), var(--color-four));
+}

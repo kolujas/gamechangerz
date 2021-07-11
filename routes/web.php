@@ -3,6 +3,7 @@
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\BlogController;
     use App\Http\Controllers\DefaultController;
+    use App\Http\Controllers\PanelController;
     use App\Http\Controllers\FriendshipController;
     use App\Http\Controllers\GameController;
     use App\Http\Controllers\GoogleController;
@@ -99,3 +100,14 @@
             Route::post('/users/{slug}/languages/update', [LanguageController::class, 'update'])->name('language.update');
         });
     // TODO: });
+
+// ! PanelController - Controls the panel in general.
+    Route::middleware(['auth.custom', 'auth.role.is.admin'])->group(function () {
+        Route::get('/panel', [PanelController::class, 'blog'])->name('panel.blog');
+        Route::get('/panel/blog', [PanelController::class, 'blog'])->name('panel.blog');
+        Route::get('/panel/platform', [PanelController::class, 'platform'])->name('panel.platform');
+        Route::get('/panel/users', [PanelController::class, 'users'])->name('panel.users');
+        Route::get('/panel/teachers', [PanelController::class, 'teachers'])->name('panel.teachers');
+        Route::get('/panel/coupons', [PanelController::class, 'coupons'])->name('panel.coupons');
+        Route::get('/panel/bookings', [PanelController::class, 'bookings'])->name('panel.bookings');
+    });

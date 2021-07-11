@@ -54,7 +54,7 @@
         @if (count($user->reviews))
             <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
                 <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-6 mb-8">
-                    <h3 class="color-white russo">Reseñas</h3>
+                    <h3 class="color-white russo uppercase">Reviews</h3>
                 </header>
                 @component('components.review.users', [
                     'reviews' => $user->reviews,
@@ -83,8 +83,6 @@
                     </h3>
                 </header>
                 <div class="p-8 rounded">
-                    <h4 class="color-white mb-4 russo">Información</h4>
-                    <span class="color-four font-bold block mb-8 overpass">Sobre {{ $user->name }}</span>
                     <textarea class="form-input update-input overpass" name="description" placeholder="Descripción" disabled>{{ old('description', $user->description) }}</textarea>
                 </div>
             </section>
@@ -93,7 +91,7 @@
 
     <section class="abilities mb-16 p-cols-3 xl:grid xl:grid-cols-10">
         <header class="xl:col-span-8 xl:col-start-2">
-            <h3 class="color-white mb-8 px-8 xl:px-0 russo">Habilidades</h3>
+            <h3 class="color-white mb-8 px-8 xl:px-0 russo uppercase">Habilidades que enseña</h3>
         </header>
         <main class="xl:col-span-10 relative">
             @foreach ($user->games as $game)
