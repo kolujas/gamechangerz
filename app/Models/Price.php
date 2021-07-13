@@ -5,47 +5,39 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Price extends Model {
-        /** @var string Table primary key name */
-        protected $primaryKey = 'id_lesson';
-
-        /**
-         * * The attributes that are mass assignable.
-         * @var array
-         */
-        protected $fillable = [
-            'id_lesson', 'price',
-        ];
-
         /**
          * * Parse a Prices array.
-         * @param array $pricesToParse Example: "[{\"id_lesson\":1,\"price\":500}]"
+         * @param string [$prices] Example: "[{\"id_lesson\":1,\"price\":500}]"
          * @return Price[]
-         * @throws
          */
-        static public function parse ($pricesToParse = []) {
-            $prices = collect([]);
-            foreach ($pricesToParse as $data) {
-                if (!Lesson::has($data->id_lesson)) {
-                    throw (object)[
-                        'code' => 404,
-                        'message' => "Lesson with id = \"$data->id_lesson\" does not exist",
-                    ];
-                }
-                $lesson = Lesson::one($data->id_lesson);
-                $lesson->price = $data->price;
-                $prices->push($lesson);
+        static public function parse (string $prices = '') {
+            $collection = collect();
+
+            foreach (json_decode($prices) as $data) {
+                $type = Lesson::option($data->id_lesson);
+                $type->price = $data->price;
+
+                $collection->push($type);
             }
-            return $prices;
+
+            return $collection;
         }
 
-        static public function stringify ($priceToParse = []) {
-            $prices = [];
-            foreach ($priceToParse as $id_lesson => $price) {
-                $prices[] = [
+        /**
+         * * Stringify a Prices array.
+         * @param array [$prices] Example: [0=>500]]
+         * @return string
+         */
+        static public function stringify (array $prices = []) {
+            $collection = collect();
+
+            foreach ($prices as $id_lesson => $data) {
+                $collection->push([
                     "id_lesson" => $id_lesson + 1,
-                    "price" => $price,
-                ];
+                    "price" => $data,
+                ]);
             }
-            return json_encode($prices);
+
+            return $collection->toJson();
         }
     }

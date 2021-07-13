@@ -697,7 +697,7 @@ async function printHours (params) {
                 // * Loop the Days
                 for (const day of days) {
                     // ? If the Date Day match with a Day
-                    if (date.getDay() === day.day.id_day) {
+                    if (date.getDay() === day.id_day) {
                         // * Loop the Hours
                         for (const hour of day.hours) {
                             // * Activate the Hour
@@ -826,7 +826,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         let enableDays = [];
         for (const day of days) {
-            enableDays.push(day.day.id_day);
+            if (day.hours.length) {
+                enableDays.push(day.id_day);
+            }
         }
         
         calendar = new InputDateMakerJS({

@@ -14,7 +14,7 @@
          */
         public function checkLesson (Request $request, string $slug) {
             $input = (object) $request->all();
-            $user = User::where('slug', '=', $slug)->first();
+            $user = User::findBySlug($slug);
             $user->and(['lessons']);
 
             $found = false;
@@ -49,7 +49,7 @@
          * @return JSON
          */
         public function lessons (Request $request, string $slug) {
-            $user = User::where('slug', '=', $slug)->first();
+            $user = User::findBySlug($slug);
             $user->and(['lessons']);
 
             return response()->json([
@@ -67,13 +67,12 @@
          * @return JSON
          */
         public function teachers (Request $request) {
-            $users = User::where('id_role', '=', 1)->get();
+            $users = User::teachers();
+
             foreach ($users as $user) {
                 $user->and(['games', 'files', 'prices', 'teampro', 'languages', 'days']);
-                foreach ($user->games as $game) {
-                    $game->and(['abilities', 'files']);
-                }
             }
+
             return response()->json([
                 'code' => 200,
                 'message' => 'Success',
@@ -88,16 +87,10 @@
          * @return JSON
          */
         public function users (Request $request) {
-            $users = User::where([
-                ['id_role', '=', 0],
-                ['status', '>', 1],
-            ])->get();
+            $users = User::users();
 
             foreach ($users as $user) {
                 $user->and(['lessons', 'games', 'files', 'hours', 'achievements']);
-                foreach ($user->games as $game) {
-                    $game->and(['files']);
-                }
             }
 
             return response()->json([

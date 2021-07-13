@@ -4,7 +4,10 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Auth extends Model {
-        /** @var array Validation rules & messages. */
+        /**
+         * * Validation rules & messages.
+         * @var array
+         */
         static $validation = [
             'login' => [
                 'rules' => [

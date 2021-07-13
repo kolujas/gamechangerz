@@ -56,9 +56,11 @@
                         'message' => 'Correo pendiente de aprobación',
                     ];
                 }
+
                 foreach (Auth::user()->tokens as $token) {
                     $token->delete();
                 }
+
                 Auth::logout();
             
                 return response()->json($status);
@@ -98,12 +100,12 @@
                 ]);
             }
 
-            $password = $input->password;
             $input->id_role = 0;
             $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
             $input->languages = json_encode([[
                 'id_language' => $input->language,
             ]]);
+            $password = $input->password;
             $input->password = Hash::make($password);
             $input->status = 1;
 
@@ -118,6 +120,7 @@
                 $user->update([
                     'folder' => "users/$user->id_user",
                 ]);
+                
                 $mail = new Mail([
                     "id_mail" => 1,
                 ], [

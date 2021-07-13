@@ -16,7 +16,7 @@
          * @param array $attributes
          */
         public function __construct (array $attributes = []) {
-            parent::__construct($attributes);
+            parent::__construct();
 
             // * Check the enviroment
             if (config('app.env') === 'production') {
@@ -32,13 +32,10 @@
         /**
          * * Set the MercadoPago Items.
          * @param array $array
-         * @return [type]
          */
         public function items (array $array = []) {
-            // * Set the Items
-            if (!isset($this->items)) {
-                $this->items = [];
-            }
+            // * Create a array
+            $items = [];
 
             // * Loop the array
             foreach ($array as $data) {
@@ -49,14 +46,16 @@
                 $item->quantity = 1;
                 $item->currency_id = 'ARS';
                 $item->unit_price = $data->price;
-                $this->items[] = $item;
+                $items[] = $item;
             }
+            
+            // * Set the Items
+            $this->items = $items;
         }
 
         /**
          * * Set the MercadoPago Payment
          * @param string $id_payment
-         * @return [type]
          */
         public function payment (string $id_payment) {
             // * Set the Payment
@@ -66,7 +65,6 @@
         /**
          * * Set the MercadoPago Preference.
          * @param mixed $data
-         * @return [type]
          */
         public function preference ($data) {
             // * Create the Preference
@@ -93,15 +91,18 @@
             $this->preference->auto_return = "approved";
 
             // ? Set the Preference fee
-            $this->preference->marketplace_fee = 20;
+            // $this->preference->marketplace_fee = 20;
 
             // * Set the Preference external ID
             $this->preference->external_reference = $data->id;
 
-            // ? Set the Preference webhook route
-            $this->preference->notification_url = route('lesson.notification.check', [
-                'type' => 'mercadopago',
-            ]);
+            // * Check the enviroment
+            if (config('app.env') === 'production') {
+                // ? Set the Preference webhook route
+                $this->preference->notification_url = route('lesson.notification.check', [
+                    'type' => 'mercadopago',
+                ]);
+            }
 
             // * Save the Preference
             $this->preference->save();

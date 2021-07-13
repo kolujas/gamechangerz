@@ -6,7 +6,10 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Hour extends Model {
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_hour';
 
         /**
@@ -14,10 +17,180 @@
          * @var array
          */
         protected $fillable = [
-            'id_hour', 'from', 'to', 'active', 'time',
+            'id_hour', 'active', 'from', 'time', 'to',
         ];
 
-        /** @var array Hour options */
+        /**
+         * * Set the Day info. 
+         * @param array [$columns]
+         */
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
+                    switch ($column) {
+                        default:
+                            break;
+                    }
+                    continue;
+                }
+                switch ($column[0]) {
+                    case 'active':
+                        $this->active($column[1]);
+                        break;
+                }
+            }
+        }
+
+        /**
+         * * Set if the Hour is active.
+         * @param array [$hours]
+         */
+        public function active (array $hours = []) {
+            $this->active = false;
+
+            foreach ($hours as $data) {
+                if ($this->id_hour === $data['id_hour']) {
+                    $this->active = true;
+                }
+            }
+        }
+
+        /**
+         * * Returns a Hour.
+         * @param int $id_hour
+         * @return Hour
+         */
+        static public function option (int $id_hour) {
+            foreach (Hour::$options as $option) {
+                if ($option['id_hour'] === $id_hour) {
+                    return new Hour($option);
+                }
+            }
+
+            dd("Hour \"$id_hour\" not found");
+        }
+
+        /**
+         * * Returns the Hour options.
+         * @param array [$hours] Example: [["id_hour"=>1]]
+         * @param bool [$all=true]
+         * @return Hour[]
+         */
+        static public function options (array $hours = [], bool $all = true) {
+            $collection = collect();
+
+            foreach (Hour::$options as $option) {
+                $option = new Hour($option);
+                $option->active = false;
+                $found = false;
+                
+                foreach ($hours as $data) {
+                    $option->active = false;
+
+                    if ($option->id_hour === $data['id_hour']) {
+                        $option->active = true;
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if ($all || $found) {
+                    $collection->push($option);
+                }
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Parse an Hours array.
+         * @param string [$hours] Example: "[{\"id_hour\":1,\"stars\":3.5}]"
+         * @return Hour[]
+         */
+        static public function parse (string $hours = '') {
+            $collection = collect();
+            
+            foreach (json_decode($hours) as $data) {
+                $hour = Hour::option($data->id_hour);
+
+                $collection->push($hour);
+            }
+            
+            return $collection;
+        }
+
+        /**
+         * * Stringify an Hours array.
+         * @param array [$hours] Example: [["id_hour"=>1]]
+         * @return string
+         */
+        static public function stringify (array $hours = []) {
+            $collection = collect();
+            
+            foreach ($hours as $time => $data) {
+                $hours = Hour::time($time);
+                
+                foreach ($hours as $hour) {
+                    $collection->push([
+                        "id_hour" => $hour->id_hour,
+                    ]);
+                }
+            }
+
+            return $collection->toJson();
+        }
+
+        /**
+         * * Get all the Hours by the time.
+         * @param int [$time=1]
+         * @return array
+         */
+        static public function time (int $time = 1) {
+            $collection = collect();
+
+            foreach (Hour::$options as $hour) {
+                if ($hour['time'] === $time) {
+                    $collection->push(new Hour($hour));
+                }
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Get an Hour from the "from" value.
+         * @param string $from
+         * @return Hour
+         */
+        static public function from (string $from = '') {
+            foreach (Hour::$options as $hour) {
+                if ($hour['from'] === $from) {
+                    return new this($hour);
+                }
+            }
+
+            dd("Hour from \"$from\" not found");
+        }
+
+        /**
+         * * Get an Hour from the "to" value.
+         * @param string $to
+         * @return Hour
+         */
+        static public function to (string $to = '') {
+            foreach (Hour::$options as $hour) {
+                if ($hour['to'] === $to) {
+                    return new this($hour);
+                }
+            }
+
+            dd("Hour to \"$to\" not found");
+        }
+
+        /**
+         * * Hour options.
+         * @var array
+         */
         static $options = [[
             'id_hour' => 1,
             'from' => '00:00',
@@ -127,121 +300,4 @@
             'active' => true,
             'time' => 3
         ]];
-
-        /**
-         * * Check if a Hour exists.
-         * @param string $field 
-         * @return boolean
-         */
-        static public function has ($field = '') {
-            $found = false;
-            foreach (Hour::$options as $hour) {
-                $hour = new Hour($hour);
-                if (intval($hour->id_hour) === intval($field)) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Returns a Hour.
-         * @param string $field
-         * @return Hour
-         */
-        static public function one ($field = '') {
-            foreach (Hour::$options as $hour) {
-                $hour = new Hour($hour);
-                if (intval($hour->id_hour) === intval($field)) {
-                    return $hour;
-                }
-            }
-        }
-
-        /**
-         * * Parse a Hours array.
-         * @param array $hoursToParse Example: "[{\"id_hour\":1},{\"id_hour\":15},{\"id_hour\":15}]"
-         * @return array
-         */
-        static public function parse ($hoursToParse, $active = false) {
-            $hours = collect([]);
-            foreach ($hoursToParse as $hour) {
-                $hour = (object) $hour;
-                if (Hour::hasOptions($hour->id_hour)) {
-                    $hourFound = Hour::findOptions($hour->id_hour);
-                    if (!$active) {
-                        $hourFound->active = false;
-                    }
-                    $hours->push($hourFound);
-                }
-            }
-            return $hours;
-        }
-
-        static public function stringify ($hoursToParse = []) {
-            $hours = [];
-            foreach ($hoursToParse as $time => $value) {
-                if ($time === 0) {
-                    $hours[] = [
-                        "id_hour" => 2,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 3,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 4,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 5,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 6,
-                    ];
-                }
-                if ($time === 1) {
-                    $hours[] = [
-                        "id_hour" => 7,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 8,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 9,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 10,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 11,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 12,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 13,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 14,
-                    ];
-                }
-                if ($time === 2) {
-                    $hours[] = [
-                        "id_hour" => 1,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 15,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 16,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 17,
-                    ];
-                    $hours[] = [
-                        "id_hour" => 18,
-                    ];
-                }
-            }
-            return json_encode($hours);
-        }
     }

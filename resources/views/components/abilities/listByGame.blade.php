@@ -4,7 +4,7 @@
             <li class="card">
                 <div class="flex p-8">
                     <div class="ability flex items-start flex-wrap">
-                        <aside style="background:url({{ asset('img/' . $ability->image) }}) no-repeat left top; background-size: cover"></aside>
+                        <aside style="background:url({{ asset($ability->files['image']) }}) no-repeat left top; background-size: cover"></aside>
                         <div class="color-white font-bold pr-1 flex flex-auto">
                             <span class="mr-2 overpass">{{ $ability->name }}</span>
                             @component("components.svg." . $ability->icon)@endcomponent

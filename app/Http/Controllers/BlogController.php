@@ -21,12 +21,13 @@
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
-            $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user')->orderBy('posts.updated_at', 'desc')->limit(10)->get();
+
+            $posts = Post::fromAdmin();
             foreach ($posts as $post) {
-                $post->date = $this->dateToHuman($post->updated_at);
+                $post->and(['date']);
             }
+
             return view('blog.list', [
                 'posts' => $posts,
                 'error' => $error,
@@ -54,13 +55,12 @@
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
-                // dd($error)
             }
 
             $post = false;
             if ($slug) {
-                $post = Post::where('slug', '=', $slug)->with('user')->first();
-                $post->date = $this->justMonth($post->updated_at);
+                $post = Post::findBySlug($slug);
+                $post->and(['user', 'date']);
             }
 
             return view('blog.details', [
@@ -162,7 +162,7 @@
          */
         public function doUpdate (Request $request, string $id_user, string $slug) {
             $input = (object) $request->all();
-            $post = Post::where('slug', '=', $slug)->first();
+            $post = Post::findBySlug($slug);
 
             $validator = Validator::make($request->all(), Post::$validation['update']['rules'], Post::$validation['update']['messages']['es']);
             if ($validator->fails()) {
@@ -205,7 +205,7 @@
          * @return [type]
          */
         public function doDelete (Request $request, string $id_user, string $slug) {
-            $post = Post::where('slug', '=', $slug)->first();
+            $post = Post::findBySlug($slug);
 
             $validator = Validator::make($request->all(), Post::$validation['delete']['rules'], Post::$validation['delete']['messages']['es']);
             if ($validator->fails()) {

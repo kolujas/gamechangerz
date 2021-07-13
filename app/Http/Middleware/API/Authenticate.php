@@ -16,9 +16,10 @@
             if (!$request->user()) {
                 return response()->json([
                     'code' => 403,
-                    'message' => 'Perro',
+                    'message' => 'Unaunthenticated',
                 ]);
             }
+
             return $next($request);
         }
     }

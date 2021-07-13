@@ -38,10 +38,6 @@
         @endcomponent
     @endif
     @if ($user->id_user && $user->id_role === 0)
-        @component('components.modal.lessons', [
-            'lessons' => $user->lessons,
-        ])
-        @endcomponent
         @component('components.modal.friends', [
             'friends' => $user->friends,
             'user' => $user,

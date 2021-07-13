@@ -1,12 +1,15 @@
 <?php
     namespace App\Models;
 
-    use App\Models\Ability;
+    use App\Models\Language;
     use App\Models\Folder;
     use Illuminate\Database\Eloquent\Model;
 
     class Language extends Model {
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_language';
 
         /**
@@ -17,7 +20,116 @@
             'id_language', 'name', 'icon', 'slug',
         ];
 
-        /** @var array Language options */
+        /**
+         * * Check if a Language exists.
+         * @param string|int $field
+         * @return bool
+         */
+        static public function has ($field = '') {
+            foreach (Language::$options as $option) {
+                if ($option['id_language'] === $field || $option['slug'] === $field) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * * Returns a Language.
+         * @param string|int $field
+         * @return Language
+         */
+        static public function option ($field = '') {
+            foreach (Language::$options as $option) {
+                if ($option['id_language'] === intval($field) || $option['slug'] === $field) {
+                    return new Language($option);
+                }
+            }
+
+            dd("Language \"$field\" not found");
+        }
+
+        /**
+         * * Returns the Language options.
+         * @param array [$languages] Example: [["id_language"=>1]]
+         * @param bool [$all=true]
+         * @return Language[]
+         */
+        static public function options (array $languages = [], bool $all = true) {
+            $collection = collect();
+
+            foreach (Language::$options as $option) {
+                $option = new Language($option);
+                $found = false;
+                
+                foreach ($languages as $data) {
+                    if ($option->id_language === $data['id_language']) {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if ($all || $found) {
+                    $collection->push($option);
+                }
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Parse a Languages array.
+         * @param string [$languages] Example: "[{\"id_language\":1}]"
+         * @return Language[]
+         */
+        static public function parse (string $languages = '') {
+            $collection = collect();
+
+            foreach (json_decode($languages) as $data) {
+                $language = Language::option($data->id_language);
+
+                $collection->push($language);
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Stringify a Languages array.
+         * @param array [$languages] Example: [0=>"espanol"]]
+         * @return string
+         */
+        static public function stringify (array $languages = []) {
+            $collection = collect();
+
+            foreach ($languages as $slug) {
+                if (Language::has($slug)) {
+                    $language = Language::option($slug);
+
+                    $collection->push([
+                        "id_language" => $language->id_language,
+                    ]);
+                }
+            }
+
+            return $collection->toJson();
+        }
+        
+        /** @var array Validation rules & messages. */
+        static $validation = [
+            'user' => [
+                'rules' => [
+                    'languages' => 'required',
+                ], 'messages' => [
+                    'es' => [
+                        'languages.required' => 'Al menos 1 idioma es obligatorio.',
+        ]]]];
+
+        /**
+         * * Language options.
+         * @var array
+         */
         static $options = [[
             'id_language' => 1,
             'name' => 'Español',
@@ -39,79 +151,4 @@
             'icon' => 'BRASVG',
             'slug' => 'portugues',
         ]];
-
-        /**
-         * * Check if a Language exists.
-         * @param string $field 
-         * @return boolean
-         */
-        static public function has ($field) {
-            $found = false;
-            foreach (Language::$options as $language) {
-                $language = new Language($language);
-                if ($language->id_language === $field || $language->slug === $field) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Returns a Language.
-         * @param string $field
-         * @return Language
-         */
-        static public function one ($field = '') {
-            foreach (Language::$options as $language) {
-                $language = new Language($language);
-                if ($language->id_language === $field || $language->slug === $field) {
-                    return $language;
-                }
-            }
-        }
-
-        /**
-         * * Parse a Languages array.
-         * @param array $languagesToParse Example: "[{\"id_language\":1}]"
-         * @return Language[]
-         * @throws
-         */
-        static public function parse ($languagesToParse = []) {
-            $languages = collect([]);
-            foreach ($languagesToParse as $data) {
-                if (!Language::has($data->id_language)) {
-                    throw (object)[
-                        'code' => 404,
-                        'message' => "Language with id = \"$data->id_language\" does not exist",
-                    ];
-                }
-                $language = Language::one($data->id_language);
-                $languages->push($language);
-            }
-            return $languages;
-        }
-
-        /**
-         * * Returns all the Language options.
-         * @param array $columns
-         * @return Language[]
-         */
-        static public function all ($columns = []) {
-            $languages = collect([]);
-            foreach (Language::$options as $language) {
-                $language = new Language($language);
-                $languages->push($language);
-            }
-            return $languages;
-        }
-        
-        /** @var array Validation rules & messages. */
-        static $validation = [
-            'user' => [
-                'rules' => [
-                    'languages' => 'required',
-                ], 'messages' => [
-                    'es' => [
-                        'languages.required' => 'Al menos 1 idioma es obligatorio.',
-        ]]]];
     }

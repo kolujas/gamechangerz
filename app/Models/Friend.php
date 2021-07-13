@@ -5,10 +5,16 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Friend extends Model {
-        /** @var string Table name */
+        /**
+         * * Table name.
+         * @var string
+         */
         protected $table = 'friends';
         
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_friend';
 
         /**
@@ -20,8 +26,28 @@
         ];
 
         /**
-         * * Get the Friend Users.
-         * @return array
+         * * Set the Friend info. 
+         * @param array [$columns]
+         */
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
+                    switch ($column) {
+                        case 'users':
+                            $this->users();
+                            break;
+                    }
+                    continue;
+                }
+                switch ($column[0]) {
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /**
+         * * Set the Friend Users.
          */
         public function users () {
             $this->users = (object) [
@@ -33,9 +59,20 @@
         }
 
         /**
+         * * Get all the Friends from an User.
+         * @param int $id_user
+         * @return Friend[]
+         */
+        static public function allFromUser (int $id_user) {
+            $chats = Friend::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->get();
+
+            return $chats;
+        }
+
+        /**
          * * Check if the Friend has an action.
          * @param string $name
-         * @return boolean
+         * @return bool
          */
         static public function hasAction (string $name) {
             switch (strtoupper($name)) {
@@ -46,25 +83,6 @@
                     return true;
                 default:
                     return false;
-            }
-        }
-
-        /**
-         * * Get the Friend info. 
-         * @param array $columns
-         * @throws
-         */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
-                    switch ($column) {
-                        case 'users':
-                            $this->users();
-                            break;
-                    }
-                }
-            } catch (\Throwable $th) {
-                throw $th;
             }
         }
     }

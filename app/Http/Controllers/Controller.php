@@ -71,4 +71,14 @@
                 // ? Data
             ]);
         }
+
+        /**
+         * * Replace the Rules unique field.
+         * @param array [$rules]
+         * @param mixed $text Text to insert.
+         * @return string
+         */
+        public function replaceUnique (array $rules = [], $text) {
+            return preg_replace("({[a-z_]*})", $text, $rules);
+        }
     }

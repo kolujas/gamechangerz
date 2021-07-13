@@ -6,7 +6,10 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Game extends Model {
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_game';
 
         /**
@@ -14,281 +17,164 @@
          * @var array
          */
         protected $fillable = [
-            'id_game', 'name', 'alias', 'folder', 'slug', 'abilities', 'colors', 'active',
+            'active', 'alias', 'colors', 'folder', 'name', 'slug', 'stars',
         ];
 
-        /** @var array Game options */
-        static $options = [[
-            'id_game' => 1,
-            'name' => 'Counter Strike: GO',
-            'alias' => 'CSGO',
-            'folder' => 'games/counter-strike-go',
-            'slug' => 'counter-strike-go',
-            'abilities' => [['id_ability' => 5],['id_ability' => 6],['id_ability' => 7],['id_ability' => 8]],
-            'colors' => ['#FBF19C', '#ED6744'],
-            'active' => true,
-        ], [
-            'id_game' => 2,
-            'name' => 'League of Legends',
-            'alias' => 'LOL',
-            'folder' => 'games/league-of-legends',
-            'slug' => 'league-of-legends',
-            'abilities' => [],
-            'colors' => ['#00FFFF', '#0000FF'],
-            'active' => false,
-        ], [
-            'id_game' => 3,
-            'name' => 'Apex Legends',
-            'alias' => 'APEX',
-            'folder' => 'games/apex-legends',
-            'slug' => 'apex-legends',
-            'abilities' => [],
-            'colors' => ['#FF0000', '#800000'],
-            'active' => false,
-        ], [
-            'id_game' => 4,
-            'name' => 'Overwatch',
-            'alias' => 'OVERWATCH',
-            'folder' => 'games/overwatch',
-            'slug' => 'overwatch',
-            'abilities' => [],
-            'colors' => ['#FFFF00', '#FFD700'],
-            'active' => false,
-        ]];
-
         /**
-         * * Get the Game options.
-         * @return object[]
+         * * Set the Game info. 
+         * @param array [$columns]
          */
-        static public function getOptions () {
-            $games = collect([]);
-            foreach (Game::$options as $option) {
-                $games->push((object) $option);
-            }
-            return $games;
-        }
-
-       /**
-        * * Search a Game.
-        * @param mixed $slug Game slug.
-        * @return object
-        */
-        static public function search ($slug) {
-            foreach (Game::$options as $option) {
-                $option = (object) $option;
-                if ($option->slug === $slug) {
-                    return $option;
-                }
-            }
-        }
-
-        /**
-         * * Get the Game info. 
-         * @param array $columns
-         * @throws
-         */
-        public function and ($columns = []) {
-            try {
-                foreach ($columns as $column) {
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
                     switch ($column) {
                         case 'abilities':
                             $this->abilities();
                             break;
+                        case 'colors':
+                            $this->colors();
+                            break;
                         case 'files':
                             $this->files();
+                            break;
+                        case 'stars':
+                            $this->stars();
                             break;
                         case 'users':
                             $this->users();
                             break;
                     }
+                    continue;
                 }
-            } catch (\Throwable $th) {
-                throw $th;
+                switch ($column[0]) {
+                    case 'abilities':
+                        $this->abilities($column[1]);
+                        break;
+                    case 'stars':
+                        $this->stars($column[1]);
+                        break;
+                }
             }
         }
 
         /**
-         * * Get the Game Abilities.
-         * @throws
+         * * Set the Game Abilities.
+         * @param string|false $abilities
          */
-        public function abilities () {
-            try {
-                $abilities = $this->abilities;
-                $this->abilities = collect([]);
-                foreach ($abilities as $data) {
-                    $this->abilities->push(Ability::find($data['id_ability']));
-                }
-            } catch (\Throwable $th) {
-                throw $th;
+        public function abilities ($abilities = false) {
+            if ($abilities) {
+                $this->abilities = Ability::parse($abilities);
+            }
+            if (!$abilities) {
+                $this->abilities = Ability::allFromGame($this->id_game);
+            }
+
+            foreach ($this->abilities as $ability) {
+                $ability->and(['files']);
             }
         }
 
         /**
-         * * Get the Game Files.
-         * @return array
+         * * Set the Game colors.
+         */
+        public function colors () {
+            $this->colors = json_decode($this->colors);
+        }
+
+        /**
+         * * Set the Game Files.
          */
         public function files () {
-            try {
-                $this->files = collect([]);
-                $files = Folder::getFiles($this->folder, false);
-                if (!count($files)) {
-                    $this->files = false;
-                }
-                foreach ($files as $file) {
-                    $fileExplode = explode(".", $file);
-                    $fileExplode = explode("/", $fileExplode[0]);
-                    $fileExplode = explode("\\", end($fileExplode));
-                    $fileExplode = explode("-", end($fileExplode));
-                    $this->files[end($fileExplode)] = $file;
-                }
-            } catch (\Throwable $th) {
-                throw $th;
+            $this->files = collect();
+            $files = Folder::getFiles($this->folder, false);
+
+            foreach ($files as $file) {
+                $fileExplode = explode(".", $file);
+                $fileExplode = explode("/", $fileExplode[0]);
+                $fileExplode = explode("\\", end($fileExplode));
+                $fileExplode = explode("-", end($fileExplode));
+                $this->files[end($fileExplode)] = $file;
             }
         }
 
         /**
-         * * Get the Game Users.
-         * @throws
+         * * Set the Game stars.
+         * @param int $stars
+         */
+        public function stars (int $stars = 0) {
+            $this->stars = $stars;
+        }
+
+        /**
+         * * Set the Game Users.
          */
         public function users () {
-            try {
-                $this->users = collect();
-                $users = User::findByGame($this->id_game, 1);
-                foreach ($users as $user) {
-                    if (count($this->users) <= 6) {
-                        $this->users->push($user);
+            $this->users = collect();
+            $users = User::findByGame($this->id_game, 1);
+
+            foreach ($users as $user) {
+                if (count($this->users) <= 6) {
+                    $user->and(['games', 'languages', 'prices', 'files', 'teampro']);
+                    
+                    foreach ($user->games as $game) {
+                        $game->and(['files']);
                     }
-                }
-            } catch (\Throwable $th) {
-                throw $th;
-            }
-        }
 
-        /**
-         * * Parse a Game Abilities array.
-         * @param int $id_game
-         * @param array $abilitiesToParse Example: "[{\"id_ability\":1,\"stars\":3.5}]"
-         * @return array
-         */
-        // public function abilities ($id_game, $abilitiesToParse) {
-        //     $abilities = collect([]);
-        //     $game = (object) Game::findOptions($id_game);
-        //     foreach ($game->abilities as $ability) {
-        //         $ability = (object) $ability;
-        //         $found = false;
-        //         foreach ($abilitiesToParse as $abilityToParse) {
-        //             $abilityToParse = (object) $abilityToParse;
-        //             if ($ability->id_ability === $abilityToParse->id_ability) {
-        //                 $abilities->push($abilityToParse);
-        //                 $found = true;
-        //             }
-        //         }
-        //         if (!$found) {
-        //             $ability->stars = 0;
-        //             $abilities->push($ability);
-        //         }
-                
-        //     }
-        //     return $abilities;
-        // }
-
-        /**
-         * * Returns all the Game options.
-         * @param array $columns
-         * @return Game[]
-         */
-        static public function all ($columns = []) {
-            $games = collect([]);
-            foreach (Game::$options as $game) {
-                $game = new Game($game);
-                $games->push($game);
-            }
-            return $games;
-        }
-
-        /**
-         * * Returns a Game.
-         * @param string $field
-         * @return Game
-         */
-        static public function one ($field = '') {
-            foreach (Game::$options as $game) {
-                $game = new Game($game);
-                if ($game->id_game === $field || $game->slug === $field) {
-                    return $game;
+                    $this->users->push($user);
                 }
             }
-        }
-
-        /**
-         * * Check if a Game exists.
-         * @param string $field 
-         * @return boolean
-         */
-        static public function has ($field) {
-            $found = false;
-            foreach (Game::$options as $game) {
-                $game = new Game($game);
-                if ($game->id_game === $field || $game->slug === $field) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Find & returns a Game.
-         * @param string $slug
-         * @return Game
-         * @throws
-         */
-        static public function find ($slug = '') {
-            if (!Game::has($slug)) {
-                throw (object)[
-                    'code' => 404,
-                    'message' => "Game \"$slug\" does not exist",
-                ];
-            }
-            return Game::one($slug);
         }
 
         /**
          * * Parse a Games array.
-         * @param array $gamesToParse Example: "[{\"id_game\":1,\"abilities\":[{\"id_ability\":1,\"stars\":3.5}]}]"
+         * @param string [$games] Example: "[{\"id_game\":1,\"stars\":3.5}]"
          * @return Game[]
-         * @throws
          */
-        static public function parse ($gamesToParse = []) {
-            $games = collect([]);
-            foreach ($gamesToParse as $data) {
-                if (!Game::has($data->id_game)) {
-                    throw (object)[
-                        'code' => 404,
-                        'message' => "Game with id = \"$data->id_game\" does not exist",
-                    ];
+        static public function parse (string $games = '') {
+            $collection = collect();
+
+            foreach (json_decode($games) as $data) {
+                $game = Game::find($data->id_game);
+
+                if (isset($data->abilities)) {
+                    $game->and([['abilities', json_encode($data->abilities)]]);
                 }
-                $game = Game::one($data->id_game);
-                $games->push($game);
+
+                $game->stars = (isset($data->stars) ? $data->stars : 0);
+
+                $collection->push($game);
             }
-            return $games;
+
+            return $collection;
         }
 
         /**
-         * * Find & returns a Game.
-         * @param mixed $abilitiesToFor
+         * * Stringify a Games array.
+         * @param array [$games] Example: [["id_game"=>1,"abilities"=>[["id_ability"=>1]],"stars"=>3.5]]
+         * @return string
+         */
+        static public function stringify (array $games = []) {
+            $collection = collect();
+            
+            foreach ($games as $data) {
+                $collection->push([
+                    "id_game" => $data['id_game'],
+                    "abilities" => json_decode(Ability::stringify($data['abilities']->toArray())),
+                    "stars" => (isset($data['stars']) ? $data['stars'] : 0),
+                ]);
+            }
+
+            return $collection->toJson();
+        }
+
+        /**
+         * * Get a Game by the slug.
+         * @param string $slug
          * @return Game
          */
-        static public function getByAbility ($abilitiesToFor) {
-            foreach (Game::$options as $game) {
-                $game = new Game($game);
-                $game->and(['abilities']);
-                foreach ($game->abilities as $gameAbility) {
-                    foreach ($abilitiesToFor as $ability) {
-                        if ($ability->id_ability === $gameAbility->id_ability) {
-                            return $game;
-                        }
-                    }
-                }
-            }
+        static public function findBySlug (string $slug = '') {
+            $game = Game::where('slug', '=', $slug)->first();
+
+            return $game;
         }
     }

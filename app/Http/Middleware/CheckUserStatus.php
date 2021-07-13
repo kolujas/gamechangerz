@@ -13,13 +13,16 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            $field = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
-            $user = (!is_null($request->route()->parameter('id_user')) ? User::find($field) : User::where('slug', '=', $field)->first());
+            $field = (!is_null($request->route()->parameter('id_user')) ? 'id_user' : 'slug');
+            $value = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
+
+            $user = User::where($field, '=', $value)->first();
+
             if ($user->status !== 2) {
                 if ($user->status === 0) {
                     $request->session()->put('error', [
                         'code' => 403,
-                        'message' => "Usuario \"$field\" baneado",
+                        'message' => "Usuario \"$value\" baneado",
                     ]);
                 }
                 if ($user->status === 1) {
@@ -28,8 +31,10 @@
                         'message' => "Correo pendiente de aprobación",
                     ]);
                 }
+
                 return redirect()->back();
             }
+
             return $next($request);
         }
     }

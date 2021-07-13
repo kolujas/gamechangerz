@@ -33,7 +33,7 @@
          * @return [type]
          */
         public function accept (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->first();
+            $user = User::findBySlug($request->slug);
             $user->and(['friends']);
 
             $found = false;
@@ -74,7 +74,7 @@
          * @return [type]
          */
         public function cancel (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->first();
+            $user = User::findBySlug($request->slug)();
             $user->and(['friends']);
             $found = false;
             
@@ -106,7 +106,7 @@
          * @return [type]
          */
         public function delete (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->first();
+            $user = User::findBySlug($request->slug)();
             $user->and(['friends']);
 
             $found = false;
@@ -124,13 +124,7 @@
                 ]);
             }
 
-            $chat = Chat::where([
-                ['id_user_from', '=', $found->id_user_from],
-                ['id_user_to', '=', $found->id_user_to],
-            ])->orwhere([
-                ['id_user_from', '=', $found->id_user_to],
-                ['id_user_to', '=', $found->id_user_from],
-            ])->first();
+            $chat = Chat::findByUsers($found->id_user_from, $found->id_user_to);
 
             $chat->delete();
 
@@ -148,7 +142,7 @@
          * @return [type]
          */
         public function request (Request $request) {
-            $user = User::where('slug', '=', $request->slug)->first();
+            $user = User::findBySlug($request->slug)();
             $user->and(['friends']);
 
             $found = false;

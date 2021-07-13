@@ -2,6 +2,7 @@
     namespace App\Models;
 
     use App\Models\User;
+    use Carbon\Carbon;
     use Cviebrock\EloquentSluggable\Sluggable;
     use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
     use Illuminate\Database\Eloquent\Model;
@@ -9,10 +10,16 @@
     class Post extends Model {
         use Sluggable, SluggableScopeHelpers;
 
-        /** @var string Table name */
+        /**
+         * * Table name.
+         * @var string
+         */
         protected $table = 'posts';
         
-        /** @var string Table primary key name */
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_post';
 
         /**
@@ -22,6 +29,46 @@
         protected $fillable = [
             'description', 'image', 'id_user', 'link', 'title', 'slug',
         ];
+
+        /**
+         * * Set the Post info. 
+         * @param array [$columns]
+         */
+        public function and (array $columns = []) {
+            foreach ($columns as $column) {
+                if (!is_array($column)) {
+                    switch ($column) {
+                        case 'date':
+                            $this->date();
+                            break;
+                        case 'user':
+                            $this->user();
+                            break;
+                    }
+                    continue;
+                }
+                switch ($column[0]) {
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /**
+         * * Set the Post date for hummans.
+         */
+        public function date () {
+            Carbon::setLocale('es');
+            $months = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            $month = $months[intval($this->updated_at->format('m')) - 1];
+            $day = $this->updated_at->format('d') ;
+            $year = $this->updated_at->format('Y') ;
+
+            $this->date = (object) [
+                "timeForHumans" => $this->updated_at->diffForHumans(),
+                "dateForHumans" => "$month $day, $year",
+            ];
+        }
         
         /**
          * * The Sluggable configuration for the Model.
@@ -38,16 +85,38 @@
 
         /**
          * * Get the Post User.
-         * @return array
+         * @return User
          */
         public function user () {
-            return $this->belongsTo(User::class, 'id_user', 'id_user');
+            $this->user = User::find($this->id_user);
+        }
+
+        /**
+         * * Get all the Posts from an User.
+         * @param int $id_user
+         * @return Post[]
+         */
+        static public function allFromUser (int $id_user) {
+            $posts = Post::where('id_user', '=', $id_user)->get();
+
+            return $posts;
+        }
+
+        /**
+         * * Get a Post by the slug.
+         * @param string $slug
+         * @return Post
+         */
+        static public function findBySlug (string $slug = '') {
+            $post = Post::where('slug', '=', $slug)->first();
+
+            return $post;
         }
 
         /**
          * * Check if the Post has an action.
          * @param string $name
-         * @return boolean
+         * @return bool
          */
         static public function hasAction (string $name) {
             switch (strtoupper($name)) {
@@ -57,6 +126,16 @@
                 default:
                     return false;
             }
+        }
+
+        /**
+         * * Get the Post from the Admins.
+         * @return Post[]
+         */
+        static public function fromAdmin () {
+            $posts = Post::join('users', 'posts.id_user', '=', 'users.id_user')->where('id_role', '=', 2)->select('posts.title', 'posts.description', 'posts.image', 'posts.slug', 'posts.id_user', 'posts.updated_at')->orderBy('posts.updated_at', 'desc')->limit(10)->get();
+            
+            return $posts;
         }
 
         /** @var array Validation rules & messages. */

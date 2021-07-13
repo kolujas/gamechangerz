@@ -15,12 +15,14 @@
          */
         public function handle (Request $request, Closure $next) {
             $id_lesson = $request->route()->parameter('id_lesson');
+
             if (!Lesson::find($id_lesson)) {
                 return response()->json([
                     'code' => 404,
                     'message' => "Lesson \"$id_lesson\" does not exist",
                 ]);
             }
+            
             return $next($request);
         }
     }

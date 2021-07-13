@@ -2,7 +2,7 @@
     @foreach ($abilities as $ability)
         <li class="card mr-8 lg:mr-20">
             <div>
-                <div class="h-full" style="background: url(/img/{{ $ability->background }}) no-repeat center center; background-size: cover;">
+                <div class="h-full" style="background: url({{ asset($ability->files['background']) }}) no-repeat center center; background-size: cover;">
                     <div>
                         <header class="p-4">
                             <h4 class="color-three russo mb-2">{{ $ability->name }}</h4>
@@ -10,7 +10,7 @@
                         </header>
                         <main>
                             <figure>
-                                <img src={{ asset("img/$ability->image") }} alt="{{ $ability->name }} image">
+                                <img src={{ asset($ability->files['image']) }} alt="{{ $ability->name }} image">
                             </figure>
                             <div class="diffculty flex justify-between align-center px-4 mb-4">
                                 <span class="color-white overpass">Dificultad</span>

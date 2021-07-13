@@ -1,10 +1,18 @@
 <?php
     namespace App\Models;
 
+    use Cviebrock\EloquentSluggable\Services\SlugService;
+    use Cviebrock\EloquentSluggable\Sluggable;
+    use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
     use Illuminate\Database\Eloquent\Model;
 
     class Achievement extends Model {
-        /** @var string Table primary key name */
+        use Sluggable, SluggableScopeHelpers;
+
+        /**
+         * * Table primary key name.
+         * @var string
+         */
         protected $primaryKey = 'id_achievement';
 
         /**
@@ -12,10 +20,95 @@
          * @var array
          */
         protected $fillable = [
-            'id_achievement', 'title', 'description', 'icon', 'slug', 'slug'
+            'id_achievement', 'description', 'icon', 'slug', 'title'
         ];
+        
+        /**
+         * * The Sluggable configuration for the Model.
+         * @return array
+         */
+        public function sluggable (): array {
+            return [
+                'slug' => [
+                    'source'	=> 'title',
+                ]
+            ];
+        }
 
-        /** @var array Achievement options */
+        /**
+         * * Returns the Achievement options.
+         * @param array [$achievements] Example: [["id_achievement"=>1]]
+         * @param bool [$all=true]
+         * @return Achievement[]
+         */
+        static public function options (array $achievements = [], bool $all = true) {
+            $collection = collect();
+
+            foreach (Achievement::$options as $option) {
+                $option = new Achievement($option);
+                $found = false;
+                
+                foreach ($achievements as $data) {
+                    if ($option->id_achievement === $data['id_achievement']) {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if ($all || $found) {
+                    $collection->push($option);
+                }
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Parse an Achievements array.
+         * @param string [$achievements] Example: "[{\"id_achievement\":1,\"title\":\"Title\",\"description\":\"Description\"}]"
+         * @return Achievement[]
+         */
+        static public function parse (string $achievements = '') {
+            $collection = collect();
+
+            foreach (json_decode($achievements) as $data) {
+                $achievement = new Achievement([
+                    "id_achievement" => $data->id_achievement,
+                    "title" => $data->title,
+                    "description" => $data->description,
+                    "icon" => "components.svg.TrofeoSVG",
+                ]);
+
+                $collection->push($achievement);
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Stringify an Achievements array.
+         * @param array [$achievements] Example: [["id_achievement"=>1,"title"=>"Title","description"=>"Description"]]
+         * @return string
+         */
+        static public function stringify (array $achievements = []) {
+            $collection = collect();
+
+            foreach ($achievements as $data) {
+                $collection->push([
+                    "id_achievement" => $data['id_achievement'],
+                    "title" => $data['title'],
+                    "description" => $data['description'],
+                    "slug" => preg_replace('/\W+/', '-', strtolower(trim($data['title']))),
+                ]);
+            }
+
+            return $collection->toJson();
+        }
+
+        /**
+         * * Achievement options.
+         * @var array
+         */
         static $options = [[
             'id_achievement' => 1,
             'title' => 'Something',
@@ -29,55 +122,4 @@
             'icon' => 'something',
             'slug' => 'something',
         ]];
-
-        /**
-         * * Returns a Achievement.
-         * @param string $field
-         * @return Achievement
-         */
-        static public function one ($field = '') {
-            foreach (Achievement::$options as $achievement) {
-                $achievement = new Achievement($achievement);
-                if ($achievement->id_achievement === $field) {
-                    return $achievement;
-                }
-            }
-        }
-
-        /**
-         * * Check if a Achievement exists.
-         * @param string $field 
-         * @return boolean
-         */
-        static public function has ($field) {
-            $found = false;
-            foreach (Achievement::$options as $achievement) {
-                $achievement = new Achievement($achievement);
-                if ($achievement->id_achievement === $field) {
-                    $found = true;
-                }
-            }
-            return $found;
-        }
-
-        /**
-         * * Parse a Achievements array.
-         * @param array $achievementsToParse Example: "[{\"id_achievement\":1,\"abilities\":[{\"id_ability\":1,\"stars\":3.5}]}]"
-         * @return Achievement[]
-         * @throws
-         */
-        static public function parse ($achievementsToParse = []) {
-            $achievements = collect([]);
-            foreach ($achievementsToParse as $data) {
-                if (Achievement::has($data->id_achievement)) {
-                    $achievement = Achievement::one($data->id_achievement);
-                    $achievements->push($achievement);
-                }
-                if (!Achievement::has($data->id_achievement)) {
-                    $achievement = new Achievement((array) $data);
-                    $achievements->push($achievement);
-                }
-            }
-            return $achievements;
-        }
     }

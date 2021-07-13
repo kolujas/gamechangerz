@@ -6,6 +6,7 @@
     use App\Models\Auth as AuthModel;
     use App\Models\Day;
     use App\Models\Game;
+    use App\Models\Hour;
     use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\MercadoPago;
@@ -36,11 +37,10 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
-            $user = User::where('slug', '=', $slug)->with('reviews', 'posts')->first();
-            $user->and(['achievements', 'games', 'role']);
-            foreach ($user->games as $game) {
-                $game->and(['files']);
-            }
+
+            $user = User::findBySlug($slug);
+            $user->and(['achievements', 'games', 'role', 'files', 'languages', 'posts']);
+            
             if ($user->id_role === 2) {
                 if (!Auth::check()) {
                     $request->session()->put('error', [
@@ -51,77 +51,37 @@
                 }
                 return redirect('/panel');
             }
-            if ($user->id_role === 1) {
-                $user->and(['abilities', 'files', 'languages', 'prices', 'teampro', 'days']);
-                $days = Day::allDates($user->days);
-            }
+
             if ($user->id_role === 0) {
-                $user->and(['friends', 'lessons', 'hours', 'files']);
+                $user->and(['friends', 'hours', 'reviews']);
                 $days = [];
-            }
-            foreach ($user->reviews as $review) {
-                $review->and(['abilities', 'lesson', 'users']);
-                $review->users['from']->and(['files']);
-                $review->users['to']->and(['files']);
-                if ($review->users['from']->id_role === 1) {
-                    $review->users['from']->and(['teampro']);
-                }
-                if ($review->users['to']->id_role === 1) {
-                    $review->users['to']->and(['teampro']);
-                }
-                if ($user->id_role === 0) {
-                    $review->and(['game']);
-                    $review->game->and(['files']);
-                }
-                foreach ($review->abilities as $review_ability) {
-                    $review->stars = (isset($review->stars) ? $review->stars : 0) + $review_ability->stars;
-                    if ($user->id_role === 1) {
-                        foreach ($user->abilities as $user_ability) {
-                            if ($user_ability->id_ability === $review_ability->id_ability) {
-                                $user_ability->stars = $user_ability->stars + $review_ability->stars;
-                            }
-                        }
-                    }
-                    if ($user->id_role === 0) {
-                        foreach ($user->games as $game) {
-                            foreach ($game->abilities as $ability) {
-                                if ($ability->id_ability === $review_ability->id_ability) {
-                                    $ability->stars = $ability->stars + $review_ability->stars;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (count($review->abilities)) {
-                    $review->stars = $review->stars / count($review->abilities);
-                }
-            }
-            if ($user->id_role === 1) {
-                if (count($user->reviews)) {
-                    foreach ($user->abilities as $ability) {
-                        $ability->stars = $ability->stars / count($user->reviews);
-                    }
-                }
-            }
-            if ($user->id_role === 0) {
                 $user->friends_length = 0;
+
                 foreach ($user->friends as $friend) {
                     $friend->and(['users']);
                     if ($friend->accepted) {
                         $user->friends_length++;
                     }
                 }
-                if (count($user->reviews)) {
-                    foreach ($user->games as $game) {
-                        foreach ($game->abilities as $ability) {
-                            $ability->stars = $ability->stars / count($user->reviews);
+            }
+            if ($user->id_role === 1) {
+                $user->and(['abilities', 'prices', 'teampro', 'days']);
+                $days = Day::options();
+
+                foreach ($days as $day) {
+                    foreach ($user->days as $userDay) {
+                        if ($day->id_day === $userDay->id_day) {
+                            $day->hours = Hour::options($userDay->hours->toArray());
+                            continue 2;
                         }
                     }
                 }
             }
+
             if (Auth::check()) {
                 if (Auth::user()->slug !== $user->slug && $user->id_role === 0) {
                     $user->isFriend = 0;
+
                     foreach ($user->friends as $friend) {
                         if ($friend->id_user_from === Auth::user()->id_user || $friend->id_user_to === Auth::user()->id_user) {
                             if ($friend->accepted) {
@@ -135,14 +95,18 @@
                     }
                 }
             }
+
             foreach ($user->posts as $post) {
                 $post->date = $this->dateToHuman($post->updated_at);
             }
+
             $games = Game::all();
             foreach ($games as $game) {
-                $game->and(['files']);
+                $game->and(['colors', 'files']);
             }
-            $languages = Language::all();
+
+            $languages = Language::options();
+
             return view('user.profile', [
                 'user' => $user,
                 'games' => $games,
@@ -211,7 +175,7 @@
                 $error = (object) $request->session()->pull('error');
             }
             
-            $user = User::where('slug', '=', $slug)->first();
+            $user = User::findBySlug($slug);
             $user->and(['prices', 'days']);
             foreach ($user->prices as $price) {
                 if ($price->slug === $typeSearched) {
@@ -219,20 +183,24 @@
                 }
             }
 
-            foreach (Lesson::where('status', '=', '1')->get() as $lesson) {
+            $found = false;
+            foreach (Lesson::allCreated() as $lesson) {
                 if ($lesson->id_user_to === Auth::user()->id_user && $lesson->id_user_from === $user->id_user) {
+                    $found = true;
                     break;
                 } else if (Carbon::parse($lesson->updated_at)->diffInMinutes(Carbon::now()) === 5) {
                     $lesson->delete();
                 }
-                $lesson = false;
             }
 
-            if (!$lesson) {
+            // TODO: Remove id_game & method
+            if (!$found) {
                 $lesson = Lesson::create([
                     'id_user_from' => $user->id_user,
                     'id_user_to' => Auth::user()->id_user,
                     'id_type' => $type->id_type,
+                    'id_game' => 1,
+                    'method' => 1,
                     'status' => 1,
                 ]);
             }
@@ -266,12 +234,12 @@
          * @return [type]
          */
         public function update (Request $request, $slug) {
-            $user = User::where('slug', '=', $slug)->first();
+            $user = User::findBySlug($slug);
             $user->and(['files']);
             
             $input = (object) $request->all();
             
-            $validator = Validator::make((array) $input, User::replaceUniqueIDUser(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
+            $validator = Validator::make((array) $input, $this->replaceUnique(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -322,9 +290,11 @@
             }
 
             if ($user->id_role === 1) {
+                $user->and(['days']);
                 if (!isset($input->description)) {
                     $input->description = null;
                 }
+
                 $input->days = Day::stringify($input->days);
                 $input->prices = Price::stringify($input->prices);
                 $input->teampro = Teampro::stringify($input->teampro_name);

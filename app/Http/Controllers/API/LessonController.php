@@ -32,15 +32,12 @@
             $input->dates = explode(',', $input->dates);
             $lesson = Lesson::find($id_lesson);
             
-            $days = collect([]);
+            $days = collect();
             for ($i=0; $i < count($input->dates); $i++) {
-                foreach (Lesson::where([
-                    ['id_user_from', '=', $lesson->id_user_from],
-                    ['status', '>', 0],
-                ])->get() as $lesson) {
-                    $lesson->and(['days']);
-                    if ($lesson->id_lesson !== intval($id_lesson)) {
-                        foreach ($lesson->days as $day) {
+                foreach (Lesson::allFromTeacher($lesson->id_user_from) as $previousLesson) {
+                    $previousLesson->and(['days']);
+                    if ($previousLesson->id_lesson !== intval($id_lesson)) {
+                        foreach ($previousLesson->days as $day) {
                             $day = (object) $day;
                             if ($day->date === $input->dates[$i]) {
                                 foreach ($day->hours as $hour) {
@@ -65,7 +62,6 @@
                 ]);
             }
 
-            $lesson = Lesson::find($id_lesson);
             $lesson->update([
                 'days' => json_encode($days),
             ]);

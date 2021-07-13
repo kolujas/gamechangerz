@@ -14,13 +14,16 @@
          */
         public function handle(Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
+
             if ($request->user()->slug === $slug) {
                 $request->session()->put('error', [
                     'code' => 403,
                     'message' => "You can not access here",
                 ]);
+
                 return redirect()->back();
             }
+            
             return $next($request);
         }
     }

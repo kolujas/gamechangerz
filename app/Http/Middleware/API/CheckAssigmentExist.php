@@ -15,12 +15,14 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
-            if (!count(Assigment::where('slug', '=', $slug)->get())) {
+            
+            if (!Assigment::findBySlug($slug)) {
                 return response()->json([
                     'code' => 404,
                     'message' => "Assigment \"$slug\" does not exist",
                 ]);
             }
+
             return $next($request);
         }
     }
