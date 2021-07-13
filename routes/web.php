@@ -97,6 +97,7 @@
         Route::get('/panel/platform', [PanelController::class, 'platform'])->name('panel.platform');
         Route::get('/panel/users', [PanelController::class, 'users'])->name('panel.users');
         Route::get('/panel/teachers', [PanelController::class, 'teachers'])->name('panel.teachers');
+        Route::get('/panel/teachers/create', [PanelController::class, 'teacher'])->name('panel.showCreate');
         Route::get('/panel/coupons', [PanelController::class, 'coupons'])->name('panel.coupons');
         Route::get('/panel/bookings', [PanelController::class, 'bookings'])->name('panel.bookings');
     });

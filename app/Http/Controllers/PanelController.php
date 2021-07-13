@@ -17,4 +17,16 @@
                 'validation' => []
             ]);
         }
+
+        public function teacher (Request $request) {
+            $error = null;
+            if ($request->session()->has('error')) {
+                $error = (object) $request->session()->pull('error');
+            }
+            return view('panel.teachers.details', [
+                'error' => $error,
+                'validation' => [],
+                'teacher' => false
+            ]);
+        }
     }
