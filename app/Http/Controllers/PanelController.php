@@ -2,6 +2,10 @@
     namespace App\Http\Controllers;
 
     use App\Models\Coupon;
+    use App\Models\Day;
+    use App\Models\Game;
+    use App\Models\Hour;
+    use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\Post;
     use App\Models\User;
@@ -152,10 +156,48 @@
             }
 
             $user = User::findBySlug($slug);
+            $user->and(['games', 'languages', 'reviews', 'days', 'posts', 'prices', 'days', 'achievements']);
+
+            $games = Game::all();
+            foreach ($games as $game) {
+                $game->and(['abilities']);
+
+                foreach ($user->games as $userGame) {
+                    foreach ($userGame->abilities as $userAbility) {
+                        foreach ($game->abilities as $ability) {
+                            if ($ability->id_ability === $userAbility->id_ability) {
+                                $ability->checked = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $days = Day::options();
+            foreach ($days as $day) {
+                foreach ($user->days as $userDay) {
+                    if ($day->id_day === $userDay->id_day) {
+                        $day->hours = Hour::options($userDay->hours->toArray());
+                        continue 2;
+                    }
+                }
+            }
+
+            $languages = Language::options();
+            foreach ($languages as $language) {
+                foreach ($user->languages as $userLanguage) {
+                    if ($language->id_language === $userLanguage->id_language) {
+                        $language->checked = true;
+                    }
+                }
+            }
 
             return view('panel.teachers.details', [
                 'error' => $error,
                 'validation' => [],
+                'days' => $days,
+                'games' => $games,
+                'languages' => $languages,
                 'user' => $user
             ]);
         }
@@ -196,18 +238,6 @@
                 'error' => $error,
                 'validation' => [],
                 'user' => $user
-            ]);
-        }
-
-        public function teacher (Request $request) {
-            $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
-            }
-            return view('panel.teachers.details', [
-                'error' => $error,
-                'validation' => [],
-                'teacher' => false
             ]);
         }
     }

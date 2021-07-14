@@ -27,32 +27,43 @@
             <table class="min-w-full">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 text-left russo color-white">ID</th>
-                        <th class="px-6 py-3 text-left russo color-white">PNG</th>
-                        <th class="px-6 py-3 text-left russo color-white">Nombre y Apellido</th>
+                        <th class="px-6 py-3 text-left russo color-white"></th>
+                        <th class="px-6 py-3 text-left russo color-white"></th>
                         <th class="px-6 py-3 text-left russo color-white">Username</th>
+                        <th class="px-6 py-3 text-left russo color-white">Correo</th>
                         <th class="px-6 py-3 text-left russo color-white"></th>
                         <th class="px-6 py-3"></th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($users as $user)
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap">
                                 <div class="flex items-center">
                                     <div>
-                                        <div class="text-sm color-white overpass">#1</div>
+                                        <span class="text-sm color-white overpass">{{ $user->id_user }}</s>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-4 py-4 whitespace-no-wrap">
-                                <img class="w-16 h-16 rounded transform hover:scale-125" src="https://randomuser.me/api/portraits/men/1.jpg"/>
+                                @if (Auth::user()->profile())
+                                    <figure class="profile-image">
+                                        <img src={{ asset("storage/". Auth::user()->profile()) }} alt="{{ Auth::user()->username }} profile image">
+                                    </figure>
+                                @endif
+                                @if (!Auth::user()->profile())
+                                    @component('components.svg.ProfileSVG')@endcomponent
+                                @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap color-white overpass">Pepe Díaz</td>
-                            <td class="px-6 py-4 whitespace-no-wrap color-white overpass">nosoybatman@gmail.com</td>
+                            <td class="px-6 py-4 whitespace-no-wrap color-white overpass">{{ $user->username }}</td>
+                            <td class="px-6 py-4 whitespace-no-wrap color-white overpass">{{ $user->email }}</td>
                             <td class="px-6 py-4">
-                                <button class="px-2 py-2 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"><i class="fas fa-eye color-white"></i></button>
+                                <a href="/panel/teachers/{{ $user->slug }}" class="btn btn-one btn-icon">
+                                    <i class="fas fa-eye color-white"></i>
+                                </a>
                             </td>
                         </tr>
+                    @endforeach
                 </tbody>
             </table>
         </main>

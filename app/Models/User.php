@@ -384,7 +384,7 @@
          * @return User[]
          */
         static public function allAdmins () {
-            $users = User::where('id_role', '=', 2)->get();
+            $users = User::where('id_role', '=', 2)->orderBy("updated_at")->get();
 
             return $users;
         }
@@ -394,7 +394,7 @@
          * @return User[]
          */
         static public function allTeachers () {
-            $users = User::where('id_role', '=', 1)->get();
+            $users = User::where('id_role', '=', 1)->orderBy("updated_at")->get();
 
             return $users;
         }
@@ -404,7 +404,7 @@
          * @return User[]
          */
         static public function allUsers () {
-            $users = User::where('id_role', '=', 0)->get();
+            $users = User::where('id_role', '=', 0)->orderBy("updated_at")->get();
 
             return $users;
         }
