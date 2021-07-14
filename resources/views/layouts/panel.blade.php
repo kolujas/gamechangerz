@@ -25,7 +25,7 @@
                 </ul>
             </nav>
             
-            <ul class="tab-content-list min-h-screen col-span-8">
+            <ul class="tab-content-list col-span-8">
                 @yield('content')
                 
             </ul>
