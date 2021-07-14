@@ -19,7 +19,7 @@ new NavMenuJS({
 }});
 
 const token = Token.get();
-if (!authenticated) {
+if (!auth) {
     Auth.setModalJS();
 
     if (URL.findHashParameter()) {
@@ -36,7 +36,7 @@ if (!authenticated) {
     }
 }
 
-if (authenticated) {
+if (auth) {
     Assigment.setModalJS();
 
     if (document.querySelectorAll("a[href='/logout']").length) {

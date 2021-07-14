@@ -1,4 +1,5 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
 
 import Asset from "./Asset.js";
@@ -250,6 +251,58 @@ export class User extends Class {
                                 span.innerHTML = "Ver horarios";
                                 link.appendChild(span);
         return item;
+    }
+
+    static profile (data) {
+        let link = new Html("a", {
+            props: {
+                id: `link-${ data.props.slug }`,
+                url: (data.props.hasOwnProperty("url") ? data.props.url : `/users/${ data.slug }/profile`),
+                classes: ["profile-link", "flex", "items-center"]
+            }, callback: (data.hasOwnProperty('callback') ? data.callback : {
+                function: function (params) { /* console.log(params) */ },
+            }),
+            innerHTML: [
+                ["div", {
+                    props: {
+                        id: `image-${ data.props.slug }`,
+                        classes: ["pr-2"],
+                    }, innerHTML: [
+                        ["figure", {
+                            props: {
+                                id: `figure-${ data.props.slug }`,
+                                classes: ["profile-image"]
+                            }, image: {
+                                props: {
+                                    id: `image-${ data.props.slug }`,
+                                    url: new Asset(`${(data.props.files['profile'] ?  `storage/${ data.props.files['profile'] }` : `img/resources/ProfileSVG.svg`)}`).route,
+                                }
+                            }
+                        }]
+                    ],
+                }],
+                ["div", {
+                    props: {
+                        id: `info-${ data.props.slug }`,
+                        classes: ["col-span-2", "grid", "grid-cols-1", "items-center"]
+                    }, innerHTML: [
+                        ["span", {
+                            props: {
+                                id: `username-${ data.props.slug }`,
+                                classes: ["russo", "color-white"],
+                            }, innerHTML: data.props.username
+                        }],
+                        ["span", {
+                            props: {
+                                id: `name-${ data.props.slug }`,
+                                classes: ["overpass", "color-four"],
+                            }, innerHTML: data.props.name
+                        }]
+                    ],
+                }]
+            ],
+        });
+        return link;
     }
 
     static component (name = '', data) {

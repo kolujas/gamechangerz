@@ -110,7 +110,7 @@
          */
         public function users () {
             $this->users = collect();
-            $users = User::findByGame($this->id_game, 1);
+            $users = User::allByGame($this->id_game, 1);
 
             foreach ($users as $user) {
                 if (count($this->users) <= 6) {

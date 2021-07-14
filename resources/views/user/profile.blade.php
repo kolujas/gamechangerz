@@ -56,6 +56,12 @@
         ])
         @endcomponent
     @endif
+    @if (count($lessons))
+        @component('components.modal.layouts.reviews', [
+            "lessons" => $lessons,
+        ])
+        @endcomponent
+    @endif
 @endsection
 
 @section('footer')
@@ -64,6 +70,7 @@
 
 @section('js')
     <script>
+        const lessons = @json($lessons);
         @if ($user->id_role === 0)
             const files = @json($user->files);
         @endif

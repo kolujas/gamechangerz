@@ -1,7 +1,7 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
+import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import { HTMLCreator as HTMLCreatorJS } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 
 export class Achievement extends Class {
     constructor (props = {}, state = {}) {
@@ -23,7 +23,7 @@ export class Achievement extends Class {
             this.btns = [];
         }
         if (this.props.hasOwnProperty("title")) {
-            this.btns.push(new HTMLCreatorJS("a", {
+            this.btns.push(new Html("a", {
                 props: {
                     id: `${ this.props.id }-update`,
                     classes: ["btn", "btn-icon", "btn-one"],
@@ -34,13 +34,13 @@ export class Achievement extends Class {
                         instance: this,
                         state: "disabled",
                     }
-                }, innerHTML: new HTMLCreatorJS("icon", {
+                }, innerHTML: new Html("icon", {
                     props: {
                         classes: ["fas", "fa-pen"],
                     }
                 }).html
             }));
-            this.btns.push(new HTMLCreatorJS("a", {
+            this.btns.push(new Html("a", {
                 props: {
                     id: `${ this.props.id }-delete`,
                     classes: ["btn", "btn-icon", "btn-one"],
@@ -51,14 +51,14 @@ export class Achievement extends Class {
                         instance: this,
                         state: "confirm",
                     }
-                }, innerHTML: new HTMLCreatorJS("icon", {
+                }, innerHTML: new Html("icon", {
                     props: {
                         classes: ["fas", "fa-trash"],
                     }
                 }).html
             }));
         }
-        this.btns.push(new HTMLCreatorJS("a", {
+        this.btns.push(new Html("a", {
             props: {
                 id: `${ this.props.id }-cancel`,
                 classes: (this.props.hasOwnProperty("title") ? ["btn", "btn-icon", "btn-three", "hidden"] : ["btn", "btn-icon", "btn-three"]),
@@ -69,13 +69,13 @@ export class Achievement extends Class {
                     instance: this,
                     state: (this.props.hasOwnProperty("title") ? "both" : "remove"),
                 }
-            }, innerHTML: new HTMLCreatorJS("icon", {
+            }, innerHTML: new Html("icon", {
                 props: {
                     classes: ["fas", "fa-times"],
                 }
             }).html
         }));
-        let actions = new HTMLCreatorJS("div", {
+        let actions = new Html("div", {
             props: {
                 id: `${ this.props.id }-actions`,
                 classes: ["actions", "relative"]
@@ -85,7 +85,7 @@ export class Achievement extends Class {
             actions.appendChild(btn.html);
         }
         if (this.props.hasOwnProperty("title")) {
-            this.message = new HTMLCreatorJS("input", {
+            this.message = new Html("input", {
                 props: {
                     id: `${ this.props.id }-message`,
                     classes: ["hidden", "px-4", "py-2", "message"],
@@ -120,7 +120,7 @@ export class Achievement extends Class {
         if (!this.inputs) {
             this.inputs = [];
         }
-        this.inputs.push(new HTMLCreatorJS("input", {
+        this.inputs.push(new Html("input", {
             props: {
                 id: `${ this.props.id }-description`,
                 classes: ["w-full", "min-h-full", "px-4", "py-2"],
@@ -147,7 +147,7 @@ export class Achievement extends Class {
         if (!this.inputs) {
             this.inputs = [];
         }
-        this.inputs.push(new HTMLCreatorJS("input", {
+        this.inputs.push(new Html("input", {
             props: {
                 id: `${ this.props.id }-title`,
                 classes: ["w-full", "min-h-full", "px-4", "py-2"],
@@ -262,7 +262,7 @@ export class Achievement extends Class {
             }
         }
 
-        return new HTMLCreatorJS("table", {
+        return new Html("table", {
             props: {
                 classes: ["tabla", "w-full", "mb-12"],
             }, structure: {

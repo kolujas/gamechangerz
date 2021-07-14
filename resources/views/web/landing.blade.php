@@ -28,7 +28,7 @@
                     <div class="swiper-wrapper">
                         <section class="swiper-slide">
                             <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
-                                <h2 class="color-white russo text-5xl md:text-6xl mb-8 uppercase">Aprende de los <span class="color-four">mejores</span></h2>
+                                <h2 class="color-white russo text-5xl mb-8 uppercase">Aprende de los <span class="color-four">mejores</span></h2>
                                 <p class="mb-8 slider-text color-white overpass text-xl">Entrenamiento personalizado con jugadores profesionales.</p>
                                 <a href="/teachers" class="btn btn-outline btn-one">
                                     <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
@@ -43,8 +43,7 @@
                 </main>
             </section>
     
-            <section class="video-section grid grid-cols-1 md:grid-cols-3 lg:grid-cols-10 2xl:grid-cols-12 items-center md:items-start px-8 lg:px-0">
-                
+            <section class="video-section grid grid-cols-1 md:grid-cols-3 lg:grid-cols-10 2xl:grid-cols-12 items-center md:items-start px-8 lg:px-0 py-24">
                 <div class="flex justify-center md:col-span-3 lg:col-span-8 lg:col-start-2 xl:col-span-6 xl:col-start-3 2xl:col-start-4 my-12 iframe-padrino">
                     <iframe src="https://www.youtube.com/embed/uJNd8OzFt58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
@@ -58,7 +57,7 @@
                     <p class="text-center color-white text-md overpass">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
                 </header>
         
-                <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6 pb-24">
+                <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6">
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
                             <span class="russo text-2xl md:text-xl xl:text-3xl">Clases Online</span>

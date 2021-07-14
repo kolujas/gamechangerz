@@ -222,8 +222,8 @@ export class Chat extends Class {
 
         if (response.hasOwnProperty('id_chat')) {
             if (chat.users.from.id_role === 1) {
-                let start_date = new Date(chat.lesson.start_at.replaceAll("-", "/").split("T").shift());
-                let end_date = new Date(chat.lesson.end_at.replaceAll("-", "/").split("T").shift());
+                let start_date = new Date(chat.lesson.started_at.replaceAll("-", "/").split("T").shift());
+                let end_date = new Date(chat.lesson.ended_at.replaceAll("-", "/").split("T").shift());
                 let span2 = document.createElement('span');
                 span2.classList.add("timer", "color-grey");
                 span2.innerHTML = `El chat estará disponible entre la fecha <b class="mx-1">${ ((start_date.getDate() < 10) ? `0${ start_date.getDate() }` : start_date.getDate()) }/${ InputDateMakerJS.Months.es[start_date.getMonth()].number }/${ start_date.getFullYear() }</b> y <b class="ml-1">${ ((end_date.getDate() < 10) ? `0${ end_date.getDate() }` : end_date.getDate()) }/${ InputDateMakerJS.Months.es[end_date.getMonth()].number }/${ end_date.getFullYear() }</b>`;

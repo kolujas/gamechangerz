@@ -28,7 +28,7 @@
     </a>
 </li>
 
-<li id="tab-bookings" class="tab">
+<li id="tab-lessons" class="tab">
     <a href="/panel/bookings" class="tab-button russo">
         Reservas
     </a>

@@ -1,6 +1,7 @@
 <?php
     namespace App\Http\Middleware;
 
+    use App\Models\Lesson;
     use Auth;
     use Carbon\Carbon;
     use Closure;
@@ -15,20 +16,22 @@
          */
         public function handle($request, Closure $next) {
             if (Auth::check()) {
-                $user = Auth::user();
-                $user->and(['lessons']);
+                $lessons = collect();
+                foreach (Lesson::allStartedFromUser(Auth::user()->id_user) as $lesson) {
+                    if ($lesson->status !== 3) {
+                        continue;
+                    }
 
-                // foreach ($user->lessons as $lesson) {
-                //     if ($lesson->status !== 3) {
-                //         continue;
-                //     }
-                //     // TODO: No es updated_at es la clase
-                //     $ended_at = Carbon::parse($lesson->updated_at);
-                //     if ($ended_at < Carbon::now()) {
-                //         return redirect("/lessons/$lesson->id_lesson/finish");
-                //     }
-                // }
+                    $lesson->and(['ended_at']);
+
+                    if (Carbon::now() > $lesson->ended_at) {
+                        $lessons->push($lesson);
+                    }
+                }
+
+                $request->session()->put('lessons', $lessons);
             }
+
             return $next($request);
         }
     }

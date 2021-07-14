@@ -38,6 +38,14 @@
                 $error = (object) $request->session()->pull('error');
             }
 
+            $lesson = [];
+            if ($request->session()->has('lessons')) {
+                $lessons = (object) $request->session()->pull('lessons');
+                foreach ($lessons as $lesson) {
+                    $lesson->and(['abilities']);
+                }
+            }
+
             $user = User::findBySlug($slug);
             $user->and(['achievements', 'games', 'role', 'files', 'languages', 'posts']);
             
@@ -113,6 +121,7 @@
                 'languages' => $languages,
                 'days' => $days,
                 'error' => $error,
+                'lessons' => $lessons,
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),

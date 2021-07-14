@@ -37,17 +37,20 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
+                        case 'abilities':
+                            $this->abilities();
+                            break;
                         case 'assigments':
                             $this->assigments();
                             break;
                         case 'days':
                             $this->days();
                             break;
-                        case 'end_at':
-                            $this->end_at();
+                        case 'ended_at':
+                            $this->ended_at();
                             break;
-                        case 'start_at':
-                            $this->start_at();
+                        case 'started_at':
+                            $this->started_at();
                             break;
                         case 'type':
                             $this->type();
@@ -66,7 +69,30 @@
         }
 
         /**
-         * * Set the Chat Assigment
+         * * Set the Lesson Abilities
+         */
+        public function abilities () {
+            $this->users();
+            $this->abilities = (object)[];
+
+            $this->users->from->and(['abilities', 'games']);
+            $from = collect();
+            foreach ($this->users->from->games as $game) {   
+                foreach ($game->abilities as $ability) {   
+                    $from->push($ability);
+                }
+            }
+            $this->abilities->from = $from;
+
+            $to = collect();
+            foreach ($this->users->from->abilities as $ability) {
+                $to->push($ability);
+            }
+            $this->abilities->to = $to;
+        }
+
+        /**
+         * * Set the Lesson Assigment
          */
         public function assigments () {
             $this->assigments = collect();
@@ -86,40 +112,33 @@
         }
 
         /**
-         * * Set the Lesson end_at.
+         * * Set the Lesson ended_at.
          */
-        public function end_at () {
+        public function ended_at () {
             $this->days();
 
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
-                    // foreach ($date->hours as $hour) {
-                    //     if (!isset($to)) {
-                    //         $to = $hour->to;
-                    //     }
-                    //     if ($to < $hour->to) {
-                    //         $to = $hour->to;
-                    //     }
-                    // }
-                    // if (!isset($end_at)) {
-                    //     $end_at = $date->date . "T" . $to;
-                    // }
-                    // if (Carbon::parse($end_at) < Carbon::parse($date->date . "T" . $to)) {
-                    //     $end_at = $date->date . "T" . $to;
-                    // }
-                    dd("TODO: Lesson end_at");
+                    foreach ($date->hours as $hour) {
+                        if (!isset($ended_at)) {
+                            $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+                        }
+                        if ($ended_at < Carbon::parse($date->date . "T" . $hour->to)) {
+                            $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+                        }
+                    }
                 }
                 if (!count($date->hours)) {
-                    if (!isset($end_at)) {
-                        $end_at = Carbon::parse($date->date)->addWeeks(1);
+                    if (!isset($ended_at)) {
+                        $ended_at = Carbon::parse($date->date)->addWeeks(1);
                     }
-                    if ($end_at < Carbon::parse($date->date)) {
-                        $end_at = Carbon::parse($date->date)->addWeeks(1);
+                    if ($ended_at < Carbon::parse($date->date)) {
+                        $ended_at = Carbon::parse($date->date)->addWeeks(1);
                     }
                 }
             }
 
-            $this->end_at = $end_at;
+            $this->ended_at = $ended_at;
         }
 
         /**
@@ -131,40 +150,33 @@
         }
 
         /**
-         * * Set the Lesson start_at.
+         * * Set the Lesson started_at.
          */
-        public function start_at () {
+        public function started_at () {
             $this->days();
 
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
-                    // foreach ($date->hours as $hour) {
-                    //     if (!isset($to)) {
-                    //         $to = $hour->to;
-                    //     }
-                    //     if ($to < $hour->to) {
-                    //         $to = $hour->to;
-                    //     }
-                    // }
-                    // if (!isset($start_at)) {
-                    //     $start_at = $date->date . "T" . $to;
-                    // }
-                    // if (Carbon::parse($start_at) < Carbon::parse($date->date . "T" . $to)) {
-                    //     $start_at = $date->date . "T" . $to;
-                    // }
-                    dd("TODO: Lesson start_at");
+                    foreach ($date->hours as $hour) {
+                        if (!isset($started_at)) {
+                            $started_at = Carbon::parse($date->date . "T" . $hour->from);
+                        }
+                        if ($started_at < Carbon::parse($date->date . "T" . $hour->from)) {
+                            $started_at = Carbon::parse($date->date . "T" . $hour->from);
+                        }
+                    }
                 }
                 if (!count($date->hours)) {
-                    if (!isset($start_at)) {
-                        $start_at = Carbon::parse($date->date);
+                    if (!isset($started_at)) {
+                        $started_at = Carbon::parse($date->date);
                     }
-                    if ($start_at > Carbon::parse($date->date)) {
-                        $start_at = Carbon::parse($date->date);
+                    if ($started_at > Carbon::parse($date->date)) {
+                        $started_at = Carbon::parse($date->date);
                     }
                 }
             }
 
-            $this->start_at = $start_at;
+            $this->started_at = $started_at;
         }
 
         /**
@@ -205,10 +217,30 @@
          * @param int $id_user
          * @return Lesson[]
          */
+        static public function allStartedFromUser (int $id_user) {
+            $lessons = Lesson::where([
+                ['id_user_from', '=', $id_user],
+                ['status', '=', 3],
+            ])->orwhere([
+                ['id_user_to', '=', $id_user],
+                ['status', '=', 3]
+            ])->get();
+
+            return $lessons;
+        }
+
+        /**
+         * * Get all the Lessons with status = 4 from an User.
+         * @param int $id_user
+         * @return Lesson[]
+         */
         static public function allDoneFromUser (int $id_user) {
             $lessons = Lesson::where([
+                ['id_user_from', '=', $id_user],
+                ['status', '=', 4],
+            ])->orwhere([
                 ['id_user_to', '=', $id_user],
-                ['status', '>', 3],
+                ['status', '=', 4]
             ])->get();
 
             return $lessons;

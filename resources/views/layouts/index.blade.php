@@ -42,7 +42,15 @@
         {{-- ? Global JS --}}
         <script>
             const validation = @json($validation);
-            const authenticated = @json(Auth::check());
+            @if (Auth::check())
+                const auth = {
+                    id_user: {{ Auth::user()->id_user }},
+                    id_role: {{ Auth::user()->id_role }},
+                };
+            @endif
+            @if (!Auth::check())
+                const auth = false;
+            @endif
             var error = @json($error);
             var modals = {};
             @if(Session::has('status'))

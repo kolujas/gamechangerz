@@ -72,7 +72,7 @@
                 $now = Carbon::now();
                 $this->available = false;
                 
-                if ($now > $this->lesson->start_at && $now < $this->lesson->end_at) {
+                if ($now > $this->lesson->started_at && $now < $this->lesson->ended_at) {
                     $this->available = true;
                 }
             }
@@ -84,7 +84,7 @@
         public function lesson () {
             $this->lesson = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
             
-            $this->lesson->and(['assigments', 'days', 'end_at', 'start_at']);
+            $this->lesson->and(['assigments', 'days', 'ended_at', 'started_at']);
         }
 
         /**

@@ -13,15 +13,8 @@
             }
 
             $lesson = Lesson::find($id_lesson);
-
-            if (count($lesson->reviews)) {
-                foreach ($lesson->reviews as $review) {
-                    if ($review->id_user_from === Auth::user()->id_user) {
-                        break;
-                    }
-                    $review = false;
-                }
-            }
+            
+            dd($lesson);
 
             return view('review.details', [
                 'error' => $error,
@@ -29,9 +22,5 @@
                 'review' => $review,
                 'validation' => []
             ]);
-        }
-
-        public function details (Request $request, string $id_lesson) {
-            dd($id_lesson);
         }
     }

@@ -9,6 +9,7 @@ import Friend from "../components/Friend.js";
 import Game from "../components/Game.js";
 import Language from "../components/Language.js";
 import Lesson from "../components/Lesson.js";
+import Review from "../components/Review.js";
 import User from "../components/User.js";
 
 function setDefaultWidth (params) {
@@ -83,6 +84,10 @@ function changeProfileState (state) {
             }
             break;
     }
+}
+
+if (lessons.length) {
+    new Review({ lessons: lessons });
 }
 
 document.addEventListener('DOMContentLoaded', function (e) {
@@ -243,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (document.querySelector('#friends.modal')) {
         Friend.setModalJS();
     }
-    if (authenticated) {
+    if (auth) {
         if (document.querySelector('#achievements.modal')) {
             Achievement.setModalJS(achievements);
             for (const btn of document.querySelectorAll('ul.achievements.cards .btn')) {

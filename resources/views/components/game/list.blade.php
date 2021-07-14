@@ -1,4 +1,4 @@
-<ul class="cards games mt-12 grid md:grid-cols-2 lg:grid-cols-4 main">
+<ul class="cards games mt-12 grid md:grid-cols-2 lg:grid-cols-4">
     @if (count($games))
         @foreach ($games as $game)
             <li style="--game-color-one: {{ $game->colors[0] }}; --game-color-two: {{ $game->colors[1] }};" class="card text-center">

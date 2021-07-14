@@ -1,0 +1,194 @@
+#reviews.modal .details :where(.form-input, #url) {
+    background-color: var(--color-one);
+    padding-left: 1rem;
+    color: #fff;
+    font-size: .8rem;
+    font-size: var(--font-one);
+    border-radius: .25rem;
+}
+
+#reviews.modal .details :where(:not(textarea).form-input, #url):disabled {
+    background: var(--color-black);
+    padding: 0;
+    color: var(--color-white);
+    appearance: none;
+}
+
+#reviews.modal .details [name='title'].form-input:disabled {
+    color: var(--color-four);
+}
+
+#reviews.modal .details #url{
+    font-size: var(--font-one);
+}
+
+#reviews.modal .details #url:disabled {
+    display: none;
+}
+
+#reviews.modal .details :where(textarea, input)::placeholder {
+    color: var(--color-grey) !important;
+}
+
+#reviews.modal .details textarea{
+    resize: none;
+    font-size: var(--font-one);
+}
+
+#reviews.modal .details #myVideo{
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-one);
+    border-radius: .25rem;
+}
+
+#reviews.modal .details #myVideo iframe{
+    width: 100%;
+    height: 20rem;
+    border-radius: .25rem;
+}
+
+#reviews.modal .details h2{
+    font-size: 1.3rem;
+}
+
+#reviews.modal .details h3{
+    font-size: 1.1rem;
+}
+
+#reviews.modal .details h3 span{
+    padding-right: 0.5rem;
+}
+
+#reviews.modal .details form .abilities label input:not(:disabled) div {
+    cursor: pointer;
+}
+
+#reviews.modal .details form .abilities label > div {
+    border: 1px solid var(--color-white);
+    opacity: .2;
+    border-radius: .25rem;
+}
+
+#reviews.modal .details form .abilities label input[type=checkbox]:checked + div{
+    opacity: 1;
+}
+
+#reviews.modal .details form .abilities label input[type=checkbox]:disabled:not(:checked) + div{
+    display: none;
+}
+
+#reviews.modal .details form .abilities label > div img {
+    height: 18px;
+}
+
+#reviews.modal .details .form-submit span{
+    border-radius: .3rem;
+    font-family: var(--font-one) !important;
+}
+
+#reviews.modal .details select{
+    background-color: var(--color-one);
+    color: var(--color-grey);
+    box-shadow: none;
+    outline: none;
+    border-radius: .25rem;
+}
+
+#reviews.modal .details .abilities label{
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+#reviews.modal .details .stars label {
+    position: relative;
+    cursor: pointer;
+}
+
+#reviews.modal .details .stars label img {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#reviews.modal .details .stars label input:checked + img,
+#reviews.modal .details .stars label input:not(:checked) ~ img:last-child {
+    display: block;
+}
+
+#reviews.modal .details .stars label input:not(:checked) + img,
+#reviews.modal .details .stars label input:checked ~ img:last-child {
+    display: none;
+}
+
+#reviews.modal .list section {
+    max-height: 20rem;
+    overflow: auto;
+}
+
+#reviews.modal .list section li:not(:first-child) {
+    margin-top: 1rem;
+}
+
+#reviews.modal .list section li :not(button) > span {
+    max-width: 10rem;
+    min-width: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    /*  */
+}
+
+/* ? LG */
+@media (min-width: 1024px) {
+    #reviews.modal .list section::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    #reviews.modal .list section::-webkit-scrollbar-button {
+        width: 15%;
+        height: 15%;
+    }
+
+    #reviews.modal .list section::-webkit-scrollbar-thumb {
+        background: var(--color-white);
+        border-radius: 100vh;
+    }
+
+    #reviews.modal .list section::-webkit-scrollbar-thumb:hover,
+    #reviews.modal .list section::-webkit-scrollbar-thumb:active {
+        background: var(--color-grey);
+    }
+
+    #reviews.modal .list section::-webkit-scrollbar-track {
+        background: black;
+        border-radius: 100vh;
+    }
+
+    #reviews.modal .list section::-webkit-scrollbar-track:hover,
+    #reviews.modal .list section::-webkit-scrollbar-track:active {
+        background: black;
+    }
+
+    #reviews.modal .list section::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    /*  */
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    /*  */
+}

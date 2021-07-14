@@ -390,6 +390,26 @@
         }
 
         /**
+         * * Get all the Users with id_role = 1.
+         * @return User[]
+         */
+        static public function allTeachers () {
+            $users = User::where('id_role', '=', 1)->get();
+
+            return $users;
+        }
+
+        /**
+         * * Get all the Users with id_role = 0.
+         * @return User[]
+         */
+        static public function allUsers () {
+            $users = User::where('id_role', '=', 0)->get();
+
+            return $users;
+        }
+
+        /**
          * * Get a User by the email.
          * @param string $email
          * @return User
@@ -401,11 +421,11 @@
         }
 
         /**
-         * * Fidn and returns the User by a Game.
+         * * Get all the Users by a Game.
          * @param int $id_game
          * @return User[]
          */
-        static public function findByGame (int $id_game, $id_role = false) {
+        static public function allByGame (int $id_game, $id_role = false) {
             $users = collect();
 
             foreach (User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get() as $user) {
