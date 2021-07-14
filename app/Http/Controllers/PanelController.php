@@ -8,6 +8,7 @@
     use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\Post;
+    use App\Models\Price;
     use App\Models\User;
     use Illuminate\Http\Request;
 
@@ -155,18 +156,27 @@
                 $error = (object) $request->session()->pull('error');
             }
 
-            $user = User::findBySlug($slug);
-            $user->and(['games', 'languages', 'reviews', 'days', 'posts', 'prices', 'days', 'achievements']);
+            $user = new User();
+            if ($slug) {
+                $user = User::findBySlug($slug);
+                $user->and(['games', 'languages', 'reviews', 'days', 'posts', 'prices', 'days', 'achievements']);
+
+                foreach ($user->posts as $post) {
+                    $post->date = $this->dateToHuman($post->updated_at);
+                }
+            }
 
             $games = Game::all();
             foreach ($games as $game) {
                 $game->and(['abilities']);
 
-                foreach ($user->games as $userGame) {
-                    foreach ($userGame->abilities as $userAbility) {
-                        foreach ($game->abilities as $ability) {
-                            if ($ability->id_ability === $userAbility->id_ability) {
-                                $ability->checked = true;
+                if ($slug) {
+                    foreach ($user->games as $userGame) {
+                        foreach ($userGame->abilities as $userAbility) {
+                            foreach ($game->abilities as $ability) {
+                                if ($ability->id_ability === $userAbility->id_ability) {
+                                    $ability->checked = true;
+                                }
                             }
                         }
                     }
@@ -175,29 +185,46 @@
 
             $days = Day::options();
             foreach ($days as $day) {
-                foreach ($user->days as $userDay) {
-                    if ($day->id_day === $userDay->id_day) {
-                        $day->hours = Hour::options($userDay->hours->toArray());
-                        continue 2;
+                $day->hours = Hour::options();
+
+                if ($slug) {
+                    foreach ($user->days as $userDay) {
+                        if ($day->id_day === $userDay->id_day) {
+                            $day->hours = Hour::options($userDay->hours->toArray());
+                            continue 2;
+                        }
                     }
                 }
             }
 
+            $achievements = collect();
             $languages = Language::options();
-            foreach ($languages as $language) {
-                foreach ($user->languages as $userLanguage) {
-                    if ($language->id_language === $userLanguage->id_language) {
-                        $language->checked = true;
+            $posts = collect();
+            $prices = Price::options();
+
+            if ($slug) {
+                foreach ($languages as $language) {
+                    foreach ($user->languages as $userLanguage) {
+                        if ($language->id_language === $userLanguage->id_language) {
+                            $language->checked = true;
+                        }
                     }
                 }
+
+                $achievements = $user->achievements;
+                $posts = $user->posts;
+                $prices = $user->prices;
             }
 
             return view('panel.teachers.details', [
                 'error' => $error,
                 'validation' => [],
+                'achievements' => $achievements,
                 'days' => $days,
                 'games' => $games,
                 'languages' => $languages,
+                'posts' => $posts,
+                'prices' => $prices,
                 'user' => $user
             ]);
         }

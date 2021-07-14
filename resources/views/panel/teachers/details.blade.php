@@ -96,7 +96,7 @@
                 <div class="pt-0">
                     <h3>Precio por modalidad</h3>
                     <ul>
-                        @foreach ($user->prices as $price)
+                        @foreach ($prices as $price)
                             <li>
                                 <label class="grid">
                                     <span>{{ $price->name }}</span>
@@ -147,7 +147,7 @@
                 <div class="pt-0">
                     <h3>Logros</h3>
                     <ul>
-                        @foreach ($user->achievements as $achievement)
+                        @foreach ($achievements as $achievement)
                             <li>
                                 <input type="text" placeholder="titulo" value="{{ old($achievement->slug . "title", $achievement->title) }}" name="" id="">
                                 <input type="text" placeholder="descripción" value="{{ old($achievement->slug . "description", $achievement->description) }}" name="" id="">
@@ -161,7 +161,7 @@
                 <div class="pt-0 col-span-4 blog">
                     <h3>Contenido</h3>
                     @component('components.blog.list', [
-                    'posts' => $user->posts
+                    'posts' => $posts
                     ])
                     @endcomponent  
                 </div>           

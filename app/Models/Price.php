@@ -6,6 +6,20 @@
 
     class Price extends Model {
         /**
+         * * Table primary key name.
+         * @var string
+         */
+        protected $primaryKey = 'id_price';
+
+        /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            'id_price', 'name', 'icon', 'price', 'slug'
+        ];
+
+        /**
          * * Parse a Prices array.
          * @param string [$prices] Example: "[{\"id_lesson\":1,\"price\":500}]"
          * @return Price[]
@@ -40,4 +54,57 @@
 
             return $collection->toJson();
         }
+
+        /**
+         * * Returns the Price options.
+         * @param array [$prices] Example: [["id_price"=>1]]
+         * @param bool [$all=true]
+         * @return Price[]
+         */
+        static public function options (array $prices = [], bool $all = true) {
+            $collection = collect();
+
+            foreach (Price::$options as $option) {
+                $option = new Price($option);
+                $found = false;
+                
+                foreach ($prices as $data) {
+                    if ($option->id_price === $data['id_price']) {
+                        $found = true;
+                        $price = $data['price'];
+                        break;
+                    }
+                }
+
+                if ($all || $found) {
+                    $collection->push($option);
+                }
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Price options.
+         * @var array
+         */
+        static $options = [[
+            'id_price' => 1,
+            'name' => 'Online',
+            'icon' => 'ClaseOnline1SVG',
+            'slug' => 'online',
+            'price' => 0
+        ], [
+            'id_price' => 2,
+            'name' => 'Offline',
+            'icon' => 'ClaseOnline2SVG',
+            'slug' => 'offline',
+            'price' => 0
+        ], [
+            'id_price' => 3,
+            'name' => 'Pack',
+            'icon' => 'ClaseOnline3SVG',
+            'slug' => 'pack',
+            'price' => 0
+        ]];
     }
