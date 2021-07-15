@@ -1,3 +1,48 @@
-#teachers .blog{
+#teacher .blog{
     padding-left: 0;
+}
+
+#teacher input[type=text], #teacher textarea{
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+#teacher textarea{
+    color: var(--color-white);
+    resize: none;
+    height: 10rem;
+}
+
+
+#teacher .games h2{
+    color: var(--color-white);
+}
+
+#teacher .games .game-name h4{
+    color: var(--color-white);
+    background: var(--color-black);
+}
+
+#teacher .date{
+    margin-top: 4.5rem;
+}
+
+
+#teacher .date input{
+    display: none;
+}
+
+#teacher .date label span{
+    display: block;
+    text-align: center;
+    border-radius: .25rem;
+    background-color: var(--color-grey);
+    color: var(--color-white);
+    opacity: .2;
+    font-size: .75rem;
+}
+
+#teacher .date label input:checked + span {
+    background-color: var(--color-four);
+    opacity: 1;
 }
