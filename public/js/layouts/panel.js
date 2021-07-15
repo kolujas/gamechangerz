@@ -1,5 +1,7 @@
 import { TabMenu as TabMenuJS } from "../../../submodules/TabMenuJS/js/TabMenu.js";
 
+import Token from "../components/Token.js";
+
 new TabMenuJS({
     id: "panel",
 },{
@@ -15,5 +17,12 @@ for (const tr of document.querySelectorAll("#panel.tab-menu li.tab-content table
 }
 
 if (document.querySelector("#panel.tab-menu li.tab-content > form")) {
-    console.log(document.querySelectorAll("#panel.tab-menu li.tab-content > form .form-input"));
+    // TODO: Get inputs & switch disable state
+    // TODO: Set ValidationJS
 }
+
+let token = new Token();
+
+document.querySelector('a.tab-link').addEventListener('click', function (e) {
+    token.remove();
+});

@@ -33,3 +33,9 @@
         Reservas
     </a>
 </li>
+
+<li class="tab">
+    <a href="/logout" class="tab-link russo">
+        Cerrar Sesión
+    </a>
+</li>

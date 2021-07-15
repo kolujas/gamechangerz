@@ -38,15 +38,17 @@
             </header>
 
             <main class="my-2 py-2 grid grid-cols-8 gap-8">
-                <label class="text-gray-700 col-span-8 input-option flex">
-                    <div class="input-text mr-2">
-                        <span class="overpass color-white">Destacado</span>
-                    </div>
-                    <input class="overpass form-input" name="important" type="checkbox" @if ($user->important)
-                        checked
-                    @endif/>
-                    <div class="input-box mr-2"></div>
-                </label>
+                <div class="col-span-8">
+                    <label class="text-gray-700 input-option">
+                        <div class="input-text flex items-center">
+                            <span class="overpass color-white mr-2">Destacado</span>
+                            <input class="overpass form-input" name="important" type="checkbox" @if ($user->important)
+                                checked
+                            @endif/>
+                            <div class="input-box mr-2"></div>
+                        </div>
+                    </label>
+                </div>
 
                 <div class="pt-0 col-span-2">
                     <input type="text" name="name" placeholder="Nombre del profesor" value="{{ old("name", $user->name) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher form-input"/>
@@ -116,7 +118,7 @@
                     <ul>
                         @foreach ($prices as $price)
                             <li class="mt-4">
-                                <label class="grid">
+                                <label class="grid gap-2">
                                     <span class="overpass color-white">{{ $price->name }}</span>
                                     <input type="text" class="form-input px-5 py-4 rounded" value="{{ old($price->slug, $price->price) }}" name="prices[]">
                                 </label>

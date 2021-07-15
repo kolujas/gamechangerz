@@ -24,22 +24,6 @@ export class Auth extends Class {
                 });
             }
         }
-        // document.querySelector(`#auth.modal .modal-content #login [type=submit]`).addEventListener('click', function (e) {
-        //     e.preventDefault();
-        //     Auth.submitForm('login');
-        // });
-        // document.querySelector(`#auth.modal .modal-content #login`).addEventListener('submit', function (e) {
-        //     e.preventDefault();
-        //     Auth.submitForm('login');
-        // });
-        // document.querySelector(`#auth.modal .modal-content #signin [type=submit]`).addEventListener('click', function (e) {
-        //     e.preventDefault();
-        //     Auth.submitForm('signin');
-        // });
-        // document.querySelector(`#auth.modal .modal-content #signin`).addEventListener('submit', function (e) {
-        //     e.preventDefault();
-        //     Auth.submitForm('signin');
-        // });
     }
 
     static setModalJS () {
