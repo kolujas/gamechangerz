@@ -24,44 +24,35 @@
             </div>
         </header>
         <main class="my-2 py-2 flex flex-wrap justify-center rounded">
-            <table class="min-w-full">
-                <thead>
-                    <tr>
-                        <th class="px-6 py-3 text-left russo color-white"></th>
-                        <th class="px-6 py-3 text-left russo color-white"></th>
-                        <th class="px-6 py-3 text-left russo color-white">Username</th>
-                        <th class="px-6 py-3 text-left russo color-white">Correo</th>
-                        <th class="px-6 py-3 text-left russo color-white"></th>
-                        <th class="px-6 py-3"></th>
+            <table class="min-w-full grid">
+                <thead class="grid">
+                    <tr class="grid grid-cols-8">
+                        <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Username</th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Correo</th>
+                        <th class="flex items-center px-6 py-3"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="grid">
                     @foreach ($users as $user)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                                <div class="flex items-center">
-                                    <div>
-                                        <span class="text-sm color-white overpass">{{ $user->id_user }}</s>
-                                    </div>
-                                </div>
+                        <tr data-href="/panel/teachers/{{ $user->slug }}" class="grid grid-cols-8">
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap">
+                                <span class="text-sm overpass">{{ $user->id_user }}</s>
                             </td>
-                            <td class="px-4 py-4 whitespace-no-wrap">
-                                @if (Auth::user()->profile())
+                            <td class="flex items-center px-4 py-4 whitespace-no-wrap">
+                                @if ($user->profile())
                                     <figure class="profile-image">
-                                        <img src={{ asset("storage/". Auth::user()->profile()) }} alt="{{ Auth::user()->username }} profile image">
+                                        <img src={{ asset("storage/". $user->profile()) }} alt="{{ $user->username }} profile image">
                                     </figure>
                                 @endif
-                                @if (!Auth::user()->profile())
+                                @if (!$user->profile())
                                     @component('components.svg.ProfileSVG')@endcomponent
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap color-white overpass">{{ $user->username }}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap color-white overpass">{{ $user->email }}</td>
-                            <td class="px-6 py-4">
-                                <a href="/panel/teachers/{{ $user->slug }}" class="btn btn-one btn-icon">
-                                    <i class="fas fa-eye color-white"></i>
-                                </a>
-                            </td>
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $user->username }}</td>
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $user->email }}</td>
+                            <td class="flex items-center px-6 py-4 col-span-2"></td>
                         </tr>
                     @endforeach
                 </tbody>

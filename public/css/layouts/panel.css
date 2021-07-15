@@ -1,6 +1,50 @@
-.tab-menu{
+#panel.tab-menu {
     --tabmenu-button-color: var(--color-four);
     --tabmenu-button-color-alternative: var(--color-black);
     --tabmenu-background-color: var(--color-black);
     --tabmenu-background-color-alternative: linear-gradient(130deg, var(--color-five), var(--color-four));
+}
+
+#panel.tab-menu table {
+    background-color: var(--color-black);
+    border-radius: .25rem;
+    overflow: hidden;
+}
+
+#panel.tab-menu table tr {
+    min-height: 4.6rem;
+}
+
+#panel.tab-menu table tbody tr {
+    position: relative;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+#panel.tab-menu table tbody tr::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 500ms;
+    opacity: 0;
+    z-index: 1;
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+}
+
+#panel.tab-menu table tbody tr:hover::before {
+    opacity: 1;
+}
+
+#panel.tab-menu table tbody td {
+    position: inherit;
+    z-index: 2;
+    color: var(--color-white);
+    transition: 500ms;
+}
+
+#panel.tab-menu table tbody tr:hover td {
+    color: var(--color-black);
 }

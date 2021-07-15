@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-    <li id="teacher" class="tab-content min-h-screen p-12 closed">
+    <li id="teacher" class="tab-content p-12 closed">
         <form action="">
             <header class="flex w-full mb-24">
                 <h2 class="russo color-white mr-4">Profesor</h2>
@@ -25,49 +25,52 @@
                     <a class="btn btn-one btn-icon ml-4" href="/panel/users/create">
                         <i class="fas fa-trash"></i>
                     </a>
-                    <a class="btn btn-white btn-icon" href="/panel/users/create">
+                    <div class="hidden">
+                        <input type="text" class="px-5 py-4 rounded" placeholder='Escribí "BORRAR" para confirmar' name="message">
+                    </div>
+                    <a class="btn btn-white btn-icon hidden" href="/panel/users/create">
                         <i class="fas fa-check"></i>
                     </a>
-                    <a class="btn btn-three btn-icon ml-4" href="/panel/users/create">
+                    <a class="btn btn-three btn-icon ml-4 hidden" href="/panel/users/create">
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
             </header>
 
-            <main class="my-2 py-2 grid grid-cols-5 gap-8">
-                {{-- <label class="text-gray-700 col-span-4">
-                    <span class="ml-1 color-white">Destacado</span>
-                    <input type="checkbox" @if ($user->important)
-                        checked
-                    @endif/>
-                </label> --}}
-                <label class="text-gray-700 col-span-5 input-option flex mb-6">
+            <main class="my-2 py-2 grid grid-cols-8 gap-8">
+                <label class="text-gray-700 col-span-8 input-option flex">
                     <div class="input-text mr-2">
                         <span class="overpass color-white">Destacado</span>
                     </div>
-                    <input class="overpass" type="checkbox" @if ($user->important)
-                    checked
+                    <input class="overpass form-input" name="important" type="checkbox" @if ($user->important)
+                        checked
                     @endif/>
                     <div class="input-box mr-2"></div>
-                    
                 </label>
-                <div class="pt-0">
-                    <input type="text" placeholder="Nombre del profesor" value="{{ old("name", $user->name) }}" class="px-3 py-3 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher"/>
-                </div>
-                <div class="pt-0">
-                    <input type="text" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-3 py-3 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full"/>
-                </div>
-                <div class="pt-0 row-span-2"></div>
-                <div class="pt-0 row-span-2"></div>
-                <div class="pt-0">
-                    <input type="text" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-3 py-3 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full"/>
-                </div>
+
                 <div class="pt-0 col-span-2">
-                    <textarea placeholder="Descripcion del profesor" class="w-16 h-16 px-3 py-2 text-base placeholder-blueGray-300 text-gray-700 placeholder-blueGray-300 rounded-lg focus:shadow-outline w-full">{{ old("description", $user->description) }}</textarea>
-                </div>            
-                <div class="pt-0 col-span-5">
-                    <h3 class="russo color-white my-12">Idiomas</h3>
-                    <ul class="languages options grid grid-cols-5 gap-4">
+                    <input type="text" name="name" placeholder="Nombre del profesor" value="{{ old("name", $user->name) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher form-input"/>
+                </div>
+
+                <div class="pt-0 col-span-2">
+                    <input type="text" name="email" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input"/>
+                </div>
+
+                <div class="pt-0 col-span-2 row-span-3 TODO"></div>
+
+                <div class="pt-0 col-span-2 row-span-3 TODO"></div>
+
+                <div class="pt-0 col-span-2 col-start-1">
+                    <input type="text" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full"/>
+                </div>
+
+                <div class="pt-0 col-span-4">
+                    <textarea placeholder="Descripcion del profesor" name="description" class="w-16 h-16 px-5 py-4 text-base placeholder-blueGray-300 text-gray-700 placeholder-blueGray-300 rounded-lg focus:shadow-outline w-full form-input">{{ old("description", $user->description) }}</textarea>
+                </div>
+
+                <div class="pt-0 col-span-8">
+                    <h3 class="russo color-white mb-8">Idiomas</h3>
+                    <ul class="languages options grid grid-cols-8 gap-4">
                         @foreach ($languages as $language)
                             <li class="language option" title="{{ $language->name }}">
                                 <input id="language-{{ $language->slug }}" type="checkbox" class="form-input" @if ($language->checked)
@@ -82,20 +85,21 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>            
-                <div class="pt-0 col-span-5 grid grid-cols-5 games">
-                    <h3 class="russo col-span-5 color-white my-12">Juegos</h3>
+                </div>     
+
+                <div class="pt-0 col-span-8 grid grid-cols-4 games">
+                    <h3 class="russo col-span-4 color-white mb-8">Juegos</h3>
                     @foreach ($games as $game)
                         <div class="game-name">
-                            <h4 class="russo p-2 text-center mb-8 rounded">{{ $game->name }}</h4>
+                            <h4 class="russo px-5 py-4 text-center mb-8 rounded">{{ $game->name }}</h4>
                             <ul>
                                 @foreach ($game->abilities as $ability)
                                     <li class="overpass color-white">
                                         <label class="text-gray-700 col-span-4 input-option flex mb-6">
                                             <div class="input-text flex">
-                                                <input class="overpass" type="checkbox" @if ($ability->checked)
+                                                <input class="overpass form-input" type="checkbox" @if ($ability->checked)
                                                     checked
-                                                @endif name="" id="">
+                                                @endif name="abilities[]">
                                                 <div class="input-box mr-2"></div>
                                                 <span class="overpass color-white mr-2">{{ $ability->name }}</span>
                                             </div>
@@ -105,22 +109,24 @@
                             </ul>
                         </div>
                     @endforeach
-                </div>            
-                <div class="pt-0">
-                    <h3 class="russo color-white">Precio por modalidad</h3>
-                    <ul class="mt-8">
+                </div>       
+
+                <div class="pt-0 col-span-2">
+                    <h3 class="russo color-white mb-8">Precio</h3>
+                    <ul>
                         @foreach ($prices as $price)
                             <li class="mt-4">
                                 <label class="grid">
                                     <span class="overpass color-white">{{ $price->name }}</span>
-                                    <input type="text" value="{{ old($price->slug, $price->price) }}" name="" id="">
+                                    <input type="text" class="form-input px-5 py-4 rounded" value="{{ old($price->slug, $price->price) }}" name="prices[]">
                                 </label>
                             </li>
                         @endforeach
                     </ul>
                 </div>  
-                <div class="pt-0 col-span-2">
-                    <h3 class="russo color-white">Disponibilidad</h3>
+
+                <div class="pt-0 col-span-3">
+                    <h3 class="russo color-white mb-8">Disponibilidad</h3>
                     <ul class="grid gap-4 date">
                         @foreach ($days as $day)
                             <li class="grid grid-cols-4 gap-4">
@@ -157,22 +163,25 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>           
-                <div class="pt-0">
-                    <h3 class="russo color-white">Logros</h3>
-                    <ul>
+                </div>    
+
+                <div class="pt-0 col-span-3">
+                    <h3 class="russo color-white mb-8">Logros</h3>
+                    <ul class="grid gap-4">
                         @foreach ($achievements as $achievement)
-                            <li>
-                                <input type="text" placeholder="titulo" value="{{ old($achievement->slug . "title", $achievement->title) }}" name="" id="">
-                                <input type="text" placeholder="descripción" value="{{ old($achievement->slug . "description", $achievement->description) }}" name="" id="">
+                            <li class="grid gap-2">
+                                <input type="text" class="form-input px-5 py-4 rounded" placeholder="Título" value="{{ old($achievement->slug . "title", $achievement->title) }}" name="achievements[title][]">
+                                <input type="text" class="form-input px-5 py-4 rounded" placeholder="Descripción" value="{{ old($achievement->slug . "description", $achievement->description) }}" name="achievements[description][]">
                             </li>
                         @endforeach
                     </ul>
-                </div>           
-                <div class="pt-0 col-span-5">
+                </div>    
+
+                <div class="pt-0 col-span-8">
                     <h3 class="russo color-white">Reseñas</h3>
-                </div>           
-                <div class="pt-0 col-span-5 blog">
+                </div>      
+                     
+                <div class="pt-0 col-span-8 blog">
                     <h3 class="russo color-white">Contenido</h3>
                     @component('components.blog.list', [
                     'posts' => $posts

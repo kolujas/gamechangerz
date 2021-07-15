@@ -11,8 +11,8 @@
 
 @section('body')
     <main class="main container-fluid">
-        <section id="panel" class="tab-menu grid grid-cols-10">
-            <nav class="tabs col-span-2">
+        <section id="panel" class="tab-menu grid grid-cols-10 max-h-screen overflow-hidden">
+            <nav class="tabs col-span-2 min-h-screen max-h-screen overflow-auto">
                 <header class="tab-header logo p-4">
                     <a href="/">
                         <img src={{ asset('img/logos/028-logotipo_original.png') }} 
@@ -20,14 +20,13 @@
                         <h1>GameChangerZ</h1>
                     </a>
                 </header>
-                <ul class="tab-menu-list min-h-screen">
+                <ul class="tab-menu-list">
                     @yield('tabs')
                 </ul>
             </nav>
             
-            <ul class="tab-content-list col-span-8">
+            <ul class="tab-content-list col-span-8 min-h-screen max-h-screen overflow-auto">
                 @yield('content')
-                
             </ul>
         </section>
     </main>   
@@ -35,7 +34,7 @@
 
 @section('extras')
     {{-- Layout JS --}}
-    <script src={{ asset('js/layouts/panel.js') }}></script>
+    <script type="module" src={{ asset('js/layouts/panel.js') }}></script>
 
     @yield('js')
 @endsection
