@@ -131,9 +131,6 @@
     background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five)); background: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
 }
 
-
-
-
 .users .switch-content .slider:before {
     position: absolute;
     content: "";
@@ -163,7 +160,6 @@
     border-radius: 50%;
 }
 .users + .list > li.degradado{
-    background: var(--color-black);
     margin-bottom: 2rem;
 }
 
@@ -207,7 +203,7 @@
     border-image-slice: 1;
 }
 
-.users + .list li.degradado > a :where(h3, span) {
+.users + .list li.degradado > main > a :where(h3, span) {
     max-width: 6ch;
     min-width: 6ch;
     overflow: hidden;
@@ -229,7 +225,14 @@
     top: -1px;
     left: -1px;
     background: linear-gradient(130deg , var(--color-five), var(--color-four));
-    z-index: -1;
+    z-index: 1;
+}
+
+.users + .list li.degradado > main{
+    position: inherit;
+    background: var(--color-black);
+    z-index: 2;
+    border-radius: .25rem;
 }
 
 /* ? MD */
@@ -262,17 +265,17 @@
         width: 8rem;
     }
 
-    .users + .list li.degradado > div:nth-child(3) p {
+    .users + .list li.degradado > main > div:nth-child(3) p {
         line-height: 2rem;
         font-size: 2rem;
     }
 
-    .users + .list li.degradado > div:nth-child(4){
+    .users + .list li.degradado > main > div:nth-child(4){
         min-width: 25%;
         width: 25%;
     }
 
-    .users + .list li.degradado > a span {
+    .users + .list li.degradado > main > a span {
         max-width: 8ch;
         min-width: 100%;
     }
@@ -310,17 +313,17 @@
 
 /* ? XL */
 @media(min-width: 1200px){
-    .users + .list li.degradado > a h3 {
+    .users + .list li.degradado > main > a h3 {
         max-width: 12ch;
         min-width: 12ch;
     }
 
-    .users + .list li.degradado > a span {
+    .users + .list li.degradado > main > a span {
         max-width: 18ch;
         min-width: 18ch;
     }
 
-    .users + .list li.degradado > div:nth-child(4){
+    .users + .list li.degradado > main > div:nth-child(4){
         min-width: 18rem;
         width: 18rem;
     }
@@ -328,7 +331,7 @@
 
 /* ? 2XL */
 @media(min-width: 1536px){
-    .users + .list li.degradado > a :where(h3, span) {
+    .users + .list li.degradado > main > a :where(h3, span) {
         max-width: 30ch;
         min-width: 30ch;
     }

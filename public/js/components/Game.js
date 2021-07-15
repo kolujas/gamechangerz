@@ -55,13 +55,13 @@ export class Game extends Class {
 
     static list (data) {
         let list = document.createElement('ul');
-        list.classList.add("cards", "games", "mt-12", "grid", "md:grid-cols-2", "lg:grid-cols-4", "main");
+        list.classList.add("cards", "games", "mt-12", "grid", "md:grid-cols-2", "lg:grid-cols-4");
             for (const game of data) {
                 list.appendChild(Game.item(game));
             }
             if (!data.length) {
                 let item = document.createElement('li');
-                li.classList.add("card", "tedxt-center");
+                item.classList.add("card");
                 list.appendChild(item);
                     let div = document.createElement('div');
                     div.classList.add("flex", "flex-wrap", "p-6", "color-grey");

@@ -138,12 +138,12 @@ export class Review extends Class {
     }
 
     changeStars (params) {
-        let stars = parseInt(params.input.html.value);
+        let stars = parseInt(params.element.html.value);
         
-        if (!params.input.html.checked) {
+        if (!params.element.html.checked) {
             let bigger = 0;
 
-            for (const label of params.input.html.parentNode.parentNode.children) {
+            for (const label of params.element.html.parentNode.parentNode.children) {
                 let input = label.children[0];
 
                 if (input.checked && bigger < parseInt(input.value) + 1) {
@@ -156,7 +156,7 @@ export class Review extends Class {
             }
         }
 
-        for (const label of params.input.html.parentNode.parentNode.children) {
+        for (const label of params.element.html.parentNode.parentNode.children) {
             let input = label.children[0];
             input.checked = false;
 

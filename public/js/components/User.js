@@ -23,78 +23,112 @@ export class User extends Class {
     }
 
     static user (data) {
-        let item = document.createElement('li');
-        item.classList.add("p-4", "flex", "justify-between", "items-center", "gap-4", "lg:col-span-8", "lg:col-start-2", "degradado");
-            let header = document.createElement('a');
-            header.href = `/users/${ data.slug }/profile`;
-            header.classList.add("flex", "btn", "btn-text", "btn-white");
-            item.appendChild(header);
-                let photo = document.createElement('div');
-                photo.classList.add("photo", "flex", "items-center", "mr-4");
-                header.appendChild(photo);
-                    let photo_figure = document.createElement('figure');
-                    photo_figure.classList.add("profile-image");
-                    photo.appendChild(photo_figure);
-                        let image = document.createElement('img');
-                        image.src = new Asset(`${(data.files['profile'] ?  `storage/${ data.files['profile'] }` : `img/resources/ProfileSVG.svg`)}`).route;
-                        image.alt = `${ data.username } profile image`;
-                        photo_figure.appendChild(image);
-                
-                let identity = document.createElement('div');
-                header.appendChild(identity);
-                    let username = document.createElement('h3');
-                    username.classList.add("russo");
-                    username.innerHTML = data.username;
-                    identity.appendChild(username);
-
-                    let name = document.createElement('span');
-                    name.classList.add("color-grey", "overpass", "whitespace-nowrap", "block");
-                    name.innerHTML = data.name;
-                    identity.appendChild(name);
-            
-            let teammate = document.createElement('div');
-            teammate.classList.add("h-full", "teammate", "flex", "items-center");
-            if (data.teammate) {
-                teammate.classList.add("active");
-            }
-            item.appendChild(teammate);
-                let teammate_figure = document.createElement('figure');
-                teammate.appendChild(teammate_figure);
-                    let fist = document.createElement('img');
-                    fist.src = new Asset(`img/resources/ChoqueSVG.svg`).route;
-                    fist.alt = "Fist svg";
-                    teammate_figure.appendChild(fist);
-
-            let lessons = document.createElement('div');
-            lessons.classList.add("hidden", "md:block");
-            item.appendChild(lessons);
-                let lessons_text = document.createElement('span');
-                lessons_text.classList.add("color-white", "overpass");
-                lessons_text.innerHTML = "Clases tomadas";
-                lessons.appendChild(lessons_text);
-
-                let hours = document.createElement('p');
-                hours.classList.add("color-four");
-                hours.innerHTML = data.lessonsDone;
-                lessons.appendChild(hours);
-                
-            let games = document.createElement('div');
-            games.classList.add("hidden", "md:block");
-            games.appendChild(Game.component('list', data.games))
-            item.appendChild(games);
-            
-            let actions = document.createElement('div');
-            actions.classList.add("btn-purple");
-            item.appendChild(actions);
-                let link = document.createElement('a');
-                link.classList.add("btn", "btn-one", "btn-outline", "russo", "rouded");
-                link.href = `/users/${ data.slug }/profile`;
-                actions.appendChild(link);
-                    let span = document.createElement('span');
-                    span.classList.add("px-4", "py-3");
-                    span.innerHTML = "Contactar";
-                    link.appendChild(span);
-        return item;
+        let item = new Html("li", {
+            props: {
+                id: data.slug,
+                classes: ["lg:col-span-8", "lg:col-start-2", "degradado"]
+            }, innerHTML: [
+                ["main", {
+                    props: {
+                        classes: ["p-4", "flex", "justify-between", "items-center", "gap-4"]
+                    }, innerHTML: [
+                        ["a", {
+                            props: {
+                                classes: ["flex", "btn", "btn-text", "btn-white"],
+                                url: `/users/${ data.slug }/profile`,
+                            }, innerHTML: [
+                                ["div", {
+                                    props: {
+                                        classes: ["photo", "flex", "items-center", "mr-4"],
+                                    }, innerHTML: [
+                                        ["figure", {
+                                            props: {
+                                                classes: ["profile-image"],
+                                            }, innerHTML: [
+                                                ["img", {
+                                                    props: {
+                                                        url: new Asset(`${(data.files['profile'] ?  `storage/${ data.files['profile'] }` : `img/resources/ProfileSVG.svg`)}`).route,
+                                                    }
+                                                }],
+                                            ]
+                                        }],
+                                    ],
+                                }],
+                                ["div", {
+                                    innerHTML: [
+                                        ["h3", {
+                                            props: {
+                                                classes: ["russo"]
+                                            }, innerHTML: data.username,
+                                        }],
+                                        ["span", {
+                                            props: {
+                                                classes: ["color-grey", "overpass", "whitespace-nowrap", "block"]
+                                            }, innerHTML: data.name
+                                        }],
+                                    ],
+                                }],
+                            ],
+                        }],
+                        ["div", {
+                            props: {
+                                classes: (data.teammate ? ["h-full", "teammate", "flex", "items-center", "active"] : ["h-full", "teammate", "flex", "items-center"])
+                            }, innerHTML: [
+                                ["figure", {
+                                    innerHTML: [
+                                        ["img", {
+                                            props: {
+                                                url: new Asset(`img/resources/ChoqueSVG.svg`).route,
+                                            }
+                                        }],
+                                    ]
+                                }],
+                            ]
+                        }],
+                        ["div", {
+                            props: {
+                                classes: ["color-white", "overpass"]
+                            }, innerHTML: [
+                                ["span", {
+                                    props: {
+                                        classes: ["color-white", "overpass"]
+                                    }, innerHTML: "Clases tomadas"
+                                }],
+                                ["p", {
+                                    props: {
+                                        classes: ["color-four"]
+                                    }, innerHTML: data.lessonsDone
+                                }],
+                            ]
+                        }],
+                        ["div", {
+                            props: {
+                                classes: ["hidden", "md:block"]
+                            }, innerHTML: Game.component('list', data.games)
+                        }],
+                        ["div", {
+                            props: {
+                                classes: ["btn-purple"]
+                            }, innerHTML: [
+                                ["a", {
+                                    props: {
+                                        classes: ["btn", "btn-one", "btn-outline", "russo", "rouded"],
+                                        url: `/users/${ data.slug }/profile`
+                                    }, innerHTML: [
+                                        ["span", {
+                                            props: {
+                                                classes: ["px-4", "py-3"]
+                                            }, innerHTML: "Contactar"
+                                        }],
+                                    ]
+                                }],
+                            ]
+                        }],
+                    ],
+                }]
+            ],
+        });
+        return item.html;
     }
 
     static teacher (data) {
@@ -272,12 +306,14 @@ export class User extends Class {
                             props: {
                                 id: `figure-${ data.props.slug }`,
                                 classes: ["profile-image"]
-                            }, image: {
-                                props: {
-                                    id: `image-${ data.props.slug }`,
-                                    url: new Asset(`${(data.props.files['profile'] ?  `storage/${ data.props.files['profile'] }` : `img/resources/ProfileSVG.svg`)}`).route,
-                                }
-                            }
+                            }, innerHTML: [
+                                ["img", {
+                                    props: {
+                                        id: `image-${ data.props.slug }`,
+                                        url: new Asset(`${(data.props.files['profile'] ?  `storage/${ data.props.files['profile'] }` : `img/resources/ProfileSVG.svg`)}`).route,
+                                    }
+                                }]
+                            ]
                         }]
                     ],
                 }],

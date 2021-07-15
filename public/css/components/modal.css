@@ -22,12 +22,14 @@
     height: calc(100% + 2px);
     border-radius: .25rem;
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
-    z-index: -1;
+    z-index: 1;
 }
 
 .modal .modal-content > * {
+    position: relative;
     background-color: var(--color-black);
     border-radius: .25rem;
+    z-index: 2;
 }
 
 .modal .modal-content > form {
@@ -35,7 +37,7 @@
 }
 
 #poll.modal .step > main,
-.modal .modal-content > form main {
+.modal .modal-content > form > main {
     max-height: calc(100vh - 4rem);
     width: 100%;
     overflow: auto;
