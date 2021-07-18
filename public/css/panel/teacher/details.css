@@ -45,3 +45,7 @@
     background: var(--color-black);
     border-radius: .25rem;
 }
+
+#teacher .msg-modal input{
+    width: 17em;
+}
