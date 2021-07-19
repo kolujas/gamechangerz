@@ -61,7 +61,7 @@
                 $error = (object) $request->session()->pull('error');
             }
 
-            $coupons = Coupons::all();
+            $coupons = Coupon::all();
 
             return view('panel.coupon.list', [
                 'error' => $error,
@@ -94,13 +94,25 @@
          * * Control the platform details panel page.
          * @return [type]
          */
-        public function platform (Request $request) {
+        public function banner (Request $request) {
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
 
-            return view('panel.platform.list', [
+            return view('panel.platform.banner', [
+                'error' => $error,
+                'validation' => []
+            ]);
+        }
+
+        public function dolar (Request $request) {
+            $error = null;
+            if ($request->session()->has('error')) {
+                $error = (object) $request->session()->pull('error');
+            }
+
+            return view('panel.platform.dolar', [
                 'error' => $error,
                 'validation' => []
             ]);
@@ -260,11 +272,37 @@
             }
 
             $user = User::findBySlug($slug);
+            $user->and(['games', 'reviews', 'achievements']);
+
+            $games = Game::all();
+            foreach ($games as $game) {
+                $game->and(['abilities']);
+
+                if ($slug) {
+                    foreach ($user->games as $userGame) {
+                        foreach ($userGame->abilities as $userAbility) {
+                            foreach ($game->abilities as $ability) {
+                                if ($ability->id_ability === $userAbility->id_ability) {
+                                    $ability->checked = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            $achievements = collect();
+
+            if ($slug) {  
+                $achievements = $user->achievements;
+            }
 
             return view('panel.users.details', [
                 'error' => $error,
                 'validation' => [],
-                'user' => $user
+                'user' => $user,
+                'games' => $games,
+                'achievements' => $achievements
             ]);
         }
     }

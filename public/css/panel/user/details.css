@@ -1,0 +1,51 @@
+#user .blog{
+    padding-left: 0;
+}
+
+#user input[type=text], #user textarea{
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+#user textarea{
+    color: var(--color-white);
+    resize: none;
+    height: 10rem;
+}
+
+#user .games h2{
+    color: var(--color-white);
+}
+
+#user .games .game-name h4{
+    color: var(--color-white);
+    background: var(--color-black);
+}
+
+#user .date input{
+    display: none;
+}
+
+#user .date label span{
+    display: block;
+    text-align: center;
+    border-radius: .25rem;
+    background-color: var(--color-grey);
+    color: var(--color-white);
+    opacity: .2;
+    font-size: .75rem;
+}
+
+#user .date label input:checked + span {
+    background-color: var(--color-four);
+    opacity: 1;
+}
+
+.TODO {
+    background: var(--color-black);
+    border-radius: .25rem;
+}
+
+#user .msg-modal input{
+    width: 17em;
+}
