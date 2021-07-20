@@ -81,6 +81,8 @@ class Kernel extends HttpKernel
         'auth.role.is.user' => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
         'auth.role.not.user' => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,
 
+        'coupon.exist' => \App\Http\Middleware\CheckCouponExist::class,
+
         'friendship.action.exist' => \App\Http\Middleware\CheckFriendshipActionExist::class,
 
         'game.exist' => \App\Http\Middleware\CheckGameExist::class,

@@ -1,0 +1,68 @@
+#coupon .blog{
+    padding-left: 0;
+}
+
+#coupon input[type=text], #coupon input[type=number], #coupon textarea{
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+#coupon textarea{
+    color: var(--color-white);
+    resize: none;
+    height: 10rem;
+}
+
+#coupon .games h2{
+    color: var(--color-white);
+}
+
+#coupon .games .game-name h4{
+    color: var(--color-white);
+    background: var(--color-black);
+}
+
+#coupon .date input{
+    display: none;
+}
+
+#coupon .date label span{
+    display: block;
+    text-align: center;
+    border-radius: .25rem;
+    background-color: var(--color-grey);
+    color: var(--color-white);
+    opacity: .2;
+    font-size: .75rem;
+}
+
+#coupon .date label input:checked + span {
+    background-color: var(--color-four);
+    opacity: 1;
+}
+
+.TODO {
+    background: var(--color-black);
+    border-radius: .25rem;
+}
+
+#coupon .msg-modal input{
+    width: 17em;
+}
+
+#coupon .div-type{
+    background: var(--color-black);
+}
+
+#coupon .radieta-label span{
+    height: 100%;
+    width: 40px;
+}
+
+#coupon .radieta-label input:checked + span{
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+}
+
+#coupon .radieta-label input:not(:checked) + span{
+    color: var(--color-white);
+}

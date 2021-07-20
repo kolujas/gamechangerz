@@ -81,12 +81,13 @@
                 $error = (object) $request->session()->pull('error');
             }
 
-            $coupon = Coupon::findBySlug($slug);
+            // $coupon = Coupon::findBySlug($slug);
+            $coupon = false;
 
             return view('panel.coupon.details', [
                 'error' => $error,
                 'validation' => [],
-                'coupons' => $coupons
+                'coupon' => $coupon
             ]);
         }
 
@@ -171,7 +172,7 @@
             $user = new User();
             if ($slug) {
                 $user = User::findBySlug($slug);
-                $user->and(['games', 'languages', 'reviews', 'days', 'posts', 'prices', 'days', 'achievements']);
+                $user->and(['games', 'languages', 'reviews', 'days', 'posts', 'prices', 'days', 'achievements', 'files']);
 
                 foreach ($user->posts as $post) {
                     $post->date = $this->dateToHuman($post->updated_at);
