@@ -2,7 +2,7 @@ import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/F
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
-import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
+import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Token from "./Token.js";
 
@@ -27,13 +27,15 @@ export class Auth extends Class {
     }
 
     static setModalJS () {
-        modals.auth = new ModalJS({
-            id: 'auth',
-        }, {
-            outsideClick: true
-        });
-        this.setValidationJS();
-        this.setEvents();
+        if (!modals.hasOwnProperty("auth")) {
+            modals.auth = new ModalJS({
+                id: 'auth',
+            }, {
+                outsideClick: true
+            });
+            this.setValidationJS();
+            this.setEvents();
+        }
     }
 
     static setValidationJS () {
@@ -45,7 +47,7 @@ export class Auth extends Class {
             }, {
                 submit: false,
             }, {
-                submit: {
+                valid: {
                     function: this.submit,
                     params: {
                         section: 'login',
@@ -61,7 +63,7 @@ export class Auth extends Class {
             }, {
                 submit: false,
             }, {
-                submit: {
+                valid: {
                     function: this.submit,
                     params: {
                         section: 'signin',

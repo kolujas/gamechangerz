@@ -1,6 +1,6 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
+import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Asset from "./Asset.js";
 import Game from "./Game.js";

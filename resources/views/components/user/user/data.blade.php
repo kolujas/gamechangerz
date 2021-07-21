@@ -4,16 +4,16 @@
             <figure class="profile-image relative"></figure>
         </div>
         <div class="username">
-            <h3 class="color-white mb-2 overpass"><input class="update-input form-input russo" placeholder="Apodo" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
+            <h3 class="color-white mb-2 overpass"><input class="update-input update-form form-input russo" placeholder="Apodo" type="text" name="username" value="{{ old('username', $user->username) }}" disabled title="{{ $user->username }}"></h3>
             <span class="font-bold color-four overpass"><input class="@if (!$user->name)
                 hidden
-            @endif update-input form-input" placeholder="Nombre" type="text" name="name" value="{{ old('name', $user->name) }}" disabled title="{{ $user->name }}"></span>
+            @endif update-input update-form form-input" placeholder="Nombre" type="text" name="name" value="{{ old('name', $user->name) }}" disabled title="{{ $user->name }}"></span>
         </div>
         <div class="teammate p-2">
             <label>
                 <input type="checkbox" name="teammate" disabled @if($user->teammate)
                     checked
-                @endif class="hidden update-input form-input">
+                @endif class="hidden update-input update-form form-input">
                 <span>
                     @component('components.svg.ChoqueSVG')@endcomponent
                 </span>

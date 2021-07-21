@@ -4,13 +4,15 @@ import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLSe
 
 export class Lesson extends Class {
     static setModalJS () {
-        modals.lessons = new ModalJS({
-            id: 'lessons',
-        }, {
-            open: URL.findHashParameter() === 'lessons',
-            detectHash: true,
-            outsideClick: true,
-        });
+        if (!modals.hasOwnProperty("lessons")) {
+            modals.lessons = new ModalJS({
+                id: 'lessons',
+            }, {
+                open: URL.findHashParameter() === 'lessons',
+                detectHash: true,
+                outsideClick: true,
+            });
+        }
     }
 }
 

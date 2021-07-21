@@ -37,8 +37,6 @@ if (!auth) {
 }
 
 if (auth) {
-    Assigment.setModalJS();
-
     if (document.querySelectorAll("a[href='/logout']").length) {
         for (const html of document.querySelectorAll("a[href='/logout']")) {
             html.addEventListener('click', function (e) {

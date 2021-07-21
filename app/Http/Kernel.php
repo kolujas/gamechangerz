@@ -65,12 +65,16 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
+        
+        'api.assigment.exist' => \App\Http\Middleware\API\CheckAssigmentExist::class,
 
         'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
         'api.chat.is.available' => \App\Http\Middleware\API\CheckChatIsAvailable::class,
         'api.chat.lesson.is.offline' => \App\Http\Middleware\API\CheckChatLessonIsOffline::class,
-        'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
+
         'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
+
+        'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
         
         'auth.custom' => \App\Http\Middleware\CustomAuthenticate::class,
         'auth.is.user' => \App\Http\Middleware\CheckAuthenticateIsUser::class,

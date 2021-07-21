@@ -11,6 +11,7 @@
             $this->call(GameSeeder::class);
             $this->call(AbilitySeeder::class);
             $this->call(AssigmentSeeder::class);
+            $this->call(PresentationSeeder::class);
             $this->call(ChatSeeder::class);
             $this->call(LessonSeeder::class);
             $this->call(PostSeeder::class);

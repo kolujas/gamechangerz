@@ -62,35 +62,6 @@
         {{-- ? Added extras section --}}
         @yield('extras')
 
-        {{-- ? Auth modal --}}
-        @component('components.modal.layouts.auth', [
-            'error' => ($error ? $error : []),
-        ])
-        @endcomponent
-
-        @if (Auth::check())
-            {{-- ? Assigment modal --}}
-            @component('components.modal.assigment', [
-                'error' => ($error ? $error : []),
-            ])
-            @endcomponent
-            {{-- ? Chat modal --}}
-            @component('components.modal.layouts.chat', [
-                'error' => ($error ? $error : []),
-            ])
-            @endcomponent
-            <a href="#chat" class="chat-button modal-button chat border-gradient" title="Chat">
-                <figure>
-                    <img src={{ asset("img/logos/011-isologo_reducido_claro_transparencia.png") }} alt="Chat button">
-                </figure>
-            </a>
-        @endif
-
-        @component('components.modal.layouts.poll', [
-            'error' => ($error ? $error : []),
-        ])
-        @endcomponent
-
         <aside id="notification-1" class="notification p-4 hidden"></aside>
     </body>
 </html>

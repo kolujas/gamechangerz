@@ -4,13 +4,15 @@ import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLSe
 
 export class Friend extends Class {
     static setModalJS () {
-        modals.friends = new ModalJS({
-            id: 'friends',
-        }, {
-            open: URL.findHashParameter() === 'friends',
-            detectHash: true,
-            outsideClick: true,
-        });
+        if (!modals.hasOwnProperty("friends")) {
+            modals.friends = new ModalJS({
+                id: 'friends',
+            }, {
+                open: URL.findHashParameter() === 'friends',
+                detectHash: true,
+                outsideClick: true,
+            });
+        }
     }
 }
 

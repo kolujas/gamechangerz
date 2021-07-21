@@ -5,7 +5,7 @@
                 <div class="flex p-4 pb-0 grid grid-cols-2 gap-8 xl:gap-6 cardota md:grid-cols-4 2xl:grid-cols-6">
                     <div class="ability flex items-start flex-wrap">
                         <div class="color-white font-bold w-full flex flex-auto items-center">
-                            <span class="mr-2 w-full overpass">{{ $review->lesson->name }}</span>
+                            <span class="mr-2 w-full overpass">{{ $review->lesson->type->name }}</span>
                             @component($review->lesson->type->svg)@endcomponent
                         </div>
                         @component('components.game.list', [

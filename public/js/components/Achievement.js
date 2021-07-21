@@ -276,20 +276,22 @@ export class Achievement extends Class {
     }
 
     static setModalJS (achievements) {
-        modals.achievements = new ModalJS({
-            id: 'achievements',
-        }, {
-            open: /achievements/.exec(URL.findHashParameter()),
-            detectHash: true,
-            outsideClick: true,
-        });
-        const table = this.component('list', {
-            achievements: achievements
-        });
-        document.querySelector('#achievements.modal main').insertBefore(table.html, document.querySelector('#achievements.modal main footer'));
-        document.querySelector("#achievements.modal header .btn").addEventListener("click", function (e) {
-            Achievement.add(table, achievements);
-        });
+        if (!modals.hasOwnProperty('achievements')) {
+            modals.achievements = new ModalJS({
+                id: 'achievements',
+            }, {
+                open: /achievements/.exec(URL.findHashParameter()),
+                detectHash: true,
+                outsideClick: true,
+            });
+            const table = this.component('list', {
+                achievements: achievements
+            });
+            document.querySelector('#achievements.modal main').insertBefore(table.html, document.querySelector('#achievements.modal main footer'));
+            document.querySelector("#achievements.modal header .btn").addEventListener("click", function (e) {
+                Achievement.add(table, achievements);
+            });
+        }
     }
 
     static add (table, achievements) {

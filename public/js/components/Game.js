@@ -6,13 +6,15 @@ import Asset from "./Asset.js";
 
 export class Game extends Class {
     static setModalJS () {
-        modals.games = new ModalJS({
-            id: 'games',
-        }, {
-            open: URL.findHashParameter() === 'games',
-            detectHash: true,
-            outsideClick: true,
-        });
+        if (!modals.hasOwnProperty("games")) {
+            modals.games = new ModalJS({
+                id: 'games',
+            }, {
+                open: URL.findHashParameter() === 'games',
+                detectHash: true,
+                outsideClick: true,
+            });
+        }
     }
 
     static item (game) {

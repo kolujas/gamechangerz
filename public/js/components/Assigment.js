@@ -1,16 +1,23 @@
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
+import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
+import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 
 import Asset from "./Asset.js";
-
-let hash = 'chat';
+import Presentation from "./Presentation.js";
+import Token from "./Token.js";
 
 export class Assigment extends Class {
     constructor (props) {
         super(props);
+        for (const support of document.querySelectorAll("#assigment-form .support")) {
+            support.innerHTML = "";
+            support.classList.add("hidden");
+        }
+
+        document.querySelector("#assigment-form").action = `/api/lessons/chats/${ this.props.id_chat }/assigments/make`;
+
         if (this.props.games) {
             this.createGameOptions(this.props.games);
             this.createAssigmentUpdate();
@@ -23,6 +30,7 @@ export class Assigment extends Class {
     }
 
     createAssigmentView () {
+        const instance = this;
         this.changeAbilities();
         for (const input of document.querySelectorAll('#assigment.modal .form-input')) {
             switch (input.nodeName) {
@@ -52,7 +60,7 @@ export class Assigment extends Class {
                                         videoId = 'error';
                                     }
                                     
-                                    $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
+                                    $('#assigment-video').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
                                     break;
                             }
                             input.disabled = true;
@@ -92,6 +100,53 @@ export class Assigment extends Class {
             }
         }
         document.querySelector('#assigment.modal .form-submit').classList.add('hidden');
+        let link;
+        if (document.querySelector('#assigment.modal .form-submit + a')) {
+            link = document.querySelector('#assigment.modal .form-submit + a');
+            link.parentNode.removeChild(link);
+        }
+        let classes = ["btn", "btn-background", "btn-one", "flex", "justify-center", "w-full", "rounded", "p-1", "md:h-12", "md:items-center", "mt-12", "russo"];
+        let innerHTML = "Entregar";
+        if (this.props.id_role === 1) {
+            if (this.hasProp('presentation') && this.props.presentation) {
+                innerHTML = "Revisar entrega";
+            }
+            if (!this.hasProp('presentation') || !this.props.presentation) {
+                classes.push('hidden');
+            }
+        }
+        if (this.props.id_role === 0) {
+            if (this.hasProp('presentation') && this.props.presentation) {
+                innerHTML = "Revisar entrega";
+            }
+        }
+        link = new Html("a", {
+            props: {
+                url: `#`,
+                classes: classes
+            }, innerHTML: [
+                ["span", {
+                    props: {
+                        classes: ["py-2", "px-4"]
+                    }, innerHTML: innerHTML
+                }]
+            ], callback: {
+                function: instance.createPresentation,
+                params: {
+                    instance: this,
+                }
+            }, state: {
+                preventDefault: true,
+            }
+        });
+        document.querySelector('#assigment.modal .form-submit').parentNode.appendChild(link.html);
+    }
+
+    createPresentation (params) {
+        modals.assigment.close();
+        new Presentation({
+            ...params.instance.props
+        });
     }
 
     createAssigmentUpdate () {
@@ -112,7 +167,7 @@ export class Assigment extends Class {
                                     break;
                                 case 'URL':
                                     input.value = '';
-                                    $('#myVideo').html('');
+                                    $('#assigment-video').html('');
                                     break;
                             }
                             input.disabled = false;
@@ -147,6 +202,10 @@ export class Assigment extends Class {
             }
         }
         document.querySelector('#assigment.modal .form-submit').classList.remove('hidden');
+        if (document.querySelector('#assigment.modal .form-submit + a')) {
+            let link = document.querySelector('#assigment.modal .form-submit + a');
+            link.parentNode.removeChild(link);
+        }
     }
 
     createGameOptions (games = [this.props.game]) {
@@ -185,7 +244,7 @@ export class Assigment extends Class {
             let label = document.createElement('label');
             parent.appendChild(label);
                 let input = document.createElement('input');
-                input.classList.add("hidden", "abilitie", "form-input");
+                input.classList.add("hidden", "abilitie", "assigment-form", "form-input");
                 input.name = `abilities[${ ability.id_ability }]`;
                 input.value = ability.id_ability;
                 input.type = "checkbox";
@@ -206,31 +265,33 @@ export class Assigment extends Class {
                         figure.appendChild(image);
         }
     }
-    
-    static getChatHash (params) {
-        if (/chat/.exec(URL.findHashParameter())) {
-            hash = URL.findHashParameter();
-        }
-        new Assigment({
-            ...params.assigment
-        });
-    }
-    
-    static setChatHash (params) {
-        window.history.pushState({}, document.title, `#${ hash }`);
-    }
 
-    static setModalJS (callback) {
-        modals.assigment = new ModalJS({
-            id: 'assigment',
-        }, {
-            outsideClick: true,
-            open: /^assigment-/.exec(URL.findHashParameter()),
-        }, {
-            open: { function: Assigment.getChatHash },
-            close: { function: Assigment.setChatHash }
-        });
-        this.setURLEvent();
+    static setModalJS () {
+        if (!modals.hasOwnProperty("assigment")) {
+            modals.assigment = new ModalJS({
+                id: 'assigment',
+            }, {
+                outsideClick: true,
+            }, {
+                open: { function: Assigment.open },
+                close: { function: Assigment.close }
+            });
+            this.setURLEvent();
+        }
+    }
+    
+    static close (params) {
+        window.history.pushState({}, document.title, `#chat`);
+    }
+    
+    static open (params) {
+        if (params.hasOwnProperty("id_chat")) {
+            new Assigment({
+                id_chat: params.id_chat,
+                ...params.assigment,
+                id_role: params.id_role,
+            });
+        }
     }
 
     static setURLEvent () {
@@ -244,7 +305,7 @@ export class Assigment extends Class {
                 videoId = 'error';
             }
             
-            $('#myVideo').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
+            $('#assigment-video').html('<iframe src="//www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>');
         });
     }
 
@@ -258,7 +319,7 @@ export class Assigment extends Class {
                 }, {
                     submit: false,
                 }, {
-                    submit: {
+                    valid: {
                         function: callback.function,
                         params: callback.params
                 }});
@@ -268,20 +329,24 @@ export class Assigment extends Class {
         }
     }
 
-    static async submitForm (id_chat, BearerToken) {
-        if (!validation.assigment.ValidationJS.form.html.classList.contains('invalid')) {
+    static async submit () {
+        const token = Token.get();
+
+        if (!validation.assigment.ValidationJS.html.classList.contains('invalid')) {
             let formData = new FormData(document.querySelector(`#assigment.modal #assigment-form`));
-            let token = formData.get('_token');
+            let _token = formData.get('_token');
             formData.delete('_token');
+
             let query = await Fetch.send({
                 method: 'POST',
-                url: `/api/lessons/chats/${ id_chat }/assigments/make`,
+                url: document.querySelector("#assigment-form").action,
             }, {
                 'Accept': 'application/json',
                 'Content-type': 'application/json; charset=UTF-8',
-                'X-CSRF-TOKEN': token,
-                'Authorization': "Bearer " + BearerToken,
+                'X-CSRF-TOKEN': _token,
+                'Authorization': "Bearer " + token.data,
             }, formData);
+
             return query.response;
         }
     }

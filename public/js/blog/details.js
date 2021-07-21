@@ -13,7 +13,7 @@ new InputFileMakerJS({
     name: 'image',
     accept: ['image/jpeg', 'image/png'],
     classes: {
-        input: ['form-input'],
+        input: ['post', 'form-input'],
         message: ['russo'],
     },
 }, {

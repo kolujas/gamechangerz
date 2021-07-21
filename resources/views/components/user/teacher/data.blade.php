@@ -2,7 +2,7 @@
     <section class="grid relative">
         <section class="flex px-8 pr-0 xl:px-0 mb-2">
             <h2 class="username color-white russo">
-                <input class="update-input form-input" placeholder="Apodo" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
+                <input class="update-input update-form form-input" placeholder="Apodo" type="text" name="username" disabled value="{{ old('username', $user->username) }}">
                 <span class="russo">{{ old('username', $user->username) }}</span>
             </h2>
             <div class="languages flex items-center">
@@ -21,13 +21,13 @@
         
         <section class="flex mb-8 px-8 pr-0 xl:px-0">
             <h4 class="name color-four russo">
-                (<input class="update-input form-input" type="text" name="name" placeholder="Nombre" disabled value="{{ old('name', $user->name) }}">)
+                (<input class="update-input update-form form-input" type="text" name="name" placeholder="Nombre" disabled value="{{ old('name', $user->name) }}">)
                 <span>{{ old('username', $user->username) }}</span>
             </h4>
             <div class="teampro flex items-center color-white text-sm ml-4">
                 <span class="mr-2 overpass">Team</span> 
                 <div class="color-four mr-2 overpass">
-                    <input name="teampro_name" disabled placeholder="Nombre" class="form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
+                    <input name="teampro_name" disabled placeholder="Nombre" class="update-form form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
                     <span>{{ old('teampro_name', $user->teampro->name) }}</span>
                 </div>
                 <figure></figure>

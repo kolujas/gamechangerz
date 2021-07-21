@@ -9,24 +9,24 @@
             <h2 class="color-four text-center russo xl:text-lg">Iniciar sesión</h2>
         </header>
         <label class="input-group grid mb-6">
-            <input class="form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email" value={{ old('login_data', '') }}>
+            <input class="login form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email" value={{ old('login_data', '') }}>
             @if ($errors->has('login_data'))
-                <span class="error support support-box hidden support-login_data overpass">{{ $errors->first('login_data') }}</span>
+                <span class="error support login support-box hidden support-login_data overpass mt-2">{{ $errors->first('login_data') }}</span>
             @else
-                <span class="error support support-box hidden support-login_data overpass"></span>
+                <span class="error support login support-box hidden support-login_data overpass mt-2"></span>
             @endif
         </label>
         <label class="input-group grid mb-8">
             <div class="flex justify-between">
-                <input class="form-input px-5 py-4 overpass" type="password" tabindex="2" name="login_password" id="login_password" placeholder="Contraseña">
+                <input class="login form-input px-5 py-4 overpass" type="password" tabindex="2" name="login_password" id="login_password" placeholder="Contraseña">
                 <button class="seePassword input-login_password">
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
             @if ($errors->has('login_password'))
-                <span class="error support support-box hidden support-login_password mt-2 overpass">{{ $errors->first('login_password') }}</span>
+                <span class="error support login support-box hidden support-login_password mt-2 overpass">{{ $errors->first('login_password') }}</span>
             @else
-                <span class="error support support-box hidden support-login_password mt-2 overpass"></span>
+                <span class="error support login support-box hidden support-login_password mt-2 overpass"></span>
             @endif
         </label>
         <div class="submit-group">

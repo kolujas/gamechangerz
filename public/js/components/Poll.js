@@ -58,13 +58,15 @@ export class Poll extends Class{
     }
     
     setModalJS () {
-        modals.poll = new ModalJS({
-            id: "poll",
-        },{
-            detectHash: true,
-            open: true,
-            outsideClick: true
-        });
+        if (!modals.hasOwnProperty("poll")) {
+            modals.poll = new ModalJS({
+                id: "poll",
+            },{
+                detectHash: true,
+                open: true,
+                outsideClick: true
+            });
+        }
     }
 }
 

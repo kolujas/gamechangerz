@@ -30,45 +30,13 @@
                     }
                     if ($user->id_role === 0) {
                         $game->and(['abilities']);
-                    }
-                    if ($game) {
-                        if ($user->id_role === 0) {
-                            foreach ($game->abilities as $ability) {
-                                $stars = 0;
-                                $quantity = 0;
-
-                                foreach ($reviews as $review) {
-                                    $review->and(['abilities']);
-
-                                    foreach ($review->abilities as $reviewAbility) {
-                                        if ($reviewAbility->id_ability === $ability->id_ability) {
-                                            $stars += $reviewAbility->stars;
-                                            $quantity++;
-                                        }
-                                    }
-                                }
-                                
-                                $ability->stars = ($stars ? $stars / $quantity : 0);
-                            }
-
-                            $stars = 0;
-                            $quantity = 0;
-                            foreach ($reviews as $review) {
-                                if ($review->id_game === $game->id_game) {
-                                    $stars += $review->stars;
-                                    $quantity++;
-                                }
-                            }
-    
-                            $game->stars = ($stars ? $stars / $quantity : 0);
-    
-                            $games->push($game);
-                        }
+                        $games->push($game);
                     }
                 }
             }
 
             $games = Game::stringify($games->toArray());
+            $games = Game::requilify($user->id_user, $games);
 
             $user->update([
                 "games" => $games,

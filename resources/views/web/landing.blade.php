@@ -13,7 +13,7 @@
 @endsection
 
 @section('main')
-    <main class="main hive">
+    <main class="main hive landing">
         @if ($game->active)
             <section class="slider-container">
                 <main class="swiper-container">

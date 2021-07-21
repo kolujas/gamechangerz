@@ -7,6 +7,7 @@
     use App\Models\Hour;
     use App\Models\Lesson;
     use App\Models\MercadoPago;
+    use App\Models\Presentation;
     use App\Models\User;
     use Auth;
     use Carbon\Carbon;
@@ -155,6 +156,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }

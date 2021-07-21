@@ -4,9 +4,8 @@ import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/F
 import { InputDateMaker as InputDateMakerJS } from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
 import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
-import { Validation as ValidationJS } from "../../submodules/ValidationJS/js/Validation.js";
+import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
-import Asset from "../components/Asset.js";
 import Token from "../components/Token.js";
 
 let calendar = false, hours = [], lessons = [], paypalActions;
@@ -15,7 +14,7 @@ const token = Token.get();
 paypal_sdk.Buttons({
     onInit: function(data, actions) {
         if (parseInt(type.id_type) !== 2 ) {
-
+            // TODO: WTF?
         }
         actions.disable();
         paypalActions = actions;
@@ -797,7 +796,7 @@ function createHours(quantity) {
         input.type = 'checkbox';
         input.name = `hours[]`;
         input.value = null;
-        input.classList.add('form-input');
+        input.classList.add('checkout', 'form-input');
         document.querySelector('div.hours').appendChild(input);
         hours.push(input);
     }
@@ -835,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
             lang: 'es',
             availableWeekDays: enableDays,
             name: 'dates[]',
-            classes: ['form-input'],
+            classes: ['checkout', 'form-input'],
             quantity: (type.id_type === 1 ? 1 : 4),
         }, {
             enablePastDates: false,
@@ -864,8 +863,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }, {
         submit: false
     }, {
-        submit: {
+        valid: {
             function: submit,
-        }
-    });
+    }});
 });
