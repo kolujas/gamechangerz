@@ -45,3 +45,15 @@
     background: var(--color-black);
     border-radius: .25rem;
 }
+
+#teacher .msg-modal input{
+    width: 17em;
+}
+
+#teacher .teampro-photo{
+    margin-top: 86%;
+}
+
+#teacher .profile-photo span, #teacher .teampro-photo span{
+    padding: .25rem 0;
+}

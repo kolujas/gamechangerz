@@ -24,7 +24,30 @@
             </div>
         </header>
         <main class="my-2 py-2 flex flex-wrap justify-center rounded">
-            
+            <table class="min-w-full grid">
+                <thead class="grid">
+                    <tr class="grid grid-cols-8">
+                        <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Nombre</th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Tipo</th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Limite</th>
+                        <th class="flex items-center px-6 py-3"></th>
+                    </tr>
+                </thead>
+                <tbody class="grid">
+                    {{-- @foreach ($users as $user) --}}
+                        <tr data-href="/panel/coupons/slug" class="grid grid-cols-8">
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap">
+                                <span class="text-sm overpass">1</spans>
+                            </td>
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">Roberto De Niro</td>
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">$ 40</td>
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">4 / 10</td>
+                            <td class="flex items-center px-6 py-4"></td>
+                        </tr>
+                    {{-- @endforeach --}}
+                </tbody>
+            </table>
         </main>
     </li>
 @endsection
