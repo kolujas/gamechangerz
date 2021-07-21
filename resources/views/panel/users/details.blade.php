@@ -53,9 +53,9 @@
                     />
                 </div>
 
-                <div class="pt-0 col-span-2 row-span-2 TODO"></div>
+                <div class="pt-0 col-span-2 row-span-2 user-photo"></div>
 
-                <div class="pt-0 col-span-2 row-span-2 TODO"></div>
+                <div class="pt-0 col-span-2 row-span-2 user-banner"></div>
 
                 <div class="pt-0 col-span-2 col-start-1">
                     <input type="text" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable"
@@ -119,5 +119,8 @@
 @endsection
 
 @section('js')
+    <script>
+        const user = @json($user);
+    </script>
     <script type="module" src={{ asset('js/panel/user/details.js') }}></script>
 @endsection

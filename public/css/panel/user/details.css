@@ -49,3 +49,20 @@
 #user .msg-modal input{
     width: 17em;
 }
+
+
+#user .msg-modal input{
+    width: 17em;
+}
+
+#user .user-banner{
+    margin-top: 10%;
+}
+
+#user .user-photo span, #user .user-banner span{
+    padding: .25rem 0;
+}
+
+#user .user-msg{
+    padding: .25 0;
+}

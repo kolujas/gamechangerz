@@ -273,7 +273,7 @@
             }
 
             $user = User::findBySlug($slug);
-            $user->and(['games', 'reviews', 'achievements']);
+            $user->and(['games', 'reviews', 'achievements','files']);
 
             $games = Game::all();
             foreach ($games as $game) {
