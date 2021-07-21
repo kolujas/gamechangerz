@@ -16,7 +16,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_message', 'id_user', 'says', 'id_assigment',
+            'id_message', 'id_user', 'says', 'id_assigment'
         ];
 
         /**
@@ -45,7 +45,7 @@
          */
         public function assigment () {
             $this->assigment = Assigment::find($this->id_assigment);
-            $this->assigment->and(['abilities', 'game']);
+            $this->assigment->and(['abilities', 'game', 'presentation']);
             $this->assigment->game->and(['abilities']);
         }
 

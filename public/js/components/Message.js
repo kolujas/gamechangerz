@@ -13,22 +13,29 @@ export class Message extends Class {
                     paragraph.innerHTML = data.says;
                     div.appendChild(paragraph);
         } else {
-            item.classList.add("assigment");
-                let div = document.createElement('div');
-                item.appendChild(div);
-                    let link = document.createElement('a');
-                    link.href = `#chat-${ data.slug }-assigment-${ data.assigment.slug }`;
-                    link.classList.add("flex", "justify-end", "flex-wrap", "p-4", "mb-4", "overpass");
-                    link.addEventListener('click', function (e) {
-                        modals.assigment.open({
-                            assigment: data.assigment 
+            if (data.hasOwnProperty('assigment')) {
+                item.classList.add("assigment");
+                    let div = document.createElement('div');
+                    item.appendChild(div);
+                        let link = document.createElement('a');
+                        link.href = `#chat-${ data.slug }-assigment-${ data.assigment.slug }`;
+                        link.classList.add("flex", "justify-end", "flex-wrap", "p-4", "mb-4", "overpass");
+                        if (data.assigment.hasOwnProperty('presentation') && data.assigment.presentation) {
+                            link.classList.add("complete");
+                        }
+                        link.addEventListener('click', function (e) {
+                            modals.assigment.open({
+                                id_chat: data.id_chat,
+                                assigment: data.assigment,
+                                id_role: data.id_role
+                            });
                         });
-                    });
-                    div.appendChild(link);
-                        let title = document.createElement('span');
-                        title.classList.add("w-full", "text-center", "overpass");
-                        title.innerHTML = data.assigment.title;
-                        link.appendChild(title);
+                        div.appendChild(link);
+                            let title = document.createElement('span');
+                            title.classList.add("w-full", "text-center", "overpass");
+                            title.innerHTML = data.assigment.title;
+                            link.appendChild(title);
+            }
         }
         return item;
     }

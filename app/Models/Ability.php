@@ -2,6 +2,7 @@
     namespace App\Models;
 
     use App\Models\Game;
+    use App\Models\User;
     use Illuminate\Database\Eloquent\Model;
 
     class Ability extends Model {
@@ -154,6 +155,46 @@
                 ]);
             }
 
+            return $collection->toJson();
+        }
+
+        /**
+         * * Requilify the Abilities by the User Reviews.
+         * @param int $id_user
+         * @param array [$abilities] Example: [["id_ability"=>1]]
+         * @return JSON
+         */
+        static public function requilify (int $id_user, array $abilities = []) {
+            $user = User::find($id_user);
+            $user->and(['reviews']);
+
+            $collection = collect();
+            
+            foreach ($abilities as $data) {
+                $ability = Ability::find($data->id_ability);
+                
+                $stars = 0;
+                $quantity = 0;
+
+                foreach ($user->reviews as $review) {
+                    foreach ($review->abilities as $reviewAbility) {
+                        if ($ability->id_ability !== $reviewAbility->id_ability) {
+                            continue;
+                        }
+
+                        $stars += $reviewAbility->stars;
+                        $quantity++;
+                    }
+                }
+
+                $ability->stars = ($stars ? $stars / $quantity : 0);
+
+                $collection->push([
+                    "id_ability" => $ability->id_ability,
+                    "stars" => $ability->stars,
+                ]);
+            }
+            
             return $collection->toJson();
         }
 

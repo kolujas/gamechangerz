@@ -49,14 +49,14 @@
                         </section>
                         <section class="xl:col-span-3 mx-4 lg:mx-0 grid gap-4 mb-4">
                             @if ($errors->has('dates'))
-                                <span class="color-white error support support-box hidden support-dates overpass">{{ $errors->first('dates') }}</span>
+                                <span class="color-white error support checkout support-box hidden support-dates overpass">{{ $errors->first('dates') }}</span>
                             @else
-                                <span class="color-white error support support-box hidden support-dates overpass"></span>
+                                <span class="color-white error support checkout support-box hidden support-dates overpass"></span>
                             @endif
                             @if ($errors->has('hours'))
-                                <span class="color-white error support support-box hidden support-hours overpass">{{ $errors->first('hours') }}</span>
+                                <span class="color-white error support checkout support-box hidden support-hours overpass">{{ $errors->first('hours') }}</span>
                             @else
-                                <span class="color-white error support support-box hidden support-hours overpass"></span>
+                                <span class="color-white error support checkout support-box hidden support-hours overpass"></span>
                             @endif
                         </section>
                     </main>

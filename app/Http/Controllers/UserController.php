@@ -11,7 +11,9 @@
     use App\Models\Lesson;
     use App\Models\MercadoPago;
     use App\Models\Post;
+    use App\Models\Presentation;
     use App\Models\Price;
+    use App\Models\Review;
     use App\Models\Teampro;
     use App\Models\User;
     use Auth;
@@ -38,7 +40,7 @@
                 $error = (object) $request->session()->pull('error');
             }
 
-            $lesson = [];
+            $lessons = [];
             if ($request->session()->has('lessons')) {
                 $lessons = (object) $request->session()->pull('lessons');
                 foreach ($lessons as $lesson) {
@@ -132,9 +134,15 @@
                 ], 'languages' => (object)[
                         'rules' => Language::$validation['user']['rules'],
                         'messages' => Language::$validation['user']['messages']['es'],
+                ], 'review' => (object)[
+                        'rules' => Review::$validation['create']['rules'],
+                        'messages' => Review::$validation['create']['messages']['es'],
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ], 'update' => (object)[
                         'rules' => User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'],
                         'messages' => User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es'],
@@ -168,6 +176,9 @@
                 ], 'assigment' => (object)[
                     'rules' => Assigment::$validation['make']['rules'],
                     'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -229,6 +240,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ], 'checkout' => (object)[
                         'rules' => Lesson::$validation['checkout'][$type->slug]['rules'],
                         'messages' => Lesson::$validation['checkout'][$type->slug]['messages']['es'],

@@ -1,8 +1,8 @@
-#assigment.modal {
+#presentation.modal {
     z-index: 11;
 }
 
-#assigment.modal :where(.form-input, input[name=url]) {
+#presentation.modal :where(.form-input, input[name=url]) {
     background-color: var(--color-one);
     padding-left: 1rem;
     color: #fff;
@@ -11,83 +11,83 @@
     border-radius: .25rem;
 }
 
-#assigment.modal :where(:not(textarea).form-input, input[name=url]):disabled {
+#presentation.modal :where(:not(textarea).form-input, input[name=url]):disabled {
     background: var(--color-black);
     padding: 0;
     color: var(--color-white);
     appearance: none;
 }
 
-#assigment.modal [name='title'].form-input:disabled {
+#presentation.modal [name='title'].form-input:disabled {
     color: var(--color-four);
 }
 
-#assigment.modal input[name=url]{
+#presentation.modal input[name=url]{
     font-size: var(--font-one);
 }
 
-#assigment.modal input[name=url]:disabled {
+#presentation.modal input[name=url]:disabled {
     display: none;
 }
 
-#assigment.modal :where(textarea, input)::placeholder {
+#presentation.modal :where(textarea, input)::placeholder {
     color: var(--color-grey) !important;
 }
 
-#assigment.modal textarea{
+#presentation.modal textarea{
     resize: none;
     font-size: var(--font-one);
 }
 
-#assigment.modal #assigment-video{
+#presentation.modal #presentation-video{
     display: flex;
     justify-content: center;
     background-color: var(--color-one);
     border-radius: .25rem;
 }
 
-#assigment.modal #assigment-video iframe{
+#presentation.modal #presentation-video iframe{
     width: 100%;
     height: 20rem;
     border-radius: .25rem;
 }
 
-#assigment.modal h3{
+#presentation.modal h3{
     font-size: 1.1rem;
 }
 
-#assigment.modal h3 span{
+#presentation.modal h3 span{
     padding-right: 0.5rem;
 }
 
-#assigment.modal form .abilities label input:not(:disabled) div {
+#presentation.modal form .abilities label input:not(:disabled) div {
     cursor: pointer;
 }
 
-#assigment.modal form .abilities label > div {
+#presentation.modal form .abilities label > div {
     border: 1px solid var(--color-white);
     opacity: .2;
     border-radius: .25rem;
 }
 
-#assigment.modal form .abilities label input[type=checkbox]:checked + div{
+#presentation.modal form .abilities label input[type=checkbox]:checked + div{
     opacity: 1;
 }
 
-#assigment.modal form .abilities label input[type=checkbox]:disabled:not(:checked) + div{
+#presentation.modal form .abilities label input[type=checkbox]:disabled:not(:checked) + div{
     display: none;
 }
 
-#assigment.modal form .abilities label > div svg {
+#presentation.modal form .abilities label > div svg {
     height: 18px;
 }
 
-#assigment.modal .form-submit span{
+#presentation.modal .form-submit span{
     border-radius: .3rem;
     font-family: var(--font-one) !important;
 }
 
-#assigment.modal select{
+#presentation.modal select{
     background-color: var(--color-one);
     color: var(--color-grey);
     box-shadow: none;
@@ -95,12 +95,12 @@
     border-radius: .25rem;
 }
 
-#assigment .abilities label{
+#presentation .abilities label{
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
 
-#assigment .btn.btn-one span {
+#presentation .btn.btn-one span {
     background-color: transparent;
 }
 

@@ -18,8 +18,14 @@
             if (Auth::check()) {
                 $lessons = collect();
                 foreach (Lesson::allStartedFromUser(Auth::user()->id_user) as $lesson) {
-                    if ($lesson->status !== 3) {
-                        continue;
+                    $lesson->and(['reviews']);
+
+                    if (count($lesson->reviews)) {
+                        foreach ($lesson->reviews as $review) {
+                            if ($review->id_user_from === Auth::user()->id_user) {
+                                continue 2;
+                            }
+                        }
                     }
 
                     $lesson->and(['ended_at']);

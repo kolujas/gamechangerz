@@ -29,11 +29,9 @@
     
     <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4 lg:mb-20">
         <section class="lg:col-span-2 xl:col-span-6 lg:pr-0 xl:px-0">
-            {{-- @if (isset($user->files['profile'])) --}}
-                <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mb-0 relative">
-                    <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
-                </figure>
-            {{-- @endif --}}
+            <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mb-0 relative">
+                <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
+            </figure>
             @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)
                 <section class="achievements relative">
                     @component('components.achievement.list', [
@@ -83,7 +81,7 @@
                     </h3>
                 </header>
                 <div class="p-8 rounded">
-                    <textarea class="form-input update-input overpass" name="description" placeholder="Descripción" disabled>{{ old('description', $user->description) }}</textarea>
+                    <textarea class="update-form form-input update-input overpass" name="description" placeholder="Descripción" disabled>{{ old('description', $user->description) }}</textarea>
                 </div>
             </section>
         @endif

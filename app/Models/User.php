@@ -137,11 +137,11 @@
 
                 foreach ($this->reviews as $review) {
                     foreach ($review->abilities as $reviewAbility) {
-                        if ($ability->id_ability === $reviewAbility->id_ability) {
-                            $stars += $reviewAbility->stars;
-                            $quantity++;
-                            continue 2;
+                        if ($ability->id_ability !== $reviewAbility->id_ability) {
+                            continue;
                         }
+                        $stars += $reviewAbility->stars;
+                        $quantity++;
                     }
                 }
 
@@ -484,6 +484,47 @@
             ])->get();
 
             return $users;
+        }
+
+        /**
+         * * Requilify the User by the Reviews or the Games.
+         * @param int $id_user
+         */
+        static public function requilify (int $id_user) {
+            $user = User::find($id_user);
+
+            if ($user->id_role === 1) {
+                $reviews = Review::allToUser($id_user);
+
+                $stars = 0;
+                $quantity = 0;
+                foreach ($reviews as $review) {
+                    $stars += floatval($review->stars);
+                    $quantity++;
+                }
+
+                $user->update([
+                    "stars" => ($stars ? $stars / $quantity : 0),
+                ]);
+            }
+            if ($user->id_role === 0) {
+                $games = Game::requilify($user->id_user, $user->games);
+
+                $user->update([
+                    "games" => $games,
+                ]);
+
+                $stars = 0;
+                $quantity = 0;
+                foreach (json_decode($games) as $game) {
+                    $stars += floatval($game->stars);
+                    $quantity++;
+                }
+
+                $user->update([
+                    "stars" => ($stars ? $stars / $quantity : 0),
+                ]);
+            }
         }
         
         /** @var array Validation rules & messages. */

@@ -7,6 +7,7 @@
     use App\Models\Game;
     use App\Models\Google;
     use App\Models\Post;
+    use App\Models\Presentation;
     use App\Models\User;
     use Illuminate\Http\Request;
 
@@ -39,6 +40,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -92,6 +96,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -124,6 +131,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -150,6 +160,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }
@@ -176,6 +189,9 @@
                 ], 'assigment' => (object)[
                         'rules' => Assigment::$validation['make']['rules'],
                         'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
                 ]],
             ]);
         }

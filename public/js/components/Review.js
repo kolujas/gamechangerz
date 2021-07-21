@@ -1,6 +1,7 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
+import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import User from "./User.js";
 import Asset from "./Asset.js";
@@ -9,6 +10,7 @@ export class Review extends Class {
     constructor (props, state) {
         super(props, state);
         this.setModalJS();
+        this.setValidationJS();
         this.htmls = {
             list: modals.review.html.children[0].children[0],
             details: modals.review.html.children[0].children[1],
@@ -34,12 +36,14 @@ export class Review extends Class {
     }
 
     setModalJS () {
-        modals.review = new ModalJS({
-            id: 'reviews',
-        }, {
-            outsideClick: true,
-            open: true,
-        });
+        if (!modals.hasOwnProperty("review")) {
+            modals.review = new ModalJS({
+                id: 'reviews',
+            }, {
+                outsideClick: true,
+                open: true,
+            });
+        }
     }
 
     close () {
@@ -68,8 +72,11 @@ export class Review extends Class {
         this.htmls.details.children[2].children[0].children[1].appendChild(User.component("profile", {
             props: {
                 ...user,
+                url: `/users/${ user.slug }/profile`,
             }
         }).html);
+
+        this.htmls.details.action = `/lessons/${ lesson.id_lesson }/review/create`;
 
         this.setAbilities(abilities);
     }
@@ -87,7 +94,7 @@ export class Review extends Class {
                         ["input", {
                             props: {
                                 id: `ability-${ ability.id_ability }-star-${ i }-input`,
-                                name: 'stars[]',
+                                name: `stars[${ ability.slug }][]`,
                                 type: 'checkbox',
                                 defaultValue: i,
                                 classes: ["hidden"],
@@ -163,6 +170,20 @@ export class Review extends Class {
             if (stars >= parseInt(input.value)) {
                 input.checked = true;
             }
+        }
+    }
+
+    setValidationJS () {
+        if (validation.hasOwnProperty('review')) {
+            if (!validation.review.hasOwnProperty('ValidationJS')) {
+                validation.review.ValidationJS = new ValidationJS({
+                    id: 'review-form',
+                    rules: validation.review.rules,
+                    messages: validation.review.messages,
+                });
+            }
+        } else {
+            console.error(`validation.review does not exist`);
         }
     }
 

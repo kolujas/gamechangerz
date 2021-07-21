@@ -1,5 +1,6 @@
 <?php
     use App\Http\Controllers\API\AssigmentController;
+    use App\Http\Controllers\API\PresentationController;
     use App\Http\Controllers\API\AuthController;
     use App\Http\Controllers\API\ChatController;
     use App\Http\Controllers\API\FriendController;
@@ -17,6 +18,10 @@
             });
             Route::middleware(['api.chat.exist', 'api.chat.is.available'])->group(function () {
                 Route::post('/lessons/chats/{id_chat}/assigments/make', [AssigmentController::class, 'make'])->name('api.assigment.set');
+
+                Route::middleware('api.assigment.exist')->group(function () {
+                    Route::post('/lessons/chats/{id_chat}/assigments/{id_assigment}/complete', [PresentationController::class, 'make'])->name('api.presentation.set');
+                });
             });
         });
 

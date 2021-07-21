@@ -61,7 +61,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][1]">
+                                        @endforeach class="update-form form-input update-input" name="days[{{ $day->id_day }}][1]">
                                         <span class="color-white p-1 overpass">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
@@ -71,7 +71,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][2]">
+                                        @endforeach class="update-form form-input update-input" name="days[{{ $day->id_day }}][2]">
                                         <span class="color-white p-1 overpass">Tarde</span>
                                     </label>
                                 @else
@@ -81,7 +81,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input update-input" name="days[{{ $day->id_day }}][3]">
+                                        @endforeach class="update-form form-input update-input" name="days[{{ $day->id_day }}][3]">
                                         <span class="color-white p-1 overpass">Noche</span>
                                     </label>
                                 @endif
@@ -92,7 +92,7 @@
             </table>
             <div class="flex justify-center">
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
-                    AR$ <input type="number" name="prices[0]" class="form-input update-input p-2" disabled value={{ $user->prices[0]->price }} placeholder="100"/>
+                    AR$ <input type="number" name="prices[0]" class="update-form form-input update-input p-2" disabled value={{ $user->prices[0]->price }} placeholder="100"/>
                     <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
                 </span>
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
@@ -109,7 +109,7 @@
         <li id="offline" class="tab-content closed">
             <div class="flex justify-center">
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
-                    AR$ <input type="number" name="prices[1]" class="form-input update-input p-2" disabled value={{ $user->prices[1]->price }} placeholder="100"/>
+                    AR$ <input type="number" name="prices[1]" class="update-form form-input update-input p-2" disabled value={{ $user->prices[1]->price }} placeholder="100"/>
                     <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
                 </span>
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
@@ -138,7 +138,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input" name="days[{{ $day->id_day }}][1]">
+                                        @endforeach class="update-form form-input" name="days[{{ $day->id_day }}][1]">
                                         <span class="color-white p-1 overpass">Mañana</span>
                                     </label>
                                 @elseif($i === 2)
@@ -148,7 +148,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input" name="days[{{ $day->id_day }}][2]">
+                                        @endforeach class="update-form form-input" name="days[{{ $day->id_day }}][2]">
                                         <span class="color-white p-1 overpass">Tarde</span>
                                     </label>
                                 @else
@@ -158,7 +158,7 @@
                                             @if ($hour->active && $hour->time === $i)
                                                 checked
                                             @endif
-                                        @endforeach class="form-input" name="days[{{ $day->id_day }}][3]">
+                                        @endforeach class="update-form form-input" name="days[{{ $day->id_day }}][3]">
                                         <span class="color-white p-1 overpass">Noche</span>
                                     </label>
                                 @endif
@@ -169,7 +169,7 @@
             </table>
             <div class="flex justify-center">
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
-                    AR$ <input type="number" name="prices[2]" class="form-input update-input p-2" disabled value={{ $user->prices[2]->price }} placeholder="100"/>
+                    AR$ <input type="number" name="prices[2]" class="update-form form-input update-input p-2" disabled value={{ $user->prices[2]->price }} placeholder="100"/>
                     <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
                 </span>
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">

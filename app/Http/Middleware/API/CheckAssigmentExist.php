@@ -14,12 +14,13 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $slug = $request->route()->parameter('slug');
-            
-            if (!Assigment::findBySlug($slug)) {
+            $field = (!is_null($request->route()->parameter('id_assigment')) ? 'id_assigment' : 'slug');
+            $value = (!is_null($request->route()->parameter('id_assigment')) ? $request->route()->parameter('id_assigment') : $request->route()->parameter('slug'));
+
+            if (!Assigment::where($field, '=', $value)->first()) {
                 return response()->json([
                     'code' => 404,
-                    'message' => "Assigment \"$slug\" does not exist",
+                    'message' => "Assigment \"$value\" does not exist",
                 ]);
             }
 

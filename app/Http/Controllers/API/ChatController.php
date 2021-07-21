@@ -29,8 +29,8 @@
             $lessons = collect();
             foreach (Lesson::allReadyFromUser($request->user()->id_user) as $lesson) {
                 // TODO: Remove
-                if ($lesson->id_lesson === 6) {
-                    $date = Carbon::now()->format("Y-m-d");
+                $date = Carbon::now()->format("Y-m-d");
+                if ($lesson->id_lesson === 3 || $lesson->id_lesson === 6 || $lesson->id_lesson === 9) {
                     $lesson->update([
                         "days" => json_encode([
                             ["date" => $date]
@@ -44,14 +44,18 @@
             }
 
             foreach ($lessons as $lesson) {
+                $lesson->and(['ended_at', 'started_at']);
                 if ($lesson->status === 3 && $lesson->id_type === 2) {
-                    if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
-                        Chat::create([
-                            'id_chat' => null,
-                            'id_user_from' => $lesson->id_user_from,
-                            'id_user_to' => $lesson->id_user_to,
-                            'messages' => "[]",
-                        ]);
+                    $now = Carbon::now();
+                    if ($now > $lesson->started_at && $now < $lesson->ended_at) {
+                        if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
+                            Chat::create([
+                                'id_chat' => null,
+                                'id_user_from' => $lesson->id_user_from,
+                                'id_user_to' => $lesson->id_user_to,
+                                'messages' => "[]",
+                            ]);
+                        }
                     }
                 }
             }
@@ -106,6 +110,7 @@
 
                 foreach ($chat->messages as $message) {
                     $message->id_user_logged = $request->user()->id_user;
+                    $message->id_role = $request->user()->id_role;
                 }
             }
 
@@ -181,6 +186,7 @@
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
+                $message->id_role = $request->user()->id_role;
             }
 
             return response()->json([
@@ -248,6 +254,7 @@
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
+                $message->id_role = $request->user()->id_role;
             }
 
             return response()->json([

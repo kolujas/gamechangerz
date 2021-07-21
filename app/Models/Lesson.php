@@ -4,6 +4,7 @@
     use App\Models\Ability;
     use App\Models\Day;
     use App\Models\Folder;
+    use App\Models\Review;
     use Carbon\Carbon;
     use Illuminate\Database\Eloquent\Model;
     use Spatie\GoogleCalendar\Event;
@@ -43,11 +44,17 @@
                         case 'assigments':
                             $this->assigments();
                             break;
+                        case 'chat':
+                            $this->chat();
+                            break;
                         case 'days':
                             $this->days();
                             break;
                         case 'ended_at':
                             $this->ended_at();
+                            break;
+                        case 'reviews':
+                            $this->reviews();
                             break;
                         case 'started_at':
                             $this->started_at();
@@ -105,6 +112,13 @@
         }
 
         /**
+         * * Set the Lesson Chat.
+         */
+        public function chat () {
+            $this->chat = Chat::findByUsers($this->id_user_from, $this->id_user_to);
+        }
+
+        /**
          * * Set the Lesson Hours.
          */
         public function days () {
@@ -146,7 +160,7 @@
          * @return array
          */
         public function reviews () {
-            return $this->hasMany(Review::class, 'id_lesson', 'id_lesson');
+            $this->reviews = Review::allFromLesson($this->id_lesson);
         }
 
         /**
@@ -198,8 +212,8 @@
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
-            $this->users->from->and(['files', 'prices']);
-            $this->users->to->and(['files']);
+            $this->users->from->and(['files', 'prices', 'games', 'abilities']);
+            $this->users->to->and(['files', 'games']);
         }
 
         /**
@@ -323,6 +337,21 @@
             }
 
             dd("Lesson \"$field\" not found");
+        }
+
+        /**
+         * * Change the Lesson status to 4.
+         * @param int $id_lesson
+         */
+        static public function finish (int $id_lesson) {
+            $lesson = Lesson::find($id_lesson);
+            $reviews = Review::allFromLesson($lesson->id_lesson);
+
+            if (count($reviews) === 2) {
+                $lesson->update([
+                    "status" => 4,
+                ]);
+            }
         }
 
         /**

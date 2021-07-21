@@ -8,7 +8,9 @@ import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLSe
 
 import Asset from "./Asset.js";
 import Assigment from "./Assigment.js";
+import Presentation from "./Presentation.js";
 import Message from "./Message.js";
+import Token from "../components/Token.js";
 
 export class Chat extends Class {
     constructor (props, chats = []) {
@@ -80,8 +82,20 @@ export class Chat extends Class {
     setEventListeners () {
         const instance = this;
 
-        document.querySelector(`#chat.modal #list form`).addEventListener('submit', function (e) {
-            e.preventDefault();
+        Assigment.setValidationJS({
+            function: this.send,
+            params: {
+                instance: this,
+                section: "assigment",
+            },
+        });
+
+        Presentation.setValidationJS({
+            function: this.send,
+            params: {
+                instance: this,
+                section: "presentation",
+            },
         });
 
         document.querySelector(`#chat.modal #details header > a`).addEventListener('click', function (e) {
@@ -207,6 +221,7 @@ export class Chat extends Class {
         if (chat.hasOwnProperty('id_chat')) {
             for (const message of chat.messages) {
                 message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users.to.slug : chat.users.from.slug);
+                message.id_chat = chat.id_chat;
             }
             this.sections.details.main.appendChild(Message.component('list', { messages: chat.messages, available: chat.available }));
             this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
@@ -274,11 +289,9 @@ export class Chat extends Class {
             chat = false;
         }
         new Assigment({
+            id_chat: chat.id_chat,
             games: chat.users.from.games,
-        });
-        Assigment.setValidationJS({
-            function: this.sendAssigment,
-            params: { instance: this },
+            id_role: this.props.id_role,
         });
     }
 
@@ -340,11 +353,16 @@ export class Chat extends Class {
             }
             if (chat.users.from.id_role === 0) {
                 let form = document.createElement('form');
-                form.action = "#";
+                form.action = `/api/chats/${ (chat.id_user_logged === chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
+
                 this.sections.details.footer.appendChild(form);
                 form.addEventListener('submit', function (e) {
                     e.preventDefault();
-                    instance.send(chat);
+                    instance.send({
+                        instance: instance,
+                        chat: chat,
+                        section: "chat",
+                    });
                 });
                     let token = document.createElement('input');
                     token.value = document.querySelector('meta[name=csrf-token]').content;
@@ -480,6 +498,11 @@ export class Chat extends Class {
                 }
                 chat.messages = response.messages;
                 for (const message of chat.messages) {
+                    if (document.querySelector(`li#message-${ message.id_message }`)) {
+                        if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
+                            document.querySelector(`li#message-${ message.id_message } a`).classList.add("complete");
+                        }
+                    }
                     if (!document.querySelector(`li#message-${ message.id_message }`)) {
                         params.instance.sections.details.main.children[1].appendChild(Message.component('item', message));
                     }
@@ -512,50 +535,92 @@ export class Chat extends Class {
             if (!document.querySelector(`#message-${ message.id_message }`)) {
                 this.addMessage(message);
             }
+            if (document.querySelector(`#message-${ message.id_message }`)) {
+                if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
+                    document.querySelector(`#message-${ message.id_message } a`).classList.add("complete");
+                }
+            }
         }
 
         this.sections.details.footer.innerHTML = "";
         this.changeFooter(data.chat);
     }
 
-    async send (chat) {
-        if (document.querySelector(`#chat.modal #details form input[name=message]`).value) {
-            this.CountDownJS.details.pause();
-            let formData = new FormData(document.querySelector(`#chat.modal #details form`));
-            let token = formData.get('_token');
-            formData.delete('_token');
-            let query = await Fetch.send({
-                method: 'POST',
-                url: `/api/chats/${ (chat.id_user_logged === chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`,
-            }, {
-                'Accept': 'application/json',
-                'Content-type': 'application/json; charset=UTF-8',
-                'X-CSRF-TOKEN': token,
-                'Authorization': "Bearer " + this.props.token,
-            }, formData);
-            if (query.response.code !== 200) {
-                this.close();
-                this.CountDownJS.details.pause();
-            }
-            if (query.response.code === 200) {
-                this.CountDownJS.details.stop();
-                this.save(query.response.data);
-            }
-            document.querySelector(`#chat.modal #details form`).reset();
+    async send (params) {
+        let response;
+        switch (params.section) {
+            case "chat":
+                params.instance.CountDownJS.details.pause();
+
+                response = await Chat.submit();
+
+                if (response.code !== 200) {
+                    params.instance.close();
+                    params.instance.CountDownJS.details.pause();
+                }
+                if (response.code === 200) {
+                    params.instance.CountDownJS.details.stop();
+                    params.instance.save(response.data);
+                }
+
+                document.querySelector(`#chat.modal #details form`).reset();
+                break;
+            case "assigment":
+                response = await Assigment.submit();
+
+                if (response.code !== 200) {
+                    params.instance.close();
+                    params.instance.CountDownJS.details.pause();
+                }
+                if (response.code === 200) {
+                    params.instance.CountDownJS.details.stop();
+                    params.instance.save(response.data);
+                }
+
+                modals.assigment.close();
+
+                document.querySelector(`#assigment-form`).reset();
+                break;
+            case "presentation":
+                response = await Presentation.submit();
+
+                if (response.code !== 200) {
+                    params.instance.close();
+                    params.instance.CountDownJS.details.pause();
+                }
+                if (response.code === 200) {
+                    params.instance.CountDownJS.details.stop();
+                    params.instance.save(response.data);
+                }
+
+                modals.presentation.close();
+
+                document.querySelector(`#presentation-form`).reset();
+                break;
         }
     }
 
-    async sendAssigment (params) {
-        let response = await Assigment.submitForm(params.instance.opened, params.instance.props.token);
-        if (response.code !== 200) {
-            params.instance.close();
-            params.instance.CountDownJS.details.pause();
+    static async submit () {
+        const token = Token.get();
+
+        if (document.querySelector(`#chat.modal #details form input[name=message]`).value) {
+            let formData = new FormData(document.querySelector(`#chat.modal #details form`));
+
+            let _token = formData.get('_token');
+            formData.delete('_token');
+
+            let query = await Fetch.send({
+                method: 'POST',
+                url: document.querySelector(`#chat.modal #details form`).action,
+            }, {
+                'Accept': 'application/json',
+                'Content-type': 'application/json; charset=UTF-8',
+                'X-CSRF-TOKEN': _token,
+                'Authorization': "Bearer " + token.data,
+            }, formData);
+
+            return query.response;
         }
-        if (response.code === 200) {
-            params.instance.CountDownJS.details.stop();
-            params.instance.save(response.data);
-        }
-        modals.assigment.close();
     }
 
     static async all (token) {
@@ -584,12 +649,16 @@ export class Chat extends Class {
     }
 
     static setModalJS () {
-        modals.chat = new ModalJS({
-            id: 'chat',
-        }, {
-            detectHash: true,
-            open: /chat-/.exec(URL.findHashParameter()),
-        });
+        if (!modals.hasOwnProperty("chat")) {
+            modals.chat = new ModalJS({
+                id: 'chat',
+            }, {
+                detectHash: true,
+                open: /chat/.exec(URL.findHashParameter()),
+            });
+        }
+        Assigment.setModalJS();
+        Presentation.setModalJS();
     }
 
     static item (data) {

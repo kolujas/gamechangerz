@@ -6,12 +6,12 @@
     use App\Models\Assigment;
     use App\Models\Chat;
     use App\Models\Lesson;
-    use Cviebrock\EloquentSluggable\Services\SlugService;
+    use App\Models\Presentation;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
-    class AssigmentController extends Controller {
-        public function make (Request $request, int $id_chat) {
+    class PresentationController extends Controller {
+        public function make (Request $request, int $id_chat, int $id_assigment) {
             if (!$request->user()) {
                 return response()->json([
                     'code' => 403,
@@ -27,27 +27,17 @@
                 ]);
             }
 
-            $assigments = Assigment::allFromLesson(Lesson::findByUsers($chat->id_user_from, $chat->id_user_to)->id_lesson);
-            if (count($assigments) === 4) {
+            $assigment = Assigment::find($id_assigment);
+            if (!$assigment) {
                 return response()->json([
-                    'code' => 403,
-                    'message' => 'There are not more Assigments to create.',
+                    'code' => 404,
+                    'message' => 'Assigment does not exist',
                 ]);
             }
 
             $input = (object) $request->all();
-            
-            $abilities = collect();
-            foreach ($input as $key => $id_ability) {
-                if (preg_match("/abilities/", $key)) {
-                    $abilities->push([
-                        "id_ability" => intval($id_ability),
-                    ]);
-                }
-            }
-            $input->abilities = $abilities;
 
-            $validator = Validator::make((array) $input, Assigment::$validation['make']['rules'], Assigment::$validation['make']['messages']['es']);
+            $validator = Validator::make((array) $input, Presentation::$validation['make']['rules'], Presentation::$validation['make']['messages']['es']);
             if ($validator->fails()) {
                 return response()->json([
                     'code' => 401,
@@ -56,18 +46,9 @@
                 ]);
             }
 
-            $lesson = Lesson::findByUsers($chat->id_user_from, $chat->id_user_to);
+            $input->id_assigment = $assigment->id_assigment;
 
-            $input->abilities = Ability::stringify($input->abilities->toArray());
-            $input->id_lesson = $lesson->id_lesson;
-            $input->slug = SlugService::createSlug(Assigment::class, 'slug', $input->title);
-
-            $assigment = Assigment::create((array) $input);
-
-            $chat->addMessage([
-                "id_user" => $request->user()->id_user,
-                "id_assigment" => $assigment->id_assigment,
-            ]);
+            $presentation = Presentation::create((array) $input);
 
             $chat->id_user_logged = $request->user()->id_user;
             $chat->and(['users', 'available', 'messages']);

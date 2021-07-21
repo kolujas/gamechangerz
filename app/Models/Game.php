@@ -3,6 +3,7 @@
 
     use App\Models\Ability;
     use App\Models\Folder;
+    use App\Models\User;
     use Illuminate\Database\Eloquent\Model;
 
     class Game extends Model {
@@ -176,5 +177,43 @@
             $game = Game::where('slug', '=', $slug)->first();
 
             return $game;
+        }
+
+        /**
+         * * Requilify the Games by the Abilities.
+         * @param int $id_user
+         * @param string [$games] Example: "[{\"id_game\":1}]"
+         * @return JSON
+         */
+        static public function requilify (int $id_user, string $games = '') {
+            $user = User::find($id_user);
+            $user->and(['reviews']);
+
+            $collection = collect();
+
+            foreach (json_decode($games) as $data) {
+                $game = Game::find($data->id_game);
+
+                if (isset($data->abilities)) {
+                    $game->abilities = json_decode(Ability::requilify($id_user, $data->abilities));
+                }
+
+                $stars = 0;
+                $quantity = 0;
+                foreach ($game->abilities as $ability) {
+                    $stars += $ability->stars;
+                    $quantity++;
+                }
+
+                $game->stars = ($stars ? $stars / $quantity : 0);
+
+                $collection->push([
+                    "id_game" => $game->id_game,
+                    "abilities" => $game->abilities,
+                    "stars" => $game->stars,
+                ]);
+            }
+
+            return $collection->toJson();
         }
     }

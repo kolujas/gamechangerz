@@ -1,4 +1,4 @@
-#reviews.modal .details :where(.form-input, #url) {
+#reviews.modal .details .form-input {
     background-color: var(--color-one);
     padding-left: 1rem;
     color: #fff;
@@ -7,7 +7,7 @@
     border-radius: .25rem;
 }
 
-#reviews.modal .details :where(:not(textarea).form-input, #url):disabled {
+#reviews.modal .details :not(textarea).form-input:disabled {
     background: var(--color-black);
     padding: 0;
     color: var(--color-white);
@@ -18,14 +18,6 @@
     color: var(--color-four);
 }
 
-#reviews.modal .details #url{
-    font-size: var(--font-one);
-}
-
-#reviews.modal .details #url:disabled {
-    display: none;
-}
-
 #reviews.modal .details :where(textarea, input)::placeholder {
     color: var(--color-grey) !important;
 }
@@ -33,19 +25,6 @@
 #reviews.modal .details textarea{
     resize: none;
     font-size: var(--font-one);
-}
-
-#reviews.modal .details #myVideo{
-    display: flex;
-    justify-content: center;
-    background-color: var(--color-one);
-    border-radius: .25rem;
-}
-
-#reviews.modal .details #myVideo iframe{
-    width: 100%;
-    height: 20rem;
-    border-radius: .25rem;
 }
 
 #reviews.modal .details h2{
