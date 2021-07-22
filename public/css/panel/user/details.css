@@ -59,10 +59,23 @@
     margin-top: 10%;
 }
 
-#user .user-photo span, #user .user-banner span{
-    padding: .25rem 0;
+#user .banner-container .banner-photo img,
+#user .banner-container .bg-banner img{
+    object-fit: cover;
+    border-radius: .25rem;
+    width: 100%;
+    height: 20rem;
+    cursor: pointer;
+    transition: 600ms;
+    overflow: hidden;
 }
 
-#user .user-msg{
-    padding: .25 0;
+#user .user-photo button span,
+#user .user-banner button span{
+    padding: .5rem 1rem;
+}
+
+#banner .user-photo span,
+#banner .user-banner span{
+    padding: .5rem 0;
 }

@@ -18,15 +18,21 @@
         <header class="flex w-full mb-24">
             <h2 class="russo color-white mr-4">Plataforma</h2>
         </header>
-        <main class="my-2 py-2 flex flex-wrap justify-center rounded">
+        <main class="my-2 py-2 flex flex-wrap rounded">
             <div class="flex items-center">
-                <a class="btn btn-one btn-outline overpass" href="/panel/platform/banner">
+                <a class="btn btn-one btn-outline overpass mr-4" href="/panel/platform/banner">
                     <span class="py-2 px-4">Banner</span>
                 </a>
-                <a class="btn btn-one btn-outline overpass" href="/panel/platform/dolar">
+                <a class="btn btn-one btn-outline overpass mr-4" href="/panel/platform/dolar">
                     <span class="py-2 px-4">Dolar</span>
                 </a>
             </div>
+
+            <div class="banner-container grid grid-cols-2 gap-8 w-full mt-8">
+                <div class="pt-0 banner-photo"></div>
+                <div class="pt-0 bg-banner"></div>
+            </div>
+            
         </main>
     </li>
 @endsection

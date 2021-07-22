@@ -1,0 +1,27 @@
+#banner .banner-container .banner-photo img,
+#banner .banner-container .bg-banner img{
+    object-fit: cover;
+    border-radius: .25rem;
+    width: 100%;
+    height: 20rem;
+    cursor: pointer;
+    transition: 600ms;
+    overflow: hidden;
+}
+
+#banner .banner-container .banner-photo img:hover,
+#banner .banner-container .bg-banner img:hover{
+    transform: scale(1.05);
+}
+
+#banner .banner-photo button span,
+#banner .bg-banner button span{
+    padding: .5rem 1rem;
+}
+
+#banner .banner-photo span,
+#banner .bg-banner span{
+    padding: .5rem 0;
+}
+
+
