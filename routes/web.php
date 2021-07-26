@@ -126,9 +126,9 @@
             Route::get('/panel/coupons/{slug}', [PanelController::class, 'coupon'])->name('panel.coupon');
         });
         Route::get('/panel/bookings', [PanelController::class, 'lessons'])->name('panel.lessons');
-        Route::middleware('lesson.exist')->group(function () {
-            Route::get('/panel/lessons/{slug}', [PanelController::class, 'lesson'])->name('panel.lesson');
-        });
+        // Route::middleware('lesson.exist')->group(function () {
+            Route::get('/panel/bookings/{slug}', [PanelController::class, 'lesson'])->name('panel.lesson');
+        // });
 
         // TODO: Middlewares
         Route::post('/panel/{section}/{action}', [PanelController::class, 'call'])->name('panel.section.doCreate');
