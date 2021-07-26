@@ -81,7 +81,7 @@ export class Auth extends Class {
     }
 
     static async submit (params = []) {
-        let formData = new FormData(params.form.html);
+        let formData = new FormData(params.Form.html);
         let token = formData.get('_token');
         formData.delete('_token');
         let query = await Fetch.send({
@@ -94,7 +94,7 @@ export class Auth extends Class {
         }, formData);
         if (query.response.code === 200) {
             Token.save(query.response.data.token);
-            params.form.html.submit();
+            params.Form.html.submit();
         }
         if (query.response.code !== 200) {
             new NotificationJS(query.response, {

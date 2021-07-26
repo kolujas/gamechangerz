@@ -110,7 +110,7 @@
     border-radius: .25rem;
 }
 
-.user .data .btn.btn-icon {
+.user .data .actions .btn.btn-icon {
     position: absolute;
     top: 2.9rem;
     left: 0;
@@ -374,7 +374,7 @@
 
 /* ? MD */
 @media (min-width: 768px) {
-    .user .data .btn.btn-icon {
+    .user .data .actions .btn.btn-icon {
         left: -1rem;
     }
 

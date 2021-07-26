@@ -50,6 +50,7 @@
 
 .users .dropdown li{
     padding: .5rem;
+    white-space: nowrap;
 }
 
 .users .dropdown li label {

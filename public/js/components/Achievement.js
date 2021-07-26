@@ -192,6 +192,7 @@ export class Achievement extends Class {
                 break;
             case "remove":
                 let tr = document.querySelector(`tr#${ params.instance.props.id }`);
+                console.log(params);
                 tr.parentNode.removeChild(tr);
                 break;
         }
@@ -257,6 +258,7 @@ export class Achievement extends Class {
                 }, {
                     disabled: true,
                     confirm: false,
+                    id: true,
                 });
                 structure.push(achievement);
             }
@@ -308,7 +310,8 @@ export class Achievement extends Class {
                     id_achievement: id_achievement,
                     classes: ["grid", "grid-cols-3", "gap-4"],
                 }, {
-                    disabled: false
+                    disabled: false,
+                    id: true,
                 })
             ]
         });

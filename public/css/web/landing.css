@@ -317,6 +317,18 @@ ul.teachers .image figure{
     overflow-x: auto;
 }
 
+ul.abilities.cards {
+    overflow: hidden;
+}
+
+ul.abilities.cards .card header {
+    padding-top: 1rem;
+}
+
+ul.abilities.cards .card header > span {
+    display: none;
+}
+
 .profesores-destacados .teacher > a {
     background-color: var(--color-one);
 }
@@ -581,8 +593,8 @@ ul.teachers .image figure{
         height: 85%;
         top: 15%;
         left: -2rem;
-        max-width: calc(100% + 3.75rem);
-        width: calc(100% + 3.75rem);
+        max-width: calc(100% + 2rem);
+        width: calc(100% + 2rem);
         object-fit: cover;
         transition: 500ms;
         object-position: center bottom;

@@ -12,7 +12,7 @@
         <section class="games xl:col-span-4 xl:relative mx-8 md:mx-0 md:px-8 lg:px-0 mb-20">
             <header class="mb-6 mt-12">
                 <h3 class="color-white flex items-center">
-                    <span class="mr-2 russo">Juegos</span>
+                    <span class="mr-2 russo uppercase">Juegos</span>
                     @if (Auth::check() && Auth::user()->id_user === $user->id_user)
                         <a href="#games" class="modal-button games btn btn-icon btn-one p-2">
                             <i class="fas fa-pen"></i>
@@ -29,7 +29,7 @@
     
     <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4 lg:mb-20">
         <section class="lg:col-span-2 xl:col-span-6 lg:pr-0 xl:px-0">
-            <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mb-0 relative">
+            <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mr-0 lg:mb-0 relative">
                 <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
             </figure>
             @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)
@@ -52,7 +52,14 @@
         @if (count($user->reviews))
             <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
                 <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-6 mb-8">
-                    <h3 class="color-white russo uppercase">Reviews</h3>
+                    <h3 class="color-white flex items-center uppercase">
+                        <span class="mr-2 russo">Reseñas</span>
+                        @if (count($lessons) && Auth::check() && Auth::user()->id_user === $user->id_user)
+                            <a href="#reviews" class="btn btn-icon btn-one p-2 rounded">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        @endif
+                    </h3>
                 </header>
                 @component('components.review.users', [
                     'reviews' => $user->reviews,
@@ -65,7 +72,7 @@
         @if (($user->description !== '' && $user->description !== null) || (Auth::check() && Auth::user()->id_user === $user->id_user))
             <section class="description lg:col-span-2 xl:col-span-5 xl:col-start-2 lg:ml-8 xl:ml-0">
                 <header class="mb-8 pl-8 lg:pl-0">
-                    <h3 class="color-white flex items-center">
+                    <h3 class="color-white flex items-center uppercase">
                         <span class="mr-2 russo">Descripción</span>
                         @if (Auth::check() && Auth::user()->id_user === $user->id_user)
                             <a href="#update" class="update-button btn btn-icon btn-one p-2 mr-2">
@@ -103,10 +110,10 @@
 
     <section class="content pb-4 xl:grid xl:grid-cols-10">
         <header class="xl:col-span-8 xl:col-start-2">
-            <h3 class="color-white mb-8 px-8 xl:px-0 flex items-center">
+            <h3 class="color-white mb-8 px-8 xl:px-0 flex items-center uppercase">
                 <span class="mr-2 russo">Contenido</span>
                 @if (Auth::check() && Auth::user()->id_user === $user->id_user)
-                    <a href="/blog/post/create" class="btn btn-icon btn-one p-2 rounded">
+                    <a href="/blog/{{ $user->slug }}/create" class="btn btn-icon btn-one p-2 rounded">
                         <i class="fas fa-plus"></i>
                     </a>
                 @endif

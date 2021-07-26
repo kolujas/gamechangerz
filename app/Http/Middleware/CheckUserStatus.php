@@ -13,8 +13,18 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            $field = (!is_null($request->route()->parameter('id_user')) ? 'id_user' : 'slug');
-            $value = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
+            if (!is_null($request->route()->parameter('id_user'))) {
+                $field = 'id_user';
+                $value = $request->route()->parameter('id_user');
+            }
+            if (!is_null($request->route()->parameter('slug'))) {
+                $field = 'slug';
+                $value = $request->route()->parameter('slug');
+            }
+            if (!is_null($request->route()->parameter('user'))) {
+                $field = 'slug';
+                $value = $request->route()->parameter('user');
+            }
 
             $user = User::where($field, '=', $value)->first();
 

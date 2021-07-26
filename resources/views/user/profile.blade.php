@@ -17,15 +17,17 @@
     @if ($user->id_role === 0)
         {{-- ? User --}}
         @component('components.user.user.profile', [
-            'user' => $user,
+            "user" => $user,
+            "lessons" => $lessons,
         ])
         @endcomponent
     @endif
     @if ($user->id_role === 1)
         {{-- ? Teacher --}}
         @component('components.user.teacher.profile', [
-            'days' => $days,
-            'user' => $user,
+            "days" => $days,
+            "user" => $user,
+            "lessons" => $lessons,
         ])
         @endcomponent
     @endif
@@ -56,7 +58,7 @@
         ])
         @endcomponent
     @endif
-    @if (count($lessons))
+    @if (count($lessons) && Auth::check() && Auth::user()->id_user === $user->id_user)
         @component('components.modal.layouts.reviews', [
             "lessons" => $lessons,
         ])

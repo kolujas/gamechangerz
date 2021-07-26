@@ -97,7 +97,7 @@ export class User extends Class {
                                 ["p", {
                                     props: {
                                         classes: ["color-four"]
-                                    }, innerHTML: data.lessonsDone
+                                    }, innerHTML: data["lessons-done"]
                                 }],
                             ]
                         }],

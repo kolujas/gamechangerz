@@ -44,6 +44,7 @@
 
             if (isset($input->title)) {
                 foreach ($input->title as $id_achievement => $title) {
+                    $achievement = false;
                     foreach ($user->achievements as $achievement) {
                         if (intval($id_achievement) === intval($achievement->id_achievement)) {
                             break;
@@ -80,7 +81,7 @@
                 "achievements" => Achievement::stringify($achievements),
             ]);
             
-            return redirect("/users/$user->slug/profile")->with('status', [
+            return redirect()->back()->with('status', [
                 'code' => 200,
                 'message' => 'Logros actualizados correctamente.',
             ]);

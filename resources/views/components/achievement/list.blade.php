@@ -24,9 +24,11 @@
         <li class="card">
             <div class="color-white flex justify-center items-center py-4 px-8">
                 <span class="overpass">No tiene logros que mostrar</span>
-                <a href="#achievements" class="btn btn-icon btn-one p-2">
-                    <i class="fas fa-plus"></i>
-                </a>
+                @if (\Request::route()->getName() === "user.profile")
+                    <a href="#achievements" class="btn btn-icon btn-one p-2">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                @endif
             </div>
         </li>
     @endif

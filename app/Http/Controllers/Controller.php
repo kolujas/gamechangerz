@@ -78,7 +78,7 @@
          * @param mixed $text Text to insert.
          * @return string
          */
-        public function replaceUnique (array $rules = [], $text) {
+        static public function replaceUnique (array $rules = [], $text) {
             return preg_replace("({[a-z_]*})", $text, $rules);
         }
     }

@@ -35,16 +35,16 @@
         
 // ! BlogController - Controls the Blog pages.
     Route::get('/blog', [BlogController::class, 'list'])->name('blog.list');
-    Route::middleware(['auth.custom', 'auth.role.not.user'])->group(function () {
-        Route::get('/blog/post/create', [BlogController::class, 'details'])->name('blog.showCreate');
-        Route::post('/blog/post/create', [BlogController::class, 'do'])->name('blog.doCreate');
-        Route::middleware(['auth.custom', 'auth.is.user', 'post.exist', 'post.action.exist'])->group(function () {
-            Route::post('/blog/{id_user}/{slug}/{action}', [BlogController::class, 'do'])->name('blog.do');
+    Route::middleware(['auth.custom', 'auth.role.not.user', 'user.exist', 'auth.is.user'])->group(function () {
+        Route::get('/blog/{user}/create', [BlogController::class, 'details'])->name('blog.showCreate');
+        Route::post('/blog/{user}/create', [BlogController::class, 'do'])->name('blog.doCreate');
+        Route::middleware(['post.exist', 'post.action.exist'])->group(function () {
+            Route::post('/blog/{user}/{post}/{action}', [BlogController::class, 'do'])->name('blog.do');
         });
     });
     Route::middleware(['user.exist', 'user.status'])->group(function () {
         Route::middleware('post.exist')->group(function () {
-            Route::get('/blog/{id_user}/{slug}', [BlogController::class, 'details'])->name('blog.details');
+            Route::get('/blog/{user}/{post}', [BlogController::class, 'details'])->name('blog.details');
         });
 
 // ! FriendshipController - Controls the User Friends.
@@ -70,8 +70,13 @@
     });
     
 // ! ReviewController - Controls the Review pages.
-    Route::middleware(['auth.custom', 'lesson.exist', 'auth.is.lesson.user'])->group(function () {
-         Route::post('/lessons/{id_lesson}/review/create', [ReviewController::class, 'create'])->name('review.create');
+    Route::middleware(['auth.custom'])->group(function () {
+        Route::middleware('lesson.exist', 'auth.is.lesson.user')->group(function () {
+            Route::post('/lessons/{id_lesson}/review/create', [ReviewController::class, 'create'])->name('review.create');
+        });
+        Route::middleware('review.exist')->group(function () {
+            Route::put('/reviews/{id_review}/{id_user}/update', [ReviewController::class, 'update'])->name('review.update');
+        });
     });
 
 // ! UserController - Controls the User pages.
@@ -102,10 +107,6 @@
     Route::middleware(['auth.custom', 'auth.role.is.admin'])->group(function () {
         Route::get('/panel', [PanelController::class, 'blog'])->name('panel.blog');
         Route::get('/panel/blog', [PanelController::class, 'blog'])->name('panel.blog');
-        Route::get('/panel/blog/create', [PanelController::class, 'post'])->name('panel.showCreatePost');
-        Route::middleware('post.exist')->group(function () {
-            Route::get('/panel/blog/{slug}', [PanelController::class, 'post'])->name('panel.post');
-        });
         Route::get('/panel/platform', [PanelController::class, 'banner'])->name('panel.platform');
         Route::get('/panel/platform/banner', [PanelController::class, 'banner'])->name('panel.banner');
         Route::get('/panel/platform/dolar', [PanelController::class, 'dolar'])->name('panel.dolar');
@@ -128,4 +129,9 @@
         Route::middleware('lesson.exist')->group(function () {
             Route::get('/panel/lessons/{slug}', [PanelController::class, 'lesson'])->name('panel.lesson');
         });
+
+        // TODO: Middlewares
+        Route::post('/panel/{section}/{action}', [PanelController::class, 'call'])->name('panel.section.doCreate');
+        Route::put('/panel/{section}/{slug}/{action}', [PanelController::class, 'call'])->name('panel.section.doUpdate');
+        Route::delete('/panel/{section}/{slug}/{action}', [PanelController::class, 'call'])->name('panel.section.doDelete');
     });

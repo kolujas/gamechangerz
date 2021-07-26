@@ -29,7 +29,7 @@ export class Post extends Class {
         let item = document.createElement('li');
         item.classList.add("card", "mr-8");
             let link = document.createElement('a');
-            link.href = `/blog/${ data.id_user }/${ data.slug }`;
+            link.href = `/blog/${ data.user.slug }/${ data.slug }`;
             item.appendChild(link);
                 let figure = document.createElement('figure');
                 link.appendChild(figure);

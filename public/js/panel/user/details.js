@@ -1,5 +1,5 @@
 import { InputFileMaker } from "../../../submodules/InputFileMakerJS/js/InputFileMaker.js";
-import { Asset } from "../../components/Asset.js";
+import Asset from "../../components/Asset.js";
 
 console.log(user);
 

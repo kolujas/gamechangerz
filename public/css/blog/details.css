@@ -235,6 +235,8 @@ section.content label.btn.btn-outline span::before {
 }
 
 section.content label input {
+    position: relative;
+    z-index: 1;
     background-color: var(--color-black);
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;

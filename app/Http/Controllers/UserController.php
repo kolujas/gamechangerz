@@ -262,7 +262,7 @@
             
             $input = (object) $request->all();
             
-            $validator = Validator::make((array) $input, $this->replaceUnique(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
+            $validator = Validator::make((array) $input, Controller::replaceUnique(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }

@@ -24,7 +24,8 @@
         lg:row-span-2
     @endif xl:col-start-2 xl:col-span-3">
         @component('components.user.user.data', [
-            'user' => $user,
+            "user" => $user,
+            "lessons" => $lessons,
         ])
         @endcomponent
     </section>

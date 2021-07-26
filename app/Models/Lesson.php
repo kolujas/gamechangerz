@@ -251,10 +251,10 @@
         static public function allDoneFromUser (int $id_user) {
             $lessons = Lesson::where([
                 ['id_user_from', '=', $id_user],
-                ['status', '=', 4],
+                ['status', '>=', 3],
             ])->orwhere([
                 ['id_user_to', '=', $id_user],
-                ['status', '=', 4]
+                ['status', '>=', 3]
             ])->get();
 
             return $lessons;

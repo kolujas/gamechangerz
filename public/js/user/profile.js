@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
     
     if (document.querySelector("form.user")) {
-
         for (const btn of document.querySelectorAll('.user .reviews header a:last-child')) {
             btn.addEventListener('click', function(e){
                 e.preventDefault();

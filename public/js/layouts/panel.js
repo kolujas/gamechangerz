@@ -1,4 +1,5 @@
-import { TabMenu as TabMenuJS } from "../../../submodules/TabMenuJS/js/TabMenu.js";
+import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
+import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 
 import Token from "../components/Token.js";
 
@@ -40,15 +41,23 @@ let info = {}
 function enable(){
     for (const input of document.querySelectorAll('.editable')) {
         input.disabled = false;
+        if (input.nodeName === "BUTTON") {
+            input.classList.remove("hidden");
+        }
 
-        info[input.name] = input.value;  
-        if(input.type == 'checkbox'){
+        if (input.type !== "file") {
+            info[input.name] = input.value;  
+        }
+        if(input.type === 'checkbox'){
             info[input.name] = input.checked;
         }
     }
 
     document.querySelector('.editBtn').classList.add('hidden');
     document.querySelector('.deleteBtn').classList.add('hidden');
+    if (document.querySelector(".checkBtn")) {
+        document.querySelector('.checkBtn').classList.add('hidden');
+    }
     document.querySelector('.submitBtn').classList.remove('hidden');
     document.querySelector('.cancelBtn').classList.remove('hidden');
 }
@@ -56,22 +65,53 @@ function enable(){
 function disable(){
     for (const input of document.querySelectorAll('.editable')) {
         input.disabled = true;
-        input.value = info[input.name];
-        if(input.type == 'checkbox'){
+        if (input.nodeName === "BUTTON") {
+            input.classList.add("hidden");
+        }
+
+        if (input.type !== "file") {
+            input.value = info[input.name];
+        }
+        if(input.type === 'checkbox'){
             input.checked = info[input.name];
         }
     }
 
+    for (const support of document.querySelectorAll('.support')) {
+        support.classList.add("hidden");
+        support.innerHTML = "";
+    }
+
     document.querySelector('.editBtn').classList.remove('hidden');
     document.querySelector('.deleteBtn').classList.remove('hidden');
+    if (document.querySelector(".checkBtn")) {
+        document.querySelector('.checkBtn').classList.remove('hidden');
+    }
     document.querySelector('.submitBtn').classList.add('hidden');
     document.querySelector('.cancelBtn').classList.add('hidden');
     document.querySelector('.msg-modal').classList.add('hidden');
 }
 
 function deleteEnable(){
+    for (const input of document.querySelectorAll('.editable')) {
+        input.disabled = false;
+        if (input.nodeName === "BUTTON") {
+            input.classList.remove("hidden");
+        }
+
+        if (input.type !== "file") {
+            info[input.name] = input.value;  
+        }
+        if(input.type === 'checkbox'){
+            info[input.name] = input.checked;
+        }
+    }
+
     document.querySelector('.msg-modal').classList.remove('hidden');
     document.querySelector('.editBtn').classList.add('hidden');
+    if (document.querySelector(".checkBtn")) {
+        document.querySelector('.checkBtn').classList.add('hidden');
+    }
     document.querySelector('.deleteBtn').classList.add('hidden');
     document.querySelector('.submitBtn').classList.remove('hidden');
     document.querySelector('.cancelBtn').classList.remove('hidden');
@@ -81,4 +121,18 @@ let token = new Token();
 
 document.querySelector('a.tab-link').addEventListener('click', function (e) {
     token.remove();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (/update/.exec(URL.findHashParameter())) {
+        enable();
+    }
+    
+    if (/delete/.exec(URL.findHashParameter())) {
+        deleteEnable();
+    }
+    
+    if (/create/.exec(URL.findCompleteRoute())) {
+        enable();
+    }
 });

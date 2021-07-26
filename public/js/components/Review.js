@@ -41,7 +41,8 @@ export class Review extends Class {
                 id: 'reviews',
             }, {
                 outsideClick: true,
-                open: true,
+                open: false,
+                detectHash: true,
             });
         }
     }
@@ -64,21 +65,42 @@ export class Review extends Class {
         params.instance.htmls.details.classList.remove("hidden");
     }
 
-    changeDetails (lesson) {
-        const user = lesson.users[((auth && auth.id_user === lesson.users.from.id_user) ? "to" : "from")];
-        const abilities = lesson.abilities[((auth && auth.id_user === lesson.users.from.id_user) ? "from" : "to")];
-        
+    changeDetails (lesson) {        
         this.htmls.details.children[2].children[0].children[1].innerHTML = "";
-        this.htmls.details.children[2].children[0].children[1].appendChild(User.component("profile", {
-            props: {
-                ...user,
-                url: `/users/${ user.slug }/profile`,
-            }
-        }).html);
+        let abilities = [];
+
+        if (auth.id_role === 2) {
+            const from = lesson.users[((auth.id_user === lesson.users.from.id_user) ? "to" : "from")];
+
+            abilities = lesson.abilities[((auth.id_user === lesson.users.from.id_user) ? "to" : "from")];
+            
+            this.htmls.details.children[2].children[0].children[1].appendChild(User.component("profile", {
+                props: {
+                    ...from,
+                    url: `/users/${ from.slug }/profile`,
+                }
+            }).html);
+        }
+        if (auth.id_role !== 2) {
+            const to = lesson.users[((auth.id_user === lesson.users.from.id_user) ? "to" : "from")];
+
+            abilities = lesson.abilities[((auth.id_user === lesson.users.from.id_user) ? "from" : "to")];
+
+            this.htmls.details.children[2].children[0].children[1].appendChild(User.component("profile", {
+                props: {
+                    ...to,
+                    url: `/users/${ to.slug }/profile`,
+                }
+            }).html);
+        }
 
         this.htmls.details.action = `/lessons/${ lesson.id_lesson }/review/create`;
 
         this.setAbilities(abilities);
+
+        if (auth.id_role === 2) {
+            this.completeForm(lesson);
+        }
     }
 
     setAbilities (abilities) {
@@ -97,7 +119,7 @@ export class Review extends Class {
                                 name: `stars[${ ability.slug }][]`,
                                 type: 'checkbox',
                                 defaultValue: i,
-                                classes: ["hidden"],
+                                classes: ["hidden", "form-input"],
                             }, callbacks: {
                                 click: {
                                     function: this.changeStars,
@@ -144,16 +166,49 @@ export class Review extends Class {
         }
     }
 
+    completeForm (lesson) {
+        let review = false;
+        for (review of lesson.reviews) {
+            if (review.id_user_to === auth.id_user) {
+                break;
+            }
+            review = false;
+        }
+
+        this.htmls.details.action = `/reviews/${ review.id_review }/${ review.id_user_to }/update`;
+        document.querySelector("#reviews.modal form input[name=_method]").value = "PUT";
+
+        if (review) {
+            for (const input of document.querySelectorAll("#reviews.modal form .form-input")) {
+                if (/stars/.exec(input.name)) {
+                    for (const ability of review.abilities) {
+                        if (`stars[${ ability.slug }][]` === input.name) {
+                            if (parseInt(input.value) <= ability.stars)
+                            input.checked = true;
+                            continue;
+                        }
+                    }
+                    continue;
+                }
+                if (input.name === "title") {
+                    input.value = review.title;
+                    continue;
+                }
+                input.value = review.description;
+            }
+        }
+    }
+
     changeStars (params) {
         let stars = parseInt(params.element.html.value);
         
         if (!params.element.html.checked) {
-            let bigger = 0;
+            let bigger = 1;
 
             for (const label of params.element.html.parentNode.parentNode.children) {
                 let input = label.children[0];
 
-                if (input.checked && bigger < parseInt(input.value) + 1) {
+                if (input.checked && bigger <= parseInt(input.value)) {
                     bigger = parseInt(input.value) + 1;
                 }
             }
@@ -228,7 +283,7 @@ export class Review extends Class {
                     props: {
                         id: `lesson-${ user.slug }-link-text`,
                         classes: ["py-2", "px-4"]
-                    }, innerHTML: "Dejar reseña"
+                    }, innerHTML: ((auth && auth.id_role !== 2) ? "Dejar reseña" : "Revisar reseña")
                 }],
             ],
         }).html);

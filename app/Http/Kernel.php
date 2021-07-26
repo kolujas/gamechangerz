@@ -101,6 +101,8 @@ class Kernel extends HttpKernel
         'post.exist' => \App\Http\Middleware\CheckPostExist::class,
         'post.action.exist' => \App\Http\Middleware\CheckPostActionExist::class,
 
+        'review.exist' => \App\Http\Middleware\CheckReviewExist::class,
+
         'user.exist' => \App\Http\Middleware\CheckUserExist::class,
         'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
         'user.status' => \App\Http\Middleware\CheckUserStatus::class,

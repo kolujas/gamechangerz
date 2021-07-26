@@ -11,6 +11,8 @@
     color: var(--color-white);
     resize: none;
     height: 10rem;
+    resize: none;
+    overflow: hidden;
 }
 
 #teacher .games h2{
@@ -36,6 +38,10 @@
     font-size: .75rem;
 }
 
+#teacher .date label input:not(:disabled) + span {
+    cursor: pointer;
+}
+
 #teacher .date label input:checked + span {
     background-color: var(--color-four);
     opacity: 1;
@@ -50,10 +56,37 @@
     width: 17em;
 }
 
-#teacher .teampro-photo{
-    margin-top: 86%;
+#teacher .profile-photo span,
+#teacher .teampro-photo span{
+    padding: .5rem 0;
 }
 
-#teacher .profile-photo span, #teacher .teampro-photo span{
-    padding: .25rem 0;
+#teacher .profile-photo button span,
+#teacher .teampro-photo button span{
+    padding: .5rem 1rem;
+}
+
+#teacher .profile-photo img,
+#teacher .teampro-photo img {
+    width: 100%;
+    height: 253px;
+    object-fit: contain;
+    object-position: bottom center;
+}
+
+#teacher .teampro-photo img {
+    width: 40px;
+    height: 56px;
+}
+
+#teacher .input-option input[type="checkbox"]:disabled:checked ~ .input-box {
+    background: var(--color-four);
+    opacity: 1;
+    border-color: var(--color-four);
+}
+
+#teacher ul.achievements li:first-of-type,
+#teacher ul.reviews li:first-of-type,
+#teacher ul.blog.cards .card:first-of-type {
+    padding-left: 0;
 }

@@ -21,7 +21,7 @@
 
             $user->update((array) $input);
             
-            return redirect("/users/$user->slug/profile")->with('status', [
+            return redirect()->back()->with('status', [
                 'code' => 200,
                 'message' => 'Idiomas actualizados correctamente.',
             ]);

@@ -162,7 +162,7 @@
             'create' => [
                 'rules' => [
                     'title' => 'required|max:100',
-                    'description' => 'required|max:255',
+                    'description' => 'required|max:150',
                 ], 'messages' => [
                     'es' => [
                         'title.required' => 'El título es obligatorio.',

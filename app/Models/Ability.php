@@ -199,6 +199,17 @@
         }
 
         /**
+         * * Get a Ability by the slug.
+         * @param string $slug
+         * @return Ability
+         */
+        static public function findBySlug (string $slug = '') {
+            $user = Ability::where('slug', '=', $slug)->first();
+
+            return $user;
+        }
+
+        /**
          * * Ability options.
          * @var array
          */

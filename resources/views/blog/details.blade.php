@@ -108,7 +108,7 @@
         </section>
     
         <div class="actions">
-            @if (Auth::check() && $post && Auth::user()->id_user === $post->id_user)
+            @if (Auth::check() && $post && (Auth::user()->id_user === $post->id_user || Auth::user()->id_role === 2))
                 <a href="#update" class="update-button edit btn btn-icon btn-one p-2 mb-2">
                     <i class="fas fa-pen"></i>
                 </a>

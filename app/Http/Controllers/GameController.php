@@ -42,7 +42,7 @@
                 "games" => $games,
             ]);
             
-            return redirect("/users/$user->slug/profile")->with('status', [
+            return redirect()->back()->with('status', [
                 'code' => 200,
                 'message' => 'Juegos actualizados correctamente.',
             ]);

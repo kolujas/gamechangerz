@@ -6,6 +6,15 @@
     width: 100%;
 }
 
+ul.games {
+    display: flex;
+    justify-content: center;
+}
+
+ul.games .card {
+    width: 25%;
+}
+
 ul.games .card :where(a, div):hover::before {
     top: 0;
     left: 0;

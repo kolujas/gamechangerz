@@ -1,0 +1,11 @@
+table figure {
+    width: 100%;
+    height: 4rem;
+}
+
+table figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .25rem;
+}

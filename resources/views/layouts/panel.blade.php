@@ -3,6 +3,7 @@
 @section('head')
     {{-- Layout CSS --}}
     <link href={{ asset('css/layouts/panel.css') }} rel="stylesheet">
+    <link href={{ asset('submodules/InputFileMakerJS/css/styles.css') }} rel="stylesheet">
 
     @yield('css')
 

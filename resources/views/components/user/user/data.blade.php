@@ -29,13 +29,20 @@
         @endcomponent
     @endif
 
-    @if ($user->lessonsDone || $user->hours || $user->friends_length)
+    @if ($user->{"lessons-done"} || $user->hours || $user->friends_length)
         <div class="info mt-8">
             <ul>
-                @if ($user->lessonsDone)
-                    <li class="color-white mb-8 font-bold">
-                        <span class="overpass">Total clases tomadas:</span>
-                        <span class="color-four overpass">{{ $user->lessonsDone }}</span>
+                @if ($user->{"lessons-done"})
+                    <li class="color-white mb-8 font-bold flex items-center">
+                        <div class="w-full">
+                            <span class="overpass">Total clases tomadas:</span>
+                            <span class="color-four overpass">{{ $user->{"lessons-done"} }}</span>
+                        </div>
+                        @if (count($lessons) && Auth::check() && Auth::user()->id_user === $user->id_user)
+                            <a href="#reviews" class="btn btn-icon btn-one">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        @endif
                     </li>
                 @endif
                 @if ($user->hours)

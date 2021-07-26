@@ -5,6 +5,7 @@
     use App\Models\Auth as AuthModel;
     use App\Models\Post;
     use App\Models\Presentation;
+    use App\Models\User;
     use Auth;
     use Cviebrock\EloquentSluggable\Services\SlugService;
     use Intervention\Image\ImageManagerStatic as Image;
@@ -26,7 +27,7 @@
 
             $posts = Post::fromAdmin();
             foreach ($posts as $post) {
-                $post->and(['date']);
+                $post->and(['date', 'user']);
             }
 
             return view('blog.list', [
@@ -51,19 +52,18 @@
 
         /**
          * * Control the Blog details page.
-         * @param string $id_user Post slug.
-         * @param string $slug Post slug.
+         * @param string|false $user Post User slug.
+         * @param string|false $post Post slug.
          * @return [type]
          */
-        public function details (Request $request, $id_user = false, $slug = false) {
+        public function details (Request $request, $user = false, $post = false) {
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
 
-            $post = false;
-            if ($slug) {
-                $post = Post::findBySlug($slug);
+            if ($post) {
+                $post = Post::findBySlug($post);
                 $post->and(['user', 'date']);
             }
 
@@ -99,38 +99,39 @@
         /**
          * * Execute the Post correct function.
          * @param Request $request
-         * @param bool $id_user Post User ID
-         * @param bool $slug Post slug
-         * @param string $action Function name
+         * @param string|false $user Post User slug.
+         * @param string|false $post Post slug.
+         * @param string $action Function name.
          * @return [type]
          */
-        public function do (Request $request, $id_user = false, $slug = false, $action = 'update') {
+        public function do (Request $request, $user = false, $post = false, $action = 'update') {
             $input = (object) $request->all();
 
-            if ($slug) {
+            if ($post) {
                 switch ($action) {
                     case 'delete':
-                        return $this->doDelete($request, $id_user, $slug);
+                        return $this->doDelete($request, $user, $post);
                         break;
                     case 'update':
-                        return $this->doUpdate($request, $id_user, $slug);
+                        return $this->doUpdate($request, $user, $post);
                         break;
                     default:
                         # code...
                         break;
                 }
             }
-            if (!$slug) {
-                return $this->doCreate($request);
+            if (!$post) {
+                return $this->doCreate($request, $user);
             }
         }
 
         /**
          * * Create a new Post.
          * @param Request $request
+         * @param string $user Post User slug.
          * @return [type]
          */
-        public function doCreate (Request $request) {
+        public function doCreate (Request $request, string $user) {
             $input = (object) $request->all();
 
             $validator = Validator::make($request->all(), Post::$validation['create']['rules'], Post::$validation['create']['messages']['es']);
@@ -138,7 +139,7 @@
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $user = Auth::user();
+            $user = User::findBySlug($user);
             $input->id_user = $user->id_user;
             
             $file = Image::make($request->file('image'))
@@ -154,7 +155,7 @@
 
             $post = Post::create((array) $input);
 
-            return redirect("/blog/$user->id_user/$post->slug")->with('status', [
+            return redirect("/blog/$user->slug/$post->slug")->with('status', [
                 'code' => 200,
                 'message' => "Artículo creado exitosamente.",
             ]);
@@ -163,20 +164,20 @@
         /**
          * * Update a Post.
          * @param Request $request
-         * @param string $id_user Post User ID
-         * @param string $slug Post slug
+         * @param string $user Post User slug.
+         * @param string $post Post slug.
          * @return [type]
          */
-        public function doUpdate (Request $request, string $id_user, string $slug) {
+        public function doUpdate (Request $request, string $user, string $post) {
             $input = (object) $request->all();
-            $post = Post::findBySlug($slug);
+            $post = Post::findBySlug($post);
 
             $validator = Validator::make($request->all(), Post::$validation['update']['rules'], Post::$validation['update']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             
-            $user = Auth::user();
+            $user = User::findBySlug($user);
 
             if ($request->hasFile('image')) {
                 Storage::delete($post->image);
@@ -191,14 +192,13 @@
                 $input->image = $filepath;
             }
 
-
             if ($post->title !== $input->title) {
                 $input->slug = SlugService::createSlug(Post::class, 'slug', $input->title);
             }
 
             $post->update((array) $input);
 
-            return redirect("/blog/$user->id_user/$post->slug")->with('status', [
+            return redirect("/blog/$user->slug/$post->slug")->with('status', [
                 'code' => 200,
                 'message' => "Artículo actualizado exitosamente.",
             ]);
@@ -207,32 +207,32 @@
         /**
          * * Delete a Post.
          * @param Request $request
-         * @param string $id_user Post User ID
-         * @param string $slug Post slug
+         * @param string $user Post User slug.
+         * @param string $post Post slug.
          * @return [type]
          */
-        public function doDelete (Request $request, string $id_user, string $slug) {
-            $post = Post::findBySlug($slug);
+        public function doDelete (Request $request, string $user, string $post) {
+            $post = Post::findBySlug($post);
 
             $validator = Validator::make($request->all(), Post::$validation['delete']['rules'], Post::$validation['delete']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             
-            $user = Auth::user();
+            $user = User::findBySlug($user);
 
             Storage::delete($post->image);
                 
             $post->delete();
 
-            if ($user->id_role === 1) {
+            if (Auth::user()->id_role === 1) {
                 return redirect("/users/$user->slug/profile")->with('status', [
                     'code' => 200,
                     'message' => "Artículo borrado exitosamente.",
                 ]);
             }
             
-            return redirect("/blog")->with('status', [
+            return redirect("/panel/blog")->with('status', [
                 'code' => 200,
                 'message' => "Artículo borrado exitosamente.",
             ]);

@@ -1,11 +1,10 @@
 <?php
     namespace App\Http\Middleware;
 
-    use App\Models\Post;
+    use App\Models\Review;
     use Closure;
-    use Illuminate\Http\Request;
 
-    class CheckPostExist {
+    class CheckReviewExist {
         /**
          * Handle an incoming request.
          *
@@ -13,13 +12,13 @@
          * @param  \Closure  $next
          * @return mixed
          */
-        public function handle (Request $request, Closure $next) {
-            $slug = (!is_null($request->route()->parameter('slug')) ? $request->route()->parameter('slug') : $request->route()->parameter('post'));
+        public function handle ($request, Closure $next) {
+            $field = $request->route()->parameter('id_review');
 
-            if (!Post::findBySlug($slug)) {
+            if (!Review::find($field)) {
                 $request->session()->put('error', [
                     'code' => 404,
-                    'message' => "Post \"$slug\" does not exist",
+                    'message' => "Review \"$field\" does not exist",
                 ]);
 
                 return redirect()->back();

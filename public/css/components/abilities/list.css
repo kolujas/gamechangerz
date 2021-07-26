@@ -7,6 +7,12 @@ ul.abilities.cards {
     --scroll-color-two-alternative: var(--color-one);
 }
 
+ul.abilities.cards .card header > span {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+}
+
 ul.abilities.cards .card > div {
     border: 1px solid transparent;
     background-color: transparent;

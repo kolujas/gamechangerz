@@ -4,9 +4,10 @@
             <div>
                 <div class="h-full" style="background: url({{ asset($ability->files['background']) }}) no-repeat center center; background-size: cover;">
                     <div>
-                        <header class="p-4">
+                        <header class="p-4 pt-8">
                             <h4 class="color-three russo mb-2">{{ $ability->name }}</h4>
                             <p class="color-three leading-5 text-profile overpass">{!! $ability->description !!}</p>
+                            <span class="russo color-white">{{ $ability->game->alias }}</span>
                         </header>
                         <main>
                             <figure>

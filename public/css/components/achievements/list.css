@@ -8,6 +8,13 @@ ul.achievements {
     overflow-x: scroll;
 }
 
+ul.achievements.cards {
+    --scroll-color-one: var(--color-two);
+    --scroll-color-one-alternative: var(--color-white);
+    --scroll-color-two: #1a141d;
+    --scroll-color-two-alternative: #1a141d;
+}
+
 ul.achievements li > div {
     min-width: 66.666666vw;
     background-color: var(--color-black);

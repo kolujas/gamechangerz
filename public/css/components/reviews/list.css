@@ -3,6 +3,13 @@ ul.reviews {
     overflow-x: scroll;
 }
 
+ul.reviews.cards {
+    --scroll-color-one: var(--color-two);
+    --scroll-color-one-alternative: var(--color-white);
+    --scroll-color-two: #1a141d;
+    --scroll-color-two-alternative: #1a141d;
+}
+
 ul.reviews li > div {
     min-width: 66.666666vw;
     background-color: var(--color-black);
@@ -45,7 +52,8 @@ ul.reviews li div div div div svg {
 /* ? MD */
 @media (min-width: 768px) {
     ul.reviews li > div {
-        min-width: 15rem;
+        min-width: 25rem;
+        max-width: 25rem;
     }
 }
 
