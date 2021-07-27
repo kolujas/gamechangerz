@@ -33,21 +33,6 @@
             ]);
         }
 
-        public function lesson (Request $request) {
-            $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
-            }
-
-            $lesson = false;
-            
-            return view('panel.lesson.details', [
-                'error' => $error,
-                'validation' => [],
-                'lesson' => $lesson
-            ]);
-        }
-
         /**
          * * Control the posts list panel page.
          * @return [type]
@@ -150,7 +135,8 @@
          * * Control the posts list panel page.
          * @return [type]
          */
-        public function lesson (Request $request, $slug = false) {
+
+         public function lesson (Request $request, $slug = false) {
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
