@@ -79,6 +79,7 @@
 
             $posts = Post::fromAdmin();
             foreach ($posts as $post) {
+                $post->and(["user"]);
                 $post->date = $this->dateToHuman($post->updated_at);
             }
 

@@ -45,19 +45,19 @@
             <ul class="dropdown-content">                        
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days" value="1">
+                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days" value=1>
                         <span class="overpass">Mañana</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days" value="2">
+                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days" value=2>
                         <span class="overpass">Tarde</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days" value="3">
+                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days" value=3>
                         <span class="overpass">Noche</span>
                     </label>
                 </li>
@@ -72,10 +72,10 @@
             <ul class="dropdown-content">                        
                 <li>
                     <div class="flex items-center overpass color-three mb-2">
-                        <input id="min" class="range-slider-text min p-2" type="number" name="min" value="1" min="1" max="50000">
+                        <input id="min" class="range-slider-text min p-2 filter-input filter-teachers rule" type="number" data-name="prices" value="1" min="1" max="50000">
                         <label for="min">1</label>
                         <span class="mx-2">-</span>
-                        <input id="max" class="range-slider-text max p-2" type="number" name="max" value="50000" min="1" max="50000">
+                        <input id="max" class="range-slider-text max p-2 filter-input filter-teachers rule" type="number" data-name="prices" value="50000" min="1" max="50000">
                         <label for="max">50000</label>
                     </div>
                     <div class="relative w-full h-3">

@@ -6,15 +6,6 @@
     width: 100%;
 }
 
-ul.games {
-    display: flex;
-    justify-content: center;
-}
-
-ul.games .card {
-    width: 25%;
-}
-
 ul.games .card :where(a, div):hover::before {
     top: 0;
     left: 0;
@@ -87,12 +78,25 @@ ul.games figure{
     ul.games figure{
         width: 50vw;
     }
+
+    ul.games {
+        display: flex;
+        justify-content: center;
+    }
+    
+    ul.games .card {
+        width: 50%;
+    }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
     ul.games figure{
         width: calc(100vw / 4);
+    }
+    
+    ul.games .card {
+        width: 25%;
     }
 }
 

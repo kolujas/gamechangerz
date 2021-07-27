@@ -81,7 +81,7 @@ function updateTeachersList (data) {
 }
 
 function createUsersFilter () {
-    let value = document.querySelector("input[type=search].filter-input").value;
+    let value = (document.querySelector("input[type=search].filter-input").value ? document.querySelector("input[type=search].filter-input").value : null);
     filter = new Filter({
         id: "filter-users",
         limit: 10,
@@ -102,7 +102,7 @@ function createUsersFilter () {
 }
 
 function createTeachersFilter () {
-    let value = document.querySelector("input[type=search].filter-input").value;
+    let value = (document.querySelector("input[type=search].filter-input").value ? document.querySelector("input[type=search].filter-input").value : null);
     let max = 0, min = 0;
     for (const user of users) {
         for (const price of user.prices) {
@@ -140,10 +140,10 @@ function createTeachersFilter () {
             "prices:*.price": { value: "ASC", active: false },
             "username": "ASC",
         }, rules: {
-            "username|name": { values: [{ regex: value }] },
+            "username|name": value ? { values: [{ regex: value }] } : null,
             "games:*.slug": null,
             "prices:*.price": { comparator: "><", strict: false },
-            "days:*.hours:*.time": { strict: false },
+            "days:*.hours:*.time": { strict: true },
         },
     }, {}, {
         run: {
