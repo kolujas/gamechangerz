@@ -126,11 +126,6 @@ if (validation.hasOwnProperty("teacher")) {
             params: {
                 type: "update",
             },
-        }, invalid: {
-            function: (params) => { console.log(params) },
-            params: {
-                type: "update",
-            },
         }
     });
     validation.teacher.delete.ValidationJS = new Validation({

@@ -28,20 +28,20 @@
          * * Table name.
          * @var string
          */
-        protected $table = 'users';
+        protected $table = "users";
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_user';
+        protected $primaryKey = "id_user";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'achievements', 'credits', 'date_of_birth', 'days', 'description', 'email', 'folder', 'games', 'id_role', 'important', 'languages', 'lessons', 'name', 'password', 'prices', 'slug', 'stars', 'status', 'teammate', 'teampro', 'token', 'username'
+            "achievements", "credits", "date_of_birth", "days", "description", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "status", "teammate", "teampro", "token", "username"
         ];
 
         /**
@@ -49,8 +49,8 @@
          * @var array
          */
         protected $hidden = [
-            'password',
-            'remember_token',
+            "password",
+            "remember_token",
         ];
 
         /**
@@ -58,7 +58,7 @@
          * @var array
          */
         protected $casts = [
-            'email_verified_at' => 'datetime',
+            "email_verified_at" => "datetime",
         ];
 
         /**
@@ -69,49 +69,49 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'abilities':
+                        case "abilities":
                             $this->abilities();
                             break;
-                        case 'achievements':
+                        case "achievements":
                             $this->achievements();
                             break;
-                        case 'days':
+                        case "days":
                             $this->days();
                             break;
-                        case 'files':
+                        case "files":
                             $this->files();
                             break;
-                        case 'friends':
+                        case "friends":
                             $this->friends();
                             break;
-                        case 'games':
+                        case "games":
                             $this->games();
                             break;
-                        case 'hours':
+                        case "hours":
                             $this->hours();
                             break;
-                        case 'languages':
+                        case "languages":
                             $this->languages();
                             break;
-                        case 'lessons':
+                        case "lessons":
                             $this->lessons();
                             break;
-                        case 'posts':
+                        case "posts":
                             $this->posts();
                             break;
-                        case 'prices':
+                        case "prices":
                             $this->prices();
                             break;
-                        case 'reviews':
+                        case "reviews":
                             $this->reviews();
                             break;
-                        case 'role':
+                        case "role":
                             $this->role();
                             break;
-                        case 'status':
+                        case "status":
                             $this->status();
                             break;
-                        case 'teampro':
+                        case "teampro":
                             $this->teampro();
                             break;
                     }
@@ -145,7 +145,7 @@
                     }
                 }
 
-                $ability->and([['stars', (($stars && $quantity) ? $stars / $quantity : 0)]]);
+                $ability->and([["stars", (($stars && $quantity) ? $stars / $quantity : 0)]]);
             }
         }
 
@@ -220,7 +220,7 @@
             $this->games = Game::parse($this->games);
             
             foreach ($this->games as $game) {
-                $game->and(['colors', 'files']);
+                $game->and(["colors", "files"]);
             }
         }
 
@@ -234,7 +234,7 @@
             foreach ($this->lessons as $lesson) {
                 if ($lesson->id_type === 1 || $lesson->id_type === 3) {
                     if ($lesson->status > 2) {
-                        $lesson->and(['days']);
+                        $lesson->and(["days"]);
 
                         foreach ($lesson->days as $day) {
                             foreach ($day->hours as $hour) {
@@ -264,7 +264,7 @@
 
             if ($this->id_role === 0) {
                 foreach (Lesson::allDoneFromUser($this->id_user) as $lesson) {
-                    $lesson->and(['type', 'users', 'reviews']);
+                    $lesson->and(["type", "users", "reviews"]);
                     if ($lesson->status === 4) {
                         $this->lessons->push($lesson);
                         $this->{"lessons-done"}++;
@@ -283,7 +283,7 @@
             }
             if ($this->id_role === 1) {
                 foreach (Lesson::allFromTeacher($this->id_user) as $lesson) {
-                    $lesson->and(['days', 'reviews', 'users', 'abilities', 'ended_at']);
+                    $lesson->and(["days", "reviews", "users", "abilities", "ended_at"]);
                     $this->lessons->push($lesson);
                     if ($lesson->status === 4) {
                         $this->{"lessons-done"}++;
@@ -325,10 +325,10 @@
          */
         public function profile () {
             foreach (Folder::getFiles($this->folder) as $file) {
-                if (strpos($file, '-')) {
-                    $fileExplode = explode('-', $file);
-                    $fileExplode = explode('.', $fileExplode[1]);
-                    if ($fileExplode[0] === 'profile') {
+                if (strpos($file, "-")) {
+                    $fileExplode = explode("-", $file);
+                    $fileExplode = explode(".", $fileExplode[1]);
+                    if ($fileExplode[0] === "profile") {
                         return $file;
                     }
                 }
@@ -344,7 +344,7 @@
             $this->reviews = collect();
             
             foreach (Review::allToUser($this->id_user) as $review) {
-                $review->and(['abilities', 'lesson', 'game']);
+                $review->and(["abilities", "lesson", "game"]);
                 $this->reviews->push($review);
             }
         }
@@ -362,9 +362,9 @@
          */
         public function sluggable (): array {
             return [
-                'slug' => [
-                    'source'	=> 'username',
-                    'onUpdate'	=> true,
+                "slug" => [
+                    "source"	=> "username",
+                    "onUpdate"	=> true,
                 ]
             ];
         }
@@ -407,27 +407,39 @@
          * @return User[]
          */
         static public function allAdmins () {
-            $users = User::where('id_role', '=', 2)->orderBy("updated_at")->get();
+            $users = User::where("id_role", "=", 2)->orderBy("updated_at")->get();
 
             return $users;
         }
 
         /**
          * * Get all the Users with id_role = 1.
+         * @param boolean [$paginate=false]
          * @return User[]
          */
-        static public function allTeachers () {
-            $users = User::where('id_role', '=', 1)->orderBy("updated_at")->get();
+        static public function allTeachers ($paginate = false) {
+            if (!$paginate) {
+                $users = User::where("id_role", "=", 1)->orderBy("updated_at")->get();
+            }
+            if ($paginate) {
+                $users = User::where("id_role", "=", 1)->orderBy("updated_at")->paginate(5);
+            }
 
             return $users;
         }
 
         /**
          * * Get all the Users with id_role = 0.
+         * @param boolean [$paginate=false]
          * @return User[]
          */
-        static public function allUsers () {
-            $users = User::where('id_role', '=', 0)->orderBy("updated_at")->get();
+        static public function allUsers ($paginate = false) {
+            if (!$paginate) {
+                $users = User::where("id_role", "=", 0)->orderBy("updated_at")->get();
+            }
+            if ($paginate) {
+                $users = User::where("id_role", "=", 0)->orderBy("updated_at")->paginate(5);
+            }
 
             return $users;
         }
@@ -437,8 +449,8 @@
          * @param string $email
          * @return User
          */
-        static public function findByEmail (string $email = '') {
-            $user = User::where('email', '=', $email)->first();
+        static public function findByEmail (string $email = "") {
+            $user = User::where("email", "=", $email)->first();
 
             return $user;
         }
@@ -451,9 +463,9 @@
         static public function allByGame (int $id_game, $id_role = false) {
             $users = collect();
 
-            foreach (User::orderBy('stars', 'DESC')->orderBy('username', 'ASC')->orderBy('important', 'DESC')->orderBy('updated_at', 'DESC')->get() as $user) {
+            foreach (User::orderBy("stars", "DESC")->orderBy("username", "ASC")->orderBy("important", "DESC")->orderBy("updated_at", "DESC")->get() as $user) {
                 if ($id_role && $user->id_role === $id_role) {
-                    $user->and(['games']);
+                    $user->and(["games"]);
 
                     foreach ($user->games as $game) {
                         if ($game->id_game === $id_game) {
@@ -462,7 +474,7 @@
                     }
                 }
                 if (!$id_role) {
-                    $user->and(['games']);
+                    $user->and(["games"]);
 
                     foreach ($user->games as $game) {
                         if ($game->id_game === $id_game) {
@@ -480,8 +492,8 @@
          * @param string $slug
          * @return User
          */
-        static public function findBySlug (string $slug = '') {
-            $user = User::where('slug', '=', $slug)->first();
+        static public function findBySlug (string $slug = "") {
+            $user = User::where("slug", "=", $slug)->first();
 
             return $user;
         }
@@ -491,7 +503,7 @@
          * @return User[]
          */
         static public function teachers () {
-            $users = User::where('id_role', '=', 1)->get();
+            $users = User::where("id_role", "=", 1)->get();
 
             return $users;
         }
@@ -502,8 +514,8 @@
          */
         static public function users () {
             $users = User::where([
-                ['id_role', '=', 0],
-                ['status', '>', 1],
+                ["id_role", "=", 0],
+                ["status", ">", 1],
             ])->get();
 
             return $users;
@@ -552,134 +564,186 @@
         
         /** @var array Validation rules & messages. */
         static $validation = [
-            'user' => [
-                'panel' => [
-                    'create' => [
-    
-                    ],
-                    'delete' => [
-    
-                    ],
-                    'update' => [
-    
-                    ],
-                ],
-                'update' => [
-                    'rules' => [
-                        'username' => 'required|unique:users,username,{id_user},id_user|max:25',
-                        'name' => 'nullable|max:25',
-                        'profile' => 'nullable|mimetypes:image/png,image/jpeg',
-                        'banner' => 'nullable|mimetypes:image/png,image/jpeg',
-                    ], 'messages' => [
-                        'es' => [
-                            'username.required' => 'El apodo es obligatorio.',
-                            'username.unique' => 'Ese apodo ya esta en uso.',
-                            'username.max' => 'El apodo no puede tener más de :max caracteres.',
-                            'name.max' => 'El nombre no puede tener más de :max caracteres.',
-                            'profile.mimetypes' => 'La foto de perfil debe ser una imagen .jpeg/jpg o .png',
-                            'banner.mimetypes' => 'La foto del banner debe ser una imagen .jpeg/jpg o .png',
-            ]]]], 'teacher' => [
-                'panel' => [
-                    'create' => [
-                        'rules' => [
-                            'username' => 'required|unique:users,username,{id_user},id_user|max:25',
-                            'email' => 'required|email|unique:users|regex:/^[a-z]*@gmail\.com(\.[a-z]*)?$/i',
-                            'password' => 'required',
-                            'name' => 'required|max:25',
-                            'description' => 'nullable|max:255',
-                            'teampro_name' => 'required|max:25',
-                            'teampro_logo' => 'required|mimetypes:image/png',
-                            'profile' => 'required|mimetypes:image/png',
-                            'abilities' => 'required',
-                            'languages' => 'required',
-                        ], 'messages' => [
-                            'es' => [
-                                'username.required' => 'El apodo es obligatorio.',
-                                'username.unique' => 'Ese apodo ya esta en uso.',
-                                'username.max' => 'El apodo no puede tener más de :max caracteres.',
-                                'email.required' => 'El correo es obligatorio.',
-                                'email.email' => 'El correo debe ser formato mail (ejemplo@gmail.com).',
-                                'email.unique' => 'Ese correo ya se encuentra en uso.',
-                                'email.regex' => 'El correo debe ser gmail (ejemplo@gmail.com).',
-                                'password.required' => 'La contraseña es obligatoria.',
-                                'name.required' => 'El nombre es obligatorio.',
-                                'name.max' => 'El nombre no puede tener más de :max caracteres.',
-                                'description.max' => 'La descripción no puede tener más de :max caracteres.',
-                                'teampro_name.required' => 'El nombre del equipo es obligatorio.',
-                                'teampro_name.max' => 'El nombre del equipo no puede tener más de :max caracteres.',
-                                'teampro_logo.required' => 'La foto del equipo es obligatoria.',
-                                'teampro_logo.mimetypes' => 'La foto del equipo debe ser una imagen .png',
-                                'profile.required' => 'La foto de perfil es obligatoria.',
-                                'profile.mimetypes' => 'La foto de perfil debe ser una imagen .png',
-                                'abilities.required' => 'Al menos 1 Habilidad es obligatoria.',
-                                'languages.required' => 'Al menos 1 idioma es obligatorio.',
+            "user" => [
+                "panel" => [
+                    "create" => [
+                        "rules" => [
+                            "username" => "required|unique:users|max:25",
+                            "email" => "required|email|unique:users|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "password" => "required",
+                            "name" => "nullable|max:25",
+                            "profile" => "nullable|mimetypes:image/png,image/jpeg",
+                            "banner" => "nullable|mimetypes:image/png,image/jpeg",
+                            "languages" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "username.required" => "El apodo es obligatorio.",
+                                "username.unique" => "Ese apodo ya esta en uso.",
+                                "username.max" => "El apodo no puede tener más de :max caracteres.",
+                                "email.required" => "El correo es obligatorio.",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.unique" => "Ese correo ya se encuentra en uso.",
+                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
+                                "password.required" => "La contraseña es obligatoria.",
+                                "name.max" => "El nombre no puede tener más de :max caracteres.",
+                                "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
+                                "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
+                                "languages.required" => "Al menos 1 idioma es obligatorio.",
                             ]
                         ]
                     ],
-                    'delete' => [
-                        'rules' => [
-                            'message' => 'required|regex:/^BORRAR$/',
-                        ], 'messages' => [
-                            'es' => [
-                                'message.required' => 'El mensaje es obligatorio.',
-                                'message.regex' => 'El mensaje debe decir BORRAR.',
+                    "delete" => [
+                        "rules" => [
+                            "message" => "required|regex:/^BORRAR$/",
+                        ], "messages" => [
+                            "es" => [
+                                "message.required" => "El mensaje es obligatorio.",
+                                "message.regex" => "El mensaje debe decir BORRAR.",
                             ]
                         ]
                     ],
-                    'update' => [
-                        'rules' => [
-                            'username' => 'required|unique:users,username,{id_user},id_user|max:25',
-                            'email' => 'required|email|unique:users,email,{id_user},id_user|regex:/^[a-z]*@gmail\.com(\.[a-z]*)?$/i',
-                            'name' => 'required|max:25',
-                            'description' => 'nullable|max:255',
-                            'teampro_name' => 'required|max:25',
-                            'teampro_logo' => 'nullable|mimetypes:image/png',
-                            'profile' => 'nullable|mimetypes:image/png',
-                            'abilities' => 'required',
-                            'languages' => 'required',
-                        ], 'messages' => [
-                            'es' => [
-                                'username.required' => 'El apodo es obligatorio.',
-                                'username.unique' => 'Ese apodo ya esta en uso.',
-                                'username.max' => 'El apodo no puede tener más de :max caracteres.',
-                                'email.required' => 'El correo es obligatorio.',
-                                'email.email' => 'El correo debe ser formato mail (ejemplo@gmail.com).',
-                                'email.unique' => 'Ese correo ya se encuentra en uso.',
-                                'email.regex' => 'El correo debe ser gmail (ejemplo@gmail.com).',
-                                'name.required' => 'El nombre es obligatorio.',
-                                'name.max' => 'El nombre no puede tener más de :max caracteres.',
-                                'description.max' => 'La descripción no puede tener más de :max caracteres.',
-                                'teampro_name.required' => 'El nombre del equipo es obligatorio.',
-                                'teampro_name.max' => 'El nombre del equipo no puede tener más de :max caracteres.',
-                                'teampro_logo.mimetypes' => 'La foto del equipo debe ser una imagen .png',
-                                'profile.mimetypes' => 'La foto de perfil debe ser una imagen .png',
-                                'abilities.required' => 'Al menos 1 Habilidad es obligatoria.',
-                                'languages.required' => 'Al menos 1 idioma es obligatorio.',
+                    "update" => [
+                        "rules" => [
+                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "email" => "required|email|unique:users,username,{id_user},id_user|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "name" => "nullable|max:25",
+                            "profile" => "nullable|mimetypes:image/png,image/jpeg",
+                            "banner" => "nullable|mimetypes:image/png,image/jpeg",
+                            "languages" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "username.required" => "El apodo es obligatorio.",
+                                "username.unique" => "Ese apodo ya esta en uso.",
+                                "username.max" => "El apodo no puede tener más de :max caracteres.",
+                                "email.required" => "El correo es obligatorio.",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.unique" => "Ese correo ya se encuentra en uso.",
+                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
+                                "name.max" => "El nombre no puede tener más de :max caracteres.",
+                                "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
+                                "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
+                                "languages.required" => "Al menos 1 idioma es obligatorio.",
                             ]
                         ]
                     ],
                 ],
-                'update' => [
-                    'rules' => [
-                        'username' => 'required|unique:users,username,{id_user},id_user|max:25',
-                        'name' => 'required|max:25',
-                        'description' => 'nullable|max:255',
-                        'teampro_name' => 'required|max:25',
-                        'teampro_logo' => 'nullable|mimetypes:image/png',
-                        'profile' => 'nullable|mimetypes:image/png',
-                        // 'prices' => 'required',
-                        // 'hours' => 'required',
-                    ], 'messages' => [
-                        'es' => [
-                            'username.required' => 'El apodo es obligatorio.',
-                            'username.unique' => 'Ese apodo ya esta en uso.',
-                            'username.max' => 'El apodo no puede tener más de :max caracteres.',
-                            'name.required' => 'El nombre es obligatorio.',
-                            'name.max' => 'El nombre no puede tener más de :max caracteres.',
-                            'description.max' => 'La descripción no puede tener más de :max caracteres.',
-                            'teampro_name.required' => 'El nombre de tu equipo es obligatorio.',
-                            'teampro_name.max' => 'El nombre de tu equipo no puede tener más de :max caracteres.',
-                            'teampro_logo.mimetypes' => 'La foto de tu equipo debe ser una imagen .png',
-                            'profile.mimetypes' => 'La foto de perfil debe ser una imagen .png',
+                "update" => [
+                    "rules" => [
+                        "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                        "name" => "nullable|max:25",
+                        "profile" => "nullable|mimetypes:image/png,image/jpeg",
+                        "banner" => "nullable|mimetypes:image/png,image/jpeg",
+                        "languages" => "required",
+                    ], "messages" => [
+                        "es" => [
+                            "username.required" => "El apodo es obligatorio.",
+                            "username.unique" => "Ese apodo ya esta en uso.",
+                            "username.max" => "El apodo no puede tener más de :max caracteres.",
+                            "name.max" => "El nombre no puede tener más de :max caracteres.",
+                            "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
+                            "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
+            ]]]], "teacher" => [
+                "panel" => [
+                    "create" => [
+                        "rules" => [
+                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "email" => "required|email|unique:users|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "password" => "required",
+                            "name" => "required|max:25",
+                            "description" => "nullable|max:255",
+                            "teampro_name" => "required|max:25",
+                            "teampro_logo" => "required|mimetypes:image/png",
+                            "profile" => "required|mimetypes:image/png",
+                            "abilities" => "required",
+                            "languages" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "username.required" => "El apodo es obligatorio.",
+                                "username.unique" => "Ese apodo ya esta en uso.",
+                                "username.max" => "El apodo no puede tener más de :max caracteres.",
+                                "email.required" => "El correo es obligatorio.",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.unique" => "Ese correo ya se encuentra en uso.",
+                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
+                                "password.required" => "La contraseña es obligatoria.",
+                                "name.required" => "El nombre es obligatorio.",
+                                "name.max" => "El nombre no puede tener más de :max caracteres.",
+                                "description.max" => "La descripción no puede tener más de :max caracteres.",
+                                "teampro_name.required" => "El nombre del equipo es obligatorio.",
+                                "teampro_name.max" => "El nombre del equipo no puede tener más de :max caracteres.",
+                                "teampro_logo.required" => "La foto del equipo es obligatoria.",
+                                "teampro_logo.mimetypes" => "La foto del equipo debe ser una imagen .png",
+                                "profile.required" => "La foto de perfil es obligatoria.",
+                                "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
+                                "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
+                                "languages.required" => "Al menos 1 idioma es obligatorio.",
+                            ]
+                        ]
+                    ],
+                    "delete" => [
+                        "rules" => [
+                            "message" => "required|regex:/^BORRAR$/",
+                        ], "messages" => [
+                            "es" => [
+                                "message.required" => "El mensaje es obligatorio.",
+                                "message.regex" => "El mensaje debe decir BORRAR.",
+                            ]
+                        ]
+                    ],
+                    "update" => [
+                        "rules" => [
+                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "email" => "required|email|unique:users,email,{id_user},id_user|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "name" => "required|max:25",
+                            "description" => "nullable|max:255",
+                            "teampro_name" => "required|max:25",
+                            "teampro_logo" => "nullable|mimetypes:image/png",
+                            "profile" => "nullable|mimetypes:image/png",
+                            "abilities" => "required",
+                            "languages" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "username.required" => "El apodo es obligatorio.",
+                                "username.unique" => "Ese apodo ya esta en uso.",
+                                "username.max" => "El apodo no puede tener más de :max caracteres.",
+                                "email.required" => "El correo es obligatorio.",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.unique" => "Ese correo ya se encuentra en uso.",
+                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
+                                "name.required" => "El nombre es obligatorio.",
+                                "name.max" => "El nombre no puede tener más de :max caracteres.",
+                                "description.max" => "La descripción no puede tener más de :max caracteres.",
+                                "teampro_name.required" => "El nombre del equipo es obligatorio.",
+                                "teampro_name.max" => "El nombre del equipo no puede tener más de :max caracteres.",
+                                "teampro_logo.mimetypes" => "La foto del equipo debe ser una imagen .png",
+                                "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
+                                "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
+                                "languages.required" => "Al menos 1 idioma es obligatorio.",
+                            ]
+                        ]
+                    ],
+                ],
+                "update" => [
+                    "rules" => [
+                        "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                        "name" => "required|max:25",
+                        "description" => "nullable|max:255",
+                        "teampro_name" => "required|max:25",
+                        "teampro_logo" => "nullable|mimetypes:image/png",
+                        "profile" => "nullable|mimetypes:image/png",
+                        // "prices" => "required",
+                        // "hours" => "required",
+                    ], "messages" => [
+                        "es" => [
+                            "username.required" => "El apodo es obligatorio.",
+                            "username.unique" => "Ese apodo ya esta en uso.",
+                            "username.max" => "El apodo no puede tener más de :max caracteres.",
+                            "name.required" => "El nombre es obligatorio.",
+                            "name.max" => "El nombre no puede tener más de :max caracteres.",
+                            "description.max" => "La descripción no puede tener más de :max caracteres.",
+                            "teampro_name.required" => "El nombre de tu equipo es obligatorio.",
+                            "teampro_name.max" => "El nombre de tu equipo no puede tener más de :max caracteres.",
+                            "teampro_logo.mimetypes" => "La foto de tu equipo debe ser una imagen .png",
+                            "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
         ]]]]];
     }

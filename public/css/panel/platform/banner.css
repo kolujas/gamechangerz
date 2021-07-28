@@ -7,6 +7,7 @@
     cursor: pointer;
     transition: 600ms;
     overflow: hidden;
+    background-color: var(--color-black);
 }
 
 #banner .banner-container .banner-photo img:hover,
