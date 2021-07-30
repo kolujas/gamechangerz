@@ -25,7 +25,7 @@
                 case 'dolar':
                     return PlatformController::doUpdateDolar($request);
                 default:
-                    dd("Call to a platform section \"$section\" not found");
+                    dd("Call to an undefined section \"$section\"");
             }
         }
 

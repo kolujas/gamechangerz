@@ -16,7 +16,7 @@
 @section('content')
     <li id="banner" class="tab-content min-h-screen p-12 closed">
         <header class="flex w-full mb-24">
-            <h2 class="russo color-white mr-4">Plataforma <span class="overpass color-black">|</span> Imágenes</h2>
+            <h2 class="russo color-white mr-4">Plataforma <span class="overpass color-black">></span> Imágenes</h2>
         </header>
         <form class="my-2 py-2 flex flex-wrap rounded not" method="post" enctype="multipart/form-data" action="/panel/banner/update">
             @csrf

@@ -17,25 +17,25 @@
         public function update (Request $request, string $id_lesson) {
             $input = (object) $request->all();
 
-            $validator = Validator::make((array) $input, Lesson::$validation['update']['rules'], Lesson::$validation['update']['messages']['es']);
+            $validator = Validator::make((array) $input, Lesson::$validation["update"]["rules"], Lesson::$validation["update"]["messages"]["es"]);
             if ($validator->fails()) {
                 return response()->json([
-                    'code' => 401,
-                    'message' => 'Validation error',
-                    'data' => [
-                        'errors' => $validator->errors()->messages(),
+                    "code" => 401,
+                    "message" => "Validation error",
+                    "data" => [
+                        "errors" => $validator->errors()->messages(),
                     ],
                 ]);
             }
 
-            $input->hours = explode(',', $input->hours);
-            $input->dates = explode(',', $input->dates);
+            $input->hours = explode(",", $input->hours);
+            $input->dates = explode(",", $input->dates);
             $lesson = Lesson::find($id_lesson);
             
             $days = collect();
             for ($i=0; $i < count($input->dates); $i++) {
                 foreach (Lesson::allFromTeacher($lesson->id_user_from) as $previousLesson) {
-                    $previousLesson->and(['days']);
+                    $previousLesson->and(["days"]);
                     if ($previousLesson->id_lesson !== intval($id_lesson)) {
                         foreach ($previousLesson->days as $day) {
                             $day = (object) $day;
@@ -45,8 +45,8 @@
                                         $date = $input->dates[$i];
                                         $hours = $hour->from . " - " . $hour->to;
                                         return response()->json([
-                                            'code' => 500,
-                                            'message' => "La fecha $date entre las $hours ya fue tomada.",
+                                            "code" => 500,
+                                            "message" => "La fecha $date entre las $hours ya fue tomada.",
                                         ]);
                                     }
                                 }
@@ -55,20 +55,32 @@
                     }
                 }
                 $days->push([
-                    'date' => $input->dates[$i],
-                    'hour' => collect([
-                        'id_hour' => $input->hours[$i],
+                    "date" => $input->dates[$i],
+                    "hour" => collect([
+                        "id_hour" => $input->hours[$i],
                     ]),
                 ]);
             }
 
             $lesson->update([
-                'days' => json_encode($days),
+                "days" => json_encode($days),
             ]);
 
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
+                "code" => 200,
+                "message" => "Success",
+            ]);
+        }
+
+        public function getAssigments (Request $request, int $id_lesson) {
+            $lesson = Lesson::find($id_lesson);
+            $lesson->and(["assigments"]);
+
+            return response()->json([
+                "code" => 200,
+                "data" => [
+                    "assigments" => $lesson->assigments,
+                ],
             ]);
         }
     }

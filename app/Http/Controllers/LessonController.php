@@ -24,7 +24,7 @@
         public function checkNotification (Request $request, string $type) {
             // * Check the Notification type
             switch ($type) {
-                case 'mercadopago':
+                case "mercadopago":
                     // * Creates the MercadoPago
                     $MP = new MercadoPago();
         
@@ -35,18 +35,18 @@
                             $MP->payment($request->id);
                             
                             // * Check the Payment status
-                            if ($MP->payment->status === 'approved') {
+                            if ($MP->payment->status === "approved") {
                                 // * Get the external Preference & updates
                                 $lesson = Lesson::find($MP->payment->external_preference);
                 
                                 $lesson->update([
-                                    'status' => 3,
+                                    "id_status" => 3,
                                 ]);
                             }
                             break;
                     }
                     break;
-                case 'paypal':
+                case "paypal":
                     break;
             }
         }
@@ -60,25 +60,16 @@
         public function checkout (Request $request, string $id_lesson) {
             $input = (object) $request->all();
 
-            $validator = Validator::make($request->all(), Lesson::$validation['checkout']['online']['rules'], Lesson::$validation['checkout']['online']['messages']['es']);
+            $validator = Validator::make($request->all(), Lesson::$validation["checkout"]["online"]["rules"], Lesson::$validation["checkout"]["online"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            switch ($input->method) {
-                case 'mercadopago':
-                    $input->method = 1;
-                    break;
-                case 'paypal':
-                    $input->method = 2;
-                    break;
-            }
-
             $lesson = Lesson::find($id_lesson);
             $lesson->update((array) $input);
-            $lesson->and(['type', 'users']);
+            $lesson->and(["type", "users"]);
 
-            if (config('app.env') !== 'local') {
+            if (config("app.env") !== "local") {
                 if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
                     foreach ($input->dates as $key => $date) {
                         $data = (object) [];
@@ -93,31 +84,31 @@
                 }
             }
 
-            switch ($input->method) {
+            switch ($input->id_method) {
                 case 1:
                     $data = (object) [
-                        'id' => $lesson->id_lesson,
-                        'title' => ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
-                        'price' => $lesson->users->from->prices[$lesson->type->id_type - 1]->price,
+                        "id" => $lesson->id_lesson,
+                        "title" => ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
+                        "price" => $lesson->users->from->prices[$lesson->type->id_type - 1]->price,
                     ];
 
                     $MP = new MercadoPago();
                     $MP->items([$data]);
                     $MP->preference($data);
                     $url = $MP->preference->init_point;
-                    if (config('app.env') !== 'production') {
+                    if (config("app.env") !== "production") {
                         $lesson->update([
-                            'status' => 3,
+                            "id_status" => 3,
                         ]);
                     }
                     break;
                 case 2:
                     $lesson->update([
-                        'status' => 3,
+                        "id_status" => 3,
                     ]);
-                    $url = route('lesson.checkout.status', [
-                        'id_lesson' => $lesson->id_lesson,
-                        'status' => 2,
+                    $url = route("lesson.checkout.status", [
+                        "id_lesson" => $lesson->id_lesson,
+                        "id_status" => 2,
                     ]);
                     break;
             }
@@ -129,36 +120,36 @@
         /**
          * * Show the Lesson status.
          * @param Request $request
-         * @param string $id_lesson
-         * @param string $status
+         * @param int $id_lesson
+         * @param int $id_status
          * @return [type]
          */
-        public function showStatus (Request $request, string $id_lesson, string $status) {
+        public function showStatus (Request $request, int $id_lesson, int $id_status) {
             $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
             }
 
             $lesson = Lesson::find($id_lesson);
-            $lesson->and(['days']);
+            $lesson->and(["days"]);
 
-            return view('lesson.status', [
-                'error' => $error,
-                'lesson' => $lesson,
-                'status' => $status,
-                'validation' => [
-                    'login' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                ], 'signin' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assigment' => (object)[
-                        'rules' => Assigment::$validation['make']['rules'],
-                        'messages' => Assigment::$validation['make']['messages']['es'],
-                ], 'presentation' => (object)[
-                        'rules' => Presentation::$validation['make']['rules'],
-                        'messages' => Presentation::$validation['make']['messages']['es'],
+            return view("lesson.status", [
+                "error" => $error,
+                "lesson" => $lesson,
+                "id_status" => $id_status,
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "assigment" => (object)[
+                        "rules" => Assigment::$validation["make"]["rules"],
+                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
                 ]],
             ]);
         }

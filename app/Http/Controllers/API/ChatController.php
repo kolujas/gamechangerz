@@ -35,7 +35,7 @@
                         "days" => json_encode([
                             ["date" => $date]
                         ]),
-                        "status" => 3,
+                        "id_status" => 3,
                     ]);
                 }
                 if ($lesson->id_type === 2) {
@@ -45,7 +45,7 @@
 
             foreach ($lessons as $lesson) {
                 $lesson->and(['ended_at', 'started_at']);
-                if ($lesson->status === 3 && $lesson->id_type === 2) {
+                if ($lesson->id_status === 3 && $lesson->id_type === 2) {
                     $now = Carbon::now();
                     if ($now > $lesson->started_at && $now < $lesson->ended_at) {
                         if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {

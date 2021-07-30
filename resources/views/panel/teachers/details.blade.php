@@ -1,7 +1,7 @@
 @extends("layouts.panel")
 
 @section("title")
-    Profesor | @if (isset($user->id_user))
+    Profesor > @if (isset($user->id_user))
         {{ $user->username }}
     @else
         Nuevo
@@ -24,7 +24,7 @@
             @method("POST")
 
             <header class="flex w-full mb-24">
-                <h2 class="russo color-white mr-4 uppercase">Profesor <span class="overpass color-black">|</span> @if (isset($user->id_user))
+                <h2 class="russo color-white mr-4 uppercase">Profesor <span class="overpass color-black">></span> @if (isset($user->id_user))
                     {{ $user->username }}
                 @else
                     Nuevo
@@ -70,32 +70,42 @@
                 </div>
 
                 <div class="pt-0 col-span-2">
+                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif>
+                        <option class="overpass" disabled @if (!old("id_status", $user->id_status)) selected @endif>Estado</option>
+                        <option class="overpass" value="0" @if (old("id_status", $user->id_status) === 0) selected @endif>Baneado</option>
+                        <option class="overpass" value="1" @if (old("id_status", $user->id_status) === 1) selected @endif>Correo pendiente de aprobación</option>
+                        <option class="overpass" value="2" @if (old("id_status", $user->id_status) === 2) selected @endif>Habilitado</option>
+                    </select>
+                    <span class="block color-white error support teacher-form support-box hidden support-id_status mt-2 overpass"></span>
+                </div>
+
+                <div class="pt-0 col-span-2 row-span-3 profile-photo text-center flex content-start flex-wrap justify-center"></div>
+
+                <div class="pt-0 col-span-2 row-span-3 teampro-photo text-center flex content-start flex-wrap justify-center"></div>
+
+                <div class="pt-0 col-span-2">
                     <input type="text" tabindex="3" name="email" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
                     <span class="block color-white error support teacher-form support-box hidden support-email mt-2 overpass"></span>
                 </div>
 
-                <div class="pt-0 col-span-2 row-span-3 profile-photo text-center flex content-end flex-wrap justify-center"></div>
-
-                <div class="pt-0 col-span-2 row-span-3 teampro-photo text-center flex content-end flex-wrap justify-center"></div>
+                <div class="pt-0 col-span-2">
+                    <input type="password" tabindex="4" name="password" placeholder="Contraseña" value="{{ old("password") }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support teacher-form support-box hidden support-password mt-2 overpass"></span>
+                </div>
 
                 <div class="pt-0 col-span-2 col-start-1">
-                    <input type="text" tabindex="4" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <input type="text" tabindex="5" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                     <span class="block color-white error support teacher-form support-box hidden support-username mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <input type="password" tabindex="5" name="password" placeholder="Contraseña" value="{{ old("password") }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-password mt-2 overpass"></span>
+                    <input type="text" tabindex="6" name="teampro_name" placeholder="Nombre del teampro" value="{{ old("teampro_name", $teampro->name) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support teacher-form support-box hidden support-teampro_name mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-4">
-                    <textarea tabindex="6" placeholder="Descripcion del profesor" name="description" class="w-16 h-16 px-5 py-4 text-base placeholder-blueGray-300 text-gray-700 placeholder-blueGray-300 rounded-lg focus:shadow-outline w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif>{{ old("description", $user->description) }}</textarea>
+                    <textarea tabindex="7" placeholder="Descripcion del profesor" name="description" class="w-16 h-16 px-5 py-4 text-base placeholder-blueGray-300 text-gray-700 placeholder-blueGray-300 rounded-lg focus:shadow-outline w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif>{{ old("description", $user->description) }}</textarea>
                     <span class="block color-white error support teacher-form support-box hidden support-description mt-2 overpass"></span>
-                </div>
-
-                <div class="pt-0 col-span-2">
-                    <input type="text" tabindex="7" name="teampro_name" placeholder="Nombre del teampro" value="{{ old("teampro_name", $teampro->name) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-teampro_name mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-8">

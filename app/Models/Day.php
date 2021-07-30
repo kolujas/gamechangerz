@@ -12,14 +12,14 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_day';
+        protected $primaryKey = "id_day";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_day', 'name', 'slug',
+            "id_day", "name", "slug",
         ];
 
         /**
@@ -30,14 +30,17 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'carbon':
+                        case "carbon":
                             $this->carbon();
+                            break;
+                        case "status":
+                            $this->status();
                             break;
                     }
                     continue;
                 }
                 switch ($column[0]) {
-                    case 'hours':
+                    case "hours":
                         $this->hours($column[1]);
                         break;
                 }
@@ -49,11 +52,11 @@
          */
         public function carbon () {
             $carbon = new Carbon($this->date);
-
+            
             $this->carbon = (object) [
-                'day' => $carbon->format('d'),
-                'month' => Day::$months[$carbon->format('n')],
-                'year' => $carbon->format('Y'),
+                "day" => $carbon->format("d"),
+                "month" => Day::$months[$carbon->format("n") - 1],
+                "year" => $carbon->format("Y"),
             ];
         }
 
@@ -61,8 +64,26 @@
          * * Set the Day Hours.
          * @param string [$hours]
          */
-        public function hours (string $hours = '') {
+        public function hours (string $hours = "") {
             $this->hours = Hour::parse($hours);
+        }
+
+        /**
+         * * Set the Day status.
+         * @param string [$hours]
+         */
+        public function status () {
+            $this->id_status = 0;
+            $now = Carbon::now();
+
+            if ($now > new Carbon($this->date)) {
+                $this->id_status = 1;
+                foreach ($this->hours as $hour) {
+                    if ($now < new Carbon($this->date . "T" . $hour->to)) {
+                        $this->id_status = 0;
+                    }
+                }
+            }
         }
 
         /**
@@ -72,7 +93,7 @@
          */
         static public function option (int $id_day) {
             foreach (Day::$options as $option) {
-                if ($option['id_day'] === $id_day) {
+                if ($option["id_day"] === $id_day) {
                     return new Day($option);
                 }
             }
@@ -94,7 +115,7 @@
                 $found = false;
                 
                 foreach ($days as $data) {
-                    if ($option->id_day === $data['id_day']) {
+                    if ($option->id_day === $data["id_day"]) {
                         $found = true;
                         break;
                     }
@@ -113,7 +134,7 @@
          * @param string [$days] Example: "[{\"id_day\":1}]"
          * @return Day[]
          */
-        static public function parse (string $days = '') {
+        static public function parse (string $days = "") {
             $collection = collect();
             
             foreach (json_decode($days) as $data) {
@@ -129,14 +150,14 @@
                         $hours->push($data->hour);
                     }
                     
-                    $day->and(['carbon', ['hours', json_encode($hours)]]);
+                    $day->and(["carbon", ["hours", json_encode($hours)], "status"]);
                 }
 
                 if (!isset($data->date)) {
                     $day = Day::option($data->id_day);
     
                     if (isset($data->hours)) {
-                        $day->and([['hours', json_encode($data->hours)]]);
+                        $day->and([["hours", json_encode($data->hours)], "status"]);
                     }
                 }
 
@@ -190,33 +211,33 @@
          * @var array
          */
         static $options = [[
-            'id_day' => 0,
-            'name' => 'Domingo',
-            'slug' => 'domingo',
+            "id_day" => 0,
+            "name" => "Domingo",
+            "slug" => "domingo",
         ],[
-            'id_day' => 1,
-            'name' => 'Lunes',
-            'slug' => 'lunes',
+            "id_day" => 1,
+            "name" => "Lunes",
+            "slug" => "lunes",
         ],[
-            'id_day' => 2,
-            'name' => 'Martes',
-            'slug' => 'martes',
+            "id_day" => 2,
+            "name" => "Martes",
+            "slug" => "martes",
         ],[
-            'id_day' => 3,
-            'name' => 'Miércoles',
-            'slug' => 'miercoles',
+            "id_day" => 3,
+            "name" => "Miércoles",
+            "slug" => "miercoles",
         ],[
-            'id_day' => 4,
-            'name' => 'Jueves',
-            'slug' => 'jueves',
+            "id_day" => 4,
+            "name" => "Jueves",
+            "slug" => "jueves",
         ],[
-            'id_day' => 5,
-            'name' => 'Viernes',
-            'slug' => 'viernes',
+            "id_day" => 5,
+            "name" => "Viernes",
+            "slug" => "viernes",
         ],[
-            'id_day' => 6,
-            'name' => 'Sábado',
-            'slug' => 'sabado',
+            "id_day" => 6,
+            "name" => "Sábado",
+            "slug" => "sabado",
         ]];
 
         /**

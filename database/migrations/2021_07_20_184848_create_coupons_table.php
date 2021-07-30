@@ -15,6 +15,7 @@
                 $table->string('name');
                 $table->json('type')->default("");
                 $table->integer('limit')->nullable();
+                $table->string('slug');
                 $table->timestamps();
             });
         }

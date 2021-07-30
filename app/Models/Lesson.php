@@ -4,6 +4,7 @@
     use App\Models\Ability;
     use App\Models\Day;
     use App\Models\Folder;
+    use App\Models\Method;
     use App\Models\Review;
     use Carbon\Carbon;
     use Illuminate\Database\Eloquent\Model;
@@ -14,20 +15,20 @@
          * * Table name.
          * @var string
          */
-        protected $table = 'lessons';
+        protected $table = "lessons";
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_lesson';
+        protected $primaryKey = "id_lesson";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'coupon', 'days', 'id_game', 'id_type', 'id_user_from', 'id_user_to', 'method', 'name', 'slug', 'status', 'svg',
+            "coupon", "days", "id_game", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg",
         ];
 
         /**
@@ -38,31 +39,34 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'abilities':
+                        case "abilities":
                             $this->abilities();
                             break;
-                        case 'assigments':
+                        case "assigments":
                             $this->assigments();
                             break;
-                        case 'chat':
+                        case "chat":
                             $this->chat();
                             break;
-                        case 'days':
+                        case "days":
                             $this->days();
                             break;
-                        case 'ended_at':
+                        case "ended_at":
                             $this->ended_at();
                             break;
-                        case 'reviews':
+                        case "method":
+                            $this->method();
+                            break;
+                        case "reviews":
                             $this->reviews();
                             break;
-                        case 'started_at':
+                        case "started_at":
                             $this->started_at();
                             break;
-                        case 'type':
+                        case "type":
                             $this->type();
                             break;
-                        case 'users':
+                        case "users":
                             $this->users();
                             break;
                     }
@@ -82,7 +86,7 @@
             $this->users();
             $this->abilities = (object)[];
 
-            $this->users->from->and(['abilities', 'games']);
+            $this->users->from->and(["abilities", "games"]);
             $from = collect();
             foreach ($this->users->from->games as $game) {   
                 foreach ($game->abilities as $ability) {   
@@ -105,7 +109,7 @@
             $this->assigments = collect();
 
             foreach (Assigment::allFromLesson($this->id_lesson) as $assigment) {
-                $assigment->and(['abilities', 'game']);
+                $assigment->and(["abilities", "game", "presentation"]);
 
                 $this->assigments->push($assigment);
             }
@@ -123,6 +127,13 @@
          */
         public function days () {
             $this->days = Day::parse($this->days);
+        }
+
+        /**
+         * * Set the Lesson Hours.
+         */
+        public function method () {
+            $this->method = Method::option($this->id_method);
         }
 
         /**
@@ -198,7 +209,7 @@
          */
         public function type () {
             foreach (Lesson::$types as $type) {
-                if ($type['id_type'] === $this->id_type) {
+                if ($type["id_type"] === $this->id_type) {
                     $this->type = (object) $type;
                 }
             }
@@ -209,52 +220,52 @@
          */
         public function users () {
             $this->users = (object) [
-                'from' => User::find($this->id_user_from),
-                'to' => User::find($this->id_user_to),
+                "from" => User::find($this->id_user_from),
+                "to" => User::find($this->id_user_to),
             ];
-            $this->users->from->and(['files', 'prices', 'games', 'abilities']);
-            $this->users->to->and(['files', 'games']);
+            $this->users->from->and(["files", "prices", "games", "abilities"]);
+            $this->users->to->and(["files", "games"]);
         }
 
         /**
-         * * Get all the Lessons with status = 1.
+         * * Get all the Lessons with id_status = 1.
          * @return Lesson[]
          */
         static public function allCreated () {
-            $lessons = Lesson::where('status', '=', '1')->get();
+            $lessons = Lesson::where("id_status", "=", "1")->get();
 
             return $lessons;
         }
 
         /**
-         * * Get all the Lessons with status = 4 from an User.
+         * * Get all the Lessons with id_status = 4 from an User.
          * @param int $id_user
          * @return Lesson[]
          */
         static public function allStartedFromUser (int $id_user) {
             $lessons = Lesson::where([
-                ['id_user_from', '=', $id_user],
-                ['status', '=', 3],
+                ["id_user_from", "=", $id_user],
+                ["id_status", "=", 3],
             ])->orwhere([
-                ['id_user_to', '=', $id_user],
-                ['status', '=', 3]
+                ["id_user_to", "=", $id_user],
+                ["id_status", "=", 3]
             ])->get();
 
             return $lessons;
         }
 
         /**
-         * * Get all the Lessons with status = 4 from an User.
+         * * Get all the Lessons with id_status = 4 from an User.
          * @param int $id_user
          * @return Lesson[]
          */
         static public function allDoneFromUser (int $id_user) {
             $lessons = Lesson::where([
-                ['id_user_from', '=', $id_user],
-                ['status', '>=', 3],
+                ["id_user_from", "=", $id_user],
+                ["id_status", ">=", 3],
             ])->orwhere([
-                ['id_user_to', '=', $id_user],
-                ['status', '>=', 3]
+                ["id_user_to", "=", $id_user],
+                ["id_status", ">=", 3]
             ])->get();
 
             return $lessons;
@@ -267,25 +278,25 @@
          */
         static public function allFromTeacher (int $id_user) {
             $lessons = Lesson::where([
-                ['id_user_from', '=', $id_user],
-                ['status', '>', 0],
+                ["id_user_from", "=", $id_user],
+                ["id_status", ">", 0],
             ])->get();
 
             return $lessons;
         }
 
         /**
-         * * Get all the Lessons with status = 3 from an User.
+         * * Get all the Lessons with id_status = 3 from an User.
          * @param int $id_user
          * @return Lesson[]
          */
         static public function allReadyFromUser (int $id_user) {
             $lessons = Lesson::where([
-                ['id_user_from', '=', $id_user],
-                ['status', '=', 3],
+                ["id_user_from", "=", $id_user],
+                ["id_status", "=", 3],
             ])->orwhere([
-                ['id_user_to', '=', $id_user],
-                ['status', '=', 3],
+                ["id_user_to", "=", $id_user],
+                ["id_status", "=", 3],
             ])->get();
             
             return $lessons;
@@ -299,14 +310,29 @@
          */
         static public function findByUsers (int $id_user_1, int $id_user_2) {
             $lesson = Lesson::where([
-                ['id_user_from', '=', $id_user_1],
-                ['id_user_to', '=', $id_user_2],
+                ["id_user_from", "=", $id_user_1],
+                ["id_user_to", "=", $id_user_2],
             ])->orwhere([
-                ['id_user_from', '=', $id_user_2],
-                ['id_user_to', '=', $id_user_1],
+                ["id_user_from", "=", $id_user_2],
+                ["id_user_to", "=", $id_user_1],
             ])->first();
 
             return $lesson;
+        }
+
+        /**
+         * * Change the Lesson id_status to 4.
+         * @param int $id_lesson
+         */
+        static public function finish (int $id_lesson) {
+            $lesson = Lesson::find($id_lesson);
+            $reviews = Review::allFromLesson($lesson->id_lesson);
+
+            if (count($reviews) === 2) {
+                $lesson->update([
+                    "id_status" => 4,
+                ]);
+            }
         }
 
         /**
@@ -314,9 +340,9 @@
          * @param string|int $field 
          * @return bool
          */
-        static public function has ($field = '') {
+        static public function has ($field = "") {
             foreach (Lesson::$types as $option) {
-                if ($option['id_type'] === $field || $option['slug'] === $field) {
+                if ($option["id_type"] === $field || $option["slug"] === $field) {
                     return true;
                 }
             }
@@ -329,29 +355,42 @@
          * @param string|int $field
          * @return Lesson
          */
-        static public function option ($field = '') {
-            foreach (Lesson::$types as $option) {
-                if ($option['id_type'] === $field || $option['slug'] === $field) {
-                    return new Lesson($option);
+        static public function option ($field = "") {
+            foreach (Lesson::$types as $type) {
+                if ($type["id_type"] === $field || $type["slug"] === $field) {
+                    return new Lesson($type);
                 }
             }
 
-            dd("Lesson \"$field\" not found");
+            dd("Lesson type: \"$field\" not found");
         }
 
         /**
-         * * Change the Lesson status to 4.
-         * @param int $id_lesson
+         * * Returns the Lesson options.
+         * @param array [$types] Example: [["id_type"=>1]]
+         * @param bool [$all=true]
+         * @return Lesson[]
          */
-        static public function finish (int $id_lesson) {
-            $lesson = Lesson::find($id_lesson);
-            $reviews = Review::allFromLesson($lesson->id_lesson);
+        static public function options (array $types = [], bool $all = true) {
+            $collection = collect();
 
-            if (count($reviews) === 2) {
-                $lesson->update([
-                    "status" => 4,
-                ]);
+            foreach (Lesson::$types as $type) {
+                $type = new Lesson($type);
+                $found = false;
+                
+                foreach ($types as $data) {
+                    if ($type->id_type === $data['id_type']) {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if ($all || $found) {
+                    $collection->push($type);
+                }
             }
+
+            return $collection;
         }
 
         /**
@@ -359,51 +398,113 @@
          * @var array
          */
         static $validation = [
-        'update' => [
-            'rules' => [
-                'dates' => 'required',
-                'hours' => 'required',
-            ], 'messages' => [
-                'es' => [
-                    'dates.required' => 'La fecha de la clase debe ser seleccionada.',
-                    'hours.required' => 'El horario de la clase debe ser seleccionada.',
-        ]]],
-        'checkout' => [
-            'online' => [
-                'rules' => [
-                    'dates' => 'required',
-                    'dates.*' => 'required',
-                    'hours' => 'required',
-                    'hours.*' => 'required',
-                ], 'messages' => [
-                    'es' => [
-                        'dates.required' => 'La fecha de la clase debe ser seleccionada.',
-                        'hours.required' => 'El horario de la clase debe ser seleccionada.',
-                        'dates.*.required' => 'No se seleccionó una fecha.',
-                        'hours.*.required' => 'No se seleccionó una hora.',
-            ]]], 'offline' => [
-                'rules' => [
-                    // 
-                ], 'messages' => [
-                    'es' => [
+            "panel" => [
+                "create" => [
+                    "online" => [
+                        "rules" => [
+                            "dates" => "required",
+                            "hours" => "required",
+                            "id_user_from" => "required|exists:users,id_user",
+                            "id_user_to" => "required|exists:users,id_user",
+                            "id_method" => "required",
+                            "id_type" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
+                                "hours.required" => "El horario de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
+                                "id_user_from.required" => "El profesor es obligatorio.",
+                                "id_user_from.exists" => "El profesor no existe.",
+                                "id_user_to.required" => "El usuario es obligatorio.",
+                                "id_user_to.exists" => "El usuario no existe.",
+                                "id_method.required" => "El metodo es obligatorio.",
+                                "id_type.required" => "El tipo de clase es obligatorio.",
+                    ],],], "offline" => [
+                        "rules" => [
+                            "id_user_from" => "required|exists:users,id_user",
+                            "id_user_to" => "required|exists:users,id_user",
+                            "id_method" => "required",
+                            "id_type" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "id_user_from.required" => "El profesor es obligatorio.",
+                                "id_user_from.exists" => "El profesor no existe.",
+                                "id_user_to.required" => "El usuario es obligatorio.",
+                                "id_user_to.exists" => "El usuario no existe.",
+                                "id_method.required" => "El metodo es obligatorio.",
+                                "id_type.required" => "El tipo de clase es obligatorio.",
+                    ],],], "packs" => [
+                        "rules" => [
+                            "dates" => "required|array|min:4",
+                            "hours" => "required|array|min:4",
+                            "id_user_from" => "required|exists:users,id_user",
+                            "id_user_to" => "required|exists:users,id_user",
+                            "id_method" => "required",
+                            "id_type" => "required",
+                        ], "messages" => [
+                            "es" => [
+                                "dates.required" => "Las fechas de la clase deben ser seleccionadas. Recuerda que primero debes elegir el tipo de clase.",
+                                "dates.array" => "Las fechas deben estar en un array ([]).",
+                                "dates.min" => "Mínimo :min fechas deben ser seleccionadas.",
+                                "hours.required" => "El horario de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
+                                "hours.array" => "El horario deben estar en un array ([]).",
+                                "hours.min" => "Mínimo :min horas deben ser seleccionadas.",
+                                "id_user_from.required" => "El profesor es obligatorio.",
+                                "id_user_from.exists" => "El profesor no existe.",
+                                "id_user_to.required" => "El usuario es obligatorio.",
+                                "id_user_to.exists" => "El usuario no existe.",
+                                "id_method.required" => "El metodo es obligatorio.",
+                                "id_type.required" => "El tipo de clase es obligatorio.",
+                ],],],], "delete" => [
+                    "rules" => [
+                        "message" => "required|regex:/^BORRAR$/",
+                    ], "messages" => [
+                        "es" => [
+                            "message.required" => "El mensaje es obligatorio.",
+                            "message.regex" => "El mensaje debe decir BORRAR.",
+            ],],],], "update" => [
+                "rules" => [
+                    "dates" => "required",
+                    "hours" => "required",
+                ], "messages" => [
+                    "es" => [
+                        "dates.required" => "La fecha de la clase debe ser seleccionada.",
+                        "hours.required" => "El horario de la clase debe ser seleccionada.",
+            ]]], "checkout" => [
+                "online" => [
+                    "rules" => [
+                        "dates" => "required",
+                        "dates.*" => "required",
+                        "hours" => "required",
+                        "hours.*" => "required",
+                    ], "messages" => [
+                        "es" => [
+                            "dates.required" => "La fecha de la clase debe ser seleccionada.",
+                            "hours.required" => "El horario de la clase debe ser seleccionada.",
+                            "dates.*.required" => "No se seleccionó una fecha.",
+                            "hours.*.required" => "No se seleccionó una hora.",
+                ]]], "offline" => [
+                    "rules" => [
                         // 
-            ]]], 'packs' => [
-                'rules' => [
-                    'dates' => 'required|array|max:4',
-                    'dates.*' => 'required',
-                    'hours' => 'required|array|min:4|max:4',
-                    'hours.*' => 'required',
-                ], 'messages' => [
-                    'es' => [
-                        'dates.required' => 'Las fechas de la clase deben ser seleccionadas.',
-                        'dates.array' => 'Las fechas deben estar en un array ([]).',
-                        'dates.max' => 'Máximo :max fechas deben ser seleccionadas.',
-                        'hours.required' => 'Las horas de la clase deben ser seleccionadas.',
-                        'hours.array' => 'Las horas deben estar en un array ([]).',
-                        'hours.min' => 'Mínimo :min horas deben ser seleccionadas.',
-                        'hours.max' => 'Máximo :max horas deben ser seleccionadas.',
-                        'dates.*.required' => 'No se seleccionó una fecha.',
-                        'hours.*.required' => 'No se seleccionó una hora.',
+                    ], "messages" => [
+                        "es" => [
+                            // 
+                ]]], "packs" => [
+                    "rules" => [
+                        "dates" => "required|array|max:4",
+                        "dates.*" => "required",
+                        "hours" => "required|array|min:4|max:4",
+                        "hours.*" => "required",
+                    ], "messages" => [
+                        "es" => [
+                            "dates.required" => "Las fechas de la clase deben ser seleccionadas.",
+                            "dates.array" => "Las fechas deben estar en un array ([]).",
+                            "dates.max" => "Máximo :max fechas deben ser seleccionadas.",
+                            "hours.required" => "Las horas de la clase deben ser seleccionadas.",
+                            "hours.array" => "Las horas deben estar en un array ([]).",
+                            "hours.min" => "Mínimo :min horas deben ser seleccionadas.",
+                            "hours.max" => "Máximo :max horas deben ser seleccionadas.",
+                            "dates.*.required" => "No se seleccionó una fecha.",
+                            "hours.*.required" => "No se seleccionó una hora.",
         ]]]]];
 
         /**
@@ -411,19 +512,19 @@
          * @var array
          */
         static $types = [[
-            'id_type' => 1,
-            'name' => 'Online',
-            'svg' => 'components.svg.ClaseOnline1SVG',
-            'slug' => 'online',
+            "id_type" => 1,
+            "name" => "Online",
+            "svg" => "components.svg.ClaseOnline1SVG",
+            "slug" => "online",
         ], [
-            'id_type' => 2,
-            'name' => 'Offline',
-            'svg' => 'components.svg.ClaseOnline2SVG',
-            'slug' => 'offline',
+            "id_type" => 2,
+            "name" => "Offline",
+            "svg" => "components.svg.ClaseOnline2SVG",
+            "slug" => "offline",
         ], [
-            'id_type' => 3,
-            'name' => 'Packs',
-            'svg' => 'components.svg.ClaseOnline3SVG',
-            'slug' => 'packs',
+            "id_type" => 3,
+            "name" => "Packs",
+            "svg" => "components.svg.ClaseOnline3SVG",
+            "slug" => "packs",
         ]];
     }

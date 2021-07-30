@@ -77,15 +77,15 @@
             $this->preference->back_urls = [
                 "success" => route('lesson.checkout.status', [
                     'id_lesson' => $data->id,
-                    'status' => 2,
+                    'id_status' => 2,
                 ]),
                 "pending" => route('lesson.checkout.status', [
                     'id_lesson' => $data->id,
-                    'status' => 1,
+                    'id_status' => 1,
                 ]),
                 "failure" => route('lesson.checkout.status', [
                     'id_lesson' => $data->id,
-                    'status' => 0,
+                    'id_status' => 0,
                 ]),
             ];
             $this->preference->auto_return = "approved";

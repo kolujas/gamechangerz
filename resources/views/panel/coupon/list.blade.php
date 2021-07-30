@@ -35,17 +35,31 @@
                     </tr>
                 </thead>
                 <tbody class="grid">
-                    {{-- @foreach ($users as $user) --}}
-                        <tr data-href="/panel/coupons/slug" class="grid grid-cols-8">
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap">
-                                <span class="text-sm overpass">1</spans>
-                            </td>
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">Roberto De Niro</td>
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">$ 40</td>
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">4 / 10</td>
-                            <td class="flex items-center px-6 py-4"></td>
+                    @if (count($coupons))
+                        @foreach ($coupons as $coupon)
+                            <tr data-href="/panel/coupons/{{ $coupon->slug }}" class="grid grid-cols-8">
+                                <td class="flex items-center px-6 py-4 whitespace-no-wrap">
+                                    <span class="text-sm overpass">{{ $coupon->id_coupon }}</spans>
+                                </td>
+                                <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $coupon->name }}</td>
+                                <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $coupon->type->key }} {{ $coupon->type->value }}</td>
+                                @if ($coupon->limit)
+                                    <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $coupon->used }} / {{ $coupon->limit }}</td>
+                                @endif
+                                @if (!$coupon->limit)
+                                    <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">
+                                        <i class="fas fa-infinity"></i>
+                                    </td>
+                                @endif
+                                <td class="flex items-center px-6 py-4"></td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    @if (!count($coupons))
+                        <tr data-href="/panel/coupons/create" class="grid grid-cols-8">
+                            <td class="col-span-8 flex items-center justify-center px-6 py-4 whitespace-no-wrap">No se crearon cupones</td>
                         </tr>
-                    {{-- @endforeach --}}
+                    @endif
                 </tbody>
             </table>
         </main>

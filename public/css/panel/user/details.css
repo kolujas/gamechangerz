@@ -2,9 +2,14 @@
     padding-left: 0;
 }
 
-#user input[type=text], #user input[type=password], #user textarea{
+#user input[type=text], #user input[type=password], #user textarea, #user select{
     background: var(--color-black);
     color: var(--color-white);
+}
+
+#user select:disabled {
+    opacity: 1;
+    appearance: none;
 }
 
 #user textarea{

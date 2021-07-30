@@ -41,7 +41,7 @@
          * @var array
          */
         protected $fillable = [
-            "achievements", "credits", "date_of_birth", "days", "description", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "status", "teammate", "teampro", "token", "username"
+            "achievements", "credits", "date_of_birth", "days", "description", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "id_status", "teammate", "teampro", "token", "username"
         ];
 
         /**
@@ -233,7 +233,7 @@
 
             foreach ($this->lessons as $lesson) {
                 if ($lesson->id_type === 1 || $lesson->id_type === 3) {
-                    if ($lesson->status > 2) {
+                    if ($lesson->id_status > 2) {
                         $lesson->and(["days"]);
 
                         foreach ($lesson->days as $day) {
@@ -265,7 +265,7 @@
             if ($this->id_role === 0) {
                 foreach (Lesson::allDoneFromUser($this->id_user) as $lesson) {
                     $lesson->and(["type", "users", "reviews"]);
-                    if ($lesson->status === 4) {
+                    if ($lesson->id_status === 4) {
                         $this->lessons->push($lesson);
                         $this->{"lessons-done"}++;
                         continue;
@@ -285,7 +285,7 @@
                 foreach (Lesson::allFromTeacher($this->id_user) as $lesson) {
                     $lesson->and(["days", "reviews", "users", "abilities", "ended_at"]);
                     $this->lessons->push($lesson);
-                    if ($lesson->status === 4) {
+                    if ($lesson->id_status === 4) {
                         $this->{"lessons-done"}++;
                         continue;
                     }
@@ -373,7 +373,7 @@
          * * Set the User status.
          */
         public function status () {
-            switch ($this->status) {
+            switch ($this->id_status) {
                 case 0:
                     $this->status = (object) [
                         "id_status" => 0,
@@ -515,7 +515,7 @@
         static public function users () {
             $users = User::where([
                 ["id_role", "=", 0],
-                ["status", ">", 1],
+                ["id_status", ">", 1],
             ])->get();
 
             return $users;
@@ -656,6 +656,7 @@
                             "profile" => "required|mimetypes:image/png",
                             "abilities" => "required",
                             "languages" => "required",
+                            "id_status" => "required",
                         ], "messages" => [
                             "es" => [
                                 "username.required" => "El apodo es obligatorio.",
@@ -677,6 +678,7 @@
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
                                 "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
+                                "id_status.required" => "El estado es obligatorio.",
                             ]
                         ]
                     ],
@@ -701,6 +703,7 @@
                             "profile" => "nullable|mimetypes:image/png",
                             "abilities" => "required",
                             "languages" => "required",
+                            "id_status" => "required",
                         ], "messages" => [
                             "es" => [
                                 "username.required" => "El apodo es obligatorio.",
@@ -719,6 +722,7 @@
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
                                 "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
+                                "id_status.required" => "El estado es obligatorio.",
                             ]
                         ]
                     ],

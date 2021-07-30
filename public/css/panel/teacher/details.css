@@ -2,9 +2,14 @@
     padding-left: 0;
 }
 
-#teacher input[type=text], #teacher input[type=password], #teacher textarea{
+#teacher input[type=text], #teacher input[type=password], #teacher textarea, #teacher select{
     background: var(--color-black);
     color: var(--color-white);
+}
+
+#teacher select:disabled {
+    opacity: 1;
+    appearance: none;
 }
 
 #teacher textarea{

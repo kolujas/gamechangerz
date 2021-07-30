@@ -1,6 +1,8 @@
 <?php
     namespace App\Http\Controllers;
 
+    use App\Http\Controllers\Panel\CouponController;
+    use App\Http\Controllers\Panel\LessonController;
     use App\Http\Controllers\Panel\PlatformController;
     use App\Http\Controllers\Panel\UserController;
     use App\Models\Coupon;
@@ -9,6 +11,7 @@
     use App\Models\Hour;
     use App\Models\Language;
     use App\Models\Lesson;
+    use App\Models\Method;
     use App\Models\Post;
     use App\Models\Platform;
     use App\Models\Price;
@@ -20,7 +23,7 @@
 
     class PanelController extends Controller {
         /**
-         * * Control the platform details panel page.
+         * * Control the platform custom banners panel page.
          * @return [type]
          */
         public function banner (Request $request) {
@@ -67,6 +70,10 @@
             $action = $request->route()->parameter("action");
 
             switch ($section) {
+                case "bookings":
+                    return LessonController::call($request, $section, $action);
+                case "coupons":
+                    return CouponController::call($request, $section, $action);
                 case "banner":
                 case "dolar":
                     return PlatformController::call($request, $section, $action);
@@ -74,7 +81,7 @@
                 case "users":
                     return UserController::call($request, $section, $action);
                 default:
-                    dd("Call to a section \"$section\" not found");
+                    dd("Call to an undefined section \"$section\"");
             }
         }
 
@@ -89,29 +96,31 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            // $coupon = Coupon::findBySlug($slug);
-            $coupon = false;
+            $coupon = new Coupon();
+            $coupon->type = (object) [
+                "key" => null,
+                "value" => null,
+            ];
+            if ($slug) {
+                $coupon = Coupon::findBySlug($slug);
+                $coupon->and(["type"]);
+            }
 
             return view("panel.coupon.details", [
-                "error" => $error,
                 "coupon" => $coupon,
+                "error" => $error,
                 "validation" => [
                     "coupon" => (object)[
                         "create" => (object)[
                             "rules" => Coupon::$validation["create"]["rules"],
                             "messages" => Coupon::$validation["create"]["messages"]["es"],
-                        ],
-                        "update" => (object)[
+                        ], "update" => (object)[
                             "rules" => Coupon::$validation["update"]["rules"],
                             "messages" => Coupon::$validation["update"]["messages"]["es"],
-                        ],
-                        "delete" => (object)[
+                        ], "delete" => (object)[
                             "rules" => Coupon::$validation["delete"]["rules"],
-                            "messages" => Coupon::$validation["update"]["messages"]["es"],
-                        ],
-                    ],
-                ],
-            ]);
+                            "messages" => Coupon::$validation["delete"]["messages"]["es"],
+            ],],],]);
         }
 
         /**
@@ -125,6 +134,9 @@
             }
 
             $coupons = Coupon::all();
+            foreach ($coupons as $coupon) {
+                $coupon->and(["used", "type"]);
+            }
 
             return view("panel.coupon.list", [
                 "error" => $error,
@@ -133,6 +145,10 @@
             ]);
         }
 
+        /**
+         * * Control the platform custom dolar panel page.
+         * @return [type]
+         */
         public function dolar (Request $request) {
             $error = null;
             if ($request->session()->has("error")) {
@@ -150,35 +166,70 @@
          * * Control the posts list panel page.
          * @return [type]
          */
-
-         public function lesson (Request $request, $slug = false) {
+         public function lesson (Request $request, $id_lesson = false) {
             $error = null;
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
 
-            $lesson = Lesson::all();
+            $lesson = new Lesson();
+            $lesson->users = (object)[
+                "from" => new User(),
+                "to" => new User(),
+            ];
+            $lesson->type = (object)[
+                "id_type" => null
+            ];
+            $lesson->days = [];
+            if ($id_lesson) {
+                $lesson = Lesson::find($id_lesson);
+                $lesson->and(["users", "type", "days", "method"]);
+            }
+
+            $hours = Hour::options();
+
+            $teachers = collect();
+            foreach (User::allTeachers() as $user) {
+                if ($user->id_status === 2) {
+                    $teachers->push($user);
+                }
+            }
+
+            $types = Lesson::options();
+
+            $methods = Method::options();
+
+            $users = collect();
+            foreach (User::allUsers() as $user) {
+                if ($user->id_status === 2) {
+                    $users->push($user);
+                }
+            }
             
-            return view("panel.lesson.list", [
+            return view("panel.lesson.details", [
                 "error" => $error,
+                "hours" => $hours,
                 "lesson" => $lesson,
+                "methods" => $methods,
+                "teachers" => $teachers,
+                "types" => $types,
+                "users" => $users,
                 "validation" => [
                     "lesson" => (object)[
                         "create" => (object)[
-                            "rules" => Lesson::$validation["create"]["rules"],
-                            "messages" => Lesson::$validation["create"]["messages"]["es"],
-                        ],
-                        "update" => (object)[
-                            "rules" => Lesson::$validation["update"]["rules"],
-                            "messages" => Lesson::$validation["update"]["messages"]["es"],
-                        ],
-                        "delete" => (object)[
-                            "rules" => Lesson::$validation["delete"]["rules"],
-                            "messages" => Lesson::$validation["update"]["messages"]["es"],
-                        ],
-                    ],
-                ],
-            ]);
+                            "online" => (object)[
+                                "rules" => Lesson::$validation["panel"]["create"]["online"]["rules"],
+                                "messages" => Lesson::$validation["panel"]["create"]["online"]["messages"]["es"],
+                            ], "offline" => (object)[
+                                "rules" => Lesson::$validation["panel"]["create"]["offline"]["rules"],
+                                "messages" => Lesson::$validation["panel"]["create"]["offline"]["messages"]["es"],
+                            ], "packs" => (object)[
+                                "rules" => Lesson::$validation["panel"]["create"]["packs"]["rules"],
+                                "messages" => Lesson::$validation["panel"]["create"]["packs"]["messages"]["es"],
+                        ],], "delete" => (object)[
+                            "rules" => Lesson::$validation["panel"]["delete"]["rules"],
+                            "messages" => Lesson::$validation["panel"]["delete"]["messages"]["es"],
+            ],],],]);
         }
 
         /**
@@ -191,7 +242,10 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $lessons = Lesson::all();
+            $lessons = Lesson::orderBy("updated_at")->get();
+            foreach ($lessons as $lesson) {
+                $lesson->and(["users", "type", "ended_at", "method"]);
+            }
             
             return view("panel.lesson.list", [
                 "error" => $error,
@@ -271,7 +325,7 @@
                 }
 
                 foreach (Lesson::allFromTeacher($user->id_user) as $lesson) {
-                    if ($lesson->status >= 3) {
+                    if ($lesson->id_status >= 3) {
                         $lesson->and(["reviews", "abilities"]);
 
                         $found = false;
@@ -319,22 +373,16 @@
                         "create" => (object)[
                             "rules" => User::$validation["teacher"]["panel"]["create"]["rules"],
                             "messages" => User::$validation["teacher"]["panel"]["create"]["messages"]["es"],
-                        ],
-                        "update" => (object)[
+                        ], "update" => (object)[
                             "rules" => User::$validation["teacher"]["panel"]["update"]["rules"],
                             "messages" => User::$validation["teacher"]["panel"]["update"]["messages"]["es"],
-                        ],
-                        "delete" => (object)[
+                        ], "delete" => (object)[
                             "rules" => User::$validation["teacher"]["panel"]["delete"]["rules"],
                             "messages" => User::$validation["teacher"]["panel"]["delete"]["messages"]["es"],
-                        ],
-                    ],
-                    "review" => (object)[
+                    ],], "review" => (object)[
                         "rules" => Review::$validation["create"]["rules"],
                         "messages" => Review::$validation["create"]["messages"]["es"],
-                    ],
-                ],
-            ]);
+            ],],]);
         }
 
         /**
@@ -347,7 +395,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $users = User::allTeachers(true);
+            $users = User::allTeachers();
 
             return view("panel.teachers.list", [
                 "error" => $error,
@@ -402,7 +450,7 @@
                 }
 
                 foreach (Lesson::allDoneFromUser($user->id_user) as $lesson) {
-                    if ($lesson->status >= 3) {
+                    if ($lesson->id_status >= 3) {
                         $lesson->and(["reviews", "abilities"]);
 
                         $found = false;
@@ -444,18 +492,16 @@
                         "create" => (object)[
                             "rules" => User::$validation["user"]["panel"]["create"]["rules"],
                             "messages" => User::$validation["user"]["panel"]["create"]["messages"]["es"],
-                        ],
-                        "update" => (object)[
+                        ], "update" => (object)[
                             "rules" => User::$validation["user"]["panel"]["update"]["rules"],
                             "messages" => User::$validation["user"]["panel"]["update"]["messages"]["es"],
-                        ],
-                        "delete" => (object)[
+                        ], "delete" => (object)[
                             "rules" => User::$validation["user"]["panel"]["delete"]["rules"],
-                            "messages" => User::$validation["user"]["panel"]["update"]["messages"]["es"],
-                        ],
-                    ],
-                ],
-            ]);
+                            "messages" => User::$validation["user"]["panel"]["delete"]["messages"]["es"],
+                    ],], "review" => (object)[
+                        "rules" => Review::$validation["create"]["rules"],
+                        "messages" => Review::$validation["create"]["messages"]["es"],
+            ],],]);
         }
 
         /**
@@ -468,7 +514,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $users = User::allUsers(true);
+            $users = User::allUsers();
 
             return view("panel.users.list", [
                 "error" => $error,

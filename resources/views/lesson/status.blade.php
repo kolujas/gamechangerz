@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Estado de la clase: {{ ((intval($status) === 2) ? "pagada" : ((intval($status) === 1) ? "pendiente de pago" : "pago rechazado")) }} | GameChangerZ
+    Estado de la clase: {{ ((intval($id_status) === 2) ? "pagada" : ((intval($id_status) === 1) ? "pendiente de pago" : "pago rechazado")) }} | GameChangerZ
 @endsection
 
 @section('css')
@@ -14,19 +14,19 @@
 
 @section('main')
     <section class="grid mx-8 my-24 lg:mx-0 lg:grid-cols-10 2xl:grid-cols-12">
-        @if (intval($status) === 2)
+        @if (intval($id_status) === 2)
             @component('components.lesson.payed', [
                 'lesson' => $lesson,
             ])
             @endcomponent
         @endif
-        @if (intval($status) === 1)
+        @if (intval($id_status) === 1)
             @component('components.lesson.pending', [
                 'lesson' => $lesson,
             ])
             @endcomponent
         @endif
-        @if (intval($status) === 0)
+        @if (intval($id_status) === 0)
             @component('components.lesson.error', [
                 'lesson' => $lesson,
             ])

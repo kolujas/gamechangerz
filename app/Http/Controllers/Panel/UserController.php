@@ -32,10 +32,11 @@
                         case "create":
                             return UserController::doCreateTeacher($request);
                         case "delete":
-                            dd("delete");
                             return UserController::doDeleteTeacher($request);
                         case "update":
                             return UserController::doUpdateTeacher($request);
+                        default:
+                            dd("Call to an undefined action \"$action\"");
                     }
                 case "users":
                     switch ($action) {
@@ -45,9 +46,11 @@
                             return UserController::doDeleteUser($request);
                         case "update":
                             return UserController::doUpdateUser($request);
+                        default:
+                            dd("Call to an undefined action \"$action\"");
                     }
                 default:
-                    dd("Call to a user section \"$section\" not found");
+                    dd("Call to an undefined section \"$section\"");
             }
         }
 
@@ -108,8 +111,6 @@
             $input->prices = Price::stringify($input->prices);
 
             $input->slug = SlugService::createSlug(User::class, "slug", $input->username);
-
-            $input->status = 2;
 
             $input->teampro = Teampro::stringify($input->teampro_name);
 
@@ -327,8 +328,6 @@
             $input->password = Hash::make($input->password);
 
             $input->slug = SlugService::createSlug(User::class, "slug", $input->username);
-
-            $input->status = 2;
 
             $user = User::create((array) $input);
             

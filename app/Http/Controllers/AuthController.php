@@ -29,7 +29,7 @@
             DB::table('password_resets')->where('token', $token)->delete();
 
             $user->update([
-                'status' => 2,
+                'id_status' => 2,
             ]);
 
             Auth::attempt(['password' => $user->password, 'email' => $user->email], true);
@@ -76,14 +76,14 @@
                 }
             }
 
-            if (Auth::user()->status !== 2) {
-                if (Auth::user()->status === 0) {
+            if (Auth::user()->id_status !== 2) {
+                if (Auth::user()->id_status === 0) {
                     $status = [
                         'code' => 403,
                         'message' => 'Usuario baneado',
                     ];
                 }
-                if (Auth::user()->status === 1) {
+                if (Auth::user()->id_status === 1) {
                     $status = [
                         'code' => 403,
                         'message' => 'Correo pendiente de aprobación',
