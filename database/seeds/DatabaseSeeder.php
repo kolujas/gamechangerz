@@ -8,6 +8,7 @@
          * @return void
          */
         public function run () {
+            $this->call(PlatformSeeder::class);
             $this->call(GameSeeder::class);
             $this->call(AbilitySeeder::class);
             $this->call(AssigmentSeeder::class);

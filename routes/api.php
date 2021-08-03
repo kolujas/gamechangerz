@@ -11,10 +11,14 @@
     use Illuminate\Support\Facades\Route;
 
     Route::middleware('api')->group(function () {
-// ! AssigmentController - Controls the assigments api.
         Route::middleware('auth:api')->group(function () {
-            Route::middleware(['api.lesson.exist', 'api.assigment.exist'])->group(function () {
-                Route::get('/lessons/{id_lesson}/assigments/{slug}', [AssigmentController::class, 'get'])->name('api.assigment.get');
+            Route::middleware('api.lesson.exist')->group(function () {
+                Route::get('/lessons/{id_lesson}/assigments', [LessonController::class, 'getAssigments'])->name('api.lesson.assigments');
+
+// ! AssigmentController - Controls the assigments api.
+                Route::middleware('api.assigment.exist')->group(function () {
+                    Route::get('/lessons/{id_lesson}/assigments/{slug}', [AssigmentController::class, 'get'])->name('api.assigment.get');
+                });
             });
             Route::middleware(['api.chat.exist', 'api.chat.is.available'])->group(function () {
                 Route::post('/lessons/chats/{id_chat}/assigments/make', [AssigmentController::class, 'make'])->name('api.assigment.set');

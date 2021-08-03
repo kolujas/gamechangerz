@@ -43,14 +43,14 @@
                 }
             }
             
-            if (Auth::user()->status !== 2) {
-                if (Auth::user()->status === 0) {
+            if (Auth::user()->id_status !== 2) {
+                if (Auth::user()->id_status === 0) {
                     $status = [
                         'code' => 403,
                         'message' => 'Usuario baneado',
                     ];
                 }
-                if (Auth::user()->status === 1) {
+                if (Auth::user()->id_status === 1) {
                     $status = [
                         'code' => 403,
                         'message' => 'Correo pendiente de aprobación',
@@ -65,7 +65,7 @@
             
                 return response()->json($status);
             }
-            if (Auth::user()->status === 2) {
+            if (Auth::user()->id_status === 2) {
                 $user = Auth::user();
                 $token = $user->createToken('Personal Access Token')->accessToken;
 
@@ -107,7 +107,7 @@
             ]]);
             $password = $input->password;
             $input->password = Hash::make($password);
-            $input->status = 1;
+            $input->id_status = 1;
 
             DB::table('password_resets')->insert([
                 'email' => $input->email,

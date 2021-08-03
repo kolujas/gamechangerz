@@ -2,9 +2,14 @@
     padding-left: 0;
 }
 
-#lesson input[type=text], #lesson input[type=date]{
+#lesson input[type=text], #lesson input[type=date], #lesson select{
     background: var(--color-black);
     color: var(--color-white);
+}
+
+#lesson select:disabled {
+    opacity: 1;
+    appearance: none;
 }
 
 #lesson .games h2{
@@ -57,4 +62,9 @@
 #lesson .profile-photo span,
 #lesson .teampro-photo span{
     padding: .5rem 0;
+}
+
+#lesson .ended select,
+#lesson .ended input[type=date] {
+    color: var(--color-grey);
 }

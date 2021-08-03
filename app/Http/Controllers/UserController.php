@@ -36,46 +36,46 @@
          */
         public function profile (Request $request, $slug) {
             $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
             }
 
             $lessons = [];
-            if ($request->session()->has('lessons')) {
-                $lessons = (object) $request->session()->pull('lessons');
+            if ($request->session()->has("lessons")) {
+                $lessons = (object) $request->session()->pull("lessons");
                 foreach ($lessons as $lesson) {
-                    $lesson->and(['abilities']);
+                    $lesson->and(["abilities"]);
                 }
             }
 
             $user = User::findBySlug($slug);
-            $user->and(['achievements', 'games', 'role', 'files', 'languages', 'posts']);
+            $user->and(["achievements", "games", "role", "files", "languages", "posts"]);
             
             if ($user->id_role === 2) {
                 if (!Auth::check()) {
-                    $request->session()->put('error', [
-                        'code' => 404,
-                        'message' => "User \"$slug\" does not exist",
+                    $request->session()->put("error", [
+                        "code" => 404,
+                        "message" => "User \"$slug\" does not exist",
                     ]);
                     return redirect()->back();
                 }
-                return redirect('/panel');
+                return redirect("/panel");
             }
 
             if ($user->id_role === 0) {
-                $user->and(['friends', 'hours', 'reviews']);
+                $user->and(["friends", "hours", "reviews"]);
                 $days = [];
                 $user->friends_length = 0;
 
                 foreach ($user->friends as $friend) {
-                    $friend->and(['users']);
+                    $friend->and(["users"]);
                     if ($friend->accepted) {
                         $user->friends_length++;
                     }
                 }
             }
             if ($user->id_role === 1) {
-                $user->and(['abilities', 'prices', 'teampro', 'days']);
+                $user->and(["abilities", "prices", "teampro", "days"]);
                 $days = Day::options();
 
                 foreach ($days as $day) {
@@ -112,40 +112,40 @@
 
             $games = Game::all();
             foreach ($games as $game) {
-                $game->and(['colors', 'files']);
+                $game->and(["colors", "files"]);
             }
 
             $languages = Language::options();
 
-            return view('user.profile', [
-                'user' => $user,
-                'games' => $games,
-                'languages' => $languages,
-                'days' => $days,
-                'error' => $error,
-                'lessons' => $lessons,
-                'validation' => [
-                    'login' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                ], 'signin' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'languages' => (object)[
-                        'rules' => Language::$validation['user']['rules'],
-                        'messages' => Language::$validation['user']['messages']['es'],
-                ], 'review' => (object)[
-                        'rules' => Review::$validation['create']['rules'],
-                        'messages' => Review::$validation['create']['messages']['es'],
-                ], 'assigment' => (object)[
-                        'rules' => Assigment::$validation['make']['rules'],
-                        'messages' => Assigment::$validation['make']['messages']['es'],
-                ], 'presentation' => (object)[
-                        'rules' => Presentation::$validation['make']['rules'],
-                        'messages' => Presentation::$validation['make']['messages']['es'],
-                ], 'update' => (object)[
-                        'rules' => User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'],
-                        'messages' => User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es'],
+            return view("user.profile", [
+                "user" => $user,
+                "games" => $games,
+                "languages" => $languages,
+                "days" => $days,
+                "error" => $error,
+                "lessons" => $lessons,
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "languages" => (object)[
+                        "rules" => Language::$validation["user"]["rules"],
+                        "messages" => Language::$validation["user"]["messages"]["es"],
+                ], "review" => (object)[
+                        "rules" => Review::$validation["create"]["rules"],
+                        "messages" => Review::$validation["create"]["messages"]["es"],
+                ], "assigment" => (object)[
+                        "rules" => Assigment::$validation["make"]["rules"],
+                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
+                ], "update" => (object)[
+                        "rules" => User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["rules"],
+                        "messages" => User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["messages"]["es"],
                 ]],
             ]);
         }
@@ -156,29 +156,29 @@
          */
         public function search (Request $request) {
             $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
             }
 
-            return view('user.search', [
-                'games' => Game::all(),
-                'error' => $error,
-                'search' => (object)[
-                    'username' => $request->username,
+            return view("user.search", [
+                "games" => Game::all(),
+                "error" => $error,
+                "search" => (object)[
+                    "username" => $request->username,
                 ],
-                'validation' => [
-                    'login' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                ], 'signin' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assigment' => (object)[
-                    'rules' => Assigment::$validation['make']['rules'],
-                    'messages' => Assigment::$validation['make']['messages']['es'],
-                ], 'presentation' => (object)[
-                        'rules' => Presentation::$validation['make']['rules'],
-                        'messages' => Presentation::$validation['make']['messages']['es'],
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "assigment" => (object)[
+                    "rules" => Assigment::$validation["make"]["rules"],
+                    "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
                 ]],
             ]);
         }
@@ -191,12 +191,12 @@
          */
         public function checkout (Request $request, string $slug, string $typeSearched) {
             $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
             }
             
             $user = User::findBySlug($slug);
-            $user->and(['prices', 'days']);
+            $user->and(["prices", "days"]);
             foreach ($user->prices as $price) {
                 if ($price->slug === $typeSearched) {
                     $type = $price;
@@ -207,45 +207,48 @@
             foreach (Lesson::allCreated() as $lesson) {
                 if ($lesson->id_user_to === Auth::user()->id_user && $lesson->id_user_from === $user->id_user) {
                     $found = true;
+                    $lesson->update([
+                        "days" => "[]",
+                    ]);
                     break;
                 } else if (Carbon::parse($lesson->updated_at)->diffInMinutes(Carbon::now()) === 5) {
                     $lesson->delete();
                 }
             }
 
-            // TODO: Remove id_game & method
+            // TODO: Remove id_game & id_method
             if (!$found) {
                 $lesson = Lesson::create([
-                    'id_user_from' => $user->id_user,
-                    'id_user_to' => Auth::user()->id_user,
-                    'id_type' => $type->id_type,
-                    'id_game' => 1,
-                    'method' => 1,
-                    'status' => 1,
+                    "id_user_from" => $user->id_user,
+                    "id_user_to" => Auth::user()->id_user,
+                    "id_type" => $type->id_type,
+                    "id_game" => 1,
+                    "id_method" => 1,
+                    "id_status" => 1,
                 ]);
             }
 
-            return view('user.checkout', [
-                'lesson' => $lesson,
-                'user' => $user,
-                'type' => $type,
-                'error' => $error,
-                'validation' => [
-                    'login' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                ], 'signin' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assigment' => (object)[
-                        'rules' => Assigment::$validation['make']['rules'],
-                        'messages' => Assigment::$validation['make']['messages']['es'],
-                ], 'presentation' => (object)[
-                        'rules' => Presentation::$validation['make']['rules'],
-                        'messages' => Presentation::$validation['make']['messages']['es'],
-                ], 'checkout' => (object)[
-                        'rules' => Lesson::$validation['checkout'][$type->slug]['rules'],
-                        'messages' => Lesson::$validation['checkout'][$type->slug]['messages']['es'],
+            return view("user.checkout", [
+                "lesson" => $lesson,
+                "user" => $user,
+                "type" => $type,
+                "error" => $error,
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "assigment" => (object)[
+                        "rules" => Assigment::$validation["make"]["rules"],
+                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
+                ], "checkout" => (object)[
+                        "rules" => Lesson::$validation["checkout"][$type->slug]["rules"],
+                        "messages" => Lesson::$validation["checkout"][$type->slug]["messages"]["es"],
                 ]],
             ]);
         }
@@ -258,26 +261,26 @@
          */
         public function update (Request $request, $slug) {
             $user = User::findBySlug($slug);
-            $user->and(['files']);
+            $user->and(["files"]);
             
             $input = (object) $request->all();
             
-            $validator = Validator::make((array) $input, Controller::replaceUnique(User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['rules'], $user->id_user), User::$validation[($user->id_role === 0 ? 'user' : 'teacher')]['update']['messages']['es']);
+            $validator = Validator::make((array) $input, Controller::replaceUnique(User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["rules"], $user->id_user), User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
             if ($user->username !== $input->username) {
-                $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
+                $input->slug = SlugService::createSlug(User::class, "slug", $input->username);
             }
             
-            if ($request->hasFile('profile')) {
+            if ($request->hasFile("profile")) {
                 $filepath = "users/$user->id_user/01-profile." . $request->profile->extension();
-                if (isset($user->files['profile'])) {
-                    Storage::delete($user->files['profile']);
+                if (isset($user->files["profile"])) {
+                    Storage::delete($user->files["profile"]);
                 }
                 
-                $file = Image::make($request->file('profile'))
+                $file = Image::make($request->file("profile"))
                         ->resize(350, 400, function($constrait){
                             $constrait->aspectRatio();
                             $constrait->upsize();
@@ -296,13 +299,13 @@
                     $input->name = null;
                 }
             
-                if ($request->hasFile('banner')) {
+                if ($request->hasFile("banner")) {
                     $filepath = "users/$user->id_user/02-banner." . $request->banner->extension();
-                    if (isset($user->files['banner'])) {
-                        Storage::delete($user->files['banner']);
+                    if (isset($user->files["banner"])) {
+                        Storage::delete($user->files["banner"]);
                     }
                     
-                    $file = Image::make($request->file('banner'))
+                    $file = Image::make($request->file("banner"))
                             ->resize(1349, 395, function($constrait){
                                 $constrait->aspectRatio();
                                 $constrait->upsize();
@@ -313,7 +316,7 @@
             }
 
             if ($user->id_role === 1) {
-                $user->and(['days']);
+                $user->and(["days"]);
                 if (!isset($input->description)) {
                     $input->description = null;
                 }
@@ -322,13 +325,13 @@
                 $input->prices = Price::stringify($input->prices);
                 $input->teampro = Teampro::stringify($input->teampro_name);
             
-                if ($request->hasFile('teampro_logo')) {
+                if ($request->hasFile("teampro_logo")) {
                     $filepath = "users/$user->id_user/02-teampro." . $request->teampro_logo->extension();
-                    if (isset($user->files['teampro'])) {
-                        Storage::delete($user->files['teampro']);
+                    if (isset($user->files["teampro"])) {
+                        Storage::delete($user->files["teampro"]);
                     }
                     
-                    $file = Image::make($request->file('teampro_logo'))
+                    $file = Image::make($request->file("teampro_logo"))
                             ->resize(40, 56, function($constrait){
                                 $constrait->aspectRatio();
                                 $constrait->upsize();
@@ -342,9 +345,9 @@
 
             $user->update((array) $input);
             
-            return redirect("/users/$user->slug/profile")->with('status', [
-                'code' => 200,
-                'message' => 'Perfil actualizado correctamente.',
+            return redirect("/users/$user->slug/profile")->with("status", [
+                "code" => 200,
+                "message" => "Perfil actualizado correctamente.",
             ]);
         }
     }

@@ -17,6 +17,7 @@
                 $table->string('password');
                 $table->string('slug');
                 $table->json('achievements')->nullable()->default("[]");
+                $table->json('credentials')->nullable()->default("[]");
                 $table->date('date_of_birth')->nullable();
                 $table->text('description')->nullable();
                 $table->json('games')->nullable()->default("[]");
@@ -31,7 +32,7 @@
                 $table->string('video')->nullable();
                 $table->tinyInteger('important')->nullable()->default(0);
                 $table->float('stars')->nullable()->default(0);
-                $table->tinyInteger('status')->nullable()->default(0);
+                $table->tinyInteger('id_status')->nullable()->default(0);
                 $table->integer('credits')->nullable()->default(0);
                 $table->rememberToken();
                 $table->timestamps();

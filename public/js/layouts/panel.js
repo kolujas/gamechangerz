@@ -12,12 +12,14 @@ new TabMenuJS({
 for (const tr of document.querySelectorAll("#panel.tab-menu li.tab-content table tbody tr")) {
     tr.addEventListener("click", function (e) {
         if (this.dataset.hasOwnProperty("href")) {
-            window.location = this.dataset.href;
+            if (e.target.nodeName !== "A" || e.target.parentNode.nodeName !== "A") {
+                window.location = this.dataset.href;
+            }
         }
     });
 }
 
-if (document.querySelector("#panel.tab-menu li.tab-content > form")) {
+if (document.querySelector("#panel.tab-menu li.tab-content > form:not(.not)")) {
     // TODO: Get inputs & switch disable state
     // TODO: Set ValidationJS
     const editBtn = document.querySelector('.editBtn');

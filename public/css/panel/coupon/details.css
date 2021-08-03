@@ -51,7 +51,16 @@
 }
 
 #coupon .div-type{
+    overflow: hidden;
     background: var(--color-black);
+}
+
+#coupon .radieta-label {
+    cursor: pointer;
+}
+
+#coupon .radieta-label:first-of-type {
+    border-left: 1px solid var(--color-five);
 }
 
 #coupon .radieta-label span{

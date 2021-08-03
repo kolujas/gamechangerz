@@ -8,7 +8,7 @@
     use App\Http\Controllers\GameController;
     use App\Http\Controllers\GoogleController;
     use App\Http\Controllers\LanguageController;
-    use App\Http\Controllers\LessonController;
+    use App\Http\Controllers\CheckoutController;
     use App\Http\Controllers\ReviewController;
     use App\Http\Controllers\UserController;
     use Illuminate\Support\Facades\Route;
@@ -58,16 +58,16 @@
     Route::middleware('auth.custom')->group(function () {
         Route::get('/google/oauth', [GoogleController::class, 'store'])->name('google.store');
 
-// ! LessonController - Controls the Lesson pages.
+// ! CheckoutController - Controls the Checkout pages.
         Route::middleware(['auth.not.user', 'lesson.exist'])->group(function () {
-            Route::post('/lessons/{id_lesson}/checkout', [LessonController::class, 'checkout'])->name('lesson.checkout');
+            Route::post('/lessons/{id_lesson}/checkout', [CheckoutController::class, 'complete'])->name('checkout.complete');
         });
         Route::middleware(['lesson.exist', 'lesson.status.exist', 'auth.is.lesson.user'])->group(function () {
-            Route::get('/lessons/{id_lesson}/checkout/{status}', [LessonController::class, 'showStatus'])->name('lesson.checkout.status');
+            Route::get('/lessons/{id_lesson}/checkout/{id_status}', [CheckoutController::class, 'status'])->name('checkout.status');
         });
     });
     Route::middleware('notification.type.exist')->group(function () {
-        Route::post('/lessons/notification/{type}', [LessonController::class, 'checkNotification'])->name('lesson.notification.check');
+        Route::post('/lessons/{id_lesson}/notifications/{type}', [CheckoutController::class, 'notification'])->name('checkout.notification');
     });
     
 // ! ReviewController - Controls the Review pages.
@@ -123,12 +123,13 @@
         });
         Route::get('/panel/coupons', [PanelController::class, 'coupons'])->name('panel.coupons');
         Route::get('/panel/coupons/create', [PanelController::class, 'coupon'])->name('panel.showCreateCoupon');
-        Route::middleware('coupon.exist')->group(function () {
+        // Route::middleware('coupon.exist')->group(function () {
             Route::get('/panel/coupons/{slug}', [PanelController::class, 'coupon'])->name('panel.coupon');
-        });
+        // });
         Route::get('/panel/bookings', [PanelController::class, 'lessons'])->name('panel.lessons');
+        Route::get('/panel/bookings/create', [PanelController::class, 'lesson'])->name('panel.showCreate');
         // Route::middleware('lesson.exist')->group(function () {
-            Route::get('/panel/bookings/{slug}', [PanelController::class, 'lesson'])->name('panel.lesson');
+            Route::get('/panel/bookings/{id_lesson}', [PanelController::class, 'lesson'])->name('panel.lesson');
         // });
 
         // TODO: Middlewares

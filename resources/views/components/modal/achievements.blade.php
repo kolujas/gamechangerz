@@ -5,7 +5,7 @@
             @method('post')
             <main class="p-12 pb-0 pr-6 mr-6">
                 <header class="modal-header mb-12 flex justify-center flex-wrap">
-                    <h3 class="color-four mb-8 russo text-center w-full">¿Cuál juego querés tener?</h3>
+                    <h3 class="color-four mb-8 russo text-center w-full uppercase">¿Cuál juego querés tener?</h3>
                     <a href="#achievements-add" class="btn btn-icon btn-one">
                         <i class="fas fa-plus text-4xl"></i>
                     </a>

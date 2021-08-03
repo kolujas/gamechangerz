@@ -106,11 +106,6 @@ if (validation.hasOwnProperty("teacher")) {
             params: {
                 type: "create",
             },
-        }, invalid: {
-            function: (params) => { console.log(params) },
-            params: {
-                type: "create",
-            },
         }
     });
     validation.teacher.update.ValidationJS = new Validation({
@@ -123,11 +118,6 @@ if (validation.hasOwnProperty("teacher")) {
     }, {
         valid: {
             function: submit,
-            params: {
-                type: "update",
-            },
-        }, invalid: {
-            function: (params) => { console.log(params) },
             params: {
                 type: "update",
             },

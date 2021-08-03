@@ -18,15 +18,8 @@
         public function __construct (array $attributes = []) {
             parent::__construct();
 
-            // * Check the enviroment
-            if (config('app.env') === 'production') {
-                // * Set the MercadoPago access token
-                SDK::setAccessToken(config("services.mercadopago.token"));
-            }
-            if (config('app.env') !== 'production') {
-                // * Set the MercadoPago sandbox access token
-                SDK::setAccessToken(config("services.mercadopago.sandbox.token"));
-            }
+            // * Set the MercadoPago access token
+            SDK::setAccessToken($attributes["access_token"]);
         }
 
         /**
@@ -44,7 +37,7 @@
                 $item->id = $data->id;
                 $item->title = $data->title;
                 $item->quantity = 1;
-                $item->currency_id = 'ARS';
+                $item->currency_id = "ARS";
                 $item->unit_price = $data->price;
                 $items[] = $item;
             }
@@ -75,32 +68,33 @@
 
             // * Set the Preference URL
             $this->preference->back_urls = [
-                "success" => route('lesson.checkout.status', [
-                    'id_lesson' => $data->id,
-                    'status' => 2,
+                "success" => route("checkout.status", [
+                    "id_lesson" => $data->id,
+                    "id_status" => 2,
                 ]),
-                "pending" => route('lesson.checkout.status', [
-                    'id_lesson' => $data->id,
-                    'status' => 1,
+                "pending" => route("checkout.status", [
+                    "id_lesson" => $data->id,
+                    "id_status" => 1,
                 ]),
-                "failure" => route('lesson.checkout.status', [
-                    'id_lesson' => $data->id,
-                    'status' => 0,
+                "failure" => route("checkout.status", [
+                    "id_lesson" => $data->id,
+                    "id_status" => 0,
                 ]),
             ];
             $this->preference->auto_return = "approved";
 
             // ? Set the Preference fee
-            // $this->preference->marketplace_fee = 20;
+            // $this->preference->application_fee = 20;
 
             // * Set the Preference external ID
             $this->preference->external_reference = $data->id;
 
             // * Check the enviroment
-            if (config('app.env') === 'production') {
+            if (config("app.env") === "production") {
                 // ? Set the Preference webhook route
-                $this->preference->notification_url = route('lesson.notification.check', [
-                    'type' => 'mercadopago',
+                $this->preference->notification_url = route("checkout.notification", [
+                    "id_lesson" => $data->id,
+                    "type" => "mercadopago",
                 ]);
             }
 

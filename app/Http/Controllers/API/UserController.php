@@ -15,11 +15,11 @@
         public function checkLesson (Request $request, string $slug) {
             $input = (object) $request->all();
             $user = User::findBySlug($slug);
-            $user->and(['lessons']);
+            $user->and(["lessons"]);
 
             $found = false;
             foreach ($user->lessons as $lesson) {
-                $lesson->and(['days']);
+                $lesson->and(["days"]);
                 foreach ($lesson->days as $day) {
                     $day = (object) $day;
                     if ($day->date === $input->date) {
@@ -34,10 +34,10 @@
             }
 
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'found' => $found,
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "found" => $found,
                 ],
             ]);
         }
@@ -50,13 +50,13 @@
          */
         public function lessons (Request $request, string $slug) {
             $user = User::findBySlug($slug);
-            $user->and(['lessons']);
+            $user->and(["lessons"]);
 
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'lessons' => $user->lessons,
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "lessons" => $user->lessons,
                 ],
             ]);
         }
@@ -70,14 +70,14 @@
             $users = User::teachers();
 
             foreach ($users as $user) {
-                $user->and(['games', 'files', 'prices', 'teampro', 'languages', 'days']);
+                $user->and(["games", "files", "prices", "teampro", "languages", "days"]);
             }
 
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'users' => $users,
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "users" => $users,
                 ],
             ]);
         }
@@ -90,14 +90,14 @@
             $users = User::users();
 
             foreach ($users as $user) {
-                $user->and(['lessons', 'games', 'files', 'hours', 'achievements']);
+                $user->and(["lessons", "games", "files", "hours", "achievements"]);
             }
 
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'users' => $users,
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "users" => $users,
                 ],
             ]);
         }

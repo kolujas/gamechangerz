@@ -30,31 +30,50 @@
                         <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
                         <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
                         <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Username</th>
-                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Correo</th>
+                        <th class="flex items-center px-6 py-3 text-left russo color-white col-span-3">Correo</th>
                         <th class="flex items-center px-6 py-3"></th>
                     </tr>
                 </thead>
                 <tbody class="grid">
-                    @foreach ($users as $user)
-                        <tr data-href="/panel/teachers/{{ $user->slug }}" class="grid grid-cols-8">
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap">
-                                <span class="text-sm overpass">{{ $user->id_user }}</s>
-                            </td>
-                            <td class="flex items-center px-4 py-4 whitespace-no-wrap">
-                                @if ($user->profile())
-                                    <figure class="profile-image">
-                                        <img src={{ asset("storage/". $user->profile()) }} alt="{{ $user->username }} profile image">
-                                    </figure>
+                    @if (count($users))
+                        @foreach ($users as $user)
+                            <tr data-href="/panel/teachers/{{ $user->slug }}" class="grid grid-cols-8">
+                                <td class="flex items-center px-6 py-4 whitespace-no-wrap">
+                                    <span class="text-sm overpass">{{ $user->id_user }}</s>
+                                </td>
+                                <td class="flex items-center px-4 py-4 whitespace-no-wrap">
+                                    @if ($user->profile())
+                                        <figure class="profile-image">
+                                            <img src={{ asset("storage/". $user->profile()) }} alt="{{ $user->username }} profile image">
+                                        </figure>
+                                    @endif
+                                    @if (!$user->profile())
+                                        @component('components.svg.ProfileSVG')@endcomponent
+                                    @endif
+                                </td>
+                                <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $user->username }}</td>
+                                <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $user->email }}</td>
+                                @if ($user->id_status === 0)
+                                    <td class="flex items-center px-6 py-4" title="Usuario baneado">
+                                        <i class="color-red fas fa-ban"></i>
+                                    </td>
                                 @endif
-                                @if (!$user->profile())
-                                    @component('components.svg.ProfileSVG')@endcomponent
+                                @if ($user->id_status === 1)
+                                    <td class="flex items-center px-6 py-4" title="Correo pendiente de aprobación">
+                                        <i class="color-five fas fa-envelope"></i>
+                                    </td>
                                 @endif
-                            </td>
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $user->username }}</td>
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $user->email }}</td>
-                            <td class="flex items-center px-6 py-4 col-span-2"></td>
+                                @if ($user->id_status === 2)
+                                    <td class="flex items-center px-6 py-4"></td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    @endif
+                    @if (!count($users))
+                        <tr data-href="/panel/teachers/create" class="grid grid-cols-8">
+                            <td class="col-span-8 flex items-center justify-center px-6 py-4 whitespace-no-wrap">No se crearon profesores</td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
         </main>

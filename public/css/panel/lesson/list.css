@@ -1,3 +1,11 @@
-table tr{
-    grid-template-columns: repeat(14, minmax(0, 1fr));
+#panel table tr{
+    grid-template-columns: repeat(13, minmax(0, 1fr));
+}
+
+#panel.tab-menu table tbody tr:hover td .color-grey {
+    color: var(--color-red);
+}
+
+#panel .done {
+    opacity: .2;
 }

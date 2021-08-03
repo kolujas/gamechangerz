@@ -1,0 +1,62 @@
+#activity.modal .modal-content {
+    width: 33%;
+}
+
+#activity.modal .modal-content > main > div {
+    max-height: calc(100vh - 4rem);
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar,
+#activity.modal .modal-content > main > div::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-button,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-button {
+    width: 15%;
+    height: 15%;
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-thumb,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-thumb {
+    background: var(--color-white);
+    border-radius: 100vh;
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-thumb:hove,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-thumb:hover,
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-thumb:active,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-thumb:active {
+    background: var(--color-grey);
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-track,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-track {
+    background: black;
+    border-radius: 100vh;
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-track:hove,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-track:hover,
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-track:active,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-track:active {
+    background: black;
+}
+
+#activity.modal .modal-content > main > div > main::-webkit-scrollbar-corner,
+#activity.modal .modal-content > main > div::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+#activity.modal .modal-content ul {
+    width: fit-content;
+}
+
+#activity.modal .modal-content ul li {
+    min-width: calc(33vw - 6.27rem);
+    max-width: calc(33vw - 6.27rem);
+}

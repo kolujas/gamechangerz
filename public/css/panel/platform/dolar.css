@@ -1,0 +1,9 @@
+label, input {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+label span {
+    flex-basis: 15%;
+    border-right: 1px solid var(--color-five);
+}

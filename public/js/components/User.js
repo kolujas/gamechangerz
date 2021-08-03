@@ -225,7 +225,7 @@ export class User extends Class {
                                     }
                                 }
                 
-                let image = document.createElement('sectin');
+                let image = document.createElement('section');
                 image.classList.add("image", "lg:col-span-4", "row-span-2", "md:row-span-1");
                 main.appendChild(image);
                     div = document.createElement('div');

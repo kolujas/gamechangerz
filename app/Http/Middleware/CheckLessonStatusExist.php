@@ -12,9 +12,9 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            $status = $request->route()->parameter('status');
+            $id_status = $request->route()->parameter('id_status');
 
-            if (intval($status) !== 0 && intval($status) !== 1 && intval($status) !== 2) {
+            if (intval($id_status) !== 0 && intval($id_status) !== 1 && intval($id_status) !== 2) {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Lesson status does not exist",

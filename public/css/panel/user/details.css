@@ -2,22 +2,29 @@
     padding-left: 0;
 }
 
-#user input[type=text], #user textarea{
+#user input[type=text], #user input[type=password], #user textarea, #user select{
     background: var(--color-black);
     color: var(--color-white);
+}
+
+#user select:disabled {
+    opacity: 1;
+    appearance: none;
 }
 
 #user textarea{
     color: var(--color-white);
     resize: none;
     height: 10rem;
+    resize: none;
+    overflow: hidden;
 }
 
 #user .games h2{
     color: var(--color-white);
 }
 
-#user .games .game-name h4{
+#user .games .game-name{
     color: var(--color-white);
     background: var(--color-black);
 }
@@ -36,6 +43,10 @@
     font-size: .75rem;
 }
 
+#user .date label input:not(:disabled) + span {
+    cursor: pointer;
+}
+
 #user .date label input:checked + span {
     background-color: var(--color-four);
     opacity: 1;
@@ -50,32 +61,46 @@
     width: 17em;
 }
 
-
-#user .msg-modal input{
-    width: 17em;
-}
-
-#user .user-banner{
-    margin-top: 10%;
-}
-
-#user .banner-container .banner-photo img,
-#user .banner-container .bg-banner img{
-    object-fit: cover;
-    border-radius: .25rem;
-    width: 100%;
-    height: 20rem;
-    cursor: pointer;
-    transition: 600ms;
+#user .profile-photo,
+#user .banner-photo{
     overflow: hidden;
 }
 
-#user .user-photo button span,
-#user .user-banner button span{
+#user .profile-photo span,
+#user .banner-photo span{
+    padding: .5rem 0;
+}
+
+#user .profile-photo button span,
+#user .banner-photo button span{
     padding: .5rem 1rem;
 }
 
-#banner .user-photo span,
-#banner .user-banner span{
-    padding: .5rem 0;
+#user .profile-photo img,
+#user .banner-photo img {
+    width: 100%;
+    max-height: 90px;
+    object-fit: cover;
+    object-position: bottom center;
+    border-radius: .25rem;
+    background-color: var(--color-black);
+}
+
+#user .profile-photo img {
+    width: 90px;
+    height: 90px;
+    border-radius: 100vh;
+    background-color: var(--color-one);
+}
+
+#user .input-option input[type="checkbox"]:disabled:checked ~ .input-box {
+    background: var(--color-four);
+    opacity: 1;
+    border-color: var(--color-four);
+}
+
+#user ul.achievements li:first-of-type,
+#user ul.reviews li:first-of-type,
+#user ul.blog.cards .card:first-of-type {
+    padding-left: 0;
 }

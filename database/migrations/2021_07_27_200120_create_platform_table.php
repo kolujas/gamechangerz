@@ -3,19 +3,16 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateCouponsTable extends Migration {
+    class CreatePlatformTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up () {
-            Schema::create('coupons', function (Blueprint $table) {
-                $table->increments('id_coupon');
-                $table->string('name');
-                $table->json('type')->default("");
-                $table->integer('limit')->nullable();
-                $table->string('slug');
+            Schema::create('platform', function (Blueprint $table) {
+                $table->increments('id_platform');
+                $table->string('dolar')->default(0);
                 $table->timestamps();
             });
         }
@@ -26,6 +23,6 @@
          * @return void
          */
         public function down () {
-            Schema::dropIfExists('coupons');
+            Schema::dropIfExists('platform');
         }
     }
