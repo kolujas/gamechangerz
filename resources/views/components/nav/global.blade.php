@@ -42,6 +42,11 @@
 					<span class="link-text overpass">Novedades</span>
 				</a>
 			</li>
+			<li>
+				<a href="/faq" class="nav-link">
+					<span class="link-text overpass">Cómo funciona</span>
+				</a>
+			</li>
 			@if (Auth::check())
 				<li id="nav-user" class="dropdown closed">
 					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">

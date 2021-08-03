@@ -1,0 +1,12 @@
+.faq summary{
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.faq .text-base{
+    color: var(--color-white);
+}
+
+.faq details span{
+    color: var(--color-white);
+}

@@ -26,6 +26,10 @@
         background-color: var(--color-one);
         color: var(--color-grey);
     }
+
+    .nav-menu .nav-row:first-of-type {
+        flex-basis: 20%;
+    }
 }
 
 /* ? XL */

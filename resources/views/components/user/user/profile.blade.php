@@ -62,7 +62,7 @@
     @if (count($user->reviews))
         <section class="reviews relative lg:col-span-2 xl:col-span-5 mb-16 lg:mb-0 lg:pr-8 xl:pr-0">
             <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
-                <h3 class="color-white russo uppercase">Reseñas</h3>
+                <h3 class="color-white russo uppercase">Reviews</h3>
             </header>
             @component('components.review.teachers', [
                 'reviews' => $user->reviews,
