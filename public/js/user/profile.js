@@ -86,7 +86,7 @@ function changeProfileState (state) {
     }
 }
 
-if (lessons.length) {
+if (lessons.length && document.querySelector("#reviews.modal")) {
     new Review({ lessons: lessons });
 }
 

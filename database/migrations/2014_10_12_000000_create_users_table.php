@@ -17,6 +17,7 @@
                 $table->string('password');
                 $table->string('slug');
                 $table->json('achievements')->nullable()->default("[]");
+                $table->json('credentials')->nullable()->default("[]");
                 $table->date('date_of_birth')->nullable();
                 $table->text('description')->nullable();
                 $table->json('games')->nullable()->default("[]");

@@ -269,7 +269,7 @@
             $teampro = new Teampro();
             if ($slug) {
                 $user = User::findBySlug($slug);
-                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro"]);
+                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials"]);
                 $teampro = $user->teampro;
 
                 foreach ($user->posts as $post) {

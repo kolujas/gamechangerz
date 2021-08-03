@@ -163,6 +163,10 @@
                 }
             }
 
+            if (!isset($ended_at)) {
+                $ended_at = Carbon::now();
+            }
+
             $this->ended_at = $ended_at;
         }
 

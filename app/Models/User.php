@@ -41,7 +41,7 @@
          * @var array
          */
         protected $fillable = [
-            "achievements", "credits", "date_of_birth", "days", "description", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "id_status", "teammate", "teampro", "token", "username"
+            "achievements", "credits", "date_of_birth", "days", "description", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "id_status", "teammate", "teampro", "token", "username", "credentials"
         ];
 
         /**
@@ -49,8 +49,7 @@
          * @var array
          */
         protected $hidden = [
-            "password",
-            "remember_token",
+            "credentials", "password", "remember_token",
         ];
 
         /**
@@ -74,6 +73,9 @@
                             break;
                         case "achievements":
                             $this->achievements();
+                            break;
+                        case "credentials":
+                            $this->credentials();
                             break;
                         case "days":
                             $this->days();
@@ -175,10 +177,29 @@
         }
 
         /**
+         * * Set the User Credentials.
+         */
+        public function credentials () {
+            $credentials = Method::parse($this->credentials);
+            $this->credentials = (object)[
+                "mercadopago" => null,
+                "paypal" => null,
+            ];
+
+            foreach ($credentials as $credential) {
+                if ($credential->id_method === 1) {
+                    $this->credentials->mercadopago = $credential;
+                }
+                if ($credential->id_method === 2) {
+                    $this->credentials->paypal = $credential;
+                }
+            }
+        }
+
+        /**
          * * Set the User Days.
          */
         public function days () {
-            // * id_user = 4
             $this->days = Day::parse($this->days);
         }
 
@@ -283,7 +304,7 @@
             }
             if ($this->id_role === 1) {
                 foreach (Lesson::allFromTeacher($this->id_user) as $lesson) {
-                    $lesson->and(["days", "reviews", "users", "abilities", "ended_at"]);
+                    $lesson->and(["reviews", "users", "abilities", "ended_at"]);
                     $this->lessons->push($lesson);
                     if ($lesson->id_status === 4) {
                         $this->{"lessons-done"}++;
@@ -657,6 +678,7 @@
                             "abilities" => "required",
                             "languages" => "required",
                             "id_status" => "required",
+                            "mp_access_token" => "required",
                         ], "messages" => [
                             "es" => [
                                 "username.required" => "El apodo es obligatorio.",
@@ -679,6 +701,7 @@
                                 "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
+                                "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
                             ]
                         ]
                     ],
@@ -704,6 +727,7 @@
                             "abilities" => "required",
                             "languages" => "required",
                             "id_status" => "required",
+                            "mp_access_token" => "required",
                         ], "messages" => [
                             "es" => [
                                 "username.required" => "El apodo es obligatorio.",
@@ -723,6 +747,7 @@
                                 "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
+                                "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
                             ]
                         ]
                     ],

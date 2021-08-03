@@ -77,6 +77,42 @@
         }
 
         /**
+         * * Parse a Methods array.
+         * @param string [$methods] Example: "[{\"id_method\":1,\"access_token\":\"something\"}]"
+         * @return Game[]
+         */
+        static public function parse (string $methods = '') {
+            $collection = collect();
+
+            foreach (json_decode($methods) as $data) {
+                $method = Method::option($data->id_method);
+                $method->access_token = $data->access_token;
+
+                $collection->push($method);
+            }
+
+            return $collection;
+        }
+
+        /**
+         * * Stringify a Methods array.
+         * @param array [$methods] Example: [["id_method"=>1,"access_token"=>"something"]]
+         * @return string
+         */
+        static public function stringify (array $methods = []) {
+            $collection = collect();
+            
+            foreach ($methods as $data) {
+                $collection->push([
+                    "id_method" => $data['id_method'],
+                    "access_token" => $data['access_token'],
+                ]);
+            }
+
+            return $collection->toJson();
+        }
+
+        /**
          * * Method options.
          * @var array
          */

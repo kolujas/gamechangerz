@@ -6,6 +6,7 @@
     use App\Models\Day;
     use App\Models\Game;
     use App\Models\Language;
+    use App\Models\Method;
     use App\Models\Price;
     use App\Models\Teampro;
     use App\Models\User;
@@ -93,18 +94,34 @@
 
             $input->games = Game::stringify($games->toArray());
 
-            $languages = collect();
-            foreach ($input->languages as $language => $on) {
-                $languages->push($language);
-            }
-
             $input->id_role = 1;
 
             if (isset($input->important)) {
                 $input->important = 1;
             }
 
+            $languages = collect();
+            foreach ($input->languages as $language => $on) {
+                $languages->push($language);
+            }
+
             $input->languages = Language::stringify($languages->toArray());
+
+            $methods = collect();
+
+            $methods->push([
+                "id_method" => 1,
+                "access_token" => $input->mp_access_token,
+            ]);
+
+            if (isset($input->pp_access_token)) {
+                $methods->push([
+                    "id_method" => 2,
+                    "access_token" => $input->pp_access_token,
+                ]);
+            }
+
+            $input->credentials = Method::stringify($methods->toArray());
             
             $input->password = Hash::make($input->password);
             
@@ -220,16 +237,32 @@
 
             $input->games = Game::stringify($games->toArray());
 
+            if (isset($input->important)) {
+                $input->important = 1;
+            }
+
             $languages = collect();
             foreach ($input->languages as $language => $on) {
                 $languages->push($language);
             }
 
-            if (isset($input->important)) {
-                $input->important = 1;
+            $input->languages = Language::stringify($languages->toArray());
+
+            $methods = collect();
+
+            $methods->push([
+                "id_method" => 1,
+                "access_token" => $input->mp_access_token,
+            ]);
+
+            if (isset($input->pp_access_token)) {
+                $methods->push([
+                    "id_method" => 2,
+                    "access_token" => $input->pp_access_token,
+                ]);
             }
 
-            $input->languages = Language::stringify($languages->toArray());
+            $input->credentials = Method::stringify($methods->toArray());
             
             if (isset($input->password)) {
                 $input->password = Hash::make($input->password);

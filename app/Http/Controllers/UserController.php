@@ -207,6 +207,9 @@
             foreach (Lesson::allCreated() as $lesson) {
                 if ($lesson->id_user_to === Auth::user()->id_user && $lesson->id_user_from === $user->id_user) {
                     $found = true;
+                    $lesson->update([
+                        "days" => "[]",
+                    ]);
                     break;
                 } else if (Carbon::parse($lesson->updated_at)->diffInMinutes(Carbon::now()) === 5) {
                     $lesson->delete();

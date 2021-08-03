@@ -54,12 +54,19 @@
                         }
                     }
                 }
-                $days->push([
-                    "date" => $input->dates[$i],
-                    "hour" => collect([
-                        "id_hour" => $input->hours[$i],
-                    ]),
-                ]);
+                if ($input->hours[$i]) {
+                    $days->push([
+                        "date" => $input->dates[$i],
+                        "hour" => collect([
+                            "id_hour" => $input->hours[$i],
+                        ]),
+                    ]);
+                }
+                if (!$input->hours[$i]) {
+                    $days->push([
+                        "date" => $input->dates[$i],
+                    ]);
+                }
             }
 
             $lesson->update([
@@ -72,6 +79,12 @@
             ]);
         }
 
+        /**
+         * * Get the Lesson Assigments.
+         * @param Request $request
+         * @param int $id_lesson
+         * @return [type]
+         */
         public function getAssigments (Request $request, int $id_lesson) {
             $lesson = Lesson::find($id_lesson);
             $lesson->and(["assigments"]);

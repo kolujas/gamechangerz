@@ -14,31 +14,33 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
-    class LessonController extends Controller {
+    class CheckoutController extends Controller {
         /**
          * * Check the Notification
          * @param Request $request
+         * @param int $id_lesson
          * @param string $type Notification type.
          * @return [type]
          */
-        public function checkNotification (Request $request, string $type) {
+        public function notification (Request $request, int $id_lesson, string $type) {
             // * Check the Notification type
             switch ($type) {
                 case "mercadopago":
                     // * Creates the MercadoPago
-                    $MP = new MercadoPago();
+                    // TODO: Get access_token
+                    $MP = new MercadoPago(/* ACCESS_TOKEN*/ );
         
                     // * Check the request topic
-                    switch ($request->topic) {
+                    switch ($request->route("topic")) {
                         case "payment":
                             // * Set the MercadoPago Payment
-                            $MP->payment($request->id);
+                            $MP->payment($request->route("id"));
                             
                             // * Check the Payment status
                             if ($MP->payment->status === "approved") {
                                 // * Get the external Preference & updates
                                 $lesson = Lesson::find($MP->payment->external_preference);
-                
+
                                 $lesson->update([
                                     "id_status" => 3,
                                 ]);
@@ -47,6 +49,7 @@
                     }
                     break;
                 case "paypal":
+                    // TODO: PayPal Notification
                     break;
             }
         }
@@ -57,7 +60,7 @@
          * @param string $id_lesson
          * @return [type]
          */
-        public function checkout (Request $request, string $id_lesson) {
+        public function complete (Request $request, string $id_lesson) {
             $input = (object) $request->all();
 
             $validator = Validator::make($request->all(), Lesson::$validation["checkout"]["online"]["rules"], Lesson::$validation["checkout"]["online"]["messages"]["es"]);
@@ -69,19 +72,22 @@
             $lesson->update((array) $input);
             $lesson->and(["type", "users"]);
 
-            if (config("app.env") !== "local") {
-                if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
-                    foreach ($input->dates as $key => $date) {
-                        $data = (object) [];
-                        $data->users = $lesson->users;
-                        $data->name = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users->from->username;
-                        $data->description = "Clase reservada desde el sitio web GameChangerZ";
-                        $data->startDateTime = new Carbon($date."T".Hour::option($input->hours[$key])->from);
-                        $data->endDateTime = new Carbon($date."T".Hour::option($input->hours[$key])->to);
+            dd($input);
+
+            if (config("app.env") === "production") {
+                // * Create the GoogleCalendar event.
+                // if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
+                //     foreach ($input->dates as $key => $date) {
+                //         $data = (object) [];
+                //         $data->users = $lesson->users;
+                //         $data->name = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users->from->username;
+                //         $data->description = "Clase reservada desde el sitio web GameChangerZ";
+                //         $data->startDateTime = new Carbon($date."T".Hour::option($input->hours[$key])->from);
+                //         $data->endDateTime = new Carbon($date."T".Hour::option($input->hours[$key])->to);
         
-                        Event::Create($data);
-                    }
-                }
+                //         Event::Create($data);
+                //     }
+                // }
             }
 
             switch ($input->id_method) {
@@ -92,7 +98,10 @@
                         "price" => $lesson->users->from->prices[$lesson->type->id_type - 1]->price,
                     ];
 
-                    $MP = new MercadoPago();
+                    $user = $lesson->users->from;
+                    $user->and(["credentials"]);
+
+                    $MP = new MercadoPago($user->credentials->mercadopago->access_token);
                     $MP->items([$data]);
                     $MP->preference($data);
                     $url = $MP->preference->init_point;
@@ -106,7 +115,7 @@
                     $lesson->update([
                         "id_status" => 3,
                     ]);
-                    $url = route("lesson.checkout.status", [
+                    $url = route("checkout.status", [
                         "id_lesson" => $lesson->id_lesson,
                         "id_status" => 2,
                     ]);
@@ -124,7 +133,7 @@
          * @param int $id_status
          * @return [type]
          */
-        public function showStatus (Request $request, int $id_lesson, int $id_status) {
+        public function status (Request $request, int $id_lesson, int $id_status) {
             $error = null;
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
