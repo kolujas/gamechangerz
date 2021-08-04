@@ -102,7 +102,7 @@
             
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[0]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto">
-                    <span class="russo py-2 px-4">Contratar</span>
+                    <span class="russo py-2 px-4">Reservar clase</span>
                 </a>
             @endif
         </li>
@@ -178,7 +178,7 @@
             </div>
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)
                 <a href="/users/{{ $user->slug }}/checkout/{{ $user->prices[2]->slug }}" class="btn btn-outline btn-one mt-4 md:mx-auto rounded">
-                    <span class="russo py-2 px-4">Contratar</span>
+                    <span class="russo py-2 px-4">Reservar clase</span>
                 </a>
             @endif
         </li>

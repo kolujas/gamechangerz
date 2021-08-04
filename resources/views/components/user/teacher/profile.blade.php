@@ -54,7 +54,7 @@
             <section class="reviews relative lg:col-span-2 xl:col-span-6 xl:grid xl:grid-cols-6 mb-16 lg:mb-0">
                 <header class="px-8 lg:pr-0 xl:px-0 xl:col-span-6 mb-8">
                     <h3 class="color-white flex items-center uppercase">
-                        <span class="mr-2 russo">Reseñas</span>
+                        <span class="mr-2 russo">Reviews</span>
                         @if (count($lessons) && Auth::check() && Auth::user()->id_user === $user->id_user)
                             <a href="#reviews" class="btn btn-icon btn-one p-2 rounded">
                                 <i class="fas fa-chevron-right"></i>

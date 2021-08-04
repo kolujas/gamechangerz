@@ -13,7 +13,7 @@
                             <figure>
                                 <img src={{ asset($ability->files['image']) }} alt="{{ $ability->name }} image">
                             </figure>
-                            <div class="diffculty flex justify-between align-center px-4 mb-4">
+                            {{-- <div class="diffculty flex justify-between align-center px-4 mb-4">
                                 <span class="color-white overpass">Dificultad</span>
                                 <div class="flex">
                                     @for ($i = 1; $i <= 5; $i++)
@@ -24,7 +24,7 @@
                                         @endif
                                     @endfor
                                 </div>
-                            </div>
+                            </div> --}}
                         </main>
                     </div>
                 </div>

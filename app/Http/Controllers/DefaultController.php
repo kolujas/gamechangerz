@@ -196,4 +196,28 @@
                 ]],
             ]);
         }
+        public function faq (Request $request) {
+            $error = null;
+            if ($request->session()->has('error')) {
+                $error = (object) $request->session()->pull('error');
+            }
+
+            return view('web.faq', [
+                'error' => $error,
+                'validation' => [
+                    'login' => (object)[
+                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
+                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
+                ], 'signin' => (object)[
+                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
+                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
+                ], 'assigment' => (object)[
+                        'rules' => Assigment::$validation['make']['rules'],
+                        'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'presentation' => (object)[
+                        'rules' => Presentation::$validation['make']['rules'],
+                        'messages' => Presentation::$validation['make']['messages']['es'],
+                ]],
+            ]);
+        }
     }
