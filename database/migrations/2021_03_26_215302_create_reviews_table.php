@@ -15,7 +15,6 @@
                 $table->unsignedInteger('id_user_from');
                 $table->unsignedInteger('id_user_to');
                 $table->unsignedInteger('id_lesson');
-                $table->unsignedInteger('id_game');
                 $table->string('title');
                 $table->text('description')->nullble();
                 $table->json('abilities')->nullble()->default('[]');

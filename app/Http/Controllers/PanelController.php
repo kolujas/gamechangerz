@@ -7,6 +7,7 @@
     use App\Http\Controllers\Panel\UserController;
     use App\Models\Coupon;
     use App\Models\Day;
+    use App\Models\Discord;
     use App\Models\Game;
     use App\Models\Hour;
     use App\Models\Language;
@@ -267,10 +268,12 @@
 
             $user = new User();
             $teampro = new Teampro();
+            $discord = new Discord();
             if ($slug) {
                 $user = User::findBySlug($slug);
-                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials"]);
+                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials", "discord"]);
                 $teampro = $user->teampro;
+                $discord = $user->discord;
 
                 foreach ($user->posts as $post) {
                     $post->date = $this->dateToHuman($post->updated_at);
@@ -357,9 +360,10 @@
             }
 
             return view("panel.teachers.details", [
-                "error" => $error,
                 "achievements" => $achievements,
                 "days" => $days,
+                "discord" => $discord,
+                "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
                 "lessons" => $lessons,
@@ -416,9 +420,11 @@
             }
 
             $user = new User();
+            $discord = new Discord();
             if ($slug) {
                 $user = User::findBySlug($slug);
-                $user->and(["games", "reviews", "achievements", "files", "languages"]);
+                $user->and(["games", "reviews", "achievements", "files", "languages", "discord"]);
+                $discord = $user->discord;
             }
 
             $games = Game::all();
@@ -481,6 +487,7 @@
 
             return view("panel.users.details", [
                 "achievements" => $achievements,
+                "discord" => $discord,
                 "error" => $error,
                 "games" => $games,
                 "languages" => $languages,

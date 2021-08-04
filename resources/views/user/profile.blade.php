@@ -26,6 +26,7 @@
         {{-- ? Teacher --}}
         @component('components.user.teacher.profile', [
             "days" => $days,
+            'dolar' => $dolar,
             "user" => $user,
             "lessons" => $lessons,
         ])

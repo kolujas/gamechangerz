@@ -6,6 +6,7 @@
     use App\Models\Assigment;
     use App\Models\Chat;
     use App\Models\Lesson;
+    use App\Models\Mail;
     use App\Models\Presentation;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
@@ -56,6 +57,20 @@
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
             }
+
+            if ($request->user()->id_user === $chat->id_user_from) {
+                $from = $chat->users->from;
+                $to = $chat->users->to;
+            }
+            if ($request->user()->id_user !== $chat->id_user_from) {
+                $from = $chat->users->to;
+                $to = $chat->users->from;
+            }
+
+            new Mail([ "id_mail" => 4, ], [
+                'email' => $to->email,
+                'slug' => $from->slug,
+            ]);
 
             return response()->json([
                 'code' => 200,

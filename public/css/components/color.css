@@ -75,3 +75,7 @@
 .bg-red {
     background-color: var(--color-red);
 }
+
+.bg-solid-black {
+    background-color: #000;
+}

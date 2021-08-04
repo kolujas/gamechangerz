@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Friend;
+    use App\Models\Mail;
     use App\Models\User;
     use Auth;
     use Illuminate\Http\Request;
@@ -142,7 +143,7 @@
          * @return [type]
          */
         public function request (Request $request) {
-            $user = User::findBySlug($request->slug)();
+            $user = User::findBySlug($request->slug);
             $user->and(['friends']);
 
             $found = false;
@@ -154,7 +155,7 @@
             }
 
             if ($found) {
-                return redirect("/users/$slug/profile")->with('status', [
+                return redirect("/users/$request->slug/profile")->with('status', [
                     'code' => 403,
                     'message' => "You are \"$request->slug\"'s friend",
                 ]);
@@ -166,7 +167,16 @@
                 'accepted' => 0,
             ]);
 
-            return redirect("/users/$slug/profile")->with('status', [
+            $from = User::find($request->user()->id_user);
+
+            new Mail([ "id_mail" => 6, ], [
+                'email' => $user->email,
+                'name' => $from->name,
+                'slug' => $from->slug,
+                'username' => $from->username,
+            ]);
+
+            return redirect("/users/$$request->slug/profile")->with('status', [
                 'code' => 200,
                 'message' => 'Solicitud enviada',
             ]);

@@ -65,7 +65,7 @@ new InputFileMaker({
 },{
     disabled: true,
     generate: document.querySelector('.teampro-photo'),
-    image: user.hasOwnProperty("id_user") ? new Asset('storage/' + user.files.teampro).route : "",
+    image: (user.hasOwnProperty("id_user") && user.files.teampro) ? new Asset('storage/' + user.files.teampro).route : "",
 });
 
 document.querySelector('.teampro-photo').appendChild(new Html("span", {

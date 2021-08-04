@@ -16,7 +16,6 @@
                 $table->unsignedInteger('id_user_to');
                 $table->unsignedInteger('id_type');
                 $table->unsignedInteger('id_method')->nullable();
-                $table->unsignedInteger('id_game')->nullable();
                 $table->string('id_coupon')->nullable();
                 $table->tinyInteger('id_status')->nullable()->default(2);
                 $table->json('days')->nullble()->default('[]');

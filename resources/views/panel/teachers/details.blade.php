@@ -72,9 +72,9 @@
                 <div class="pt-0 col-span-2">
                     <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif>
                         <option class="overpass" disabled @if (!old("id_status", $user->id_status)) selected @endif>Estado</option>
-                        <option class="overpass" value="0" @if (old("id_status", $user->id_status) === 0) selected @endif>Baneado</option>
-                        <option class="overpass" value="1" @if (old("id_status", $user->id_status) === 1) selected @endif>Correo pendiente de aprobación</option>
-                        <option class="overpass" value="2" @if (old("id_status", $user->id_status) === 2) selected @endif>Habilitado</option>
+                        <option class="overpass" value="0" @if (intval(old("id_status", $user->id_status)) === 0) selected @endif>Baneado</option>
+                        <option class="overpass" value="1" @if (intval(old("id_status", $user->id_status)) === 1) selected @endif>Correo pendiente de aprobación</option>
+                        <option class="overpass" value="2" @if (intval(old("id_status", $user->id_status)) === 2) selected @endif>Habilitado</option>
                     </select>
                     <span class="block color-white error support teacher-form support-box hidden support-id_status mt-2 overpass"></span>
                 </div>
@@ -108,15 +108,28 @@
                     <span class="block color-white error support teacher-form support-box hidden support-description mt-2 overpass"></span>
                 </div>
 
+                <div class="pt-0 col-span-4 col-start-1 grid grid-cols-2 gap-8">
+                    <h3 class="col-span-2 russo color-white uppercase">Discord</h3>
+                    <div>
+                        <input type="text" tabindex="8" name="discord_username" placeholder="Username#0000" value="{{ old("discord_username", $discord->username) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                        <span class="block color-white error support teacher-form support-box hidden support-discord_username mt-2 overpass"></span>
+                    </div>
+
+                    <div>
+                        <input type="url" tabindex="9" name="discord_link" placeholder="https://discord.gg/aaaaa" value="{{ old("discord_link", $discord->link) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                        <span class="block color-white error support teacher-form support-box hidden support-discord_link mt-2 overpass"></span>
+                    </div>
+                </div>
+
                 <div class="pt-0 col-span-2 col-start-1">
                     <h3 class="russo color-white mb-8 uppercase">MercadoPago</h3>
-                    <input type="text" tabindex="8" name="mp_access_token" placeholder="Access token" value="{{ old("mp_access_token", ((isset($user->id_user) && isset($user->credentials->mercadopago) && $user->credentials->mercadopago) ? $user->credentials->mercadopago->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <input type="text" tabindex="10" name="mp_access_token" placeholder="Access token" value="{{ old("mp_access_token", ((isset($user->id_user) && isset($user->credentials->mercadopago) && $user->credentials->mercadopago) ? $user->credentials->mercadopago->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                     <span class="block color-white error support teacher-form support-box hidden support-mp_access_token mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2">
                     <h3 class="russo color-white mb-8 uppercase">PayPal</h3>
-                    <input type="text" tabindex="9" name="pp_Access_token" placeholder="Access token" value="{{ old("pp_Access_token", ((isset($user->id_user) && isset($user->credentials->paypal) && $user->credentials->paypal) ? $user->credentials->paypal->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <input type="text" tabindex="11" name="pp_Access_token" placeholder="Access token" value="{{ old("pp_Access_token", ((isset($user->id_user) && isset($user->credentials->paypal) && $user->credentials->paypal) ? $user->credentials->paypal->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                     <span class="block color-white error support teacher-form support-box hidden support-pp_Access_token mt-2 overpass"></span>
                 </div>
 

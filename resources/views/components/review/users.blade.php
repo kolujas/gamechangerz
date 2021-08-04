@@ -9,21 +9,24 @@
                             <div class="flex">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @if ($i <= $review->stars)
-                                        @component('components.svg.EstrellaSVG')@endcomponent
+                                        @component("components.svg.EstrellaSVG")@endcomponent
                                     @else
-                                        @component('components.svg.Estrella2SVG')@endcomponent
+                                        @component("components.svg.Estrella2SVG")@endcomponent
                                     @endif
                                 @endfor
                             </div>
                         </div>
                         <p class="color-white mt-4 overpass">{{ $review->description }}</p>
-                        <div class="w-full flex justify-between items-center">
+                        <div class="w-full grid grid-cols-2 flex items-center mt-4">
                             <a href="/users/{{ ($review->users->from->id_user === $user->id_user ? $review->users->to->slug : $review->users->from->slug) }}/profile" class="btn btn-text btn-one overpass">
                                 <span>{{ ($review->users->from->id_user === $user->id_user ? $review->users->to->username : $review->users->from->username) }}</span>
                             </a>
-                            <div class="flex items-center color-white">
-                                <span class="mr-2 overpass">{{ ($review->lesson->id_type === 1 ? 'Online' : ($review->lesson->id_type === 2 ? 'Offline' : 'Packs')) }}</span>
+                            <div class="flex items-center justify-end color-white">
+                                <span class="mr-2 overpass">{{ ($review->lesson->id_type === 1 ? "Online" : ($review->lesson->id_type === 2 ? "Offline" : "Packs")) }}</span>
                                 @component($review->lesson->type->svg)@endcomponent
+                            </div>
+                            <div class="col-start-2 flex justify-end">
+                                <span class="text-sm color-white overpass">{{ $review->updated_at->format("Y-m-d") }}</span>
                             </div>
                         </div>
                     </div>

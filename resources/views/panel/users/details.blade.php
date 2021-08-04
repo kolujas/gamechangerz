@@ -88,6 +88,11 @@
                     <span class="block color-white error support user-form support-box hidden support-username mt-2 overpass"></span>
                 </div>
 
+                <div class="pt-0 col-span-2">
+                    <input type="text" tabindex="5" name="discord_username" placeholder="Username#0000" value="{{ old("discord_username", $discord->username) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-user form-input user-form editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support user-form support-box hidden support-discord_username mt-2 overpass"></span>
+                </div>
+
                 <div class="pt-0 col-span-8">
                     <h3 class="russo color-white mb-8 uppercase">Idiomas</h3>
                     <ul class="languages options grid grid-cols-8 gap-4">

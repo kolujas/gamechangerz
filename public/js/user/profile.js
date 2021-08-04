@@ -18,16 +18,16 @@ function setDefaultWidth (params) {
     prices_text[0].innerHTML = prices_input[0].value;
     prices_text[1].innerHTML = prices_input[1].value;
     prices_text[2].innerHTML = prices_input[2].value;
-    prices_input[0].setAttribute('style', `--width: ${ prices_text[0].offsetWidth }px`);
-    prices_input[1].setAttribute('style', `--width: ${ prices_text[1].offsetWidth }px`);
-    prices_input[2].setAttribute('style', `--width: ${ prices_text[2].offsetWidth }px`);
+    prices_input[0].setAttribute("style", `--width: ${ prices_text[0].offsetWidth }px`);
+    prices_input[1].setAttribute("style", `--width: ${ prices_text[1].offsetWidth }px`);
+    prices_input[2].setAttribute("style", `--width: ${ prices_text[2].offsetWidth }px`);
     for (const key in prices_input) {
         if (Object.hasOwnProperty.call(prices_input, key)) {
             const input = prices_input[key];
-            input.addEventListener('keyup', function (e) {
+            input.addEventListener("keyup", function (e) {
                 e.preventDefault();
                 prices_text[key].innerHTML = this.value;
-                this.setAttribute('style', `--width: ${ prices_text[key].offsetWidth }px`);
+                this.setAttribute("style", `--width: ${ prices_text[key].offsetWidth }px`);
             });
         }
     }
@@ -38,18 +38,18 @@ function createErrorNotification (params) {
         if (Object.hasOwnProperty.call(params.errors, target)) {
             const errors = params.errors[target];
             for (const error of errors) {
-                let index = document.querySelectorAll('.notification').length;
+                let index = document.querySelectorAll(".notification").length;
                 let notification = new NotificationJS({
                     id: `notification-${ target }`,
                     code: 404,
                     message: error,
-                    classes: ['russo'],
+                    classes: ["russo"],
                 }, {
                     open: true,
-                    insertBefore: document.querySelector('#notification-1'),
+                    insertBefore: document.querySelector("#notification-1"),
                 });
-                notification.setProps('index', index);
-                notification.html.setAttribute('style', `--index: ${ index }`);
+                notification.setProps("index", index);
+                notification.html.setAttribute("style", `--index: ${ index }`);
             }
         }
     }
@@ -57,29 +57,36 @@ function createErrorNotification (params) {
 
 function changeProfileState (state) {
     switch (state) {
-        case 'update':
-            for (const input of document.querySelectorAll('.update-input')) {
+        case "update":
+            for (const input of document.querySelectorAll(".update-input")) {
+                if (["teampro_name", "teampro_logo"].includes(input.name)) {
+                    input.parentNode.classList.remove("hidden");
+                    input.parentNode.parentNode.classList.remove("hidden");
+                }
+                if ("teampro_name" === input.name) {
+                    input.parentNode.previousElementSibling.classList.remove("hidden");
+                }
                 if (input.disabled) {
                     input.disabled = false;
-                    if (input.classList.contains('hidden') && input.name === 'name') {
-                        input.classList.remove('hidden');
+                    if (input.classList.contains("hidden") && input.name === "name") {
+                        input.classList.remove("hidden");
                     }
                 } else {
                     input.disabled = true;
-                    if (!input.classList.contains('hidden') && input.name === 'name') {
-                        input.classList.add('hidden');
+                    if (!input.classList.contains("hidden") && input.name === "name") {
+                        input.classList.add("hidden");
                     }
                 }
             }
-            for (const btn of document.querySelectorAll('.update-button')) {
-                if (btn.classList.contains('confirm')) {
-                    btn.classList.remove('hidden');
+            for (const btn of document.querySelectorAll(".update-button")) {
+                if (btn.classList.contains("confirm")) {
+                    btn.classList.remove("hidden");
                 }
-                if (btn.classList.contains('cancel')) {
-                    btn.classList.remove('hidden');
+                if (btn.classList.contains("cancel")) {
+                    btn.classList.remove("hidden");
                 }
-                if (!btn.classList.contains('confirm') && !btn.classList.contains('cancel')) {
-                    btn.classList.add('hidden');
+                if (!btn.classList.contains("confirm") && !btn.classList.contains("cancel")) {
+                    btn.classList.add("hidden");
                 }
             }
             break;
@@ -90,27 +97,27 @@ if (lessons.length && document.querySelector("#reviews.modal")) {
     new Review({ lessons: lessons });
 }
 
-document.addEventListener('DOMContentLoaded', function (e) {
-    if (document.querySelector('#horarios.tab-menu')) {
+document.addEventListener("DOMContentLoaded", function (e) {
+    if (document.querySelector("#horarios.tab-menu")) {
         new TabMenuJS({
-            id: 'horarios'
+            id: "horarios"
         },{
-            open: 'online',
+            open: "online",
         }, {
             function: setDefaultWidth,
         });
     }
     
     if (document.querySelector("form.user")) {
-        for (const btn of document.querySelectorAll('.user .reviews header a:last-child')) {
-            btn.addEventListener('click', function(e){
+        for (const btn of document.querySelectorAll(".user .reviews header a:last-child")) {
+            btn.addEventListener("click", function(e){
                 e.preventDefault();
                 this.parentNode.parentNode.nextElementSibling.classList.remove("hidden")
             });         
         }
 
-        for (const megaBtn of document.querySelectorAll('.mega-cardota')) {
-            megaBtn.addEventListener('mouseleave', function(e){
+        for (const megaBtn of document.querySelectorAll(".mega-cardota")) {
+            megaBtn.addEventListener("mouseleave", function(e){
                 e.preventDefault();
                 this.children[1].classList.add("hidden");
             })
@@ -118,36 +125,36 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
 
         new InputFileMakerJS({
-            id: 'profile',
-            message: '',
-            button: '',
-            name: 'profile',
-            accept: ['image/jpeg', 'image/png'],
+            id: "profile",
+            message: "",
+            button: "",
+            name: "profile",
+            accept: ["image/jpeg", "image/png"],
             classes: {
-                input: ['form-input', 'update-input'],
-                message: ['hidden'],
-                button: ['update-input'],
+                input: ["form-input", "update-input"],
+                message: ["hidden"],
+                button: ["update-input"],
             },
         }, {
-            generate: document.querySelector('form.user .profile-image'),
-            image: new Asset(((files.hasOwnProperty('profile')) ? `storage/${ files.profile }` : "img/resources/ProfileSVG.svg")).route,
+            generate: document.querySelector("form.user .profile-image"),
+            image: new Asset(((files.hasOwnProperty("profile")) ? `storage/${ files.profile }` : "img/resources/ProfileSVG.svg")).route,
             disabled: true,
         });
         
         new InputFileMakerJS({
-            id: 'banner',
-            message: '',
-            button: '',
-            name: 'banner',
-            accept: ['image/jpeg', 'image/png'],
+            id: "banner",
+            message: "",
+            button: "",
+            name: "banner",
+            accept: ["image/jpeg", "image/png"],
             classes: {
-                input: ['form-input', 'update-input'],
-                message: ['russo'],
-                button: ['update-input'],
+                input: ["form-input", "update-input"],
+                message: ["russo"],
+                button: ["update-input"],
             },
         }, {
-            generate: document.querySelector('.user .banner figure'),
-            image: new Asset(((files.hasOwnProperty('banner')) ? `storage/${ files.banner }` : "storage/web/01-banner.png")).route,
+            generate: document.querySelector(".user .banner figure"),
+            image: new Asset(((files.hasOwnProperty("banner")) ? `storage/${ files.banner }` : "storage/web/01-banner.png")).route,
             disabled: true,
         });
     }
@@ -156,32 +163,32 @@ document.addEventListener('DOMContentLoaded', function (e) {
         let username_input = document.querySelector(".teacher .profile .info .username input");
         let username_text = document.querySelector(".teacher .profile .info .username span");
         username_text.innerHTML = username_input.value;
-        username_input.setAttribute('style', `--width: ${ username_text.offsetWidth }px`);
-        username_input.addEventListener('keyup', function (e) {
+        username_input.setAttribute("style", `--width: ${ username_text.offsetWidth }px`);
+        username_input.addEventListener("keyup", function (e) {
             e.preventDefault();
             username_text.innerHTML = this.value;
-            this.setAttribute('style', `--width: ${ username_text.offsetWidth }px`);
+            this.setAttribute("style", `--width: ${ username_text.offsetWidth }px`);
         });
         if (document.querySelector(".teacher .profile .info .name input")) {
             let name_input = document.querySelector(".teacher .profile .info .name input");
             let name_text = document.querySelector(".teacher .profile .info .name span");
             name_text.innerHTML = name_input.value;
-            name_input.setAttribute('style', `--width: ${ name_text.offsetWidth }px`);
-            name_input.addEventListener('keyup', function (e) {
+            name_input.setAttribute("style", `--width: ${ name_text.offsetWidth }px`);
+            name_input.addEventListener("keyup", function (e) {
                 e.preventDefault();
                 name_text.innerHTML = this.value;
-                this.setAttribute('style', `--width: ${ name_text.offsetWidth }px`);
+                this.setAttribute("style", `--width: ${ name_text.offsetWidth }px`);
             });
         }
         if (document.querySelector(".teacher .profile .info .teampro div input")) {
             let teampro_name_input = document.querySelector(".teacher .profile .info .teampro div input");
             let teampro_name_text = document.querySelector(".teacher .profile .info .teampro div span");
             teampro_name_text.innerHTML = teampro_name_input.value;
-            teampro_name_input.setAttribute('style', `--width: ${ teampro_name_text.offsetWidth }px`);
-            teampro_name_input.addEventListener('keyup', function (e) {
+            teampro_name_input.setAttribute("style", `--width: ${ teampro_name_text.offsetWidth }px`);
+            teampro_name_input.addEventListener("keyup", function (e) {
                 e.preventDefault();
                 teampro_name_text.innerHTML = this.value;
-                this.setAttribute('style', `--width: ${ teampro_name_text.offsetWidth }px`);
+                this.setAttribute("style", `--width: ${ teampro_name_text.offsetWidth }px`);
             });
         }
         if (document.querySelectorAll(".teacher .tab-menu input[type=number]").length === 3) {
@@ -190,101 +197,101 @@ document.addEventListener('DOMContentLoaded', function (e) {
             prices_text[0].innerHTML = prices_input[0].value;
             prices_text[1].innerHTML = prices_input[1].value;
             prices_text[2].innerHTML = prices_input[2].value;
-            prices_input[0].setAttribute('style', `--width: ${ prices_text[0].offsetWidth }px`);
-            prices_input[1].setAttribute('style', `--width: ${ prices_text[1].offsetWidth }px`);
-            prices_input[2].setAttribute('style', `--width: ${ prices_text[2].offsetWidth }px`);
+            prices_input[0].setAttribute("style", `--width: ${ prices_text[0].offsetWidth }px`);
+            prices_input[1].setAttribute("style", `--width: ${ prices_text[1].offsetWidth }px`);
+            prices_input[2].setAttribute("style", `--width: ${ prices_text[2].offsetWidth }px`);
             for (const key in prices_input) {
                 if (Object.hasOwnProperty.call(prices_input, key)) {
                     const input = prices_input[key];
-                    input.addEventListener('keyup', function (e) {
+                    input.addEventListener("keyup", function (e) {
                         e.preventDefault();
                         prices_text[key].innerHTML = this.value;
-                        this.setAttribute('style', `--width: ${ prices_text[key].offsetWidth }px`);
+                        this.setAttribute("style", `--width: ${ prices_text[key].offsetWidth }px`);
                     });
                 }
             }
         }
         
         new InputFileMakerJS({
-            id: 'profile',
-            message: '',
-            button: '',
-            name: 'profile',
-            accept: ['image/png'],
+            id: "profile",
+            message: "",
+            button: "",
+            name: "profile",
+            accept: ["image/png"],
             classes: {
-                input: ['form-input', 'update-input'],
-                message: ['russo'],
-                image: ['absolute', 'profile'],
-                button: ['update-input'],
+                input: ["form-input", "update-input"],
+                message: ["russo"],
+                image: ["absolute", "profile"],
+                button: ["update-input"],
             },
         }, {
-            generate: document.querySelector('.teacher .banner figure'),
+            generate: document.querySelector(".teacher .banner figure"),
             image: new Asset(`storage/${ files.profile }`).route,
             disabled: true,
         });
         
         new InputFileMakerJS({
-            id: 'teampro',
-            message: '',
-            button: '',
-            name: 'teampro_logo',
-            accept: ['image/png'],
+            id: "teampro",
+            message: "",
+            button: "",
+            name: "teampro_logo",
+            accept: ["image/png"],
             classes: {
-                input: ['form-input', 'update-input'],
-                message: ['hidden'],
-                button: ['update-input'],
+                input: ["form-input", "update-input"],
+                message: ["hidden"],
+                button: ["update-input"],
             },
         }, {
-            generate: document.querySelector('.teacher .info .teampro figure'),
-            image: new Asset(`storage/${ files.teampro }`).route,
+            generate: document.querySelector(".teacher .info .teampro figure"),
+            image: files.hasOwnProperty("teampro") ? new Asset(`storage/${ files.teampro }`).route : "",
             disabled: true,
         });
     }
 
-    if (document.querySelector('#lessons.modal')) {
+    if (document.querySelector("#lessons.modal")) {
         Lesson.setModalJS();
     }
-    if (document.querySelector('#friends.modal')) {
+    if (document.querySelector("#friends.modal")) {
         Friend.setModalJS();
     }
     if (auth) {
-        if (document.querySelector('#achievements.modal')) {
+        if (document.querySelector("#achievements.modal")) {
             Achievement.setModalJS(achievements);
-            for (const btn of document.querySelectorAll('ul.achievements.cards .btn')) {
+            for (const btn of document.querySelectorAll("ul.achievements.cards .btn")) {
                 btn.addEventListener("click", function (e) {
                     modals.achievements.open();
                 });
             }
         }
-        if (document.querySelector('#games.modal')) {
+        if (document.querySelector("#games.modal")) {
             Game.setModalJS();
         }
-        if (document.querySelector('#languages.modal')) {
+        if (document.querySelector("#languages.modal")) {
             Language.setModalJS();
             Language.setValidationJS();
         }
 
-        if (document.querySelectorAll('.update-button').length) {
-            if (!validation['update'].ValdiationJS) {
+        if (document.querySelectorAll(".update-button").length) {
+            if (!validation["update"].ValdiationJS) {
                 User.setValidationJS({
                     function: createErrorNotification,
                     params: {}
                 });
             }
-            if (URL.findHashParameter() === 'update') {
-                changeProfileState('update');
+            if (URL.findHashParameter() === "update") {
+                changeProfileState("update");
             }
-            for (const btn of document.querySelectorAll('a.update-button')) {
-                btn.addEventListener('click', function (e) {
-                    changeProfileState('update');
+            for (const btn of document.querySelectorAll("a.update-button")) {
+                btn.addEventListener("click", function (e) {
+                    changeProfileState("update");
                 });
             }
-            for (const btn of document.querySelectorAll('button.update-button')) {
-                btn.addEventListener('click', function (e) {
-                    if (btn.classList.contains('cancel')) {
-                        window.location.href = window.location.href.split('#')[0];
+            for (const btn of document.querySelectorAll("button.update-button")) {
+                btn.addEventListener("click", function (e) {
+                    if (btn.classList.contains("cancel")) {
+                        window.location.href = window.location.href.split("#")[0];
                     }
-                    changeProfileState((btn.classList.contains('confirm') ? 'confirm' : 'cancel'));
+                    changeProfileState((btn.classList.contains("confirm") ? "confirm" : "cancel"));
                 });
             }
         }

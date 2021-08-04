@@ -2,7 +2,7 @@
     padding-left: 0;
 }
 
-#teacher input[type=text], #teacher input[type=password], #teacher textarea, #teacher select{
+#teacher input[type=text], #teacher input[type=password], #teacher input[type=url], #teacher textarea, #teacher select{
     background: var(--color-black);
     color: var(--color-white);
 }
@@ -81,6 +81,7 @@
     width: 100%;
     max-height: 253px;
     object-fit: contain;
+    display: block;
     object-position: bottom center;
     background-color: var(--color-black);
     border-radius: .25rem;
@@ -88,6 +89,7 @@
 
 #teacher .teampro-photo img {
     width: 40px;
+    min-height: 56px;
     max-height: 56px;
 }
 

@@ -36,7 +36,7 @@
     }       
 
     .nav-menu .landing-search{
-        width: 20rem;;
+        width: 15rem;
     }
 }
 
@@ -44,4 +44,5 @@
 @media(min-width: 1536px){
     .nav-menu .landing-search{
         width: 30rem;
+    }
 }

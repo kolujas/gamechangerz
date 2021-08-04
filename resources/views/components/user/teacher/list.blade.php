@@ -11,24 +11,28 @@
                             </div>
                             <section class="teampro flex items-start">
                                 <div class="info">
-                                    <span class="team-name px-1 text-center mb-3 overpass rounded">
-                                        <span class="inner-text">
-                                            {{ $user->teampro->name }}
+                                    @if ($user->teampro->name)
+                                        <span class="team-name px-1 text-center mb-3 overpass rounded">
+                                            <span class="inner-text">
+                                                {{ $user->teampro->name }}
+                                            </span>
                                         </span>
-                                    </span>
+                                    @endif
                                     <ul class="languages gap-3 flex items-center">
                                         @foreach ($user->languages as $language)
                                             <li title="{{ $language->name }}">@component("components.svg." . $language->icon)@endcomponent</li>
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="team-icon ml-4">
-                                    <div>
-                                        <figure>
-                                            <img src={{ asset("storage/" . $user->teampro->logo) }} alt="{{ $user->teampro->name }} logo"/>
-                                        </figure>
+                                @if ($user->teampro->logo)
+                                    <div class="team-icon ml-4">
+                                        <div>
+                                            <figure>
+                                                <img src={{ asset("storage/" . $user->teampro->logo) }} alt="{{ $user->teampro->name }} logo"/>
+                                            </figure>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </section>
                             <section class="abilities w-full hidden md:block">
                                 <ul class="grid gap-4 lg:grid-cols-2 mb-4">

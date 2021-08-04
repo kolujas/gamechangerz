@@ -343,10 +343,18 @@
     border-image-source: none;
 }
 
+.teacher .info .teampro figure {
+    height: 80%;
+}
+
 .teacher .info .teampro img {
     width: 1.5rem;
+    min-width: 1.5rem;
     height: 100%;
     object-fit: contain;
+    min-height: 100%;
+    font-size: 0;
+    display: block;
 }
 
 .teacher .tab-menu input[type=number] {
@@ -400,6 +408,9 @@
     object-position: calc(100% - 2rem) 0;
 }
 
+.teacher ul.games figure {
+    width: 100%;
+}
 
 /* ? MD */
 @media (min-width: 768px) {

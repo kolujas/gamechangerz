@@ -28,7 +28,7 @@
          * @var array
          */
         protected $fillable = [
-            "coupon", "days", "id_game", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg",
+            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg",
         ];
 
         /**
@@ -109,7 +109,7 @@
             $this->assigments = collect();
 
             foreach (Assigment::allFromLesson($this->id_lesson) as $assigment) {
-                $assigment->and(["abilities", "game", "presentation"]);
+                $assigment->and(["abilities", "presentation"]);
 
                 $this->assigments->push($assigment);
             }

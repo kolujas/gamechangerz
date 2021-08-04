@@ -57,8 +57,6 @@
 
             $input->days = $days->toJson();
 
-            $input->id_game = 1;
-
             $lesson = Lesson::create((array) $input);
 
             return redirect("/panel/bookings/$lesson->id_lesson")->with("status", [
@@ -134,8 +132,6 @@
             }
 
             $input->days = $days->toJson();
-
-            $input->id_game = 1;
             
             $lesson->update((array) $input);
 

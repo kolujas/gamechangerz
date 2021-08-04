@@ -18,6 +18,7 @@
                         <span class="color-grey overpass whitespace-nowrap block">{{ $user->name }}</span>
                     </div>
                 </a>
+                
                 <div class="h-full teammate flex items-center @if ($user->teammate)
                     active
                 @endif">
@@ -25,7 +26,6 @@
                         @component('components.svg.ChoqueSVG')@endcomponent
                     </figure>
                 </div>
-
 
                 <div>
                     @component('components.achievement.icon-list', [

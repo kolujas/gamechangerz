@@ -6,7 +6,7 @@
     use Illuminate\Mail\Mailable;
     use Illuminate\Queue\SerializesModels;
 
-    class ConfirmationMail extends Mailable {
+    class NewLessonMail extends Mailable {
         use Queueable, SerializesModels;
 
         /** @var array Mail data. */
@@ -25,7 +25,7 @@
          * @return $this
          */
         public function build () {
-            return $this->view('mail.confirmation')
+            return $this->view('mail.new-lesson')
                 ->from(config("mail.from.address"), config("mail.from.name"))
                 ->subject("¡Te registraste en GameChangerZ! Por favor confirme su correo electrónico");
         }

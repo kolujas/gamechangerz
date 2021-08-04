@@ -33,7 +33,7 @@ export class Message extends Class {
                         div.appendChild(link);
                             let title = document.createElement('span');
                             title.classList.add("w-full", "text-center", "overpass");
-                            title.innerHTML = data.assigment.title;
+                            title.innerHTML = "Tarea";
                             link.appendChild(title);
             }
         }

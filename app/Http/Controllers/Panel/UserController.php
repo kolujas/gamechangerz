@@ -70,6 +70,18 @@
 
             $input->days = Day::stringify($input->days);
 
+            if (isset($input->discord_username)) {
+                $input->discord = Discord::stringify([
+                    "username" => $input->discord_username,
+                    "link" => $input->discord_link,
+                ]);
+            }
+            if (!isset($input->discord_username)) {
+                $input->discord = Discord::stringify([
+                    "link" => $input->discord_link,
+                ]);
+            }
+
             $games = collect();
             foreach ($input->abilities as $ability => $on) {
                 $ability = Ability::findBySlug($ability);
@@ -95,6 +107,8 @@
             $input->games = Game::stringify($games->toArray());
 
             $input->id_role = 1;
+
+            $input->id_status = intval($input->id_status);
 
             if (isset($input->important)) {
                 $input->important = 1;
@@ -129,7 +143,9 @@
 
             $input->slug = SlugService::createSlug(User::class, "slug", $input->username);
 
-            $input->teampro = Teampro::stringify($input->teampro_name);
+            if (isset($input->teampro_name)) {
+                $input->teampro = Teampro::stringify($input->teampro_name);
+            }
 
             $user = User::create((array) $input);
             
@@ -278,7 +294,11 @@
                 $input->slug = SlugService::createSlug(User::class, "slug", $input->username);
             }
 
-            $input->teampro = Teampro::stringify($input->teampro_name);
+            if (isset($input->teampro_name)) {
+                $input->teampro = Teampro::stringify($input->teampro_name);
+            }
+            
+            $input->id_status = intval($input->id_status);
 
             if ($request->hasFile("profile")) {
                 $filepath = "users/$user->id_user/01-profile." . $request->profile->extension();
@@ -355,6 +375,8 @@
             }
 
             $input->id_role = 0;
+            
+            $input->id_status = intval($input->id_status);
 
             $input->languages = Language::stringify($languages->toArray());
             
@@ -468,6 +490,8 @@
             }
 
             $input->languages = Language::stringify($languages->toArray());
+            
+            $input->id_status = intval($input->id_status);
             
             if (isset($input->password)) {
                 $input->password = Hash::make($input->password);
