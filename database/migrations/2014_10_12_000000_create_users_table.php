@@ -34,6 +34,7 @@
                 $table->float('stars')->nullable()->default(0);
                 $table->tinyInteger('id_status')->nullable()->default(0);
                 $table->integer('credits')->nullable()->default(0);
+                $table->json('discord')->nullable()->default("[]");
                 $table->rememberToken();
                 $table->timestamps();
             });

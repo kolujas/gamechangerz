@@ -10,6 +10,7 @@
     use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\MercadoPago;
+    use App\Models\Platform;
     use App\Models\Post;
     use App\Models\Presentation;
     use App\Models\Price;
@@ -112,18 +113,19 @@
 
             $games = Game::all();
             foreach ($games as $game) {
-                $game->and(["colors", "files"]);
+                $game->and(["colors", "files", "abilities"]);
             }
 
             $languages = Language::options();
 
             return view("user.profile", [
-                "user" => $user,
+                "days" => $days,
+                "dolar" => Platform::find(1)->dolar,
+                "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
-                "days" => $days,
-                "error" => $error,
                 "lessons" => $lessons,
+                "user" => $user,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -216,13 +218,12 @@
                 }
             }
 
-            // TODO: Remove id_game & id_method
+            // TODO: Remove id_method
             if (!$found) {
                 $lesson = Lesson::create([
                     "id_user_from" => $user->id_user,
                     "id_user_to" => Auth::user()->id_user,
                     "id_type" => $type->id_type,
-                    "id_game" => 1,
                     "id_method" => 1,
                     "id_status" => 1,
                 ]);
@@ -323,7 +324,9 @@
 
                 $input->days = Day::stringify($input->days);
                 $input->prices = Price::stringify($input->prices);
-                $input->teampro = Teampro::stringify($input->teampro_name);
+                if (isset($input->teampro_name)) {
+                    $input->teampro = Teampro::stringify($input->teampro_name);
+                }
             
                 if ($request->hasFile("teampro_logo")) {
                     $filepath = "users/$user->id_user/02-teampro." . $request->teampro_logo->extension();

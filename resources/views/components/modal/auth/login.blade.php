@@ -6,7 +6,7 @@
             <figure>
                 <img src="{{ asset('img/logos/029-logo-hexagonos.png') }}" alt="Logo claro solido con fondo de Gamechangerz">
             </figure>
-            <h2 class="color-four text-center russo xl:text-lg">Iniciar sesión</h2>
+            <h2 class="color-four text-center russo xl:text-lg uppercase">Iniciar sesión</h2>
         </header>
         <label class="input-group grid mb-6">
             <input class="login form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email" value={{ old('login_data', '') }}>
@@ -37,7 +37,7 @@
                     <span class="overpass">Recuerdame</span>
                 </div>
             </label>
-            <button class="btn btn-background form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
+            <button tabindex="4" class="btn btn-background form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
                 <span class="russo xl:text-lg">Entrar</span>
             </button>
             <p class="color-white mt-6 text-center overpass">No tenés cuenta todavía? <a class="btn btn-text btn-one" href="#signin">Registrate</a></p>

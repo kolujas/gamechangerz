@@ -4,6 +4,7 @@
     use App\Models\Ability;
     use App\Models\Achievements;
     use App\Models\Day;
+    use App\Models\Discord;
     use App\Models\Folder;
     use App\Models\Friend;
     use App\Models\Game;
@@ -41,7 +42,7 @@
          * @var array
          */
         protected $fillable = [
-            "achievements", "credits", "date_of_birth", "days", "description", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "id_status", "teammate", "teampro", "token", "username", "credentials"
+            "achievements", "credits", "date_of_birth", "days", "description", "discord", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "id_status", "teammate", "teampro", "token", "username", "credentials"
         ];
 
         /**
@@ -79,6 +80,9 @@
                             break;
                         case "days":
                             $this->days();
+                            break;
+                        case "discord":
+                            $this->discord();
                             break;
                         case "files":
                             $this->files();
@@ -201,6 +205,13 @@
          */
         public function days () {
             $this->days = Day::parse($this->days);
+        }
+
+        /**
+         * * Set the User Discord.
+         */
+        public function discord () {
+            $this->discord = Discord::parse($this->discord);
         }
 
         /**
@@ -365,7 +376,7 @@
             $this->reviews = collect();
             
             foreach (Review::allToUser($this->id_user) as $review) {
-                $review->and(["abilities", "lesson", "game"]);
+                $review->and(["abilities", "lesson"]);
                 $this->reviews->push($review);
             }
         }
@@ -590,7 +601,7 @@
                     "create" => [
                         "rules" => [
                             "username" => "required|unique:users|max:25",
-                            "email" => "required|email|unique:users|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "email" => "required|email|unique:users",
                             "password" => "required",
                             "name" => "nullable|max:25",
                             "profile" => "nullable|mimetypes:image/png,image/jpeg",
@@ -604,7 +615,6 @@
                                 "email.required" => "El correo es obligatorio.",
                                 "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
-                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
                                 "password.required" => "La contraseña es obligatoria.",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
@@ -626,7 +636,7 @@
                     "update" => [
                         "rules" => [
                             "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                            "email" => "required|email|unique:users,username,{id_user},id_user|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "email" => "required|email|unique:users,username,{id_user},id_user",
                             "name" => "nullable|max:25",
                             "profile" => "nullable|mimetypes:image/png,image/jpeg",
                             "banner" => "nullable|mimetypes:image/png,image/jpeg",
@@ -639,7 +649,6 @@
                                 "email.required" => "El correo es obligatorio.",
                                 "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
-                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
                                 "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
@@ -668,12 +677,13 @@
                     "create" => [
                         "rules" => [
                             "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                            "email" => "required|email|unique:users|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "email" => "required|email|unique:users",
+                            "discord_link" => "required|regex:/^https:\/\/discord\.gg\//",
                             "password" => "required",
                             "name" => "required|max:25",
                             "description" => "nullable|max:255",
-                            "teampro_name" => "required|max:25",
-                            "teampro_logo" => "required|mimetypes:image/png",
+                            "teampro_name" => "nullable|max:25",
+                            "teampro_logo" => "nullable|mimetypes:image/png",
                             "profile" => "required|mimetypes:image/png",
                             "abilities" => "required",
                             "languages" => "required",
@@ -681,20 +691,19 @@
                             "mp_access_token" => "required",
                         ], "messages" => [
                             "es" => [
+                                "discord_link.required" => "El link de Discord es obligatorio.",
+                                "discord_link.regex" => "Debe ser una URL válida (https://discord.gg/aaaaa).",
                                 "username.required" => "El apodo es obligatorio.",
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
                                 "email.required" => "El correo es obligatorio.",
                                 "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
-                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
                                 "password.required" => "La contraseña es obligatoria.",
                                 "name.required" => "El nombre es obligatorio.",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
                                 "description.max" => "La descripción no puede tener más de :max caracteres.",
-                                "teampro_name.required" => "El nombre del equipo es obligatorio.",
                                 "teampro_name.max" => "El nombre del equipo no puede tener más de :max caracteres.",
-                                "teampro_logo.required" => "La foto del equipo es obligatoria.",
                                 "teampro_logo.mimetypes" => "La foto del equipo debe ser una imagen .png",
                                 "profile.required" => "La foto de perfil es obligatoria.",
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
@@ -718,10 +727,11 @@
                     "update" => [
                         "rules" => [
                             "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                            "email" => "required|email|unique:users,email,{id_user},id_user|regex:/^([a-z0-9\.\_])*@gmail\.com(\.[a-z]*)?$/i",
+                            "email" => "required|email|unique:users,email,{id_user},id_user",
                             "name" => "required|max:25",
                             "description" => "nullable|max:255",
-                            "teampro_name" => "required|max:25",
+                            "discord_link" => "required|regex:/^https:\/\/discord\.gg\//",
+                            "teampro_name" => "nullable|max:25",
                             "teampro_logo" => "nullable|mimetypes:image/png",
                             "profile" => "nullable|mimetypes:image/png",
                             "abilities" => "required",
@@ -730,17 +740,17 @@
                             "mp_access_token" => "required",
                         ], "messages" => [
                             "es" => [
+                                "discord_link.required" => "El link de Discord es obligatorio.",
+                                "discord_link.regex" => "Debe ser una URL válida (https://discord.gg/aaaaa).",
                                 "username.required" => "El apodo es obligatorio.",
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
                                 "email.required" => "El correo es obligatorio.",
                                 "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
-                                "email.regex" => "El correo debe ser gmail (ejemplo@gmail.com).",
                                 "name.required" => "El nombre es obligatorio.",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
                                 "description.max" => "La descripción no puede tener más de :max caracteres.",
-                                "teampro_name.required" => "El nombre del equipo es obligatorio.",
                                 "teampro_name.max" => "El nombre del equipo no puede tener más de :max caracteres.",
                                 "teampro_logo.mimetypes" => "La foto del equipo debe ser una imagen .png",
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
@@ -757,7 +767,7 @@
                         "username" => "required|unique:users,username,{id_user},id_user|max:25",
                         "name" => "required|max:25",
                         "description" => "nullable|max:255",
-                        "teampro_name" => "required|max:25",
+                        "teampro_name" => "nullable|max:25",
                         "teampro_logo" => "nullable|mimetypes:image/png",
                         "profile" => "nullable|mimetypes:image/png",
                         // "prices" => "required",
@@ -770,7 +780,6 @@
                             "name.required" => "El nombre es obligatorio.",
                             "name.max" => "El nombre no puede tener más de :max caracteres.",
                             "description.max" => "La descripción no puede tener más de :max caracteres.",
-                            "teampro_name.required" => "El nombre de tu equipo es obligatorio.",
                             "teampro_name.max" => "El nombre de tu equipo no puede tener más de :max caracteres.",
                             "teampro_logo.mimetypes" => "La foto de tu equipo debe ser una imagen .png",
                             "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",

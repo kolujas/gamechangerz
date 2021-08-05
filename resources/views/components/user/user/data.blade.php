@@ -29,55 +29,57 @@
         @endcomponent
     @endif
 
-    @if ($user->{"lessons-done"} || $user->hours || $user->friends_length)
-        <div class="info mt-8">
-            <ul>
-                @if ($user->{"lessons-done"})
-                    <li class="color-white mb-8 font-bold flex items-center">
-                        <div class="w-full">
-                            <span class="overpass">Total clases tomadas:</span>
-                            <span class="color-four overpass">{{ $user->{"lessons-done"} }}</span>
-                        </div>
-                        @if (count($lessons) && Auth::check() && Auth::user()->id_user === $user->id_user)
-                            <a href="#reviews" class="btn btn-icon btn-one">
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                        @endif
-                    </li>
+    <div class="info mt-8">
+        <ul>
+            <li class="color-white mb-8 font-bold flex items-center">
+                <div class="w-full">
+                    <span class="overpass">Total clases tomadas:</span>
+                    <span class="color-four overpass">{{ $user->{"lessons-done"} }}</span>
+                </div>
+                @if (count($lessons) && Auth::check() && Auth::user()->id_user === $user->id_user)
+                    <a href="#reviews" class="btn btn-icon btn-one">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
                 @endif
-                @if ($user->hours)
-                    <li class="color-white mb-8 font-bold">
-                        <span class="overpass">Cantidad de horas:</span> 
-                        <span class="color-four overpass">{{ $user->hours }}</span>
-                    </li>
-                @endif
-                @if ($user->friends_length)
-                    <li class="color-white">
-                        <a href="#friends" class="btn btn-text btn-white font-bold">
-                            <span class="overpass">Amigos:</span>
-                            <span class="color-four overpass">{{ $user->friends_length }}</span>
-                        </a>
-                        <div class="grid grid-cols-5 gap-4 mt-4">
-                            @for ($i = 0; $i < count($user->friends); $i++)
-                                @if ($i <= 5 && $user->friends[$i]->accepted)
-                                    <a href="/users/{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->slug : $user->friends[$i]->users->from->slug) }}/profile" title="{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->username : $user->friends[$i]->users->from->username) }}" class="flex justify-center">
-                                        @if (($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
-                                            <figure class="profile-image">
-                                                <img src={{ asset("storage/". ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->files['profile'] : $user->friends[$i]->users->from->files['profile'])) }} alt="{{ $user->username }} profile image">
-                                            </figure>
-                                        @endif
-                                        @if (!($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
-                                            @component('components.svg.ProfileSVG')@endcomponent
-                                        @endif
-                                    </a>
-                                @endif
-                            @endfor
-                        </div>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    @endif
+            </li>
+            <li class="color-white mb-8 font-bold">
+                <span class="overpass">Cantidad de horas:</span> 
+                <span class="color-four overpass">{{ $user->hours }}</span>
+            </li>
+            @if ($user->friends_length)
+                <li class="color-white">
+                    <a href="#friends" class="btn btn-text btn-white font-bold">
+                        <span class="overpass">Amigos:</span>
+                        <span class="color-four overpass">{{ $user->friends_length }}</span>
+                    </a>
+                    <div class="grid grid-cols-5 gap-4 mt-4">
+                        @for ($i = 0; $i < count($user->friends); $i++)
+                            @if ($i <= 5 && $user->friends[$i]->accepted)
+                                <a href="/users/{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->slug : $user->friends[$i]->users->from->slug) }}/profile" title="{{ ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->username : $user->friends[$i]->users->from->username) }}" class="flex justify-center">
+                                    @if (($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
+                                        <figure class="profile-image">
+                                            <img src={{ asset("storage/". ($user->friends[$i]->id_user_from === $user->id_user ? $user->friends[$i]->users->to->files['profile'] : $user->friends[$i]->users->from->files['profile'])) }} alt="{{ $user->username }} profile image">
+                                        </figure>
+                                    @endif
+                                    @if (!($user->friends[$i]->id_user_from === $user->id_user ? isset($user->friends[$i]->users->to->files['profile']) : isset($user->friends[$i]->users->from->files['profile'])))
+                                        @component('components.svg.ProfileSVG')@endcomponent
+                                    @endif
+                                </a>
+                            @endif
+                        @endfor
+                    </div>
+                </li>
+            @endif
+            @if (!$user->friends_length)
+                <li class="color-white">
+                    <div class="font-bold">
+                        <span class="overpass">Amigos:</span>
+                        <span class="color-four overpass">{{ $user->friends_length }}</span>
+                    </div>
+                </li>
+            @endif
+        </ul>
+    </div>
 
     @if (Auth::check() && Auth::user()->slug === $user->slug)
         <div class="actions flex justify-end mt-8">

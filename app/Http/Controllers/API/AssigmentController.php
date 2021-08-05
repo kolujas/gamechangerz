@@ -6,7 +6,7 @@
     use App\Models\Assigment;
     use App\Models\Chat;
     use App\Models\Lesson;
-    use Cviebrock\EloquentSluggable\Services\SlugService;
+    use App\Models\Mail;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
@@ -14,24 +14,24 @@
         public function make (Request $request, int $id_chat) {
             if (!$request->user()) {
                 return response()->json([
-                    'code' => 403,
-                    'message' => 'Unauthenticated',
+                    "code" => 403,
+                    "message" => "Unauthenticated",
                 ]);
             }
 
             $chat = Chat::find($id_chat);
             if (!$chat) {
                 return response()->json([
-                    'code' => 404,
-                    'message' => 'Chat does not exist',
+                    "code" => 404,
+                    "message" => "Chat does not exist",
                 ]);
             }
 
             $assigments = Assigment::allFromLesson(Lesson::findByUsers($chat->id_user_from, $chat->id_user_to)->id_lesson);
             if (count($assigments) === 4) {
                 return response()->json([
-                    'code' => 403,
-                    'message' => 'There are not more Assigments to create.',
+                    "code" => 403,
+                    "message" => "There are not more Assigments to create.",
                 ]);
             }
 
@@ -47,12 +47,12 @@
             }
             $input->abilities = $abilities;
 
-            $validator = Validator::make((array) $input, Assigment::$validation['make']['rules'], Assigment::$validation['make']['messages']['es']);
+            $validator = Validator::make((array) $input, Assigment::$validation["make"]["rules"], Assigment::$validation["make"]["messages"]["es"]);
             if ($validator->fails()) {
                 return response()->json([
-                    'code' => 401,
-                    'message' => 'Validation error',
-                    'data' => $validator->errors()->messages(),
+                    "code" => 401,
+                    "message" => "Validation error",
+                    "data" => $validator->errors()->messages(),
                 ]);
             }
 
@@ -60,7 +60,6 @@
 
             $input->abilities = Ability::stringify($input->abilities->toArray());
             $input->id_lesson = $lesson->id_lesson;
-            $input->slug = SlugService::createSlug(Assigment::class, 'slug', $input->title);
 
             $assigment = Assigment::create((array) $input);
 
@@ -70,17 +69,33 @@
             ]);
 
             $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(['users', 'available', 'messages']);
+            $chat->and(["users", "available", "messages"]);
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
             }
 
+            if ($request->user()->id_user === $chat->id_user_from) {
+                $from = $chat->users->from;
+                $to = $chat->users->to;
+            }
+            if ($request->user()->id_user !== $chat->id_user_from) {
+                $from = $chat->users->to;
+                $to = $chat->users->from;
+            }
+
+            new Mail([ "id_mail" => 3, ], [
+                'email' => $to->email,
+                'name' => $from->name,
+                'slug' => $from->slug,
+                'username' => $from->username,
+            ]);
+
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'chat' => $chat,
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "chat" => $chat,
                 ],
             ]);
         }

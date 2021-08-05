@@ -24,13 +24,13 @@
                 (<input class="update-input update-form form-input" type="text" name="name" placeholder="Nombre" disabled value="{{ old('name', $user->name) }}">)
                 <span>{{ old('username', $user->username) }}</span>
             </h4>
-            <div class="teampro flex items-center color-white text-sm ml-4">
-                <span class="mr-2 overpass">Team</span> 
-                <div class="color-four mr-2 overpass">
-                    <input name="teampro_name" disabled placeholder="Nombre" class="update-form form-input update-input" value={{ old('teampro_name', $user->teampro->name) }} />
-                    <span>{{ old('teampro_name', $user->teampro->name) }}</span>
+            <div class="teampro flex items-center color-white text-sm ml-4 @if (!$user->teampro->name && !isset($user->files["teampro"])) hidden @endif">
+                <span class="mr-2 overpass @if (!$user->teampro->name) hidden @endif">Team</span> 
+                <div class="color-four mr-2 overpass @if (!$user->teampro->name) hidden @endif">
+                    <input name="teampro_name" disabled placeholder="Nombre" class="update-form form-input update-input" value="{{ old('teampro_name', ($user->teampro->name ? $user->teampro->name : "")) }}" />
+                    <span>{{ old('teampro_name', ($user->teampro->name ? $user->teampro->name : "")) }}</span>
                 </div>
-                <figure></figure>
+                <figure class="@if (!isset($user->files["teampro"])) hidden @endif"></figure>
             </div>
 
             {{-- <div>

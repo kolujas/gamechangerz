@@ -9,14 +9,14 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_message';
+        protected $primaryKey = "id_message";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_message', 'id_user', 'says', 'id_assigment'
+            "id_message", "id_user", "says", "id_assigment"
         ];
 
         /**
@@ -27,7 +27,7 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'assigment':
+                        case "assigment":
                             $this->assigment();
                             break;
                     }
@@ -45,8 +45,7 @@
          */
         public function assigment () {
             $this->assigment = Assigment::find($this->id_assigment);
-            $this->assigment->and(['abilities', 'game', 'presentation']);
-            $this->assigment->game->and(['abilities']);
+            $this->assigment->and(["abilities", "presentation"]);
         }
 
         /**
@@ -54,27 +53,27 @@
          * @param string [$messages] Example: "[{\"id_message\":1,\"id_user\":1,\"says\":\"Hi!\"}]"
          * @return Message[]
          */
-        static public function parse (string $messages = '') {
+        static public function parse (string $messages = "") {
             $collection = collect();
             
             foreach (json_decode($messages) as $data) {
                 $props = [
-                    'id_message' => $data->id_message,
-                    'id_user' => $data->id_user,
+                    "id_message" => $data->id_message,
+                    "id_user" => $data->id_user,
                 ];
 
                 if (isset($data->says)) {
-                    $props['says'] = $data->says;
+                    $props["says"] = $data->says;
                 }
 
                 if (isset($data->id_assigment)) {
-                    $props['id_assigment'] = $data->id_assigment;
+                    $props["id_assigment"] = $data->id_assigment;
                 }
 
                 $message = new Message($props);
 
                 if (isset($data->id_assigment)) {
-                    $message->and(['assigment']);
+                    $message->and(["assigment"]);
                 }
 
                 $collection->push($message);
@@ -93,16 +92,16 @@
 
             foreach ($message as $data) {
                 $message = [
-                    "id_message" => $data['id_message'],
-                    "id_user" => $data['id_user'],
+                    "id_message" => $data["id_message"],
+                    "id_user" => $data["id_user"],
                 ];
 
-                if (isset($data['says'])) {
-                    $message['says'] = $data['says'];
+                if (isset($data["says"])) {
+                    $message["says"] = $data["says"];
                 }
 
-                if (isset($data['id_assigment'])) {
-                    $message['id_assigment'] = $data['id_assigment'];
+                if (isset($data["id_assigment"])) {
+                    $message["id_assigment"] = $data["id_assigment"];
                 }
 
                 $collection->push($message);

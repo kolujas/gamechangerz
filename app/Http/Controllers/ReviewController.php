@@ -27,9 +27,6 @@
             $abilities = collect();
             if (Auth::user()->id_role === 1) {
                 foreach ($from->games as $game) {
-                    if ($game->id_game !== $lesson->id_game) {
-                        continue;
-                    }
                     foreach ($game->abilities as $ability) {
                         $value = 0;
                         foreach ($input->stars as $slug => $stars) {
@@ -78,7 +75,6 @@
             $input->id_user_from = Auth::user()->id_user;
             $input->id_user_to = $to->id_user;
             $input->id_lesson = $lesson->id_lesson;
-            $input->id_game = $lesson->id_game;
             $input->stars = ($stars ? $stars / $quantity : 0);
             $input->slug = SlugService::createSlug(Review::class, 'slug', $input->title);
 
@@ -110,9 +106,6 @@
             $abilities = collect();
             if ($user->id_role === 1) {
                 foreach ($review->lesson->users->from->games as $game) {
-                    if ($game->id_game !== $review->id_game) {
-                        continue;
-                    }
                     foreach ($game->abilities as $ability) {
                         $value = 0;
                         foreach ($input->stars as $slug => $stars) {

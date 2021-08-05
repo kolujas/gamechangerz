@@ -96,7 +96,7 @@
                     <span>{{ old('prices[0]', $user->prices[0]->price) }}</span>
                 </span>
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
-                    U$D <span class="p-2">400</span>    
+                    U$D <span class="p-2">{{ intval($user->prices[0]->price) * floatval($dolar) }}</span>    
                 </span>
             </div>
             
@@ -113,7 +113,7 @@
                     <span>{{ old('prices[1]', $user->prices[1]->price) }}</span>
                 </span>
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
-                    U$D <span class="p-2">400</span>    
+                    U$D <span class="p-2">{{ intval($user->prices[1]->price) * floatval($dolar) }}</span>    
                 </span>
             </div>
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)
@@ -173,7 +173,7 @@
                     <span>{{ old('prices[2]', $user->prices[2]->price) }}</span>
                 </span>
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4 flex items-center">
-                    U$D <span class="p-2">400</span>    
+                    U$D <span class="p-2">{{ intval($user->prices[2]->price) * floatval($dolar) }}</span>    
                 </span>
             </div>
             @if (!Auth::check() || Auth::user()->slug !== $user->slug)

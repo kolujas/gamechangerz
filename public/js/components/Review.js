@@ -2,6 +2,7 @@ import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
+import { LocalStorageServiceProvider as LocalStorage } from "../../submodules/ProvidersJS/js/LocalStorageServiceProvider.js";
 
 import User from "./User.js";
 import Asset from "./Asset.js";
@@ -17,6 +18,33 @@ export class Review extends Class {
         };
         this.setLessons();
         this.setEventListeners();
+        if (!LocalStorage.has("gamechangerz_later") && auth.id_role !== 2) {
+            let link = new Html("div", {
+                props: {
+                    classes: ["flex", "justify-center"],
+                }, innerHTML: [
+                    ["a", {
+                        props: {
+                            classes: ["btn", "btn-one", "btn-outline", "mt-12"],
+                            url: "#",
+                        }, innerHTML: [
+                            ["span", {
+                                props: {
+                                    classes: ["px-4", "py-2"],
+                                }, innerHTML: "Lo hago más tarde",
+                            }],
+                        ], callback: {
+                            function: (params) => {
+                                LocalStorage.set("gamechangerz_later", true);
+                                modals.review.close();
+                            },
+                        },
+                    }],
+                ],
+            });
+
+            document.querySelector("#reviews.modal .list section").appendChild(link.html);
+        }
     }
 
     setEventListeners () {
@@ -41,7 +69,7 @@ export class Review extends Class {
                 id: 'reviews',
             }, {
                 outsideClick: true,
-                open: false,
+                open: !LocalStorage.has("gamechangerz_later"),
                 detectHash: true,
             });
         }

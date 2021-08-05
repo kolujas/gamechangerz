@@ -20,18 +20,16 @@
          * @param User|null $user
          * @return Teampro
          */
-        static public function parse (string $data, $user = null) {
-            if ($data !== "") {
+        static public function parse ($data = "", $user = null) {
+            if ($data !== "" && $data) {
                 $data = json_decode($data);
+
                 return new Teampro([
                     'name' => $data->name,
                     'logo' => (isset($user->files['teampro']) ? $user->files['teampro'] : null),
                 ]);
             }
-            return new Teampro([
-                'name' => "",
-                'logo' => null,
-            ]);
+            return new Teampro();
         }
 
         /**

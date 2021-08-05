@@ -6,6 +6,7 @@
     use App\Models\Friend;
     use App\Models\Hour;
     use App\Models\Lesson;
+    use App\Models\Mail;
     use App\Models\User;
     use Auth;
     use Carbon\Carbon;
@@ -256,6 +257,23 @@
                 $message->id_user_logged = $request->user()->id_user;
                 $message->id_role = $request->user()->id_role;
             }
+
+            if ($request->user()->id_user === $chat->id_user_from) {
+                $from = $chat->users->from;
+                $to = $chat->users->to;
+            }
+            if ($request->user()->id_user !== $chat->id_user_from) {
+                $from = $chat->users->to;
+                $to = $chat->users->from;
+            }
+
+            new Mail([ "id_mail" => 2, ], [
+                'email' => $to->email,
+                'message' => $input->message,
+                'name' => $from->name,
+                'slug' => $to->slug,
+                'username' => $from->username,
+            ]);
 
             return response()->json([
                 'code' => 200,

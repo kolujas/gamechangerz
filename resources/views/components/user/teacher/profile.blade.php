@@ -45,6 +45,7 @@
 
         @component('components.tab.lessons', [
             'days' => $days,
+            'dolar' => $dolar,
             'user' => $user,
         ])
         @endcomponent       

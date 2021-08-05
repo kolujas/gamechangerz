@@ -165,13 +165,16 @@ export class User extends Class {
                             let info = document.createElement('div');
                             info.classList.add("info");
                             teampro.appendChild(info);
-                                let team_name = document.createElement('span');
-                                team_name.classList.add("team-name", "px-1", "text-center", "mb-3", "overpass", "rounded");
-                                info.appendChild(team_name);
-                                    let span = document.createElement('span');
-                                    span.classList.add("inner-text");
-                                    span.innerHTML = data.teampro.name;
-                                    team_name.appendChild(span);
+                                let span;
+                                if (data.teampro.name) {
+                                    let team_name = document.createElement('span');
+                                    team_name.classList.add("team-name", "px-1", "text-center", "mb-3", "overpass", "rounded");
+                                    info.appendChild(team_name);
+                                        span = document.createElement('span');
+                                        span.classList.add("inner-text");
+                                        span.innerHTML = data.teampro.name;
+                                        team_name.appendChild(span);
+                                }
 
                                 let languages = document.createElement('ul');
                                 languages.classList.add("languages", "gap-3", "flex", "items-center");
@@ -188,17 +191,20 @@ export class User extends Class {
                                                 figure.appendChild(img);
                                     }
                             
-                            let team_icon = document.createElement('div');
-                            team_icon.classList.add("team-icon", "ml-4");
-                            teampro.appendChild(team_icon);
-                                let div = document.createElement('div');
-                                team_icon.appendChild(div);
-                                    let figure = document.createElement('figure');
-                                    div.appendChild(figure);
-                                        let logo = document.createElement('img');
-                                        logo.src = new Asset(`storage/${ data.teampro.logo }`).route;
-                                        logo.alt = `${ data.teampro.name } logo`;
-                                        figure.appendChild(logo);
+                            let div, figure;
+                            if (data.teampro.logo) {
+                                let team_icon = document.createElement('div');
+                                team_icon.classList.add("team-icon", "ml-4");
+                                teampro.appendChild(team_icon);
+                                    div = document.createElement('div');
+                                    team_icon.appendChild(div);
+                                        figure = document.createElement('figure');
+                                        div.appendChild(figure);
+                                            let logo = document.createElement('img');
+                                            logo.src = new Asset(`storage/${ data.teampro.logo }`).route;
+                                            logo.alt = `${ data.teampro.name } logo`;
+                                            figure.appendChild(logo);
+                            }
                         
                         let abilities = document.createElement('section');
                         abilities.classList.add("abilities", "w-full", "hidden", "md:block");

@@ -3,6 +3,7 @@
 
     use App\Http\Controllers\Controller;
     use App\Models\Auth as Model;
+    use App\Models\Discord;
     use App\Models\Mail;
     use App\Models\User;
     use Auth;
@@ -100,6 +101,12 @@
                 ]);
             }
 
+            if (isset($input->discord_username)) {
+                $input->discord = Discord::stringify([
+                    "username" => $input->discord_username,
+                ]);
+            }
+
             $input->id_role = 0;
             $input->slug = SlugService::createSlug(User::class, 'slug', $input->username);
             $input->languages = json_encode([[
@@ -121,9 +128,7 @@
                     'folder' => "users/$user->id_user",
                 ]);
                 
-                $mail = new Mail([
-                    "id_mail" => 1,
-                ], [
+                $mail = new Mail([ "id_mail" => 1, ], [
                     'email' => $input->email,
                     'token' => DB::table('password_resets')->where('email', $input->email)->first()->token,
                 ]);

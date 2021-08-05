@@ -5,6 +5,7 @@ import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/F
 import Filter from "../../submodules/FilterJS/js/Filter.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
+import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 
 import Asset from "./Asset.js";
 import Assigment from "./Assigment.js";
@@ -290,9 +291,15 @@ export class Chat extends Class {
             }
             chat = false;
         }
+        let abilities = [];
+        for (const game of chat.users.from.games) {
+            for (const ability of game.abilities) {
+                abilities.push(ability);
+            }
+        }
         new Assigment({
             id_chat: chat.id_chat,
-            games: chat.users.from.games,
+            abilities: abilities,
             id_role: this.props.id_role,
         });
     }
@@ -577,6 +584,13 @@ export class Chat extends Class {
                 if (response.code === 200) {
                     params.instance.CountDownJS.details.stop();
                     params.instance.save(response.data);
+                    new NotificationJS({
+                        code: 200,
+                        message: `Tarea creada exitosamente`,
+                        classes: ["russo"],
+                    }, {
+                        open: true,
+                    });
                 }
 
                 modals.assigment.close();
@@ -593,6 +607,13 @@ export class Chat extends Class {
                 if (response.code === 200) {
                     params.instance.CountDownJS.details.stop();
                     params.instance.save(response.data);
+                    new NotificationJS({
+                        code: 200,
+                        message: `Tarea creada exitosamente`,
+                        classes: ["russo"],
+                    }, {
+                        open: true,
+                    });
                 }
 
                 modals.presentation.close();

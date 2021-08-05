@@ -20,18 +20,38 @@
             
             $input = (object) $request->all();
 
-            $games = collect();
-            if (isset($input->games)) {
-                foreach ($input->games as $slug) {
-                    $game = Game::findBySlug($slug);
+            if ($user->id_role === 0) {
+                $games = collect();
+                if (isset($input->games)) {
+                    foreach ($input->games as $slug) {
+                        $game = Game::findBySlug($slug);
 
-                    if ($user->id_role === 1) {
-                        dd("TODO: Determinar de donde vienen las habilidades profe");
-                    }
-                    if ($user->id_role === 0) {
                         $game->and(['abilities']);
                         $games->push($game);
                     }
+                }
+            }
+            if ($user->id_role === 1) {
+                $games = collect();
+                foreach ($input->abilities as $ability => $on) {
+                    $ability = Ability::findBySlug($ability);
+                    if (count($games)) {
+                        foreach ($games as $game) {
+                            if ($game["id_game"] === $ability->id_game) {
+                                $game["abilities"]->push([
+                                    "id_ability" => $ability->id_ability,
+                                ]);
+                                continue 2;
+                            }
+                        }
+                    }
+                    $games->push([
+                        "id_game" => $ability->id_game,
+                        "abilities" => collect(),
+                    ]);
+                    $games[count($games) - 1]["abilities"]->push([
+                        "id_ability" => $ability->id_ability,
+                    ]);
                 }
             }
 
