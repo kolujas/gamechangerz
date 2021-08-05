@@ -73,7 +73,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="/users/{{ Auth::user()->slug }}/modaleta" class="nav-link dropdown-link">
+							<a href="/users/{{ Auth::user()->slug }}/profile#advanced" class="nav-link dropdown-link">
 								<span class="link-text overpass">Configuración Avanzada</span>
 							</a>
 						</li>
