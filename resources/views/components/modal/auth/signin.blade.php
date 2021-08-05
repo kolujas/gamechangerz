@@ -95,7 +95,7 @@
                     <span class="error support mt-2 signin support-box hidden support-signin_accept"></span>
                 @endif
             </div>
-            <button class="btn btn-background btn-one form-submit signin flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
+            <button class="btn btn-background form-submit signin flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
                 <span class="russo xl:text-lg">Registrarme</span>
             </button>
             <p class="color-white mt-6 text-center">Ya tenés cuenta? <a class="btn btn-text btn-one" href="#login">Ingrésa aquí</a></p>

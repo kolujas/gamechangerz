@@ -37,7 +37,7 @@
                     <span class="overpass">Recuerdame</span>
                 </div>
             </label>
-            <button class="btn btn-background btn-one form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
+            <button class="btn btn-background form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
                 <span class="russo xl:text-lg">Entrar</span>
             </button>
             <p class="color-white mt-6 text-center overpass">No tenés cuenta todavía? <a class="btn btn-text btn-one" href="#signin">Registrate</a></p>

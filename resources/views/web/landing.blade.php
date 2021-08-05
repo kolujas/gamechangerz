@@ -60,25 +60,29 @@
                 <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6">
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
-                            <span class="russo text-2xl md:text-xl xl:text-3xl">Clases Online</span>
+                            <span class="russo text-2xl md:text-xl xl:text-3xl text-uppercase">1 on 1</span>
                             @component('components.svg.ClaseOnline1SVG')@endcomponent
                         </h4>
-                        <p class="color-grey overpass">Enviale una partida tuya a tu profesor o escribile sobre lo que queres mejorar. El te responderá por escrito con material para que practiques y supervisará tu progreso en un total de 4 intercambios.
+                        <p class="color-grey overpass">
+                            <span class="color-four">Entra a una sesión de entrenamiento personalizada en tiempo real con el coach de tu elección.</span> Podés usar esta sesión para mejorar una habilidad, afianzar conceptos, hacer análisis de partidas (propias o de otros jugadores o equipos) o tener coaching en tiempo real mientras jugás</p>
+                    </div>
+                    <div class="service p-4 mb-6 md:mb-0 xl:px-8">
+                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
+                            <span class="russo text-2xl md:text-xl xl:text-3xl text-uppercase">Seguimiento online</span>
+                            @component('components.svg.ClaseOnline2SVG')@endcomponent
+                        </h4>
+                        <p class="color-grey overpass">
+                            <span class="color-four">Enviale una partida tuya a tu coach o escribile sobre lo que queres mejorar.</span> El te responderá por escrito con material para que practiques y supervisará tu progreso en un total de 4 intercambios.
                         </p>
                     </div>
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
-                            <span class="russo text-2xl md:text-xl xl:text-3xl">Clases Offline</span>
-                            @component('components.svg.ClaseOnline2SVG')@endcomponent
-                        </h4>
-                        <p class="color-grey overpass">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
-                    </div>
-                    <div class="service p-4 mb-6 md:mb-0 xl:px-8">
-                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
-                            <span class="russo text-2xl md:text-xl xl:text-3xl">Packs</span>
+                            <span class="russo text-2xl md:text-xl xl:text-3xl text-uppercase">Packs</span>
                             @component('components.svg.ClaseOnline3SVG')@endcomponent
                         </h4>
-                        <p class="color-grey overpass">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni assumenda explicabo debitis repudia.</p>
+                        <p class="color-grey overpass">
+                            <span class="color-four">Paquetes de clases 1on1 pensados para trabajar a fondo sobre un tema que elijas y dar seguimiento a tu progreso a lo largo de las clases.</span> Al final de este, tu coach te dará una calificación que podrás compartir en tu perfil de Gamechangerz!
+                        </p>
                     </div>
                 </div>
             </section>
@@ -147,8 +151,8 @@
     
         <section class="posts lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24">
             <header class="lg:col-span-8 lg:col-start-2 2xl:col-start-3 mb-8 px-8 lg:px-0">
-                <h3 class="color-three mb-2 russo uppercase">Disfruta del contenido gratuito</h3>
-                <p class="color-three lg:text-lg overpass">Videos con tips, guias y analisis de los <span class="color-four">mejores</span> jugadores de la escena</p>
+                <h3 class="color-three mb-2 russo uppercase">Contenido</h3>
+                <p class="color-three lg:text-lg overpass">Las ultimas guías, análisis y tips para que disfrutes <span class="color-four">gratis</span> 
             </header>
             <main class="lg:col-span-10 2xl:col-span-12 relative">
                 @component('components.blog.list', [

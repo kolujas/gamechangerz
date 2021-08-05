@@ -14,14 +14,18 @@
 
 @section('main')
     <main class="main">
-        <h2 class="color-white russo text-5xl mt-12 text-center uppercase">FAQ</h2>
                 <section class="faq text-gray-700">
-                  <div class="container px-5 py-8 mx-auto">
-                    <div class="text-center mb-12">
-                      <p class="text-base text-lg leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto overpass">
-                        Preguntas frecuentas o dudas que puedan surgirte
-                      </p>
-                    </div>
+                  <div>
+                    <h2 class="color-white russo text-5xl my-8 text-center uppercase">Empezá a ganar</h2>
+                    <figure>
+                      <img class="w-full md:hidden" src="{{ asset('img/faq/faq-mobile.jfif') }}" alt="Logo claro solido con fondo de Gamechangerz">
+                    </figure>
+                    <figure>
+                      <img class="w-full md:block" src="{{ asset('img/faq/faq-banner.jfif') }}" alt="Logo claro solido con fondo de Gamechangerz">
+                    </figure>
+                  </div>
+
+                  <h3 class="color-white russo text-5xl mt-12 text-center uppercase">FAQ</h3>
                     <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
                       <div class="w-full lg:w-1/2 px-4 py-2">
                         <details class="mb-4">
