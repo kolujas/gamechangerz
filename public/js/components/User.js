@@ -263,7 +263,7 @@ export class User extends Class {
                                 li.appendChild(br);
 
                                 span = document.createElement('span');
-                                span.innerHTML = `AR$ ${ data.prices[0].price }/h`;
+                                span.innerHTML = `AR$ ${ data.prices[0].price }`;
                                 li.appendChild(span);
 
                             li = document.createElement('li');
@@ -277,7 +277,7 @@ export class User extends Class {
                                 li.appendChild(br);
 
                                 span = document.createElement('span');
-                                span.innerHTML = `AR$ ${ data.prices[1].price }/h`;
+                                span.innerHTML = `AR$ ${ data.prices[1].price }`;
                                 li.appendChild(span);
 
                         let div2 = document.createElement('div');

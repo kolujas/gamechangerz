@@ -371,6 +371,11 @@ a[href="#chat"].modal-button.chat figure {
     background-color: var(--color-black);
     border-radius: 100vh;
     height: 100%;
+    overflow: hidden;
+}
+
+a[href="#chat"].modal-button.chat figure svg{
+    width: 70%;
 }
 
 a[href="#chat"].modal-button.chat img {

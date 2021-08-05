@@ -50,7 +50,7 @@
         @endcomponent
         <a href="#chat" class="chat-button modal-button chat border-gradient" title="Chat">
             <figure>
-                <img src={{ asset("img/logos/011-isologo_reducido_claro_transparencia.png") }} alt="Chat button">
+                @component('components.svg.ClaseOnline2SVG')@endcomponent
             </figure>
         </a>
     @endif
