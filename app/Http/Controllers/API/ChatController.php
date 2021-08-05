@@ -29,7 +29,7 @@
 
             $lessons = collect();
             foreach (Lesson::allReadyFromUser($request->user()->id_user) as $lesson) {
-                // TODO: Remove
+                // TODO: Remove in production
                 $date = Carbon::now()->format("Y-m-d");
                 if ($lesson->id_lesson === 3 || $lesson->id_lesson === 6 || $lesson->id_lesson === 9) {
                     $lesson->update([

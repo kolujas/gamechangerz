@@ -27,7 +27,7 @@ export class Achievement extends Class {
                 props: {
                     id: `${ this.props.id }-update`,
                     classes: ["btn", "btn-icon", "btn-one"],
-                    // TODO: href
+                    url: "#",
                 }, callback: {
                     function: this.switch,
                     params: {
@@ -44,7 +44,7 @@ export class Achievement extends Class {
                 props: {
                     id: `${ this.props.id }-delete`,
                     classes: ["btn", "btn-icon", "btn-one"],
-                    // TODO: href
+                    url: "#",
                 }, callback: {
                     function: this.switch,
                     params: {
@@ -62,7 +62,7 @@ export class Achievement extends Class {
             props: {
                 id: `${ this.props.id }-cancel`,
                 classes: (this.props.hasOwnProperty("title") ? ["btn", "btn-icon", "btn-three", "hidden"] : ["btn", "btn-icon", "btn-three"]),
-                // TODO: href
+                url: "#",
             }, callback: {
                 function: this.switch,
                 params: {

@@ -16,9 +16,9 @@
 // ! AuthController - Controls the authentication pages.
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/signin', [AuthController::class, 'signin'])->name('auth.signin');
-    // TODO Route::middleware('token.exist')->group(function () {
+    Route::middleware('token.exist')->group(function () {
         Route::get('/email/{token}/confirm', [AuthController::class, 'confirm'])->name('auth.confirm');
-    // });
+    });
     Route::middleware('auth.custom')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     });

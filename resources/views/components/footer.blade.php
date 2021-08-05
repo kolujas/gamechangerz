@@ -38,7 +38,7 @@
                     <a class="overpass btn btn-grey btn-text" href="#">Código de conducta</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">FAQ</a>
+                    <a class="overpass btn btn-grey btn-text" href="/faq">FAQ</a>
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="#">Soporte</a>

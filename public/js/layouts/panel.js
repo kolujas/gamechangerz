@@ -20,8 +20,6 @@ for (const tr of document.querySelectorAll("#panel.tab-menu li.tab-content table
 }
 
 if (document.querySelector("#panel.tab-menu li.tab-content > form:not(.not)")) {
-    // TODO: Get inputs & switch disable state
-    // TODO: Set ValidationJS
     const editBtn = document.querySelector('.editBtn');
     editBtn.addEventListener('click', function(){
         enable();

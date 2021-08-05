@@ -10,9 +10,12 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
 
+// ! LessonController - Controls the lessons api. 
     Route::middleware('api')->group(function () {
         Route::middleware('auth:api')->group(function () {
             Route::middleware('api.lesson.exist')->group(function () {
+                Route::put('/lessons/{id_lesson}/update', [LessonController::class, 'update'])->name('api.lesson.update');
+                
                 Route::get('/lessons/{id_lesson}/assigments', [LessonController::class, 'getAssigments'])->name('api.lesson.assigments');
 
 // ! AssigmentController - Controls the assigments api.
@@ -47,11 +50,6 @@
             Route::middleware('api.user.exist')->group(function () {
                 Route::post('/users/{slug}/friends/request', [FriendController::class, 'request'])->name('api.friend.request');
             });
-
-// ! LessonController - Controls the lessons api. 
-            // TODO Route::middleware('api.lesson.exist')->group(function () {
-                Route::put('/lessons/{id_lesson}/update', [LessonController::class, 'update'])->name('api.lesson.update');
-            // TODO });
             
 // ! RoleController - Controls the Role api.
             Route::get('/role', [RoleController::class, 'get'])->name('api.role.get');

@@ -103,6 +103,8 @@ class Kernel extends HttpKernel
 
         'review.exist' => \App\Http\Middleware\CheckReviewExist::class,
 
+        'token.exist' => \App\Http\Middleware\CheckTokenExist::class,
+
         'user.exist' => \App\Http\Middleware\CheckUserExist::class,
         'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
         'user.status' => \App\Http\Middleware\CheckUserStatus::class,

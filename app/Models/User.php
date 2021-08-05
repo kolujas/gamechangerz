@@ -160,14 +160,6 @@
          */
         public function achievements () {
             $this->achievements = Achievement::parse($this->achievements);
-            if ($this->id_role === 0) {
-                foreach (Achievement::options() as $achievement) {
-                    // TODO: Add Achievement
-                    if (false) {
-                        $this->achievements->push($achievement);
-                    }
-                }
-            }
         }
 
         /**
