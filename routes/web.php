@@ -33,6 +33,7 @@
     Route::get('/privacy-politics', [DefaultController::class, 'privacyPolitics'])->name('web.privacy_politics');
     Route::get('/terms-&-conditions', [DefaultController::class, 'termsAndConditions'])->name('web.terms_&_conditions');
     Route::get('/faq', [DefaultController::class, 'faq'])->name('web.faq');
+    Route::get('/apply', [DefaultController::class, 'apply'])->name('web.apply');
         
 // ! BlogController - Controls the Blog pages.
     Route::get('/blog', [BlogController::class, 'list'])->name('blog.list');

@@ -11,6 +11,7 @@ import Language from "../components/Language.js";
 import Lesson from "../components/Lesson.js";
 import Review from "../components/Review.js";
 import User from "../components/User.js";
+import Advanced from "../components/Advanced.js";
 
 function setDefaultWidth (params) {
     let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
@@ -98,6 +99,9 @@ if (lessons.length && document.querySelector("#reviews.modal")) {
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
+    if(document.querySelector('#advanced.modal')){
+        Advanced.setModalJS();
+    }
     if (document.querySelector("#horarios.tab-menu")) {
         new TabMenuJS({
             id: "horarios"

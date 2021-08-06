@@ -39,6 +39,11 @@
             'user' => $user,
         ])
         @endcomponent
+
+        @component('components.modal.advanced', [
+            'user' => $user,
+        ])
+        @endcomponent
     @endif
     @if ($user->id_user && $user->id_role === 0)
         @component('components.modal.friends', [

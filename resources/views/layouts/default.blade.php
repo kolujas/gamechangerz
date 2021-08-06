@@ -48,6 +48,7 @@
             'error' => ($error ? $error : []),
         ])
         @endcomponent
+        
         <a href="#chat" class="chat-button modal-button chat border-gradient" title="Chat">
             <figure>
                 @component('components.svg.ClaseOnline2SVG')@endcomponent

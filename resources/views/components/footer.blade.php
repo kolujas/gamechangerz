@@ -29,7 +29,7 @@
             <h4 class="font-bold pb-4">Soporte</h4>
             <ul>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Postulate como profesor</a>
+                    <a class="overpass btn btn-grey btn-text" href="/apply">Postulate como profesor</a>
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="#">Contacto</a>
@@ -85,8 +85,10 @@
             </a>
         </nav>
     </header>
-    <section class="copy-text px-8 md:px-12 lg:px-20">
-        <p class="color-grey overpass">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <section class="copy-text px-8 md:px-12 lg:px-20 bg-black contact-footer-info">
+        <p class="color-white overpass text-lg">Soporte <br>
+        <p class="color-grey overpass text-lg contact-info"> Lunes a Viernes - 10:00 - 19:00 <br>
+            soporte@gamechangerz.gg</p>
     </section>
     <nav class="mt-8 px-2 pb-8 text-center lg:flex lg:justify-between nav-policy">
         <p class="pb-4 lg:pb-0 lg:text-left overpass">© 2021 Creative Commons Licence, All Rights Reserved.</p>
