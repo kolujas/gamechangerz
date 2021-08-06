@@ -129,7 +129,7 @@
                 ]);
                 
                 $mail = new Mail([ "id_mail" => 1, ], [
-                    "email" => $input->email,
+                    "email_to" => $input->email,
                     "token" => DB::table("password_resets")->where("email", $input->email)->first()->token,
                 ]);
             } catch (\Throwable $th) {

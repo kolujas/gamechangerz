@@ -9,6 +9,7 @@
     use App\Models\Hour;
     use App\Models\Language;
     use App\Models\Lesson;
+    use App\Models\Mail;
     use App\Models\MercadoPago;
     use App\Models\Platform;
     use App\Models\Post;
@@ -351,6 +352,28 @@
             return redirect("/users/$user->slug/profile")->with("status", [
                 "code" => 200,
                 "message" => "Perfil actualizado correctamente.",
+            ]);
+        }
+
+        public function apply (Request $request) {
+            $input = (object) $request->all();
+            
+            $validator = Validator::make((array) $input, User::$validation["apply"]["rules"], User::$validation["apply"]["messages"]["es"]);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            new Mail([ "id_mail" => 7, ], [
+                'email_to' => config("mail.from.address"),
+                'email_from' => $input->email,
+                'details' => $input->details,
+                'password' => $input->password,
+                'username' => $input->username,
+            ]);
+            
+            return redirect("/")->with("status", [
+                "code" => 200,
+                "message" => "Solicitud enviada exitosamente.",
             ]);
         }
     }

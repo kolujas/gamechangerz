@@ -2,13 +2,13 @@
     use App\Http\Controllers\AchievementController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\BlogController;
+    use App\Http\Controllers\CheckoutController;
     use App\Http\Controllers\DefaultController;
     use App\Http\Controllers\PanelController;
     use App\Http\Controllers\FriendshipController;
     use App\Http\Controllers\GameController;
     use App\Http\Controllers\GoogleController;
     use App\Http\Controllers\LanguageController;
-    use App\Http\Controllers\CheckoutController;
     use App\Http\Controllers\ReviewController;
     use App\Http\Controllers\UserController;
     use Illuminate\Support\Facades\Route;
@@ -82,6 +82,8 @@
     });
 
 // ! UserController - Controls the User pages.
+    Route::post('/apply', [UserController::class, 'apply'])->name('user.apply');
+    
     Route::get('/users', [UserController::class, 'search'])->name('user.searchUsers');
     Route::get('/teachers', [UserController::class, 'search'])->name('user.searchTeachers');
     Route::middleware(['user.exist', 'user.status'])->group(function () {

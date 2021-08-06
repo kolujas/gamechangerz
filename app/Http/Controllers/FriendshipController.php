@@ -174,7 +174,7 @@
             $from = User::find($request->user()->id_user);
 
             new Mail([ "id_mail" => 6, ], [
-                "email" => $user->email,
+                "email_to" => $user->email,
                 "name" => $from->name,
                 "slug" => $from->slug,
                 "username" => $from->username,

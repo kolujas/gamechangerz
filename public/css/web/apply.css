@@ -1,26 +1,26 @@
-#apply{
+main.apply{
     width: 100%;
 }
 
-#apply input{
+main.apply input{
     background-color: black;
 }
 
-#apply figure {
+main.apply figure {
     display: flex;
     justify-content: center;
 }
 
-#apply h2 {
+main.apply h2 {
     font-size: 1.7rem;
 }
 
-#apply .input-group {
+main.apply .input-group {
     border-radius: .25rem;
     overflow: hidden;
 }
 
-#apply .form-input, p {
+main.apply .form-input, p {
     background-color: #000;
     color: var(--color-white);
     font-size: .8rem;
@@ -29,35 +29,35 @@
     z-index: 1;
 }
 
-#apply .form-input::placeholder {
+main.apply .form-input::placeholder {
     color: var(--color-grey);
     position: relative;
     top: 2px;
 }
 
-#apply p{
+main.apply p{
     color: var(--color-grey);
 }
 
-#apply .submit-group p {
+main.apply .submit-group p {
     color: var(--color-grey);
     font-size: .75rem;
 }
 
-#apply .error {
+main.apply .error {
     color: var(--color-white);
 }
 
-#apply .faq summary{
+main.apply .faq summary{
     background-color: var(--color-black);
     color: var(--color-white);
 }
 
-#apply .faq .text-base{
+main.apply .faq .text-base{
     color: var(--color-white);
 }
 
-#apply .faq details span{
+main.apply .faq details span{
     color: var(--color-white);
 }
 
@@ -65,7 +65,7 @@
 
 /* ? MD */
 @media(min-width: 768px){
-    #apply{
+    main.apply{
         width: 50%;
         margin: auto;
     }

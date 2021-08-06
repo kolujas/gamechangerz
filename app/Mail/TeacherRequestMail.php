@@ -26,7 +26,7 @@
          */
         public function build () {
             return $this->view('mail.teacher-request')
-                ->from(config("mail.from.address"), config("mail.from.name"))
+                ->from($this->data->email_from, $this->data->username)
                 ->subject("Nueva solicitud de profesor");
         }
     }

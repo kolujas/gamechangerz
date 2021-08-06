@@ -268,7 +268,7 @@
             }
 
             new Mail([ "id_mail" => 2, ], [
-                'email' => $to->email,
+                'email_to' => $to->email,
                 'message' => $input->message,
                 'name' => $from->name,
                 'slug' => $to->slug,
