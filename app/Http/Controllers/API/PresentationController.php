@@ -68,7 +68,7 @@
             }
 
             new Mail([ "id_mail" => 4, ], [
-                'email' => $to->email,
+                'email_to' => $to->email,
                 'slug' => $from->slug,
             ]);
 

@@ -605,7 +605,7 @@
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
                                 "email.required" => "El correo es obligatorio.",
-                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
                                 "password.required" => "La contraseña es obligatoria.",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
@@ -614,18 +614,16 @@
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                             ]
                         ]
-                    ],
-                    "delete" => [
+                    ], "delete" => [
                         "rules" => [
                             "message" => "required|regex:/^BORRAR$/",
                         ], "messages" => [
                             "es" => [
                                 "message.required" => "El mensaje es obligatorio.",
                                 "message.regex" => "El mensaje debe decir BORRAR.",
-                            ]
-                        ]
-                    ],
-                    "update" => [
+                            ],
+                        ],
+                    ], "update" => [
                         "rules" => [
                             "username" => "required|unique:users,username,{id_user},id_user|max:25",
                             "email" => "required|email|unique:users,username,{id_user},id_user",
@@ -639,17 +637,16 @@
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
                                 "email.required" => "El correo es obligatorio.",
-                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
                                 "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
-                ],
-                "update" => [
+                ], "update" => [
                     "rules" => [
                         "username" => "required|unique:users,username,{id_user},id_user|max:25",
                         "name" => "nullable|max:25",
@@ -664,7 +661,10 @@
                             "name.max" => "El nombre no puede tener más de :max caracteres.",
                             "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
                             "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
-            ]]]], "teacher" => [
+                        ],
+                    ],
+                ],
+            ], "teacher" => [
                 "panel" => [
                     "create" => [
                         "rules" => [
@@ -689,7 +689,7 @@
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
                                 "email.required" => "El correo es obligatorio.",
-                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
                                 "password.required" => "La contraseña es obligatoria.",
                                 "name.required" => "El nombre es obligatorio.",
@@ -703,20 +703,18 @@
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
                                 "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
-                            ]
-                        ]
-                    ],
-                    "delete" => [
+                            ],
+                        ],
+                    ], "delete" => [
                         "rules" => [
                             "message" => "required|regex:/^BORRAR$/",
                         ], "messages" => [
                             "es" => [
                                 "message.required" => "El mensaje es obligatorio.",
                                 "message.regex" => "El mensaje debe decir BORRAR.",
-                            ]
-                        ]
-                    ],
-                    "update" => [
+                            ],
+                        ],
+                    ], "update" => [
                         "rules" => [
                             "username" => "required|unique:users,username,{id_user},id_user|max:25",
                             "email" => "required|email|unique:users,email,{id_user},id_user",
@@ -738,7 +736,7 @@
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
                                 "email.required" => "El correo es obligatorio.",
-                                "email.email" => "El correo debe ser formato mail (ejemplo@gmail.com).",
+                                "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
                                 "email.unique" => "Ese correo ya se encuentra en uso.",
                                 "name.required" => "El nombre es obligatorio.",
                                 "name.max" => "El nombre no puede tener más de :max caracteres.",
@@ -750,11 +748,10 @@
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
                                 "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
-                ],
-                "update" => [
+                ], "update" => [
                     "rules" => [
                         "username" => "required|unique:users,username,{id_user},id_user|max:25",
                         "name" => "required|max:25",
@@ -762,8 +759,6 @@
                         "teampro_name" => "nullable|max:25",
                         "teampro_logo" => "nullable|mimetypes:image/png",
                         "profile" => "nullable|mimetypes:image/png",
-                        // "prices" => "required",
-                        // "hours" => "required",
                     ], "messages" => [
                         "es" => [
                             "username.required" => "El apodo es obligatorio.",
@@ -775,5 +770,27 @@
                             "teampro_name.max" => "El nombre de tu equipo no puede tener más de :max caracteres.",
                             "teampro_logo.mimetypes" => "La foto de tu equipo debe ser una imagen .png",
                             "profile.mimetypes" => "La foto de perfil debe ser una imagen .png",
-        ]]]]];
+                        ],
+                    ],
+                ],
+            ], "apply" => [
+                "rules" => [
+                    "username" => "required|unique:users",
+                    "email" => "required|email|unique:users",
+                    "password" => "required",
+                    "accept" => "required",
+                ], "messages" => [
+                    "es" => [
+                        "username.required" => "El apodo es obligatorio.",
+                        "username.unique" => "Ese apodo ya se encuentra en uso.",
+                        "discord_username.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                        "email.required" => "El correo es obligatorio.",
+                        "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
+                        "email.unique" => "Ese correo ya se encuentra en uso.",
+                        "password.required" => "La contraseña es obligatoria.",
+                        "accept.required" => "Debe aceptar los Términos y las Politicas de privacidad.",
+                    ],
+                ],
+            ],
+        ];
     }

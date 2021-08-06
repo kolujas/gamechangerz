@@ -17,7 +17,7 @@
          * @var array
          */
         protected $fillable = [
-            'id_mail', 'name',
+            "id_mail", "name",
         ];
         
         /**
@@ -58,7 +58,7 @@
                     $mail = new TeacherRequestMail((object) $data);
                     break;
             }
-            MailService::to($data['email'])->send($mail);
+            MailService::to($data["email_to"])->send($mail);
         }
 
        /**
@@ -67,27 +67,27 @@
         * @return array
         */
         static function parseAttributes (array $attributes = []) {
-            switch ($attributes['id_mail']) {
+            switch ($attributes["id_mail"]) {
                 case 1:
-                    $attributes['name'] = "Confirmation";
+                    $attributes["name"] = "Confirmation";
                     break;
                 case 2:
-                    $attributes['name'] = "New message";
+                    $attributes["name"] = "New message";
                     break;
                 case 3:
-                    $attributes['name'] = "New assigment";
+                    $attributes["name"] = "New assigment";
                     break;
                 case 4:
-                    $attributes['name'] = "New presentation";
+                    $attributes["name"] = "New presentation";
                     break;
                 case 5:
-                    $attributes['name'] = "New lesson";
+                    $attributes["name"] = "New lesson";
                     break;
                 case 6:
-                    $attributes['name'] = "Friendship request";
+                    $attributes["name"] = "Friendship request";
                     break;
                 case 7:
-                    $attributes['name'] = "New teacher request";
+                    $attributes["name"] = "New teacher request";
                     break;
             }
             return $attributes;
