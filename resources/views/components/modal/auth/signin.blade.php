@@ -104,6 +104,9 @@
                 @endif
             </div>
             <button tabindex="9" class="btn btn-background form-submit signin flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
+                <div class="loading hidden">
+                    <i class="spinner-icon"></i>
+                </div>
                 <span class="russo xl:text-lg">Registrarme</span>
             </button>
             <p class="color-white mt-6 text-center">Ya tenés cuenta? <a class="btn btn-text btn-one" href="#login">Ingrésa aquí</a></p>

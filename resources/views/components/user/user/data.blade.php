@@ -107,8 +107,8 @@
         <div class="actions flex justify-end mt-8 mt-4">
             <div class="flex justify-end">
                 @if (Auth::user()->id_user === $user->id_user_request)
-                    <span class="btn btn-outline btn-two not py-2 px-4 ml-4">
-                        <span class="overpass">Solicitud enviada</span>
+                    <span class="btn btn-outline btn-two not ml-4">
+                        <span class="russo px-4 py-2">Solicitud enviada</span>
                     </span>
                     <a href="/users/{{ $user->slug }}/friendship/cancel" class="btn btn-outline btn-three ml-4">
                         <span class="russo py-2 px-4">Cancelar solicitud</span>

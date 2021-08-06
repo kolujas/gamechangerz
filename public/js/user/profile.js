@@ -123,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
             })
         }
 
-
         new InputFileMakerJS({
             id: "profile",
             message: "",

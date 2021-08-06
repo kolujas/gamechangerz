@@ -19,9 +19,9 @@
         <label class="input-group grid mb-8">
             <div class="flex justify-between">
                 <input class="login form-input px-5 py-4 overpass" type="password" tabindex="2" name="login_password" id="login_password" placeholder="Contraseña">
-                <button class="seePassword input-login_password">
+                <span class="seePassword input-login_password">
                     <i class="fas fa-eye"></i>
-                </button>
+                </span>
             </div>
             @if ($errors->has('login_password'))
                 <span class="error support login support-box hidden support-login_password mt-2 overpass">{{ $errors->first('login_password') }}</span>
@@ -38,6 +38,9 @@
                 </div>
             </label>
             <button tabindex="4" class="btn btn-background form-submit login flex justify-center w-full rounded p-1 md:h-12 md:items-center" type="submit">
+                <div class="loading hidden">
+                    <i class="spinner-icon"></i>
+                </div>
                 <span class="russo xl:text-lg">Entrar</span>
             </button>
             <p class="color-white mt-6 text-center overpass">No tenés cuenta todavía? <a class="btn btn-text btn-one" href="#signin">Registrate</a></p>

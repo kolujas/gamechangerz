@@ -1,7 +1,6 @@
-import { NavMenu as NavMenuJS } from '../../submodules/NavMenuJS/js/NavMenu.js';
+import { NavMenu as NavMenuJS } from "../../submodules/NavMenuJS/js/NavMenu.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 
-import Assigment from "../components/Assigment.js";
 import Auth from "../components/Auth.js";
 import Chat from "../components/Chat.js";
 import Token from "../components/Token.js";
@@ -20,16 +19,16 @@ new NavMenuJS({
 
 const token = Token.get();
 if (!auth) {
-    Auth.setModalJS();
+    let authenticated = new Auth();
 
     if (URL.findHashParameter()) {
         switch (URL.findHashParameter()) {
-            case 'login':
-                Auth.changeContent('login');
+            case "login":
+                authenticated.changeSectionState("login");
                 modals.auth.open();
                 break;
-            case 'signin':
-                Auth.changeContent('signin');
+            case "signin":
+                authenticated.changeSectionState("signin");
                 modals.auth.open();
                 break;
         }
@@ -37,11 +36,11 @@ if (!auth) {
 }
 
 if (auth) {
-    if (document.querySelectorAll("a[href='/logout']").length) {
-        for (const html of document.querySelectorAll("a[href='/logout']")) {
-            html.addEventListener('click', function (e) {
+    if (document.querySelectorAll(`a[href="/logout"]`).length) {
+        for (const html of document.querySelectorAll(`a[href="/logout"]`)) {
+            html.addEventListener("click", function (e) {
                 token.remove();
-                window.location.href = '/logout';
+                window.location.href = "/logout";
             });
         }
     }

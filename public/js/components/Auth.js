@@ -7,41 +7,80 @@ import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 import Token from "./Token.js";
 
 export class Auth extends Class {
-    static setEvents () {
-        if (document.querySelectorAll(`a[href='#login']`).length) {
-            for (const btn of document.querySelectorAll(`a[href='#login']`)) {
-                btn.addEventListener('click', function (e) {
+    constructor () {
+        super({  }, {
+            section: "login",
+            status: "waiting",
+        });
+
+        this.setValidationJS();
+        this.setModalJS();
+        if (modals.hasOwnProperty("auth")) {
+            this.htmls = {
+                login: modals.auth.html.children[0].children[0],
+                signin: modals.auth.html.children[0].children[1],
+            };
+        }
+        this.setEvents();
+    }
+
+    setEvents () {
+        if (document.querySelectorAll(`a[href="#login"]`).length) {
+            for (const btn of document.querySelectorAll(`a[href="#login"]`)) {
+                btn.addEventListener("click", (e) => {
                     modals.auth.open();
-                    Auth.changeContent('login');
+                    this.changeSectionState("login");
                 });
             }
         }
-        if (document.querySelectorAll(`a[href='#signin']`).length) {
-            for (const btn of document.querySelectorAll(`a[href='#signin']`)) {
-                btn.addEventListener('click', function (e) {
+        if (document.querySelectorAll(`a[href="#signin"]`).length) {
+            for (const btn of document.querySelectorAll(`a[href="#signin"]`)) {
+                btn.addEventListener("click", (e) => {
                     modals.auth.open();
-                    Auth.changeContent('signin');
+                    this.changeSectionState("signin");
                 });
             }
         }
     }
 
-    static setModalJS () {
+    setFinishState () {
+        this.setState("status", "waiting");
+        for (const btn of document.querySelectorAll("#auth.modal button[type=submit]")) {
+            for (const child of [...btn.children]) {
+                child.classList.add("hidden");
+                if (child.nodeName === "SPAN") {
+                    child.classList.remove("hidden");
+                }
+            }
+        }
+    }
+
+    setLoadingState () {
+        this.setState("status", "loading");
+        for (const btn of document.querySelectorAll("#auth.modal button[type=submit]")) {
+            for (const child of [...btn.children]) {
+                child.classList.add("hidden");
+                if (child.nodeName === "DIV") {
+                    child.classList.remove("hidden");
+                }
+            }
+        }
+    }
+
+    setModalJS () {
         if (!modals.hasOwnProperty("auth")) {
             modals.auth = new ModalJS({
-                id: 'auth',
+                id: "auth",
             }, {
                 outsideClick: true
             });
-            this.setValidationJS();
-            this.setEvents();
         }
     }
 
-    static setValidationJS () {
-        if (validation.hasOwnProperty('login')) {
+    setValidationJS () {
+        if (validation.hasOwnProperty("login")) {
             validation.login.ValidationJS = new ValidationJS({
-                id: 'login',
+                id: "login",
                 rules: validation.login.rules,
                 messages: validation.login.messages,
             }, {
@@ -50,14 +89,17 @@ export class Auth extends Class {
                 valid: {
                     function: this.submit,
                     params: {
-                        section: 'login',
-            }}});
+                        section: "login",
+                        authenticated: this,
+                    }
+                }
+            });
         } else {
             console.error(`validation.login does not exist`);
         }
-        if (validation.hasOwnProperty('signin')) {
+        if (validation.hasOwnProperty("signin")) {
             validation.signin.ValidationJS = new ValidationJS({
-                id: 'signin',
+                id: "signin",
                 rules: validation.signin.rules,
                 messages: validation.signin.messages,
             }, {
@@ -66,49 +108,60 @@ export class Auth extends Class {
                 valid: {
                     function: this.submit,
                     params: {
-                        section: 'signin',
-            }}});
+                        section: "signin",
+                        authenticated: this,
+                    }
+                }
+            });
         } else {
             console.error(`validation.signin does not exist`);
         }
     }
 
-    static changeContent (section) {
-        document.querySelector(`#auth.modal .modal-content #${ (section === 'login' ? 'login' : 'signin') }`).classList.remove('hidden');
-        document.querySelector(`#auth.modal .modal-content #${ (section === 'login' ? 'login' : 'signin') }`).classList.add('block');
-        document.querySelector(`#auth.modal .modal-content #${ (section === 'login' ? 'signin' : 'login') }`).classList.remove('block');
-        document.querySelector(`#auth.modal .modal-content #${ (section === 'login' ? 'signin' : 'login') }`).classList.add('hidden');
+    changeSectionState (section) {
+        if (this.state.status === "waiting") {
+            this.setState("section", section);
+            this.htmls[this.state.section].classList.add("block");
+            this.htmls[this.state.section].classList.remove("hidden");
+            this.htmls[this.state.section === "signin" ? "login" : "signin"].classList.add("hidden");
+            this.htmls[this.state.section === "signin" ? "login" : "signin"].classList.remove("block");
+        }
     }
 
-    static async submit (params = []) {
-        let formData = new FormData(params.Form.html);
-        let token = formData.get('_token');
-        formData.delete('_token');
-        let query = await Fetch.send({
-            method: 'POST',
-            url: `/api/${ params.section }`,
-        }, {
-            'Accept': 'application/json',
-            'Content-type': 'application/json; charset=UTF-8',
-            'X-CSRF-TOKEN': token,
-        }, formData);
-        if (query.response.code === 200) {
-            Token.save(query.response.data.token);
-            params.Form.html.submit();
-        }
-        if (query.response.code !== 200) {
-            new NotificationJS(query.response, {
-                open: true,
-            });
-            for (const key in query.response.data.errors) {
-                if (Object.hasOwnProperty.call(query.response.data.errors, key)) {
-                    const errors = query.response.data.errors[key];
-                    let span = document.querySelector(`form#${ params.section } .support-${ params.section }_${ key }`);
-                    for (const error of errors) {
-                        span.innerHTML = error;
-                        span.classList.remove('hidden');
+    async submit (params = []) {
+        if (params.authenticated.state.status === "waiting") {
+            params.authenticated.setLoadingState();
+            let formData = new FormData(params.Form.html);
+            let token = formData.get("_token");
+            formData.delete("_token");
+            let query = await Fetch.send({
+                method: "POST",
+                url: `/api/${ params.section }`,
+            }, {
+                "Accept": "application/json",
+                "Content-type": "application/json; charset=UTF-8",
+                "X-CSRF-TOKEN": token,
+            }, formData);
+            if (query.response.code === 200) {
+                Token.save(query.response.data.token);
+                params.authenticated.setFinishState(query.response.code);
+                params.Form.html.submit();
+            }
+            if (query.response.code !== 200) {
+                new NotificationJS(query.response, {
+                    open: true,
+                });
+                for (const key in query.response.data.errors) {
+                    if (Object.hasOwnProperty.call(query.response.data.errors, key)) {
+                        const errors = query.response.data.errors[key];
+                        let span = document.querySelector(`form#${ params.section } .support-${ params.section }_${ key }`);
+                        for (const error of errors) {
+                            span.innerHTML = error;
+                            span.classList.remove("hidden");
+                        }
                     }
                 }
+                params.authenticated.setFinishState(query.response.code);
             }
         }
     }
