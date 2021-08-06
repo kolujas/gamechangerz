@@ -12,7 +12,7 @@ sr.reveal('.landing .profesores-destacados', {
     ease: 'ease-in-out'
 })
 
-sr.reveal('.landing .abilities', {
+sr.reveal('.landing .catalogo', {
     duration: 2000,
     ease: 'ease-in-out'
 })

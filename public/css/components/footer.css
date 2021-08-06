@@ -13,6 +13,14 @@
     object-fit: contain;
 }
 
+.footer .contact-info{
+    font-size: 1rem;
+}
+
+.footer .contact-footer-info p, .footer nav p{
+    background-color: var(--color-black);
+}
+
 
 
 /* ? MD */
@@ -33,7 +41,8 @@
 /* ? XL */
 @media(min-width: 1200px){
     .nav-policy, .copy-text{
-        padding: 0 8.25rem 2rem 8.25rem;
+        /* padding: 0 8.25rem 2rem 8.25rem; */
+        padding: 0px 8.25rem 2rem 7.25rem;
     }
 }
 

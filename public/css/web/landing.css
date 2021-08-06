@@ -321,12 +321,54 @@ ul.abilities.cards {
     overflow: hidden;
 }
 
+.profesores-destacados .abilities ul{
+    display: block;
+}
+
+.profesores-destacados .abilities ul li{
+    font-size: 0.75rem;
+    line-height: 1rem;
+    white-space: nowrap;
+    padding: .25rem;
+    margin-bottom: .5rem;
+    min-width: fit-content;
+    max-width: fit-content;
+    z-index: 1;
+    position: relative;
+    transition: 500ms;
+    opacity: 0;
+}
+
+.profesores-destacados .teacher:hover .abilities ul li{
+    transition: 500ms;
+    opacity: 1;
+}
+
+.profesores-destacados .abilities ul li svg{
+    display: none;
+}
+
+.profesores-destacados ul.teachers .abilities li span{
+    min-width: fit-content;
+    max-width: fit-content;
+    padding-right: 0;
+}
+
 ul.abilities.cards .card header {
     padding-top: 1rem;
 }
 
 ul.abilities.cards .card header > span {
     display: none;
+}
+
+.profesores-destacados .image > div{
+    position: relative;
+    top: calc(100% - 18rem);
+}
+
+ul.teachers .image img{
+    top: 0;
 }
 
 .profesores-destacados .teacher > a {
@@ -503,11 +545,7 @@ ul.abilities.cards .card header > span {
 
     .profesores-destacados .teacher > a {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .profesores-destacados .teacher .abilities {
-        display: none;
-    }
+    }    
 
     .profesores-destacados .teacher .image {
         grid-row: span 2 / span 2;
@@ -517,6 +555,14 @@ ul.abilities.cards .card header > span {
         grid-row: span 1 / span 1;
         margin: 0;
         margin-left: 1rem;
+    }
+
+    .profesores-destacados ul.teachers .image img{
+            top: -2rem;
+    }
+
+    .teachers .teacher:not(:last-child){
+        margin-bottom: 0;
     }
 }
 
@@ -614,13 +660,18 @@ ul.abilities.cards .card header > span {
 
     .profesores-destacados .teacher .image {
         grid-column: span 1 / span 1;
-        grid-row: span 2 / span 2;
+        grid-row: span 1 / span 1;
     }
 
     .profesores-destacados .teacher .payment {
-        grid-column: span 1 / span 1;
-        grid-row: span 1 / span 1;
+        /* grid-column: span 1 / span 1;
+        grid-row: span 1 / span 1; */
+        display: none;
     }
+
+    .profesores-destacados ul.teachers .image img{
+        top: 15%;
+}
 
     .teachers .teacher:not(:last-child){
         margin-bottom: 0;
