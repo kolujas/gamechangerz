@@ -10,7 +10,13 @@
     use Illuminate\Support\Facades\Validator;
 
     class ReviewController extends Controller {
-        public function create (Request $request, string $id_lesson) {
+        /**
+         * * Create a new Review.
+         * @param Request $request
+         * @param int $id_lesson
+         * @return [type]
+         */
+        public function create (Request $request, int $id_lesson) {
             $input = (object) $request->all();
 
             $validator = Validator::make($request->all(), Review::$validation['create']['rules'], Review::$validation['create']['messages']['es']);

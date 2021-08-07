@@ -783,12 +783,19 @@
                     "es" => [
                         "username.required" => "El apodo es obligatorio.",
                         "username.unique" => "Ese apodo ya se encuentra en uso.",
-                        "discord_username.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                         "email.required" => "El correo es obligatorio.",
                         "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
                         "email.unique" => "Ese correo ya se encuentra en uso.",
                         "password.required" => "La contraseña es obligatoria.",
                         "accept.required" => "Debe aceptar los Términos y las Politicas de privacidad.",
+                    ],
+                ],
+            ], "advanced" => [
+                "rules" => [
+                    "discord_username" => "nullable|regex:/([a-z])*#([0-9])*/i",
+                ], "messages" => [
+                    "es" => [
+                        "discord_username.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                     ],
                 ],
             ],

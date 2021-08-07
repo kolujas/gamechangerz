@@ -40,6 +40,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -97,6 +100,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -132,6 +138,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -161,6 +170,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -190,6 +202,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -219,6 +234,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -248,6 +266,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],

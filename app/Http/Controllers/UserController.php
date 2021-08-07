@@ -5,12 +5,14 @@
     use App\Models\Assigment;
     use App\Models\Auth as AuthModel;
     use App\Models\Day;
+    use App\Models\Discord;
     use App\Models\Game;
     use App\Models\Hour;
     use App\Models\Language;
     use App\Models\Lesson;
     use App\Models\Mail;
     use App\Models\MercadoPago;
+    use App\Models\Method;
     use App\Models\Platform;
     use App\Models\Post;
     use App\Models\Presentation;
@@ -143,6 +145,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -179,6 +184,9 @@
                 ], "assigment" => (object)[
                     "rules" => Assigment::$validation["make"]["rules"],
                     "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -245,6 +253,9 @@
                 ], "assigment" => (object)[
                         "rules" => Assigment::$validation["make"]["rules"],
                         "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
@@ -355,6 +366,11 @@
             ]);
         }
 
+        /**
+         * * Send the teacher request form.
+         * @param Request $request
+         * @return [type]
+         */
         public function apply (Request $request) {
             $input = (object) $request->all();
             
@@ -374,6 +390,51 @@
             return redirect("/")->with("status", [
                 "code" => 200,
                 "message" => "Solicitud enviada exitosamente.",
+            ]);
+        }
+
+        /**
+         * * Updates the User credentials.
+         * @param Request $request
+         * @return [type]
+         */
+        public function credentials (Request $request) {
+            $input = (object) $request->all();
+
+            $user = Auth::user();
+            $user->and(["credentials", "discord"]);
+
+            $methods = collect();
+
+            $methods->push([
+                "id_method" => 1,
+                "access_token" => $user->credentials->mercadopago->access_token,
+            ]);
+
+            if (isset($input->pp_access_token)) {
+                $methods->push([
+                    "id_method" => 2,
+                    "access_token" => $input->pp_access_token,
+                ]);
+            }
+
+            $input->credentials = Method::stringify($methods->toArray());
+
+            if (isset($input->discord_username)) {
+                $input->discord = Discord::stringify([
+                    "username" => $input->discord_username,
+                    "link" => $user->discord->link,
+                ]);
+            }
+
+            unset($user->credentials);
+            unset($user->discord);
+
+            $user->update((array) $input);
+            
+            return redirect("/users/$user->slug/profile")->with("status", [
+                "code" => 200,
+                "message" => "Credenciales actualizadas exitosamente.",
             ]);
         }
     }

@@ -20,7 +20,7 @@
             ]]], 'signin' => [
                 'rules' => [
                     'username' => 'required|unique:users',
-                    'discord_username' => 'nullable|regex:/.+\d{4}$/',
+                    'discord_username' => 'nullable|regex:/([a-z])*#([0-9])*/i',
                     'email' => 'required|email|unique:users',
                     'password' => 'required|confirmed',
                     'date' => 'nullable|date',

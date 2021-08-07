@@ -48,6 +48,9 @@
             'error' => ($error ? $error : []),
         ])
         @endcomponent
+        {{-- ? Advanced modal --}}
+        @component('components.modal.advanced')
+        @endcomponent
         
         <a href="#chat" class="chat-button modal-button chat border-gradient" title="Chat">
             <figure>
