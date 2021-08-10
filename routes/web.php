@@ -60,8 +60,14 @@
         Route::get("/google/oauth", [GoogleController::class, "store"])->name("google.store");
 
 // ! CheckoutController - Controls the Checkout pages.
-        Route::middleware(["auth.not.user", "lesson.exist"])->group(function () {
-            Route::post("/lessons/{id_lesson}/checkout", [CheckoutController::class, "complete"])->name("checkout.complete");
+        Route::middleware("auth.not.user")->group(function () {
+            Route::middleware("lesson.exist")->group(function () {
+                Route::post("/lessons/{id_lesson}/checkout", [CheckoutController::class, "complete"])->name("checkout.complete");
+            });
+
+            Route::middleware(["user.exist", "user.status", "auth.role.is.user", "user.is.teacher", "lesson.type.exist"])->group(function () {
+                Route::get("/users/{slug}/checkout/{type}", [CheckoutController::class, "show"])->name("checkout.show");
+            });
         });
         Route::middleware(["lesson.exist", "lesson.status.exist", "auth.is.lesson.user"])->group(function () {
             Route::get("/lessons/{id_lesson}/checkout/{id_status}", [CheckoutController::class, "status"])->name("checkout.status");
@@ -89,9 +95,6 @@
     Route::middleware(["user.exist", "user.status"])->group(function () {
         Route::middleware("auth.lesson.end")->group(function () {
             Route::get("/users/{slug}/profile", [UserController::class, "profile"])->name("user.profile");
-        });
-        Route::middleware(["auth.custom", "auth.not.user", "auth.role.is.user", "user.is.teacher", "lesson.type.exist"])->group(function () {
-            Route::get("/users/{slug}/checkout/{type}", [UserController::class, "checkout"])->name("user.checkout");
         });
     });
     Route::middleware(["auth.custom", "auth.is.user"])->group(function () {

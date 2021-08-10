@@ -144,7 +144,6 @@ export class Auth extends Class {
             }, formData);
             if (query.response.code === 200) {
                 Token.save(query.response.data.token);
-                params.authenticated.setFinishState(query.response.code);
                 params.Form.html.submit();
             }
             if (query.response.code !== 200) {

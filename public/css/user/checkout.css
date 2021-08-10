@@ -25,6 +25,11 @@
     --calendar-selected-date-border-color: var(--color-four);
 }
 
+.loading .spinner-icon {
+    border-top-color: var(--color-five);
+    border-left-color: var(--color-five);
+}
+
 .calendar-input .days .date input:not(:disabled):checked.selected.withDate + .date-btn {
     --calendar-selected-date-border-inset-color: var(--color-five);
 }

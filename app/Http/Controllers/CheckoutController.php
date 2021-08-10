@@ -16,45 +16,6 @@
 
     class CheckoutController extends Controller {
         /**
-         * * Check the Notification
-         * @param Request $request
-         * @param int $id_lesson
-         * @param string $type Notification type.
-         * @return [type]
-         */
-        public function notification (Request $request, int $id_lesson, string $type) {
-            // * Check the Notification type
-            switch ($type) {
-                case "mercadopago":
-                    // * Creates the MercadoPago
-                    // TODO: Get access_token
-                    $MP = new MercadoPago(/* ACCESS_TOKEN*/ );
-        
-                    // * Check the request topic
-                    switch ($request->route("topic")) {
-                        case "payment":
-                            // * Set the MercadoPago Payment
-                            $MP->payment($request->route("id"));
-                            
-                            // * Check the Payment status
-                            if ($MP->payment->status === "approved") {
-                                // * Get the external Preference & updates
-                                $lesson = Lesson::find($MP->payment->external_preference);
-
-                                $lesson->update([
-                                    "id_status" => 3,
-                                ]);
-                            }
-                            break;
-                    }
-                    break;
-                case "paypal":
-                    // TODO: PayPal Notification
-                    break;
-            }
-        }
-
-        /**
          * * Update a Lesson & redirects to MercadoPago.
          * @param Request $request
          * @param string $id_lesson
@@ -123,6 +84,117 @@
             }
 
             return redirect($url);
+        }
+
+        /**
+         * * Check the Notification
+         * @param Request $request
+         * @param int $id_lesson
+         * @param string $type Notification type.
+         * @return [type]
+         */
+        public function notification (Request $request, int $id_lesson, string $type) {
+            // * Check the Notification type
+            switch ($type) {
+                case "mercadopago":
+                    // * Creates the MercadoPago
+                    // TODO: Get access_token
+                    $MP = new MercadoPago(/* ACCESS_TOKEN*/ );
+        
+                    // * Check the request topic
+                    switch ($request->route("topic")) {
+                        case "payment":
+                            // * Set the MercadoPago Payment
+                            $MP->payment($request->route("id"));
+                            
+                            // * Check the Payment status
+                            if ($MP->payment->status === "approved") {
+                                // * Get the external Preference & updates
+                                $lesson = Lesson::find($MP->payment->external_preference);
+
+                                $lesson->update([
+                                    "id_status" => 3,
+                                ]);
+                            }
+                            break;
+                    }
+                    break;
+                case "paypal":
+                    // TODO: PayPal Notification
+                    break;
+            }
+        }
+
+        /**
+         * * Show the checkout page.
+         * @param string $slug User slug.
+         * @param string $type User type of Lesson.
+         * @return [type]
+         */
+        public function show (Request $request, string $slug, string $typeSearched) {
+            $error = null;
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
+            }
+            
+            $user = User::findBySlug($slug);
+            $user->and(["prices", "days", "lessons"]);
+            foreach ($user->prices as $price) {
+                if ($price->slug === $typeSearched) {
+                    $type = $price;
+                }
+            }
+
+            $found = false;
+            foreach (Lesson::allCreated() as $lesson) {
+                if ($lesson->id_user_to === Auth::user()->id_user && $lesson->id_user_from === $user->id_user) {
+                    $found = true;
+                    $lesson->update([
+                        "days" => "[]",
+                    ]);
+                    break;
+                } else if (Carbon::parse($lesson->updated_at)->diffInMinutes(Carbon::now()) === 5) {
+                    $lesson->delete();
+                }
+            }
+
+            // TODO: Remove id_method
+            if (!$found) {
+                $lesson = Lesson::create([
+                    "id_user_from" => $user->id_user,
+                    "id_user_to" => Auth::user()->id_user,
+                    "id_type" => $type->id_type,
+                    "id_method" => 1,
+                    "id_status" => 1,
+                ]);
+            }
+
+            return view("user.checkout", [
+                "lesson" => $lesson,
+                "user" => $user,
+                "type" => $type,
+                "error" => $error,
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "assigment" => (object)[
+                        "rules" => Assigment::$validation["make"]["rules"],
+                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
+                ], "checkout" => (object)[
+                        "rules" => Lesson::$validation["checkout"][$type->slug]["rules"],
+                        "messages" => Lesson::$validation["checkout"][$type->slug]["messages"]["es"],
+                ]],
+            ]);
         }
 
 

@@ -115,7 +115,12 @@
         </section>
         <div class="cho-container flex justify-center md:justify-end lg:justify-center lg:col-start-2 lg:col-span-8">
             <button class="btn btn-one btn-outline" type="submit">
-                <span class="russo py-2 px-4">Comenzar entrenamiento</span>
+                <span class="russo py-2 px-4">
+                    <div class="loading hidden">
+                        <i class="spinner-icon"></i>
+                    </div>
+                    <span>Comenzar entrenamiento</span>
+                </span>
             </button>
         </div>
     </form>
@@ -130,8 +135,9 @@
     <script>
         const days = @json($user->days);
         const lesson = @json($lesson);
+        var lessons = @json($user->lessons);
         const type = @json($type);
         const slug = "{{ $user->slug }}";
     </script>
-    <script type="module" src={{ asset('js/user/checkout.js?v=0.0.1') }}></script>
+    <script type="module" src={{ asset('js/user/checkout.js?v=0.0.2') }}></script>
 @endsection
