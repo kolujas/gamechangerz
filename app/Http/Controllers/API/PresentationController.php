@@ -15,35 +15,35 @@
         public function make (Request $request, int $id_chat, int $id_assigment) {
             if (!$request->user()) {
                 return response()->json([
-                    'code' => 403,
-                    'message' => 'Unauthenticated',
+                    "code" => 403,
+                    "message" => "Unauthenticated",
                 ]);
             }
 
             $chat = Chat::find($id_chat);
             if (!$chat) {
                 return response()->json([
-                    'code' => 404,
-                    'message' => 'Chat does not exist',
+                    "code" => 404,
+                    "message" => "Chat does not exist",
                 ]);
             }
 
             $assigment = Assigment::find($id_assigment);
             if (!$assigment) {
                 return response()->json([
-                    'code' => 404,
-                    'message' => 'Assigment does not exist',
+                    "code" => 404,
+                    "message" => "Assigment does not exist",
                 ]);
             }
 
             $input = (object) $request->all();
 
-            $validator = Validator::make((array) $input, Presentation::$validation['make']['rules'], Presentation::$validation['make']['messages']['es']);
+            $validator = Validator::make((array) $input, Presentation::$validation["make"]["rules"], Presentation::$validation["make"]["messages"]["es"]);
             if ($validator->fails()) {
                 return response()->json([
-                    'code' => 401,
-                    'message' => 'Validation error',
-                    'data' => $validator->errors()->messages(),
+                    "code" => 401,
+                    "message" => "Validation error",
+                    "data" => $validator->errors()->messages(),
                 ]);
             }
 
@@ -52,7 +52,7 @@
             $presentation = Presentation::create((array) $input);
 
             $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(['users', 'available', 'messages']);
+            $chat->and(["users", "available", "messages"]);
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
@@ -68,15 +68,15 @@
             }
 
             new Mail([ "id_mail" => 4, ], [
-                'email_to' => $to->email,
-                'slug' => $from->slug,
+                "email_to" => $to->email,
+                "slug" => $from->slug,
             ]);
 
             return response()->json([
-                'code' => 200,
-                'message' => 'Success',
-                'data' => [
-                    'chat' => $chat,
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "chat" => $chat,
                 ],
             ]);
         }
