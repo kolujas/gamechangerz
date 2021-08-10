@@ -13,7 +13,7 @@
 @endsection
 
 @section('main')
-    <form id="checkout" action="/lessons/{{ $lesson->id_lesson  }}/checkout" class="grid gap-20 md:grid-cols-3 lg:grid-cols-10 items-center md:items-start py-32 px-8 lg:px-0" method="post">
+    <form id="checkout" action="/lessons/{{ $lesson->id_lesson  }}/checkout/{{ $type->slug }}" class="grid gap-20 md:grid-cols-3 lg:grid-cols-10 items-center md:items-start py-32 px-8 lg:px-0" method="post">
         @csrf
         @method('POST')
         <section class="cart md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-8">
@@ -71,7 +71,7 @@
                 <ul class="tabs tab-menu-list cards grid grid-cols-1 gap-8 md:grid-cols-2">
                     <li id="tab-mercadopago" class="tab card">
                         <a href="#mercadopago" class="tab-button color-white">
-                            <input type="radio" name="id_method" id="input-mercadopago" value="mercadopago" checked />
+                            <input type="radio" name="id_method" id="input-mercadopago" value="1" checked />
                             <label for="input-mercadopago" class="p-8">
                                 @component('components.svg.MercadoPagoSVG')@endcomponent
                                 <h4 class="pl-4 overpass">Mercado pago</h4>
@@ -80,7 +80,7 @@
                     </li>
                     <li id="tab-paypal" class="tab card">
                         <a href="#paypal" class="tab-button color-white">
-                            <input type="radio" name="id_method" id="input-paypal" value="paypal" />
+                            <input type="radio" name="id_method" id="input-paypal" value="2" />
                             <label for="input-paypal" class="p-8">
                                 @component('components.svg.PayPalSVG')@endcomponent
                                 <h4 class="pl-4 overpass">Paypal</h4>

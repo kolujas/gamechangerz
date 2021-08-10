@@ -9,7 +9,8 @@ import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Token from "../components/Token.js";
 
-let test = true;
+let test = false;
+
 let calendar;
 let current = {};
 let hours = [];
@@ -267,7 +268,7 @@ function checkData (hour = false) {
                     }
 
                     // ? If the element has an Hour
-                    if (element.hour !== null) {
+                    if (element.hour !== null && ((!hour && calendar.props.quantity === 1) || calendar.props.quantity > 1)) {
                         element.hour.input.value = null;
                         element.hour.input.checked = false;
                     }

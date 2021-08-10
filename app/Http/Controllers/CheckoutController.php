@@ -18,22 +18,64 @@
         /**
          * * Update a Lesson & redirects to MercadoPago.
          * @param Request $request
-         * @param string $id_lesson
+         * @param int $id_lesson
+         * @param string $type
          * @return [type]
          */
-        public function complete (Request $request, string $id_lesson) {
+        public function complete (Request $request, int $id_lesson, string $type) {
             $input = (object) $request->all();
 
-            $validator = Validator::make($request->all(), Lesson::$validation["checkout"]["online"]["rules"], Lesson::$validation["checkout"]["online"]["messages"]["es"]);
+            $validator = Validator::make($request->all(), Lesson::$validation["checkout"][$type]["rules"], Lesson::$validation["checkout"][$type]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
             $lesson = Lesson::find($id_lesson);
-            $lesson->update((array) $input);
-            $lesson->and(["type", "users"]);
+            
+            $days = collect();
+            for ($i=0; $i < count($input->dates); $i++) {
+                foreach (Lesson::allFromTeacher($lesson->id_user_from) as $previousLesson) {
+                    $previousLesson->and(["days"]);
+                    if ($previousLesson->id_lesson !== intval($id_lesson)) {
+                        foreach ($previousLesson->days as $day) {
+                            $day = (object) $day;
+                            if ($day->date === $input->dates[$i]) {
+                                foreach ($day->hours as $hour) {
+                                    if ($hour->id_hour === intval($input->hours[$i])) {
+                                        $date = $input->dates[$i];
+                                        return redirect()->back()->with("status", [
+                                            "code" => 500,
+                                            "message" => "La fecha $date entre las $hour->from - $hour->to ya fue tomada.",
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if ($input->hours[$i]) {
+                    $days->push([
+                        "date" => $input->dates[$i],
+                        "hour" => collect([
+                            "id_hour" => intval($input->hours[$i]),
+                        ]),
+                    ]);
+                }
+                if (!$input->hours[$i]) {
+                    $days->push([
+                        "date" => $input->dates[$i],
+                    ]);
+                }
+            }
 
-            dd($input);
+            $input->days = $days->toJson();
+
+            $input->id_status = 2;
+            // if (config("app.env") !== "production") {
+            //     $input->id_status = 3;
+            // }
+
+            $lesson->and(["type", "users"]);
 
             if (config("app.env") === "production") {
                 // * Create the GoogleCalendar event.
@@ -61,27 +103,25 @@
 
                     $user = $lesson->users->from;
                     $user->and(["credentials"]);
-
-                    $MP = new MercadoPago($user->credentials->mercadopago->access_token);
+                    
+                    $MP = new MercadoPago([
+                        "access_token" => $user->credentials->mercadopago->access_token,
+                    ]);
                     $MP->items([$data]);
                     $MP->preference($data);
                     $url = $MP->preference->init_point;
-                    if (config("app.env") !== "production") {
-                        $lesson->update([
-                            "id_status" => 3,
-                        ]);
-                    }
                     break;
                 case 2:
-                    $lesson->update([
-                        "id_status" => 3,
-                    ]);
                     $url = route("checkout.status", [
                         "id_lesson" => $lesson->id_lesson,
-                        "id_status" => 2,
+                        "id_status" => 3,
                     ]);
                     break;
             }
+
+            unset($lesson->type);
+            unset($lesson->users);
+            $lesson->update((array) $input);
 
             return redirect($url);
         }
@@ -94,31 +134,51 @@
          * @return [type]
          */
         public function notification (Request $request, int $id_lesson, string $type) {
+            // * Get the Lesson
+            $lesson = Lesson::find($id_lesson);
+
+            // * Get the User credentials
+            $lesson->and(["users"]);
+            $lesson->users->from->and(["credentials"]);
+
             // * Check the Notification type
             switch ($type) {
                 case "mercadopago":
-                    // * Creates the MercadoPago
-                    // TODO: Get access_token
-                    $MP = new MercadoPago(/* ACCESS_TOKEN*/ );
+                    // * Create the MercadoPago
+                    $MP = new MercadoPago($lesson->users->from->credentials->mercadopago->access_token);
         
                     // * Check the request topic
                     switch ($request->route("topic")) {
                         case "payment":
-                            // * Set the MercadoPago Payment
+                            // * Set the MercadoPago Payment & Merchant order
                             $MP->payment($request->route("id"));
-                            
-                            // * Check the Payment status
-                            if ($MP->payment->status === "approved") {
-                                // * Get the external Preference & updates
-                                $lesson = Lesson::find($MP->payment->external_preference);
-
-                                $lesson->update([
-                                    "id_status" => 3,
-                                ]);
-                            }
+                            break;
+                        case "merchant_order":
+                            // * Set the MercadoPago Merchant order
+                            $MP->merchant_order($request->route("id"));
                             break;
                     }
                     break;
+
+                    // * Get the amount paid
+                    $paid_amount = 0;
+                    foreach ($MP->merchant_order->payments as $payment) {
+                        if ($payment["status"] == "approved") {
+                            $paid_amount += $payment["transaction_amount"];
+                        }
+                    }
+                    
+                    // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
+                    if ($paid_amount >= $MP->merchant_order->total_amount) {
+                        unset($lesson->users);
+
+                        // * Totally paid. Release your item
+                        $lesson->update([
+                            "id_status" => 3,
+                        ]);
+                    } else {
+                        // * Not paid yet. Do not release your item
+                    }
                 case "paypal":
                     // TODO: PayPal Notification
                     break;

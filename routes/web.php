@@ -62,7 +62,7 @@
 // ! CheckoutController - Controls the Checkout pages.
         Route::middleware("auth.not.user")->group(function () {
             Route::middleware("lesson.exist")->group(function () {
-                Route::post("/lessons/{id_lesson}/checkout", [CheckoutController::class, "complete"])->name("checkout.complete");
+                Route::post("/lessons/{id_lesson}/checkout/{type}", [CheckoutController::class, "complete"])->name("checkout.complete");
             });
 
             Route::middleware(["user.exist", "user.status", "auth.role.is.user", "user.is.teacher", "lesson.type.exist"])->group(function () {
