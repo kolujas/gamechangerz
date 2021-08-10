@@ -71,9 +71,9 @@
             $input->days = $days->toJson();
 
             $input->id_status = 2;
-            if (config("app.env") !== "production") {
-                $input->id_status = 3;
-            }
+            // if (config("app.env") !== "production") {
+            //     $input->id_status = 3;
+            // }
 
             $lesson->and(["type", "users"]);
 
