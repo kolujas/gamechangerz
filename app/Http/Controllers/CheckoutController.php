@@ -198,7 +198,7 @@
             }
             
             $user = User::findBySlug($slug);
-            $user->and(["prices", "days", "lessons"]);
+            $user->and(["prices", "days", "lessons", "credentials"]);
             foreach ($user->prices as $price) {
                 if ($price->slug === $typeSearched) {
                     $type = $price;
@@ -229,7 +229,15 @@
                 ]);
             }
 
+            if (isset($user->credentials->paypal)) {
+                $client_id = $user->credentials->paypal->access_token;
+            }
+            if (!isset($user->credentials->paypal)) {
+                $client_id = config("services.paypal.client_id");
+            }
+
             return view("user.checkout", [
+                "client_id" => $client_id,
                 "lesson" => $lesson,
                 "user" => $user,
                 "type" => $type,

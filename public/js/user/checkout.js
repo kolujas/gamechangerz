@@ -20,33 +20,40 @@ let dates = [];
 let paypalActions = false;
 const token = Token.get();
 
-paypal_sdk.Buttons({
-    onInit: function (data, actions) {
-        actions.disable();
-        paypalActions = actions;
-    }, style: {
-        layout: "horizontal",
-        tagline: false,
-        size: "responsive",
-    }, createOrder: function (data, actions) {
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: type.price,
-                }, custom_id: lesson.id_lesson,
-            }]
-        });
-    }, onApprove: function (data, actions) {
-        return actions.order.capture().then((details) => {
-            document.querySelector("form#checkout").submit();
-        });
-}}).render(".cho-container");
+if (typeof paypal_sdk !== "undefined") {
+    paypal_sdk.Buttons({
+        onInit: function (data, actions) {
+            actions.disable();
+            paypalActions = actions;
+        }, style: {
+            layout: "horizontal",
+            tagline: false,
+            size: "responsive",
+        }, createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: type.price,
+                    }, custom_id: lesson.id_lesson,
+                }]
+            });
+        }, onApprove: function (data, actions) {
+            return actions.order.capture().then((details) => {
+                document.querySelector("form#checkout").submit();
+            });
+    }}).render(".cho-container");
+}
 
 function changeButton (params) {
     switch (params.opened) {
         case "mercadopago":
             document.querySelector(".cho-container .btn").style.display = "flex";
-            document.querySelector(".cho-container .paypal-buttons").style.display = "none";
+            if (document.querySelector(".cho-container .paypal-buttons")) {
+                document.querySelector(".cho-container .paypal-buttons").style.display = "none";
+            }
+            if (!document.querySelector(".cho-container .paypal-buttons")) {
+                document.querySelector("#tab-paypal").parentNode.removeChild(document.querySelector("#tab-paypal"));
+            }
             break;
         case "paypal":
             document.querySelector(".cho-container .btn").style.display = "none";

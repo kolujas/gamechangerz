@@ -2,7 +2,7 @@
     padding-left: 0;
 }
 
-#lesson input[type=text], #lesson input[type=date], #lesson select{
+#lesson input[type=text], #lesson input[type=number], #lesson input[type=date], #lesson select{
     background: var(--color-black);
     color: var(--color-white);
 }

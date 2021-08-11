@@ -131,7 +131,7 @@
 @endsection
 
 @section('js')
-    <script src="https://www.paypal.com/sdk/js?client-id=AY9RENrD9cYtrxpDlu0jHtotUudn2ugvA3tHzvz07k61XtznIu9KILPz-k05P1ecoMVMUCWj9PaBaOnz&disable-funding=credit,card" data-namespace="paypal_sdk"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ $client_id }}&disable-funding=credit,card" data-namespace="paypal_sdk"></script>
     <script>
         const days = @json($user->days);
         const lesson = @json($lesson);

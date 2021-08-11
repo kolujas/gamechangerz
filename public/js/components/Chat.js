@@ -339,19 +339,19 @@ export class Chat extends Class {
             if (chat.users.from.id_role === 1) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
-                paragraph.innerHTML = `${ 4 - chat.lesson.assigments.length } tareas pendientes`;
+                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
                 if (chat.users.from.id_user === chat.id_user_logged) {
                     let link = document.createElement("a");
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (chat.lesson.assigments.length === 4) {
+                    if (parseInt(chat.lesson.assigments.length) === chat.lesson["quantity-of-assigments"]) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", function (e) {
-                        if (chat.lesson.assigments.length < 4) {
+                        if (chat.lesson.assigments.length < parseInt(chat.lesson.assigments.length)) {
                             instance.addAssigment();
                         }
                     });

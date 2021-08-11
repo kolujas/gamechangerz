@@ -65,7 +65,7 @@
                 Route::post("/lessons/{id_lesson}/checkout/{type}", [CheckoutController::class, "complete"])->name("checkout.complete");
             });
 
-            Route::middleware(["user.exist", "user.status", "auth.role.is.user", "user.is.teacher", "lesson.type.exist"])->group(function () {
+            Route::middleware(["user.exist", "user.status", "auth.role.is.user", "user.is.teacher", "lesson.type.exist", "auth.lesson.current.not.exist"])->group(function () {
                 Route::get("/users/{slug}/checkout/{type}", [CheckoutController::class, "show"])->name("checkout.show");
             });
         });
