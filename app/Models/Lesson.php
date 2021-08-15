@@ -141,7 +141,9 @@
          * * Set the Lesson ended_at.
          */
         public function ended_at () {
-            $this->days();
+            if (gettype($this->days) === "string") {
+                $this->days();
+            }
 
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
@@ -183,7 +185,9 @@
          * * Set the Lesson started_at.
          */
         public function started_at () {
-            $this->days();
+            if (gettype($this->days) === "string") {
+                $this->days();
+            }
 
             foreach ($this->days as $date) {
                 if (count($date->hours)) {

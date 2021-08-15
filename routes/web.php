@@ -118,7 +118,7 @@
         Route::get("/panel/blog", [PanelController::class, "blog"])->name("panel.blog");
         Route::get("/panel/platform", [PanelController::class, "banner"])->name("panel.platform");
         Route::get("/panel/platform/banner", [PanelController::class, "banner"])->name("panel.banner");
-        Route::get("/panel/platform/dolar", [PanelController::class, "dolar"])->name("panel.dolar");
+        Route::get("/panel/platform/info", [PanelController::class, "info"])->name("panel.info");
         Route::get("/panel/teachers", [PanelController::class, "teachers"])->name("panel.teachers");
         Route::get("/panel/teachers/create", [PanelController::class, "teacher"])->name("panel.showCreateTeacher");
         Route::middleware("user.exist")->group(function () {

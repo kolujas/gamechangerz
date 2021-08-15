@@ -75,7 +75,11 @@
 
                 <div class="pt-0 col-span-2">
                     <input type="text" tabindex="2" name="email" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input user-form editable" @if($user) disabled @endif/>
-                    <span class="block color-white error support user-form support-box hidden support-email mt-2 overpass"></span>
+                    @if ($errors->has("email"))
+                        <span class="block color-white error support user-form support-box support-email mt-2 overpass">{{ $errors->first("email") }}</span>
+                    @else
+                        <span class="block color-white error support user-form support-box hidden support-email mt-2 overpass"></span>
+                    @endif
                 </div>
 
                 <div class="pt-0 col-span-2">
@@ -85,12 +89,20 @@
 
                 <div class="pt-0 col-span-2 col-start-1">
                     <input type="text" tabindex="4" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input user-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support user-form support-box hidden support-username mt-2 overpass"></span>
+                    @if ($errors->has("username"))
+                        <span class="block color-white error support user-form support-box support-username mt-2 overpass">{{ $errors->first("username") }}</span>
+                    @else
+                        <span class="block color-white error support user-form support-box hidden support-username mt-2 overpass"></span>
+                    @endif
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <input type="text" tabindex="5" name="discord_username" placeholder="Username#0000" value="{{ old("discord_username", $discord->username) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-user form-input user-form editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support user-form support-box hidden support-discord_username mt-2 overpass"></span>
+                    <input type="text" tabindex="5" name="discord" placeholder="Username#0000" value="{{ old("discord", $user->discord) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-user form-input user-form editable" @if(isset($user->id_user)) disabled @endif/>
+                    @if ($errors->has("discord"))
+                        <span class="block color-white error support user-form support-box support-discord mt-2 overpass">{{ $errors->first("discord") }}</span>
+                    @else
+                        <span class="block color-white error support user-form support-box hidden support-discord mt-2 overpass"></span>
+                    @endif
                 </div>
 
                 <div class="pt-0 col-span-8">

@@ -25,8 +25,8 @@
                 <a class="btn btn-one btn-outline overpass mr-4" href="/panel/platform/banner">
                     <span class="py-2 px-4">Banner</span>
                 </a>
-                <a class="btn btn-one btn-outline overpass mr-4" href="/panel/platform/dolar">
-                    <span class="py-2 px-4">Dolar</span>
+                <a class="btn btn-one btn-outline overpass mr-4" href="/panel/platform/info">
+                    <span class="py-2 px-4">Información</span>
                 </a>
                 <button type="submit" class="btn btn-white btn-icon submitBtn">
                     <i class="fas fa-check"></i>

@@ -6,7 +6,9 @@
     use App\Models\Event;
     use App\Models\Hour;
     use App\Models\Lesson;
+    use App\Models\Mail;
     use App\Models\MercadoPago;
+    use App\Models\Platform;
     use App\Models\Presentation;
     use App\Models\User;
     use Auth;
@@ -33,65 +35,69 @@
             $lesson = Lesson::find($id_lesson);
             
             $days = collect();
-            for ($i=0; $i < count($input->dates); $i++) {
-                foreach (Lesson::allFromTeacher($lesson->id_user_from) as $previousLesson) {
-                    $previousLesson->and(["days"]);
-                    if ($previousLesson->id_lesson !== intval($id_lesson)) {
-                        foreach ($previousLesson->days as $day) {
-                            $day = (object) $day;
-                            if ($day->date === $input->dates[$i]) {
-                                foreach ($day->hours as $hour) {
-                                    if ($hour->id_hour === intval($input->hours[$i])) {
-                                        $date = $input->dates[$i];
-                                        return redirect()->back()->with("status", [
-                                            "code" => 500,
-                                            "message" => "La fecha $date entre las $hour->from - $hour->to ya fue tomada.",
-                                        ]);
+            if (isset($input->dates)) {
+                for ($i=0; $i < count($input->dates); $i++) {
+                    foreach (Lesson::allFromTeacher($lesson->id_user_from) as $previousLesson) {
+                        $previousLesson->and(["days"]);
+                        if ($previousLesson->id_lesson !== intval($id_lesson)) {
+                            foreach ($previousLesson->days as $day) {
+                                $day = (object) $day;
+                                if ($day->date === $input->dates[$i]) {
+                                    foreach ($day->hours as $hour) {
+                                        if ($hour->id_hour === intval($input->hours[$i])) {
+                                            $date = $input->dates[$i];
+                                            return redirect()->back()->with("status", [
+                                                "code" => 500,
+                                                "message" => "La fecha $date entre las $hour->from - $hour->to ya fue tomada.",
+                                            ]);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                    if ($input->hours[$i]) {
+                        $days->push([
+                            "date" => $input->dates[$i],
+                            "hour" => collect([
+                                "id_hour" => intval($input->hours[$i]),
+                            ]),
+                        ]);
+                    }
+                    if (!$input->hours[$i]) {
+                        $days->push([
+                            "date" => $input->dates[$i],
+                        ]);
+                    }
                 }
-                if ($input->hours[$i]) {
-                    $days->push([
-                        "date" => $input->dates[$i],
-                        "hour" => collect([
-                            "id_hour" => intval($input->hours[$i]),
-                        ]),
-                    ]);
-                }
-                if (!$input->hours[$i]) {
-                    $days->push([
-                        "date" => $input->dates[$i],
-                    ]);
-                }
+            }
+            if (!isset($input->dates)) {
+                $days->push([
+                    "date" => Carbon::now()->format("Y-m-d"),
+                ]);
             }
 
             $input->days = $days->toJson();
 
             $input->id_status = 2;
-            // if (config("app.env") !== "production") {
-            //     $input->id_status = 3;
-            // }
 
             $lesson->and(["type", "users"]);
-
-            if (config("app.env") === "production") {
-                // * Create the GoogleCalendar event.
-                // if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
-                //     foreach ($input->dates as $key => $date) {
-                //         $data = (object) [];
-                //         $data->users = $lesson->users;
-                //         $data->name = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users->from->username;
-                //         $data->description = "Clase reservada desde el sitio web GameChangerZ";
-                //         $data->startDateTime = new Carbon($date."T".Hour::option($input->hours[$key])->from);
-                //         $data->endDateTime = new Carbon($date."T".Hour::option($input->hours[$key])->to);
-        
-                //         Event::Create($data);
-                //     }
-                // }
+            
+            // * Create the GoogleCalendar event.
+            if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
+                foreach ($days as $day) {
+                    $data = (object) [];
+                    $data->users = $lesson->users;
+                    $data->name = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $data->users->from->username;
+                    $data->description = "Clase reservada desde el sitio web GameChangerZ";
+                    $data->started_at = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from);
+                    $data->ended_at = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to);
+    
+                    new Event($data);
+                }
             }
+
+            $user = $lesson->users->from;
 
             switch ($input->id_method) {
                 case 1:
@@ -101,7 +107,6 @@
                         "price" => $lesson->users->from->prices[$lesson->type->id_type - 1]->price,
                     ];
 
-                    $user = $lesson->users->from;
                     $user->and(["credentials"]);
                     
                     $MP = new MercadoPago([
@@ -122,6 +127,19 @@
             unset($lesson->type);
             unset($lesson->users);
             $lesson->update((array) $input);
+
+            $lesson->and(["type", "users", "started_at", "ended_at"]);
+
+            new Mail([ "id_mail" => 5, ], [
+                "email_to" => $lesson->users->from->email,
+                "lesson" => $lesson,
+                "link" => Platform::link(),
+            ]);
+            new Mail([ "id_mail" => 8, ], [
+                "email_to" => $lesson->users->to->email,
+                "lesson" => $lesson,
+                "link" => Platform::link(),
+            ]);
 
             return redirect($url);
         }
@@ -211,6 +229,7 @@
                     $found = true;
                     $lesson->update([
                         "days" => "[]",
+                        "id_type" => $type->id_type,
                     ]);
                     break;
                 } else if (Carbon::parse($lesson->updated_at)->diffInMinutes(Carbon::now()) === 5) {

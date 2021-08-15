@@ -33,14 +33,11 @@
                 
                 <label class="input-group grid mb-6">
                     <span class="color-white russo mb-4">Discord</span>
-                    @php 
-                        $discord = json_decode(Auth::user()->discord);
-                    @endphp
-                    <input class="rounded advanced-form form-input px-5 py-4 overpass color-white text-sm bg-solid-black" type="text" tabindex="1" name="discord_username" placeholder="Username#0000" value={{ old("discord_username", (isset($discord->username) ? $discord->username : "")) }}>
-                    @if ($errors->has("discord_username"))
-                        <span class="color-white error support advanced-form support-box support-discord_username overpass mt-2">{{ $errors->first("discord_username") }}</span>
+                    <input class="rounded advanced-form form-input px-5 py-4 overpass color-white text-sm bg-solid-black" type="text" tabindex="1" name="discord" placeholder="Username#0000" value={{ old("discord", Auth::user()->discord) }}>
+                    @if ($errors->has("discord"))
+                        <span class="color-white error support advanced-form support-box support-discord overpass mt-2">{{ $errors->first("discord") }}</span>
                     @else
-                        <span class="color-white error support advanced-form support-box hidden support-discord_username overpass mt-2"></span>
+                        <span class="color-white error support advanced-form support-box hidden support-discord overpass mt-2"></span>
                     @endif
                 </label>
 

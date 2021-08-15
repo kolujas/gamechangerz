@@ -6,7 +6,7 @@
     use Illuminate\Mail\Mailable;
     use Illuminate\Queue\SerializesModels;
 
-    class NewLessonMail extends Mailable {
+    class NewLessonTeacherMail extends Mailable {
         use Queueable, SerializesModels;
 
         /** @var array Mail data. */
@@ -25,8 +25,8 @@
          * @return $this
          */
         public function build () {
-            return $this->view('mail.new-lesson')
+            return $this->view('mail.new-lesson-from')
                 ->from(config("mail.from.address"), config("mail.from.name"))
-                ->subject("¡Te registraste en GameChangerZ! Por favor confirme su correo electrónico");
+                ->subject("Se reservó una nueva clase");
         }
     }

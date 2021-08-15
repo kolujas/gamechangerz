@@ -116,7 +116,7 @@
 
             return view("user.profile", [
                 "days" => $days,
-                "dolar" => Platform::find(1)->dolar,
+                "dolar" => Platform::dolar(),
                 "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
@@ -323,7 +323,7 @@
             $input = (object) $request->all();
 
             $user = Auth::user();
-            $user->and(["credentials", "discord"]);
+            $user->and(["credentials"]);
 
             $methods = collect();
 
@@ -341,15 +341,7 @@
 
             $input->credentials = Method::stringify($methods->toArray());
 
-            if (isset($input->discord_username)) {
-                $input->discord = Discord::stringify([
-                    "username" => $input->discord_username,
-                    "link" => $user->discord->link,
-                ]);
-            }
-
             unset($user->credentials);
-            unset($user->discord);
 
             $user->update((array) $input);
             

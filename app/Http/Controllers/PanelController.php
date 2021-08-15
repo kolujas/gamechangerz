@@ -76,7 +76,7 @@
                 case "coupons":
                     return CouponController::call($request, $section, $action);
                 case "banner":
-                case "dolar":
+                case "info":
                     return PlatformController::call($request, $section, $action);
                 case "teachers":
                 case "users":
@@ -147,18 +147,19 @@
         }
 
         /**
-         * * Control the platform custom dolar panel page.
+         * * Control the platform custom info panel page.
          * @return [type]
          */
-        public function dolar (Request $request) {
+        public function info (Request $request) {
             $error = null;
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
 
-            return view("panel.platform.dolar", [
+            return view("panel.platform.info", [
                 "error" => $error,
                 "dolar" => Platform::dolar(),
+                "link" => Platform::link(),
                 "validation" => []
             ]);
         }
@@ -269,12 +270,10 @@
 
             $user = new User();
             $teampro = new Teampro();
-            $discord = new Discord();
             if ($slug) {
                 $user = User::findBySlug($slug);
-                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials", "discord"]);
+                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials"]);
                 $teampro = $user->teampro;
-                $discord = $user->discord;
 
                 foreach ($user->posts as $post) {
                     $post->date = $this->dateToHuman($post->updated_at);
@@ -363,7 +362,6 @@
             return view("panel.teachers.details", [
                 "achievements" => $achievements,
                 "days" => $days,
-                "discord" => $discord,
                 "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
@@ -421,11 +419,9 @@
             }
 
             $user = new User();
-            $discord = new Discord();
             if ($slug) {
                 $user = User::findBySlug($slug);
-                $user->and(["games", "reviews", "achievements", "files", "languages", "discord"]);
-                $discord = $user->discord;
+                $user->and(["games", "reviews", "achievements", "files", "languages"]);
             }
 
             $games = Game::all();
@@ -488,7 +484,6 @@
 
             return view("panel.users.details", [
                 "achievements" => $achievements,
-                "discord" => $discord,
                 "error" => $error,
                 "games" => $games,
                 "languages" => $languages,

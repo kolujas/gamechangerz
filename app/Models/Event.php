@@ -2,24 +2,51 @@
     namespace App\Models;
 
     use Carbon\Carbon;
-    use Spatie\GoogleCalendar\Event as Model;
+    use Illuminate\Database\Eloquent\Model;
+    use Spatie\GoogleCalendar\Event as GoogleEvent;
 
-    class Event {
-        static public function create (object $attributes) {
-            $event = new Model;
-            $event->name = $attributes->name;
-            $event->description = $attributes->description;
-            $event->startDateTime = $attributes->startDateTime;
-            $event->endDateTime = $attributes->endDateTime;
+    class Event extends Model {
+        /**
+         * * Creates an instance of MercadoPago.
+         * @param array $attributes
+         */
+        public function __construct (array $attributes = []) {
+            parent::__construct($attributes);
+
+            // * Create the GoogleEvent
+            $this->create();
+        }
+
+        /**
+         * * Creates the Google Event.
+         * @return [type]
+         */
+        public function create () {
+            // * Create the Google Event
+            $this->event = new GoogleEvent;
+
+            // * Set the attributes
+            $this->event->name = $this->name;
+            $this->event->description = $this->description;
+            $this->event->startDateTime = $this->started_at;
+            $this->event->endDateTime = $this->ended_at;
+
+            // ? If the enviroment is production
             if (config('app.env') === 'production') {
-                foreach ($attributes->users as $user) {
-                    $event->addAttendee([ 'email' => $user->email ]);
+                // * Loop the Users
+                foreach ($this->users as $user) {
+                    // * Set an Attendee
+                    $this->event->addAttendee([ 'email' => $user->email ]);
                 }
             }
+            // ? If the enviroment is not production
             if (config('app.env') !== 'production') {
-                $event->addAttendee([ 'email' => "champarmentia@gmail.com" ]);
-                $event->addAttendee([ 'email' => "juan.cruz.armentia@gmail.com" ]);
+                // * Set the testing Attendees
+                $this->event->addAttendee([ 'email' => "juancarmentia@gmail.com" ]);
+                $this->event->addAttendee([ 'email' => "juan.cruz.armentia@gmail.com" ]);
             }
-            $event->save();
+
+            // * Save it
+            $this->event->save();
         }
     }
