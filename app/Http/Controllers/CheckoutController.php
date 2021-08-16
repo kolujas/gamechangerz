@@ -299,7 +299,7 @@
             }
 
             $lesson = Lesson::find($id_lesson);
-            $lesson->and(["days"]);
+            $lesson->and(["started_at", "ended_at"]);
 
             return view("lesson.status", [
                 "error" => $error,
