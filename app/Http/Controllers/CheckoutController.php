@@ -91,7 +91,7 @@
                         "started_at" => new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from),
                         "ended_at" => new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to),
                     ]);
-                    
+
                     $data = [];
                     $data["users"] = $lesson->users;
                     $data["name"] = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username;
@@ -234,8 +234,6 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
-
-            dd(Platform::link());
             
             $user = User::findBySlug($slug);
             $user->and(["prices", "days", "lessons", "credentials"]);

@@ -26,7 +26,7 @@
                                     @endforeach
                                 </ul>
                                 <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="{{ $link }}">Discord</a>
+                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="{{ $data->link }}">Discord</a>
                                 </div>
                                 @break
                             @case(2)
