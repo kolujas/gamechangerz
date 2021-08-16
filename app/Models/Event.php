@@ -7,6 +7,14 @@
 
     class Event extends Model {
         /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            "users", "name", "description", "started_at", "ended_at",
+        ];
+
+        /**
          * * Creates an instance of MercadoPago.
          * @param array $attributes
          */
