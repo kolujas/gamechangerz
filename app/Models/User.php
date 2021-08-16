@@ -432,10 +432,10 @@
          */
         static public function allTeachers ($paginate = false) {
             if (!$paginate) {
-                $users = User::where("id_role", "=", 1)->orderBy("updated_at")->get();
+                $users = User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->get();
             }
             if ($paginate) {
-                $users = User::where("id_role", "=", 1)->orderBy("updated_at")->paginate(5);
+                $users = User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->paginate(5);
             }
 
             return $users;
@@ -448,10 +448,10 @@
          */
         static public function allUsers ($paginate = false) {
             if (!$paginate) {
-                $users = User::where("id_role", "=", 0)->orderBy("updated_at")->get();
+                $users = User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->get();
             }
             if ($paginate) {
-                $users = User::where("id_role", "=", 0)->orderBy("updated_at")->paginate(5);
+                $users = User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->paginate(5);
             }
 
             return $users;

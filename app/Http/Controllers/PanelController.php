@@ -49,7 +49,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $posts = Post::all();
+            $posts = Post::orderBy("updated_at", "DESC")->get();
             foreach ($posts as $post) {
                 $post->and(["user"]);
             }
@@ -134,7 +134,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $coupons = Coupon::all();
+            $coupons = Coupon::orderBy("updated_at", "DESC")->get();
             foreach ($coupons as $coupon) {
                 $coupon->and(["used", "type"]);
             }
@@ -245,7 +245,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $lessons = Lesson::orderBy("updated_at")->get();
+            $lessons = Lesson::orderBy("updated_at", "DESC")->get();
             foreach ($lessons as $lesson) {
                 $lesson->and(["users", "type", "ended_at", "method"]);
             }
