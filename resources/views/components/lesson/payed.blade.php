@@ -10,6 +10,6 @@
         @endforeach
     @endif
     @if ($lesson->id_type === 2)
-        <p class="overpass color-white">Su clase fue reservada entre <b class="color-four">{{ $lesson->started_at->formaat("Y-m-d") }}</b> y <b class="color-four">{{ $lesson->ended_at->formaat("Y-m-d") }}</b>.</p>
+        <p class="overpass color-white">Su clase fue reservada entre <b class="color-four">{{ $lesson->started_at->format("Y-m-d") }}</b> y <b class="color-four">{{ $lesson->ended_at->format("Y-m-d") }}</b>.</p>
     @endif
 </main>
