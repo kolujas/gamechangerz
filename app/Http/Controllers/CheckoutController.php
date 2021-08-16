@@ -86,6 +86,12 @@
             // * Create the GoogleCalendar event.
             if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
                 foreach ($days as $day) {
+
+                    dd([
+                        "started_at" => new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from),
+                        "ended_at" => new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to),
+                    ]);
+                    
                     $data = [];
                     $data["users"] = $lesson->users;
                     $data["name"] = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username;
@@ -141,19 +147,19 @@
                 "link" => Platform::link(),
             ]);
             
-            // // * Create the GoogleCalendar event.
-            // if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
-            //     foreach ($days as $day) {
-            //         $data = [];
-            //         $data["users"] = $lesson->users;
-            //         $data["name"] = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username;
-            //         $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
-            //         $data["started_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from);
-            //         $data["ended_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to);
+            // * Create the GoogleCalendar event.
+            if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
+                foreach ($days as $day) {
+                    $data = [];
+                    $data["users"] = $lesson->users;
+                    $data["name"] = ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username;
+                    $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
+                    $data["started_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from);
+                    $data["ended_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to);
     
-            //         new Event($data);
-            //     }
-            // }
+                    new Event($data);
+                }
+            }
 
             return redirect($url);
         }
@@ -228,6 +234,8 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+
+            dd(Platform::link());
             
             $user = User::findBySlug($slug);
             $user->and(["prices", "days", "lessons", "credentials"]);
