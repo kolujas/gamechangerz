@@ -14,7 +14,7 @@ function getClient()
     $client = new Google_Client();
     $client->setApplicationName('Google Calendar API PHP Quickstart');
     $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
-    $client->setAuthConfig('./storage/app/google-calendar/credentials.json');
+    $client->setAuthConfig('./storage/app/google-calendar/oauth-credentials.json');
     $client->setAccessType('offline');
     $client->setPrompt('select_account consent');
 
