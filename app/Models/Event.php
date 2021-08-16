@@ -22,6 +22,8 @@
          * @return [type]
          */
         public function create () {
+            dd($this->name);
+
             // * Create the Google Event
             $this->event = new GoogleEvent;
 
