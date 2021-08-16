@@ -39,6 +39,37 @@
             "key": 1629063330431,
             "children": [
               {
+                "key": 1629136994436,
+                "children": [
+                  {
+                    "key": 1629137031669,
+                    "children": [],
+                    "todo": {
+                      "content": "Deshabilitar mañana (no sé si es lo más optimo, pero como se puede reservar una clase para la hora 00 es un poco confuso)",
+                      "id": 1629137031669,
+                      "level": "default",
+                      "done": false
+                    }
+                  },
+                  {
+                    "key": 1629137039663,
+                    "children": [],
+                    "todo": {
+                      "content": "No dejar deschequear hora, sinó que la ponga en primara fila",
+                      "id": 1629137039663,
+                      "level": "default",
+                      "done": false
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "Checkout",
+                  "id": 1629136994436,
+                  "level": "default",
+                  "done": false
+                }
+              },
+              {
                 "key": 1629063169702,
                 "children": [],
                 "todo": {
@@ -77,6 +108,97 @@
                   "level": "secondary",
                   "done": false
                 }
+              },
+              {
+                "key": 1629136873489,
+                "children": [
+                  {
+                    "key": 1629136882708,
+                    "children": [],
+                    "todo": {
+                      "content": "Add Message",
+                      "id": 1629136882708,
+                      "level": "secondary",
+                      "done": false
+                    }
+                  },
+                  {
+                    "key": 1629136892243,
+                    "children": [],
+                    "todo": {
+                      "content": "Add Assigment",
+                      "id": 1629136892243,
+                      "level": "secondary",
+                      "done": false
+                    }
+                  },
+                  {
+                    "key": 1629136902660,
+                    "children": [],
+                    "todo": {
+                      "content": "Add Presentation",
+                      "id": 1629136902660,
+                      "level": "secondary",
+                      "done": false
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "Loaders",
+                  "id": 1629136873489,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629136932272,
+                "children": [],
+                "todo": {
+                  "content": "Traer Mensajes de a 20",
+                  "id": 1629136932272,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629136962895,
+                "children": [],
+                "todo": {
+                  "content": "Evitar pestañas duplicadas",
+                  "id": 1629136962895,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629137081065,
+                "children": [],
+                "todo": {
+                  "content": "Borrar la información que ya no tenga que existir",
+                  "id": 1629137081065,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629137127564,
+                "children": [],
+                "todo": {
+                  "content": "Test desactivar juego",
+                  "id": 1629137127564,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629137129895,
+                "children": [],
+                "todo": {
+                  "content": "Que funcione la encuesta",
+                  "id": 1629137129895,
+                  "level": "secondary",
+                  "done": false
+                }
               }
             ],
             "todo": {
@@ -88,7 +210,39 @@
           },
           {
             "key": 1629063363259,
-            "children": [],
+            "children": [
+              {
+                "key": 1629137195193,
+                "children": [
+                  {
+                    "key": 1629137201406,
+                    "children": [],
+                    "todo": {
+                      "content": "Nueva clase reservada (tanto para el usuario como el profesor)",
+                      "id": 1629137201406,
+                      "level": "secondary",
+                      "done": false
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "Mailings",
+                  "id": 1629137195193,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629137239054,
+                "children": [],
+                "todo": {
+                  "content": "Paginación de resultados en el panel",
+                  "id": 1629137239054,
+                  "level": "secondary",
+                  "done": false
+                }
+              }
+            ],
             "todo": {
               "content": "Kolo",
               "id": 1629063363259,
@@ -108,7 +262,9 @@
     "expandKeys": [
       1629063101193,
       1629063105538,
-      1629063330431
+      1629063330431,
+      1629063363259,
+      1629137195193
     ]
   }
 }
