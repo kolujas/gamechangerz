@@ -6,8 +6,10 @@
         <p class="overpass color-white">Su clase fue reservada para el día <b class="color-four">{{ $lesson->days[0]['carbon']->day }}</b> de <b class="color-four">{{ $lesson->days[0]['carbon']->month }}</b>, entre las <b class="color-four">{{ $lesson->days[0]['hours']['0']->from }}</b> y <b class="color-four">{{ $lesson->days[0]['hours']['0']->to }}</b>.</p>
     @endif
     @if ($lesson->id_type === 3)
-        @foreach ($day as $lesson->days)
-            <p class="overpass color-white">Su clase fue reservada para el día <b class="color-four">{{ $day['carbon']->day }}</b> de <b class="color-four">{{ $day['carbon']->month }}</b>, entre las <b class="color-four">{{ $day['hours']['0']->from }}</b> y <b class="color-four">{{ $day['hours']['0']->to }}</b>.</p>
+        @foreach ($lesson->days as $day)
+            @foreach ($day->hours as $hour)
+                <p class="overpass color-white">Su clase fue reservada para el día <b class="color-four">{{ $day['carbon']->day }}</b> de <b class="color-four">{{ $day['carbon']->month }}</b>, entre las <b class="color-four">{{ $hour->from }}</b> y <b class="color-four">{{ $hour->to }}</b>.</p>
+            @endforeach
         @endforeach
     @endif
 </main>
