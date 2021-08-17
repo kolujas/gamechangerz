@@ -257,14 +257,80 @@
           "level": "success",
           "done": false
         }
+      },
+      {
+        "key": 1629229361555,
+        "children": [
+          {
+            "key": 1629229607957,
+            "children": [],
+            "todo": {
+              "content": "Banner perfíl del Usuario $2000",
+              "id": 1629229607957,
+              "level": "default",
+              "done": false
+            }
+          },
+          {
+            "key": 1629229374392,
+            "children": [],
+            "todo": {
+              "content": "Sección \"Convertite en profesor\" $2000",
+              "id": 1629229374392,
+              "level": "default",
+              "done": false
+            }
+          },
+          {
+            "key": 1629230138128,
+            "children": [],
+            "todo": {
+              "content": "Cuponera $3000",
+              "id": 1629230138128,
+              "level": "default",
+              "done": false
+            }
+          },
+          {
+            "key": 1629229945597,
+            "children": [],
+            "todo": {
+              "content": "Panel \"reservas\": $4000",
+              "id": 1629229945597,
+              "level": "default",
+              "done": false
+            }
+          },
+          {
+            "key": 1629230645026,
+            "children": [],
+            "todo": {
+              "content": "Customización de credenciales de PayPal y Discord: $2000",
+              "id": 1629230645026,
+              "level": "default",
+              "done": false
+            }
+          }
+        ],
+        "todo": {
+          "content": "Extras",
+          "id": 1629229361555,
+          "level": "success",
+          "done": false
+        }
       }
     ],
     "expandKeys": [
       1629063101193,
-      1629063105538,
       1629063330431,
       1629063363259,
-      1629137195193
+      1629137195193,
+      1629063105538,
+      1629136873489,
+      1629136994436,
+      1629063115942,
+      1629229361555,
+      1629229607957
     ]
   }
 }

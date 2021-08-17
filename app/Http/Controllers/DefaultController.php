@@ -184,13 +184,13 @@
          * * Control the terms & contidions page.
          * @return [type]
          */
-        public function termsAndContidions (Request $request) {
+        public function termsAndConditions (Request $request) {
             $error = null;
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
 
-            return view("web.terms_&_contidions", [
+            return view("web.terms_&_conditions", [
                 "error" => $error,
                 "validation" => [
                     "login" => (object)[
