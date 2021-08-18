@@ -1,17 +1,21 @@
 <?php
     use App\Http\Controllers\API\AssigmentController;
-    use App\Http\Controllers\API\PresentationController;
     use App\Http\Controllers\API\AuthController;
     use App\Http\Controllers\API\ChatController;
+    use App\Http\Controllers\API\DefaultController;
     use App\Http\Controllers\API\FriendController;
     use App\Http\Controllers\API\LessonController;
+    use App\Http\Controllers\API\PresentationController;
     use App\Http\Controllers\API\RoleController;
     use App\Http\Controllers\API\UserController;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
 
-// ! LessonController - Controls the lessons api. 
     Route::middleware('api')->group(function () {
+// ! DefaultController - Controls the web api in general.
+        Route::get('/dolar', [DefaultController::class, 'dolar'])->name('api.web.dolar');
+        
+// ! LessonController - Controls the lessons api. 
         Route::middleware('auth:api')->group(function () {
             Route::middleware('api.lesson.exist')->group(function () {
                 Route::put('/lessons/{id_lesson}/update', [LessonController::class, 'update'])->name('api.lesson.update');

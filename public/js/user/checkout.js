@@ -7,44 +7,20 @@ import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
-import Token from "../components/Token.js";
-
 let test = false;
 
 let calendar;
 let current = {};
-let hours = [];
 let inputs = [];
 let data = [];
 let dates = [];
 let paypalActions = false;
-const token = Token.get();
 
-if (typeof paypal_sdk !== "undefined") {
-    paypal_sdk.Buttons({
-        onInit: function (data, actions) {
-            actions.disable();
-            paypalActions = actions;
-        }, style: {
-            layout: "horizontal",
-            tagline: false,
-            size: "responsive",
-        }, createOrder: function (data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: type.price,
-                    }, custom_id: lesson.id_lesson,
-                }]
-            });
-        }, onApprove: function (data, actions) {
-            return actions.order.capture().then((details) => {
-                document.querySelector("form#checkout").submit();
-            });
-    }}).render(".cho-container");
-}
-
-function changeButton (params) {
+/**
+ * * Change the active Tab button section.
+ * @param {object} params
+ */
+function changeButton (params = {}) {
     switch (params.opened) {
         case "mercadopago":
             document.querySelector(".cho-container .btn").style.display = "flex";
@@ -556,6 +532,9 @@ function createHours(quantity) {
     }
 }
 
+/**
+ * * Set the Checkout finish state.
+ */
 function setFinishState () {
     for (const btn of document.querySelectorAll(".cho-container .btn span")) {
         for (const child of [...btn.children]) {
@@ -567,6 +546,9 @@ function setFinishState () {
     }
 }
 
+/**
+ * * Set the Checkout loading state.
+ */
 function setLoadingState () {
     for (const btn of document.querySelectorAll(".cho-container .btn span")) {
         for (const child of [...btn.children]) {
@@ -657,7 +639,33 @@ async function submit (params = {}) {
     setFinishState();
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
+document.addEventListener("DOMContentLoaded", async function (e) {
+    if (typeof paypal_sdk !== "undefined") {
+        let query = await Fetch.get("/api/dolar");
+        
+        paypal_sdk.Buttons({
+            onInit: function (data, actions) {
+                actions.disable();
+                paypalActions = actions;
+            }, style: {
+                layout: "horizontal",
+                tagline: false,
+                size: "responsive",
+            }, createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseInt(type.price) / parseInt(query.response.data.dolar),
+                        }, custom_id: lesson.id_lesson,
+                    }]
+                });
+            }, onApprove: function (data, actions) {
+                return actions.order.capture().then((details) => {
+                    document.querySelector("form#checkout").submit();
+                });
+        }}).render(".cho-container");
+    }
+
     if (type.id_type !== 2) {
         new DropdownJS({
             id: "date-1",

@@ -501,12 +501,16 @@
                         "dates.*" => "required",
                         "hours" => "required",
                         "hours.*" => "required",
+                        "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                     ], "messages" => [
                         "es" => [
                             "dates.required" => "La fecha de la clase debe ser seleccionada.",
                             "hours.required" => "El horario de la clase debe ser seleccionada.",
                             "dates.*.required" => "No se seleccionó una fecha.",
                             "hours.*.required" => "No se seleccionó una hora.",
+                            "discord.required" => "El nombre de usuario de Discord es obligatorio.",
+                            "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                            'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                 ]]], "offline" => [
                     "rules" => [
                         // 
@@ -519,6 +523,7 @@
                         "dates.*" => "required",
                         "hours" => "required|array|min:4|max:4",
                         "hours.*" => "required",
+                        "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                     ], "messages" => [
                         "es" => [
                             "dates.required" => "Las fechas de la clase deben ser seleccionadas.",
@@ -530,6 +535,9 @@
                             "hours.max" => "Máximo :max horas deben ser seleccionadas.",
                             "dates.*.required" => "No se seleccionó una fecha.",
                             "hours.*.required" => "No se seleccionó una hora.",
+                            "discord.required" => "El nombre de usuario de Discord es obligatorio.",
+                            "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                            'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
         ]]]]];
 
         /**

@@ -27,7 +27,7 @@
         public function complete (Request $request, int $id_lesson, string $type) {
             $input = (object) $request->all();
 
-            $validator = Validator::make($request->all(), Lesson::$validation["checkout"][$type]["rules"], Lesson::$validation["checkout"][$type]["messages"]["es"]);
+            $validator = Validator::make($request->all(), Controller::replaceUnique(Lesson::$validation["checkout"][$type]["rules"], Auth::user()->id_user), Lesson::$validation["checkout"][$type]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
