@@ -48,7 +48,7 @@
                       "content": "Deshabilitar mañana (no sé si es lo más optimo, pero como se puede reservar una clase para la hora 00 es un poco confuso)",
                       "id": 1629137031669,
                       "level": "default",
-                      "done": false
+                      "done": true
                     }
                   },
                   {
@@ -86,7 +86,7 @@
                   "content": "Steam credits funcionales",
                   "id": 1629063182447,
                   "level": "default",
-                  "done": false
+                  "done": true
                 }
               },
               {
@@ -96,7 +96,7 @@
                   "content": "Dolar funcional",
                   "id": 1629063195992,
                   "level": "default",
-                  "done": false
+                  "done": true
                 }
               },
               {

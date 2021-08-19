@@ -672,9 +672,13 @@ document.addEventListener("DOMContentLoaded", async function (e) {
                 enableDays.push(day.id_day);
             }
         }
+
+        let now = new Date();
+        now.setDate(new Date().getDate() + 1);
         
         calendar = new InputDateMaker({
             props: {
+                today: now,
                 availableWeekDays: enableDays,
                 classes: {
                     input: ["checkout", "form-input"],
@@ -687,9 +691,13 @@ document.addEventListener("DOMContentLoaded", async function (e) {
                 generate: document.querySelector(".dropdown-main > section:first-of-type"),
                 uncheck: false,
             }, callbacks: {
-                change: {
+                changeMonth: {
+                    function: () => { if (document.querySelector("label.date.today")) { document.querySelector("label.date.today").classList.remove("today"); } }, 
+                }, update: {
                    function: printHours,
         }}});
+
+        document.querySelector("label.date.today").classList.remove("today");
 
         createHours((type.id_type === 1 ? 1 : 4));
     }
