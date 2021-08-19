@@ -581,10 +581,10 @@
                 "panel" => [
                     "create" => [
                         "rules" => [
-                            "username" => "required|unique:users|max:25",
+                            "username" => "required|unique:users|max:50",
                             "email" => "required|email|unique:users",
                             "password" => "required",
-                            "name" => "nullable|max:25",
+                            "name" => "nullable|max:50",
                             "profile" => "nullable|mimetypes:image/png,image/jpeg",
                             "banner" => "nullable|mimetypes:image/png,image/jpeg",
                             "languages" => "required",
@@ -617,9 +617,9 @@
                         ],
                     ], "update" => [
                         "rules" => [
-                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "username" => "required|unique:users,username,{id_user},id_user|max:50",
                             "email" => "required|email|unique:users,username,{id_user},id_user",
-                            "name" => "nullable|max:25",
+                            "name" => "nullable|max:50",
                             "profile" => "nullable|mimetypes:image/png,image/jpeg",
                             "banner" => "nullable|mimetypes:image/png,image/jpeg",
                             "languages" => "required",
@@ -643,8 +643,8 @@
                     ],
                 ], "update" => [
                     "rules" => [
-                        "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                        "name" => "nullable|max:25",
+                        "username" => "required|unique:users,username,{id_user},id_user|max:50",
+                        "name" => "nullable|max:50",
                         "profile" => "nullable|mimetypes:image/png,image/jpeg",
                         "banner" => "nullable|mimetypes:image/png,image/jpeg",
                         "languages" => "required",
@@ -663,12 +663,12 @@
                 "panel" => [
                     "create" => [
                         "rules" => [
-                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "username" => "required|unique:users,username,{id_user},id_user|max:50",
                             "email" => "required|email|unique:users",
                             "password" => "required",
-                            "name" => "required|max:25",
+                            "name" => "required|max:50",
                             "description" => "nullable|max:255",
-                            "teampro_name" => "nullable|max:25",
+                            "teampro_name" => "nullable|max:50",
                             "teampro_logo" => "nullable|mimetypes:image/png",
                             "profile" => "required|mimetypes:image/png",
                             "abilities" => "required",
@@ -712,11 +712,11 @@
                         ],
                     ], "update" => [
                         "rules" => [
-                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "username" => "required|unique:users,username,{id_user},id_user|max:50",
                             "email" => "required|email|unique:users,email,{id_user},id_user",
-                            "name" => "required|max:25",
+                            "name" => "required|max:50",
                             "description" => "nullable|max:255",
-                            "teampro_name" => "nullable|max:25",
+                            "teampro_name" => "nullable|max:50",
                             "teampro_logo" => "nullable|mimetypes:image/png",
                             "profile" => "nullable|mimetypes:image/png",
                             "abilities" => "required",
@@ -750,10 +750,10 @@
                     ],
                 ], "update" => [
                     "rules" => [
-                        "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                        "name" => "required|max:25",
+                        "username" => "required|unique:users,username,{id_user},id_user|max:50",
+                        "name" => "required|max:50",
                         "description" => "nullable|max:255",
-                        "teampro_name" => "nullable|max:25",
+                        "teampro_name" => "nullable|max:50",
                         "teampro_logo" => "nullable|mimetypes:image/png",
                         "profile" => "nullable|mimetypes:image/png",
                     ], "messages" => [

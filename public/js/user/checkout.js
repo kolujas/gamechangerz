@@ -10,10 +10,12 @@ import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 let test = false;
 
 let calendar;
+let credits = 0;
 let current = {};
 let inputs = [];
 let data = [];
 let dates = [];
+let dolar = 1;
 let paypalActions = false;
 
 /**
@@ -71,23 +73,6 @@ function findLessons (date) {
         }
     }
     return array;
-}
-
-function createPayPal () {
-    paypal_sdk.Buttons({
-        createOrder: (data, actions) => {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: type.price,
-                    }, custom_id: lesson.id_lesson,
-                }]
-            });
-        }, onApprove: (data, actions) => {
-            return actions.order.capture().then((details) => {
-                document.querySelector("form#checkout").submit();
-            });
-    }}).render("#paypal main");
 }
 
 /**
@@ -639,31 +624,39 @@ async function submit (params = {}) {
     setFinishState();
 }
 
+function createPayPalButton () {
+    if (paypalActions) {
+        paypalActions.disable();
+    }
+
+    paypal_sdk.Buttons({
+        onInit: function (data, actions) {
+            actions.disable();
+            paypalActions = actions;
+        }, style: {
+            layout: "horizontal",
+            tagline: false,
+            size: "responsive",
+        }, createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: (parseInt(type.price) - parseInt(credits)) / parseInt(dolar),
+                    }, custom_id: lesson.id_lesson,
+                }]
+            });
+        }, onApprove: function (data, actions) {
+            return actions.order.capture().then((details) => {
+                document.querySelector("form#checkout").submit();
+            });
+    }}).render(".cho-container");
+}
+
 document.addEventListener("DOMContentLoaded", async function (e) {
     if (typeof paypal_sdk !== "undefined") {
         let query = await Fetch.get("/api/dolar");
-        
-        paypal_sdk.Buttons({
-            onInit: function (data, actions) {
-                actions.disable();
-                paypalActions = actions;
-            }, style: {
-                layout: "horizontal",
-                tagline: false,
-                size: "responsive",
-            }, createOrder: function (data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: parseInt(type.price) / parseInt(query.response.data.dolar),
-                        }, custom_id: lesson.id_lesson,
-                    }]
-                });
-            }, onApprove: function (data, actions) {
-                return actions.order.capture().then((details) => {
-                    document.querySelector("form#checkout").submit();
-                });
-        }}).render(".cho-container");
+        dolar = query.response.data.dolar;
+        createPayPalButton();
     }
 
     if (type.id_type !== 2) {
@@ -719,4 +712,9 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         valid: {
             function: submit,
     }});
+
+    document.querySelector(`input[name="credits"]`).addEventListener("focusout", function (e) {
+        credits = this.value;
+        createPayPalButton();
+    });
 });

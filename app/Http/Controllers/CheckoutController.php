@@ -77,6 +77,10 @@
                 ]);
             }
 
+            if (!isset($input->credits)) {
+                $input->credits = 0;
+            }
+
             $input->days = $days->toJson();
 
             $input->id_status = 2;
@@ -90,7 +94,7 @@
                     $data = (object) [
                         "id" => $lesson->id_lesson,
                         "title" => ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
-                        "price" => $lesson->users->from->prices[$lesson->type->id_type - 1]->price,
+                        "price" => intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price) - intval($input->credits),
                     ];
 
                     $user->and(["credentials"]);
@@ -139,6 +143,12 @@
     
                     new Event($data);
                 }
+            }
+
+            if (isset(Auth::user()->credits) && Auth::user()->credits && intval(Auth::user()->credits)) {
+                Auth::user()->update([
+                    "credits" => intval(Auth::user()->credits) - intval($input->credits),
+                ]);
             }
 
             return redirect($url);
