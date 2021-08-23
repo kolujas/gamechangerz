@@ -60,7 +60,7 @@
                 <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6">
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
-                            <span class="russo text-2xl md:text-xl xl:text-3xl text-uppercase">1 on 1</span>
+                            <span class="russo text-2xl md:text-xl xl:text-2xl text-uppercase">1 on 1</span>
                             @component('components.svg.ClaseOnline1SVG')@endcomponent
                         </h4>
                         <p class="color-grey overpass">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
-                            <span class="russo text-2xl md:text-xl xl:text-3xl text-uppercase">Seguimiento online</span>
+                            <span class="russo text-2xl md:text-xl xl:text-2xl text-uppercase">Seguimiento online</span>
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                         </h4>
                         <p class="color-grey overpass">

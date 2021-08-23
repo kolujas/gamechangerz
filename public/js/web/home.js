@@ -1,6 +1,6 @@
-import Poll from "../components/Poll.js";
+// import Poll from "../components/Poll.js";
     
-new Poll();
+// new Poll();
 
 const sr = ScrollReveal();
 

@@ -116,7 +116,7 @@
                     <span class="block color-white error support teacher-form support-box hidden support-description mt-2 overpass"></span>
                 </div>
 
-                <div class="pt-0 col-span-4 col-start-1 grid grid-cols-2 gap-8">
+                {{-- <div class="pt-0 col-span-4 col-start-1 grid grid-cols-2 gap-8">
                     <h3 class="col-span-2 russo color-white uppercase">Discord</h3>
                     <div>
                         <input type="text" tabindex="8" name="discord" placeholder="Username#0000" value="{{ old("discord", $user->discord) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
@@ -126,7 +126,7 @@
                             <span class="block color-white error support teacher-form support-box hidden support-discord mt-2 overpass"></span>
                         @endif
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="pt-0 col-span-2 col-start-1">
                     <h3 class="russo color-white mb-8 uppercase">MercadoPago</h3>

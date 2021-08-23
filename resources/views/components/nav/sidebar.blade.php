@@ -70,6 +70,11 @@
                     <span class="link-text">Novedades</span>
                 </a>
             </li>
+            <li>
+                <a href="/faq" class="sidebar-link nav-link p-0">
+                    <span class="link-text">Cómo funciona</span>
+                </a>
+            </li>
             @if (Auth::check())
                 <li>
                     <a href="/logout" class="sidebar-link nav-link p-0">
