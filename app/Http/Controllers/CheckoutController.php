@@ -51,7 +51,7 @@
                     $methods = collect();
                     $methods->push([
                         "id_method" => 1,
-                        "access_token" => $response->json()->access_token,
+                        "access_token" => $response->json()["access_token"],
                     ]);
 
                     $user->update([
