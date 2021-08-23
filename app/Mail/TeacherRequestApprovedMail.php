@@ -6,7 +6,7 @@
     use Illuminate\Mail\Mailable;
     use Illuminate\Queue\SerializesModels;
 
-    class TeacherRequestMail extends Mailable {
+    class TeacherRequestApprovedMail extends Mailable {
         use Queueable, SerializesModels;
 
         /** @var array Mail data. */
