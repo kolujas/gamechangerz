@@ -674,7 +674,6 @@
                             "abilities" => "required",
                             "languages" => "required",
                             "id_status" => "required",
-                            "mp_access_token" => "required",
                             "discord" => "required|unique:users|regex:/([a-z])*#([0-9])*/i",
                         ], "messages" => [
                             "es" => [
@@ -695,7 +694,6 @@
                                 "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
-                                "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
                                 "discord.requried" => "El nombre de usuario de Discord es obligatorio.",
                                 "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                                 'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
@@ -722,7 +720,6 @@
                             "abilities" => "required",
                             "languages" => "required",
                             "id_status" => "required",
-                            "mp_access_token" => "required",
                             "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                         ], "messages" => [
                             "es" => [
@@ -741,7 +738,6 @@
                                 "abilities.required" => "Al menos 1 Habilidad es obligatoria.",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
-                                "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
                                 "discord.requried" => "El nombre de usuario de Discord es obligatorio.",
                                 "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                                 'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
