@@ -18,7 +18,7 @@
             </a>
         </div>
     @endif
-    <ul class="tabs tab-menu-list cards grid gap-4 grid-cols-3 mb-8">
+    <ul class="tabs tab-menu-list cards flex justify-between w-full gap-4 grid-cols-3 mb-8">
         <li id="tab-online" class="tab card flex justify-start">
             <a href="#online" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap">
