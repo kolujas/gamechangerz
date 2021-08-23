@@ -20,10 +20,7 @@
     class CheckoutController extends Controller {
         public function authorization (Request $request) {
             if ($request->code) {
-                $response = Http::withHeaders([
-                    "accept" => "application/json",
-                    "content-type" => "application/x-www-form-urlencoded"
-                ])->post("https://api.mercadopago.com/oauth/token", [
+                $response = Http::accept("application/json")->post("https://api.mercadopago.com/oauth/token", [
                     "client_secret" => config("services.mercadopago.access_token"),
                     "grant_type" => "authorization_code",
                     "code" => $request->route("code"),
@@ -35,7 +32,7 @@
                 }
                 dd($response);
             }
-            
+
             return response()->json([
                 "code" => 403,
                 "message" => "Error",
