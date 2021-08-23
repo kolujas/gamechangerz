@@ -20,6 +20,8 @@
     class CheckoutController extends Controller {
         public function authorization (Request $request) {
             if ($request->code) {
+                dd($request->code);
+
                 $response = Http::withHeaders([
                     "accept" => "application/json",
                     "content-type" => "application/x-www-form-urlencoded",
