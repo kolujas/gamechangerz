@@ -33,7 +33,8 @@
                 if ($response->ok()) {
                     dd($response->getBody());
                 }
-                dd($response);
+                
+                dd($response->throw());
             }
             
             return response()->json([
