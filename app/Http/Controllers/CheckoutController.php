@@ -18,7 +18,7 @@
     use Illuminate\Support\Facades\Validator;
 
     class CheckoutController extends Controller {
-        public function authorization (Request $request, int $id_user) {
+        public function authorization (Request $request) {
             if ($request->route("code")) {
                 $response = Http::withHeaders([
                     "accept" => "application/json",
@@ -33,6 +33,7 @@
                 if ($response->ok()) {
                     dd($response->getBody());
                 }
+                dd("perro");
             }
         }
 
