@@ -31,6 +31,7 @@ return [
     ],
 
     'mercadopago' => [
+        'app_id' => env('MP_APP_ID'),
         'access_token' => env('MP_ACCESS_TOKEN'),
     ],
 
