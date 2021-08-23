@@ -1,49 +1,37 @@
 // ? External repositories
 import { Dropdown as DropdownJS } from "../../submodules/DropdownJS/js/Dropdown.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import { InputDateMaker as InputDateMakerJS } from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
+import InputDateMaker from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
 import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
-import Token from "../components/Token.js";
+let test = false;
 
 let calendar;
+let credits = 0;
 let current = {};
-let hours = [];
 let inputs = [];
-let lessons = [];
-let paypalActions;
-const token = Token.get();
+let data = [];
+let dates = [];
+let dolar = 1;
+let paypalActions = false;
 
-paypal_sdk.Buttons({
-    onInit: function(data, actions) {
-        actions.disable();
-        paypalActions = actions;
-    }, style: {
-        layout: "horizontal",
-        tagline: false,
-        size: "responsive",
-    }, createOrder: function (data, actions) {
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: type.price,
-                }, custom_id: lesson.id_lesson,
-            }]
-        });
-    }, onApprove: function (data, actions) {
-        return actions.order.capture().then((details) => {
-            document.querySelector("form#checkout").submit();
-        });
-}}).render(".cho-container");
-
-function changeButton (params) {
+/**
+ * * Change the active Tab button section.
+ * @param {object} params
+ */
+function changeButton (params = {}) {
     switch (params.opened) {
         case "mercadopago":
             document.querySelector(".cho-container .btn").style.display = "flex";
-            document.querySelector(".cho-container .paypal-buttons").style.display = "none";
+            if (document.querySelector(".cho-container .paypal-buttons")) {
+                document.querySelector(".cho-container .paypal-buttons").style.display = "none";
+            }
+            if (!document.querySelector(".cho-container .paypal-buttons")) {
+                document.querySelector("#tab-paypal").parentNode.removeChild(document.querySelector("#tab-paypal"));
+            }
             break;
         case "paypal":
             document.querySelector(".cho-container .btn").style.display = "none";
@@ -87,583 +75,337 @@ function findLessons (date) {
     return array;
 }
 
-function createPayPal () {
-    paypal_sdk.Buttons({
-        createOrder: (data, actions) => {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: type.price,
-                    }, custom_id: lesson.id_lesson,
-                }]
-            });
-        }, onApprove: (data, actions) => {
-            return actions.order.capture().then((details) => {
-                document.querySelector("form#checkout").submit();
-            });
-    }}).render("#paypal main");
-}
-
-/**
- * * Updates a the current Lesson.
- */
-async function updateLesson () {
-    console.log("- Update Lesson");
-
-    // * Set the FormData
-    let formData = new FormData();
-    let hours = [];
-    for (const hour of hours) {
-        hours.push(hour.input.value);
-    }
-    formData.set("hours", hours);
-    let dates = [];
-    for (const date of calendar.props.selectedIndex) {
-        dates.push(date.input.value);
-    }
-    formData.set("dates", dates);
-
-    // * Send the Query
-    let query = await Fetch.send({
-        url: `/api/lessons/${ lesson.id_lesson }/update`,
-        method: "put"
-    }, {
-        "Accept": "application/json",
-        "Authorization": "Bearer " + token.data,
-        "Content-type": "application/json; charset=UTF-8",
-    }, formData);
-
-    // ? If the response throws success
-    if (query.response.code === 200) {
-        // createPayPal();
-        return true;
-    }
-
-    console.error(query.response);
-}
-
 /**
  * * Add an Hour.
- * @param {*} params
+ * @param {object} params
  */
-async function addHour (params) {
-    console.log("Hour clicked:");
-    console.log(params);
-
-    // * Instance the Current Hour
-    let hour = {};
-
-    // ? If the Hour is checked
-    if (params.element.state.checked) {
-        console.log("- Get first Hour");
-
-        // * Get the last Hour <input>
-        hour.input = [...inputs].shift();
-    }
-    // ? If the Hour is not checked
-    if (!params.element.state.checked) {
-        console.log("- Get an Hour");
-
-        // * Check
-        params.element.setState("checked", true);
-        params.element.html.checked = true;
-
-        for (const key in [...hours]) {
-            if (Object.hasOwnProperty.call([...hours], key)) {
-                hour = [...hours][key];
-                if (parseInt(hour.value) === parseInt(params.hour.id_hour) && current.date === hour.date && parseInt(current.index) === parseInt(hour.index)) {
-                    break;
-                }
-            }
-        }
+async function addHour (params = {}) {
+    // ? If is testing the checkout
+    if (test) {
+        console.log([`-> Day (${ (params.day.slug) }) Hour current ${ params.hour.id_hour }:`, [params.day, params.hour]]);
     }
 
-    // * Get the params index
-    let index = current.index;
-
-    // * Loop the Hours
-    for (const aux of hours) {
-        // ? If an Hour match with the selected
-        if (aux.date === current.date && parseInt(aux.index) + 1 > index) {
-            // * Creates a new selected index
-            index = parseInt(aux.index) + 1;
-        }
-    }
-
-    // * Replace the Hour params
-    hour.input.dataset.date = current.date;
-    hour.input.dataset.index = index;
-    hour.input.value = params.hour.id_hour;
-    hour.input.checked = true;
-
-    // * Disable PayPal
-    paypalActions.disable();
-
-    // * Check if an Hour was used
-    let formData = new FormData();
-    formData.set("date", current.date);
-    formData.set("id_type", type.id_type);
-    formData.set("id_hour", params.hour.id_hour);
-    let query = await Fetch.send({
-        url: `/api/users/${ slug }/lessons`,
-        method: "post"
-    }, {
-        "Accept": "application/json",
-        "Authorization": "Bearer " + token.data,
-        "Content-type": "application/json; charset=UTF-8",
-    }, formData);
-
-    // ? If the query success
-    if (query.response.code === 200) {
-        // ? If the Hour was not used
-        if (!query.response.found) {
-            console.log("- Hour not used");
-
-            // * Add the new Hour <input>
-            hours.push({
-                index: index,
-                date: current.date,
-                input: hour.input,
-                value: params.hour.id_hour,
-            });
-
-            console.log("New Hour");
-            console.log({
-                index: index,
-                date: current.date,
-                input: hour.input,
-                value: params.hour.id_hour,
-            });
-
-            // * Check the Dates
-            checkDates([...hours].pop());
-
-            // ? If the qunatity of Hours is valid
-            if (hours.length === calendar.props.quantity) {
-                // * Update the Lesson
-                updateLesson();
-            }
-        }
-
-        // ? If the Hour was used
-        if (query.response.found) {
-            console.log("- Hour used");
-
-            new NotificationJS({
-                code: 403,
-                message: `La fecha seleccionada ya se encuentra en uso`,
-                classes: ["russo"],
-            }, {
-                open: true,
-            });
-
-            // * Remove Hour if does not match with any Date
-            removeHour({
-                index: parseInt(current.index),
-                date: current.date,
-            });
-        }
-    }
-
-    // * Check PayPal
-    checkPayPalState();
-}
-
-/**
- * * Add a Date
- * @param {*} selected
- */
-function addDate (selected) {
-    console.log("- Add Date");
-
-    // * Instance the Date
-    let date = {};
-
-    // ? If the Dates are not the same as que quantity
-    if (calendar.props.selectedIndex.length < calendar.props.quantity) {
-        date.input = [...calendar.htmls].shift();
-    }
-    // ? If the Dates are the same as que quantity
-    if (calendar.props.selectedIndex.length === calendar.props.quantity) {
-        // * Get the last Date
-        date = calendar.props.selectedIndex.shift();
-    
-        // * Loop the Hours
-        for (const hour of hours) {
-            // ? If an Date have an Hour
-            if (parseInt(hour.index) === parseInt(date.index) && date.date === hour.date) {
-                console.log("- Previous Date have an Hour");
-    
-                // * Remove an Hour
-                removeHour(hour);
-                break;
-            }
-        }
-    }
-
-    // * Repalce the Date params
-    date.input.value = selected.date;
-
-    // * Get a new Index
-    let index = 1;
-    for (const selected of calendar.props.selectedIndex) {
-        if (index <= parseInt(selected.index)) {
-            index = parseInt(selected.index) + 1;
-        }
-    }
-
-    // * Create a new selectged object
-    calendar.props.selectedIndex.push({
-        index: index,
-        date: selected.date,
-        input: date.input,
-    });
-
-    console.log("New Dates");
-    console.log({
-        index: index,
-        date: selected.date,
-        input: date.input,
-    });
-
-    // * Active the Day
-    activeDay(selected.date);
-}
-
-/**
- * * Activate a Day
- * @param {string} date
- */
-function activeDay (date) {
-    console.log("- Activate a Day");
-
-    // * Loop the Days
-    for (const day of calendar.days) {
-        // ? If the Day match with the selected Date
-        if (day.dataset.date === date) {
-            console.log("Day:");
-            console.log(day);
-
-            // * Loop the Hours
-            for (const hour of hours) {
-                // ? If the Day match with the Hour
-                if (hour.date === day.dataset.date) {
-                    console.log("- There is an Hour");
-                    console.log(hour);
-
-                    // * Add className
-                    if (!day.classList.contains("withDate")) {
-                        day.classList.add("withDate");
-                    }
-                }
-            }
-
-            // * Check the Day
-            day.checked = true;
-            break;
-        }
-    }
-}
-
-/**
- * * Deactivate a Day.
- * @param {string} date
- */
-function deactiveDay (date) {
-    console.log("- Deactive a Day");
-
-    // * Loop the Days
-    for (const day of calendar.days) {
-        // ? If the Day Date match with the selected Date 
-        if (day.dataset.date === date) {
-            console.log("Day:");
-            console.log(day);
-
-            // * Unchecked
-            if (day.classList.contains("withDate")) {
-                day.classList.remove("withDate");
-            }
-            day.checked = false;
-            break;
-        }
-    }
-}
-
-/**
- * * Remove a Date
- * @param {*} selected
- */
-function removeDate (selected) {
-    console.log("- Remove a Date");
-
-    // * Loop the Dates
-    for (const key in [...calendar.props.selectedIndex]) {
-        if (Object.hasOwnProperty.call(calendar.props.selectedIndex, key)) {
-            const date = calendar.props.selectedIndex[key];
-            // ? If a Date match with the selected
-            if (parseInt(selected.index) === parseInt(date.index) && date.date === selected.date) {
-                console.log("- Date to remove");
-                console.log(date);
-
-                // * Remove it
-                calendar.props.selectedIndex.splice(key, 1);
-                date.input.value = null;
-                break;
-            }
-        }
-    }
-
-    // * Loop the Hours
-    for (const hour of hours) {
-        // ? If an Hour match with a selected object removed
-        if (parseInt(hour.index) === selected.index && hour.date === selected.date) {
-            console.log("- Hour to remove");
-            console.log(hour);
-
-            // * Remove an Hour
-            removeHour(hour);
-            break;
-        }
-    }
-
-    // * Add a Date
-    addDate(selected);
-}
-
-/**
- * * Check the Dates.
- */
-function checkDates (selected) {
-    console.log("- Check Dates by Hours");
-
-    console.log("Data:");
-    console.log([
-        [...calendar.props.selectedIndex],
-        [...hours],
-    ]);  
-
-    // ? If the Hours are more than the Dates
-    if (hours.length > calendar.props.selectedIndex.length) {
-        // * Add a Date
-        addDate(selected);
-    // ? If there are more than 1 Hours
-    } else if (hours.length > 1) {
-        // ? If there are 4 Hours
-        if (hours.length === 4) {
-            // * Remove a Date
-            removeDate([...calendar.props.selectedIndex].pop());
-        }
-    }
-}
-
-/**
- * * Remove an Hour.
- * @param {object} selected
- */
-function removeHour (selected) {
-    console.log("- Remove an Hour");
-
-    // * Loop the Hours
-    for (const key in [...hours]) {
-        if (Object.hasOwnProperty.call(hours, key)) {
-            const hour = hours[key];
-            // ? The Hour match with the one who has to be removed
-            if (hour.date === selected.date && parseInt(hour.index) === parseInt(selected.index)) {
-                console.log("Hour to remove:");
-                console.log(hour);
-
-                // * Remove Hour
-                hours.splice(key, 1);
-                hour.input.value = null;
-                hour.input.removeAttribute("data-date");
-                hour.input.removeAttribute("data-index");
-                hour.input.checked = false;
-                break;
-            }
-        }
-    }
-
-    // * Loop the <inputs> from ul.hours
-    for (const input of [...document.querySelectorAll("ul.hours input")]) {
-        // ? If the <input> match with the selected
-        if (parseInt(input.dataset.index) === parseInt(selected.index) && input.dataset.date === selected.date) {
-            console.log("Input to uncheck:");
-            console.log(input);
-
-            // * Unchecked
-            input.checked = false;
-            break;
-        }
-    }
-
-    // * Check if there is another Hour with the Day selected
     let found = false;
-    for (const hour of hours) {
-        if (hour.date === selected.date) {
-            console.log("- There is another Hour with the same day");
-            found = true;
-            break;
-        }
-    }
 
-    // ? If not
-    if (!found) {
-        // * Remove Day
-        deactiveDay(selected.date);
-    }
-}
+    // * Loop the data
+    for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+            const element = data[key];
 
-/**
- * * Sort Hours function.
- * @returns {number}
- */
-function sort () {
-    return function (a, b) {
-        let aKey = 0, bKey = 0, found = false;
+            // ? If is testing the checkout
+            if (test) {
+                console.log(["Compared with:", element]);
+            }
+            
+            // ? If an element has an Hour
+            if (element.hour !== null) {
+                // ? If the element Hour is current
+                if (element.hour.value === params.hour.id_hour && element.index === current.index) {
+                    // ? If is testing the checkout
+                    if (test) {
+                        console.log(["-> Move to the end:", element]);
+                    }
 
-        // * Loop the Dates for the First Hour
-        for (aKey in calendar.props.selectedIndex) {
-            if (Object.hasOwnProperty.call(calendar.props.selectedIndex, aKey)) {
-                const selected = calendar.props.selectedIndex[aKey];
-                // ? If the first Hour match with a Date
-                if (a.date === selected.date && parseInt(selected.index) === parseInt(a.index)) {
-                    // * Set found
-                    found = true;
+                    params.element.check();
+
+                    found = element;
                     break;
                 }
             }
         }
+    }
 
-        // ? If not found
-        if (!found) {
-            // * First Hour key is 0
-            aKey = 0;
-        }
+    // ? If is testing the checkout
+    if (test) {
+        console.log(["found:", found]);
+    }
+
+    // ? If the Hour was not found
+    if (!found) {
+        // * Get the Hour
+        let input = inputs.shift();
+
+        // * Update it
+        input.value = params.hour.id_hour;
+        input.checked = true;
+
+        // * Save it
+        inputs.push(input);
+
         found = false;
 
-        // * Loop the Dates for the Second Hour
-        for (bKey in calendar.props.selectedIndex) {
-            if (Object.hasOwnProperty.call(calendar.props.selectedIndex, bKey)) {
-                const selected = calendar.props.selectedIndex[bKey];
-                // ? If the second Hour match with a Date
-                if (b.date === selected.date && parseInt(selected.index) === parseInt(b.index)) {
-                    // * Set found
-                    found = true;
-                    break;
+        // * Loop the data
+        for (const element of [...data]) {
+            // ? If is testing the checkout
+            if (test) {
+                console.log(["Compared with:", element]);
+            }
+
+            // ? If the element is the current
+            if (element.index === current.index && element.hour === null) {
+                // ? If is testing the checkout
+                if (test) {
+                    console.log(["-> Add Hour", {
+                        input: input,
+                        value: params.hour.id_hour,
+                        parsed: `${ params.hour.from } - ${ params.hour.to }`,
+                    }]);
                 }
+
+                // * Save the element Hour
+                element.hour = {
+                    input: input,
+                    value: params.hour.id_hour,
+                    parsed: `${ params.hour.from } - ${ params.hour.to }`,
+                };
+
+                found = element;
+                break;
             }
         }
 
-        // ? If not found
+        // ? If is testing the checkout
+        if (test) {
+            console.log(["found:", found]);
+        }
+
+        // ? If the element was not previously set
         if (!found) {
-            // * Second Hour key is 0
-            bKey = 0;
+            // * Add a new Date
+            calendar.add(current.date.parsed, {
+                hour: {
+                    input: input,
+                    value: params.hour.id_hour,
+                    parsed: `${ params.hour.from } - ${ params.hour.to }`,
+                }
+            });
+        }
+    }
+
+    // ? If the element parent was not found
+    if (found) {
+        // ? If is testing the checkout
+        if (test) {
+            console.log("-> Check by addHour");
         }
 
-        // ? If First Hour key bigger than second one
-        if (aKey > bKey) {
-            // * Return 1
-            return 1;
-        }
-
-        // ? If First Hour key tinier than second one
-        if (aKey < bKey) {
-            // * Return -1
-            return -1;
-        }
-
-        // * Return 0
-        return 0;
+        // * Check PayPal
+        checkPayPalState();
     }
 }
 
 /**
  * * Check if the data is ok.
- * @param {*} params
+ * @param {Hour|false} [hour]
  */
-function checkHours () {
-    // ? If there are Hours
-    if (hours.length >= 1) {
-        // * Loop the Hours
-        hours: for (const hour of hours) {
-            // * Loop the Dates
-            for (const date of calendar.props.selectedIndex) {
-                // ? The Hour match with a Date
-                if (date.date === hour.date && date.index === hour.index) {
-                    // * Active the Day
-                    activeDay(date.date);
-    
-                    // * Continue
-                    continue hours;
+function checkData (hour = false) {
+    // ? If is testing the checkout
+    if (test) {
+        console.log(["Data:", [...data]]);
+    }
+
+    // ? If there is data
+    if (data.length) {
+        let newData = [];
+
+        // * Loop the data
+        data: for (const key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+                const element = data[key];
+                let found = false;
+
+                // * Loop the Dates
+                for (const date of dates) {
+                    // ? The Hour match with a Date
+                    if (date.date.parsed === element.date.parsed && date.index === element.index) {
+                        // * Continue
+                        found = true;
+                    }
+                }
+
+                // ? If the element was found
+                if (found) {
+                    // * Save it
+                    newData.push(element);
+                }
+                // ? If the element was not found
+                if (!found) {
+                    // ? If is testing the checkout
+                    if (test) {
+                        console.log(["-> Remove", element]);
+                    }
+
+                    // ? If the element has an Hour
+                    if (element.hour !== null && ((!hour && calendar.props.quantity === 1) || calendar.props.quantity > 1)) {
+                        element.hour.input.value = null;
+                        element.hour.input.checked = false;
+                    }
                 }
             }
-    
-            // * Remove Hour if does not match with any Date
-            removeHour(hour);
         }
+
+        // * Replace the older data
+        data = newData;
+
+        newData = [];
+
+        // ? If is testing the checkout
+        if (test) {
+            console.log(["Data after remove:", [...data]]);
+        }
+
+        // * Loop the Dates
+        dates: for (const date of dates) {
+            // ? If is testing the checkout
+            if (test) {
+                console.log(["How is data?", [...data]]);
+            }
+
+            // * Loop the data
+            for (const key in data) {
+                if (Object.hasOwnProperty.call(data, key)) {
+                    const element = data[key];
+
+                    // ? If is testing the checkout
+                    if (test) {
+                        console.log(["Compared:", date, element]);
+                    }
+
+                    // ? The Hour match with a Date
+                    if (date.date.parsed === element.date.parsed && date.index === element.index) {
+                        // ? If is testing the checkout
+                        if (test) {
+                            console.log(["-> Move to the end", element]);
+                        }
+
+                        // * Save it
+                        newData.push(element);
+
+                        // * Continue
+                        continue dates;
+                    }
+                }
+            }
+
+            // * Create the new element
+            let element = {
+                ...date,
+                hour: ( hour ? hour : null),
+                index: current.index,
+            };
+
+            // ? If is testing the checkout
+            if (test) {
+                console.log(["-> Add", element]);
+            }
+            
+            // * Add a new element
+            newData.push(element);
+        }
+
+        // ? If is testing the checkout
+        if (test) {
+            console.log(["Data after move:", [...data]]);
+        }
+
+        // * Replace the older data
+        data = newData;
+    }
+
+    // ? If there is not data
+    if (!data.length) {
+        // * Loop the Dates
+        for (const date of dates) {
+            // * Create the new element
+            let element = {
+                ...date,
+                hour: ( hour ? hour : null),
+                index: current.index,
+            };
+
+            // ? If is testing the checkout
+            if (test) {
+                console.log(["-> Add", element]);
+            }
+
+            // * Add a new element
+            data.push(element);
+        }
+
+        // ? If is testing the checkout
+        if (test) {
+            console.log(["Data after create:", [...data]]);
+        }
+    }
+
+    // ? If is testing the checkout
+    if (test) {
+        console.log("-> Check by checkData");
     }
 
     // * Check PayPal state
     checkPayPalState();
-
-    // * Sort the Hours
-    hours.sort(sort());
 }
 
 /**
  * * Check if the PayPal has to be enable or not.
  */
-function checkPayPalState () {  
-    console.log("Final data:");
-    console.log([
-        [...calendar.props.selectedIndex],
-        [...hours],
-    ]);  
+function checkPayPalState () { 
+    // ? If is testing the checkout
+    if (test) { 
+        console.log(["Final data:", [...data]]);  
+    }
 
     // ? If the quantity of Dates & Hours is less than the correct one
-    if (calendar.props.selectedIndex.length < (type.id_type === 1 ? 1 : 4) && hours.length < (type.id_type === 1 ? 1 : 4)) {
-        // * Disable PayPal
-        paypalActions.disable();
+    if (data.length < (type.id_type === 1 ? 1 : 4)) {
+        if (paypalActions) {
+            // * Disable PayPal
+            paypalActions.disable();
+            return;
+        }
     } else {
-        // * Enable PayPal
-        paypalActions.enable();
+        if (paypalActions) {
+            // * Disable PayPal
+            paypalActions.enable();
+            return;
+        }
     }
+
+    console.error("PayPal did not load");
 }
 
 /**
  * * Print the Teacher available Hours.
- * @param {*} params
+ * @param {object} params
  */
-async function printHours (params) {
-    console.log("Date clicked:");
-    console.log(params.clicked);
-    // * Search the Lessons
-    let query = await Fetch.get(`/api/users/${ slug }/lessons`);
-    if (query.response.code === 200) {
-        lessons = query.response.data.lessons;
+async function printHours (params = {}) {
+    // ? If is testing the checkout
+    if (test) {
+        console.log([`-> Date current ${ params.current.date.parsed }`, params]);
     }
 
     // * Save the current globally
-    current = params.clicked;
+    current = params.current;
+
+    // * Save the dates globally
+    dates = params.dates;
 
     // * Clear the <ul> Hours
     let list = document.querySelector("ul.hours");
     list.innerHTML = "";
 
-    // * Disable PayPal
-    paypalActions.disable();
+    if (paypalActions) {
+        // * Disable PayPal
+        paypalActions.disable();
+    }
 
-    // * Parse the selected Date
-    let date = new Date(current.date.split("-"));
+    // * Check if everything is OK
+    checkData(params.hasOwnProperty("hour") ? params.hour : false);
 
     // * Loop the Days
     for (const day of days) {
         // ? If the Date Day match with a Day
-        if (date.getDay() === day.id_day) {
-            console.log("Day clicked:");
-            console.log(day);
-
-            console.log("Hours:");
+        if (current.date.value.getDay() === day.id_day) {
             // * Loop the Hours
             for (const hour of day.hours) {
                 // * Activate the Hour
@@ -671,9 +413,9 @@ async function printHours (params) {
                 hour.checked = false;
 
                 // ? If a Lessons was found
-                if (hasLesson(current.date)) {
+                if (hasLesson(current.date.parsed)) {
                     // * Loop the Lessons
-                    lessons: for (const foundLesson of findLessons(current.date)) {
+                    lessons: for (const foundLesson of findLessons(current.date.parsed)) {
                         // ? If the current Lesson is not the same as another Teacher Lesson
                         if (lesson.id_lesson !== foundLesson.id_lesson) {
                             // * Loop the Lesson Days
@@ -681,7 +423,7 @@ async function printHours (params) {
                                 // * Loop the Day Hours
                                 for (const hourFromLesson of dayFromLesson.hours) {
                                     // ? If the Hour match with a Day Hour
-                                    if (hourFromLesson.id_hour === hour.id_hour && dayFromLesson.date === current.date) {
+                                    if (hourFromLesson.id_hour === hour.id_hour && dayFromLesson.date === current.date.parsed) {
                                         // * Deactivate the Hour
                                         hour.active = false;
                                         break lessons;
@@ -692,10 +434,20 @@ async function printHours (params) {
                     }
                 }
 
-                // * Loop the old clicked Hours
-                for (const oldHour of hours) {
-                    // ? If the new Hour match with the older Hour
-                    if (oldHour.value === hour.id_hour && oldHour.date === current.date) {
+                // * Loop the data
+                for (const element of data) {
+                    // ? If the new Hour match with the older
+                    if (element.hour && element.hour.value === hour.id_hour && element.date.parsed === current.date.parsed) {
+                        // * Checked the Hour
+                        hour.checked = true;
+                    }
+                }
+
+                
+                // ? If the params has an hour property
+                if (params.hasOwnProperty("hour")) {
+                    // ? If the new Hour match with the older
+                    if (params.hour.value === hour.id_hour) {
                         // * Checked the Hour
                         hour.checked = true;
                     }
@@ -711,7 +463,7 @@ async function printHours (params) {
                                 id: `date-${ current.index }-hour-${ hour.id_hour }`,
                                 defaultValue: hour.id_hour,
                                 dataset: {
-                                    date: current.date,
+                                    date: current.date.parsed,
                                     index: current.index,
                                 },
                             }, state: {
@@ -721,7 +473,7 @@ async function printHours (params) {
                             }, callbacks: {
                                 change: {
                                     function: addHour,
-                                    params: { hour: hour },
+                                    params: { day: day, hour: hour },
                                 },
                             },
                         }], ["label", {
@@ -739,15 +491,11 @@ async function printHours (params) {
                     ], 
                 });
 
-                console.log(hour);
                 // * Append the <li>
                 list.appendChild(item.html);
             }
         }
     }
-
-    // * Check if everything is OK
-    checkHours();
 }
 
 /**
@@ -770,19 +518,147 @@ function createHours(quantity) {
 }
 
 /**
- * * Submit form callback function
- * @param {*} params
+ * * Set the Checkout finish state.
  */
-function submit (params) {
-    if (document.querySelector("#input-mercadopago").checked) {
-        document.querySelector("form#checkout").submit();
-    }
-    if (document.querySelector("#input-paypal").checked) {
-        // ! PayPal does not support trigger click button event
+function setFinishState () {
+    for (const btn of document.querySelectorAll(".cho-container .btn span")) {
+        for (const child of [...btn.children]) {
+            child.classList.add("hidden");
+            if (child.nodeName === "SPAN") {
+                child.classList.remove("hidden");
+            }
+        }
     }
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
+/**
+ * * Set the Checkout loading state.
+ */
+function setLoadingState () {
+    for (const btn of document.querySelectorAll(".cho-container .btn span")) {
+        for (const child of [...btn.children]) {
+            child.classList.add("hidden");
+            if (child.nodeName === "DIV") {
+                child.classList.remove("hidden");
+            }
+        }
+    }
+}
+
+/**
+ * * Submit form callback function
+ * @param {object} params
+ */
+async function submit (params = {}) {
+    // * Set the loading state
+    setLoadingState();
+
+    // * Search the Lessons
+    let query = await Fetch.get(`/api/users/${ slug }/lessons`);
+    if (query.response.code === 200) {
+        lessons = query.response.data.lessons;
+    }
+
+    let valid = true;
+
+    // * Loop the data
+    for (const element of data) {
+        // * Loop the Lessons
+        for (const lesson of lessons) {
+            // * Loop the Lesson Days
+            for (const day of lesson.days) {
+                // ? If the day is the same as the element Day
+                if (day.date === element.date.parsed) {
+                    // * Loop the Day Hours
+                    for (const hour of day.hours) {
+                        // ? If the Hour is the same as the element Hour
+                        if (hour.id_hour == element.hour.value) {
+                            // * Throw the NotificationJS
+                            new NotificationJS({
+                                code: 403,
+                                message: `La fecha seleccionada (${ element.date.parsed } entre ${ element.hour.parsed }) ya se encuentra en uso`,
+                                classes: ["russo"],
+                            }, {
+                                open: true,
+                            });
+                            
+                            // * Invalidate
+                            valid = false;
+
+                            // ? If is testing the checkout
+                            if (test) {
+                                console.log(["-> Remove element:", element]);
+                            }
+
+                            // * Remove the date
+                            calendar.remove(element.date.parsed);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // ? If the submit is valid
+    if (valid) {
+        // ? If is testing the checkout
+        if (test) {
+            console.log("-> Submit");
+        }
+
+        // ? If is not testing the checkout
+        if (!test) {
+            // ? If the selected method is MercadoPago
+            if (document.querySelector("#input-mercadopago").checked) {
+                document.querySelector("form#checkout").submit();    
+            }
+            // ? If the selected method is PayPal
+            if (document.querySelector("#input-paypal").checked) {
+                // ! PayPal does not support trigger click button event
+            }
+        }
+    }
+
+    // * Set the loading state
+    setFinishState();
+}
+
+function createPayPalButton () {
+    if (paypalActions) {
+        paypalActions.disable();
+    }
+
+    paypal_sdk.Buttons({
+        onInit: function (data, actions) {
+            actions.disable();
+            paypalActions = actions;
+        }, style: {
+            layout: "horizontal",
+            tagline: false,
+            size: "responsive",
+        }, createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: (parseInt(type.price) - parseInt(credits)) / parseInt(dolar),
+                    }, custom_id: lesson.id_lesson,
+                }]
+            });
+        }, onApprove: function (data, actions) {
+            return actions.order.capture().then((details) => {
+                document.querySelector("form#checkout").submit();
+            });
+    }}).render(".cho-container");
+}
+
+document.addEventListener("DOMContentLoaded", async function (e) {
+    if (typeof paypal_sdk !== "undefined") {
+        let query = await Fetch.get("/api/dolar");
+        dolar = query.response.data.dolar;
+        createPayPalButton();
+    }
+
     if (type.id_type !== 2) {
         new DropdownJS({
             id: "date-1",
@@ -796,21 +672,32 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 enableDays.push(day.id_day);
             }
         }
+
+        let now = new Date();
+        now.setDate(new Date().getDate() + 1);
         
-        calendar = new InputDateMakerJS({
-            lang: "es",
-            availableWeekDays: enableDays,
-            name: "dates[]",
-            classes: ["checkout", "form-input"],
-            quantity: (type.id_type === 1 ? 1 : 4),
-        }, {
-            enablePastDates: false,
-            enableToday: false,
-            generate: document.querySelector(".dropdown-main > section:first-of-type"),
-            uncheck: false,
-        }, {
-            function: printHours,
-        });
+        calendar = new InputDateMaker({
+            props: {
+                today: now,
+                availableWeekDays: enableDays,
+                classes: {
+                    input: ["checkout", "form-input"],
+                }, lang: "es",
+                name: "dates[]",
+                quantity: (type.id_type === 1 ? 1 : 4),
+            }, state: {
+                enablePastDates: false,
+                enableToday: false,
+                generate: document.querySelector(".dropdown-main > section:first-of-type"),
+                uncheck: false,
+            }, callbacks: {
+                changeMonth: {
+                    function: () => { if (document.querySelector("label.date.today")) { document.querySelector("label.date.today").classList.remove("today"); } }, 
+                }, update: {
+                   function: printHours,
+        }}});
+
+        document.querySelector("label.date.today").classList.remove("today");
 
         createHours((type.id_type === 1 ? 1 : 4));
     }
@@ -833,4 +720,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
         valid: {
             function: submit,
     }});
+
+    document.querySelector(`input[name="credits"]`).addEventListener("focusout", function (e) {
+        credits = this.value;
+        createPayPalButton();
+    });
 });

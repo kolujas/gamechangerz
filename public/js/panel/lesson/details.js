@@ -107,7 +107,7 @@ document.querySelector(".deleteBtn").addEventListener("click", function(){
 
 function createDates (option) {
     document.querySelector("#lesson .dates").innerHTML = "";
-    for (let index = 0; index < (option === 1 ? 1 : (option === 3 ? 4 : 0)); index++) {
+    for (let index = 0; index < (option === 3 ? 4 : ((option === 1 || option === 2) ? 1 : 0)); index++) {
         let day;
         if (lesson.hasOwnProperty("id_lesson")) {
             for (let key = 0; key < lesson.days.length; key++) {
@@ -139,32 +139,40 @@ function createDates (option) {
             ],
         });
         document.querySelector("#lesson .dates").appendChild(date.html);
-        let hour = new Html("label", {
-            props: {
-                classes: ["color-white"],
-            }, innerHTML: [
-                ["span", {
-                    props: {
-                        classes: ["russo"],
-                    }, innerHTML: (option === 1 ? "Horario" : `Horario ${ index + 1 }`)
-                }], ["select", {
-                    props: {
-                        name: `hours[${ index + 1 }]`,
-                        classes: ["px-5", "py-4", "placeholder-blueGray-300", "rounded", "shadow", "outline-none", "focus:outline-none", "w-full", "form-input", "lesson-form", "editable", "mt-8"],
-                    }, state: {
-                        selectedIndex: (lesson.hasOwnProperty("id_lesson") && day) ? day.hours[0].id_hour - 1 : "",
-                    }, options: (() => { let options = []; for (const hour of hours) {
-                        options.push({
-                            props: {
-                                classes: ["overpass"],
-                                defaultValue: hour.id_hour,
-                            }, innerHTML: `${ hour.from } - ${ hour.to }`,
-                        });
-                    } return options; })(),
-                }],
-            ],
-        });
-        document.querySelector("#lesson .dates").appendChild(hour.html);
+
+        if (option == 2) {
+            document.querySelector(".assigments").classList.remove("hidden");
+        }
+
+        if (option != 2 && (option == 1 || option == 3)) {
+            document.querySelector(".assigments").classList.add("hidden");
+            let hour = new Html("label", {
+                props: {
+                    classes: ["color-white"],
+                }, innerHTML: [
+                    ["span", {
+                        props: {
+                            classes: ["russo"],
+                        }, innerHTML: (option === 1 ? "Horario" : `Horario ${ index + 1 }`)
+                    }], ["select", {
+                        props: {
+                            name: `hours[${ index + 1 }]`,
+                            classes: ["px-5", "py-4", "placeholder-blueGray-300", "rounded", "shadow", "outline-none", "focus:outline-none", "w-full", "form-input", "lesson-form", "editable", "mt-8"],
+                        }, state: {
+                            selectedIndex: (lesson.hasOwnProperty("id_lesson") && day) ? day.hours[0].id_hour - 1 : "",
+                        }, options: (() => { let options = []; for (const hour of hours) {
+                            options.push({
+                                props: {
+                                    classes: ["overpass"],
+                                    defaultValue: hour.id_hour,
+                                }, innerHTML: `${ hour.from } - ${ hour.to }`,
+                            });
+                        } return options; })(),
+                    }],
+                ],
+            });
+            document.querySelector("#lesson .dates").appendChild(hour.html);
+        }
     }
 }
 

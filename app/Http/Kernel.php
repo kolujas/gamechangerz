@@ -81,6 +81,7 @@ class Kernel extends HttpKernel
         'auth.not.user' => \App\Http\Middleware\CheckAuthenticateNotUser::class,
         'auth.is.lesson.user' => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
         'auth.lesson.end' => \App\Http\Middleware\CheckAuthenticateLessonEnded::class,
+        'auth.lesson.current.not.exist' => \App\Http\Middleware\CheckAuthenticateLessonCurrentNotExist::class,
         'auth.role.is.admin' => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,
         'auth.role.is.user' => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
         'auth.role.not.user' => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,

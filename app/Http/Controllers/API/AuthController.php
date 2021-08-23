@@ -101,12 +101,6 @@
                 ]);
             }
 
-            if (isset($input->discord_username)) {
-                $input->discord = Discord::stringify([
-                    "username" => $input->discord_username,
-                ]);
-            }
-
             $input->id_role = 0;
             $input->slug = SlugService::createSlug(User::class, "slug", $input->username);
             $input->languages = json_encode([[

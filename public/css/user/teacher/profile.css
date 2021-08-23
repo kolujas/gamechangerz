@@ -568,5 +568,7 @@
 
 /* ? 2XL */
 @media (min-width: 1536px) {
-    /*  */
+    .teacher section.games main {
+        width: 100%;
+    }
 }

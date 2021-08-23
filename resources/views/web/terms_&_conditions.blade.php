@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{-- Page title --}}
+    Términos y condiciones | GameChangerZ
 @endsection
 
 @section('css')

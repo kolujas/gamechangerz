@@ -82,7 +82,7 @@
                                 @endif
                                 @if ($lesson->id_status === 2)
                                     <td class="flex items-center px-6 py-4" title="Pago pendiente">
-                                        <i class="color-five fas fa-dolar-sign"></i>
+                                        <i class="color-five fas fa-dollar-sign"></i>
                                     </td>
                                 @endif
                                 @if ($lesson->id_status === 3)

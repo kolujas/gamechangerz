@@ -28,7 +28,7 @@
          * @var array
          */
         protected $fillable = [
-            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg",
+            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg", "assigments",
         ];
 
         /**
@@ -106,6 +106,7 @@
          * * Set the Lesson Assigment
          */
         public function assigments () {
+            $this->{"quantity-of-assigments"} = $this->assigments;
             $this->assigments = collect();
 
             foreach (Assigment::allFromLesson($this->id_lesson) as $assigment) {
@@ -140,7 +141,9 @@
          * * Set the Lesson ended_at.
          */
         public function ended_at () {
-            $this->days();
+            if (gettype($this->days) === "string") {
+                $this->days();
+            }
 
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
@@ -182,7 +185,9 @@
          * * Set the Lesson started_at.
          */
         public function started_at () {
-            $this->days();
+            if (gettype($this->days) === "string") {
+                $this->days();
+            }
 
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
@@ -422,12 +427,16 @@
                                 "id_user_to.exists" => "El usuario no existe.",
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
-                    ],],], "offline" => [
+                            ],
+                        ],
+                    ], "offline" => [
                         "rules" => [
                             "id_user_from" => "required|exists:users,id_user",
                             "id_user_to" => "required|exists:users,id_user",
                             "id_method" => "required",
                             "id_type" => "required",
+                            "dates" => "required",
+                            "assigments" => "required",
                         ], "messages" => [
                             "es" => [
                                 "id_user_from.required" => "El profesor es obligatorio.",
@@ -436,7 +445,11 @@
                                 "id_user_to.exists" => "El usuario no existe.",
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
-                    ],],], "packs" => [
+                                "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
+                                "assigments.required" => "La cantidad de assigments es obligatoria.",
+                            ],
+                        ],
+                    ], "packs" => [
                         "rules" => [
                             "dates" => "required|array|min:4",
                             "hours" => "required|array|min:4",
@@ -458,14 +471,20 @@
                                 "id_user_to.exists" => "El usuario no existe.",
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
-                ],],],], "delete" => [
+                            ],
+                        ],
+                    ],
+                ], "delete" => [
                     "rules" => [
                         "message" => "required|regex:/^BORRAR$/",
                     ], "messages" => [
                         "es" => [
                             "message.required" => "El mensaje es obligatorio.",
                             "message.regex" => "El mensaje debe decir BORRAR.",
-            ],],],], "update" => [
+                        ],
+                    ],
+                ],
+            ], "update" => [
                 "rules" => [
                     "dates" => "required",
                     "hours" => "required",
@@ -473,19 +492,25 @@
                     "es" => [
                         "dates.required" => "La fecha de la clase debe ser seleccionada.",
                         "hours.required" => "El horario de la clase debe ser seleccionada.",
-            ]]], "checkout" => [
+                    ],
+                ],
+            ], "checkout" => [
                 "online" => [
                     "rules" => [
                         "dates" => "required",
                         "dates.*" => "required",
                         "hours" => "required",
                         "hours.*" => "required",
+                        "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                     ], "messages" => [
                         "es" => [
                             "dates.required" => "La fecha de la clase debe ser seleccionada.",
                             "hours.required" => "El horario de la clase debe ser seleccionada.",
                             "dates.*.required" => "No se seleccionó una fecha.",
                             "hours.*.required" => "No se seleccionó una hora.",
+                            "discord.required" => "El nombre de usuario de Discord es obligatorio.",
+                            "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                            'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                 ]]], "offline" => [
                     "rules" => [
                         // 
@@ -498,6 +523,7 @@
                         "dates.*" => "required",
                         "hours" => "required|array|min:4|max:4",
                         "hours.*" => "required",
+                        "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                     ], "messages" => [
                         "es" => [
                             "dates.required" => "Las fechas de la clase deben ser seleccionadas.",
@@ -509,6 +535,9 @@
                             "hours.max" => "Máximo :max horas deben ser seleccionadas.",
                             "dates.*.required" => "No se seleccionó una fecha.",
                             "hours.*.required" => "No se seleccionó una hora.",
+                            "discord.required" => "El nombre de usuario de Discord es obligatorio.",
+                            "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                            'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
         ]]]]];
 
         /**

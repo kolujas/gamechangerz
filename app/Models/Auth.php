@@ -20,7 +20,7 @@
             ]]], 'signin' => [
                 'rules' => [
                     'username' => 'required|unique:users',
-                    'discord_username' => 'nullable|regex:/.+\d{4}$/',
+                    'discord' => 'nullable|unique:users|regex:/([a-z])*#([0-9])*/i',
                     'email' => 'required|email|unique:users',
                     'password' => 'required|confirmed',
                     'date' => 'nullable|date',
@@ -30,7 +30,8 @@
                     'es' => [
                         'username.required' => 'El apodo es obligatorio.',
                         'username.unique' => 'Ese apodo ya se encuentra en uso.',
-                        'discord_username.regex' => 'El nombre de usuario de Discord no es válido (username#0000).',
+                        'discord.regex' => 'El nombre de usuario de Discord no es válido (username#0000).',
+                        'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                         'email.required' => 'El correo es obligatorio.',
                         'email.email' => 'El correo debe ser formato mail (ejemplo@correo.com).',
                         'email.unique' => 'Ese correo ya se encuentra en uso.',

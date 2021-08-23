@@ -2,7 +2,7 @@
     padding-left: 0;
 }
 
-#user input[type=text], #user input[type=password], #user textarea, #user select{
+#user input[type=text], #user input[type=number], #user input[type=password], #user textarea, #user select{
     background: var(--color-black);
     color: var(--color-white);
 }

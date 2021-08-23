@@ -1,21 +1,34 @@
-@extends('layouts.default')
+@extends("layouts.default")
 
-@section('title')
+@section("title")
     Checkout | GameChangerZ
 @endsection
 
-@section('css')
-    <link rel="stylesheet" href={{ asset('css/user/checkout.css?v=0.0.1') }}>
+@section("css")
+    <link rel="stylesheet" href={{ asset("css/user/checkout.css?v=0.0.1") }}>
 @endsection
 
-@section('nav')
-    @component('components.nav.global')@endcomponent
+@section("nav")
+    @component("components.nav.global")@endcomponent
 @endsection
 
-@section('main')
-    <form id="checkout" action="/lessons/{{ $lesson->id_lesson  }}/checkout" class="grid gap-20 md:grid-cols-3 lg:grid-cols-10 items-center md:items-start py-32 px-8 lg:px-0" method="post">
+@section("main")
+    <form id="checkout" action="/lessons/{{ $lesson->id_lesson  }}/checkout/{{ $type->slug }}" class="grid gap-20 md:grid-cols-3 lg:grid-cols-10 items-center md:items-start py-32 px-8 lg:px-0" method="post">
         @csrf
-        @method('POST')
+        @method("POST")
+        <section class="discord md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-8 @if (Auth::user()->discord)
+            hidden
+        @endif">
+            <label class="input-group grid grid-cols-4">
+                <h3 class="overpass color-white mb-8 col-span-8">Usuario de Discord</h3>
+                <input class="checkout form-input px-5 py-4 overpass bg-black rounded" type="text" name="discord" id="discord" placeholder="Username#0000" value={{ old("discord", Auth::user()->discord) }}>
+                @if ($errors->has("discord"))
+                    <span class="error support mt-2 checkout support-box support-discord overpass color-white col-span-8">{{ $errors->first("discord") }}</span>
+                @else
+                    <span class="error support mt-2 checkout support-box hidden support-discord overpass color-white col-span-8"></span>
+                @endif
+            </label>
+        </section>
         <section class="cart md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-8">
             <ul class="py-6 px-8">
                 <li class="flex justify-between color-white">
@@ -48,13 +61,13 @@
                             </ul>
                         </section>
                         <section class="xl:col-span-3 mx-4 lg:mx-0 grid gap-4 mb-4">
-                            @if ($errors->has('dates'))
-                                <span class="color-white error support checkout support-box hidden support-dates overpass">{{ $errors->first('dates') }}</span>
+                            @if ($errors->has("dates"))
+                                <span class="color-white error support checkout support-box hidden support-dates overpass">{{ $errors->first("dates") }}</span>
                             @else
                                 <span class="color-white error support checkout support-box hidden support-dates overpass"></span>
                             @endif
-                            @if ($errors->has('hours'))
-                                <span class="color-white error support checkout support-box hidden support-hours overpass">{{ $errors->first('hours') }}</span>
+                            @if ($errors->has("hours"))
+                                <span class="color-white error support checkout support-box hidden support-hours overpass">{{ $errors->first("hours") }}</span>
                             @else
                                 <span class="color-white error support checkout support-box hidden support-hours overpass"></span>
                             @endif
@@ -71,18 +84,18 @@
                 <ul class="tabs tab-menu-list cards grid grid-cols-1 gap-8 md:grid-cols-2">
                     <li id="tab-mercadopago" class="tab card">
                         <a href="#mercadopago" class="tab-button color-white">
-                            <input type="radio" name="id_method" id="input-mercadopago" value="mercadopago" checked />
+                            <input type="radio" name="id_method" id="input-mercadopago" value="1" checked />
                             <label for="input-mercadopago" class="p-8">
-                                @component('components.svg.MercadoPagoSVG')@endcomponent
+                                @component("components.svg.MercadoPagoSVG")@endcomponent
                                 <h4 class="pl-4 overpass">Mercado pago</h4>
                             </label>
                         </a>
                     </li>
                     <li id="tab-paypal" class="tab card">
                         <a href="#paypal" class="tab-button color-white">
-                            <input type="radio" name="id_method" id="input-paypal" value="paypal" />
+                            <input type="radio" name="id_method" id="input-paypal" value="2" />
                             <label for="input-paypal" class="p-8">
-                                @component('components.svg.PayPalSVG')@endcomponent
+                                @component("components.svg.PayPalSVG")@endcomponent
                                 <h4 class="pl-4 overpass">Paypal</h4>
                             </label>
                         </a>
@@ -115,23 +128,29 @@
         </section>
         <div class="cho-container flex justify-center md:justify-end lg:justify-center lg:col-start-2 lg:col-span-8">
             <button class="btn btn-one btn-outline" type="submit">
-                <span class="russo py-2 px-4">Comenzar entrenamiento</span>
+                <span class="russo py-2 px-4">
+                    <div class="loading hidden">
+                        <i class="spinner-icon"></i>
+                    </div>
+                    <span>Comenzar entrenamiento</span>
+                </span>
             </button>
         </div>
     </form>
 @endsection
 
-@section('footer')
-    @component('components.footer')@endcomponent
+@section("footer")
+    @component("components.footer")@endcomponent
 @endsection
 
-@section('js')
-    <script src="https://www.paypal.com/sdk/js?client-id=AY9RENrD9cYtrxpDlu0jHtotUudn2ugvA3tHzvz07k61XtznIu9KILPz-k05P1ecoMVMUCWj9PaBaOnz&disable-funding=credit,card" data-namespace="paypal_sdk"></script>
+@section("js")
+    <script src="https://www.paypal.com/sdk/js?client-id={{ $client_id }}&disable-funding=credit,card" data-namespace="paypal_sdk"></script>
     <script>
         const days = @json($user->days);
         const lesson = @json($lesson);
+        var lessons = @json($user->lessons);
         const type = @json($type);
         const slug = "{{ $user->slug }}";
     </script>
-    <script type="module" src={{ asset('js/user/checkout.js?v=0.0.1') }}></script>
+    <script type="module" src={{ asset("js/user/checkout.js?v=0.0.3") }}></script>
 @endsection

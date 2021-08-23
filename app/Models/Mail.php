@@ -3,7 +3,8 @@
 
     use App\Mail\ConfirmationMail;
     use App\Mail\NewAssigmentMail;
-    use App\Mail\NewLessonMail;
+    use App\Mail\NewLessonTeacherMail;
+    use App\Mail\NewLessonUserMail;
     use App\Mail\NewMessageMail;
     use App\Mail\NewPresentationMail;
     use App\Mail\FriendshipRequestMail;
@@ -49,13 +50,16 @@
                     $mail = new NewPresentationMail((object) $data);
                     break;
                 case 5:
-                    $mail = new NewLessonMail((object) $data);
+                    $mail = new NewLessonTeacherMail((object) $data);
                     break;
                 case 6:
                     $mail = new FriendshipRequestMail((object) $data);
                     break;
                 case 7:
                     $mail = new TeacherRequestMail((object) $data);
+                    break;
+                case 8:
+                    $mail = new NewLessonUserMail((object) $data);
                     break;
             }
             MailService::to($data["email_to"])->send($mail);

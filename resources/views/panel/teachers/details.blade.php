@@ -85,7 +85,11 @@
 
                 <div class="pt-0 col-span-2">
                     <input type="text" tabindex="3" name="email" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-email mt-2 overpass"></span>
+                    @if ($errors->has("email"))
+                        <span class="block color-white error support teacher-form support-box support-email mt-2 overpass">{{ $errors->first("email") }}</span>
+                    @else
+                        <span class="block color-white error support teacher-form support-box hidden support-email mt-2 overpass"></span>
+                    @endif
                 </div>
 
                 <div class="pt-0 col-span-2">
@@ -95,7 +99,11 @@
 
                 <div class="pt-0 col-span-2 col-start-1">
                     <input type="text" tabindex="5" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-username mt-2 overpass"></span>
+                    @if ($errors->has("username"))
+                        <span class="block color-white error support teacher-form support-box support-username mt-2 overpass">{{ $errors->first("username") }}</span>
+                    @else
+                        <span class="block color-white error support teacher-form support-box hidden support-username mt-2 overpass"></span>
+                    @endif
                 </div>
 
                 <div class="pt-0 col-span-2">
@@ -111,13 +119,12 @@
                 <div class="pt-0 col-span-4 col-start-1 grid grid-cols-2 gap-8">
                     <h3 class="col-span-2 russo color-white uppercase">Discord</h3>
                     <div>
-                        <input type="text" tabindex="8" name="discord_username" placeholder="Username#0000" value="{{ old("discord_username", $discord->username) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                        <span class="block color-white error support teacher-form support-box hidden support-discord_username mt-2 overpass"></span>
-                    </div>
-
-                    <div>
-                        <input type="url" tabindex="9" name="discord_link" placeholder="https://discord.gg/aaaaa" value="{{ old("discord_link", $discord->link) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                        <span class="block color-white error support teacher-form support-box hidden support-discord_link mt-2 overpass"></span>
+                        <input type="text" tabindex="8" name="discord" placeholder="Username#0000" value="{{ old("discord", $user->discord) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                        @if ($errors->has("discord"))
+                            <span class="block color-white error support teacher-form support-box support-discord mt-2 overpass">{{ $errors->first("discord") }}</span>
+                        @else
+                            <span class="block color-white error support teacher-form support-box hidden support-discord mt-2 overpass"></span>
+                        @endif
                     </div>
                 </div>
 

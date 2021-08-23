@@ -8,14 +8,14 @@
          * * Table primary key name
          * @var string
          */
-        protected $primaryKey = 'id_method';
+        protected $primaryKey = "id_method";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_method', 'name', 'slug',
+            "id_method", "name", "slug", "access_token",
         ];
 
         /**
@@ -25,7 +25,7 @@
          */
         static public function has (int $id_method) {
             foreach (Method::$options as $option) {
-                if ($option['id_method'] === $id_method) {
+                if ($option["id_method"] === $id_method) {
                     return true;
                 }
             }
@@ -40,7 +40,7 @@
          */
         static public function option (int $id_method) {
             foreach (Method::$options as $option) {
-                if ($option['id_method'] === $id_method) {
+                if ($option["id_method"] === $id_method) {
                     return new Method($option);
                 }
             }
@@ -62,7 +62,7 @@
                 $found = false;
                 
                 foreach ($methods as $data) {
-                    if ($method->id_method === $data['id_method']) {
+                    if ($method->id_method === $data["id_method"]) {
                         $found = true;
                         break;
                     }
@@ -81,7 +81,7 @@
          * @param string [$methods] Example: "[{\"id_method\":1,\"access_token\":\"something\"}]"
          * @return Game[]
          */
-        static public function parse (string $methods = '') {
+        static public function parse (string $methods = "") {
             $collection = collect();
 
             foreach (json_decode($methods) as $data) {
@@ -104,8 +104,8 @@
             
             foreach ($methods as $data) {
                 $collection->push([
-                    "id_method" => $data['id_method'],
-                    "access_token" => $data['access_token'],
+                    "id_method" => $data["id_method"],
+                    "access_token" => $data["access_token"],
                 ]);
             }
 
@@ -117,12 +117,12 @@
          * @var array
          */
         static $options = [[
-            'id_method' => 1,
-            'name' => 'MercadoPago',
-            'slug' => 'mercadopago',
+            "id_method" => 1,
+            "name" => "MercadoPago",
+            "slug" => "mercadopago",
         ], [
-            'id_method' => 2,
-            'name' => 'PayPal',
-            'slug' => 'paypal',
+            "id_method" => 2,
+            "name" => "PayPal",
+            "slug" => "paypal",
         ]];
     }

@@ -51,7 +51,11 @@
             <main class="my-2 py-2 grid grid-cols-8 gap-8">
                 <div class="pt-0 col-span-2">
                     <input type="text" tabindex="2" name="name" placeholder="Nombre" value="{{ old("name", $coupon->name) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input coupon-form editable" @if(isset($coupon->id_coupon)) disabled @endif/>
-                    <span class="block color-white error support coupon-form support-box hidden support-name mt-2 overpass"></span>
+                    @if ($errors->has("name"))
+                        <span class="block color-white error support coupon-form support-box support-name mt-2 overpass">{{ $errors->first("name") }}</span>
+                    @else
+                        <span class="block color-white error support coupon-form support-box hidden support-name mt-2 overpass"></span>
+                    @endif
                 </div>
 
                 <div class="pt-0 col-span-2">

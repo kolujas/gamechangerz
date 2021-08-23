@@ -4,7 +4,6 @@
     use App\Models\Ability;
     use App\Models\Achievements;
     use App\Models\Day;
-    use App\Models\Discord;
     use App\Models\Folder;
     use App\Models\Friend;
     use App\Models\Game;
@@ -80,9 +79,6 @@
                             break;
                         case "days":
                             $this->days();
-                            break;
-                        case "discord":
-                            $this->discord();
                             break;
                         case "files":
                             $this->files();
@@ -197,13 +193,6 @@
          */
         public function days () {
             $this->days = Day::parse($this->days);
-        }
-
-        /**
-         * * Set the User Discord.
-         */
-        public function discord () {
-            $this->discord = Discord::parse($this->discord);
         }
 
         /**
@@ -443,10 +432,10 @@
          */
         static public function allTeachers ($paginate = false) {
             if (!$paginate) {
-                $users = User::where("id_role", "=", 1)->orderBy("updated_at")->get();
+                $users = User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->get();
             }
             if ($paginate) {
-                $users = User::where("id_role", "=", 1)->orderBy("updated_at")->paginate(5);
+                $users = User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->paginate(5);
             }
 
             return $users;
@@ -459,10 +448,10 @@
          */
         static public function allUsers ($paginate = false) {
             if (!$paginate) {
-                $users = User::where("id_role", "=", 0)->orderBy("updated_at")->get();
+                $users = User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->get();
             }
             if ($paginate) {
-                $users = User::where("id_role", "=", 0)->orderBy("updated_at")->paginate(5);
+                $users = User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->paginate(5);
             }
 
             return $users;
@@ -592,13 +581,14 @@
                 "panel" => [
                     "create" => [
                         "rules" => [
-                            "username" => "required|unique:users|max:25",
+                            "username" => "required|unique:users|max:50",
                             "email" => "required|email|unique:users",
                             "password" => "required",
-                            "name" => "nullable|max:25",
+                            "name" => "nullable|max:50",
                             "profile" => "nullable|mimetypes:image/png,image/jpeg",
                             "banner" => "nullable|mimetypes:image/png,image/jpeg",
                             "languages" => "required",
+                            "discord" => "nullable|unique:users|regex:/([a-z])*#([0-9])*/i",
                         ], "messages" => [
                             "es" => [
                                 "username.required" => "El apodo es obligatorio.",
@@ -612,6 +602,8 @@
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
                                 "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
+                                "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                                'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                             ]
                         ]
                     ], "delete" => [
@@ -625,12 +617,13 @@
                         ],
                     ], "update" => [
                         "rules" => [
-                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "username" => "required|unique:users,username,{id_user},id_user|max:50",
                             "email" => "required|email|unique:users,username,{id_user},id_user",
-                            "name" => "nullable|max:25",
+                            "name" => "nullable|max:50",
                             "profile" => "nullable|mimetypes:image/png,image/jpeg",
                             "banner" => "nullable|mimetypes:image/png,image/jpeg",
                             "languages" => "required",
+                            "discord" => "nullable|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                         ], "messages" => [
                             "es" => [
                                 "username.required" => "El apodo es obligatorio.",
@@ -643,13 +636,15 @@
                                 "profile.mimetypes" => "La foto de perfil debe ser una imagen .jpeg/jpg o .png",
                                 "banner.mimetypes" => "La foto del banner debe ser una imagen .jpeg/jpg o .png",
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
+                                "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                                'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                             ],
                         ],
                     ],
                 ], "update" => [
                     "rules" => [
-                        "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                        "name" => "nullable|max:25",
+                        "username" => "required|unique:users,username,{id_user},id_user|max:50",
+                        "name" => "nullable|max:50",
                         "profile" => "nullable|mimetypes:image/png,image/jpeg",
                         "banner" => "nullable|mimetypes:image/png,image/jpeg",
                         "languages" => "required",
@@ -668,23 +663,21 @@
                 "panel" => [
                     "create" => [
                         "rules" => [
-                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "username" => "required|unique:users,username,{id_user},id_user|max:50",
                             "email" => "required|email|unique:users",
-                            "discord_link" => "required|regex:/^https:\/\/discord\.gg\//",
                             "password" => "required",
-                            "name" => "required|max:25",
+                            "name" => "required|max:50",
                             "description" => "nullable|max:255",
-                            "teampro_name" => "nullable|max:25",
+                            "teampro_name" => "nullable|max:50",
                             "teampro_logo" => "nullable|mimetypes:image/png",
                             "profile" => "required|mimetypes:image/png",
                             "abilities" => "required",
                             "languages" => "required",
                             "id_status" => "required",
                             "mp_access_token" => "required",
+                            "discord" => "required|unique:users|regex:/([a-z])*#([0-9])*/i",
                         ], "messages" => [
                             "es" => [
-                                "discord_link.required" => "El link de Discord es obligatorio.",
-                                "discord_link.regex" => "Debe ser una URL válida (https://discord.gg/aaaaa).",
                                 "username.required" => "El apodo es obligatorio.",
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
@@ -703,6 +696,9 @@
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
                                 "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
+                                "discord.requried" => "El nombre de usuario de Discord es obligatorio.",
+                                "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                                'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                             ],
                         ],
                     ], "delete" => [
@@ -716,22 +712,20 @@
                         ],
                     ], "update" => [
                         "rules" => [
-                            "username" => "required|unique:users,username,{id_user},id_user|max:25",
+                            "username" => "required|unique:users,username,{id_user},id_user|max:50",
                             "email" => "required|email|unique:users,email,{id_user},id_user",
-                            "name" => "required|max:25",
+                            "name" => "required|max:50",
                             "description" => "nullable|max:255",
-                            "discord_link" => "required|regex:/^https:\/\/discord\.gg\//",
-                            "teampro_name" => "nullable|max:25",
+                            "teampro_name" => "nullable|max:50",
                             "teampro_logo" => "nullable|mimetypes:image/png",
                             "profile" => "nullable|mimetypes:image/png",
                             "abilities" => "required",
                             "languages" => "required",
                             "id_status" => "required",
                             "mp_access_token" => "required",
+                            "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                         ], "messages" => [
                             "es" => [
-                                "discord_link.required" => "El link de Discord es obligatorio.",
-                                "discord_link.regex" => "Debe ser una URL válida (https://discord.gg/aaaaa).",
                                 "username.required" => "El apodo es obligatorio.",
                                 "username.unique" => "Ese apodo ya esta en uso.",
                                 "username.max" => "El apodo no puede tener más de :max caracteres.",
@@ -748,15 +742,18 @@
                                 "languages.required" => "Al menos 1 idioma es obligatorio.",
                                 "id_status.required" => "El estado es obligatorio.",
                                 "mp_access_token.required" => "El access token de MercadoPago es obligatorio.",
+                                "discord.requried" => "El nombre de usuario de Discord es obligatorio.",
+                                "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                                'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                             ],
                         ],
                     ],
                 ], "update" => [
                     "rules" => [
-                        "username" => "required|unique:users,username,{id_user},id_user|max:25",
-                        "name" => "required|max:25",
+                        "username" => "required|unique:users,username,{id_user},id_user|max:50",
+                        "name" => "required|max:50",
                         "description" => "nullable|max:255",
-                        "teampro_name" => "nullable|max:25",
+                        "teampro_name" => "nullable|max:50",
                         "teampro_logo" => "nullable|mimetypes:image/png",
                         "profile" => "nullable|mimetypes:image/png",
                     ], "messages" => [
@@ -783,12 +780,20 @@
                     "es" => [
                         "username.required" => "El apodo es obligatorio.",
                         "username.unique" => "Ese apodo ya se encuentra en uso.",
-                        "discord_username.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                         "email.required" => "El correo es obligatorio.",
                         "email.email" => "El correo debe ser formato mail (ejemplo@correo.com).",
                         "email.unique" => "Ese correo ya se encuentra en uso.",
                         "password.required" => "La contraseña es obligatoria.",
                         "accept.required" => "Debe aceptar los Términos y las Politicas de privacidad.",
+                    ],
+                ],
+            ], "advanced" => [
+                "rules" => [
+                    "discord" => "nullable|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
+                ], "messages" => [
+                    "es" => [
+                        "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
+                        'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
                     ],
                 ],
             ],

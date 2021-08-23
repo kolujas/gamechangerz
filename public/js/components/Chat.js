@@ -1,6 +1,6 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { CountDown as CountDownJS } from "../../submodules/CountDownJS/js/CountDown.js";
-import { InputDateMaker as InputDateMakerJS } from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
+import InputDateMaker from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
 import Filter from "../../submodules/FilterJS/js/Filter.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
@@ -244,7 +244,7 @@ export class Chat extends Class {
                 let end_date = new Date(chat.lesson.ended_at.replaceAll("-", "/").split("T").shift());
                 let span2 = document.createElement("span");
                 span2.classList.add("timer", "color-grey");
-                span2.innerHTML = `El chat estará disponible entre la fecha <b class="mx-1">${ ((start_date.getDate() < 10) ? `0${ start_date.getDate() }` : start_date.getDate()) }/${ InputDateMakerJS.Months.es[start_date.getMonth()].number }/${ start_date.getFullYear() }</b> y <b class="ml-1">${ ((end_date.getDate() < 10) ? `0${ end_date.getDate() }` : end_date.getDate()) }/${ InputDateMakerJS.Months.es[end_date.getMonth()].number }/${ end_date.getFullYear() }</b>`;
+                span2.innerHTML = `El chat estará disponible entre la fecha <b class="mx-1">${ ((start_date.getDate() < 10) ? `0${ start_date.getDate() }` : start_date.getDate()) }/${ InputDateMaker.Months.es[start_date.getMonth()].number }/${ start_date.getFullYear() }</b> y <b class="ml-1">${ ((end_date.getDate() < 10) ? `0${ end_date.getDate() }` : end_date.getDate()) }/${ InputDateMaker.Months.es[end_date.getMonth()].number }/${ end_date.getFullYear() }</b>`;
                 this.sections.details.main.appendChild(span2);
             }
             this.changeFooter(chat);
@@ -339,19 +339,19 @@ export class Chat extends Class {
             if (chat.users.from.id_role === 1) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
-                paragraph.innerHTML = `${ 4 - chat.lesson.assigments.length } tareas pendientes`;
+                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
                 if (chat.users.from.id_user === chat.id_user_logged) {
                     let link = document.createElement("a");
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (chat.lesson.assigments.length === 4) {
+                    if (parseInt(chat.lesson.assigments.length) === chat.lesson["quantity-of-assigments"]) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", function (e) {
-                        if (chat.lesson.assigments.length < 4) {
+                        if (chat.lesson.assigments.length < parseInt(chat.lesson.assigments.length)) {
                             instance.addAssigment();
                         }
                     });

@@ -70,18 +70,6 @@
 
             $input->days = Day::stringify($input->days);
 
-            if (isset($input->discord_username)) {
-                $input->discord = Discord::stringify([
-                    "username" => $input->discord_username,
-                    "link" => $input->discord_link,
-                ]);
-            }
-            if (!isset($input->discord_username)) {
-                $input->discord = Discord::stringify([
-                    "link" => $input->discord_link,
-                ]);
-            }
-
             $games = collect();
             foreach ($input->abilities as $ability => $on) {
                 $ability = Ability::findBySlug($ability);

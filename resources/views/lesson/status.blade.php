@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Estado de la clase: {{ ((intval($id_status) === 2) ? "pagada" : ((intval($id_status) === 1) ? "pendiente de pago" : "pago rechazado")) }} | GameChangerZ
+    {{ ((intval($id_status) === 2) ? "Clase pagada con exito" : ((intval($id_status) === 1) ? "Pendiente de pago" : "Pago rechazado")) }} | GameChangerZ
 @endsection
 
 @section('css')

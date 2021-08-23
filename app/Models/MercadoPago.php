@@ -47,12 +47,24 @@
         }
 
         /**
+         * * Set the MercadoPago Merchant order
+         * @param string $id_payment
+         */
+        public function merchant_order (string $id_order) {
+            // * Get the payment and the corresponding merchant_order reported by the IPN.
+			$this->merchant_order = MerchantOrder::find_by_id($id_order);
+        }
+
+        /**
          * * Set the MercadoPago Payment
          * @param string $id_payment
          */
         public function payment (string $id_payment) {
             // * Set the Payment
             $this->payment = Payment::find_by_id($id_payment);
+
+            // * Get the payment and the corresponding merchant_order reported by the IPN.
+            $this->merchant_order($this->payment->order->id);
         }
 
         /**
@@ -90,13 +102,13 @@
             $this->preference->external_reference = $data->id;
 
             // * Check the enviroment
-            if (config("app.env") === "production") {
+            // if (config("app.env") === "production") {
                 // ? Set the Preference webhook route
                 $this->preference->notification_url = route("checkout.notification", [
                     "id_lesson" => $data->id,
                     "type" => "mercadopago",
                 ]);
-            }
+            // }
 
             // * Save the Preference
             $this->preference->save();
