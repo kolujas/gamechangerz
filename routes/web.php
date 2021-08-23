@@ -58,8 +58,12 @@
 // ! GoogleController - Controls the Google pages.
     Route::middleware("auth.custom")->group(function () {
         Route::get("/google/oauth", [GoogleController::class, "store"])->name("google.store");
-
+        
 // ! CheckoutController - Controls the Checkout pages.
+        Route::middleware("user.exist")->group(function () {
+            Route::get("/mercadopago/{id_user}/authorization", [CheckoutController::class, "authorization"])->name("checkout.authorization");
+        });
+
         Route::middleware("auth.not.user")->group(function () {
             Route::middleware("lesson.exist")->group(function () {
                 Route::post("/lessons/{id_lesson}/checkout/{type}", [CheckoutController::class, "complete"])->name("checkout.complete");

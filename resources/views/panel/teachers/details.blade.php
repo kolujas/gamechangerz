@@ -70,10 +70,10 @@
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif>
+                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" disabled>
                         <option class="overpass" disabled @if (!old("id_status", $user->id_status)) selected @endif>Estado</option>
                         <option class="overpass" value="0" @if (intval(old("id_status", $user->id_status)) === 0) selected @endif>Baneado</option>
-                        <option class="overpass" value="1" @if (intval(old("id_status", $user->id_status)) === 1) selected @endif>Correo pendiente de aprobación</option>
+                        <option class="overpass" value="1" @if (intval(old("id_status", $user->id_status)) === 1 || !isset($user->id_user)) selected @endif>Correo pendiente de aprobación</option>
                         <option class="overpass" value="2" @if (intval(old("id_status", $user->id_status)) === 2) selected @endif>Habilitado</option>
                     </select>
                     <span class="block color-white error support teacher-form support-box hidden support-id_status mt-2 overpass"></span>

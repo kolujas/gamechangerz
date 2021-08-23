@@ -86,6 +86,17 @@
           }
 
           /**
+           * * Get a Coupon by the name.
+           * @param string $name
+           * @return Coupon
+           */
+          static public function findByName (string $name = "") {
+              $coupon = Coupon::where("name", "=", $name)->first();
+  
+              return $coupon;
+          }
+
+          /**
            * * Parse the Coupon type object.
            * @param string [$type] Example: "[{\"id_type\":1,\"value\":400}]"
            * @return Coupon[]

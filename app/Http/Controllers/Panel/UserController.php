@@ -6,6 +6,7 @@
     use App\Models\Day;
     use App\Models\Game;
     use App\Models\Language;
+    use App\Models\Mail;
     use App\Models\Method;
     use App\Models\Price;
     use App\Models\Teampro;
@@ -160,6 +161,11 @@
                     });
 
             Storage::put($filepath, (string) $file->encode());
+
+            new Mail([ "id_mail" => 9, ], [
+                "email_to" => $input->email,
+                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.access_token") . "&response_type=code&platform_id=mp&redirect_uri=https://plannet.space/mercadopago/$user->id_user/authorization",
+            ]);
 
             return redirect("/panel/teachers/$user->slug")->with("status", [
                 "code" => 200,

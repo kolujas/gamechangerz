@@ -126,6 +126,16 @@
                 </a>
             </div>
         </section>
+        <section class="coupon grid gap-4 grid-cols-1 md:grid-cols-2 md:col-start-1 md:col-span-2 lg:col-start-2 lg:col-span-8">
+            <label class="grid gap-4">
+                <input id="coupon" type="text" name="coupon" class="overpass xl:text-lg focus:outline-none border-0" placeholder="Usar cupón:">
+            </label>
+            @if ($errors->has("coupon"))
+                <span class="error support mt-2 checkout support-box support-coupon overpass color-white col-span-8">{{ $errors->first("coupon") }}</span>
+            @else
+                <span class="error support mt-2 checkout support-box hidden support-coupon overpass color-white col-span-8"></span>
+            @endif
+        </section>
         <div class="cho-container flex justify-center md:justify-end lg:justify-center lg:col-start-2 lg:col-span-8">
             <button class="btn btn-one btn-outline" type="submit">
                 <span class="russo py-2 px-4">

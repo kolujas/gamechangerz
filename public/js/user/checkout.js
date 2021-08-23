@@ -11,6 +11,7 @@ let test = false;
 
 let calendar;
 let credits = 0;
+let coupon = false;
 let current = {};
 let inputs = [];
 let data = [];
@@ -49,7 +50,7 @@ function hasLesson (date) {
     let found = false;
     for (const lesson of lessons) {
         for (const day of lesson.days) {
-            if (day.date === date) {
+            if (day.date == date) {
                 found = true;
                 break;
             }
@@ -67,7 +68,7 @@ function findLessons (date) {
     let array = [];
     for (const lesson of lessons) {
         for (const day of lesson.days) {
-            if (day.date === date) {
+            if (day.date == date) {
                 array.push(lesson);
             }
         }
@@ -98,9 +99,9 @@ async function addHour (params = {}) {
             }
             
             // ? If an element has an Hour
-            if (element.hour !== null) {
+            if (element.hour != null) {
                 // ? If the element Hour is current
-                if (element.hour.value === params.hour.id_hour && element.index === current.index) {
+                if (element.hour.value == params.hour.id_hour && element.index == current.index) {
                     // ? If is testing the checkout
                     if (test) {
                         console.log(["-> Move to the end:", element]);
@@ -142,7 +143,7 @@ async function addHour (params = {}) {
             }
 
             // ? If the element is the current
-            if (element.index === current.index && element.hour === null) {
+            if (element.index == current.index && element.hour == null) {
                 // ? If is testing the checkout
                 if (test) {
                     console.log(["-> Add Hour", {
@@ -217,7 +218,7 @@ function checkData (hour = false) {
                 // * Loop the Dates
                 for (const date of dates) {
                     // ? The Hour match with a Date
-                    if (date.date.parsed === element.date.parsed && date.index === element.index) {
+                    if (date.date.parsed == element.date.parsed && date.index == element.index) {
                         // * Continue
                         found = true;
                     }
@@ -236,7 +237,7 @@ function checkData (hour = false) {
                     }
 
                     // ? If the element has an Hour
-                    if (element.hour !== null && ((!hour && calendar.props.quantity === 1) || calendar.props.quantity > 1)) {
+                    if (element.hour != null && ((!hour && calendar.props.quantity == 1) || calendar.props.quantity > 1)) {
                         element.hour.input.value = null;
                         element.hour.input.checked = false;
                     }
@@ -272,7 +273,7 @@ function checkData (hour = false) {
                     }
 
                     // ? The Hour match with a Date
-                    if (date.date.parsed === element.date.parsed && date.index === element.index) {
+                    if (date.date.parsed == element.date.parsed && date.index == element.index) {
                         // ? If is testing the checkout
                         if (test) {
                             console.log(["-> Move to the end", element]);
@@ -357,7 +358,7 @@ function checkPayPalState () {
     }
 
     // ? If the quantity of Dates & Hours is less than the correct one
-    if (data.length < (type.id_type === 1 ? 1 : 4)) {
+    if (data.length < (type.id_type == 1 ? 1 : 4)) {
         if (paypalActions) {
             // * Disable PayPal
             paypalActions.disable();
@@ -405,7 +406,7 @@ async function printHours (params = {}) {
     // * Loop the Days
     for (const day of days) {
         // ? If the Date Day match with a Day
-        if (current.date.value.getDay() === day.id_day) {
+        if (current.date.value.getDay() == day.id_day) {
             // * Loop the Hours
             for (const hour of day.hours) {
                 // * Activate the Hour
@@ -417,13 +418,13 @@ async function printHours (params = {}) {
                     // * Loop the Lessons
                     lessons: for (const foundLesson of findLessons(current.date.parsed)) {
                         // ? If the current Lesson is not the same as another Teacher Lesson
-                        if (lesson.id_lesson !== foundLesson.id_lesson) {
+                        if (lesson.id_lesson != foundLesson.id_lesson) {
                             // * Loop the Lesson Days
                             for (const dayFromLesson of foundLesson.days) {
                                 // * Loop the Day Hours
                                 for (const hourFromLesson of dayFromLesson.hours) {
                                     // ? If the Hour match with a Day Hour
-                                    if (hourFromLesson.id_hour === hour.id_hour && dayFromLesson.date === current.date.parsed) {
+                                    if (hourFromLesson.id_hour == hour.id_hour && dayFromLesson.date == current.date.parsed) {
                                         // * Deactivate the Hour
                                         hour.active = false;
                                         break lessons;
@@ -437,7 +438,7 @@ async function printHours (params = {}) {
                 // * Loop the data
                 for (const element of data) {
                     // ? If the new Hour match with the older
-                    if (element.hour && element.hour.value === hour.id_hour && element.date.parsed === current.date.parsed) {
+                    if (element.hour && element.hour.value == hour.id_hour && element.date.parsed == current.date.parsed) {
                         // * Checked the Hour
                         hour.checked = true;
                     }
@@ -447,7 +448,7 @@ async function printHours (params = {}) {
                 // ? If the params has an hour property
                 if (params.hasOwnProperty("hour")) {
                     // ? If the new Hour match with the older
-                    if (params.hour.value === hour.id_hour) {
+                    if (params.hour.value == hour.id_hour) {
                         // * Checked the Hour
                         hour.checked = true;
                     }
@@ -458,7 +459,7 @@ async function printHours (params = {}) {
                     innerHTML: [
                         ["input", {
                             props: {
-                                type: type.id_type === 1 ? "radio": "checkbox",
+                                type: type.id_type == 1 ? "radio": "checkbox",
                                 name: `date-${ current.index }-hours[]`,
                                 id: `date-${ current.index }-hour-${ hour.id_hour }`,
                                 defaultValue: hour.id_hour,
@@ -524,7 +525,7 @@ function setFinishState () {
     for (const btn of document.querySelectorAll(".cho-container .btn span")) {
         for (const child of [...btn.children]) {
             child.classList.add("hidden");
-            if (child.nodeName === "SPAN") {
+            if (child.nodeName == "SPAN") {
                 child.classList.remove("hidden");
             }
         }
@@ -538,7 +539,7 @@ function setLoadingState () {
     for (const btn of document.querySelectorAll(".cho-container .btn span")) {
         for (const child of [...btn.children]) {
             child.classList.add("hidden");
-            if (child.nodeName === "DIV") {
+            if (child.nodeName == "DIV") {
                 child.classList.remove("hidden");
             }
         }
@@ -555,7 +556,7 @@ async function submit (params = {}) {
 
     // * Search the Lessons
     let query = await Fetch.get(`/api/users/${ slug }/lessons`);
-    if (query.response.code === 200) {
+    if (query.response.code == 200) {
         lessons = query.response.data.lessons;
     }
 
@@ -568,7 +569,7 @@ async function submit (params = {}) {
             // * Loop the Lesson Days
             for (const day of lesson.days) {
                 // ? If the day is the same as the element Day
-                if (day.date === element.date.parsed) {
+                if (day.date == element.date.parsed) {
                     // * Loop the Day Hours
                     for (const hour of day.hours) {
                         // ? If the Hour is the same as the element Hour
@@ -627,7 +628,23 @@ async function submit (params = {}) {
 function createPayPalButton () {
     if (paypalActions) {
         paypalActions.disable();
+        for (const child of [...document.querySelector(".cho-container").children]) {
+            if (child.nodeName == "DIV") {
+                child.style.display = "hidden";
+            }
+        }
     }
+
+    let value = parseInt(type.price) - parseInt(credits);
+    if (coupon) {
+        if (coupon.type.id_type == 1) {
+            value = value - (value * parseInt(coupon.type.value) / 100);
+        }
+        if (coupon.type.id_type == 2) {
+            value = value - parseInt(coupon.type.value);
+        }
+    }
+    value = value / parseInt(dolar);
 
     paypal_sdk.Buttons({
         onInit: function (data, actions) {
@@ -637,11 +654,14 @@ function createPayPalButton () {
             layout: "horizontal",
             tagline: false,
             size: "responsive",
+        }, validate: function (actions) {
+            console.log("validate called");
+            // paypalActions.disable();
         }, createOrder: function (data, actions) {
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: (parseInt(type.price) - parseInt(credits)) / parseInt(dolar),
+                        value: value,
                     }, custom_id: lesson.id_lesson,
                 }]
             });
@@ -650,16 +670,45 @@ function createPayPalButton () {
                 document.querySelector("form#checkout").submit();
             });
     }}).render(".cho-container");
+
+    changeButton();
+}
+
+async function validateCoupon () {
+    let formData = new FormData();
+    formData.append("coupon", coupon);
+
+    let query = await Fetch.send({
+        method: "POST",
+        url: "/api/coupons/validate",
+    }, {
+        "Accept": "application/json",
+        "Content-type": "application/json; charset=UTF-8",
+        "X-CSRF-TOKEN": document.querySelector("meta[name=csrf-token]").content,
+    }, formData);
+
+    if (query.response.code == 200) {
+        coupon = query.response.data.coupon;
+        createPayPalButton();
+        document.querySelector(`.support-coupon`).innerHTML = "";
+        document.querySelector(`.support-coupon`).classList.add("hidden");
+    }
+
+    if (query.response.code != 200) {
+        coupon = false;
+        document.querySelector(`.support-coupon`).innerHTML = query.response.message;
+        document.querySelector(`.support-coupon`).classList.remove("hidden");
+    }
 }
 
 document.addEventListener("DOMContentLoaded", async function (e) {
-    if (typeof paypal_sdk !== "undefined") {
+    if (typeof paypal_sdk != "undefined") {
         let query = await Fetch.get("/api/dolar");
         dolar = query.response.data.dolar;
         createPayPalButton();
     }
 
-    if (type.id_type !== 2) {
+    if (type.id_type != 2) {
         new DropdownJS({
             id: "date-1",
         }, {
@@ -684,7 +733,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
                     input: ["checkout", "form-input"],
                 }, lang: "es",
                 name: "dates[]",
-                quantity: (type.id_type === 1 ? 1 : 4),
+                quantity: (type.id_type == 1 ? 1 : 4),
             }, state: {
                 enablePastDates: false,
                 enableToday: false,
@@ -699,7 +748,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
         document.querySelector("label.date.today").classList.remove("today");
 
-        createHours((type.id_type === 1 ? 1 : 4));
+        createHours((type.id_type == 1 ? 1 : 4));
     }
 
     new TabMenuJS({
@@ -724,5 +773,10 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     document.querySelector(`input[name="credits"]`).addEventListener("focusout", function (e) {
         credits = this.value;
         createPayPalButton();
+    });
+
+    document.querySelector(`input[name="coupon"]`).addEventListener("focusout", function (e) {
+        coupon = this.value;
+        validateCoupon();
     });
 });

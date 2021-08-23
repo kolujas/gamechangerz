@@ -248,7 +248,8 @@ button[type=submit].btn {
     font-size: 1.125rem;
 }
 
-input[name="credits"] {
+input[name="credits"],
+input[name="coupon"] {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid var(--color-white);
@@ -257,11 +258,13 @@ input[name="credits"] {
     appearance: none;
 }
 
-input[name="credits"]::placeholder {
+input[name="credits"]::placeholder,
+input[name="coupon"]::placeholder {
     color: var(--color-white);
 }
 
-input[name="credits"]:focus {
+input[name="credits"]:focus,
+input[name="coupon"]:focus {
     outline: none;
     border-color: var(--color-four);
 }

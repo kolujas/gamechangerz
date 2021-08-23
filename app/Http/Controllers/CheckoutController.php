@@ -14,9 +14,28 @@
     use Auth;
     use Carbon\Carbon;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Http;
     use Illuminate\Support\Facades\Validator;
 
     class CheckoutController extends Controller {
+        public function authorization (Request $request, int $id_user) {
+            if ($request->route("code")) {
+                $response = Http::withHeaders([
+                    "accept" => "application/json",
+                    "content-type" => "application/x-www-form-urlencoded"
+                ])->post("https://api.mercadopago.com/oauth/token", [
+                    "client_secret" => config("services.mercadopago.access_token"),
+                    "grant_type" => "authorization_code",
+                    "code" => $request->route("code"),
+                    "redirect_uri" => "https://plannet.space"
+                ]);
+
+                if ($response->ok()) {
+                    dd($response->getBody());
+                }
+            }
+        }
+
         /**
          * * Update a Lesson & redirects to MercadoPago.
          * @param Request $request

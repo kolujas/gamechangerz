@@ -9,6 +9,7 @@
     use App\Mail\NewPresentationMail;
     use App\Mail\FriendshipRequestMail;
     use App\Mail\TeacherRequestMail;
+    use App\Mail\TeacherRequestApprovedMail;
     use Illuminate\Support\Facades\Mail as MailService;
     use Illuminate\Database\Eloquent\Model;
 
@@ -60,6 +61,9 @@
                     break;
                 case 8:
                     $mail = new NewLessonUserMail((object) $data);
+                    break;
+                case 9:
+                    $mail = new TeacherRequestApprovedMail((object) $data);
                     break;
             }
             MailService::to($data["email_to"])->send($mail);
