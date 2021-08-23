@@ -61,7 +61,7 @@
         
 // ! CheckoutController - Controls the Checkout pages.
         Route::middleware("user.exist")->group(function () {
-            Route::get("/mercadopago/{id_user}/authorization", [CheckoutController::class, "authorization"])->name("checkout.authorization");
+            Route::get("/mercadopago/authorization", [CheckoutController::class, "authorization"])->name("checkout.authorization");
         });
 
         Route::middleware("auth.not.user")->group(function () {

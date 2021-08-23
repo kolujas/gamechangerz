@@ -209,6 +209,16 @@
                   "level": "secondary",
                   "done": false
                 }
+              },
+              {
+                "key": 1629754273961,
+                "children": [],
+                "todo": {
+                  "content": "Al borar data, se borra todo?",
+                  "id": 1629754273961,
+                  "level": "secondary",
+                  "done": false
+                }
               }
             ],
             "todo": {

@@ -164,7 +164,7 @@
 
             new Mail([ "id_mail" => 9, ], [
                 "email_to" => $input->email,
-                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.access_token") . "&response_type=code&platform_id=mp&redirect_uri=https://plannet.space/mercadopago/$user->id_user/authorization",
+                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.access_token") . "&response_type=code&platform_id=mp&redirect_uri=https://plannet.space/mercadopago/authorization?id_user=$user->id_user",
             ]);
 
             return redirect("/panel/teachers/$user->slug")->with("status", [
