@@ -27,10 +27,31 @@
                     "client_secret" => config("services.mercadopago.access_token"),
                     "grant_type" => "authorization_code",
                     "code" => $request->code,
-                    "redirect_uri" => "https://plannet.space/mercadopago/authorization"
+                    "redirect_uri" => "https://plannet.space/"
                 ]);
 
-                dd($response->throw()->json());
+                if ($response->ok()) {
+                    $user = User::find($request->state);
+                    if (!$user) {
+                        return response()->json([
+                            "code" => 403,
+                            "message" => "Error",
+                            "data" => [
+                                //
+                            ],
+                        ]);
+                    }
+
+                    $methods = collect();
+                    $methods->push([
+                        "id_method" => 1,
+                        "access_token" => $response->json()->access_token,
+                    ]);
+
+                    $user->update((array) $input);
+                }
+
+                return $response->throw();
             }
             
             return response()->json([
