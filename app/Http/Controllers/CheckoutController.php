@@ -8,6 +8,7 @@
     use App\Models\Lesson;
     use App\Models\Mail;
     use App\Models\MercadoPago;
+    use App\Models\Method;
     use App\Models\Platform;
     use App\Models\Presentation;
     use App\Models\User;
@@ -18,6 +19,11 @@
     use Illuminate\Support\Facades\Validator;
 
     class CheckoutController extends Controller {
+        /**
+         * * Creates the User MercadoPago access_token.
+         * @param Request $request
+         * @return [type]
+         */
         public function authorization (Request $request) {
             if ($request->code) {
                 $response = Http::withHeaders([
@@ -27,7 +33,7 @@
                     "client_secret" => config("services.mercadopago.access_token"),
                     "grant_type" => "authorization_code",
                     "code" => $request->code,
-                    "redirect_uri" => "https://plannet.space/"
+                    "redirect_uri" => "https://plannet.space/mercadopago/authorization"
                 ]);
 
                 if ($response->ok()) {
@@ -48,7 +54,11 @@
                         "access_token" => $response->json()->access_token,
                     ]);
 
-                    $user->update((array) $input);
+                    $user->update([
+                        "credentials" => Method::stringify($methods->toArray()),
+                    ]);
+
+                    return redirect("/#login");
                 }
 
                 return $response->throw();
@@ -222,14 +232,14 @@
                     $MP = new MercadoPago($lesson->users->from->credentials->mercadopago->access_token);
         
                     // * Check the request topic
-                    switch ($request->route("topic")) {
+                    switch ($request->topic) {
                         case "payment":
                             // * Set the MercadoPago Payment & Merchant order
-                            $MP->payment($request->route("id"));
+                            $MP->payment($request->id);
                             break;
                         case "merchant_order":
                             // * Set the MercadoPago Merchant order
-                            $MP->merchant_order($request->route("id"));
+                            $MP->merchant_order($request->id);
                             break;
                     }
                     break;
