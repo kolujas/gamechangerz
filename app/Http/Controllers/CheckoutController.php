@@ -21,9 +21,8 @@
         public function authorization (Request $request) {
             if ($request->code) {
                 $response = Http::withHeaders([
-                    "algo" => "algo"
-                    // "accept" => "application/json",
-                    // "content-type" => "application/x-www-form-urlencoded",
+                    "accept" => "application/json",
+                    "content-type" => "application/x-www-form-urlencoded",
                 ])->post("https://api.mercadopago.com/oauth/token", [
                     "client_secret" => config("services.mercadopago.access_token"),
                     "grant_type" => "authorization_code",
