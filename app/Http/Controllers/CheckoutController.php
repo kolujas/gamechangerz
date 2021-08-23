@@ -33,9 +33,16 @@
                 if ($response->ok()) {
                     dd($response->getBody());
                 }
-                dd("perro");
+                dd($response);
             }
-            dd("gato");
+            
+            return response()->json([
+                "code" => 403,
+                "message" => "Error",
+                "data" => [
+                    //
+                ],
+            ]);
         }
 
         /**
