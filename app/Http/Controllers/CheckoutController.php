@@ -20,15 +20,13 @@
     class CheckoutController extends Controller {
         public function authorization (Request $request) {
             if ($request->code) {
-                dd($request->code);
-
                 $response = Http::withHeaders([
                     "accept" => "application/json",
                     "content-type" => "application/x-www-form-urlencoded",
                 ])->post("https://api.mercadopago.com/oauth/token", [
                     "client_secret" => config("services.mercadopago.access_token"),
                     "grant_type" => "authorization_code",
-                    "code" => $request->route("code"),
+                    "code" => $request->code,
                     "redirect_uri" => "https://plannet.space"
                 ]);
 
