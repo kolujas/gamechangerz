@@ -198,6 +198,8 @@
                         $price = 10;
                     }
 
+                    dd($price);
+
                     $data = (object) [
                         "id" => $lesson->id_lesson,
                         "title" => ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
@@ -292,7 +294,9 @@
             switch ($type) {
                 case "mercadopago":
                     // * Create the MercadoPago
-                    $MP = new MercadoPago($lesson->users->from->credentials->mercadopago->access_token);
+                    $MP = new MercadoPago([
+                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                    ]);
         
                     // * Check the request topic
                     switch ($request->topic) {
