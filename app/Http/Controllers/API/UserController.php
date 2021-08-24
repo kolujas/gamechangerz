@@ -105,9 +105,7 @@
         function credits (Request $request) {
             $input = (object) $request->all();
 
-            dd(intval($input->credits));
-
-            if (!intval($request->user()->credits) && intval($request->user()->credits) < intval($input->credits)) {
+            if (!intval($request->user()->credits) || intval($request->user()->credits) < intval($input->credits)) {
                 return response()->json([
                     "code" => 403,
                     "message" => "No dispones de los créditos seleccionados.",
