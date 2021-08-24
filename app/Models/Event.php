@@ -2,8 +2,11 @@
     namespace App\Models;
 
     use Carbon\Carbon;
+    use Google\Client;
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Http\Request;
     use Spatie\GoogleCalendar\Event as GoogleEvent;
+    use Storage;
 
     class Event extends Model {
         /**
@@ -20,6 +23,23 @@
          */
         public function __construct (array $attributes = []) {
             parent::__construct($attributes);
+
+            $token = json_decode(Storage::get("google-calendar")->get("oauth-token.json"));
+
+            $response = Http::get("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" . $token->access_token);
+
+            if (isset($response->json()->error)) {
+                $client = new Client();
+                $client->refreshToken($token->refresh_token);
+                dd([
+                    "access_token" => $client->getAccessToken(),
+                    "refresh_token" => $client->getRefreshToken(),
+                    "expires_in" => 3600,
+                    "scope" => "https:\/\/www.googleapis.com\/auth\/calendar",
+                    "token_type" => "Bearer",
+                    "created" => 1629841846,
+                ]);
+            }
 
             // * Create the GoogleEvent
             $this->create();
