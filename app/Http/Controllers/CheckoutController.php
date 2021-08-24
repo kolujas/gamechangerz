@@ -247,7 +247,6 @@
             
             // * Create the GoogleCalendar event.
             if ($lesson->type->id_type === 1 || $lesson->type->id_type === 3) {
-                dd($days);
                 foreach ($days as $day) {
                     $data = [];
                     $data["users"] = $lesson->users;
