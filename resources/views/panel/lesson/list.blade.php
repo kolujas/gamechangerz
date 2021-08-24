@@ -76,7 +76,7 @@
                                     </td>
                                 @endif
                                 @if ($lesson->id_status === 1)
-                                    <td class="flex items-center px-6 py-4" title="En proceso">
+                                    <td class="flex items-center px-6 py-4" title="Creando">
                                         <i class="color-grey fas fa-spinner"></i>
                                     </td>
                                 @endif
