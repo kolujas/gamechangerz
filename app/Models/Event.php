@@ -24,7 +24,7 @@
         public function __construct (array $attributes = []) {
             parent::__construct($attributes);
 
-            $token = json_decode(Storage::get("google-calendar")->get("oauth-token.json"));
+            $token = json_decode(Storage::disk("google-calendar")->get("oauth-token.json"));
 
             $response = Http::get("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" . $token->access_token);
 
