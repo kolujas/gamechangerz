@@ -228,6 +228,8 @@
 
             unset($lesson->type);
             unset($lesson->users);
+            unset($input->credits);
+            unset($input->coupon);
             $lesson->update((array) $input);
 
             $lesson->and(["type", "users", "started_at", "ended_at"]);

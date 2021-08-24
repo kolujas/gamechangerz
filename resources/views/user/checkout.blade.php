@@ -19,8 +19,8 @@
         <section class="discord md:col-start-1 md:col-span-3 lg:col-start-2 lg:col-span-8 @if (Auth::user()->discord)
             hidden
         @endif">
-            <label class="input-group grid grid-cols-4">
-                <h3 class="overpass color-white mb-8 col-span-8">Usuario de Discord</h3>
+            <label class="input-group grid grid-cols-4 color-white">
+                <h3 class="overpass mb-8 col-span-8">Usuario de Discord</h3>
                 <input class="checkout form-input px-5 py-4 overpass bg-black rounded" type="text" name="discord" id="discord" placeholder="Username#0000" value={{ old("discord", Auth::user()->discord) }}>
                 @if ($errors->has("discord"))
                     <span class="error support mt-2 checkout support-box support-discord overpass color-white col-span-8">{{ $errors->first("discord") }}</span>

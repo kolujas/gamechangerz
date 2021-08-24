@@ -92,10 +92,11 @@
                 <div class="pt-0 col-span-2 col-start-1">
                     <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif>
                         <option class="overpass" disabled @if (!old("id_status", $lesson->id_status)) selected @endif>Estado</option>
-                        <option class="overpass" value="0" @if (old("id_status", $lesson->id_status) === 0) selected @endif>Rechazada</option>
+                        <option class="overpass" value="0" @if (old("id_status", $lesson->id_status) === 0) selected @endif>En proceso</option>
+                        <option class="overpass" value="1" @if (old("id_status", $lesson->id_status) === 0) selected @endif>Rechazada</option>
                         <option class="overpass" value="2" @if (old("id_status", $lesson->id_status) === 2) selected @endif>Pendiente de pago</option>
-                        <option class="overpass" value="2" @if (old("id_status", $lesson->id_status) === 3) selected @endif>Aprobada</option>
-                        <option class="overpass" value="2" @if (old("id_status", $lesson->id_status) === 4) selected @endif>Terminada</option>
+                        <option class="overpass" value="3" @if (old("id_status", $lesson->id_status) === 3) selected @endif>Aprobada</option>
+                        <option class="overpass" value="4" @if (old("id_status", $lesson->id_status) === 4) selected @endif>Terminada</option>
                     </select>
                     <span class="block color-white error support lesson-form support-box hidden support-id_status mt-2 overpass"></span>
                 </div>
