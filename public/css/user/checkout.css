@@ -25,6 +25,10 @@
     --calendar-selected-date-border-color: var(--color-four);
 }
 
+#checkout .discord{
+    color: white;
+}
+
 .loading .spinner-icon {
     border-top-color: var(--color-five);
     border-left-color: var(--color-five);
