@@ -263,6 +263,12 @@
                 ]);
             }
 
+            if (!Auth::user()->discord || $input->discord != Auth::user()->discord) {
+                Auth::user()->update([
+                    "discord" => $input->discord,
+                ]);
+            }
+
             return redirect($url);
         }
 
