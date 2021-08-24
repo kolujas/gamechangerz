@@ -105,6 +105,8 @@
         function credits (Request $request) {
             $input = (object) $request->all();
 
+            dd(intval($request->user()->credits));
+
             if (!intval($request->user()->credits) && intval($request->user()->credits) < intval($input->credits)) {
                 return response()->json([
                     "code" => 403,
