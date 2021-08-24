@@ -219,6 +219,26 @@
                   "level": "secondary",
                   "done": false
                 }
+              },
+              {
+                "key": 1629828855529,
+                "children": [],
+                "todo": {
+                  "content": "Grilla perfíl profesor",
+                  "id": 1629828855529,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629834218705,
+                "children": [],
+                "todo": {
+                  "content": "Para cambiar el precio de las clases tener en cuenta el minimo de .5 dolar",
+                  "id": 1629834218705,
+                  "level": "secondary",
+                  "done": false
+                }
               }
             ],
             "todo": {

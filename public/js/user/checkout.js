@@ -628,23 +628,14 @@ async function submit (params = {}) {
 function createPayPalButton () {
     if (paypalActions) {
         paypalActions.disable();
-        for (const child of [...document.querySelector(".cho-container").children]) {
-            if (child.nodeName == "DIV") {
-                child.style.display = "hidden";
-            }
-        }
+        // for (const child of [...document.querySelector(".cho-container").children]) {
+        //     if (child.nodeName == "DIV") {
+        //         child.style.display = "hidden";
+        //     }
+        // }
     }
 
-    let value = parseInt(type.price) - parseInt(credits);
-    if (coupon) {
-        if (coupon.type.id_type == 1) {
-            value = value - (value * parseInt(coupon.type.value) / 100);
-        }
-        if (coupon.type.id_type == 2) {
-            value = value - parseInt(coupon.type.value);
-        }
-    }
-    value = value / parseInt(dolar);
+    console.log("here?");
 
     paypal_sdk.Buttons({
         onInit: function (data, actions) {
@@ -654,14 +645,51 @@ function createPayPalButton () {
             layout: "horizontal",
             tagline: false,
             size: "responsive",
-        }, validate: function (actions) {
-            console.log("validate called");
-            // paypalActions.disable();
         }, createOrder: function (data, actions) {
+            price = parseInt(type.price);
+            if (price >= dolar / 2) {
+                if (price - credits >= dolar / 2) {
+                    price -= credits;
+                } else {
+                    credits = 0;
+                }
+                if (coupon) {
+                    bool = true;
+
+                    if (coupon.limit) {
+                        bool = false;
+
+                        if (intval(coupon.used) < intval(coupon.limit)) {
+                            bool = true;
+                        }
+                    }
+
+                    if (bool) {
+                        if (coupon.type.id_type == 1) {
+                            if (price - (price * intval(coupon.type.value) / 100) >= dolar / 2) {
+                                price -= price * intval(coupon.type.value) / 100;
+                            }
+                        }
+                        if (coupon.type.id_type == 2) {
+                            if (price - intval(coupon.type.value) >= dolar / 2) {
+                                price -= intval(coupon.type.value);
+                            }
+                        }
+                    }
+                }
+            }
+            if (price < dolar / 2) {
+                price = dolar / 2;
+            }
+
+            price /= dolar;
+
+            console.log(price);
+
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: value,
+                        value: price,
                     }, custom_id: lesson.id_lesson,
                 }]
             });
@@ -689,7 +717,7 @@ async function validateCoupon () {
 
     if (query.response.code == 200) {
         coupon = query.response.data.coupon;
-        createPayPalButton();
+        // createPayPalButton();
         document.querySelector(`.support-coupon`).innerHTML = "";
         document.querySelector(`.support-coupon`).classList.add("hidden");
     }
@@ -704,7 +732,7 @@ async function validateCoupon () {
 document.addEventListener("DOMContentLoaded", async function (e) {
     if (typeof paypal_sdk != "undefined") {
         let query = await Fetch.get("/api/dolar");
-        dolar = query.response.data.dolar;
+        dolar = parseInt(query.response.data.dolar);
         createPayPalButton();
     }
 
@@ -772,7 +800,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
     document.querySelector(`input[name="credits"]`).addEventListener("focusout", function (e) {
         credits = this.value;
-        createPayPalButton();
+        // createPayPalButton();
     });
 
     document.querySelector(`input[name="coupon"]`).addEventListener("focusout", function (e) {

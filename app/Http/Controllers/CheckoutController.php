@@ -3,6 +3,7 @@
 
     use App\Models\Auth as AuthModel;
     use App\Models\Assigment;
+    use App\Models\Coupon;
     use App\Models\Event;
     use App\Models\Hour;
     use App\Models\Lesson;
@@ -56,6 +57,7 @@
 
                     $user->update([
                         "credentials" => Method::stringify($methods->toArray()),
+                        'id_status' => 2,
                     ]);
 
                     return redirect("/#login");
@@ -133,6 +135,9 @@
                 ]);
             }
 
+            if (isset($input->credits)) {
+                $input->credits = intval($input->credits);
+            }
             if (!isset($input->credits)) {
                 $input->credits = 0;
             }
@@ -145,12 +150,58 @@
 
             $user = $lesson->users->from;
 
+            $coupon = false;
+            if (isset($input->coupon)) {
+                $coupon = Coupon::findByName($input->coupon);
+            }
+
             switch ($input->id_method) {
                 case 1:
+                    $price = intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price);
+                    if ($price >= 10) {
+                        if ($price - $input->credits >= 10) {
+                            $price -= $input->credits;
+                        } else {
+                            $input->credits = 0;
+                        }
+                        if ($coupon) {
+                            $bool = true;
+
+                            if ($coupon->limit) {
+                                $coupon->and(["used"]);
+                                $bool = false;
+    
+                                if (intval($coupon->used) < intval($coupon->limit)) {
+                                    $bool = true;
+                                }
+                            }
+
+                            if ($bool) {
+                                $coupon->and(["type"]);
+
+                                if ($coupon->type->id_type == 1) {
+                                    if ($price - ($price * intval($coupon->type->value) / 100) >= 10) {
+                                        $price -= $price * intval($coupon->type->value) / 100;
+                                        $input->id_coupon = $coupon->id_coupon;
+                                    }
+                                }
+                                if ($coupon->type->id_type == 2) {
+                                    if ($price - intval($coupon->type->value) >= 10) {
+                                        $price -= intval($coupon->type->value);
+                                        $input->id_coupon = $coupon->id_coupon;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($price < 10) {
+                        $price = 10;
+                    }
+
                     $data = (object) [
                         "id" => $lesson->id_lesson,
                         "title" => ($lesson->type->id_type === 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type === 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
-                        "price" => intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price) - intval($input->credits),
+                        "price" => $price,
                     ];
 
                     $user->and(["credentials"]);
@@ -167,6 +218,11 @@
                         "id_lesson" => $lesson->id_lesson,
                         "id_status" => 3,
                     ]);
+
+                    if ($coupon) {
+                        $coupon = Coupon::findByName($input->coupon);
+                        $input->id_coupon = $coupon->id_coupon;
+                    }
                     break;
             }
 
