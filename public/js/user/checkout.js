@@ -646,7 +646,7 @@ function createPayPalButton () {
             tagline: false,
             size: "responsive",
         }, createOrder: function (data, actions) {
-            price = parseInt(type.price);
+            let price = parseInt(type.price);
             if (price >= dolar / 2) {
                 if (price - credits >= dolar / 2) {
                     price -= credits;
