@@ -115,16 +115,21 @@
                 </ul>
             </main>
         </section>
-        <section class="credits grid gap-8 grid-cols-1 md:grid-cols-2 md:col-start-1 md:col-span-2 lg:col-start-2 lg:col-span-8">
+        <section class="credits grid gap-4 grid-cols-1 md:grid-cols-2 md:col-start-1 md:col-span-2 lg:col-start-2 lg:col-span-8">
             <label class="grid gap-4">
-                <input id="credits" type="number" name="credits" class="overpass xl:text-lg focus:outline-none border-0" placeholder="Usar creditos:">
-                <span class="color-grey overpass">({{ Auth::user()->credits }} créditos disponibles)</span>
+                <input id="credits" type="number" name="credits" max="{{ Auth::user()->credits }}" class="overpass xl:text-lg focus:outline-none border-0" placeholder="Usar creditos:">
+                <span class="color-grey overpass block">({{ Auth::user()->credits }} créditos disponibles)</span>
             </label>
             <div class="flex justify-end">
                 <a href="#" class="btn btn-white btn-outline">
                     <span class="py-2 px-4 russo">¿Cómo cargar créditos?</span>
                 </a>
             </div>
+            @if ($errors->has("credits"))
+                <span class="error support mt-2 checkout support-box support-credits overpass color-white col-span-8">{{ $errors->first("credits") }}</span>
+            @else
+                <span class="error support mt-2 checkout support-box hidden support-credits overpass color-white col-span-8"></span>
+            @endif
         </section>
         <section class="coupon grid gap-4 grid-cols-1 md:grid-cols-2 md:col-start-1 md:col-span-2 lg:col-start-2 lg:col-span-8">
             <label class="grid gap-4">

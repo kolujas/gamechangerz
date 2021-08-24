@@ -9,6 +9,13 @@
         function check (Request $request) {
             $input = (object) $request->all();
 
+            if (!$input->coupon) {
+                return response()->json([
+                    "code" => 200,
+                    "message" => "El cupón no existe.",
+                ]);
+            }
+
             $coupon = Coupon::findByName($input->coupon);
 
             if (!$coupon) {

@@ -7,6 +7,8 @@ import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
+import Token from "../components/Token.js";
+
 let test = false;
 
 let calendar;
@@ -626,17 +628,6 @@ async function submit (params = {}) {
 }
 
 function createPayPalButton () {
-    if (paypalActions) {
-        paypalActions.disable();
-        // for (const child of [...document.querySelector(".cho-container").children]) {
-        //     if (child.nodeName == "DIV") {
-        //         child.style.display = "hidden";
-        //     }
-        // }
-    }
-
-    console.log("here?");
-
     paypal_sdk.Buttons({
         onInit: function (data, actions) {
             actions.disable();
@@ -684,8 +675,6 @@ function createPayPalButton () {
 
             price /= dolar;
 
-            console.log(price);
-
             return actions.order.create({
                 purchase_units: [{
                     amount: {
@@ -702,30 +691,73 @@ function createPayPalButton () {
     changeButton();
 }
 
-async function validateCoupon () {
-    let formData = new FormData();
-    formData.append("coupon", coupon);
-
-    let query = await Fetch.send({
-        method: "POST",
-        url: "/api/coupons/validate",
-    }, {
-        "Accept": "application/json",
-        "Content-type": "application/json; charset=UTF-8",
-        "X-CSRF-TOKEN": document.querySelector("meta[name=csrf-token]").content,
-    }, formData);
-
-    if (query.response.code == 200) {
-        coupon = query.response.data.coupon;
-        // createPayPalButton();
-        document.querySelector(`.support-coupon`).innerHTML = "";
-        document.querySelector(`.support-coupon`).classList.add("hidden");
+async function validatecredits () {
+    if (credits) {
+        const token = Token.get();
+    
+        let formData = new FormData();
+        formData.append("credits", credits);
+    
+        let query = await Fetch.send({
+            method: "POST",
+            url: "/api/credits/validate",
+        }, {
+            "Accept": "application/json",
+            "Content-type": "application/json; charset=UTF-8",
+            "X-CSRF-TOKEN": document.querySelector("meta[name=csrf-token]").content,
+            "Authorization": "Bearer " + token.data,
+        }, formData);
+    
+        if (query.response.code == 200) {
+            document.querySelector(`.support-credits`).innerHTML = "";
+            document.querySelector(`.support-credits`).classList.add("hidden");
+        }
+    
+        if (query.response.code != 200) {
+            credits = 0;
+            document.querySelector(`.support-credits`).innerHTML = query.response.message;
+            document.querySelector(`.support-credits`).classList.remove("hidden");
+        }
+    
+        if (paypalActions) {
+            // * Disable PayPal
+            paypalActions.enable();
+        }
     }
+}
 
-    if (query.response.code != 200) {
-        coupon = false;
-        document.querySelector(`.support-coupon`).innerHTML = query.response.message;
-        document.querySelector(`.support-coupon`).classList.remove("hidden");
+async function validateCoupon () {
+    if (coupon) {
+        let formData = new FormData();
+        formData.append("coupon", coupon);
+    
+        let query = await Fetch.send({
+            method: "POST",
+            url: "/api/coupons/validate",
+        }, {
+            "Accept": "application/json",
+            "Content-type": "application/json; charset=UTF-8",
+            "X-CSRF-TOKEN": document.querySelector("meta[name=csrf-token]").content,
+        }, formData);
+    
+        if (query.response.code == 200) {
+            if (query.response.hasOwnProperty("data")) {
+                coupon = query.response.data.coupon;
+            }
+            document.querySelector(`.support-coupon`).innerHTML = "";
+            document.querySelector(`.support-coupon`).classList.add("hidden");
+        }
+    
+        if (query.response.code != 200) {
+            coupon = false;
+            document.querySelector(`.support-coupon`).innerHTML = query.response.message;
+            document.querySelector(`.support-coupon`).classList.remove("hidden");
+        }
+    
+        if (paypalActions) {
+            // * Disable PayPal
+            paypalActions.enable();
+        }
     }
 }
 
@@ -800,11 +832,19 @@ document.addEventListener("DOMContentLoaded", async function (e) {
 
     document.querySelector(`input[name="credits"]`).addEventListener("focusout", function (e) {
         credits = this.value;
-        // createPayPalButton();
+        if (paypalActions) {
+            // * Disable PayPal
+            paypalActions.disable();
+        }
+        validatecredits();
     });
 
     document.querySelector(`input[name="coupon"]`).addEventListener("focusout", function (e) {
         coupon = this.value;
+        if (paypalActions) {
+            // * Disable PayPal
+            paypalActions.disable();
+        }
         validateCoupon();
     });
 });

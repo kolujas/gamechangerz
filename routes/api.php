@@ -61,9 +61,11 @@
             
 // ! RoleController - Controls the Role api.
             Route::get("/role", [RoleController::class, "get"])->name("api.role.get");
-        });
 
 // ! UserController - Controls the user api.
+            Route::post("/credits/validate", [UserController::class, "credits"])->name("api.user.credits");
+        });
+        
         Route::get("/users", [UserController::class, "users"])->name("api.user.users");
         Route::get("/teachers", [UserController::class, "teachers"])->name("api.user.teachers");
         Route::middleware("api.user.exist")->group(function () {
