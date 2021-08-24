@@ -5,6 +5,7 @@
     use Google\Client;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Http;
     use Spatie\GoogleCalendar\Event as GoogleEvent;
     use Storage;
 
