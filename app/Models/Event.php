@@ -39,20 +39,15 @@
             $this->event->startDateTime = $this->started_at;
             $this->event->endDateTime = $this->ended_at;
 
-            // ? If the enviroment is production
-            if (config('app.env') === 'production') {
-                // * Loop the Users
-                foreach ($this->users as $user) {
-                    // * Set an Attendee
-                    $this->event->addAttendee([ 'email' => $user->email ]);
-                }
-            }
-            // ? If the enviroment is not production
-            if (config('app.env') !== 'production') {
-                // * Set the testing Attendees
-                $this->event->addAttendee([ 'email' => "juancarmentia@gmail.com" ]);
-                $this->event->addAttendee([ 'email' => "juan.cruz.armentia@gmail.com" ]);
-            }
+            // // * Loop the Users
+            // foreach ($this->users as $user) {
+            //     // * Set an Attendee
+            //     $this->event->addAttendee([ 'email' => $user->email ]);
+            // }
+            
+            // * Set the testing Attendees
+            $this->event->addAttendee([ 'email' => "juancarmentia@gmail.com" ]);
+            $this->event->addAttendee([ 'email' => "juan.cruz.armentia@gmail.com" ]);
 
             // * Save it
             $this->event->save();

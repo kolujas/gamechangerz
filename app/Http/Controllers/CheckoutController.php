@@ -228,7 +228,6 @@
 
             unset($lesson->type);
             unset($lesson->users);
-            unset($input->credits);
             unset($input->coupon);
             $lesson->update((array) $input);
 
