@@ -29,7 +29,7 @@
 
             $response = Http::get("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" . $token->access_token);
 
-            dd($response->json());
+            dd($response);
 
             if (isset($response->json()->error)) {
                 $client = new Client();
