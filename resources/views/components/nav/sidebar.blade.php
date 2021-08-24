@@ -49,9 +49,9 @@
             @if (Auth::check())
                 @if (Auth::user()->credits)
                     <li>
-                        <span class="nav-link">
+                        {{-- <span class="nav-link">
                             <span class="link-text">{{ Auth::user()->credits }} Créditos</span>
-                        </span>
+                        </span> --}}
                     </li>
                 @endif
                 <li>
