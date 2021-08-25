@@ -328,7 +328,7 @@
                         // $lesson->update([
                         //     "id_status" => 3,
                         // ]);
-                        dd(true);
+                        dd(json_encode("todo ok"));
                     } else {
                         // * Not paid yet. Do not release your item
                     }
