@@ -45,7 +45,6 @@
                 }
 
                 file_put_contents(config("google-calendar.auth_profiles.oauth.token_json"), json_encode($client->getAccessToken()));
-                dd(file_get_contents(config("google-calendar.auth_profiles.oauth.token_json")));
             }
 
             // * Create the GoogleEvent
