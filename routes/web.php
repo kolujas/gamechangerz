@@ -57,7 +57,7 @@
 
 // ! GoogleController - Controls the Google pages.
     Route::middleware("auth.custom")->group(function () {
-        Route::get("/google/oauth", [GoogleController::class, "store"])->name("google.store");
+        Route::get("/google/oauth", [GoogleController::class, "code"])->name("google.code");
     });
         
 // ! CheckoutController - Controls the Checkout pages.
