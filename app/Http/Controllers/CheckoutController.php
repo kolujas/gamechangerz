@@ -330,13 +330,13 @@
                         // ]);
                         return response()->json([
                             "code" => 200,
-                            "message" => "Success.",
+                            "message" => "Success",
                         ]);
                     } else {
                         // * Not paid yet. Do not release your item
                         return response()->json([
                             "code" => 200,
-                            "message" => "Not paid yet.",
+                            "message" => "Not paid yet",
                         ]);
                     }
                 case "paypal":
@@ -346,7 +346,10 @@
 
             return response()->json([
                 "code" => 500,
-                "message" => "Error.",
+                "message" => "Error",
+                "data" => [
+                    "type" => $request->type,
+                ],
             ]);
         }
 
