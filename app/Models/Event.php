@@ -37,6 +37,8 @@
             $client->setApprovalPrompt("consent");
             $client->setIncludeGrantedScopes(true);
 
+            dd($client->getAccessToken());
+
             // * Create the GoogleEvent
             $this->create();
         }
