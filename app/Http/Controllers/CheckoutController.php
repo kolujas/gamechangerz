@@ -280,64 +280,57 @@
          * @param string $type Notification type.
          * @return [type]
          */
-        public function notification (Request $request, int $id_lesson, string $type) {
-            try {
-                // * Get the Lesson
-                $lesson = Lesson::find($id_lesson);
-    
-                // * Get the User credentials
-                $lesson->and(["users"]);
-                $lesson->users->from->and(["credentials"]);
-    
-                // * Check the Notification type
-                switch ($type) {
-                    case "mercadopago":
-                        // * Create the MercadoPago
-                        $MP = new MercadoPago([
-                            "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+        public function notification (Request $request, string $type) {
+            // * Get the Lesson
+            $lesson = Lesson::find($request->id_lesson);
+
+            // * Get the User credentials
+            $lesson->and(["users"]);
+            $lesson->users->from->and(["credentials"]);
+
+            // * Check the Notification type
+            switch ($type) {
+                case "mercadopago":
+                    // * Create the MercadoPago
+                    $MP = new MercadoPago([
+                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                    ]);
+        
+                    // * Check the request topic
+                    switch ($request->topic) {
+                        case "payment":
+                            // * Set the MercadoPago Payment & Merchant order
+                            $MP->payment($request->id);
+                            break;
+                        case "merchant_order":
+                            // * Set the MercadoPago Merchant order
+                            $MP->merchant_order($request->id);
+                            break;
+                    }
+                    break;
+
+                    // * Get the amount paid
+                    $paid_amount = 0;
+                    foreach ($MP->merchant_order->payments as $payment) {
+                        if ($payment["status"] == "approved") {
+                            $paid_amount += $payment["transaction_amount"];
+                        }
+                    }
+                    
+                    // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
+                    if ($paid_amount >= $MP->merchant_order->total_amount) {
+                        unset($lesson->users);
+
+                        // * Totally paid. Release your item
+                        $lesson->update([
+                            "id_status" => 3,
                         ]);
-            
-                        // * Check the request topic
-                        switch ($request->topic) {
-                            case "payment":
-                                // * Set the MercadoPago Payment & Merchant order
-                                $MP->payment($request->id);
-                                break;
-                            case "merchant_order":
-                                // * Set the MercadoPago Merchant order
-                                $MP->merchant_order($request->id);
-                                break;
-                        }
-                        break;
-    
-                        // * Get the amount paid
-                        $paid_amount = 0;
-                        foreach ($MP->merchant_order->payments as $payment) {
-                            if ($payment["status"] == "approved") {
-                                $paid_amount += $payment["transaction_amount"];
-                            }
-                        }
-                        
-                        // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
-                        if ($paid_amount >= $MP->merchant_order->total_amount) {
-                            unset($lesson->users);
-    
-                            // * Totally paid. Release your item
-                            $lesson->update([
-                                "id_status" => 3,
-                            ]);
-                        } else {
-                            // * Not paid yet. Do not release your item
-                        }
-                    case "paypal":
-                        // TODO: PayPal Notification
-                        break;
-                }
-            } catch (\Throwable $exception) {
-                \Log::channel('single')->error(
-                    $exception->getMessage(),
-                    array_merge(['exception' => $exception])
-                );
+                    } else {
+                        // * Not paid yet. Do not release your item
+                    }
+                case "paypal":
+                    // TODO: PayPal Notification
+                    break;
             }
         }
 

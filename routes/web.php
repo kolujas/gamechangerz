@@ -78,7 +78,7 @@
         });
     });
     Route::middleware("notification.type.exist")->group(function () {
-        Route::post("/lessons/{id_lesson}/notifications/{type}", [CheckoutController::class, "notification"])->name("checkout.notification");
+        Route::post("/lessons/notifications/{type}", [CheckoutController::class, "notification"])->name("checkout.notification");
     });
     
 // ! ReviewController - Controls the Review pages.
