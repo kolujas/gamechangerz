@@ -27,8 +27,8 @@
 
             $client = new Client();
             $client->setAuthConfig(config("google-calendar.auth_profiles.oauth.credentials_json"));
+            $client->setAccessToken(config("google-calendar.auth_profiles.oauth.token_json"));
             $client->addScope(\Google_Service_Drive::DRIVE_METADATA_READONLY);
-            $client->setRedirectUri("https://" . $_SERVER["HTTP_HOST"]);
             // * offline access will give you both an access and refresh token so that
             // * your app can refresh the access token without user interaction.
             $client->setAccessType("offline");
@@ -37,7 +37,15 @@
             $client->setApprovalPrompt("consent");
             $client->setIncludeGrantedScopes(true);
 
-            dd($client->getAccessToken());
+            // ? If there is no previous token or it's expired.
+            if ($client->isAccessTokenExpired()) {
+                // ? Refresh the token if possible, else fetch a new one.
+                if ($client->getRefreshToken()) {
+                    $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
+                }
+            }
+
+            file_put_contents("something.json", json_encode($client->getAccessToken()));
 
             // * Create the GoogleEvent
             $this->create();
