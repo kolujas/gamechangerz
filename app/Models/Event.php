@@ -25,8 +25,6 @@
         public function __construct (array $attributes = []) {
             parent::__construct($attributes);
 
-            dd(config("google-calendar.auth_profiles.oauth.credentials_json"));
-
             $client = new Client();
             $client->setAuthConfig(config("google-calendar.auth_profiles.oauth.credentials_json"));
             $client->addScope(\Google_Service_Drive::DRIVE_METADATA_READONLY);
