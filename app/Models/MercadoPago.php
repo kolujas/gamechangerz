@@ -96,7 +96,7 @@
             $this->preference->auto_return = "approved";
 
             // * Set the Preference fee
-            $this->preference->application_fee = 25;
+            $this->preference->marketplace_fee = 25;
 
             // * Set the Preference external ID
             $this->preference->external_reference = $data->id;
