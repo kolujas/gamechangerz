@@ -321,7 +321,7 @@
                     
                     // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
                     if ($paid_amount >= $MP->merchant_order->total_amount) {
-                        unset($lesson->users);
+                        // unset($lesson->users);
 
                         // * Totally paid. Release your item
                         // $lesson->update([
