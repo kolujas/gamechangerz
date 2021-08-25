@@ -18,6 +18,8 @@
         public function __construct (array $attributes = []) {
             parent::__construct();
 
+            dd($attributes["access_token"]);
+
             // * Set the MercadoPago access token
             SDK::setAccessToken($attributes["access_token"]);
         }
