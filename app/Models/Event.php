@@ -26,7 +26,7 @@
             parent::__construct($attributes);
 
             $client = new Client();
-            $client->setAuthConfig(config("google-calendar.auth_profiles.oauth.token_json"));
+            $client->setAuthConfig(config("google-calendar.auth_profiles.oauth.credentials_json"));
             $client->addScope(\Google_Service_Drive::DRIVE_METADATA_READONLY);
             $client->setRedirectUri("https://" . $_SERVER["HTTP_HOST"]);
             // * offline access will give you both an access and refresh token so that
