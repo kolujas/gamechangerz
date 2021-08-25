@@ -292,11 +292,8 @@
             switch ($type) {
                 case "mercadopago":
                     // * Create the MercadoPago
-                    // $MP = new MercadoPago([
-                    //     "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
-                    // ]);
                     $MP = new MercadoPago([
-                        "access_token" => config("services.mercadopago.access_token"),
+                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
                     ]);
         
                     // * Check the request topic
@@ -321,20 +318,16 @@
                     
                     // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
                     if ($paid_amount >= $MP->merchant_order->total_amount) {
-                        // unset($lesson->users);
+                        unset($lesson->users);
 
                         // * Totally paid. Release your item
-                        // $lesson->update([
-                        //     "id_status" => 3,
-                        // ]);
+                        $lesson->update([
+                            "id_status" => 3,
+                        ]);
 
                         return response()->json([
                             "code" => 200,
                             "message" => "Success",
-                            "data" => [
-                                "mercadopago" => $lesson->users->from->credentials->mercadopago,
-                                "type" => $type,
-                            ],
                         ]);
                     } else {
                         // * Not paid yet. Do not release your item
