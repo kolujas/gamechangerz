@@ -27,6 +27,6 @@
         public function build () {
             return $this->view('mail.new-assigment')
                 ->from(config("mail.from.address"), config("mail.from.name"))
-                ->subject("Nueva tarea de parte de " . $this->data->username . " (" . $this->data->name . ")");
+                ->subject("Nueva tarea de parte de " . $this->data->username);
         }
     }

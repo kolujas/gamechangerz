@@ -23,6 +23,15 @@
             </header>
 
             <label class="input-group grid mb-6">
+                <input class="apply form-input px-5 py-4 overpass" type="text" tabindex="1" name="name" id="name" placeholder="Nombre" value={{ old("name") }}>
+                @if ($errors->has("name"))
+                    <span class="error support mt-2 apply support-box support-name overpass">{{ $errors->first("name") }}</span>
+                @else
+                    <span class="error support mt-2 apply support-box hidden support-name overpass"></span>
+                @endif
+            </label>
+
+            <label class="input-group grid mb-6">
                 <input class="apply form-input px-5 py-4 overpass" type="text" tabindex="1" name="username" id="username" placeholder="Nombre de usuario" value={{ old("username") }}>
                 @if ($errors->has("username"))
                     <span class="error support mt-2 apply support-box support-username overpass">{{ $errors->first("username") }}</span>

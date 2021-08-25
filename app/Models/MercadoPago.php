@@ -97,6 +97,7 @@
 
             // * Set the Preference fee
             $this->preference->marketplace_fee = 2;
+            // $this->preference->marketplace_fee = floatval(intval($data->price) * 25 / 100);
 
             // * Set the Preference external ID
             $this->preference->external_reference = $data->id;

@@ -52,16 +52,6 @@
                 "key": 1629136994436,
                 "children": [
                   {
-                    "key": 1629137031669,
-                    "children": [],
-                    "todo": {
-                      "content": "Deshabilitar mañana (no sé si es lo más optimo, pero como se puede reservar una clase para la hora 00 es un poco confuso)",
-                      "id": 1629137031669,
-                      "level": "default",
-                      "done": true
-                    }
-                  },
-                  {
                     "key": 1629137039663,
                     "children": [],
                     "todo": {
@@ -76,46 +66,6 @@
                   "content": "Checkout",
                   "id": 1629136994436,
                   "level": "default",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629063169702,
-                "children": [],
-                "todo": {
-                  "content": "Cupones funcionales",
-                  "id": 1629063169702,
-                  "level": "default",
-                  "done": true
-                }
-              },
-              {
-                "key": 1629063182447,
-                "children": [],
-                "todo": {
-                  "content": "Steam credits funcionales",
-                  "id": 1629063182447,
-                  "level": "default",
-                  "done": true
-                }
-              },
-              {
-                "key": 1629063195992,
-                "children": [],
-                "todo": {
-                  "content": "Dolar funcional",
-                  "id": 1629063195992,
-                  "level": "default",
-                  "done": true
-                }
-              },
-              {
-                "key": 1629063208584,
-                "children": [],
-                "todo": {
-                  "content": "Change all the User \"username (name)\"",
-                  "id": 1629063208584,
-                  "level": "secondary",
                   "done": false
                 }
               },
@@ -186,7 +136,7 @@
                 "todo": {
                   "content": "Borrar la información que ya no tenga que existir",
                   "id": 1629137081065,
-                  "level": "secondary",
+                  "level": "default",
                   "done": false
                 }
               },
@@ -267,6 +217,26 @@
                   "content": "Los cupones no se listan",
                   "id": 1629848000345,
                   "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629916944416,
+                "children": [],
+                "todo": {
+                  "content": "Chat entre admins funcional",
+                  "id": 1629916944416,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629917015164,
+                "children": [],
+                "todo": {
+                  "content": "Al crear profesor teampro_logo error",
+                  "id": 1629917015164,
+                  "level": "default",
                   "done": false
                 }
               }
@@ -396,7 +366,6 @@
       1629063363259,
       1629137195193,
       1629063105538,
-      1629136873489,
       1629136994436,
       1629063115942,
       1629229361555,

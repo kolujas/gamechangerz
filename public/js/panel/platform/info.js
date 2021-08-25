@@ -1,0 +1,1 @@
+document.querySelector("#tab-platform").classList.add("opened");

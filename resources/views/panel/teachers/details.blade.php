@@ -116,19 +116,7 @@
                     <span class="block color-white error support teacher-form support-box hidden support-description mt-2 overpass"></span>
                 </div>
 
-                {{-- <div class="pt-0 col-span-4 col-start-1 grid grid-cols-2 gap-8">
-                    <h3 class="col-span-2 russo color-white uppercase">Discord</h3>
-                    <div>
-                        <input type="text" tabindex="8" name="discord" placeholder="Username#0000" value="{{ old("discord", $user->discord) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                        @if ($errors->has("discord"))
-                            <span class="block color-white error support teacher-form support-box support-discord mt-2 overpass">{{ $errors->first("discord") }}</span>
-                        @else
-                            <span class="block color-white error support teacher-form support-box hidden support-discord mt-2 overpass"></span>
-                        @endif
-                    </div>
-                </div> --}}
-
-                <div class="pt-0 col-span-2 col-start-1">
+                {{-- <div class="pt-0 col-span-2 col-start-1">
                     <h3 class="russo color-white mb-8 uppercase">MercadoPago</h3>
                     <input type="text" tabindex="10" name="mp_access_token" placeholder="Access token" value="{{ old("mp_access_token", ((isset($user->id_user) && isset($user->credentials->mercadopago) && $user->credentials->mercadopago) ? $user->credentials->mercadopago->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                     <span class="block color-white error support teacher-form support-box hidden support-mp_access_token mt-2 overpass"></span>
@@ -138,7 +126,7 @@
                     <h3 class="russo color-white mb-8 uppercase">PayPal</h3>
                     <input type="text" tabindex="11" name="pp_Access_token" placeholder="Access token" value="{{ old("pp_Access_token", ((isset($user->id_user) && isset($user->credentials->paypal) && $user->credentials->paypal) ? $user->credentials->paypal->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                     <span class="block color-white error support teacher-form support-box hidden support-pp_Access_token mt-2 overpass"></span>
-                </div>
+                </div> --}}
 
                 <div class="pt-0 col-span-8">
                     <h3 class="russo color-white mb-8 uppercase">Idiomas</h3>

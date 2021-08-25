@@ -15,7 +15,7 @@
                     </div>
                     <div>
                         <h3 class="russo">{{ $user->username }}</h3>
-                        <span class="color-grey overpass whitespace-nowrap block">{{ $user->name }}</span>
+                        <span class="color-grey overpass whitespace-nowrap block">@if (iseet($user->name) && $user->name){{ $user->name }}@endif</span>
                     </div>
                 </a>
                 

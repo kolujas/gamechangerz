@@ -27,6 +27,6 @@
         public function build () {
             return $this->view('mail.new-message')
                 ->from(config("mail.from.address"), config("mail.from.name"))
-                ->subject("Nuevo mensaje de " . $this->data->username . " (" . $this->data->name . ")");
+                ->subject("Nuevo mensaje de " . $this->data->username);
         }
     }

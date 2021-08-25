@@ -306,6 +306,7 @@
                 'details' => $input->details,
                 'password' => $input->password,
                 'username' => $input->username,
+                'name' => $input->name,
             ]);
             
             return redirect("/")->with("status", [

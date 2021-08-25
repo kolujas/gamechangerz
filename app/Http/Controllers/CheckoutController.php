@@ -254,7 +254,7 @@
                     $data["started_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from);
                     $data["ended_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to);
     
-                    // new Event($data);
+                    new Event($data);
                 }
             }
 

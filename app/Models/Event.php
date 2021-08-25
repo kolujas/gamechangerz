@@ -25,6 +25,18 @@
         public function __construct (array $attributes = []) {
             parent::__construct($attributes);
 
+            $client = new Client();
+            $client->setAuthConfig(config("google-calendar.auth_profiles.oauth.token_json"));
+            $client->addScope(\Google_Service_Drive::DRIVE_METADATA_READONLY);
+            $client->setRedirectUri("https://" . $_SERVER["HTTP_HOST"]);
+            // * offline access will give you both an access and refresh token so that
+            // * your app can refresh the access token without user interaction.
+            $client->setAccessType("offline");
+            // * Using "consent" ensures that your application always receives a refresh token.
+            // * If you are not using offline access, you can omit this.
+            $client->setApprovalPrompt("consent");
+            $client->setIncludeGrantedScopes(true);
+
             // * Create the GoogleEvent
             $this->create();
         }
@@ -46,12 +58,12 @@
             // // * Loop the Users
             // foreach ($this->users as $user) {
             //     // * Set an Attendee
-            //     $this->event->addAttendee([ 'email' => $user->email ]);
+            //     $this->event->addAttendee([ "email" => $user->email ]);
             // }
             
             // * Set the testing Attendees
-            $this->event->addAttendee([ 'email' => "ffranbarbier@gmail.com" ]);
-            $this->event->addAttendee([ 'email' => "juan.cruz.armentia@gmail.com" ]);
+            $this->event->addAttendee([ "email" => "ffranbarbier@gmail.com" ]);
+            $this->event->addAttendee([ "email" => "juan.cruz.armentia@gmail.com" ]);
 
             // * Save it
             $this->event->save();

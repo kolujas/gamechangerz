@@ -48,7 +48,7 @@
                             </td>
                             <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $post->title }}</td>
                             <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $post->created_at->format("Y-m-d") }}</td>
-                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $post->user->name }}</td>
+                            <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $post->user->username }}</td>
                             <td class="flex items-center px-6 py-4"></td>
                         </tr>
                     @endforeach
