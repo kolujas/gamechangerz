@@ -292,8 +292,11 @@
             switch ($type) {
                 case "mercadopago":
                     // * Create the MercadoPago
+                    // $MP = new MercadoPago([
+                    //     "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                    // ]);
                     $MP = new MercadoPago([
-                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                        "access_token" => config("services.mercadopago.access_token"),
                     ]);
         
                     // * Check the request topic
@@ -321,9 +324,9 @@
                         unset($lesson->users);
 
                         // * Totally paid. Release your item
-                        $lesson->update([
-                            "id_status" => 3,
-                        ]);
+                        // $lesson->update([
+                        //     "id_status" => 3,
+                        // ]);
 
                         return response()->json([
                             "code" => 200,
