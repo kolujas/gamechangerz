@@ -232,6 +232,9 @@
                 "from" => User::find($this->id_user_from),
                 "to" => User::find($this->id_user_to),
             ];
+            if ($this->users->from == undefined) {
+                dd($this);
+            }
             $this->users->from->and(["files", "prices", "games", "abilities"]);
             $this->users->to->and(["files", "games"]);
         }
