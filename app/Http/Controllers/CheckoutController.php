@@ -328,14 +328,26 @@
                         // $lesson->update([
                         //     "id_status" => 3,
                         // ]);
-                        dd(json_encode("todo ok"));
+                        return response()->json([
+                            "code" => 200,
+                            "message" => "Success.",
+                        ]);
                     } else {
                         // * Not paid yet. Do not release your item
+                        return response()->json([
+                            "code" => 200,
+                            "message" => "Not paid yet.",
+                        ]);
                     }
                 case "paypal":
                     // TODO: PayPal Notification
                     break;
             }
+
+            return response()->json([
+                "code" => 500,
+                "message" => "Error.",
+            ]);
         }
 
         /**
