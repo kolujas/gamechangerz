@@ -332,7 +332,7 @@
                             "code" => 200,
                             "message" => "Success",
                             "data" => [
-                                "lesson" => $lesson,
+                                "mercadopago" => $lesson->users->from->credentials->mercadopago,
                                 "type" => $type,
                             ],
                         ]);
