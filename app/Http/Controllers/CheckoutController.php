@@ -291,11 +291,6 @@
             // * Check the Notification type
             switch ($request->type) {
                 case "mercadopago":
-                    return response()->json([
-                        "code" => 200,
-                        "message" => "Here?",
-                    ]);
-
                     // // * Create the MercadoPago
                     // $MP = new MercadoPago([
                     //     "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
@@ -315,7 +310,6 @@
                             $MP->merchant_order($request->id);
                             break;
                     }
-                    break;
 
                     // * Get the amount paid
                     $paid_amount = 0;
