@@ -280,16 +280,16 @@
          * @param string $type Notification type.
          * @return [type]
          */
-        public function notification (Request $request) {
+        public function notification (Request $request, int $id_lesson, string $type) {
             // * Get the Lesson
-            $lesson = Lesson::find($request->id_lesson);
+            $lesson = Lesson::find($id_lesson);
 
             // * Get the User credentials
             $lesson->and(["users"]);
             $lesson->users->from->and(["credentials"]);
 
             // * Check the Notification type
-            switch ($request->type) {
+            switch ($type) {
                 case "mercadopago":
                     // * Create the MercadoPago
                     $MP = new MercadoPago([
@@ -346,9 +346,6 @@
             return response()->json([
                 "code" => 500,
                 "message" => "Error",
-                "data" => [
-                    "type" => $request->type,
-                ],
             ]);
         }
 

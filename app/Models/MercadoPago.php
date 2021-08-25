@@ -102,7 +102,10 @@
             $this->preference->external_reference = $data->id;
 
             // * Set the Preference webhook route
-            $this->preference->notification_url = route("checkout.notification") . "?id_lesson=$data->id&type=mercadopago";
+            $this->preference->notification_url = route("checkout.notification", [
+                "id_lesson" => $data->id,
+                "type" => "mercadopago",
+            ]);
 
             // * Save the Preference
             $this->preference->save();
