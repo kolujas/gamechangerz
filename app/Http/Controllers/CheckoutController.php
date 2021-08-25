@@ -291,12 +291,9 @@
             // * Check the Notification type
             switch ($request->type) {
                 case "mercadopago":
-                    // // * Create the MercadoPago
-                    // $MP = new MercadoPago([
-                    //     "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
-                    // ]);
+                    // * Create the MercadoPago
                     $MP = new MercadoPago([
-                        "access_token" => config("services.mercadopago.access_token"),
+                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
                     ]);
         
                     // * Check the request topic
@@ -321,12 +318,13 @@
                     
                     // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
                     if ($paid_amount >= $MP->merchant_order->total_amount) {
-                        // unset($lesson->users);
+                        unset($lesson->users);
 
-                        // // * Totally paid. Release your item
-                        // $lesson->update([
-                        //     "id_status" => 3,
-                        // ]);
+                        // * Totally paid. Release your item
+                        $lesson->update([
+                            "id_status" => 3,
+                        ]);
+
                         return response()->json([
                             "code" => 200,
                             "message" => "Success",
@@ -344,6 +342,7 @@
                     break;
             }
 
+            // * Something went wrong
             return response()->json([
                 "code" => 500,
                 "message" => "Error",

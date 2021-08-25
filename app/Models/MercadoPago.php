@@ -101,14 +101,8 @@
             // * Set the Preference external ID
             $this->preference->external_reference = $data->id;
 
-            // * Check the enviroment
-            // if (config("app.env") === "production") {
-                // ? Set the Preference webhook route
-                $this->preference->notification_url = route("checkout.notification", [
-                    "id_lesson" => $data->id,
-                    "type" => "mercadopago",
-                ]);
-            // }
+            // * Set the Preference webhook route
+            $this->preference->notification_url = route("checkout.notification") . "?id_lesson=$data->id&type=mercadopago";
 
             // * Save the Preference
             $this->preference->save();
