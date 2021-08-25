@@ -291,9 +291,12 @@
             // * Check the Notification type
             switch ($request->type) {
                 case "mercadopago":
-                    // * Create the MercadoPago
+                    // // * Create the MercadoPago
+                    // $MP = new MercadoPago([
+                    //     "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                    // ]);
                     $MP = new MercadoPago([
-                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                        "access_token" => config("services.mercadopago.access_token"),
                     ]);
         
                     // * Check the request topic

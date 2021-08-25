@@ -23,6 +23,16 @@
               "level": "secondary",
               "done": false
             }
+          },
+          {
+            "key": 1629855784596,
+            "children": [],
+            "todo": {
+              "content": "Limitar cuotas?",
+              "id": 1629855784596,
+              "level": "secondary",
+              "done": false
+            }
           }
         ],
         "todo": {
