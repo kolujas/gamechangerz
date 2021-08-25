@@ -331,6 +331,10 @@
                         return response()->json([
                             "code" => 200,
                             "message" => "Success",
+                            "data" => [
+                                "lesson" => $lesson,
+                                "type" => $type,
+                            ],
                         ]);
                     } else {
                         // * Not paid yet. Do not release your item
