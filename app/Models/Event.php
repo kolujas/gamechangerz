@@ -50,7 +50,7 @@
             // }
             
             // * Set the testing Attendees
-            $this->event->addAttendee([ 'email' => "juancarmentia@gmail.com" ]);
+            $this->event->addAttendee([ 'email' => "ffranbarbier@gmail.com" ]);
             $this->event->addAttendee([ 'email' => "juan.cruz.armentia@gmail.com" ]);
 
             // * Save it
