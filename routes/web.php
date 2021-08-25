@@ -77,9 +77,7 @@
             Route::get("/lessons/{id_lesson}/checkout/{id_status}", [CheckoutController::class, "status"])->name("checkout.status");
         });
     });
-    Route::middleware("notification.type.exist")->group(function () {
-        Route::post("/lessons/notifications/{type}", [CheckoutController::class, "notification"])->name("checkout.notification");
-    });
+    Route::post("/lessons/notifications", [CheckoutController::class, "notification"])->name("checkout.notification");
     
 // ! ReviewController - Controls the Review pages.
     Route::middleware(["auth.custom"])->group(function () {
