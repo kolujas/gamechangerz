@@ -291,6 +291,11 @@
             // * Check the Notification type
             switch ($request->type) {
                 case "mercadopago":
+                    return response()->json([
+                        "code" => 200,
+                        "message" => "Here?",
+                    ]);
+
                     // // * Create the MercadoPago
                     // $MP = new MercadoPago([
                     //     "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
@@ -339,6 +344,7 @@
                             "message" => "Not paid yet",
                         ]);
                     }
+                    break;
                 case "paypal":
                     // TODO: PayPal Notification
                     break;
