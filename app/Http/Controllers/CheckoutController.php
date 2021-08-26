@@ -34,7 +34,7 @@
                     "client_secret" => config("services.mercadopago.access_token"),
                     "grant_type" => "authorization_code",
                     "code" => $request->code,
-                    "redirect_uri" => "https://plannet.space/mercadopago/authorization"
+                    "redirect_uri" => "https://gamechangerz.gg/mercadopago/authorization"
                 ]);
 
                 if ($response->ok()) {

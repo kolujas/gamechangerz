@@ -152,7 +152,7 @@
 
             new Mail([ "id_mail" => 9, ], [
                 "email_to" => $input->email,
-                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.app_id") . "&response_type=code&platform_id=mp&state=$user->id_user&redirect_uri=https://plannet.space/mercadopago/authorization",
+                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.app_id") . "&response_type=code&platform_id=mp&state=$user->id_user&redirect_uri=https://gamechangerz.gg/mercadopago/authorization",
             ]);
 
             return redirect("/panel/teachers/$user->slug")->with("status", [
