@@ -5,16 +5,6 @@
         "key": 1629063101193,
         "children": [
           {
-            "key": 1629063115942,
-            "children": [],
-            "todo": {
-              "content": "Si le pagan al profe, guardo en la reserva a quien se le pago? Si bien establecio PayPal, pero y si es un vivo barbaro y lo quita?",
-              "id": 1629063115942,
-              "level": "secondary",
-              "done": false
-            }
-          },
-          {
             "key": 1629063153162,
             "children": [],
             "todo": {
@@ -121,16 +111,6 @@
                 }
               },
               {
-                "key": 1629136962895,
-                "children": [],
-                "todo": {
-                  "content": "Evitar pestañas duplicadas",
-                  "id": 1629136962895,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
                 "key": 1629137081065,
                 "children": [],
                 "todo": {
@@ -166,7 +146,7 @@
                 "todo": {
                   "content": "Disabled estado al crear profesor",
                   "id": 1629751056759,
-                  "level": "secondary",
+                  "level": "default",
                   "done": false
                 }
               },
@@ -174,9 +154,9 @@
                 "key": 1629754273961,
                 "children": [],
                 "todo": {
-                  "content": "Al borar data, se borra todo?",
+                  "content": "Al borrar data, se borra todo?",
                   "id": 1629754273961,
-                  "level": "secondary",
+                  "level": "default",
                   "done": false
                 }
               },
@@ -201,42 +181,12 @@
                 }
               },
               {
-                "key": 1629847996248,
-                "children": [],
-                "todo": {
-                  "content": "Las clases pasadas no hechas no se borran",
-                  "id": 1629847996248,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629848000345,
-                "children": [],
-                "todo": {
-                  "content": "Los cupones no se listan",
-                  "id": 1629848000345,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
                 "key": 1629916944416,
                 "children": [],
                 "todo": {
                   "content": "Chat entre admins funcional",
                   "id": 1629916944416,
                   "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629917015164,
-                "children": [],
-                "todo": {
-                  "content": "Al crear profesor teampro_logo error",
-                  "id": 1629917015164,
-                  "level": "default",
                   "done": false
                 }
               }
