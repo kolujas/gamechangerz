@@ -13,16 +13,6 @@
               "level": "secondary",
               "done": false
             }
-          },
-          {
-            "key": 1629855784596,
-            "children": [],
-            "todo": {
-              "content": "Limitar cuotas?",
-              "id": 1629855784596,
-              "level": "secondary",
-              "done": false
-            }
           }
         ],
         "todo": {
@@ -38,27 +28,6 @@
           {
             "key": 1629063330431,
             "children": [
-              {
-                "key": 1629136994436,
-                "children": [
-                  {
-                    "key": 1629137039663,
-                    "children": [],
-                    "todo": {
-                      "content": "No dejar deschequear hora, sinó que la ponga en primara fila",
-                      "id": 1629137039663,
-                      "level": "default",
-                      "done": false
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "Checkout",
-                  "id": 1629136994436,
-                  "level": "default",
-                  "done": false
-                }
-              },
               {
                 "key": 1629136873489,
                 "children": [
@@ -141,26 +110,6 @@
                 }
               },
               {
-                "key": 1629751056759,
-                "children": [],
-                "todo": {
-                  "content": "Disabled estado al crear profesor",
-                  "id": 1629751056759,
-                  "level": "default",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629754273961,
-                "children": [],
-                "todo": {
-                  "content": "Al borrar data, se borra todo?",
-                  "id": 1629754273961,
-                  "level": "default",
-                  "done": false
-                }
-              },
-              {
                 "key": 1629828855529,
                 "children": [],
                 "todo": {
@@ -186,6 +135,37 @@
                 "todo": {
                   "content": "Chat entre admins funcional",
                   "id": 1629916944416,
+                  "level": "secondary",
+                  "done": false
+                }
+              },
+              {
+                "key": 1629948530330,
+                "children": [],
+                "todo": {
+                  "content": "Que pasa si reservo 2 offline (habiendo o no completado sus Assigments)",
+                  "id": 1629948530330,
+                  "level": "default",
+                  "done": false
+                }
+              },
+              {
+                "key": 1630005565031,
+                "children": [
+                  {
+                    "key": 1630005582947,
+                    "children": [],
+                    "todo": {
+                      "content": "Especialidades",
+                      "id": 1630005582947,
+                      "level": "secondary",
+                      "done": false
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "Buscador profesor",
+                  "id": 1630005565031,
                   "level": "secondary",
                   "done": false
                 }
@@ -319,7 +299,13 @@
       1629136994436,
       1629063115942,
       1629229361555,
-      1629229607957
+      1629229607957,
+      1629754273961,
+      1629948270373,
+      1629948284466,
+      1629948772061,
+      1629948821604,
+      1630005565031
     ]
   }
 }

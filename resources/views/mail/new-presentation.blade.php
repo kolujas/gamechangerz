@@ -15,7 +15,7 @@
                     <div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif">
                         <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Tarea completada</h2>
                         <div style="width: 100%; text-align: center; margin-bottom: 2rem;">
-                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="http://127.0.0.1:8000/users/{{ $data->slug }}/profile#chat">Revisar entrega</a>
+                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://plannet.space/users/{{ $data->slug }}/profile#chat">Revisar entrega</a>
                         </div>
                     </div>
                 </td>

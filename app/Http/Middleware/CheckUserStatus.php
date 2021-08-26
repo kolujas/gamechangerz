@@ -28,14 +28,14 @@
 
             $user = User::where($field, '=', $value)->first();
 
-            if ($user->id_status !== 2) {
-                if ($user->id_status === 0) {
+            if ($user->id_status != 2) {
+                if ($user->id_status == 0) {
                     $request->session()->put('error', [
                         'code' => 403,
                         'message' => "Usuario \"$value\" baneado",
                     ]);
                 }
-                if ($user->id_status === 1) {
+                if ($user->id_status == 1) {
                     $request->session()->put('error', [
                         'code' => 403,
                         'message' => "Correo pendiente de aprobación",

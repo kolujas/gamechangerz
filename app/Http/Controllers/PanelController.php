@@ -371,6 +371,7 @@
                 "reviews" => $reviews,
                 "teampro" => $teampro,
                 "user" => $user,
+                "minPrice" => floatval(Platform::dolar() / 2),
                 "validation" => [
                     "teacher" => (object)[
                         "create" => (object)[

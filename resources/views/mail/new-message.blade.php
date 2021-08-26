@@ -27,7 +27,7 @@
                         <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">{{ $data->message }}</p>
                         {{-- TODO: replace URL --}}
                         <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="http://127.0.0.1:8000/users/{{ $data->slug }}/profile#chat">Responder</a>
+                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://plannet.space/users/{{ $data->slug }}/profile#chat">Responder</a>
                         </div>
                     </div>
                 </td>

@@ -45,7 +45,7 @@
                                 </ul>
                                 {{-- TODO: replace URL --}}
                                 <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="http://127.0.0.1:8000/users/{{ $data->lesson->users->to->slug }}/profile#chat">Entrar al chat</a>
+                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://plannet.space/users/{{ $data->lesson->users->to->slug }}/profile#chat">Entrar al chat</a>
                                 </div>
                                 @break
                         @endswitch

@@ -117,6 +117,23 @@
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
+            $users = collect();
+
+            $lesson->and(["reviews"]);
+            if (count($lesson->reviews)) {
+                foreach ($lesson->reviews as $review) {
+                    $review->and(["users"]);
+                    foreach ($review->users as $user) {
+                        $users->push($user);
+                    }
+                    // $review->delete();
+                }
+            }
+
+            foreach ($users as $user) {
+                User::requilify($user->id_user);
+            }
+
             $chat = Chat::findByUsers($lesson->id_user_from, $lesson->id_user_to);
             if ($chat) {
                 $chat->delete();

@@ -25,7 +25,7 @@
                             <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Nueva tarea de parte de {{ $data->username }}</h2>
                         @endif
                         <div style="width: 100%; text-align: center; margin: 4rem 0;">
-                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D; margin: 4rem 0;" target="_blank" href="http://127.0.0.1:8000/users/{{ $data->slug }}/profile#chat">Revisar</a>
+                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D; margin: 4rem 0;" target="_blank" href="https://plannet.space/users/{{ $data->slug }}/profile#chat">Revisar</a>
                         </div>
                     </div>
                 </td>

@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" disabled>
+                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable not-default" disabled>
                         <option class="overpass" disabled @if (!old("id_status", $user->id_status)) selected @endif>Estado</option>
                         <option class="overpass" value="0" @if (intval(old("id_status", $user->id_status)) === 0) selected @endif>Baneado</option>
                         <option class="overpass" value="1" @if (intval(old("id_status", $user->id_status)) === 1 || !isset($user->id_user)) selected @endif>Correo pendiente de aprobación</option>
@@ -169,14 +169,19 @@
                     <span class="block color-white error support teacher-form support-box hidden support-abilities mt-2 overpass col-span-4"></span>
                 </div>       
 
-                <div class="pt-0 col-span-2">
+                <div class="col-span-8 rounded bg-black p-4">
+                    <span class="russo color-three">Recuerda que el valor minimo en el que se harán las reservas es de ${{ $minPrice }}</span>
+                </div>
+
+                <div class="pt-0 col-span-2 prices">
                     <h3 class="russo color-white mb-8 uppercase">Precio</h3>
                     <ul>
                         @for ($i = 0; $i < count($prices); $i++)
                             <li class="mt-4">
-                                <label class="grid gap-2">
-                                    <span class="overpass color-white">{{ $prices[$i]->name }}</span>
-                                    <input type="text" class="form-input teacher-form px-5 py-4 rounded editable" value="{{ old($prices[$i]->slug, $prices[$i]->price) }}" name="prices[{{ $i }}]" @if($prices[$i]) disabled @endif>
+                                <label class="grid grid-cols-4">
+                                    <span class="overpass color-white col-span-4 mb-2">{{ $prices[$i]->name }}</span>
+                                    <span class="divisa flex justify-center items-center bg-black color-white rounded">AR$</span>
+                                    <input type="text" class="col-span-3 form-input teacher-form px-5 py-4 rounded editable" value="{{ old($prices[$i]->slug, $prices[$i]->price) }}" name="prices[{{ $i }}]" @if($prices[$i]) disabled @endif>
                                 </label>
                             </li>
                         @endfor

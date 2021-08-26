@@ -37,6 +37,9 @@
               foreach ($columns as $column) {
                   if (!is_array($column)) {
                       switch ($column) {
+                          case "lessons":
+                              $this->lessons();
+                              break;
                           case "type":
                               $this->type();
                               break;
@@ -67,6 +70,18 @@
           }
 
           /**
+           * * Set the Coupon lessons.
+           */
+          public function lessons () {
+               $this->lessons = collect();
+               foreach (Lesson::all() as $lesson) {
+                    if ($lesson->id_coupon == $this->id_coupon) {
+                         $this->lessons->push($lesson);
+                    }
+               }
+          }
+
+          /**
            * * Set the Coupon type.
            */
           public function type () {
@@ -79,7 +94,7 @@
           public function used () {
                $this->used = 0;
                foreach (Lesson::all() as $lesson) {
-                    if ($lesson->id_coupon === $this->id_coupon) {
+                    if ($lesson->id_coupon == $this->id_coupon) {
                          $this->used++;
                     }
                }

@@ -232,11 +232,7 @@
                 "from" => User::find($this->id_user_from),
                 "to" => User::find($this->id_user_to),
             ];
-            try {
-                $this->users->from->and(["files", "prices", "games", "abilities"]);
-            } catch (\Throwable $th) {
-                dd($this);
-            }
+            $this->users->from->and(["files", "prices", "games", "abilities"]);
             $this->users->to->and(["files", "games"]);
         }
 
@@ -280,6 +276,17 @@
                 ["id_user_to", "=", $id_user],
                 ["id_status", ">=", 3]
             ])->get();
+
+            return $lessons;
+        }
+
+        /**
+         * * Get all the Lessons from an User.
+         * @param int $id_user
+         * @return Lesson[]
+         */
+        static public function allFromUser (int $id_user) {
+            $lessons = Lesson::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->get();
 
             return $lessons;
         }
