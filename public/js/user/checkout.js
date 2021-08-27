@@ -9,7 +9,7 @@ import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Token from "../components/Token.js";
 
-let test = true;
+let test = false;
 
 let calendar;
 let credits = 0;
