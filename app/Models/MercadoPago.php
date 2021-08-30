@@ -12,11 +12,19 @@
 
     class MercadoPago extends Model {
         /**
+         * * The attributes that are mass assignable.
+         * @var array
+         */
+        protected $fillable = [
+            "access_token",
+        ];
+
+        /**
          * * Creates an instance of MercadoPago.
          * @param array $attributes
          */
         public function __construct (array $attributes = []) {
-            parent::__construct();
+            parent::__construct($attributes);
 
             // * Set the MercadoPago access token
             SDK::setAccessToken($attributes["access_token"]);
@@ -82,7 +90,7 @@
             $this->preference->back_urls = [
                 "success" => route("checkout.status", [
                     "id_lesson" => $data->id,
-                    "id_status" => 2,
+                    "id_status" => (!preg_match("/^TEST-/", $this->access_token) ? 2 : 3),
                 ]),
                 "pending" => route("checkout.status", [
                     "id_lesson" => $data->id,
@@ -95,20 +103,19 @@
             ];
             $this->preference->auto_return = "approved";
 
-            // ? Set the Preference fee
-            // $this->preference->application_fee = 20;
+            if (!preg_match("/^TEST-/", $this->access_token)) {
+                // * Set the Preference fee
+                $this->preference->marketplace_fee = $data->fee;
+    
+                // * Set the Preference external ID
+                $this->preference->external_reference = $data->id;
 
-            // * Set the Preference external ID
-            $this->preference->external_reference = $data->id;
-
-            // * Check the enviroment
-            // if (config("app.env") === "production") {
-                // ? Set the Preference webhook route
+                // * Set the Preference webhook route
                 $this->preference->notification_url = route("checkout.notification", [
                     "id_lesson" => $data->id,
                     "type" => "mercadopago",
                 ]);
-            // }
+            }
 
             // * Save the Preference
             $this->preference->save();

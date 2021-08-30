@@ -6,9 +6,11 @@
     use App\Models\Day;
     use App\Models\Game;
     use App\Models\Language;
+    use App\Models\Lesson;
     use App\Models\Mail;
     use App\Models\Method;
     use App\Models\Price;
+    use App\Models\Review;
     use App\Models\Teampro;
     use App\Models\User;
     use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -109,22 +111,6 @@
             }
 
             $input->languages = Language::stringify($languages->toArray());
-
-            $methods = collect();
-
-            $methods->push([
-                "id_method" => 1,
-                "access_token" => $input->mp_access_token,
-            ]);
-
-            if (isset($input->pp_access_token)) {
-                $methods->push([
-                    "id_method" => 2,
-                    "access_token" => $input->pp_access_token,
-                ]);
-            }
-
-            $input->credentials = Method::stringify($methods->toArray());
             
             $input->password = Hash::make($input->password);
             
@@ -152,19 +138,21 @@
 
             Storage::put($filepath, (string) $file->encode());
 
-            $filepath = "users/$user->id_user/02-teampro." . $request->teampro_logo->extension();
-            
-            $file = Image::make($request->file("teampro_logo"))
-                    ->resize(40, 56, function($constrait){
-                        $constrait->aspectRatio();
-                        $constrait->upsize();
-                    });
+            if ($request->hasFile("teampro_logo")) {
+                $filepath = "users/$user->id_user/02-teampro." . $request->teampro_logo->extension();
+                
+                $file = Image::make($request->file("teampro_logo"))
+                        ->resize(40, 56, function($constrait){
+                            $constrait->aspectRatio();
+                            $constrait->upsize();
+                        });
 
-            Storage::put($filepath, (string) $file->encode());
+                Storage::put($filepath, (string) $file->encode());
+            }
 
             new Mail([ "id_mail" => 9, ], [
                 "email_to" => $input->email,
-                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.app_id") . "&response_type=code&platform_id=mp&state=$user->id_user&redirect_uri=https://plannet.space/mercadopago/authorization",
+                "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.app_id") . "&response_type=code&platform_id=mp&state=$user->id_user&redirect_uri=https://gamechangerz.gg/mercadopago/authorization",
             ]);
 
             return redirect("/panel/teachers/$user->slug")->with("status", [
@@ -182,11 +170,50 @@
             $input = (object) $request->all();
 
             $user = User::findBySlug($request->route()->parameter("slug"));
-            $user->and(["files"]);
+            $user->and(["files", "posts"]);
 
             $validator = Validator::make($request->all(), User::$validation["teacher"]["panel"]["delete"]["rules"], User::$validation["teacher"]["panel"]["delete"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            foreach ($user->posts as $post) {
+                Storage::delete($post->image);
+
+                $post->delete();
+            }
+
+            $requilify = collect();
+
+            $lessons = Lesson::allFromUser($user->id_user);
+            foreach ($lessons as $lesson) {
+                $lesson->and(["reviews", "chat", "assigments"]);
+                if (count($lesson->reviews)) {
+                    foreach ($lesson->reviews as $review) {
+                        $review->and(["users"]);
+                        foreach ($review->users as $reviewUser) {
+                            if ($reviewUser->id_user != $user->id_user) {
+                                $requilify->push($reviewUser);
+                            }
+                        }
+                        $review->delete();
+                    }
+                }
+                if (count($lesson->assigments)) {
+                    foreach ($lesson->assigments as $assigment) {
+                        if ($assigment->presentation) {
+                            $assigment->presentation->delete();
+                        }
+                        $assigment->delete();
+                    }
+                }
+                if ($lesson->chat) {
+                    $lesson->chat->delete();
+                }
+            }
+
+            foreach ($requilify as $requilifyUser) {
+                User::requilify($requilifyUser->id_user);
             }
 
             if (isset($user->files["profile"])) {
@@ -257,22 +284,6 @@
             }
 
             $input->languages = Language::stringify($languages->toArray());
-
-            $methods = collect();
-
-            $methods->push([
-                "id_method" => 1,
-                "access_token" => $input->mp_access_token,
-            ]);
-
-            if (isset($input->pp_access_token)) {
-                $methods->push([
-                    "id_method" => 2,
-                    "access_token" => $input->pp_access_token,
-                ]);
-            }
-
-            $input->credentials = Method::stringify($methods->toArray());
             
             if (isset($input->password)) {
                 $input->password = Hash::make($input->password);
@@ -423,11 +434,48 @@
             $input = (object) $request->all();
 
             $user = User::findBySlug($request->route()->parameter("slug"));
-            $user->and(["files"]);
+            $user->and(["files", "friends"]);
 
             $validator = Validator::make($request->all(), User::$validation["user"]["panel"]["delete"]["rules"], User::$validation["user"]["panel"]["delete"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            foreach ($user->friends as $friend) {
+                $friend->delete();
+            }
+
+            $requilify = collect();
+
+            $lessons = Lesson::allFromUser($user->id_user);
+            foreach ($lessons as $lesson) {
+                $lesson->and(["reviews", "chat", "assigments"]);
+                if (count($lesson->reviews)) {
+                    foreach ($lesson->reviews as $review) {
+                        $review->and(["users"]);
+                        foreach ($review->users as $reviewUser) {
+                            if ($reviewUser->id_user != $user->id_user) {
+                                $requilify->push($reviewUser);
+                            }
+                        }
+                        $review->delete();
+                    }
+                }
+                if (count($lesson->assigments)) {
+                    foreach ($lesson->assigments as $assigment) {
+                        if ($assigment->presentation) {
+                            $assigment->presentation->delete();
+                        }
+                        $assigment->delete();
+                    }
+                }
+                if ($lesson->chat) {
+                    $lesson->chat->delete();
+                }
+            }
+
+            foreach ($requilify as $requilifyUser) {
+                User::requilify($requilifyUser->id_user);
             }
 
             if (isset($user->files["profile"])) {

@@ -38,18 +38,20 @@ if (document.querySelector("#panel.tab-menu li.tab-content > form:not(.not)")) {
 
 let info = {}
 
-function enable(){
+function enable(button = true){
     for (const input of document.querySelectorAll('.editable')) {
-        input.disabled = false;
-        if (input.nodeName === "BUTTON") {
-            input.classList.remove("hidden");
-        }
-
-        if (input.type !== "file") {
-            info[input.name] = input.value;  
-        }
-        if(input.type === 'checkbox'){
-            info[input.name] = input.checked;
+        if (button || !input.classList.contains("not-default")) {
+            input.disabled = false;
+            if (input.nodeName === "BUTTON") {
+                input.classList.remove("hidden");
+            }
+    
+            if (input.type !== "file") {
+                info[input.name] = input.value;  
+            }
+            if(input.type === 'checkbox'){
+                info[input.name] = input.checked;
+            }
         }
     }
 
@@ -125,7 +127,7 @@ document.querySelector('a.tab-link').addEventListener('click', function (e) {
 
 document.addEventListener("DOMContentLoaded", function () {
     if (/update/.exec(URL.findHashParameter())) {
-        enable();
+        enable(false);
     }
     
     if (/delete/.exec(URL.findHashParameter())) {
@@ -133,6 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     if (/create/.exec(URL.findCompleteRoute())) {
-        enable();
+        enable(false);
     }
 });

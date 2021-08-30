@@ -289,6 +289,8 @@ export class Review extends Class {
                 }
             }
         });
+        link.html.classList.add("flex-wrap", "gap-2");
+        
         link.appendChild(new Html("div", {
             props: {
                 id: `lesson-${ user.slug }-date`,

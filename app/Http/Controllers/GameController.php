@@ -3,7 +3,6 @@
 
     use App\Models\Ability;
     use App\Models\Game;
-    use App\Models\Review;
     use App\Models\User;
     use Illuminate\Http\Request;
 
@@ -16,7 +15,6 @@
          */
         public function update (Request $request, string $slug) {
             $user = User::findBySlug($slug);
-            $reviews = Review::allToUser($user->id_user);
             
             $input = (object) $request->all();
 

@@ -99,3 +99,14 @@
 #teacher ul.blog.cards .card:first-of-type {
     padding-left: 0;
 }
+
+#teacher .prices label .divisa {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid var(--color-five);
+}
+
+#teacher .prices label input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

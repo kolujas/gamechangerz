@@ -29,7 +29,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
-        'web' => [
+        "web" => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -39,8 +39,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'api' => [
-            'throttle:60,1',
+        "api" => [
+            "throttle:60,1",
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -53,61 +53,63 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        "auth" => \App\Http\Middleware\Authenticate::class,
+        "auth.basic" => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        "bindings" => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        "cache.headers" => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        "can" => \Illuminate\Auth\Middleware\Authorize::class,
+        "guest" => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        "password.confirm" => \Illuminate\Auth\Middleware\RequirePassword::class,
+        "signed" => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        "throttle" => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        "verified" => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        // 'api.auth' => \App\Http\Middleware\API\Authenticate::class,
+        // "api.auth" => \App\Http\Middleware\API\Authenticate::class,
         
-        'api.assigment.exist' => \App\Http\Middleware\API\CheckAssigmentExist::class,
+        "api.assigment.exist" => \App\Http\Middleware\API\CheckAssigmentExist::class,
 
-        'api.chat.exist' => \App\Http\Middleware\API\CheckChatExist::class,
-        'api.chat.is.available' => \App\Http\Middleware\API\CheckChatIsAvailable::class,
-        'api.chat.lesson.is.offline' => \App\Http\Middleware\API\CheckChatLessonIsOffline::class,
+        "api.chat.exist" => \App\Http\Middleware\API\CheckChatExist::class,
+        "api.chat.is.available" => \App\Http\Middleware\API\CheckChatIsAvailable::class,
+        "api.chat.lesson.is.offline" => \App\Http\Middleware\API\CheckChatLessonIsOffline::class,
 
-        'api.lesson.exist' => \App\Http\Middleware\API\CheckLessonExist::class,
+        "api.lesson.exist" => \App\Http\Middleware\API\CheckLessonExist::class,
 
-        'api.user.exist' => \App\Http\Middleware\API\CheckUserExist::class,
+        "api.user.exist" => \App\Http\Middleware\API\CheckUserExist::class,
         
-        'auth.custom' => \App\Http\Middleware\CustomAuthenticate::class,
-        'auth.is.user' => \App\Http\Middleware\CheckAuthenticateIsUser::class,
-        'auth.not.user' => \App\Http\Middleware\CheckAuthenticateNotUser::class,
-        'auth.is.lesson.user' => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
-        'auth.lesson.end' => \App\Http\Middleware\CheckAuthenticateLessonEnded::class,
-        'auth.lesson.current.not.exist' => \App\Http\Middleware\CheckAuthenticateLessonCurrentNotExist::class,
-        'auth.role.is.admin' => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,
-        'auth.role.is.user' => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
-        'auth.role.not.user' => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,
+        "auth.status" => \App\Http\Middleware\CheckAuthenticateStatus::class,
+        "auth.custom" => \App\Http\Middleware\CustomAuthenticate::class,
+        "auth.is.user" => \App\Http\Middleware\CheckAuthenticateIsUser::class,
+        "auth.not.user" => \App\Http\Middleware\CheckAuthenticateNotUser::class,
+        "auth.is.lesson.user" => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
+        "auth.lesson.end" => \App\Http\Middleware\CheckAuthenticateLessonEnded::class,
+        "auth.lesson.current.not.exist" => \App\Http\Middleware\CheckAuthenticateLessonCurrentNotExist::class,
+        "auth.role.is.admin" => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,
+        "auth.role.is.user" => \App\Http\Middleware\CheckAuthenticateRoleIsUser::class,
+        "auth.role.not.user" => \App\Http\Middleware\CheckAuthenticateRoleNotUser::class,
 
-        'coupon.exist' => \App\Http\Middleware\CheckCouponExist::class,
+        "coupon.exist" => \App\Http\Middleware\CheckCouponExist::class,
 
-        'friendship.action.exist' => \App\Http\Middleware\CheckFriendshipActionExist::class,
+        "friendship.action.exist" => \App\Http\Middleware\CheckFriendshipActionExist::class,
 
-        'game.exist' => \App\Http\Middleware\CheckGameExist::class,
-        'game.is.active' => \App\Http\Middleware\CheckGameIsActive::class,
+        "game.exist" => \App\Http\Middleware\CheckGameExist::class,
+        "game.is.active" => \App\Http\Middleware\CheckGameIsActive::class,
 
-        'lesson.exist' => \App\Http\Middleware\CheckLessonExist::class,
-        'lesson.status.exist' => \App\Http\Middleware\CheckLessonStatusExist::class,
-        'lesson.type.exist' => \App\Http\Middleware\CheckLessonTypeExist::class,
+        "lesson.exist" => \App\Http\Middleware\CheckLessonExist::class,
+        "lesson.status.exist" => \App\Http\Middleware\CheckLessonStatusExist::class,
+        "lesson.status.1" => \App\Http\Middleware\CheckLessonStatusIs1::class,
+        "lesson.type.exist" => \App\Http\Middleware\CheckLessonTypeExist::class,
 
-        'notification.type.exist' => \App\Http\Middleware\CheckNotificationTypeExist::class,
+        "notification.type.exist" => \App\Http\Middleware\CheckNotificationTypeExist::class,
         
-        'post.exist' => \App\Http\Middleware\CheckPostExist::class,
-        'post.action.exist' => \App\Http\Middleware\CheckPostActionExist::class,
+        "post.exist" => \App\Http\Middleware\CheckPostExist::class,
+        "post.action.exist" => \App\Http\Middleware\CheckPostActionExist::class,
 
-        'review.exist' => \App\Http\Middleware\CheckReviewExist::class,
+        "review.exist" => \App\Http\Middleware\CheckReviewExist::class,
 
-        'token.exist' => \App\Http\Middleware\CheckTokenExist::class,
+        "token.exist" => \App\Http\Middleware\CheckTokenExist::class,
 
-        'user.exist' => \App\Http\Middleware\CheckUserExist::class,
-        'user.is.teacher' => \App\Http\Middleware\CheckUserIsTeacher::class,
-        'user.status' => \App\Http\Middleware\CheckUserStatus::class,
+        "user.exist" => \App\Http\Middleware\CheckUserExist::class,
+        "user.is.teacher" => \App\Http\Middleware\CheckUserIsTeacher::class,
+        "user.status" => \App\Http\Middleware\CheckUserStatus::class,
     ];
 }

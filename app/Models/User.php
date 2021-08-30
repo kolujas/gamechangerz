@@ -760,6 +760,7 @@
                 ],
             ], "apply" => [
                 "rules" => [
+                    "name" => "required",
                     "username" => "required|unique:users",
                     "email" => "required|email|unique:users",
                     "password" => "required",
@@ -773,6 +774,7 @@
                         "email.unique" => "Ese correo ya se encuentra en uso.",
                         "password.required" => "La contraseña es obligatoria.",
                         "accept.required" => "Debe aceptar los Términos y las Politicas de privacidad.",
+                        "name.required" => "El nombre es obligatorio.",
                     ],
                 ],
             ], "advanced" => [

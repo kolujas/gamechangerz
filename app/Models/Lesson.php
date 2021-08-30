@@ -281,6 +281,17 @@
         }
 
         /**
+         * * Get all the Lessons from an User.
+         * @param int $id_user
+         * @return Lesson[]
+         */
+        static public function allFromUser (int $id_user) {
+            $lessons = Lesson::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->get();
+
+            return $lessons;
+        }
+
+        /**
          * * Get all the Lessons from a teacher.
          * @param int $id_user
          * @return Lesson[]

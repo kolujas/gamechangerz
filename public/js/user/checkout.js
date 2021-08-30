@@ -85,6 +85,7 @@ function findLessons (date) {
 async function addHour (params = {}) {
     // ? If is testing the checkout
     if (test) {
+        console.log([`-> Date current ${ current.date.parsed }`, current]);
         console.log([`-> Day (${ (params.day.slug) }) Hour current ${ params.hour.id_hour }:`, [params.day, params.hour]]);
     }
 
@@ -99,17 +100,31 @@ async function addHour (params = {}) {
             if (test) {
                 console.log(["Compared with:", element]);
             }
-            
+
             // ? If an element has an Hour
             if (element.hour != null) {
                 // ? If the element Hour is current
-                if (element.hour.value == params.hour.id_hour && element.index == current.index) {
+                if (element.hour.value == params.hour.id_hour && element.date.parsed == current.date.parsed) {
                     // ? If is testing the checkout
                     if (test) {
                         console.log(["-> Move to the end:", element]);
                     }
 
-                    params.element.check();
+                    params.element.html.checked = true;
+
+                    data.splice(key, 1);
+                    data.push(element);
+
+                    for (const key in dates) {
+                        if (Object.hasOwnProperty.call(dates, key)) {
+                            const object = dates[key];
+                            if (object.index == element.index && object.date.parsed == element.date.parsed) {
+                                dates.splice(key, 1);
+                                dates.push(object);
+                                break;
+                            }
+                        }
+                    }
 
                     found = element;
                     break;

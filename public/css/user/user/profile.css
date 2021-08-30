@@ -293,6 +293,7 @@
 
 .user > .games figure {
     height: 10rem;
+    width: 100%;
 }
 
 .user .reviews .games figure {

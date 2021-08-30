@@ -9,7 +9,7 @@
             <h2 class="color-four text-center russo xl:text-lg uppercase">Iniciar sesión</h2>
         </header>
         <label class="input-group grid mb-6">
-            <input class="login form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email" value={{ old('login_data', '') }}>
+            <input class="login form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email o Nombre de usuario" value={{ old('login_data', '') }}>
             @if ($errors->has('login_data'))
                 <span class="error support login support-box hidden support-login_data overpass mt-2">{{ $errors->first('login_data') }}</span>
             @else

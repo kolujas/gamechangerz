@@ -26,20 +26,17 @@
 
             $password = DB::table('password_resets')->where('token', $token)->first();
             $user = User::findByEmail($password->email);
-            DB::table('password_resets')->where('token', $token)->delete();
+            if ($user) {
+                DB::table('password_resets')->where('token', $token)->delete();
+    
+                $user->update([
+                    'id_status' => 2,
+                ]);
 
-            $user->update([
-                'id_status' => 2,
-            ]);
-
-            Auth::attempt(['password' => $user->password, 'email' => $user->email], true);
-
-            // if (config('app.env') === 'local') {
                 return redirect("/users/$user->slug/profile");
-            // }
+            }
 
-            // $google = new Google();
-            // return redirect($google->createAuthUrl());
+            return redirect("/");
         }
 
         /**
@@ -58,7 +55,7 @@
             }
 
             $input = (object) $this->decodeInput($request->all(), $string);
-            if ($string === "signin_") {
+            if ($string == "signin_") {
                 $input->data = $input->email;
             }
 
@@ -76,14 +73,14 @@
                 }
             }
 
-            if (Auth::user()->id_status !== 2) {
-                if (Auth::user()->id_status === 0) {
+            if (Auth::user()->id_status != 2) {
+                if (Auth::user()->id_status == 0) {
                     $status = [
                         'code' => 403,
                         'message' => 'Usuario baneado',
                     ];
                 }
-                if (Auth::user()->id_status === 1) {
+                if (Auth::user()->id_status == 1) {
                     $status = [
                         'code' => 403,
                         'message' => 'Correo pendiente de aprobación',

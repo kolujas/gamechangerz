@@ -371,13 +371,14 @@
                 "reviews" => $reviews,
                 "teampro" => $teampro,
                 "user" => $user,
+                "minPrice" => floatval(Platform::dolar() / 2),
                 "validation" => [
                     "teacher" => (object)[
                         "create" => (object)[
-                            "rules" => User::$validation["teacher"]["panel"]["create"]["rules"],
+                            "rules" => $this->replaceUnique(User::$validation["teacher"]["panel"]["create"]["rules"], PLatform::dolar() / 2),
                             "messages" => User::$validation["teacher"]["panel"]["create"]["messages"]["es"],
                         ], "update" => (object)[
-                            "rules" => User::$validation["teacher"]["panel"]["update"]["rules"],
+                            "rules" => $this->replaceUnique(User::$validation["teacher"]["panel"]["update"]["rules"], PLatform::dolar() / 2),
                             "messages" => User::$validation["teacher"]["panel"]["update"]["messages"]["es"],
                         ], "delete" => (object)[
                             "rules" => User::$validation["teacher"]["panel"]["delete"]["rules"],

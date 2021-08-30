@@ -27,6 +27,6 @@
         public function build () {
             return $this->view('mail.friendship-request')
                 ->from(config("mail.from.address"), config("mail.from.name"))
-                ->subject("Nueva solicitud de amistad de " . $this->data->username . " (" . $this->data->name . ")");
+                ->subject("Nueva solicitud de amistad de " . $this->data->username);
         }
     }

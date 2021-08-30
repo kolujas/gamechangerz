@@ -5,16 +5,6 @@
         "key": 1629063101193,
         "children": [
           {
-            "key": 1629063115942,
-            "children": [],
-            "todo": {
-              "content": "Si le pagan al profe, guardo en la reserva a quien se le pago? Si bien establecio PayPal, pero y si es un vivo barbaro y lo quita?",
-              "id": 1629063115942,
-              "level": "secondary",
-              "done": false
-            }
-          },
-          {
             "key": 1629063153162,
             "children": [],
             "todo": {
@@ -39,72 +29,52 @@
             "key": 1629063330431,
             "children": [
               {
-                "key": 1629136994436,
+                "key": 1630005565031,
                 "children": [
                   {
-                    "key": 1629137031669,
+                    "key": 1630005582947,
                     "children": [],
                     "todo": {
-                      "content": "Deshabilitar mañana (no sé si es lo más optimo, pero como se puede reservar una clase para la hora 00 es un poco confuso)",
-                      "id": 1629137031669,
-                      "level": "default",
-                      "done": true
-                    }
-                  },
-                  {
-                    "key": 1629137039663,
-                    "children": [],
-                    "todo": {
-                      "content": "No dejar deschequear hora, sinó que la ponga en primara fila",
-                      "id": 1629137039663,
+                      "content": "Especialidades",
+                      "id": 1630005582947,
                       "level": "default",
                       "done": false
                     }
                   }
                 ],
                 "todo": {
-                  "content": "Checkout",
-                  "id": 1629136994436,
+                  "content": "Buscador profesor",
+                  "id": 1630005565031,
                   "level": "default",
                   "done": false
                 }
               },
               {
-                "key": 1629063169702,
+                "key": 1629136932272,
                 "children": [],
                 "todo": {
-                  "content": "Cupones funcionales",
-                  "id": 1629063169702,
-                  "level": "default",
-                  "done": true
+                  "content": "Traer Mensajes de a 20",
+                  "id": 1629136932272,
+                  "level": "secondary",
+                  "done": false
                 }
               },
               {
-                "key": 1629063182447,
+                "key": 1629948530330,
                 "children": [],
                 "todo": {
-                  "content": "Steam credits funcionales",
-                  "id": 1629063182447,
+                  "content": "Que pasa si reservo 2 offline (habiendo o no completado sus Assigments)",
+                  "id": 1629948530330,
                   "level": "default",
-                  "done": true
+                  "done": false
                 }
               },
               {
-                "key": 1629063195992,
+                "key": 1629834218705,
                 "children": [],
                 "todo": {
-                  "content": "Dolar funcional",
-                  "id": 1629063195992,
-                  "level": "default",
-                  "done": true
-                }
-              },
-              {
-                "key": 1629063208584,
-                "children": [],
-                "todo": {
-                  "content": "Change all the User \"username (name)\"",
-                  "id": 1629063208584,
+                  "content": "Para cambiar el precio de las clases tener en cuenta el minimo de .5 dolar",
+                  "id": 1629834218705,
                   "level": "secondary",
                   "done": false
                 }
@@ -151,31 +121,11 @@
                 }
               },
               {
-                "key": 1629136932272,
+                "key": 1629916944416,
                 "children": [],
                 "todo": {
-                  "content": "Traer Mensajes de a 20",
-                  "id": 1629136932272,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629136962895,
-                "children": [],
-                "todo": {
-                  "content": "Evitar pestañas duplicadas",
-                  "id": 1629136962895,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629137081065,
-                "children": [],
-                "todo": {
-                  "content": "Borrar la información que ya no tenga que existir",
-                  "id": 1629137081065,
+                  "content": "Chat entre admins funcional",
+                  "id": 1629916944416,
                   "level": "secondary",
                   "done": false
                 }
@@ -191,52 +141,22 @@
                 }
               },
               {
+                "key": 1629137081065,
+                "children": [],
+                "todo": {
+                  "content": "Borrar la información que ya no tenga que existir",
+                  "id": 1629137081065,
+                  "level": "default",
+                  "done": false
+                }
+              },
+              {
                 "key": 1629137129895,
                 "children": [],
                 "todo": {
                   "content": "Que funcione la encuesta",
                   "id": 1629137129895,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629751056759,
-                "children": [],
-                "todo": {
-                  "content": "Disabled estado al crear profesor",
-                  "id": 1629751056759,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629754273961,
-                "children": [],
-                "todo": {
-                  "content": "Al borar data, se borra todo?",
-                  "id": 1629754273961,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629828855529,
-                "children": [],
-                "todo": {
-                  "content": "Grilla perfíl profesor",
-                  "id": 1629828855529,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629834218705,
-                "children": [],
-                "todo": {
-                  "content": "Para cambiar el precio de las clases tener en cuenta el minimo de .5 dolar",
-                  "id": 1629834218705,
-                  "level": "secondary",
+                  "level": "danger",
                   "done": false
                 }
               }
@@ -366,11 +286,17 @@
       1629063363259,
       1629137195193,
       1629063105538,
-      1629136873489,
       1629136994436,
       1629063115942,
       1629229361555,
-      1629229607957
+      1629229607957,
+      1629754273961,
+      1629948270373,
+      1629948284466,
+      1629948772061,
+      1629948821604,
+      1629136873489,
+      1630005565031
     ]
   }
 }

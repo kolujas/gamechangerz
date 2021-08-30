@@ -351,7 +351,8 @@ export class Chat extends Class {
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", function (e) {
-                        if (chat.lesson.assigments.length < parseInt(chat.lesson.assigments.length)) {
+                        console.log("here");
+                        if (chat.lesson.assigments.length < parseInt(chat.lesson["quantity-of-assigments"])) {
                             instance.addAssigment();
                         }
                     });
