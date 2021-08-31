@@ -412,6 +412,14 @@
     width: 100%;
 }
 
+.teacher .clases li{
+    background-color: #000;
+}
+
+.teacher .clases li input:checked + label{
+    background-color: var(--color-one);
+}
+
 /* ? MD */
 @media (min-width: 768px) {
     .teacher .banner figure img{
