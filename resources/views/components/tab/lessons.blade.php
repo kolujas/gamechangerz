@@ -7,14 +7,8 @@
 @endif xl:col-span-3">
     @if (Auth::check() && Auth::user()->id_user === $user->id_user)
         <div class="actions w-full mb-8 lg:mb-0 flex justify-center items-center">
-            <a href="#update" class="update-button btn btn-icon btn-one p-2">
+            <a href="#hours" class="hours-button btn btn-icon btn-one p-2">
                 <i class="fas fa-pen"></i>
-            </a>
-            <button class="update-button confirm hidden btn btn-icon btn-white p-2 mr-2">
-                <i class="fas fa-check"></i>
-            </button>
-            <a href="/users/{{ $user->slug }}/profile" class="update-button cancel hidden btn btn-icon btn-three p-2 ml-2">
-                <i class="fas fa-times"></i>
             </a>
         </div>
     @endif
@@ -46,123 +40,50 @@
     </ul>
     <ul class="tab-content-list">
         <li id="online" class="tab-content closed">
-            <span class="overpass color-white block text-xs mb-4">Comprobar disponibilidad</span>
-            <span class="overpass color-white">Día:</span>
-            <select class="ml-4 p-1 bg-one color-white rounded"name="" id="">
-                <option value="">Lunes</option>
-                <option value="">Martes</option>
-                <option value="">Miercoles</option>
-                <option value="">Jueves</option>
-                <option value="">Viernes</option>
-                <option value="">Domingo</option>
-            </select>
-
-
-            <ul class="mt-8 grid grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 clases">
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora1">
-                    <label for="hora1" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora2">
-                    <label for="hora2" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora3">
-                    <label for="hora3" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora4">
-                    <label for="hora4" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora5">
-                    <label for="hora5" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora6">
-                    <label for="hora6" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora7">
-                    <label for="hora7" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora8">
-                    <label for="hora8" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora9">
-                    <label for="hora9" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora10">
-                    <label for="hora10" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora11">
-                    <label for="hora11" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora12">
-                    <label for="hora12" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora13">
-                    <label for="hora13" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora14">
-                    <label for="hora14" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora15">
-                    <label for="hora15" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora16">
-                    <label for="hora16" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-                <li>
-                    <input class="hidden" type="checkbox" name="" id="hora17">
-                    <label for="hora17" class="color-white p-2 rounded lg:block">
-                        <span class="block text-center text-xs whitespace-nowrap">07:00 - 08:00</span>
-                    </label>
-                </li>
-               
-            </ul>
+            <table>
+                @foreach ($days as $day)
+                    <tr class="grid grid-cols-3 gap-4 items-center mb-6">
+                        <th class="md:col-span-1">
+                            <span class="color-white">{{ $day->name }}</span>
+                        </th>
+                        <td class="col-span-2 grid gap-4 grid-cols-3">
+                            @for ($i = 1; $i <= 3; $i++)
+                                @if ($i === 1)
+                                    <label>
+                                        <input disabled type="checkbox"
+                                        @foreach ($day->hours as $hour)
+                                            @if ($hour->active && $hour->time === $i)
+                                                checked
+                                            @endif
+                                        @endforeach class="update-form form-input" name="days[{{ $day->id_day }}][1]">
+                                        <span class="color-white p-1 overpass">Mañana</span>
+                                    </label>
+                                @elseif($i === 2)
+                                    <label>
+                                        <input disabled type="checkbox"
+                                        @foreach ($day->hours as $hour)
+                                            @if ($hour->active && $hour->time === $i)
+                                                checked
+                                            @endif
+                                        @endforeach class="update-form form-input" name="days[{{ $day->id_day }}][2]">
+                                        <span class="color-white p-1 overpass">Tarde</span>
+                                    </label>
+                                @else
+                                    <label>
+                                        <input disabled type="checkbox"
+                                        @foreach ($day->hours as $hour)
+                                            @if ($hour->active && $hour->time === $i)
+                                                checked
+                                            @endif
+                                        @endforeach class="update-form form-input" name="days[{{ $day->id_day }}][3]">
+                                        <span class="color-white p-1 overpass">Noche</span>
+                                    </label>
+                                @endif
+                            @endfor
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
             <div class="flex justify-center">
                 <span class="text-center color-five mt-4 pr-2 py-1 russo pl-4">
                     AR$ <input type="number" name="prices[0]" class="update-form form-input update-input p-2" disabled value={{ $user->prices[0]->price }} placeholder="100"/>
