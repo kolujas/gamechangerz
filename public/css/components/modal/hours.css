@@ -1,0 +1,3 @@
+#hours.modal .clases li input:checked + label{
+    background-color: var(--color-one);
+}

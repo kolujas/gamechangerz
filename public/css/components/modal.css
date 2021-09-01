@@ -8,6 +8,7 @@
 @import "./modal/presentation.css";
 @import "./modal/reviews.css";
 @import "./modal/signin.css";
+@import "./modal/hours.css";
 
 .modal .modal-content {
     --modal-content-background-color: var(--color-black);
