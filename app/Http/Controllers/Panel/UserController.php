@@ -66,6 +66,10 @@
         static public function doCreateTeacher (Request $request) {
             $input = (object) $request->all();
 
+            if (!isset($input->id_status)) {
+                $input->id_status = 1;
+            }
+
             $validator = Validator::make($request->all(), User::$validation["teacher"]["panel"]["create"]["rules"], User::$validation["teacher"]["panel"]["create"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
