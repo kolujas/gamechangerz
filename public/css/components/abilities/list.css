@@ -46,7 +46,7 @@ ul.abilities.cards .card > div > div {
 }
 
 ul.abilities.cards .card > div > div > div {
-    height: fit-content;
+    /* height: fit-content; */
 }
 
 ul.abilities.cards .card:last-of-type {
@@ -67,7 +67,7 @@ ul.abilities.cards .card figure img {
     height: 100%;
     min-width: 250px;
     object-fit: cover;
-    object-position: right;
+    object-position: top right;
 }
 
 ul.abilities.cards .diffculty svg{
