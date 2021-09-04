@@ -42,7 +42,7 @@ new InputFileMaker({
 },{
     disabled: true,
     generate: document.querySelector('.profile-photo'),
-    image: user.hasOwnProperty("id_user") ? new Asset('storage/' + user.files.profile).route : "",
+    image: new Asset((user.hasOwnProperty("id_user") ? "storage/" + user.files.profile : "img/resources/ProfileSVG.svg")).route,
 });
 
 document.querySelector('.profile-photo').appendChild(new Html("span", {
