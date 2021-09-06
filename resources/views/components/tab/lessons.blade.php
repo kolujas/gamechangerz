@@ -24,7 +24,7 @@
         <li id="tab-offline" class="tab card flex justify-center">
             <a href="#offline" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap">
-                    @component('components.svg.ClaseOnline2SVG')@endcomponent
+                    @component('components.svg.ClaseOnline1SVG')@endcomponent
                     <h4 class="mt-4 overpass">Offline</h4>
                 </div>
             </a>
