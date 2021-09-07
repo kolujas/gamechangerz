@@ -59,15 +59,15 @@
         
                 <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6">
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
-                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
+                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2 on">
                             <span class="russo text-2xl md:text-xl xl:text-2xl text-uppercase">1 on 1</span>
-                            @component('components.svg.ClaseOnline1SVG')@endcomponent
+                            @component('components.svg.ClaseOnline2SVG')@endcomponent
                         </h4>
                         <p class="color-grey overpass">
                             <span class="color-four">Entra a una sesión de entrenamiento personalizada en tiempo real con el coach de tu elección.</span> Podés usar esta sesión para mejorar una habilidad, afianzar conceptos, hacer análisis de partidas (propias o de otros jugadores o equipos) o tener coaching en tiempo real mientras jugás</p>
                     </div>
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
-                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
+                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2 online">
                             <span class="russo text-2xl md:text-xl xl:text-2xl text-uppercase">Seguimiento online</span>
                             @component('components.svg.ClaseOnline2SVG')@endcomponent
                         </h4>
@@ -76,7 +76,7 @@
                         </p>
                     </div>
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
-                        <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2">
+                        <h4 class="color-white flex items-center xl:w-full xl:justify-between packsSvg mb-2">
                             <span class="russo text-2xl md:text-xl xl:text-3xl text-uppercase">Packs</span>
                             @component('components.svg.ClaseOnline3SVG')@endcomponent
                         </h4>
