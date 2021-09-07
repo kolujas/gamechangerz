@@ -180,7 +180,7 @@
 
                 for ($i=0; $i < 7; $i++) {
                     foreach ($days as $id_day => $data) {
-                        if ($i === $id_day) {
+                        if ($i == $id_day) {
                             continue 2;
                         }
                     }

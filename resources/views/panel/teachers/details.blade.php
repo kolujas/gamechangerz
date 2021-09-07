@@ -198,13 +198,13 @@
                                 @for ($i = 1; $i <= 3; $i++)
                                     <label>
                                         @if ($i === 1)
-                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input editable" name="days[{{ $day->id_day }}][1]">
+                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input editable" name="days[{{ $day->id_day }}][time][1]">
                                             <span class="color-white p-1 overpass">Mañana</span>
                                         @elseif($i === 2)
-                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input" name="days[{{ $day->id_day }}][2]">
+                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input" name="days[{{ $day->id_day }}][time][2]">
                                             <span class="color-white p-1 overpass">Tarde</span>
                                         @else
-                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input" name="days[{{ $day->id_day }}][3]">
+                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input" name="days[{{ $day->id_day }}][time][3]">
                                             <span class="color-white p-1 overpass">Noche</span>
                                         @endif
                                     </label>

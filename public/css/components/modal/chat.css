@@ -206,7 +206,7 @@
     padding-right: 15px;
 }
 
-#chat.modal #details main li div {
+#chat.modal #details main li > div {
     --color-to-left: var(--color-five);
     --color-to-right: var(--color-four);
     --color-from: var(--color-two);
@@ -216,7 +216,7 @@
     margin-bottom: 1rem;
 }
 
-#chat.modal #details main li div::before {
+#chat.modal #details main li > div::before {
     content: '';
     position: absolute;
     top: 0;
@@ -270,6 +270,18 @@
     background-color: var(--color-from);
 }
 
+#chat.modal #details main li.abilities input {
+    display: none;
+}
+
+#chat.modal #details main li.abilities input:not(:disabled) + label {
+    cursor: pointer;
+}
+
+#chat.modal #details main li.abilities input:not(:checked) + label {
+    opacity: .5;
+}
+
 #chat.modal #details main li.assigment div {
     width: 100%;
     color: var(--color-white);
@@ -282,6 +294,7 @@
 }
 
 #chat.modal #details main li.assigment div a {
+    justify-content: center;
     width: 100%;
     background-color: rgba(0,0,0,.5);
     color: var(--color-grey);
@@ -297,6 +310,11 @@
     color: var(--color-five);
     box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-five);
     background-color: var(--color-one);
+}
+
+#chat.modal #details main li.assigment div a:not(.complete) .loading .spinner-icon {
+    border-top-color: var(--color-white);
+    border-left-color: var(--color-white);
 }
 
 #chat.modal #details main li.assigment div a:hover {
@@ -317,6 +335,11 @@
 #chat.modal #details footer form a {
     border-right: 1px solid var(--color-grey);
     font-size: 1.5rem;
+}
+
+#chat #details header a:first-child.disabled,
+#chat #details footer .assigment.disabled {
+    filter: grayscale(1);
 }
 
 #chat.modal #details .question {

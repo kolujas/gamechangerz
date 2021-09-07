@@ -27,8 +27,9 @@
                 ]);
             }
 
-            $assigments = Assigment::allFromLesson(Lesson::findByUsers($chat->id_user_from, $chat->id_user_to)->id_lesson);
-            if (count($assigments) === 4) {
+            $lesson = Lesson::findByUsers($chat->id_user_from, $chat->id_user_to);
+            $lesson->and(["assigments"]);
+            if (count($lesson->assigments) == $lesson->{"quantity-of-assigments"}) {
                 return response()->json([
                     "code" => 403,
                     "message" => "There are not more Assigments to create.",
@@ -37,15 +38,7 @@
 
             $input = (object) $request->all();
             
-            $abilities = collect();
-            foreach ($input as $key => $id_ability) {
-                if (preg_match("/abilities/", $key)) {
-                    $abilities->push([
-                        "id_ability" => intval($id_ability),
-                    ]);
-                }
-            }
-            $input->abilities = $abilities;
+            $input->id_lesson = $lesson->id_lesson;
 
             $validator = Validator::make((array) $input, Assigment::$validation["make"]["rules"], Assigment::$validation["make"]["messages"]["es"]);
             if ($validator->fails()) {
@@ -56,11 +49,6 @@
                 ]);
             }
 
-            $lesson = Lesson::findByUsers($chat->id_user_from, $chat->id_user_to);
-
-            $input->abilities = Ability::stringify($input->abilities->toArray());
-            $input->id_lesson = $lesson->id_lesson;
-
             $assigment = Assigment::create((array) $input);
 
             $chat->addMessage([
@@ -69,7 +57,7 @@
             ]);
 
             $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(["users", "available", "messages"]);
+            $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;
@@ -86,7 +74,6 @@
 
             new Mail([ "id_mail" => 3, ], [
                 'email_to' => $to->email,
-                'name' => $from->name,
                 'slug' => $from->slug,
                 'username' => $from->username,
             ]);
@@ -96,6 +83,32 @@
                 "message" => "Success",
                 "data" => [
                     "chat" => $chat,
+                ],
+            ]);
+        }
+
+        /**
+         * * Get an specific Assigment.
+         * @param Request $request
+         * @param int $id_assigment
+         * @return JSON
+         */
+        public function get (Request $request, int $id_assigment) {
+            if (!$request->user()) {
+                return response()->json([
+                    "code" => 403,
+                    "message" => "Unauthenticated",
+                ]);
+            }
+
+            $assigment = Assigment::find($id_assigment);
+            $assigment->and(["presentation"]);
+
+            return response()->json([
+                "code" => 200,
+                "message" => "Success",
+                "data" => [
+                    "assigment" => $assigment,
                 ],
             ]);
         }

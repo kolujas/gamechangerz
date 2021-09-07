@@ -2,10 +2,8 @@
     namespace App\Http\Controllers\API;
 
     use App\Http\Controllers\Controller;
-    use App\Models\Ability;
-    use App\Models\Assigment;
     use App\Models\Chat;
-    use App\Models\Lesson;
+    use App\Models\Assigment;
     use App\Models\Mail;
     use App\Models\Presentation;
     use Illuminate\Http\Request;
@@ -29,6 +27,7 @@
             }
 
             $assigment = Assigment::find($id_assigment);
+            $assigment->and(["presentation"]);
             if (!$assigment) {
                 return response()->json([
                     "code" => 404,
@@ -49,10 +48,17 @@
 
             $input->id_assigment = $assigment->id_assigment;
 
+            if ($assigment->presentation) {
+                return response()->json([
+                    "code" => 403,
+                    "message" => "The Assigment contains a Presentation",
+                ]);
+            }
+
             $presentation = Presentation::create((array) $input);
 
             $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(["users", "available", "messages"]);
+            $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
 
             foreach ($chat->messages as $message) {
                 $message->id_user_logged = $request->user()->id_user;

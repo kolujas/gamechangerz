@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
 
+    use App\Mail\AbilitiesSubmitedMail;
     use App\Mail\ConfirmationMail;
     use App\Mail\NewAssigmentMail;
     use App\Mail\NewLessonTeacherMail;
@@ -39,31 +40,44 @@
         public function send (array $data = []) {
             switch ($this->id_mail) {
                 case 1:
+                    // * When an User signs in
                     $mail = new ConfirmationMail((object) $data);
                     break;
                 case 2:
+                    // * When an User sends a Message to another
                     $mail = new NewMessageMail((object) $data);
                     break;
                 case 3:
+                    // * When a Teacher sends a new Assigment
                     $mail = new NewAssigmentMail((object) $data);
                     break;
                 case 4:
+                    // * When an User completes an Assigment
                     $mail = new NewPresentationMail((object) $data);
                     break;
                 case 5:
+                    // * When an User pays for a Lesson, is an alert for the Teacher
                     $mail = new NewLessonTeacherMail((object) $data);
                     break;
                 case 6:
+                    // * When an User sends a friendship request
                     $mail = new FriendshipRequestMail((object) $data);
                     break;
                 case 7:
+                    // * When an User sends a Teacher request
                     $mail = new TeacherRequestMail((object) $data);
                     break;
                 case 8:
+                    // * When an User pays for a Lesson, is an alert for the User
                     $mail = new NewLessonUserMail((object) $data);
                     break;
                 case 9:
+                    // * When an Admin creates a new Teacher
                     $mail = new TeacherRequestApprovedMail((object) $data);
+                    break;
+                case 10:
+                    // * When an User submits what abilities wants to learn
+                    $mail = new AbilitiesSubmitedMail((object) $data);
                     break;
             }
             MailService::to($data["email_to"])->send($mail);

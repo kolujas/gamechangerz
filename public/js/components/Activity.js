@@ -71,23 +71,13 @@ export default class Activity extends Class {
                     props: {
                         classes: ["assigment"],
                     }, innerHTML: [
-                        ["header", {
-                            props: {
-                                classes: ["mb-8"],
-                            }, innerHTML: [
-                                ["h4", {
-                                    props: {
-                                        classes: ["color-four", "russo", "text-center", "mb-0"],
-                                    }, innerHTML: data.title,
-                                }],
-                            ],
-                        }], ["main", {
+                        ["main", {
                             props: {
                                 classes: ["flex", "justify-center", "flex-wrap"],
                             }, innerHTML: [
                                 ["p", {
                                     props: {
-                                        classes: ["color-white", "overpass", "mb-8"],
+                                        classes: ["color-white", "overpass", "mb-8", "w-full"],
                                     }, innerHTML: data.description,
                                 }], ["a", {
                                     props: {
@@ -119,21 +109,15 @@ export default class Activity extends Class {
                     props: {
                         classes: ["presentation", "p-2", "bg-one", "rounded"],
                     }, innerHTML: [
-                        ["header", {
-                            props: {
-                                classes: ["mb-8"],
-                            }, innerHTML: [
-                                ["h4", {
-                                    props: {
-                                        classes: ["color-four", "russo", "text-center", "mb-0"],
-                                    }, innerHTML: data.presentation.title,
-                                }],
-                            ],
-                        }], ["main", {
+                        ["main", {
                             props: {
                                 classes: ["flex", "justify-center", "flex-wrap"],
                             }, innerHTML: [
-                                ["a", {
+                                ["p", {
+                                    props: {
+                                        classes: ["color-four", "overpass", "mb-8", "w-full"],
+                                    }, innerHTML: data.presentation.description,
+                                }], ["a", {
                                     props: {
                                         classes: ["btn", "btn-one", "btn-outline"],
                                         url: data.presentation.url,

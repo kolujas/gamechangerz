@@ -98,6 +98,8 @@
         Route::middleware(["auth.custom", "auth.is.user"])->group(function () {
             Route::post("/users/{slug}/update", [UserController::class, "update"])->name("user.update");
 
+            Route::post("/users/{slug}/hours/update", [UserController::class, "hours"])->name("user.hours");
+
             Route::post("/users/{slug}/credentials/update", [UserController::class, "credentials"])->name("user.credentials");
 
 // ! AchievementController - Controls the Achievement pages.

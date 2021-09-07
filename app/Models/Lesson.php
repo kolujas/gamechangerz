@@ -106,13 +106,15 @@
          * * Set the Lesson Assigment
          */
         public function assigments () {
-            $this->{"quantity-of-assigments"} = $this->assigments;
-            $this->assigments = collect();
-
-            foreach (Assigment::allFromLesson($this->id_lesson) as $assigment) {
-                $assigment->and(["abilities", "presentation"]);
-
-                $this->assigments->push($assigment);
+            if (gettype($this->assigments) == "integer") {
+                $this->{"quantity-of-assigments"} = $this->assigments;
+                $this->assigments = collect();
+    
+                foreach (Assigment::allFromLesson($this->id_lesson) as $assigment) {
+                    $assigment->and(["presentation"]);
+    
+                    $this->assigments->push($assigment);
+                }
             }
         }
 
@@ -145,24 +147,48 @@
                 $this->days();
             }
 
-            foreach ($this->days as $date) {
-                if (count($date->hours)) {
-                    foreach ($date->hours as $hour) {
-                        if (!isset($ended_at)) {
-                            $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+            if ($this->id_type == 1 || $this->id_type == 3) {
+                foreach ($this->days as $date) {
+                    if (count($date->hours)) {
+                        foreach ($date->hours as $hour) {
+                            if (!isset($ended_at)) {
+                                $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+                            }
+                            if ($ended_at < Carbon::parse($date->date . "T" . $hour->to)) {
+                                $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+                            }
                         }
-                        if ($ended_at < Carbon::parse($date->date . "T" . $hour->to)) {
-                            $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+                    }
+                    if (!count($date->hours)) {
+                        if (!isset($ended_at)) {
+                            $ended_at = Carbon::parse($date->date)->addWeeks(1);
+                        }
+                        if ($ended_at < Carbon::parse($date->date)) {
+                            $ended_at = Carbon::parse($date->date)->addWeeks(1);
                         }
                     }
                 }
-                if (!count($date->hours)) {
-                    if (!isset($ended_at)) {
-                        $ended_at = Carbon::parse($date->date)->addWeeks(1);
+            }
+            if ($this->id_type == 2) {
+                $this->assigments();
+                if (count($this->assigments) >= $this->{"quantity-of-assigments"}) {
+                    foreach ($this->assigments as $assigment) {
+                        if ($assigment->presentation) {
+                            if (!isset($ended_at)) {
+                                $ended_at = Carbon::parse($assigment->presentation->created_at)->addDays(2);
+                            }
+                            if ($ended_at < Carbon::parse($assigment->presentation->created_at)) {
+                                $ended_at = Carbon::parse($assigment->presentation->created_at)->addDays(2);
+                            }
+                        }
+                        if (!$assigment->presentation) {
+                            $ended_at = Carbon::parse($this->created_at)->addYear(1);
+                            break;
+                        }
                     }
-                    if ($ended_at < Carbon::parse($date->date)) {
-                        $ended_at = Carbon::parse($date->date)->addWeeks(1);
-                    }
+                }
+                if (count($this->assigments) < $this->{"quantity-of-assigments"}) {
+                    $ended_at = Carbon::parse($this->created_at)->addYear(1);
                 }
             }
 

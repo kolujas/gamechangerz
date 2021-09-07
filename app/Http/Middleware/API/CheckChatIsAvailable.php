@@ -17,7 +17,7 @@
             $field = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('id_chat'));
 
             $chat = (!is_null($request->route()->parameter('id_user')) ? Chat::findByUsers($field, $request->user()->id_user) : Chat::find($field));
-            $chat->and(['users', 'available']);
+            $chat->and(['users', ["available", $request->user()->id_user]]);
 
             if (!$chat->available) {
                 return response()->json([

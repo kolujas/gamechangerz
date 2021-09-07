@@ -35,10 +35,12 @@ function changeButton (params = {}) {
             if (!document.querySelector(".cho-container .paypal-buttons")) {
                 document.querySelector("#tab-paypal").parentNode.removeChild(document.querySelector("#tab-paypal"));
             }
+            validation.checkout.ValidationJS.setState("submit", true);
             break;
         case "paypal":
             document.querySelector(".cho-container .btn").style.display = "none";
             document.querySelector(".cho-container .paypal-buttons").style.display = "block";
+            validation.checkout.ValidationJS.setState("submit", false);
             break;
     }
 }
@@ -653,50 +655,65 @@ function createPayPalButton () {
             size: "responsive",
         }, createOrder: function (data, actions) {
             let price = parseInt(type.price);
-            if (price >= dolar / 2) {
-                if (price - credits >= dolar / 2) {
-                    price -= credits;
-                } else {
-                    credits = 0;
-                }
-                if (coupon) {
-                    bool = true;
-
-                    if (coupon.limit) {
-                        bool = false;
-
-                        if (intval(coupon.used) < intval(coupon.limit)) {
-                            bool = true;
-                        }
-                    }
-
-                    if (bool) {
-                        if (coupon.type.id_type == 1) {
-                            if (price - (price * intval(coupon.type.value) / 100) >= dolar / 2) {
-                                price -= price * intval(coupon.type.value) / 100;
-                            }
-                        }
-                        if (coupon.type.id_type == 2) {
-                            if (price - intval(coupon.type.value) >= dolar / 2) {
-                                price -= intval(coupon.type.value);
-                            }
-                        }
-                    }
-                }
-            }
             if (price < dolar / 2) {
                 price = dolar / 2;
             }
 
-            price /= dolar;
+            if (price - credits < dolar / 2 && price - credits > 0) {
+                credits -= dolar - (price - credits);
+            }
+            if (credits < 0) {
+                credits = 0;
+            }
+            if (price -= credits < 0) {
+                credits += price -= credits;
+            }
+            price -= credits;
+            if (coupon) {
+                bool = true;
 
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: price,
-                    }, custom_id: lesson.id_lesson,
-                }]
-            });
+                if (coupon.limit) {
+                    bool = false;
+
+                    if (intval(coupon.used) < intval(coupon.limit)) {
+                        bool = true;
+                    }
+                }
+
+                if (bool) {
+                    if (coupon.type.id_type == 1) {
+                        if (price - (price * intval(coupon.type.value) / 100) >= dolar / 2) {
+                            price -= price * intval(coupon.type.value) / 100;
+                        }
+                    }
+                    if (coupon.type.id_type == 2) {
+                        if (price - intval(coupon.type.value) >= dolar / 2) {
+                            price -= intval(coupon.type.value);
+                        }
+                    }
+                }
+            }
+            
+            if (price < dolar / 2 && price > 0) {
+                price = dolar / 2;
+            }
+
+            if (price == 0) {
+                validation.checkout.ValidationJS.validate();
+            }
+            if (price > 0) {
+                if (validation.checkout.ValidationJS.validate()) {
+                    price /= dolar;
+        
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: price,
+                            }, custom_id: lesson.id_lesson,
+                        }]
+                    });
+                }
+            }
         }, onApprove: function (data, actions) {
             return actions.order.capture().then((details) => {
                 document.querySelector("form#checkout").submit();
@@ -826,14 +843,6 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         createHours((type.id_type == 1 ? 1 : 4));
     }
 
-    new TabMenuJS({
-        id: "methods"
-    }, {
-        open: "mercadopago",
-    }, {
-        function: changeButton,
-    });
-
     validation.checkout.ValidationJS = new ValidationJS({
         id: "checkout",
         rules: validation.checkout.rules,
@@ -844,6 +853,14 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         valid: {
             function: submit,
     }});
+
+    new TabMenuJS({
+        id: "methods"
+    }, {
+        open: "mercadopago",
+    }, {
+        function: changeButton,
+    });
 
     document.querySelector(`input[name="credits"]`).addEventListener("focusout", function (e) {
         credits = this.value;

@@ -4,7 +4,6 @@ import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
 import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 
-import Asset from "./Asset.js";
 import Presentation from "./Presentation.js";
 import Token from "./Token.js";
 
@@ -18,7 +17,6 @@ export class Assigment extends Class {
 
         document.querySelector("#assigment-form").action = `/api/lessons/chats/${ this.props.id_chat }/assigments/make`;
 
-        this.changeAbilities();
         if (this.props.id_assigment) {
             this.createAssigmentView();
         } else {
@@ -27,45 +25,31 @@ export class Assigment extends Class {
         }
     }
 
-    createAssigmentView () {
-        document.querySelector("#assigment.modal .title").classList.add("hidden");
-        document.querySelector("#assigment.modal .abilities h3").classList.add("hidden");
+    async createAssigmentView () {
         const instance = this;
         for (const input of document.querySelectorAll("#assigment.modal .form-input")) {
             switch (input.nodeName) {
                 case "INPUT":
-                    switch (input.type.toUpperCase()) {
-                        case "CHECKBOX":
-                            for (const ability of this.props.abilities) {
-                                if (parseInt(input.value) === parseInt(ability.id_ability)) {
-                                    input.checked = true;
-                                }
+                    switch (input.name.toUpperCase()) {
+                        case "URL":
+                            input.value = this.props.url;
+                            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                            var match = input.value.match(regExp);
+                            let videoId;
+                            if (match && match[2].length == 11) {
+                                videoId = match[2];
+                            }else {
+                                videoId = "error";
                             }
-                            input.disabled = true;
+                            
+                            $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
                             break;
-                        default:
-                            switch (input.name.toUpperCase()) {
-                                case "URL":
-                                    input.value = this.props.url;
-                                    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                                    var match = input.value.match(regExp);
-                                    let videoId;
-                                    if (match && match[2].length == 11) {
-                                        videoId = match[2];
-                                    }else {
-                                        videoId = "error";
-                                    }
-                                    
-                                    $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
-                                    break;
-                            }
-                            input.disabled = true;
-                            for (const child of input.parentNode.children) {
-                                if (child.nodeName === "H3") {
-                                    child.classList.add("hidden");
-                                }
-                            }
-                            break;
+                    }
+                    input.disabled = true;
+                    for (const child of input.parentNode.children) {
+                        if (child.nodeName === "H3") {
+                            child.classList.add("hidden");
+                        }
                     }
                     break;
                 default:
@@ -91,7 +75,8 @@ export class Assigment extends Class {
         }
         let classes = ["btn", "btn-background", "btn-one", "flex", "justify-center", "w-full", "rounded", "p-1", "md:h-12", "md:items-center", "mt-12", "russo"];
         let innerHTML = "Entregar";
-        if (this.props.id_role === 1) {
+
+        if (this.props.id_role === 0) {
             if (this.hasProp("presentation") && this.props.presentation) {
                 innerHTML = "Revisar entrega";
             }
@@ -99,7 +84,7 @@ export class Assigment extends Class {
                 classes.push("hidden");
             }
         }
-        if (this.props.id_role === 0) {
+        if (this.props.id_role === 1) {
             if (this.hasProp("presentation") && this.props.presentation) {
                 innerHTML = "Revisar entrega";
             }
@@ -109,6 +94,17 @@ export class Assigment extends Class {
                 url: `#`,
                 classes: classes
             }, innerHTML: [
+                ["div", {
+                    props: {
+                        classes: ["loading", "hidden"],
+                    }, innerHTML: [
+                        ["i", {
+                            props: {
+                                classes: ["spinner-icon"],
+                            },
+                        }],
+                    ],
+                }],
                 ["span", {
                     props: {
                         classes: ["py-2", "px-4"]
@@ -134,29 +130,20 @@ export class Assigment extends Class {
     }
 
     createAssigmentUpdate () {
-        document.querySelector("#assigment.modal .title").classList.remove("hidden");
-        document.querySelector("#assigment.modal .abilities h3").classList.remove("hidden");
         for (const input of document.querySelectorAll("#assigment.modal .form-input")) {
             switch (input.nodeName) {
                 case "INPUT":
-                    switch (input.type.toUpperCase()) {
-                        case "CHECKBOX":
-                            input.disabled = false;
+                    switch (input.name.toUpperCase()) {
+                        case "URL":
+                            input.value = "";
+                            $("#assigment-video").html("");
                             break;
-                        default:
-                            switch (input.name.toUpperCase()) {
-                                case "URL":
-                                    input.value = "";
-                                    $("#assigment-video").html("");
-                                    break;
-                            }
-                            input.disabled = false;
-                            for (const child of input.parentNode.children) {
-                                if (child.nodeName === "H3") {
-                                    child.classList.remove("hidden");
-                                }
-                            }
-                            break;
+                    }
+                    input.disabled = false;
+                    for (const child of input.parentNode.children) {
+                        if (child.nodeName === "H3") {
+                            child.classList.remove("hidden");
+                        }
                     }
                     break;
                 default:
@@ -178,46 +165,6 @@ export class Assigment extends Class {
         if (document.querySelector("#assigment.modal .form-submit + a")) {
             let link = document.querySelector("#assigment.modal .form-submit + a");
             link.parentNode.removeChild(link);
-        }
-    }
-
-    changeAbilities () {
-        document.querySelector("#assigment.modal .abilities h3").classList.remove("hidden");
-        let parent = document.querySelector("#assigment.modal .abilities div");
-        parent.innerHTML = "";
-        for (const ability of this.props.abilities) {
-            let label = new Html("label", {
-                innerHTML: [
-                    ["input", {
-                        props: {
-                            classes: ["hidden", "ability", "assigment-form", "form-input"],
-                            name: `abilities[${ ability.id_ability }]`,
-                            defaultValue: ability.id_ability,
-                            type: "checkbox",
-                        },
-                    }], ["div", {
-                        props: {
-                            classes: ["flex", "justify-between", "p-2", "flex", "items-center"],
-                        }, innerHTML: [
-                            ["span", {
-                                props: {
-                                    classes: ["color-white", "mr-1", "overpass"],
-                                }, innerHTML: ability.name,
-                            }], ["figure", {
-                                innerHTML: [
-                                    ["img", {
-                                        props: {
-                                            url: new Asset(`img/abilities/${ ability.icon }.svg`).route,
-                                        },
-                                    }],
-                                ],
-                            }],
-                        ],
-                    }],
-                ],
-            });
-            
-            parent.appendChild(label.html);
         }
     }
 
@@ -304,6 +251,21 @@ export class Assigment extends Class {
 
             return query.response;
         }
+    }
+
+    static async one (id_assigment) {
+        const token = Token.get();
+
+        let query = await Fetch.get(`/api/assigments/${ id_assigment }`, {
+            "Accept": "application/json",
+            "Authorization": "Bearer " + token.data,
+        });
+
+        if (query.response.code != 200) {
+            return 404;
+        }
+
+        return query.response.data.assigment;
     }
 }
 

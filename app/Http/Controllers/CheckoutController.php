@@ -136,7 +136,15 @@
             }
 
             if (isset($input->credits)) {
-                $input->credits = intval($input->credits);
+                if (isset(Auth::user()->credits) && Auth::user()->credits && intval(Auth::user()->credits)) {
+                    if (intval(Auth::user()->credits) >= intval($input->credits)) {
+                        $input->credits = intval($input->credits);
+                    } else {
+                        $input->credits = 0;
+                    }
+                } else {
+                    $input->credits = 0;
+                }
             }
             if (!isset($input->credits)) {
                 $input->credits = 0;
@@ -155,93 +163,97 @@
                 $coupon = Coupon::findByName($input->coupon);
             }
 
-            switch ($input->id_method) {
-                case 1:
-                    $dolar = floatval(Platform::dolar() / 2);
+            $dolar = floatval(Platform::dolar() / 2);
 
-                    $price = intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price);
-                    if ($price < $dolar) {
-                        $price = $dolar;
-                    }
-                    
-                    if ($price - $input->credits >= $dolar) {
-                        $price -= $input->credits;
-                    } else {
-                        $input->credits = 0;
-                    }
+            $price = intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price);
+            if ($price < $dolar) {
+                $price = $dolar;
+            }
+            
+            if ($price - $input->credits < $dolar && $price - $input->credits > 0) {
+                $input->credits -= $dolar - ($price - $input->credits);
+            }
+            if ($input->credits < 0) {
+                $input->credits = 0;
+            }
 
-                    $fee = floatval($price * 20 / 100);
-                    $coupontPrice = 0;
+            if ($price - $input->credits < 0) {
+                $input->credits += $price - $input->credits;
+            }
 
-                    if ($coupon) {
+            $price -= $input->credits;
+
+            $fee = floatval($price * 20 / 100);
+            $coupontPrice = 0;
+
+            if ($coupon) {
+                $bool = true;
+
+                if ($coupon->limit) {
+                    $coupon->and(["used"]);
+                    $bool = false;
+
+                    if (intval($coupon->used) < intval($coupon->limit)) {
                         $bool = true;
-    
-                        if ($coupon->limit) {
-                            $coupon->and(["used"]);
-                            $bool = false;
-    
-                            if (intval($coupon->used) < intval($coupon->limit)) {
-                                $bool = true;
-                            }
-                        }
-    
-                        if ($bool) {
-                            $coupon->and(["type"]);
-                            $auxPrice = 0;
-    
-                            if ($coupon->type->id_type == 1) {
-                                $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
-                            }
-                            if ($coupon->type->id_type == 2) {
-                                $auxPrice = floatval($price - floatval($coupon->type->value));
-                            }
-                            if ($price - $auxPrice >= $dolar) {
-                                $input->id_coupon = $coupon->id_coupon;
-                                $coupontPrice = $auxPrice;
-                            }
-                        }
                     }
+                }
 
-                    $fee -= $coupontPrice;
+                if ($bool) {
+                    $coupon->and(["type"]);
+                    $auxPrice = 0;
 
-                    if ($fee < 0) {
-                        $price += $fee;
-                        $fee = 0;
+                    if ($coupon->type->id_type == 1) {
+                        $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
                     }
-
-                    $data = (object) [
-                        "id" => $lesson->id_lesson,
-                        "title" => ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
-                        "price" => $price,
-                        "fee" => $fee,
-                    ];
-
-                    $user->and(["credentials"]);
-                    
-                    $MP = new MercadoPago([
-                        "access_token" => $user->credentials->mercadopago->access_token,
-                    ]);
-
-                    $MP->items([$data]);
-                    $MP->preference($data);
-                    $url = $MP->preference->init_point;
-
-                    if (preg_match("/^TEST-/", $user->credentials->mercadopago->access_token)) {
-                        $input->id_status = 3;
+                    if ($coupon->type->id_type == 2) {
+                        $auxPrice = floatval($price - floatval($coupon->type->value));
                     }
-                    break;
-                case 2:
-                    $url = route("checkout.status", [
-                        "id_lesson" => $lesson->id_lesson,
-                        "id_status" => 3,
-                    ]);
-
-                    $input->id_status = 3;
-
-                    if ($coupon) {
+                    if ($price - $auxPrice >= $dolar) {
                         $input->id_coupon = $coupon->id_coupon;
+                        $coupontPrice = $auxPrice;
                     }
-                    break;
+                }
+            }
+
+            $fee -= $coupontPrice;
+
+            if ($fee < 0) {
+                $price += $fee;
+                $fee = 0;
+            }
+
+            if ($price < $dolar && $price > 0) {
+                $price = $dolar;
+            }
+
+            if ($input->id_method == 1 && $price >= $dolar) {
+                $data = (object) [
+                    "id" => $lesson->id_lesson,
+                    "title" => ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username,
+                    "price" => $price,
+                    "fee" => $fee,
+                ];
+
+                $user->and(["credentials"]);
+                
+                $MP = new MercadoPago([
+                    "access_token" => $user->credentials->mercadopago->access_token,
+                ]);
+
+                $MP->items([$data]);
+                $MP->preference($data);
+                $url = $MP->preference->init_point;
+
+                if (preg_match("/^TEST-/", $user->credentials->mercadopago->access_token)) {
+                    $input->id_status = 3;
+                }
+            }
+            if ($input->id_method == 2 || $price == 0) {
+                $input->id_status = 3;
+
+                if ($coupon && $price >= $dolar) {
+                    $input->id_coupon = $coupon->id_coupon;
+                }
             }
 
             unset($lesson->type);
@@ -249,7 +261,12 @@
             unset($input->coupon);
             $lesson->update((array) $input);
 
-            if ($input->id_method == 2) {
+            if ($input->id_method == 2 || $price == 0) {
+                $url = route("checkout.status", [
+                    "id_lesson" => $lesson->id_lesson,
+                    "id_status" => 3,
+                ]);
+
                 $lesson->and(["type", "users", "started_at", "ended_at"]);
     
                 new Mail([ "id_mail" => 5, ], [
@@ -338,44 +355,50 @@
                     
                     // ? If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
                     if ($paid_amount >= $MP->merchant_order->total_amount) {
-                        $lesson->and(["type", "started_at", "ended_at"]);
-
-                        new Mail([ "id_mail" => 5, ], [
-                            "email_to" => $lesson->users->from->email,
-                            "lesson" => $lesson,
-                            "link" => Platform::link(),
-                        ]);
-                        
-                        new Mail([ "id_mail" => 8, ], [
-                            "email_to" => $lesson->users->to->email,
-                            "lesson" => $lesson,
-                            "link" => Platform::link(),
-                        ]);
-                        
-                        // * Create the GoogleCalendar event.
-                        if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
-                            foreach ($days as $day) {
-                                $data = [];
-                                $data["users"] = $lesson->users;
-                                $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username;
-                                $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
-                                $data["started_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from);
-                                $data["ended_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to);
-                
-                                new Event($data);
+                        // ? If the Lesson was updated
+                        if ($lesson->id_status != 3) {
+                            $lesson->and(["type", "started_at", "ended_at"]);
+    
+                            // * Send the Mails
+                            new Mail([ "id_mail" => 5, ], [
+                                "email_to" => $lesson->users->from->email,
+                                "lesson" => $lesson,
+                                "link" => Platform::link(),
+                            ]);
+                            
+                            new Mail([ "id_mail" => 8, ], [
+                                "email_to" => $lesson->users->to->email,
+                                "lesson" => $lesson,
+                                "link" => Platform::link(),
+                            ]);
+                            
+                            // * Create the GoogleCalendar event.
+                            if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
+                                foreach ($days as $day) {
+                                    $data = [];
+                                    $data["users"] = $lesson->users;
+                                    $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Offline" : " Online") . " de " . $lesson->users->from->username;
+                                    $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
+                                    $data["started_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->from);
+                                    $data["ended_at"] = new Carbon($day["date"]."T".Hour::option($day["hour"]["id_hour"])->to);
+                    
+                                    new Event($data);
+                                }
                             }
+                            
+                            unset($lesson->users);
+                            unset($lesson->type);
+                            unset($lesson->started_at);
+                            unset($lesson->ended_at);
+                            $lesson->assigments = $lesson->{"quantity-of-assigments"};
+                            unset($lesson->{"quantity-of-assigments"});
+                            unset($lesson->days);
+    
+                            // * Totally paid. Release your item
+                            $lesson->update([
+                                "id_status" => 3,
+                            ]);
                         }
-                        
-                        unset($lesson->users);
-                        unset($lesson->type);
-                        unset($lesson->started_at);
-                        unset($lesson->ended_at);
-                        unset($lesson->days);
-
-                        // * Totally paid. Release your item
-                        $lesson->update([
-                            "id_status" => 3,
-                        ]);
 
                         return response()->json([
                             "code" => 200,

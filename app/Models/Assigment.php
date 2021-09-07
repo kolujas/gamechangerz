@@ -1,7 +1,6 @@
 <?php
     namespace App\Models;
 
-    use App\Models\Ability;
     use App\Models\Lesson;
     use App\Models\Presentation;
     use Illuminate\Database\Eloquent\Model;
@@ -24,7 +23,7 @@
          * @var array
          */
         protected $fillable = [
-            "abilities", "description", "id_lesson", "url",
+            "description", "id_lesson", "url",
         ];
 
         /**
@@ -35,9 +34,6 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case "abilities":
-                            $this->abilities();
-                            break;
                         case "lesson":
                             $this->lesson();
                             break;
@@ -52,13 +48,6 @@
                         break;
                 }
             }
-        }
-
-        /**
-         * * Set the Assigment Abilities.
-         */
-        public function abilities () {
-            $this->abilities = Ability::parse($this->abilities);
         }
 
         /**
@@ -107,14 +96,12 @@
                 "rules" => [
                     "description" => "required|max:255",
                     "url" => "required|url",
-                    "abilities" => "required",
                 ], "messages" => [
                     "es" => [
                         "description.required" => "La descripción es obligatoria.",
                         "description.max" => "La descripción no puede tener más de :max caracteres.",
                         "url.required" => "El link al video es obligatorio.",
                         "url.url" => "La URL debe ser valida (https://youtube.be)",
-                        "abilities.required" => "Al menos una habilidad es obligatoria (recuerda que para eso tienes que elegir un juego primero).",
                     ],
                 ],
             ],

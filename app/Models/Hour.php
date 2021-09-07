@@ -127,13 +127,26 @@
         static public function stringify (array $hours = []) {
             $collection = collect();
             
-            foreach ($hours as $time => $data) {
-                $hours = Hour::time($time);
-                
-                foreach ($hours as $hour) {
-                    $collection->push([
-                        "id_hour" => $hour->id_hour,
-                    ]);
+            foreach ($hours as $key => $data) {
+                if ($key == "time") {
+                    foreach ($data as $time => $state) {
+                        $hours = Hour::time($time);
+                        
+                        foreach ($hours as $hour) {
+                            $collection->push([
+                                "id_hour" => $hour->id_hour,
+                            ]);
+                        }
+                    }
+                }
+                if ($key == "hours") {
+                    foreach ($data as $id_hour => $state) {
+                        $hour = Hour::option($id_hour);
+                        
+                        $collection->push([
+                            "id_hour" => $hour->id_hour,
+                        ]);
+                    }
                 }
             }
 

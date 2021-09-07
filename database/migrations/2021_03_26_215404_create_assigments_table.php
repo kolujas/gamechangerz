@@ -10,12 +10,12 @@
          * @return void
          */
         public function up () {
-            Schema::create('assigments', function (Blueprint $table) {
-                $table->increments('id_assigment');
-                $table->unsignedInteger('id_lesson');
-                $table->text('description')->nullble();
-                $table->string('url')->nullble();
-                $table->json('abilities')->nullble()->default('[]');
+            Schema::create("assigments", function (Blueprint $table) {
+                $table->increments("id_assigment");
+                $table->unsignedInteger("id_lesson");
+                $table->text("description")->nullble();
+                $table->string("url")->nullble();
+                $table->json("abilities")->nullble()->default("[]");
                 $table->timestamps();
             });
         }
@@ -26,6 +26,6 @@
          * @return void
          */
         public function down () {
-            Schema::dropIfExists('assigments');
+            Schema::dropIfExists("assigments");
         }
     }

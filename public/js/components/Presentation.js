@@ -25,12 +25,12 @@ export default class Presentation extends Class {
     }
 
     setPresentation () {
-        for (const title of document.querySelectorAll('#presentation.modal h3')) {
-            title.classList.add("hidden");
+        for (const description of document.querySelectorAll('#presentation.modal h3')) {
+            description.classList.add("hidden");
         }
-        for (const input of document.querySelectorAll("#presentation-form input")) {
-            if (input.name === "title") {
-                input.value = this.props.presentation.title;
+        for (const input of document.querySelectorAll("#presentation-form .form-input")) {
+            if (input.name === "description") {
+                input.value = this.props.presentation.description;
                 input.disabled = true;
             }
             if (input.name === "url") {
@@ -53,11 +53,11 @@ export default class Presentation extends Class {
     }
 
     setForm () {
-        for (const title of document.querySelectorAll('#presentation.modal h3')) {
-            title.classList.remove("hidden");
+        for (const description of document.querySelectorAll('#presentation.modal h3')) {
+            description.classList.remove("hidden");
         }
         $('#presentation-video').html('');
-        for (const input of document.querySelectorAll("#presentation-form input")) {
+        for (const input of document.querySelectorAll("#presentation-form .form-input")) {
             if (input.name !== "_token" && input.name !== "_method") {
                 input.value = "";
                 input.disabled = false;

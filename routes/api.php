@@ -25,12 +25,13 @@
                 Route::put("/lessons/{id_lesson}/update", [LessonController::class, "update"])->name("api.lesson.update");
                 
                 Route::get("/lessons/{id_lesson}/assigments", [LessonController::class, "getAssigments"])->name("api.lesson.assigments");
+            });
 
 // ! AssigmentController - Controls the assigments api.
-                Route::middleware("api.assigment.exist")->group(function () {
-                    Route::get("/lessons/{id_lesson}/assigments/{slug}", [AssigmentController::class, "get"])->name("api.assigment.get");
-                });
+            Route::middleware("api.assigment.exist")->group(function () {
+                Route::get("/assigments/{id_assigment}", [AssigmentController::class, "get"])->name("api.assigment.get");
             });
+            
             Route::middleware(["api.chat.exist", "api.chat.is.available"])->group(function () {
                 Route::post("/lessons/chats/{id_chat}/assigments/make", [AssigmentController::class, "make"])->name("api.assigment.set");
 
@@ -50,6 +51,7 @@
             Route::middleware("api.user.exist")->group(function () {
                 Route::get("/chats/{id_user}", [ChatController::class, "get"])->name("api.chat.get");
                 Route::middleware(["api.chat.is.available", "api.chat.lesson.is.offline"])->group(function () {
+                    Route::post("/chats/{id_user}/abilities", [ChatController::class, "abilities"])->name("api.chat.abilities");
                     Route::post("/chats/{id_user}", [ChatController::class, "send"])->name("api.chat.send");
                 });
             });

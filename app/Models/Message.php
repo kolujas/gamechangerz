@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
 
+    use App\Models\Ability;
     use App\Models\Assigment;
     use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +17,7 @@
          * @var array
          */
         protected $fillable = [
-            "id_message", "id_user", "says", "id_assigment"
+            "abilities", "id_message", "id_user", "says", "id_assigment",
         ];
 
         /**
@@ -27,6 +28,9 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
+                        case "abilities":
+                            $this->abilities();
+                            break;
                         case "assigment":
                             $this->assigment();
                             break;
@@ -43,9 +47,16 @@
         /**
          * * Set the Message Assigment
          */
+        public function abilities () {
+            $this->abilities = Ability::parse(json_encode($this->abilities));
+        }
+
+        /**
+         * * Set the Message Assigment
+         */
         public function assigment () {
             $this->assigment = Assigment::find($this->id_assigment);
-            $this->assigment->and(["abilities", "presentation"]);
+            $this->assigment->and(["presentation"]);
         }
 
         /**
@@ -70,10 +81,18 @@
                     $props["id_assigment"] = $data->id_assigment;
                 }
 
+                if (isset($data->abilities)) {
+                    $props["abilities"] = $data->abilities;
+                }
+
                 $message = new Message($props);
 
                 if (isset($data->id_assigment)) {
                     $message->and(["assigment"]);
+                }
+
+                if (isset($data->abilities)) {
+                    $message->and(["abilities"]);
                 }
 
                 $collection->push($message);

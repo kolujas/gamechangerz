@@ -53,7 +53,9 @@
             'user' => $user,
         ])
         @endcomponent
-        @component('components.modal.hours', [    
+        @component('components.modal.hours', [
+            'days' => $days,
+            'user' => $user,
         ])
         @endcomponent
         @component('components.modal.languages', [

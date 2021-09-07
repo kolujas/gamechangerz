@@ -51,7 +51,8 @@
                     continue;
                 }
                 switch ($column[0]) {
-                    default:
+                    case 'available':
+                        $this->available($column[1]);
                         break;
                 }
             }
@@ -60,20 +61,27 @@
         /**
          * * Set if the Chat is available.
          */
-        public function available () {
+        public function available ($id_user_logged = null) {
             $user = User::find($this->id_user_from);
             
+            $this->available = false;
             if ($user->id_role === 0 || $user->id_role === 2) {
                 $this->available = true;
             }
             if ($user->id_role === 1) {
-                $this->lesson();
-
-                $now = Carbon::now();
-                $this->available = false;
-                
-                if ($now > $this->lesson->started_at && $now < $this->lesson->ended_at) {
+                if (!isset($this->lessons)) {
+                    $this->lesson();
+                }
+                if ($id_user_logged != $user->id_user) {
                     $this->available = true;
+                }
+                if ($id_user_logged == $user->id_user) {
+                    if (gettype($this->messages) == "string") {
+                        $this->messages();
+                    }
+                    if (count($this->messages) >= 1) {
+                        $this->available = true;
+                    }
                 }
             }
         }
@@ -91,7 +99,9 @@
          * * Set the Chat Messages.
          */
         public function messages () {
-            $this->messages = Message::parse($this->messages);
+            if (gettype($this->messages) == "string") {
+                $this->messages = Message::parse($this->messages);
+            }
         }
 
         /**

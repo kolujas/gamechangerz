@@ -8,16 +8,6 @@
                     <h3 class="color-four mb-4 russo">¿Cómo crear un Assigment?</h3>
                     <p class="color-white overpass mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias sit quam esse error vero suscipit pariatur eveniet, id quisquam ipsa possimus aliquid fugit ratione natus veritatis explicabo et non facilis.</p>
                 </div>
-                
-                <div class="abilities my-2">
-                    <h3 class="color-four mb-4 overpass hidden">Habilidades</h3>
-                    <div class="flex flex-wrap"></div>
-                    @if ($errors->has("abilities"))
-                        <span class="color-white error support assigment-form support-box overpass support-abilities mb-4">{{ $errors->first("abilities") }}</span>
-                    @else
-                        <span class="color-white error support assigment-form support-box overpass support-abilities mb-4"></span>
-                    @endif
-                </div>
 
                 <div class="input-group grid mt-2 mb-6">
                     <h3 class="mb-4">
@@ -45,6 +35,9 @@
 
                 <div>
                     <button class="btn btn-background btn-one form-submit assigment-form flex justify-center w-full rounded p-1 md:h-12 md:items-center mt-12 russo" type="submit">
+                        <div class="loading hidden">
+                            <i class="spinner-icon"></i>
+                        </div>
                         <span class="py-2 px-4">Enviar asignatura</span>
                     </button>
                 </div>

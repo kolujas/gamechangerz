@@ -1,3 +1,27 @@
+#hours.modal .clases li input:not(:checked) + label{
+    background-color: #000;
+}
+
 #hours.modal .clases li input:checked + label{
     background-color: var(--color-one);
+}
+
+/* ? MD */
+@media(min-width: 768px){
+    /*  */
+}
+
+/* ? LG */
+@media(min-width: 1024px){
+    /*  */
+}
+
+/* ? XL */
+@media(min-width: 1200px){
+    /*  */
+}
+
+/* ? 2XL */
+@media(min-width: 1536px){
+    /*  */
 }

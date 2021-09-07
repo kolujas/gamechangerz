@@ -1,6 +1,5 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { CountDown as CountDownJS } from "../../submodules/CountDownJS/js/CountDown.js";
-import InputDateMaker from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
 import Filter from "../../submodules/FilterJS/js/Filter.js";
 import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
@@ -15,7 +14,7 @@ import Token from "../components/Token.js";
 
 export class Chat extends Class {
     constructor (props, chats = []) {
-        super(props);
+        super(props, { state: true });
         this.setProps("chats", chats);
         Chat.setModalJS();
         this.setHTML(document.querySelector("#chat.modal .modal-content"));
@@ -33,22 +32,22 @@ export class Chat extends Class {
         for (const chat of params.instance.props.chats) {
             chat.instance = params.instance;
         }
-        if (params.instance.props.id_role === 0) {
+        if (params.instance.props.id_role == 0) {
             for (const chat of params.instance.props.chats) {
-                if (chat.id_user_logged === chat.id_user_to) {
-                    if (chat.users.from.id_role === 1) {
+                if (chat.id_user_logged == chat.id_user_to) {
+                    if (chat.users.from.id_role == 1) {
                         lessons.push(chat);
                     }
-                    if (chat.users.from.id_role === 0) {
+                    if (chat.users.from.id_role == 0) {
                         friends.push(chat);
                     }
                 }
-                if (chat.id_user_logged === chat.id_user_from) {
+                if (chat.id_user_logged == chat.id_user_from) {
                     friends.push(chat);
                 }
             }
         }
-        if (params.instance.props.id_role !== 0) {
+        if (params.instance.props.id_role != 0) {
             lessons = params.instance.props.chats;
         }
         
@@ -100,14 +99,16 @@ export class Chat extends Class {
         });
 
         document.querySelector(`#chat.modal #details header > a`).addEventListener("click", function (e) {
-            instance.close();
-            instance.CountDownJS.details.pause();
+            if (instance.state.state) {
+                instance.close();
+                instance.CountDownJS.details.pause();
+            }
         });
     }
 
     setFilter () {
         if (!this.FilterJS) {
-            if (parseInt(this.props.id_role) === 0) {
+            if (parseInt(this.props.id_role) == 0) {
                 this.FilterJS = new Filter({
                     id: "filter-chats",
                     order: {
@@ -122,7 +123,7 @@ export class Chat extends Class {
                     }
                 }, this.props.chats);
             }
-            if (parseInt(this.props.id_role) !== 0) {
+            if (parseInt(this.props.id_role) != 0) {
                 this.FilterJS = new Filter({
                     id: "filter-chats",
                     order: {
@@ -180,17 +181,17 @@ export class Chat extends Class {
             "Content-type": "application/json; charset=UTF-8",
             "Authorization": "Bearer " + this.props.token,
         });
-        if (query.response.code === 200) {
+        if (query.response.code == 200) {
             this.setProps("id_role", query.response.data.id_role);
         }
     }
 
     async checkRole () {
         await this.getRole();
-        if (this.props.id_role === 0) {
+        if (this.props.id_role == 0) {
             this.showUserChat();
         }
-        if (this.props.id_role !== 0) {
+        if (this.props.id_role != 0) {
             this.showTeacherChat();
         }
         if (this.props.chats.length) {
@@ -206,7 +207,7 @@ export class Chat extends Class {
     async changeChat () {
         let chat;
         for (chat of this.props.chats) {
-            if (chat.id_chat === this.opened) {
+            if (chat.id_chat == this.opened) {
                 break;
             }
         }
@@ -223,10 +224,11 @@ export class Chat extends Class {
             
         if (chat.hasOwnProperty("id_chat")) {
             for (const message of chat.messages) {
-                message.slug = (chat.id_user_logged === chat.id_user_from ? chat.users.to.slug : chat.users.from.slug);
+                message.slug = (chat.id_user_logged == chat.id_user_from ? chat.users.to.slug : chat.users.from.slug);
                 message.id_chat = chat.id_chat;
+                message.chat = this;
             }
-            this.sections.details.main.appendChild(Message.component("list", { messages: chat.messages, available: chat.available }));
+            this.sections.details.main.appendChild(Message.component("list", chat));
             this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
         }
 
@@ -239,14 +241,6 @@ export class Chat extends Class {
         }
 
         if (response.hasOwnProperty("id_chat")) {
-            if (chat.users.from.id_role === 1) {
-                let start_date = new Date(chat.lesson.started_at.replaceAll("-", "/").split("T").shift());
-                let end_date = new Date(chat.lesson.ended_at.replaceAll("-", "/").split("T").shift());
-                let span2 = document.createElement("span");
-                span2.classList.add("timer", "color-grey");
-                span2.innerHTML = `El chat estará disponible entre la fecha <b class="mx-1">${ ((start_date.getDate() < 10) ? `0${ start_date.getDate() }` : start_date.getDate()) }/${ InputDateMaker.Months.es[start_date.getMonth()].number }/${ start_date.getFullYear() }</b> y <b class="ml-1">${ ((end_date.getDate() < 10) ? `0${ end_date.getDate() }` : end_date.getDate()) }/${ InputDateMaker.Months.es[end_date.getMonth()].number }/${ end_date.getFullYear() }</b>`;
-                this.sections.details.main.appendChild(span2);
-            }
             this.changeFooter(chat);
         }
     }
@@ -269,13 +263,13 @@ export class Chat extends Class {
         }
         childs: for (const child of [...this.sections.list[type].children[1].children]) {
             for (const chat of chats) {
-                if (child.id === `chat-${ chat.id_chat }`) {
+                if (child.id == `chat-${ chat.id_chat }`) {
                     continue childs;
                 }
             }
             child.parentNode.removeChild(child);
         }
-        if (this.sections.list[type].children[1].innerHTML === "") {
+        if (this.sections.list[type].children[1].innerHTML == "") {
             let item = document.createElement("li");
             item.classList.add("color-white");
             item.innerHTML = "No se encontraron resultados";
@@ -284,74 +278,80 @@ export class Chat extends Class {
     }
 
     addAssigment () {
-        let chat;
-        for (chat of this.props.chats) {
-            if (chat.id_chat === this.opened) {
-                break;
+        if (this.state.state) {
+            let chat;
+            for (chat of this.props.chats) {
+                if (chat.id_chat == this.opened) {
+                    break;
+                }
+                chat = false;
             }
-            chat = false;
-        }
-        let abilities = [];
-        for (const game of chat.users.from.games) {
-            for (const ability of game.abilities) {
-                abilities.push(ability);
+            let abilities = [];
+            for (const game of chat.users.from.games) {
+                for (const ability of game.abilities) {
+                    abilities.push(ability);
+                }
             }
+    
+            new Assigment({
+                id_chat: chat.id_chat,
+                abilities: abilities,
+                id_role: this.props.id_role,
+            });
         }
-        new Assigment({
-            id_chat: chat.id_chat,
-            abilities: abilities,
-            id_role: this.props.id_role,
-        });
     }
 
     addMessage (message) {
-        if (this.sections.details.main.children[1].children.length === 1 && !this.sections.details.main.children[1].children[0].classList.length) {
+        if (this.sections.details.main.children[1].children.length == 1 && !this.sections.details.main.children[1].children[0].classList.length) {
             this.sections.details.main.children[1].innerHTML = "";
         }
+        message.chat = this;
         this.sections.details.main.children[1].appendChild(Message.component("item", message));
     }
 
     changeUserProfile (chat) {
         this.sections.details.header.children[1].classList.add("overpass");
-        this.sections.details.header.href = `/users/${ chat.users[(chat.id_user_logged === chat.id_user_from ? "to" : "from")].slug }/profile`;
+        this.sections.details.header.href = `/users/${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].slug }/profile`;
         this.sections.details.header.innerHTML = "";
             let figure = document.createElement("figure");
             this.sections.details.header.appendChild(figure);
                 let image = document.createElement("img");
-                image.alt = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? "to" : "from")].username } profile image`;
-                if (!chat.users[((chat.id_user_logged === chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                image.alt = `${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].username } profile image`;
+                if (!chat.users[((chat.id_user_logged == chat.id_user_from) ? "to" : "from")].files["profile"]) {
                     image.src = new Asset(`img/resources/ProfileSVG.svg`).route;
                 }
-                if (chat.users[((chat.id_user_logged === chat.id_user_from) ? "to" : "from")].files["profile"]) {
-                    image.src = new Asset(`storage/${ chat.users[((chat.id_user_logged === chat.id_user_from) ? "to" : "from")].files["profile"] }`).route;
+                if (chat.users[((chat.id_user_logged == chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                    image.src = new Asset(`storage/${ chat.users[((chat.id_user_logged == chat.id_user_from) ? "to" : "from")].files["profile"] }`).route;
                 }
                 figure.appendChild(image);
 
             let span = document.createElement("span");
             span.classList.add("ml-2");
             this.sections.details.header.appendChild(span);
-            span.innerHTML = `${ chat.users[(chat.id_user_logged === chat.id_user_from ? "to" : "from")].username } (${ chat.users[(chat.id_user_logged === chat.id_user_from ? "to" : "from")].name })`;
+            span.innerHTML = `${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].username } (${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].name })`;
     }
 
     changeFooter (chat) {
         const instance = this;
         if (chat.available) {
-            if (chat.users.from.id_role === 1) {
+            if (chat.users.from.id_role == 1) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
                 paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
-                if (chat.users.from.id_user === chat.id_user_logged) {
+                if (chat.users.to.id_user == chat.id_user_logged) {
                     let link = document.createElement("a");
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (parseInt(chat.lesson.assigments.length) === chat.lesson["quantity-of-assigments"]) {
+                    if (!this.state.state) {
+                        link.classList.add("disabled");
+                    }
+                    if (parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"]) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", function (e) {
-                        console.log("here");
                         if (chat.lesson.assigments.length < parseInt(chat.lesson["quantity-of-assigments"])) {
                             instance.addAssigment();
                         }
@@ -360,10 +360,23 @@ export class Chat extends Class {
                         icon.classList.add("fas", "fa-paperclip", "color-gradient");
                         link.appendChild(icon);
                 }
+                if (chat.users.to.id_user != chat.id_user_logged && !chat.messages.length) {
+                    let button = document.createElement("button");
+                    button.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button");
+                    this.sections.details.footer.appendChild(button);
+                    button.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        instance.submitAbilities(chat);
+                    });
+                        let img = document.createElement("img");
+                        img.src = new Asset("img/resources/SendSVG.svg").route;
+                        img.alt = "Send button icon";
+                        button.appendChild(img);
+                }
             }
-            if (chat.users.from.id_role === 0) {
+            if (chat.users.from.id_role == 0) {
                 let form = document.createElement("form");
-                form.action = `/api/chats/${ (chat.id_user_logged === chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
+                form.action = `/api/chats/${ (chat.id_user_logged == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
 
                 this.sections.details.footer.appendChild(form);
                 form.addEventListener("submit", function (e) {
@@ -397,16 +410,16 @@ export class Chat extends Class {
             }
         }
         if (!chat.available) {
-            if (chat.users.from.id_user === chat.id_user_logged) {
+            if (chat.users.from.id_user == chat.id_user_logged) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
                 paragraph.innerHTML = "El chat no se encuentra activo";
                 this.sections.details.footer.appendChild(paragraph);
             }
-            if (chat.users.from.id_user !== chat.id_user_logged) {
+            if (chat.users.from.id_user != chat.id_user_logged) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
-                paragraph.innerHTML = "4 tareas pendientes";
+                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
             }
         }
@@ -419,10 +432,10 @@ export class Chat extends Class {
         let lessons = 0;
         if (this.props.chats.length) {
             for (const chat of this.props.chats) {
-                if (chat.users.from.id_role === 0) {
+                if (chat.users.from.id_role == 0) {
                     friends++;
                 }
-                if (chat.users.from.id_role === 1) {
+                if (chat.users.from.id_role == 1) {
                     lessons++;
                 }
             }
@@ -439,6 +452,42 @@ export class Chat extends Class {
         this.sections.list.lessons.classList.remove("hidden");
         this.sections.list.lessons.children[0].classList.add("hidden");
         this.sections.list.friends.classList.add("hidden");
+    }
+
+    async submitAbilities (chat) {
+        let formData = new FormData();
+        let abilities = [];
+        for (const input of document.querySelectorAll("#chat.modal #details .abilities input")) {
+            if (input.checked) {
+                abilities.push(input.value);
+            }
+        }
+        if (abilities.length) {
+            const token = Token.get();
+            
+            formData.append("abilities", abilities);
+
+            let query = await Fetch.send({
+                method: "POST",
+                url: `/api/chats/${ chat.id_user_from }/abilities`,
+            }, {
+                "Accept": "application/json",
+                "Content-type": "application/json; charset=UTF-8",
+                "Authorization": "Bearer " + token.data,
+            }, formData);
+
+            if (query.response.code != 200) {
+                this.close();
+                this.CountDownJS.details.pause();
+            }
+            if (query.response.code == 200) {
+                for (const input of document.querySelectorAll("#chat.modal #details .abilities input")) {
+                    input.disabled = true;
+                }
+                this.CountDownJS.details.stop();
+                this.save(query.response.data);
+            }
+        }
     }
 
     createCountDownDetails () {
@@ -499,31 +548,40 @@ export class Chat extends Class {
 
     async reloadChat (params) {
         let found = true;
-        for (const chat of params.instance.props.chats) {
-            if (chat.id_chat === params.instance.opened) {
-                let response = await Chat.one(chat, params.instance.props.token);
-                if (!response.hasOwnProperty("id_chat")) {
-                    found = false;
-                    break;
-                }
-                chat.messages = response.messages;
-                for (const message of chat.messages) {
-                    if (document.querySelector(`li#message-${ message.id_message }`)) {
-                        if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
-                            document.querySelector(`li#message-${ message.id_message } a`).classList.add("complete");
+        let chat = false;
+        for (const key in [...params.instance.props.chats]) {
+            if (Object.hasOwnProperty.call(params.instance.props.chats, key)) {
+                chat = params.instance.props.chats[key];
+                if (chat.id_chat == params.instance.opened) {
+                    chat = await Chat.one(chat, params.instance.props.token);
+                    if (!chat.hasOwnProperty("id_chat")) {
+                        found = false;
+                        break;
+                    }
+                    params.instance.props.chats[key] = chat;
+                    for (const message of chat.messages) {
+                        if (document.querySelector(`li#message-${ message.id_message }`)) {
+                            if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
+                                document.querySelector(`li#message-${ message.id_message } a`).classList.add("complete");
+                            }
+                        }
+                        if (!document.querySelector(`li#message-${ message.id_message }`)) {
+                            if (chat.messages.length == 1) {
+                                params.instance.sections.details.main.children[1].innerHTML = "";
+                            }
+                            params.instance.sections.details.main.children[1].appendChild(Message.component("item", { ...message, chat: params.instance, id_chat: chat.id_chat , slug: chat.users.from.slug }));
                         }
                     }
-                    if (!document.querySelector(`li#message-${ message.id_message }`)) {
-                        params.instance.sections.details.main.children[1].appendChild(Message.component("item", message));
-                    }
+                    break;
                 }
-                break;
             }
         }
         if (!found) {
             params.instance.close();
         }
         if (found) {
+            params.instance.sections.details.footer.innerHTML = "";
+            params.instance.changeFooter(chat);
             params.instance.sections.details.main.children[1].scrollTo(0, params.instance.sections.details.main.children[1].scrollHeight);
             params.instance.setFinishState();
             params.instance.createCountDownDetails();
@@ -535,7 +593,7 @@ export class Chat extends Class {
         for (const key in this.props.chats) {
             if (Object.hasOwnProperty.call(this.props.chats, key)) {
                 const chat = this.props.chats[key];
-                if (chat.id_chat === data.chat.id_chat) {
+                if (chat.id_chat == data.chat.id_chat) {
                     this.props.chats[key] = data.chat;
                     break;
                 }
@@ -543,7 +601,7 @@ export class Chat extends Class {
         }
         for (const message of data.chat.messages) {
             if (!document.querySelector(`#message-${ message.id_message }`)) {
-                this.addMessage(message);
+                this.addMessage({ ...message, id_role: data.chat.users[data.chat.id_user_from == data.chat.id_user_logged ? "from" : "to"].id_role, slug: data.chat.users.from.slug, id_chat: data.chat.id_chat });
             }
             if (document.querySelector(`#message-${ message.id_message }`)) {
                 if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
@@ -557,71 +615,105 @@ export class Chat extends Class {
     }
 
     async send (params) {
-        let response;
-        switch (params.section) {
-            case "chat":
-                params.instance.CountDownJS.details.pause();
-
-                response = await Chat.submit();
-
-                if (response.code !== 200) {
-                    params.instance.close();
+        if (params.instance.state.state) {
+            let response;
+            switch (params.section) {
+                case "chat":
                     params.instance.CountDownJS.details.pause();
-                }
-                if (response.code === 200) {
-                    params.instance.CountDownJS.details.stop();
-                    params.instance.save(response.data);
-                }
-
-                document.querySelector(`#chat.modal #details form`).reset();
-                break;
-            case "assigment":
-                response = await Assigment.submit();
-
-                if (response.code !== 200) {
-                    params.instance.close();
-                    params.instance.CountDownJS.details.pause();
-                }
-                if (response.code === 200) {
-                    params.instance.CountDownJS.details.stop();
-                    params.instance.save(response.data);
-                    new NotificationJS({
-                        code: 200,
-                        message: `Tarea creada exitosamente`,
-                        classes: ["russo"],
-                    }, {
-                        open: true,
-                    });
-                }
-
-                modals.assigment.close();
-
-                document.querySelector(`#assigment-form`).reset();
-                break;
-            case "presentation":
-                response = await Presentation.submit();
-
-                if (response.code !== 200) {
-                    params.instance.close();
-                    params.instance.CountDownJS.details.pause();
-                }
-                if (response.code === 200) {
-                    params.instance.CountDownJS.details.stop();
-                    params.instance.save(response.data);
-                    new NotificationJS({
-                        code: 200,
-                        message: `Tarea creada exitosamente`,
-                        classes: ["russo"],
-                    }, {
-                        open: true,
-                    });
-                }
-
-                modals.presentation.close();
-
-                document.querySelector(`#presentation-form`).reset();
-                break;
+    
+                    response = await Chat.submit();
+    
+                    if (response.code != 200) {
+                        params.instance.close();
+                        params.instance.CountDownJS.details.pause();
+                    }
+                    if (response.code == 200) {
+                        params.instance.CountDownJS.details.stop();
+                        params.instance.save(response.data);
+                    }
+    
+                    document.querySelector(`#chat.modal #details form`).reset();
+                    break;
+                case "assigment":
+                    params.instance.setLoadingState();
+                    document.querySelector("#assigment form button").children[0].classList.remove("hidden");
+                    document.querySelector("#assigment form button").children[1].classList.add("hidden");
+                    response = await Assigment.submit();
+                    params.instance.setFinishState();
+                    document.querySelector("#assigment form button").children[0].classList.add("hidden");
+                    document.querySelector("#assigment form button").children[1].classList.remove("hidden");
+    
+                    if (response.code != 200) {
+                        params.instance.close();
+                        params.instance.CountDownJS.details.pause();
+                    }
+                    if (response.code == 200) {
+                        params.instance.CountDownJS.details.stop();
+                        params.instance.save(response.data);
+                        new NotificationJS({
+                            code: 200,
+                            message: `Tarea creada exitosamente`,
+                            classes: ["russo"],
+                        }, {
+                            open: true,
+                        });
+                    }
+    
+                    modals.assigment.close();
+    
+                    document.querySelector(`#assigment-form`).reset();
+                    break;
+                case "presentation":
+                    params.instance.setLoadingState();
+                    document.querySelector("#presentation form button").children[0].classList.remove("hidden");
+                    document.querySelector("#presentation form button").children[1].classList.add("hidden");
+                    response = await Presentation.submit();
+                    params.instance.setFinishState();
+                    document.querySelector("#presentation form button").children[0].classList.add("hidden");
+                    document.querySelector("#presentation form button").children[1].classList.remove("hidden");
+    
+                    if (response.code != 200) {
+                        params.instance.close();
+                        params.instance.CountDownJS.details.pause();
+                    }
+                    if (response.code == 200) {
+                        params.instance.CountDownJS.details.stop();
+                        params.instance.save(response.data);
+                        new NotificationJS({
+                            code: 200,
+                            message: `Tarea creada exitosamente`,
+                            classes: ["russo"],
+                        }, {
+                            open: true,
+                        });
+                    }
+    
+                    modals.presentation.close();
+    
+                    document.querySelector(`#presentation-form`).reset();
+                    break;
+            }
         }
+    }
+
+    setLoadingState () {
+        if (!this.state.state) {
+            return false;
+        }
+        if (document.querySelector("#chat #details footer .assigment")) {
+            document.querySelector("#chat #details footer .assigment").classList.add("disabled");
+        }
+        document.querySelector("#chat #details header a:first-child").classList.add("disabled");
+        this.setState("state", false);
+        return true;
+    }
+
+    setFinishState () {
+        if (document.querySelector("#chat #details footer .assigment")) {
+            document.querySelector("#chat #details footer .assigment").classList.remove("disabled");
+        }
+        document.querySelector("#chat #details header a:first-child").classList.remove("disabled");
+        this.setState("state", true);
     }
 
     static async submit () {
@@ -653,7 +745,7 @@ export class Chat extends Class {
             "Authorization": "Bearer " + token,
         });
         let chats = [];
-        if (query.response.code === 200) {
+        if (query.response.code == 200) {
             for (const chat of query.response.data.chats) {
                 chats.push(chat);
             }
@@ -662,11 +754,11 @@ export class Chat extends Class {
     }
 
     static async one (chat, token) {
-        let query = await Fetch.get(`/api/chats/${ (chat.id_user_logged === chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`, {
+        let query = await Fetch.get(`/api/chats/${ (chat.id_user_logged == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`, {
             "Accept": "application/json",
             "Authorization": "Bearer " + token,
         });
-        if (query.response.code !== 200) {
+        if (query.response.code != 200) {
             return 404;
         }
         return query.response.data.chat;
@@ -691,7 +783,7 @@ export class Chat extends Class {
         item.classList.add("mt-4", `order-${ data.key }`);
             let link = document.createElement("a");
             link.classList.add("flex", "color-white", "items-center", "overpass");
-            link.href = `#chat-${ data.chat.users[((data.chat.id_user_logged === data.chat.id_user_from) ? "to" : "from")].slug }`;
+            link.href = `#chat-${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].slug }`;
             item.appendChild(link);
             link.addEventListener("click", function (e) {
                 data.chat.instance.open(data.chat.id_chat);
@@ -701,21 +793,21 @@ export class Chat extends Class {
                 link.appendChild(figure);
                     let image = document.createElement("img");
                     figure.appendChild(image);
-                        if (!data.chat.users[((data.chat.id_user_logged === data.chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                        if (!data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].files["profile"]) {
                             image.src = new Asset(`img/resources/ProfileSVG.svg`).route;
                         }
-                        if (data.chat.users[((data.chat.id_user_logged === data.chat.id_user_from) ? "to" : "from")].files["profile"]) {
-                            image.src = new Asset(`storage/${ data.chat.users[((data.chat.id_user_logged === data.chat.id_user_from) ? "to" : "from")].files["profile"] }`).route;
+                        if (data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                            image.src = new Asset(`storage/${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].files["profile"] }`).route;
                         }
 
                 let username = document.createElement("div");
                 username.classList.add("username");
                 link.appendChild(username);
                     let paragraph = document.createElement("p");
-                    paragraph.innerHTML = `${ data.chat.users[((data.chat.id_user_logged === data.chat.id_user_from) ? "to" : "from")].username} (`;
+                    paragraph.innerHTML = `${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].username} (`;
                     username.appendChild(paragraph);
                         let name = document.createElement("span");
-                        name.innerHTML = `${ data.chat.users[((data.chat.id_user_logged === data.chat.id_user_from) ? "to" : "from")].name }`;
+                        name.innerHTML = `${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].name }`;
                         paragraph.appendChild(name);
                         paragraph.innerHTML = `${ paragraph.innerHTML })`;
 

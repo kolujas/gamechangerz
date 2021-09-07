@@ -64,7 +64,7 @@
                                     @endforeach
                                 </td>
                                 <td class="flex items-center py-4">
-                                    @if ($lesson->type->id_type === 2 && $lesson->ended_at < now())
+                                    @if ($lesson->type->id_type === 2)
                                         <a class="btn btn-one btn-icon" data-id_lesson="{{ $lesson->id_lesson }}" href="#">
                                             <i class="fas fa-eye"></i>
                                         </a>

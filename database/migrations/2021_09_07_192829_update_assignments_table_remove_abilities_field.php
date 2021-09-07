@@ -3,19 +3,15 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreatePresentationsTable extends Migration {
+    class UpdateAssignmentsTableRemoveAbilitiesField extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up () {
-            Schema::create("presentations", function (Blueprint $table) {
-                $table->increments("id_presentation");
-                $table->unsignedInteger("id_assigment");
-                $table->string("title");
-                $table->string("url")->nullble();
-                $table->timestamps();
+            Schema::table("assigments", function (Blueprint $table) {
+                $table->dropColumn("abilities");
             });
         }
 
@@ -25,6 +21,8 @@
          * @return void
          */
         public function down () {
-            Schema::dropIfExists("presentations");
+            Schema::table("assigments", function (Blueprint $table) {
+                //
+            });
         }
     }

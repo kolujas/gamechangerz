@@ -9,20 +9,20 @@
          * * Table name.
          * @var string
          */
-        protected $table = 'presentations';
+        protected $table = "presentations";
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_presentation';
+        protected $primaryKey = "id_presentation";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'title', 'url', 'id_assigment'
+            "description", "url", "id_assigment"
         ];
 
         /**
@@ -33,7 +33,7 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'assigment':
+                        case "assigment":
                             $this->assigment();
                             break;
                     }
@@ -69,15 +69,15 @@
          * @var array
          */
         static $validation = [
-            'make' => [
-                'rules' => [
-                    'title' => 'required|max:100',
-                    'url' => 'required|url',
-                ], 'messages' => [
-                    'es' => [
-                        'title.required' => 'El título es obligatorio.',
-                        'title.max' => 'El título no puede tener más de :max caracteres.',
-                        'url.required' => 'El link al video es obligatorio.',
-                        'url.url' => 'La URL debe ser valida (https://youtube.be)',
+            "make" => [
+                "rules" => [
+                    "description" => "required|max:255",
+                    "url" => "required|url",
+                ], "messages" => [
+                    "es" => [
+                        "description.required" => "La descripción es obligatoria.",
+                        "description.max" => "La descripción no puede tener más de :max caracteres.",
+                        "url.required" => "El link al video es obligatorio.",
+                        "url.url" => "La URL debe ser valida (https://youtube.be)",
         ]]]];
     }

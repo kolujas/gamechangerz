@@ -250,12 +250,10 @@
             }
 
             if ($user->id_role === 1) {
-                $user->and(["days"]);
                 if (!isset($input->description)) {
                     $input->description = null;
                 }
 
-                $input->days = Day::stringify($input->days);
                 $input->prices = Price::stringify($input->prices);
                 if (isset($input->teampro_name)) {
                     $input->teampro = Teampro::stringify($input->teampro_name);
@@ -284,6 +282,31 @@
             return redirect("/users/$user->slug/profile")->with("status", [
                 "code" => 200,
                 "message" => "Perfil actualizado correctamente.",
+            ]);
+        }
+
+        /**
+         * * Update an User Hours.
+         * @param Request $request
+         * @param string $slug User slug
+         * @return [type]
+         */
+        public function hours (Request $request, $slug) {
+            $user = User::findBySlug($slug);
+
+            $input = (object) $request->all();
+
+            $user->and(["days"]);
+
+            $input->days = Day::stringify($input->days);
+
+            unset($user->files);
+
+            $user->update((array) $input);
+            
+            return redirect("/users/$user->slug/profile")->with("status", [
+                "code" => 200,
+                "message" => "Horario actualizado correctamente.",
             ]);
         }
 
