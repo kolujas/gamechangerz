@@ -65,15 +65,15 @@
             $this->event->startDateTime = $this->started_at;
             $this->event->endDateTime = $this->ended_at;
 
-            // // * Loop the Users
-            // foreach ($this->users as $user) {
-            //     // * Set an Attendee
-            //     $this->event->addAttendee([ "email" => $user->email ]);
-            // }
+            // * Loop the Users
+            foreach ($this->users as $user) {
+                // * Set an Attendee
+                $this->event->addAttendee([ "email" => $user->email ]);
+            }
             
-            // * Set the testing Attendees
-            $this->event->addAttendee([ "email" => "ffranbarbier@gmail.com" ]);
-            $this->event->addAttendee([ "email" => "juan.cruz.armentia@gmail.com" ]);
+            // // * Set the testing Attendees
+            // $this->event->addAttendee([ "email" => "ffranbarbier@gmail.com" ]);
+            // $this->event->addAttendee([ "email" => "juan.cruz.armentia@gmail.com" ]);
 
             // * Save it
             $this->event->save();

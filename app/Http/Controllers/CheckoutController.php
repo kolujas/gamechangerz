@@ -242,7 +242,7 @@
 
                 $MP->items([$data]);
                 $MP->preference($data);
-                $url = $MP->preference->init_point;
+                $url = redirect($MP->preference->init_point);
 
                 if (preg_match("/^TEST-/", $user->credentials->mercadopago->access_token)) {
                     $input->id_status = 3;
@@ -262,7 +262,7 @@
             $lesson->update((array) $input);
 
             if ($input->id_method == 2 || $price == 0) {
-                $url = route("checkout.status", [
+                $url = redirect()->route("checkout.status", [
                     "id_lesson" => $lesson->id_lesson,
                     "id_status" => 3,
                 ]);
@@ -295,19 +295,17 @@
                 }
             }
 
-            if (isset(Auth::user()->credits) && Auth::user()->credits && intval(Auth::user()->credits)) {
-                Auth::user()->update([
-                    "credits" => intval(Auth::user()->credits) - intval($input->credits),
-                ]);
-            }
+            $aux = [
+                "credits" => intval(intval(Auth::user()->credits) - intval($input->credits)),
+            ];
 
             if (!Auth::user()->discord || $input->discord != Auth::user()->discord) {
-                Auth::user()->update([
-                    "discord" => $input->discord,
-                ]);
+                $aux["discord"] = $input->discord;
             }
 
-            return redirect($url);
+            User::find(Auth::user()->id_user)->update($aux);
+
+            return $url;
         }
 
         /**

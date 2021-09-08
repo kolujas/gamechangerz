@@ -61,7 +61,7 @@
 
         Route::middleware("auth.custom")->group(function () {
             Route::middleware("auth.not.user")->group(function () {
-                Route::middleware(["lesson.exist", "lesson.status.1"])->group(function () {
+                Route::middleware("lesson.exist")->group(function () {
                     Route::post("/lessons/{id_lesson}/checkout/{type}", [CheckoutController::class, "complete"])->name("checkout.complete");
                 });
 
