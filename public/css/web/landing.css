@@ -204,9 +204,9 @@ ul.teachers .image figure{
     margin-bottom: 0;
 }
 
-/* .video-section .services .service:hover svg .cls-1{
-    fill: var(--color-four);
-} */
+.video-section .services .service:hover svg .cls-1{
+    fill: var(--color-four) !important;
+}
 
 /* buscador (usuarios) */
 
