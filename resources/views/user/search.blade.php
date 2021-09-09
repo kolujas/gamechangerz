@@ -5,7 +5,7 @@
         Buscador de Usuarios | GameChangerZ
     @endif
     @if (Request::is('teachers'))
-        Buscador de Profesores | GameChangerZ
+        Buscador de Coaches | GameChangerZ
     @endif
 @endsection
 

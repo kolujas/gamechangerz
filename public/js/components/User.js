@@ -256,7 +256,7 @@ export class User extends Class {
                             li.classList.add("color-five", "russo", "mb-2");
                             list.appendChild(li);
                                 span = document.createElement('span');
-                                span.innerHTML = "Modalidad Online";
+                                span.innerHTML = "Modalidad 1on1";
                                 li.appendChild(span);
 
                                 let br = document.createElement('br');
@@ -270,7 +270,7 @@ export class User extends Class {
                             li.classList.add("color-white", "russo", "mb-2");
                             list.appendChild(li);
                                 span = document.createElement('span');
-                                span.innerHTML = "Modalidad Offline";
+                                span.innerHTML = "Modalidad Seguimiento online";
                                 li.appendChild(span);
 
                                 br = document.createElement('br');

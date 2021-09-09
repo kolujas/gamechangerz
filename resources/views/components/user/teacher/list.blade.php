@@ -58,8 +58,8 @@
                     <section class="payment grid lg:col-span-2 ml-4 mb-4 md:m-0 md:mr-8 md:mt-4 md:items-end">
                         <div class="mb-4">
                             <ul class="mb-4">
-                                <li class="color-five russo mb-2">Modalidad Online <br> AR$ {{ $user->prices[0]->price }}</li>
-                                <li class="color-white russo">Modalidad Offline <br> AR$ {{ $user->prices[1]->price }}</li>
+                                <li class="color-five russo mb-2">Modalidad 1on1 <br> AR$ {{ $user->prices[0]->price }}</li>
+                                <li class="color-white russo">Modalidad Seguimiento online <br> AR$ {{ $user->prices[1]->price }}</li>
                             </ul>
                             {{-- <div>
                                 <a class="btn btn-outline btn-one mobile-btn" href="/users/{{ $user->slug }}/profile">

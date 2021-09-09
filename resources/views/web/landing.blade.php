@@ -54,7 +54,6 @@
                     <h3 class="flex justify-center items-center text-center color-white w-full">
                         <span class="mr-4 russo uppercase">Elegí tu forma de entrenar</span>
                     </h3>
-                    <p class="text-center color-white text-md overpass">De los mejores <span class="color-four">estudiantes</span> de la plataforma</p>
                 </header>
         
                 <div class="services md:col-span-3 grid grid-cols-1 md:grid-cols-3 lg:col-span-8 lg:col-start-2 2xl:col-start-3 md:gap-6">
@@ -105,7 +104,7 @@
     
             <section class="profesores-destacados lg:grid lg:grid-cols-10 2xl:grid-cols-12 px-8 py-24 md:px-24 lg:px-0">
                 <header class="text-left lg:col-span-8 lg:col-start-2 2xl:col-start-3 mb-8">
-                    <h3 class="color-three mb-2 russo uppercase">Nuestro profesores</h3>
+                    <h3 class="color-three mb-2 russo uppercase">Nuestro coaches</h3>
                     <p class="color-two xl:text-lg overpass">Desde Silver hasta Global Elite <span class="color-four">no importa cual sea tu rango,</span> encontrá el mentor que lleve tu gameplay al próximo nivel.</p>
                 </header>
                 <form class="users-form-search lg:col-span-8 lg:col-start-2 2xl:col-start-3 flex justify-between mb-10" action="/teachers" method="GET">

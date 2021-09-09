@@ -1,7 +1,6 @@
 <section class="teachers lg:grid lg:grid-cols-10 px-8 lg:px-0">
     <header class="lg:col-span-8 lg:col-start-2">
-        <h2 class="color-two text-2xl text-left pt-24 xl:text-2xl russo">Buscador de profesores</h2>
-        <p class="color-two text-lg xl:text-xl text-left overpass mt-2">Úneteles a miles de jugadores que buscan <span class="color-four">lo mismo</span> que vos</p>
+        <h2 class="color-two text-2xl text-left pt-24 xl:text-2xl russo">Buscador de coaches</h2>
     </header>
 
     <div class="flex justify-end lg:col-span-8 lg:col-start-2 mt-10 mb-4 flex-wrap xl:flex-nowrap">

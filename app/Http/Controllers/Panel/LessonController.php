@@ -40,7 +40,7 @@
         static public function doCreate (Request $request) {
             $input = (object) $request->all();
 
-            $type = isset($input->id_type) ? ($input->id_type == 1 ? "online" : ($input->id_type == 2 ? "offline" : "packs")) : "offline";
+            $type = isset($input->id_type) ? ($input->id_type == 1 ? "1on1" : ($input->id_type == 2 ? "seguimiento-online" : "packs")) : "seguimiento-online";
 
             $validator = Validator::make($request->all(), Lesson::$validation["panel"]["create"][$type]["rules"], Lesson::$validation["panel"]["create"][$type]["messages"]["es"]);
             if ($validator->fails()) {
@@ -166,7 +166,7 @@
         static public function doUpdate (Request $request) {
             $input = (object) $request->all();
 
-            $type = isset($input->id_type) ? ($input->id_type == 1 ? "online" : ($input->id_type == 2 ? "offline" : "packs")) : "offline";
+            $type = isset($input->id_type) ? ($input->id_type == 1 ? "1on1" : ($input->id_type == 2 ? "seguimiento-online" : "packs")) : "seguimiento-online";
 
             $lesson = Lesson::find($request->route()->parameter("slug"));
 

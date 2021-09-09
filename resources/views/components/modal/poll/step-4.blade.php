@@ -36,9 +36,8 @@
                     <label for="card_radio-4" class="block relative">
                         <section>
                             <h3 class="px-4 pt-4 russo flex justify-between items-center"> 
-                                <span>Clase Online</span> 
+                                <span>1on1</span> 
                                 @component('components.svg.ClaseOnline1SVG')
-                                    
                                 @endcomponent
                             </h3>
 
@@ -51,7 +50,7 @@
                     <label for="card_radio2-4" class="block relative">
                         <section>
                             <h3 class="px-4 pt-4 russo flex justify-between items-center"> 
-                                <span>Clase Offline</span> 
+                                <span>Seguimiento online</span> 
                                 @component('components.svg.ClaseOnline2SVG')
                                 @endcomponent
                             </h3>

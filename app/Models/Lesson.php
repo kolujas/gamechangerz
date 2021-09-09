@@ -446,7 +446,7 @@
         static $validation = [
             "panel" => [
                 "create" => [
-                    "online" => [
+                    "1on1" => [
                         "rules" => [
                             "dates" => "required",
                             "hours" => "required",
@@ -466,7 +466,7 @@
                                 "id_type.required" => "El tipo de clase es obligatorio.",
                             ],
                         ],
-                    ], "offline" => [
+                    ], "seguimiento-online" => [
                         "rules" => [
                             "id_user_from" => "required|exists:users,id_user",
                             "id_user_to" => "required|exists:users,id_user",
@@ -532,7 +532,7 @@
                     ],
                 ],
             ], "checkout" => [
-                "online" => [
+                "1on1" => [
                     "rules" => [
                         "dates" => "required",
                         "dates.*" => "required",
@@ -548,7 +548,7 @@
                             "discord.required" => "El nombre de usuario de Discord es obligatorio.",
                             "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                             'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
-                ]]], "offline" => [
+                ]]], "seguimiento-online" => [
                     "rules" => [
                         // 
                     ], "messages" => [
@@ -583,14 +583,14 @@
          */
         static $types = [[
             "id_type" => 1,
-            "name" => "Online",
+            "name" => "1on1",
             "svg" => "components.svg.ClaseOnline1SVG",
-            "slug" => "online",
+            "slug" => "1on1",
         ], [
             "id_type" => 2,
-            "name" => "Offline",
+            "name" => "seguimiento-online",
             "svg" => "components.svg.ClaseOnline2SVG",
-            "slug" => "offline",
+            "slug" => "seguimiento-online",
         ], [
             "id_type" => 3,
             "name" => "Packs",

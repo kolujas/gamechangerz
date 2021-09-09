@@ -169,9 +169,9 @@
                     <span class="block color-white error support teacher-form support-box hidden support-abilities mt-2 overpass col-span-4"></span>
                 </div>       
 
-                <div class="col-span-8 rounded bg-black p-4">
+                {{-- <div class="col-span-8 rounded bg-black p-4">
                     <span class="russo color-three">Recuerda que el valor minimo en el que se harán las reservas es de ${{ $minPrice }}</span>
-                </div>
+                </div> --}}
 
                 <div class="pt-0 col-span-2 prices">
                     <h3 class="russo color-white mb-8 uppercase">Precio</h3>

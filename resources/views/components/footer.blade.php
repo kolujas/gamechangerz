@@ -7,10 +7,10 @@
                     <a class="overpass btn btn-grey btn-text" href="/">Inicio</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="/teachers">Profesores</a>
+                    <a class="overpass btn btn-grey btn-text" href="/teachers">Coaches</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="/users">Aprendices</a>
+                    <a class="overpass btn btn-grey btn-text" href="/users">Alumnos</a>
                 </li>
                 <li>
                     @if (Auth::check())
@@ -42,9 +42,6 @@
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="#">Soporte</a>
-                </li>
-                <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Afiliados</a>
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="/terms-&-conditions">Términos de servicio</a>
@@ -85,11 +82,6 @@
             </a>
         </nav>
     </header>
-    <section class="copy-text px-8 md:px-12 lg:px-20 bg-black contact-footer-info">
-        <p class="color-white overpass text-lg">Soporte <br>
-        <p class="color-grey overpass text-lg contact-info"> Lunes a Viernes - 10:00 - 19:00 <br>
-            soporte@gamechangerz.gg</p>
-    </section>
     <nav class="mt-8 px-2 pb-8 text-center lg:flex lg:justify-between nav-policy">
         <p class="pb-4 lg:pb-0 lg:text-left overpass">© 2021 Creative Commons Licence, All Rights Reserved.</p>
     

@@ -56,12 +56,12 @@
                 @endif
                 <li>
                     <a href="/teachers" class="sidebar-link nav-link p-0">
-                        <span class="link-text">Profesores</span>
+                        <span class="link-text">Coaches</span>
                     </a>
                 </li>
                 <li>
                     <a href="/blog" class="sidebar-link nav-link p-0">
-                        <span class="link-text">Novedades</span>
+                        <span class="link-text">Contenido</span>
                     </a>
                 </li>
                 <li>

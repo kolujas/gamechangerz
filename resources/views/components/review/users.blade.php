@@ -22,7 +22,7 @@
                                 <span>{{ ($review->users->from->id_user === $user->id_user ? $review->users->to->username : $review->users->from->username) }}</span>
                             </a>
                             <div class="flex items-center justify-end color-white">
-                                <span class="mr-2 overpass">{{ ($review->lesson->id_type === 1 ? "Online" : ($review->lesson->id_type === 2 ? "Offline" : "Packs")) }}</span>
+                                <span class="mr-2 overpass">{{ ($review->lesson->id_type === 1 ? "1on1" : ($review->lesson->id_type === 2 ? "Seguimiento online" : "Packs")) }}</span>
                                 @component($review->lesson->type->svg)@endcomponent
                             </div>
                             <div class="col-start-2 flex justify-end">
