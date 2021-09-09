@@ -36,7 +36,7 @@
                         <span class="russo">1 Clase {{ $type->name }} ({{ $type->price }} AR$): <a href="/users/{{ $user->slug }}/profile" class="color-four">{{ $user->username }}</a></span>
                     @endif
                     @if ($type->id_type === 3)
-                        <span class="russo">4 Clases Online ({{ $type->price }} AR$): <a href="/users/{{ $user->slug }}/profile" class="color-four">{{ $user->username }}</a></span>
+                        <span class="russo">4 Clases 1on1 ({{ $type->price }} AR$): <a href="/users/{{ $user->slug }}/profile" class="color-four">{{ $user->username }}</a></span>
                     @endif
                 </li>
             </ul>

@@ -114,7 +114,7 @@
             $users = User::allByGame($this->id_game, 1);
 
             foreach ($users as $user) {
-                if (count($this->users) <= 6) {
+                if (count($this->users) < 6) {
                     $user->and(['games', 'languages', 'prices', 'files', 'teampro']);
                     
                     foreach ($user->games as $game) {

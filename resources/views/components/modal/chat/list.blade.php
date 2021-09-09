@@ -11,7 +11,7 @@
         </form>
         <div class="sections mb-8 hidden">
             <h2 class="header color-white mb-8 overpass">
-                <span>Profesores</span>
+                <span>Coaches</span>
             </h2>
         </div>
         <div class="sections mb-8 hidden">

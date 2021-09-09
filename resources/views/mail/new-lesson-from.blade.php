@@ -2,12 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        @if (isset($data->lesson->users->to->name) && $data->lesson->users->to->name)
-            <title>Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }} ({{ $data->lesson->users->to->name }})</title>
-        @endif
-        @if (!isset($data->lesson->users->to->name) || !$data->lesson->users->to->name)
-            <title>Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }}</title>
-        @endif
+        <title>Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }}</title>
     </head>
     <body style="background-color: #0D0D0D;">
         <img src={{ asset("img/logos/028-logotipo_original.png") }} style="
@@ -18,12 +13,7 @@
             <tr>
                 <td style="background-color: #281B2D;">
                     <div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif; border-radius: 0.25rem;">
-                        @if (isset($data->lesson->users->to->name) && $data->lesson->users->to->name)
-                            <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }} ({{ $data->lesson->users->to->name }})</h2>
-                        @endif
-                        @if (!isset($data->lesson->users->to->name) || !$data->lesson->users->to->name)
-                            <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }}</h2>
-                        @endif
+                        <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }}</h2>
                         @switch($data->lesson->type->id_type)
                             @case(1)
                             @case(3)

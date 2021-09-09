@@ -17,7 +17,7 @@
             <a href="#online" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap">
                     @component('components.svg.ClaseOnline1SVG')@endcomponent
-                    <h4 class="mt-4">Online</h4>
+                    <h4 class="mt-4">1on1</h4>
                 </div>
             </a>
         </li>
@@ -25,7 +25,7 @@
             <a href="#offline" class="tab-button">
                 <div class="flex justify-center align-center flex-wrap offline">
                     @component('components.svg.ClaseOnline2SVG')@endcomponent
-                    <h4 class="mt-4 overpass">Offline</h4>
+                    <h4 class="mt-4 overpass">Seguimiento online</h4>
                 </div>
             </a>
         </li>

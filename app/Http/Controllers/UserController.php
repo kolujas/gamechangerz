@@ -347,25 +347,28 @@
             $input = (object) $request->all();
 
             $user = Auth::user();
-            $user->and(["credentials"]);
 
-            $methods = collect();
-
-            $methods->push([
-                "id_method" => 1,
-                "access_token" => $user->credentials->mercadopago->access_token,
-            ]);
-
-            if (isset($input->pp_access_token)) {
+            if ($user->id_role == 1) {
+                $user->and(["credentials"]);
+                
+                $methods = collect();
+    
                 $methods->push([
-                    "id_method" => 2,
-                    "access_token" => $input->pp_access_token,
+                    "id_method" => 1,
+                    "access_token" => $user->credentials->mercadopago->access_token,
                 ]);
+    
+                if (isset($input->pp_access_token)) {
+                    $methods->push([
+                        "id_method" => 2,
+                        "access_token" => $input->pp_access_token,
+                    ]);
+                }
+    
+                $input->credentials = Method::stringify($methods->toArray());
+    
+                unset($user->credentials);
             }
-
-            $input->credentials = Method::stringify($methods->toArray());
-
-            unset($user->credentials);
 
             $user->update((array) $input);
             

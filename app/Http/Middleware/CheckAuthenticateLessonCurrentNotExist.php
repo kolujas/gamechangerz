@@ -15,7 +15,7 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            if ($request->route()->parameter("type") === "offline") {
+            if ($request->route()->parameter("type") === "seguimiento-online") {
                 $user = User::findBySlug($request->route()->parameter('slug'));
                 $user->and(["lessons"]);
     
@@ -26,7 +26,7 @@
                         if ($now > $lesson->started_at && $now < $lesson->ended_at) {
                             $request->session()->put('error', [
                                 'code' => 403,
-                                'message' => "Tienes una clase offline de $user->username en curso",
+                                'message' => "Tienes una clase seguimiento online de $user->username en curso",
                             ]);
             
                             return redirect()->back();

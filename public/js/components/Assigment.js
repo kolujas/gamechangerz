@@ -42,7 +42,12 @@ export class Assigment extends Class {
                                 videoId = "error";
                             }
                             
-                            $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                            if (videoId == "error") {
+                                $("#assigment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                            }
+                            if (videoId != "error") {
+                                $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                            }
                             break;
                     }
                     input.disabled = true;
@@ -207,7 +212,12 @@ export class Assigment extends Class {
                 videoId = "error";
             }
             
-            $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+            if (videoId == "error") {
+                $("#assigment-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+            }
+            if (videoId != "error") {
+                $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+            }
         });
     }
 

@@ -34,12 +34,12 @@
 			</li>
 			<li>
 				<a href="/teachers" class="nav-link">
-					<span class="link-text overpass">Profesores</span>
+					<span class="link-text overpass">Coaches</span>
 				</a>
 			</li>
 			<li>
 				<a href="/blog" class="nav-link">
-					<span class="link-text overpass">Novedades</span>
+					<span class="link-text overpass">Contenido</span>
 				</a>
 			</li>
 			<li>

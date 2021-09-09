@@ -90,15 +90,15 @@
          */
         static $options = [[
             'id_price' => 1,
-            'name' => 'Online',
+            'name' => '1on1',
             'icon' => 'ClaseOnline1SVG',
-            'slug' => 'online',
+            'slug' => '1on1',
             'price' => 0
         ], [
             'id_price' => 2,
-            'name' => 'Offline',
+            'name' => 'Seguimiento online',
             'icon' => 'ClaseOnline2SVG',
-            'slug' => 'offline',
+            'slug' => 'seguimiento-online',
             'price' => 0
         ], [
             'id_price' => 3,

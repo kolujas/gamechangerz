@@ -12,7 +12,7 @@
 
 <li id="tab-teachers" class="tab">
     <a href="/panel/teachers" class="tab-button russo">
-        Profesores
+        Coaches
     </a>
 </li>
 

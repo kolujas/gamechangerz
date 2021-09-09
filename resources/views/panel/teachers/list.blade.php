@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('title')
-    Listado de Profesores | GameChangerZ
+    Listado de Coaches | GameChangerZ
 @endsection
 
 @section('css')
@@ -16,7 +16,7 @@
 @section('content')
     <li id="teachers" class="tab-content min-h-screen p-12 closed">
         <header class="flex w-full mb-24">
-            <h2 class="russo color-white mr-4">Profesores</h2>
+            <h2 class="russo color-white mr-4">Coaches</h2>
             <div class="flex items-center">
                 <a class="btn btn-one btn-outline overpass" href="/panel/teachers/create">
                     <span class="py-2 px-4">Registrar profesor</span>
@@ -71,7 +71,7 @@
                     @endif
                     @if (!count($users))
                         <tr data-href="/panel/teachers/create" class="grid grid-cols-8">
-                            <td class="col-span-8 flex items-center justify-center px-6 py-4 whitespace-no-wrap">No se crearon profesores</td>
+                            <td class="col-span-8 flex items-center justify-center px-6 py-4 whitespace-no-wrap">No se crearon coaches</td>
                         </tr>
                     @endif
                 </tbody>

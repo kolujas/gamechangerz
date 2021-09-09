@@ -76,7 +76,7 @@
                   "content": "Para cambiar el precio de las clases tener en cuenta el minimo de .5 dolar",
                   "id": 1629834218705,
                   "level": "secondary",
-                  "done": false
+                  "done": true
                 }
               },
               {
@@ -89,27 +89,7 @@
                       "content": "Add Message",
                       "id": 1629136882708,
                       "level": "secondary",
-                      "done": false
-                    }
-                  },
-                  {
-                    "key": 1629136892243,
-                    "children": [],
-                    "todo": {
-                      "content": "Add Assigment",
-                      "id": 1629136892243,
-                      "level": "secondary",
-                      "done": false
-                    }
-                  },
-                  {
-                    "key": 1629136902660,
-                    "children": [],
-                    "todo": {
-                      "content": "Add Presentation",
-                      "id": 1629136902660,
-                      "level": "secondary",
-                      "done": false
+                      "done": true
                     }
                   }
                 ],
@@ -117,7 +97,7 @@
                   "content": "Loaders",
                   "id": 1629136873489,
                   "level": "secondary",
-                  "done": false
+                  "done": true
                 }
               },
               {

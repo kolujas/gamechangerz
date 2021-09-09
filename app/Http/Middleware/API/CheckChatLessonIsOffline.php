@@ -24,7 +24,7 @@
                 if ($chat->lesson->id_type !== 2) {
                     return response()->json([
                         'code' => 403,
-                        'message' => "Chat Lesson type is not offline",
+                        'message' => "Chat Lesson type is not seguimiento online",
                     ]);
                 }
             }

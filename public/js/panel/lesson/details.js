@@ -6,26 +6,26 @@ function submit (params) {
     switch (params.type) {
         case "create":
             if (/update/.exec(URL.findHashParameter())) {
-                validation.lesson.create.online.ValidationJS.html.action = `/panel/bookings/${ lesson.id_lesson }/update`;
+                validation.lesson.create["1on1"].ValidationJS.html.action = `/panel/bookings/${ lesson.id_lesson }/update`;
                 document.querySelector("form#lesson-form input[name=_method]").value = "PUT";
                 break;
             }
-            validation.lesson.create.online.ValidationJS.html.action = `/panel/bookings/create`;
+            validation.lesson.create["1on1"].ValidationJS.html.action = `/panel/bookings/create`;
             document.querySelector("form#lesson-form input[name=_method]").value = "POST";
             break;
         case "delete":
-            validation.lesson.create.online.ValidationJS.html.action = `/panel/bookings/${ lesson.id_lesson }/delete`;
+            validation.lesson.create["1on1"].ValidationJS.html.action = `/panel/bookings/${ lesson.id_lesson }/delete`;
             document.querySelector("form#lesson-form input[name=_method]").value = "DELETE";
             break;
     }
-    validation.lesson.create.online.ValidationJS.html.submit();
+    validation.lesson.create["1on1"].ValidationJS.html.submit();
 }
 
 if (validation.hasOwnProperty("lesson")) {
-    validation.lesson.create.online.ValidationJS = new Validation({
+    validation.lesson.create["1on1"].ValidationJS = new Validation({
         id: "lesson-form",
-        rules: validation.lesson.create.online.rules,
-        messages: validation.lesson.create.online.messages,
+        rules: validation.lesson.create["1on1"].rules,
+        messages: validation.lesson.create["1on1"].messages,
     }, {
         submit: false,
         active: false,
@@ -37,10 +37,10 @@ if (validation.hasOwnProperty("lesson")) {
             },
         }
     });
-    validation.lesson.create.offline.ValidationJS = new Validation({
+    validation.lesson.create["seguimiento-online"].ValidationJS = new Validation({
         id: "lesson-form",
-        rules: validation.lesson.create.offline.rules,
-        messages: validation.lesson.create.offline.messages,
+        rules: validation.lesson.create["seguimiento-online"].rules,
+        messages: validation.lesson.create["seguimiento-online"].messages,
     }, {
         submit: false,
         active: true,
@@ -85,22 +85,22 @@ if (validation.hasOwnProperty("lesson")) {
 }
 
 document.querySelector(".editBtn").addEventListener("click", function(){
-    validation.lesson.create.online.ValidationJS.setState("active", true);
-    validation.lesson.create.offline.ValidationJS.setState("active", false);
+    validation.lesson.create["1on1"].ValidationJS.setState("active", true);
+    validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
     validation.lesson.create.packs.ValidationJS.setState("active", false);
     validation.lesson.delete.ValidationJS.setState("active", false);
 });   
 
 document.querySelector(".cancelBtn").addEventListener("click", function(){
-    validation.lesson.create.online.ValidationJS.setState("active", true);
-    validation.lesson.create.offline.ValidationJS.setState("active", false);
+    validation.lesson.create["1on1"].ValidationJS.setState("active", true);
+    validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
     validation.lesson.create.packs.ValidationJS.setState("active", false);
     validation.lesson.delete.ValidationJS.setState("active", false);
 });
 
 document.querySelector(".deleteBtn").addEventListener("click", function(){
-    validation.lesson.create.online.ValidationJS.setState("active", false);
-    validation.lesson.create.offline.ValidationJS.setState("active", false);
+    validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+    validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
     validation.lesson.create.packs.ValidationJS.setState("active", false);
     validation.lesson.delete.ValidationJS.setState("active", true);
 });
@@ -181,20 +181,20 @@ document.querySelector("#lesson select[name=id_type]").addEventListener("click",
         createDates(parseInt(this.options[this.selectedIndex].value));
         switch (parseInt(this.options[this.selectedIndex].value)) {
             case 1:
-                validation.lesson.create.online.ValidationJS.setState("active", true);
-                validation.lesson.create.offline.ValidationJS.setState("active", false);
+                validation.lesson.create["1on1"].ValidationJS.setState("active", true);
+                validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
                 validation.lesson.create.packs.ValidationJS.setState("active", false);
                 validation.lesson.delete.ValidationJS.setState("active", false);
                 break;
             case 2:
-                validation.lesson.create.online.ValidationJS.setState("active", false);
-                validation.lesson.create.offline.ValidationJS.setState("active", true);
+                validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+                validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", true);
                 validation.lesson.create.packs.ValidationJS.setState("active", false);
                 validation.lesson.delete.ValidationJS.setState("active", false);
                 break;
             case 3:
-                validation.lesson.create.online.ValidationJS.setState("active", false);
-                validation.lesson.create.offline.ValidationJS.setState("active", false);
+                validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+                validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
                 validation.lesson.create.packs.ValidationJS.setState("active", true);
                 validation.lesson.delete.ValidationJS.setState("active", false);
                 break;
@@ -206,20 +206,20 @@ document.addEventListener("DOMContentLoaded", function () {
     if (/update/.exec(URL.findHashParameter())) {
         switch (lesson.id_type) {
             case 1:
-                validation.lesson.create.online.ValidationJS.setState("active", true);
-                validation.lesson.create.offline.ValidationJS.setState("active", false);
+                validation.lesson.create["1on1"].ValidationJS.setState("active", true);
+                validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
                 validation.lesson.create.packs.ValidationJS.setState("active", false);
                 validation.lesson.delete.ValidationJS.setState("active", false);
                 break;
             case 2:
-                validation.lesson.create.online.ValidationJS.setState("active", false);
-                validation.lesson.create.offline.ValidationJS.setState("active", true);
+                validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+                validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", true);
                 validation.lesson.create.packs.ValidationJS.setState("active", false);
                 validation.lesson.delete.ValidationJS.setState("active", false);
                 break;
             case 3:
-                validation.lesson.create.online.ValidationJS.setState("active", false);
-                validation.lesson.create.offline.ValidationJS.setState("active", false);
+                validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+                validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
                 validation.lesson.create.packs.ValidationJS.setState("active", true);
                 validation.lesson.delete.ValidationJS.setState("active", false);
                 break;
@@ -227,8 +227,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     if (/delete/.exec(URL.findHashParameter())) {
-        validation.lesson.create.online.ValidationJS.setState("active", false);
-        validation.lesson.create.offline.ValidationJS.setState("active", false);
+        validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+        validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
         validation.lesson.create.packs.ValidationJS.setState("active", false);
         validation.lesson.delete.ValidationJS.setState("active", true);
     }

@@ -141,19 +141,6 @@ export class Chat extends Class {
         }
     }
 
-    setFinishState () {
-        this.setState("status", 200);
-        this.FilterJS.changeData(this.props.chats);
-        if (document.querySelector("#chat.modal #list form input").value) {
-            this.FilterJS.run();
-        }
-        if (!document.querySelector("#chat.modal #list form input").value) {
-            this.setChats({
-                instance: this,
-            });
-        }
-    }
-
     async setList () {
         if (!this.sections) {
             this.sections = {};
@@ -344,15 +331,12 @@ export class Chat extends Class {
                     let link = document.createElement("a");
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (!this.state.state) {
-                        link.classList.add("disabled");
-                    }
-                    if (parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"]) {
+                    if (!this.state.state || parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"] || ![...chat.lesson.assigments].pop().hasOwnProperty("presentation") || ![...chat.lesson.assigments].pop().presentation) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", function (e) {
-                        if (chat.lesson.assigments.length < parseInt(chat.lesson["quantity-of-assigments"])) {
+                        if (chat.lesson.assigments.length < parseInt(chat.lesson["quantity-of-assigments"]) && (chat.lesson.assigments.length == 0 || ([...chat.lesson.assigments].pop().hasOwnProperty("presentation") && [...chat.lesson.assigments].pop().presentation))) {
                             instance.addAssigment();
                         }
                     });
@@ -368,6 +352,12 @@ export class Chat extends Class {
                         e.preventDefault();
                         instance.submitAbilities(chat);
                     });
+                        let div = document.createElement("div");
+                        div.classList.add("loading", "hidden");
+                        button.appendChild(div);
+                            let icon = document.createElement("i");
+                            icon.classList.add("spinner-icon");
+                            div.appendChild(icon);
                         let img = document.createElement("img");
                         img.src = new Asset("img/resources/SendSVG.svg").route;
                         img.alt = "Send button icon";
@@ -381,11 +371,13 @@ export class Chat extends Class {
                 this.sections.details.footer.appendChild(form);
                 form.addEventListener("submit", function (e) {
                     e.preventDefault();
-                    instance.send({
-                        instance: instance,
-                        chat: chat,
-                        section: "chat",
-                    });
+                    if (document.querySelector(`#chat.modal #details form input[name=message]`).value && instance.state.state) {
+                        instance.send({
+                            instance: instance,
+                            chat: chat,
+                            section: "chat",
+                        });
+                    }
                 });
                     let token = document.createElement("input");
                     token.value = document.querySelector("meta[name=csrf-token]").content;
@@ -403,6 +395,12 @@ export class Chat extends Class {
                     let button = document.createElement("button");
                     button.classList.add("py-2", "px-4");
                     form.appendChild(button);
+                        let div = document.createElement("div");
+                        div.classList.add("loading", "hidden");
+                        button.appendChild(div);
+                            let icon = document.createElement("i");
+                            icon.classList.add("spinner-icon");
+                            div.appendChild(icon);
                         let img = document.createElement("img");
                         img.src = new Asset("img/resources/SendSVG.svg").route;
                         img.alt = "Send button icon";
@@ -542,7 +540,15 @@ export class Chat extends Class {
 
     async reload (params) {
         params.instance.setProps("chats", await Chat.all(params.instance.props.token));
-        params.instance.setFinishState();
+        params.instance.FilterJS.changeData(params.instance.props.chats);
+        if (document.querySelector("#chat.modal #list form input").value) {
+            params.instance.FilterJS.run();
+        }
+        if (!document.querySelector("#chat.modal #list form input").value) {
+            params.instance.setChats({
+                instance: params.instance,
+            });
+        }
         params.instance.createCountDownList();
     }
 
@@ -621,7 +627,15 @@ export class Chat extends Class {
                 case "chat":
                     params.instance.CountDownJS.details.pause();
     
+                    params.instance.setLoadingState();
+                    document.querySelector("#chat.modal #details footer form button").children[0].classList.remove("hidden");
+                    document.querySelector("#chat.modal #details footer form button").children[1].classList.add("hidden");
                     response = await Chat.submit();
+                    params.instance.setFinishState();
+                    document.querySelector("#chat.modal #details footer form button").children[0].classList.add("hidden");
+                    document.querySelector("#chat.modal #details footer form button").children[1].classList.remove("hidden");
+    
+                    document.querySelector(`#chat.modal #details footer form input`).disabled = true;
     
                     if (response.code != 200) {
                         params.instance.close();
@@ -631,8 +645,6 @@ export class Chat extends Class {
                         params.instance.CountDownJS.details.stop();
                         params.instance.save(response.data);
                     }
-    
-                    document.querySelector(`#chat.modal #details form`).reset();
                     break;
                 case "assigment":
                     params.instance.setLoadingState();
@@ -710,7 +722,15 @@ export class Chat extends Class {
 
     setFinishState () {
         if (document.querySelector("#chat #details footer .assigment")) {
-            document.querySelector("#chat #details footer .assigment").classList.remove("disabled");
+            let message;
+            for (const chat of this.props.chats) {
+                if (chat.id_chat == this.opened) {
+                    message = [...chat.messages].pop();
+                }
+            }
+            if (message.hasOwnProperty("presentation") && message.presentation) {
+                document.querySelector("#chat #details footer .assigment").classList.remove("disabled");
+            }
         }
         document.querySelector("#chat #details header a:first-child").classList.remove("disabled");
         this.setState("state", true);
