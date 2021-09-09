@@ -62,8 +62,8 @@
             // * Set the attributes
             $this->event->name = $this->name;
             $this->event->description = $this->description;
-            $this->event->startDateTime = $this->started_at;
-            $this->event->endDateTime = $this->ended_at;
+            $this->event->startDateTime = $this->started_at->addHours(3);
+            $this->event->endDateTime = $this->ended_at->addHours(3);
 
             // * Loop the Users
             foreach ($this->users as $user) {

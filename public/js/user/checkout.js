@@ -35,12 +35,12 @@ function changeButton (params = {}) {
             if (!document.querySelector(".cho-container .paypal-buttons")) {
                 document.querySelector("#tab-paypal").parentNode.removeChild(document.querySelector("#tab-paypal"));
             }
-            validation.checkout.ValidationJS.setState("submit", true);
+            // validation.checkout.ValidationJS.setState("submit", true);
             break;
         case "paypal":
             document.querySelector(".cho-container .btn").style.display = "none";
             document.querySelector(".cho-container .paypal-buttons").style.display = "block";
-            validation.checkout.ValidationJS.setState("submit", false);
+            // validation.checkout.ValidationJS.setState("submit", false);
             break;
     }
 }
@@ -631,7 +631,7 @@ async function submit (params = {}) {
         if (!test) {
             // ? If the selected method is MercadoPago
             if (document.querySelector("#input-mercadopago").checked) {
-                document.querySelector("form#checkout").submit();    
+                document.querySelector("form#checkout").submit();
             }
             // ? If the selected method is PayPal
             if (document.querySelector("#input-paypal").checked) {

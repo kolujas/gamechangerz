@@ -302,8 +302,8 @@
             if (!Auth::user()->discord || $input->discord != Auth::user()->discord) {
                 $aux["discord"] = $input->discord;
             }
-
-            User::find(Auth::user()->id_user)->update($aux);
+            
+            Auth::user()->update($aux);
 
             return $url;
         }
