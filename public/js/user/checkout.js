@@ -654,6 +654,7 @@ function createPayPalButton () {
             tagline: false,
             size: "responsive",
         }, createOrder: function (data, actions) {
+            console.log("Dolar: " + dolar / 2);
             let price = parseInt(type.price);
             console.log("Precio original: " + price);
             if (price < dolar / 2) {
@@ -661,6 +662,7 @@ function createPayPalButton () {
                 price = dolar / 2;
             }
 
+            console.log("Creditos: " + credits);
             if (price - credits < dolar / 2 && price - credits > 0) {
                 console.log("Precio - creditos es < dolar y > 0");
                 credits -= dolar - (price - credits);
