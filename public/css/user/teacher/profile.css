@@ -416,6 +416,14 @@
     background-color: #000;
 }
 
+.horarios .offline .cls-1{
+    fill: var(--color-three) !important;
+}
+
+.teacher .tab-menu .tabs a.opened svg .cls-1{
+    fill: var(--color-four) !important;
+}
+
 /* ? MD */
 @media (min-width: 768px) {
     .teacher .banner figure img{

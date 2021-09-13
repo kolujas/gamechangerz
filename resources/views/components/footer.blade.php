@@ -61,7 +61,7 @@
                     <a href="https://www.youtube.com" target="_blank">@component('components.svg.TwitchSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="https://www.instagram.com" target="_blank">@component('components.svg.IgSVG')@endcomponent</a>
+                    <a href="https://www.instagram.com/gamechangerzgg" target="_blank">@component('components.svg.IgSVG')@endcomponent</a>
                 </li>
             </ul>
             <ul> 

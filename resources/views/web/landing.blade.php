@@ -60,7 +60,7 @@
                     <div class="service p-4 mb-6 md:mb-0 xl:px-8">
                         <h4 class="color-white flex items-center xl:w-full xl:justify-between mb-2 on">
                             <span class="russo text-2xl md:text-xl xl:text-2xl text-uppercase">1 on 1</span>
-                            @component('components.svg.ClaseOnline2SVG')@endcomponent
+                            @component('components.svg.ClaseOnline1SVG')@endcomponent
                         </h4>
                         <p class="color-grey overpass">
                             <span class="color-four">Entra a una sesión de entrenamiento personalizada en tiempo real con el coach de tu elección.</span> Podés usar esta sesión para mejorar una habilidad, afianzar conceptos, hacer análisis de partidas (propias o de otros jugadores o equipos) o tener coaching en tiempo real mientras jugás</p>
