@@ -671,7 +671,7 @@ function createPayPalButton () {
                 console.log("Creditos es 0");
                 credits = 0;
             }
-            if (price -= credits < 0) {
+            if (price - credits < 0) {
                 console.log("Precio - creditos es < 0");
                 credits += price -= credits;
             }
