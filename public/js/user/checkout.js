@@ -655,7 +655,9 @@ function createPayPalButton () {
             size: "responsive",
         }, createOrder: function (data, actions) {
             let price = parseInt(type.price);
+            console.log("Precio original: " + price);
             if (price < dolar / 2) {
+                console.log("Precio reestablecido por el dolar");
                 price = dolar / 2;
             }
 
@@ -668,7 +670,9 @@ function createPayPalButton () {
             if (price -= credits < 0) {
                 credits += price -= credits;
             }
+            console.log("Creditos: " + credits);
             price -= credits;
+            console.log("Precio - creditos: " + price);
             if (coupon) {
                 bool = true;
 
@@ -681,24 +685,30 @@ function createPayPalButton () {
                 }
 
                 if (bool) {
+                    console.log("Hay cupon");
                     if (coupon.type.id_type == 1) {
+                        console.log("Cupon: " + coupon.type.value);
                         if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
                             price -= price * parseInt(coupon.type.value) / 100;
+                            console.log("Precio - cupon: " + price);
                         }
                     }
                     if (coupon.type.id_type == 2) {
+                        console.log("Cupon: " + coupon.type.value);
                         if (price - parseInt(coupon.type.value) >= dolar / 2) {
                             price -= parseInt(coupon.type.value);
+                            console.log("Precio - cupon: " + price);
                         }
                     }
                 }
             }
             
             if (price < dolar / 2 && price > 0) {
+                console.log("Precio reestablecido por el dolar");
                 price = dolar / 2;
             }
 
-            console.log(price);
+            console.log("Final: " + price);
             if (price == 0) {
                 validation.checkout.ValidationJS.validate();
             }
