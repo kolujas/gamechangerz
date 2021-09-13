@@ -698,6 +698,7 @@ function createPayPalButton () {
                 price = dolar / 2;
             }
 
+            console.log(price);
             if (price == 0) {
                 validation.checkout.ValidationJS.validate();
             }
@@ -705,13 +706,15 @@ function createPayPalButton () {
                 if (validation.checkout.ValidationJS.validate()) {
                     price /= dolar;
         
-                    return actions.order.create({
+                    let order = actions.order.create({
                         purchase_units: [{
                             amount: {
                                 value: price,
                             }, custom_id: lesson.id_lesson,
                         }]
                     });
+                    console.log(order);
+                    return order;
                 }
             }
         }, onApprove: function (data, actions) {
