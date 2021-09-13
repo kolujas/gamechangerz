@@ -654,30 +654,21 @@ function createPayPalButton () {
             tagline: false,
             size: "responsive",
         }, createOrder: function (data, actions) {
-            console.log("Dolar: " + dolar / 2);
             let price = parseInt(type.price);
-            console.log("Precio original: " + price);
             if (price < dolar / 2) {
-                console.log("Precio reestablecido por el dolar");
                 price = dolar / 2;
             }
 
-            console.log("Creditos: " + credits);
             if (price - credits < dolar / 2 && price - credits > 0) {
-                console.log("Precio - creditos es < dolar y > 0");
                 credits -= dolar - (price - credits);
             }
             if (credits < 0) {
-                console.log("Creditos es 0");
                 credits = 0;
             }
             if (price - credits < 0) {
-                console.log("Precio - creditos es < 0");
                 credits += price -= credits;
             }
-            console.log("Creditos: " + credits);
             price -= credits;
-            console.log("Precio - creditos: " + price);
             if (coupon) {
                 bool = true;
 
@@ -690,30 +681,23 @@ function createPayPalButton () {
                 }
 
                 if (bool) {
-                    console.log("Hay cupon");
                     if (coupon.type.id_type == 1) {
-                        console.log("Cupon: " + coupon.type.value);
                         if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
                             price -= price * parseInt(coupon.type.value) / 100;
-                            console.log("Precio - cupon: " + price);
                         }
                     }
                     if (coupon.type.id_type == 2) {
-                        console.log("Cupon: " + coupon.type.value);
                         if (price - parseInt(coupon.type.value) >= dolar / 2) {
                             price -= parseInt(coupon.type.value);
-                            console.log("Precio - cupon: " + price);
                         }
                     }
                 }
             }
             
             if (price < dolar / 2 && price > 0) {
-                console.log("Precio reestablecido por el dolar");
                 price = dolar / 2;
             }
 
-            console.log("Final: " + price);
             if (price == 0) {
                 validation.checkout.ValidationJS.validate();
             }
@@ -728,7 +712,6 @@ function createPayPalButton () {
                             }, custom_id: lesson.id_lesson,
                         }]
                     });
-                    console.log(order);
                     return order;
                 }
             }

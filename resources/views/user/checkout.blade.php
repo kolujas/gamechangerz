@@ -167,5 +167,5 @@
         const type = @json($type);
         const slug = "{{ $user->slug }}";
     </script>
-    <script type="module" src={{ asset("js/user/checkout.js?v=1.0.7") }}></script>
+    <script type="module" src={{ asset("js/user/checkout.js?v=1.0.8") }}></script>
 @endsection
