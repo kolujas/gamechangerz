@@ -675,20 +675,20 @@ function createPayPalButton () {
                 if (coupon.limit) {
                     bool = false;
 
-                    if (intval(coupon.used) < intval(coupon.limit)) {
+                    if (parseInt(coupon.used) < parseInt(coupon.limit)) {
                         bool = true;
                     }
                 }
 
                 if (bool) {
                     if (coupon.type.id_type == 1) {
-                        if (price - (price * intval(coupon.type.value) / 100) >= dolar / 2) {
-                            price -= price * intval(coupon.type.value) / 100;
+                        if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
+                            price -= price * parseInt(coupon.type.value) / 100;
                         }
                     }
                     if (coupon.type.id_type == 2) {
-                        if (price - intval(coupon.type.value) >= dolar / 2) {
-                            price -= intval(coupon.type.value);
+                        if (price - parseInt(coupon.type.value) >= dolar / 2) {
+                            price -= parseInt(coupon.type.value);
                         }
                     }
                 }

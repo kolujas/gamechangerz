@@ -3,7 +3,7 @@
         <li class="card mr-8 lg:mr-20">
             <div>
                 <div class="h-full" style="background: url({{ asset($ability->files['background']) }}) no-repeat center center; background-size: cover;">
-                    <div class="flex flex-wrap items-end h-full">
+                    <div class="flex flex-wrap content-between h-full">
                         <header class="p-4 pt-8">
                             <h4 class="color-three russo mb-2">{{ $ability->name }}</h4>
                             <p class="color-three leading-5 text-profile overpass">{!! $ability->description !!}</p>
