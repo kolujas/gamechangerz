@@ -662,12 +662,15 @@ function createPayPalButton () {
             }
 
             if (price - credits < dolar / 2 && price - credits > 0) {
+                console.log("Precio - creditos es < dolar y > 0");
                 credits -= dolar - (price - credits);
             }
             if (credits < 0) {
+                console.log("Creditos es 0");
                 credits = 0;
             }
             if (price -= credits < 0) {
+                console.log("Precio - creditos es < 0");
                 credits += price -= credits;
             }
             console.log("Creditos: " + credits);
