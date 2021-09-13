@@ -708,7 +708,7 @@ function createPayPalButton () {
                     let order = actions.order.create({
                         purchase_units: [{
                             amount: {
-                                value: price,
+                                value: parseFloat(price),
                             }, custom_id: lesson.id_lesson,
                         }]
                     });
