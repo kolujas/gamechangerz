@@ -89,6 +89,24 @@
                     <span class="block color-white error support lesson-form support-box hidden support-id_method mt-2 overpass"></span>
                 </div>
 
+                <div class="pt-0 col-span-2 col-start-1 price">
+                    <label class="flex items-center">
+                        <span class="px-5 py-4">$</span>
+                        <input type="number" name="price" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ $lesson->price->value }}" placeholder="Valor">
+                    </label>
+                    <span class="block color-white error support lesson-form support-box hidden support-price mt-2 overpass"></span>
+                </div>
+
+                <div class="pt-0 col-span-2 price">
+                    <label class="flex items-center">
+                        <span class="px-4 py-4">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </span>
+                        <input type="number" name="fee" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ (isset($lesson->price->fee) ? $lesson->price->fee : 0) }}" placeholder="Comisión">
+                    </label>
+                    <span class="block color-white error support lesson-form support-box hidden support-fee mt-2 overpass"></span>
+                </div>
+
                 <div class="pt-0 col-span-2 col-start-1">
                     <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif>
                         <option class="overpass" disabled @if (!old("id_status", $lesson->id_status)) selected @endif>Estado</option>

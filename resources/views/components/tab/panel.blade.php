@@ -1,35 +1,35 @@
 <li id="tab-blog" class="tab">
-    <a href="/panel/blog" class="tab-button russo">
+    <a href="/panel/blog" class="sidebar-link tab-button russo">
         Blog
     </a>
 </li>
 
 <li id="tab-platform" class="tab">
-    <a href="/panel/platform" class="tab-button russo">
+    <a href="/panel/platform" class="sidebar-link tab-button russo">
         Plataforma
     </a>
 </li>
 
 <li id="tab-teachers" class="tab">
-    <a href="/panel/teachers" class="tab-button russo">
+    <a href="/panel/teachers" class="sidebar-link tab-button russo">
         Coaches
     </a>
 </li>
 
 <li id="tab-users" class="tab">
-    <a href="/panel/users" class="tab-button russo">
+    <a href="/panel/users" class="sidebar-link tab-button russo">
         Usuarios
     </a>
 </li>
 
 <li id="tab-coupons" class="tab">
-    <a href="/panel/coupons" class="tab-button russo">
+    <a href="/panel/coupons" class="sidebar-link tab-button russo">
         Cupones
     </a>
 </li>
 
 <li id="tab-lessons" class="tab">
-    <a href="/panel/bookings" class="tab-button russo">
+    <a href="/panel/bookings" class="sidebar-link tab-button russo">
         Reservas
     </a>
 </li>

@@ -36,7 +36,17 @@
 
 /* ? LG */
 @media(min-width: 1024px){
-    
+    #panel .sidebar {
+        position: relative;
+    }
+
+    #panel .sidebar .sidebar-body {
+        overflow: hidden;
+    }
+
+    #panel .sidebar.tabs .sidebar-body .sidebar-header {
+        padding: 1rem;
+    }
 }
 
 /* ? XL */

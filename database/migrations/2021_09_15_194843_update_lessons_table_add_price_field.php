@@ -3,15 +3,15 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class UpdatePresentationsTableChangeTitleFieldName extends Migration {
+    class UpdateLessonsTableAddPriceField extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up () {
-            Schema::table("presentations", function (Blueprint $table) {
-                $table->renameColumn("title", "description");
+            Schema::table("lessons", function (Blueprint $table) {
+                $table->json("price")->nullable();
             });
         }
 
@@ -21,7 +21,7 @@
          * @return void
          */
         public function down () {
-            Schema::table("presentations", function (Blueprint $table) {
+            Schema::table("lessons", function (Blueprint $table) {
                 //
             });
         }

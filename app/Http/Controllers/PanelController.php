@@ -186,7 +186,7 @@
             $lesson->days = [];
             if ($id_lesson) {
                 $lesson = Lesson::find($id_lesson);
-                $lesson->and(["users", "type", "days", "method"]);
+                $lesson->and(["users", "type", "days", "method", "price"]);
             }
 
             $hours = Hour::options();

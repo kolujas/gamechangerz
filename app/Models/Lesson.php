@@ -28,7 +28,7 @@
          * @var array
          */
         protected $fillable = [
-            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg", "assigments",
+            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg", "assigments", "price"
         ];
 
         /**
@@ -56,6 +56,9 @@
                             break;
                         case "method":
                             $this->method();
+                            break;
+                        case "price":
+                            $this->price();
                             break;
                         case "reviews":
                             $this->reviews();
@@ -197,6 +200,14 @@
             }
 
             $this->ended_at = $ended_at;
+        }
+
+        /**
+         * * Get all the Lesson price.
+         * @return array
+         */
+        public function price () {
+            $this->price = json_decode($this->price);
         }
 
         /**
@@ -454,6 +465,8 @@
                             "id_user_to" => "required|exists:users,id_user",
                             "id_method" => "required",
                             "id_type" => "required",
+                            "price" => "required",
+                            "fee" => "required",
                         ], "messages" => [
                             "es" => [
                                 "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
@@ -464,6 +477,7 @@
                                 "id_user_to.exists" => "El usuario no existe.",
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
+                                "fee.required" => "La comisión es obligatoria.",
                             ],
                         ],
                     ], "seguimiento-online" => [
@@ -474,6 +488,8 @@
                             "id_type" => "required",
                             "dates" => "required",
                             "assigments" => "required",
+                            "price" => "required",
+                            "fee" => "required",
                         ], "messages" => [
                             "es" => [
                                 "id_user_from.required" => "El profesor es obligatorio.",
@@ -484,6 +500,7 @@
                                 "id_type.required" => "El tipo de clase es obligatorio.",
                                 "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
                                 "assigments.required" => "La cantidad de assigments es obligatoria.",
+                                "fee.required" => "La comisión es obligatoria.",
                             ],
                         ],
                     ], "packs" => [
@@ -494,6 +511,8 @@
                             "id_user_to" => "required|exists:users,id_user",
                             "id_method" => "required",
                             "id_type" => "required",
+                            "price" => "required",
+                            "fee" => "required",
                         ], "messages" => [
                             "es" => [
                                 "dates.required" => "Las fechas de la clase deben ser seleccionadas. Recuerda que primero debes elegir el tipo de clase.",
@@ -508,6 +527,7 @@
                                 "id_user_to.exists" => "El usuario no existe.",
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
+                                "fee.required" => "La comisión es obligatoria.",
                             ],
                         ],
                     ],
