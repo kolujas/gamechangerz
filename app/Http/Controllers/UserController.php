@@ -161,8 +161,13 @@
                 $error = (object) $request->session()->pull("error");
             }
 
+            $games = Game::all();
+            foreach ($games as $game) {
+                $game->and(["abilities"]);
+            }
+
             return view("user.search", [
-                "games" => Game::all(),
+                "games" => $games,
                 "error" => $error,
                 "search" => (object)[
                     "username" => $request->username,

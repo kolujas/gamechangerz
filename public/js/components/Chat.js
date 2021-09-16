@@ -80,8 +80,6 @@ export class Chat extends Class {
     }
 
     setEventListeners () {
-        const instance = this;
-
         Assigment.setValidationJS({
             function: this.send,
             params: {
@@ -98,10 +96,10 @@ export class Chat extends Class {
             },
         });
 
-        document.querySelector(`#chat.modal #details header > a`).addEventListener("click", function (e) {
-            if (instance.state.state) {
-                instance.close();
-                instance.CountDownJS.details.pause();
+        document.querySelector(`#chat.modal #details header > a`).addEventListener("click", (e) => {
+            if (this.state.state) {
+                this.close();
+                this.CountDownJS.details.pause();
             }
         });
     }
@@ -319,7 +317,6 @@ export class Chat extends Class {
     }
 
     changeFooter (chat) {
-        const instance = this;
         if (chat.available) {
             if (chat.users.from.id_role == 1) {
                 let paragraph = document.createElement("p");
@@ -327,30 +324,30 @@ export class Chat extends Class {
                 paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
-                if (chat.users.to.id_user == chat.id_user_logged) {
+                if (chat.users.to.id_user == chat.id_user_logged && chat.messages.length) {
                     let link = document.createElement("a");
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (!this.state.state || parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"] || ![...chat.lesson.assigments].pop().hasOwnProperty("presentation") || ![...chat.lesson.assigments].pop().presentation) {
+                    if (!this.state.state || parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"] || (chat.lesson.assigments.length && ![...chat.lesson.assigments].pop().hasOwnProperty("presentation") && ![...chat.lesson.assigments].pop().presentation)) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
-                    link.addEventListener("click", function (e) {
-                        if (chat.lesson.assigments.length < parseInt(chat.lesson["quantity-of-assigments"]) && (chat.lesson.assigments.length == 0 || ([...chat.lesson.assigments].pop().hasOwnProperty("presentation") && [...chat.lesson.assigments].pop().presentation))) {
-                            instance.addAssigment();
+                    link.addEventListener("click", (e) => {
+                        if (!link.classList.contains("disabled")) {
+                            this.addAssigment();
                         }
                     });
                         let icon = document.createElement("i");
                         icon.classList.add("fas", "fa-paperclip", "color-gradient");
                         link.appendChild(icon);
                 }
-                if (chat.users.to.id_user != chat.id_user_logged && !chat.messages.length) {
+                if (chat.users.to.id_user == chat.id_user_logged && !chat.messages.length) {
                     let button = document.createElement("button");
                     button.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button");
                     this.sections.details.footer.appendChild(button);
-                    button.addEventListener("click", function (e) {
+                    button.addEventListener("click", (e) => {
                         e.preventDefault();
-                        instance.submitAbilities(chat);
+                        this.submitAbilities(chat);
                     });
                         let div = document.createElement("div");
                         div.classList.add("loading", "hidden");
@@ -369,11 +366,11 @@ export class Chat extends Class {
                 form.action = `/api/chats/${ (chat.id_user_logged == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
 
                 this.sections.details.footer.appendChild(form);
-                form.addEventListener("submit", function (e) {
+                form.addEventListener("submit", (e) => {
                     e.preventDefault();
-                    if (document.querySelector(`#chat.modal #details form input[name=message]`).value && instance.state.state) {
-                        instance.send({
-                            instance: instance,
+                    if (document.querySelector(`#chat.modal #details form input[name=message]`).value && this.state.state) {
+                        this.send({
+                            instance: this,
                             chat: chat,
                             section: "chat",
                         });
@@ -460,11 +457,14 @@ export class Chat extends Class {
                 abilities.push(input.value);
             }
         }
-        if (abilities.length) {
+        if (abilities.length && this.state.state) {
             const token = Token.get();
             
             formData.append("abilities", abilities);
 
+            this.setLoadingState();
+            document.querySelector("#chat.modal #details footer button").children[0].classList.remove("hidden");
+            document.querySelector("#chat.modal #details footer button").children[1].classList.add("hidden");
             let query = await Fetch.send({
                 method: "POST",
                 url: `/api/chats/${ chat.id_user_from }/abilities`,
@@ -473,6 +473,9 @@ export class Chat extends Class {
                 "Content-type": "application/json; charset=UTF-8",
                 "Authorization": "Bearer " + token.data,
             }, formData);
+            this.setFinishState();
+            document.querySelector("#chat.modal #details footer button").children[0].classList.add("hidden");
+            document.querySelector("#chat.modal #details footer button").children[1].classList.remove("hidden");
 
             if (query.response.code != 200) {
                 this.close();
