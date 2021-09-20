@@ -1,8 +1,46 @@
 #panel.tab-menu {
-    --tabmenu-button-color: var(--color-four);
-    --tabmenu-button-color-alternative: var(--color-black);
-    --tabmenu-background-color: var(--color-black);
-    --tabmenu-background-color-alternative: linear-gradient(130deg, var(--color-five), var(--color-four));
+    --tab-menu-header-background-color: var(--color-black);
+    --tab-menu-tabs-background-color: var(--color-black);
+}
+
+#panel.tab-menu .tab-header {
+    display: flex;
+    padding: 0 1rem;
+    max-height: 4.6rem;
+}
+
+#panel.tab-menu .sidebar.tabs .tab-header {
+    padding: 0 2rem;
+}
+
+#panel.tab-menu > .tab-header .sidebar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 10%;
+    color: var(--color-five);
+}
+
+#panel.tab-menu .tab-header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 80%;
+}
+
+#panel.tab-menu .tab-header .logo img {
+    width: 80%;
+}
+
+#panel.tab-menu .tabs .tab-menu-list .tab :where(.tab-button, .tab-link) {
+    background: var(--color-black);
+    color: var(--color-four);
+}
+
+#panel.tab-menu .tabs .tab-menu-list .tab.opened :where(.tab-button, .tab-link),
+#panel.tab-menu .tabs .tab-menu-list .tab :where(.tab-button, .tab-link):hover {
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    color: var(--color-black);
 }
 
 #panel.tab-menu table {
@@ -47,4 +85,12 @@
 
 #panel.tab-menu table tbody tr:hover td {
     color: var(--color-black);
+}
+
+/* ? MD */
+@media (min-width: 768px) {
+    #panel.tab-menu.vertical :where(.tabs, .tab-content-list) {
+        min-height: 100vh;
+        max-height: 100vh;
+    }
 }

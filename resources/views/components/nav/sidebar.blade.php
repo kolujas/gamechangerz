@@ -1,4 +1,4 @@
-<div id="menu" class="sidebar left closed push-body">
+<div id="menu" class="sidebar left closed">
     <div class="sidebar-body">
         <div class="sidebar-header grid items-center justify-between flex-wrap">
             <figure class="w-full flex justify-center">
@@ -78,7 +78,6 @@
                 @endif
             </ul>
         </div>
-
     
         <div class="sidebar-footer">
             <nav class="grid grid-cols-2">

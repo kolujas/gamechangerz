@@ -40,6 +40,16 @@
     opacity: 1;
 }
 
+#lesson .price label, #lesson .price input {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+#lesson .price label span {
+    flex-basis: 15%;
+    border-right: 1px solid var(--color-five);
+}
+
 #lesson input[type="date"]::-webkit-inner-spin-button,
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;

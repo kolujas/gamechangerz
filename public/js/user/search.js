@@ -144,6 +144,7 @@ function createTeachersFilter () {
             "games:*.slug": null,
             "prices:*.price": { comparator: "><", strict: false },
             "days:*.hours:*.time": { strict: true },
+            "games:*.abilities:*.slug": null,
         },
     }, {}, {
         run: {

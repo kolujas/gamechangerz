@@ -1,4 +1,5 @@
 import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
+import Sidebar from "../../submodules/SidebarJS/js/Sidebar.js";
 import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 
 import Token from "../components/Token.js";
@@ -8,6 +9,15 @@ new TabMenuJS({
 },{
     open: document.querySelector("#panel.tab-menu li.tab-content").id,
 });
+
+new Sidebar({
+    id: "panel-menu",
+    position: "left",
+}, {
+    open: true,
+    viewport: {
+        "1024": true,
+}});
 
 for (const tr of document.querySelectorAll("#panel.tab-menu li.tab-content table tbody tr")) {
     tr.addEventListener("click", function (e) {

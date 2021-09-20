@@ -94,6 +94,11 @@
             $input->days = $days->toJson();
             $input->id_type = intval($input->id_type);
 
+            $input->price = json_encode([
+                "value" => $input->price,
+                "fee" => $input->fee,
+            ]);
+
             $lesson = Lesson::create((array) $input);
 
             return redirect("/panel/bookings/$lesson->id_lesson")->with("status", [
@@ -221,6 +226,11 @@
 
             $input->days = $days->toJson();
             $input->id_type = intval($input->id_type);
+
+            $input->price = json_encode([
+                "value" => $input->price,
+                "fee" => $input->fee,
+            ]);
             
             $lesson->update((array) $input);
 

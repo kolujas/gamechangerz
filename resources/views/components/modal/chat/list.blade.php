@@ -4,7 +4,7 @@
     </a>
     <main>
         <form action="#" class="my-8">
-            <input class="py-2 px-4 filter-input filter-chats rule-search" placeholder="Busca a un amigo" type="search">
+            <input data-name="users.username|name" class="py-2 px-4 filter-input filter-chats rule" placeholder="Busca a un amigo" type="search">
             <button class="py-2 px-4" type="submit">
                 @component('components.svg.BuscarSVG')@endcomponent
             </button>

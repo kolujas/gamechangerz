@@ -19,6 +19,6 @@
             $this->call(ReviewSeeder::class);
             $this->call(UserSeeder::class);
             $this->call(FriendSeeder::class);
-            $this->call(UpdateAbilitySeeder::class);
+            $this->call(UpdateLessonSeeder::class);
         }
     }

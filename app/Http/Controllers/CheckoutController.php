@@ -259,6 +259,12 @@
             unset($lesson->type);
             unset($lesson->users);
             unset($input->coupon);
+
+            $input->price = json_encode([
+                "value" => $price,
+                "fee" => $fee,
+            ]);
+
             $lesson->update((array) $input);
 
             if ($input->id_method == 2 || $price == 0) {

@@ -29,27 +29,6 @@
             "key": 1629063330431,
             "children": [
               {
-                "key": 1630005565031,
-                "children": [
-                  {
-                    "key": 1630005582947,
-                    "children": [],
-                    "todo": {
-                      "content": "Especialidades",
-                      "id": 1630005582947,
-                      "level": "default",
-                      "done": false
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "Buscador profesor",
-                  "id": 1630005565031,
-                  "level": "default",
-                  "done": false
-                }
-              },
-              {
                 "key": 1629136932272,
                 "children": [],
                 "todo": {
@@ -67,37 +46,6 @@
                   "id": 1629948530330,
                   "level": "default",
                   "done": false
-                }
-              },
-              {
-                "key": 1629834218705,
-                "children": [],
-                "todo": {
-                  "content": "Para cambiar el precio de las clases tener en cuenta el minimo de .5 dolar",
-                  "id": 1629834218705,
-                  "level": "secondary",
-                  "done": true
-                }
-              },
-              {
-                "key": 1629136873489,
-                "children": [
-                  {
-                    "key": 1629136882708,
-                    "children": [],
-                    "todo": {
-                      "content": "Add Message",
-                      "id": 1629136882708,
-                      "level": "secondary",
-                      "done": true
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "Loaders",
-                  "id": 1629136873489,
-                  "level": "secondary",
-                  "done": true
                 }
               },
               {
@@ -151,27 +99,6 @@
           {
             "key": 1629063363259,
             "children": [
-              {
-                "key": 1629137195193,
-                "children": [
-                  {
-                    "key": 1629137201406,
-                    "children": [],
-                    "todo": {
-                      "content": "Nueva clase reservada (tanto para el usuario como el profesor)",
-                      "id": 1629137201406,
-                      "level": "secondary",
-                      "done": false
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "Mailings",
-                  "id": 1629137195193,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
               {
                 "key": 1629137239054,
                 "children": [],
