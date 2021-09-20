@@ -14,8 +14,8 @@
 @endsection
 
 @section('content')
-    <li id="blog" class="tab-content min-h-screen p-12 closed hive">
-        <header class="flex w-full mb-24">
+    <li id="blog" class="tab-content min-h-screen closed hive">
+        <header class="flex w-full m-12 mb-24">
             <h2 class="russo color-white mr-4">Artículos</h2>
             <div class="flex items-center">
                 <a class="btn btn-one btn-outline overpass" href="/blog/{{ Auth::user()->slug }}/create">
@@ -23,10 +23,10 @@
                 </a>
             </div>
         </header>
-        <main class="my-2 py-2 flex flex-wrap justify-center rounded">
-            <table class="min-w-full grid">
-                <thead class="grid">
-                    <tr class="grid grid-cols-9">
+        <main class="overflow-x-scroll my-2 py-2 flex flex-wrap justify-center rounded ml-12">
+            <table class="min-w-max lg:min-w-full grid">
+                <thead class="lg:grid">
+                    <tr class="flex lg:grid grid-cols-9">
                         <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
                         <th class="flex items-center px-6 py-3 text-left russo color-white"></th>
                         <th class="flex items-center px-6 py-3 text-left russo color-white col-span-2">Título</th>
@@ -35,9 +35,9 @@
                         <th class="flex items-center px-6 py-3"></th>
                     </tr>
                 </thead>
-                <tbody class="grid">
+                <tbody class="lg:grid">
                     @foreach ($posts as $post)
-                        <tr data-href="/blog/{{ $post->user->slug }}/{{ $post->slug }}" class="grid grid-cols-9">
+                        <tr data-href="/blog/{{ $post->user->slug }}/{{ $post->slug }}" class="flex lg:grid grid-cols-9">
                             <td class="flex items-center px-6 py-4 whitespace-no-wrap">
                                 <span class="text-sm overpass">{{ $post->id_post }}</span>
                             </td>

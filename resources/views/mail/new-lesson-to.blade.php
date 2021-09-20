@@ -13,30 +13,22 @@
             <tr>
                 <td style="background-color: #281B2D;">
                     <div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif; border-radius: 0.25rem;">
-                        <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Reservaste una nueva clase ({{ $data->lesson->type->name }}) de {{ $data->lesson->users->from->username }}</h2>
                         @switch($data->lesson->type->id_type)
                             @case(1)
                             @case(3)
-                                <ul style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">
-                                    @foreach ($data->lesson->days as $day)
-                                        @foreach ($day->hours as $hour)
-                                            <li><b>{{ $day->date }}:</b> entre <b>{{ $hour->from }}</b> - <b>{{ $hour->to }}</b></li>
-                                        @endforeach
-                                    @endforeach
-                                </ul>
-                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">El usuario te encontrará dentro de nuestro Discord con el nombre de <b>{{ $data->lesson->users->to->discord }}</b></p>
-                                <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="{{ $data->link }}">Discord</a>
-                                </div>
+                            <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Felicitaciones! Se reservó una nueva clase (1on1) por con el coach -----</h2>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Recordá que deberás encontrarte con él en el canal <b>“Sala de espera para clases”</b> de nuestro canal de Discord a la hora de inicio de la clase. Vas a poder identificar a tu coach con el nick de Discord  ----. Luego de eso, él te redirigirá a uno de nuestros <b>"Coaching Rooms"</b> para asegurarte de que nadie más pueda entrar e interrumpir la clase. </p>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Es importante remarcar que si deseas cambiar, suspender o posponer una clase, deberás hacerlo por lo menos con 24hs de anticipación escribiendo a <p>soporte@gamechangerz.gg</p>, de lo contrario se considerará como que te ausentaste de la misma y ni el dinero ni la clase serán reembolsados.</p>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <b>#soporte de Discord</b> o enviando una mail a <b>soporte@gamechangerz.gg</b></p>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Mucha suerte y preparate para <b>#CambiarElJuego</b></p>                                
                                 @break
                             @case(2)
-                                <ul style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">
-                                    <li>Entre <b>{{ $data->lesson->started_at->format("Y-m-d") }}</b> y <b>{{ $data->lesson->ended_at->format("Y-m-d") }}</b></li>
-                                </ul>
-                                {{-- TODO: replace URL --}}
-                                <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://gamechangerz.gg/users/{{ $data->lesson->users->to->slug }}/profile#chat">Entrar al chat</a>
-                                </div>
+                            <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Felicitaciones! Reservaste un Seguimiento Online con el coach ----</h2>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">En el caso que sea tu primera vez con esta modalidad, podés encontrar en esta guía cómo sacarle el mayor provecho y usarlo correctamente: https://bit.ly/3lyJAyo</p>  
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Recordá que el Seguimiento Online se hace únicamente a través de nuestra web y las respuestas de cada Assignment que envíes pueden demorar hasta 48hs hábiles.</p>  
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <b>#soporte de Discord</b> o enviando una mail a <b>soporte@gamechangerz.gg</b></p>  
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Mucha suerte y preparate para <b>#CambiarElJuego</b></p>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Un saludo, el equipo de GCZ</p>
                                 @break
                         @endswitch
                     </div>
@@ -45,3 +37,6 @@
         </table>
     </body>
 </html>
+
+
+

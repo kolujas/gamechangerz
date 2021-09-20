@@ -24,12 +24,7 @@
 			</li>
 			<li>
 				<a href="https://www.twitch.tv" target="_blank" class="nav-link">
-					@component('components.svg.TwitchSVG')@endcomponent
-				</a>
-			</li>
-			<li>
-				<a href="https://www.youtube.com" target="_blank" class="nav-link">
-					@component('components.svg.YtSVG')@endcomponent
+					@component('components.svg.DiscordSVG')@endcomponent
 				</a>
 			</li>
 			<li>
