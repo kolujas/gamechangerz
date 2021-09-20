@@ -25,7 +25,7 @@ export default class Presentation extends Class {
     }
 
     setPresentation () {
-        for (const description of document.querySelectorAll('#presentation.modal h3')) {
+        for (const description of document.querySelectorAll('#presentation.modal :where(h3, .extra)')) {
             description.classList.add("hidden");
         }
         for (const input of document.querySelectorAll("#presentation-form .form-input")) {
@@ -34,23 +34,25 @@ export default class Presentation extends Class {
                 input.disabled = true;
             }
             if (input.name === "url") {
-                input.value = this.props.presentation.url;
                 input.disabled = true;
-
-                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                var match = input.value.match(regExp);
-                let videoId;
-                if (match && match[2].length == 11) {
-                    videoId = match[2];
-                }else {
-                    videoId = 'error';
-                }
-
-                if (videoId == "error") {
-                    $("#presentation-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
-                }
-                if (videoId != "error") {
-                    $("#presentation-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                if (this.props.presentation.url) {
+                    input.value = this.props.presentation.url;
+    
+                    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    var match = input.value.match(regExp);
+                    let videoId;
+                    if (match && match[2].length == 11) {
+                        videoId = match[2];
+                    }else {
+                        videoId = 'error';
+                    }
+    
+                    if (videoId == "error") {
+                        $("#presentation-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                    }
+                    if (videoId != "error") {
+                        $("#presentation-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                    }
                 }
             }
         }

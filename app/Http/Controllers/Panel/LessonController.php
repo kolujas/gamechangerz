@@ -97,7 +97,12 @@
             $input->price = json_encode([
                 "value" => $input->price,
                 "fee" => $input->fee,
+                "credits" => $input->credits,
             ]);
+
+            if (isset($input->created_at)) {
+                unset($input->created_at);
+            }
 
             $lesson = Lesson::create((array) $input);
 
@@ -230,6 +235,7 @@
             $input->price = json_encode([
                 "value" => $input->price,
                 "fee" => $input->fee,
+                "credits" => $input->credits,
             ]);
             
             $lesson->update((array) $input);

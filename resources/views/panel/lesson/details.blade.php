@@ -90,21 +90,31 @@
                 </div>
 
                 <div class="pt-0 col-span-2 col-start-1 price">
-                    <label class="flex items-center">
+                    <label class="flex items-center rounded">
                         <span class="px-5 py-4">$</span>
-                        <input type="number" name="price" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ $lesson->price->value }}" placeholder="Valor">
+                        <input type="number" name="price" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ (isset($price->value) ? $price->value : null) }}" placeholder="Valor">
                     </label>
                     <span class="block color-white error support lesson-form support-box hidden support-price mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2 price">
-                    <label class="flex items-center">
+                    <label class="flex items-center rounded">
                         <span class="px-4 py-4">
                             <i class="fas fa-hand-holding-usd"></i>
                         </span>
-                        <input type="number" name="fee" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ (isset($lesson->price->fee) ? $lesson->price->fee : 0) }}" placeholder="Comisión">
+                        <input type="number" name="fee" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ (isset($price->fee) ? $price->fee : null) }}" placeholder="Comisión">
                     </label>
                     <span class="block color-white error support lesson-form support-box hidden support-fee mt-2 overpass"></span>
+                </div>
+
+                <div class="pt-0 col-span-2 price">
+                    <label class="flex items-center rounded">
+                        <span class="px-4 py-4">
+                            <i class="fas fa-gamepad"></i>
+                        </span>
+                        <input type="number" name="credits" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ (isset($price->credits) ? $price->credits : null) }}" placeholder="Créditos">
+                    </label>
+                    <span class="block color-white error support lesson-form support-box hidden support-credits mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2 col-start-1">
@@ -117,6 +127,11 @@
                         <option class="overpass" value="4" @if (old("id_status", $lesson->id_status) === 4) selected @endif>Terminada</option>
                     </select>
                     <span class="block color-white error support lesson-form support-box hidden support-id_status mt-2 overpass"></span>
+                </div>
+
+                <div class="pt-0 col-span-2 @if (!isset($lesson->id_lesson)) hidden @endif">
+                    <input type="date" name="created_at" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif value="{{ ($lesson->created_at ? $lesson->created_at->format("Y-m-d") : null) }}" placeholder="Fecha de creación">
+                    <span class="block color-white error support lesson-form support-box hidden support-created_at mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2 assigments @if (!isset($lesson->id_lesson) || $lesson->id_type !== 2) hidden @endif">

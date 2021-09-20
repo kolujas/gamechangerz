@@ -72,12 +72,11 @@
             "make" => [
                 "rules" => [
                     "description" => "required|max:255",
-                    "url" => "required|url",
+                    "url" => "nullable|url",
                 ], "messages" => [
                     "es" => [
                         "description.required" => "La descripción es obligatoria.",
                         "description.max" => "La descripción no puede tener más de :max caracteres.",
-                        "url.required" => "El link al video es obligatorio.",
-                        "url.url" => "La URL debe ser valida (https://youtube.be)",
+                        "url.url" => "La URL debe ser valida (https://...)",
         ]]]];
     }

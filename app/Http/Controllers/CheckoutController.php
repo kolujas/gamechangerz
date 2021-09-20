@@ -263,6 +263,7 @@
             $input->price = json_encode([
                 "value" => $price,
                 "fee" => $fee,
+                "credits" => $input->credits
             ]);
 
             $lesson->update((array) $input);

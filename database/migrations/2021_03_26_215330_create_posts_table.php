@@ -14,7 +14,7 @@
                 $table->increments('id_post');
                 $table->unsignedInteger('id_user');
                 $table->string('title');
-                $table->text('description')->nullble();
+                $table->text('description')->nullable();
                 $table->string('image');
                 $table->string('link')->nullable();
                 $table->string('slug');

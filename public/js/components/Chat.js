@@ -280,7 +280,6 @@ export class Chat extends Class {
     
             new Assigment({
                 id_chat: chat.id_chat,
-                abilities: abilities,
                 id_role: this.props.id_role,
             });
         }

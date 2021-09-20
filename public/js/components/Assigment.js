@@ -32,21 +32,23 @@ export class Assigment extends Class {
                 case "INPUT":
                     switch (input.name.toUpperCase()) {
                         case "URL":
-                            input.value = this.props.url;
-                            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                            var match = input.value.match(regExp);
-                            let videoId;
-                            if (match && match[2].length == 11) {
-                                videoId = match[2];
-                            }else {
-                                videoId = "error";
-                            }
-                            
-                            if (videoId == "error") {
-                                $("#assigment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
-                            }
-                            if (videoId != "error") {
-                                $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                            if (this.props.url) {
+                                input.value = this.props.url;
+                                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                                var match = input.value.match(regExp);
+                                let videoId;
+                                if (match && match[2].length == 11) {
+                                    videoId = match[2];
+                                }else {
+                                    videoId = "error";
+                                }
+                                
+                                if (videoId == "error") {
+                                    $("#assigment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                                }
+                                if (videoId != "error") {
+                                    $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                                }
                             }
                             break;
                     }
@@ -62,7 +64,7 @@ export class Assigment extends Class {
                         case "DESCRIPTION":
                             input.value = this.props.description;
                             for (const child of input.parentNode.children) {
-                                if (child.nodeName === "H3") {
+                                if (child.nodeName === "H3" || child.classList.contains("extra")) {
                                     child.classList.add("hidden");
                                 }
                             }

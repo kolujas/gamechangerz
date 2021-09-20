@@ -467,6 +467,7 @@
                             "id_type" => "required",
                             "price" => "required",
                             "fee" => "required",
+                            "credits" => "required",
                         ], "messages" => [
                             "es" => [
                                 "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
@@ -478,6 +479,7 @@
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
                                 "fee.required" => "La comisión es obligatoria.",
+                                "credits.required" => "Los créditos son obligatorios.",
                             ],
                         ],
                     ], "seguimiento-online" => [
@@ -490,6 +492,7 @@
                             "assigments" => "required",
                             "price" => "required",
                             "fee" => "required",
+                            "credits" => "required",
                         ], "messages" => [
                             "es" => [
                                 "id_user_from.required" => "El profesor es obligatorio.",
@@ -501,6 +504,7 @@
                                 "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
                                 "assigments.required" => "La cantidad de assigments es obligatoria.",
                                 "fee.required" => "La comisión es obligatoria.",
+                                "credits.required" => "Los créditos son obligatorios.",
                             ],
                         ],
                     ], "packs" => [
@@ -513,6 +517,7 @@
                             "id_type" => "required",
                             "price" => "required",
                             "fee" => "required",
+                            "credits" => "required",
                         ], "messages" => [
                             "es" => [
                                 "dates.required" => "Las fechas de la clase deben ser seleccionadas. Recuerda que primero debes elegir el tipo de clase.",
@@ -528,6 +533,7 @@
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
                                 "fee.required" => "La comisión es obligatoria.",
+                                "credits.required" => "Los créditos son obligatorios.",
                             ],
                         ],
                     ],

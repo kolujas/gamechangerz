@@ -79,7 +79,7 @@ export default class Activity extends Class {
                                     props: {
                                         classes: ["color-white", "overpass", "mb-8", "w-full"],
                                     }, innerHTML: data.description,
-                                }], ["a", {
+                                }], (() => { if (data.url) { return ["a", {
                                     props: {
                                         classes: ["btn", "btn-one", "btn-outline"],
                                         url: data.url,
@@ -91,7 +91,7 @@ export default class Activity extends Class {
                                             }, innerHTML: "Link",
                                         }],
                                     ],
-                                }], (() => { if (data.hasOwnProperty("presentation")) { return ["span", {
+                                }]; } return []; } )(), (() => { if (data.hasOwnProperty("presentation")) { return ["span", {
                                     props: {
                                         classes: ["color-white", "block", "w-full", "text-center"],
                                     }, innerHTML: [
@@ -101,7 +101,7 @@ export default class Activity extends Class {
                                             },
                                         }],
                                     ],
-                                }]; } return []; } )(),
+                                }]; } return []; })(),
                             ],
                         }],
                     ],
@@ -117,7 +117,7 @@ export default class Activity extends Class {
                                     props: {
                                         classes: ["color-four", "overpass", "mb-8", "w-full"],
                                     }, innerHTML: data.presentation.description,
-                                }], ["a", {
+                                }], (() => { if (data.presentation.url) { return ["a", {
                                     props: {
                                         classes: ["btn", "btn-one", "btn-outline"],
                                         url: data.presentation.url,
@@ -129,7 +129,7 @@ export default class Activity extends Class {
                                             }, innerHTML: "Link",
                                         }],
                                     ],
-                                }],
+                                }]; } return []; })(),
                             ],
                         }],
                     ],

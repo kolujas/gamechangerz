@@ -14,7 +14,7 @@
                 $table->increments("id_presentation");
                 $table->unsignedInteger("id_assigment");
                 $table->string("title");
-                $table->string("url")->nullble();
+                $table->string("url")->nullable();
                 $table->timestamps();
             });
         }

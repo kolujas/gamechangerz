@@ -94,3 +94,10 @@
         max-height: 100vh;
     }
 }
+
+/* ? LG */
+@media (min-width: 1024px) {
+    #panel.tab-menu > .tab-header {
+        display: none;
+    }
+}

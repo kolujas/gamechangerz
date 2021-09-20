@@ -184,9 +184,11 @@
                 "id_type" => null
             ];
             $lesson->days = [];
+            $price = null;
             if ($id_lesson) {
                 $lesson = Lesson::find($id_lesson);
                 $lesson->and(["users", "type", "days", "method", "price"]);
+                $price = $lesson->price;
             }
 
             $hours = Hour::options();
@@ -211,6 +213,7 @@
             
             return view("panel.lesson.details", [
                 "error" => $error,
+                "price" => $price,
                 "hours" => $hours,
                 "lesson" => $lesson,
                 "methods" => $methods,

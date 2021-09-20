@@ -13,9 +13,9 @@
             Schema::create("assigments", function (Blueprint $table) {
                 $table->increments("id_assigment");
                 $table->unsignedInteger("id_lesson");
-                $table->text("description")->nullble();
-                $table->string("url")->nullble();
-                $table->json("abilities")->nullble()->default("[]");
+                $table->text("description")->nullable();
+                $table->string("url")->nullable();
+                $table->json("abilities")->nullable()->default("[]");
                 $table->timestamps();
             });
         }

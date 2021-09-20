@@ -3,19 +3,16 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateChatsTable extends Migration {
+    class UpdateAssigmentsTableModifyNullableFields extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up () {
-            Schema::create('chats', function (Blueprint $table) {
-                $table->increments('id_chat');
-                $table->unsignedInteger('id_user_from');
-                $table->unsignedInteger('id_user_to');
-                $table->json('messages')->nullable()->default('[]');
-                $table->timestamps();
+            Schema::table('assigments', function (Blueprint $table) {
+                $table->text("description")->nullable()->change();
+                $table->string("url")->nullable()->change();
             });
         }
 
@@ -25,6 +22,8 @@
          * @return void
          */
         public function down () {
-            Schema::dropIfExists('chats');
+            Schema::table('assigments', function (Blueprint $table) {
+                //
+            });
         }
     }

@@ -19,7 +19,7 @@
             <h2 class="russo color-white mr-4">Clases</h2>
             <div class="flex items-center">
                 <a class="btn btn-one btn-outline overpass" href="/panel/bookings/create">
-                    <span class="py-2 px-4">Registrar profesor</span>
+                    <span class="py-2 px-4">Registrar clase</span>
                 </a>
             </div>
         </header>
