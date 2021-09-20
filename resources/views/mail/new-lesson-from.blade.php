@@ -13,30 +13,20 @@
             <tr>
                 <td style="background-color: #281B2D;">
                     <div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif; border-radius: 0.25rem;">
-                        <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Se reservó una nueva clase ({{ $data->lesson->type->name }}) por {{ $data->lesson->users->to->username }}</h2>
                         @switch($data->lesson->type->id_type)
                             @case(1)
                             @case(3)
-                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Encuentra al usuario dentro de nuestro Discord con el nombre de <b>{{ $data->lesson->users->to->discord }}</b></p>
-                                <ul style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">
-                                    @foreach ($data->lesson->days as $day)
-                                        @foreach ($day->hours as $hour)
-                                            <li><b>{{ $day->date }}:</b> entre <b>{{ $hour->from }}</b> - <b>{{ $hour->to }}</b></li>
-                                        @endforeach
-                                    @endforeach
-                                </ul>
-                                <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="{{ $data->link }}">Discord</a>
-                                </div>
+                            <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Felicitaciones! Se reservó una nueva clase (1on1) por el alumno ---- </h2>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Recordá que deberás encontrarte con el usuario en el canal SaladeEspera de nuestro canal de Discord a la hora de inicio de la clase. Vas a poder identificar a tu alumno con el nick de Discord  ----. Luego de eso podrás mover al alumno a cualquiera de los canales de <b>soporte@gamechangerz.gg "Coaching Rooms"</b>para asegurarte de que nadie más pueda entrar e interrumpir la clase.</p>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Es importante remarcar que si deseás cambiar, suspender o posponer una clase, deberás hacerlo por lo menos con 24hs de anticipación escribiendo a <b>soporte@gamechangerz.gg</b>, de lo contrario se considerará como que te ausentaste de la misma y el dinero deberá ser reembolsado.</p>
+                                <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal  <b>#soporte de Discord</b> o enviando una mail a <b>soporte@gamechangerz.gg</b></p>
                                 @break
                             @case(2)
-                                <ul style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">
-                                    <li>Entre <b>{{ $data->lesson->started_at->format("Y-m-d") }}</b> y <b>{{ $data->lesson->ended_at->format("Y-m-d") }}</b></li>
-                                </ul>
-                                {{-- TODO: replace URL --}}
-                                <div style="width: 100%; text-align: center; margin: 2rem 0;">
-                                    <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://gamechangerz.gg/users/{{ $data->lesson->users->from->slug }}/profile#chat">Entrar al chat</a>
-                                </div>
+                            <h2 style="text-align: center; color: #ED6744;margin: 20px 0;">Felicitaciones! Se reservo un Seguimiento Online por el alumno ----. </h2>
+                            <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Recordá que el Seguimiento Online se hace únicamente a través de nuestra web y las respuestas a cada Assignment que te envíen tienen que enviarse dentro de las 48hs hábiles.</p>
+                            <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal  <b>#soporte de Discord</b> o enviando una mail a <b>soporte@gamechangerz.gg</b></p>
+                            <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Preparate para <b>#CambiarElJuego</b>.</p>
+                            <p style="margin: 2px;padding-top: 2rem;text-align: center;font-family: sans-serif;font-size: 17px;min-height: 70px;background-color: #f8f8f8;padding: 1rem 1rem;margin-bottom: 2.5rem;">Un saludo, el equipo de GCZ</b>.</p>
                                 @break
                         @endswitch
                     </div>

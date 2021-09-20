@@ -5,7 +5,10 @@
     @if ($lesson->id_type === 1 || $lesson->id_type === 3)
         @foreach ($lesson->days as $day)
             @foreach ($day->hours as $hour)
-                <p class="overpass color-white">Su clase fue reservada para el día <b class="color-four">{{ $day['carbon']->day }}</b> de <b class="color-four">{{ $day['carbon']->month }}</b>, entre las <b class="color-four">{{ $hour->from }}</b> y <b class="color-four">{{ $hour->to }}</b>.</p>
+                <p class="overpass color-white">Tu clase con ------ fue reservada con éxito!</p>
+                <p class="overpass color-white">La misma se llevará a cabo en nuestro canal de Discord el día --- entre las --- y las ---. Revisá tu casilla de mail para encontrar más instrucciones sobre cómo encontrarte con tu coach</p>
+                <p class="overpass color-white">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <b>#soporte de Discord</b> o enviando una mail a <b>soporte@gamechangerz.gg</b></p>
+                <p class="overpass color-white">Que la disfrutes!</p>
             @endforeach
         @endforeach
     @endif
@@ -13,3 +16,11 @@
         <p class="overpass color-white">Su clase fue reservada entre <b class="color-four">{{ $lesson->started_at->format("Y-m-d") }}</b> y <b class="color-four">{{ $lesson->ended_at->format("Y-m-d") }}</b>.</p>
     @endif
 </main>
+
+
+
+
+
+
+
+
