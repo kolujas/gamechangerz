@@ -22,6 +22,25 @@
                 <h2 class="color-four text-center russo uppercase">Convertite en profesor</h2>
             </header>
 
+            <p class="color-white overpass my-4">
+                Te damos la bienvenida a nuestra sección para convertirte en coach de Gamechangerz. 
+            </p>
+            <p class="color-white overpass my-4">
+                Vamos a pedirte algunos datos personales y a dejarte un espacio para que llenes con lo que te parezca relevante de tu experiencia o aptitudes para que evaluemos. 
+            </p>
+            <p class="color-white overpass my-4">
+                Recordá que es muy importante ser lo más descriptivo posible; con enlaces relevantes, equipos de los que formaste parte, logros adquiridos, objetivos, y que es lo que te motiva a formar parte de Gamechangerz. Cuánto más nos cuentes, mucho mejor.
+            </p>
+            <p class="color-white overpass my-4">
+                Estaremos revisando todas las solicitudes, por lo que la respuesta puede demorar. Paciencia que va a llegar!
+            </p>
+            <p class="color-white overpass my-4">
+                Antes de enviar la solicitud, te pedimos que veas nuestro Código de Conducta de la plataforma (un link o que diga “que lo encontrás en X lugar) 
+            </p>
+            <p class="color-white overpass my-4">
+                Mucha suerte y gracias por querer #CambiarElJuego
+            </p>
+
             <label class="input-group grid mb-6">
                 <input class="apply form-input px-5 py-4 overpass" type="text" tabindex="1" name="name" id="name" placeholder="Nombre" value={{ old("name") }}>
                 @if ($errors->has("name"))
@@ -30,15 +49,7 @@
                     <span class="error support mt-2 apply support-box hidden support-name overpass"></span>
                 @endif
             </label>
-
-            <label class="input-group grid mb-6">
-                <input class="apply form-input px-5 py-4 overpass" type="text" tabindex="1" name="username" id="username" placeholder="Nombre de usuario" value={{ old("username") }}>
-                @if ($errors->has("username"))
-                    <span class="error support mt-2 apply support-box support-username overpass">{{ $errors->first("username") }}</span>
-                @else
-                    <span class="error support mt-2 apply support-box hidden support-username overpass"></span>
-                @endif
-            </label>
+            
 
             <label class="input-group grid mb-6">
                 <input class="apply form-input px-5 py-4 overpass" type="text" tabindex="3" name="email" id="email" placeholder="Email" value={{ old("email") }}>
@@ -47,21 +58,7 @@
                 @else
                     <span class="error support mt-2 apply support-box hidden support-email overpass"></span>
                 @endif
-            </label>
-
-            <label class="input-group grid mb-6">
-                <div class="flex justify-between">
-                    <input class="apply form-input px-5 py-4 overpass" type="password" tabindex="4" name="password" id="password" placeholder="Contraseña" value={{ old("password") }}>
-                    <span class="seePassword input-password">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                </div>
-                @if ($errors->has("password"))
-                    <span class="error support mt-2 apply support-box support-password overpass">{{ $errors->first("password") }}</span>
-                @else
-                    <span class="error support mt-2 apply support-box hidden support-password overpass"></span>
-                @endif
-            </label>
+            </label>            
 
             <div class="input-group grid mb-2">
                 <textarea name="details" class="rounded form-input apply overpass bg-solid-black color-white p-4" placeholder="Detalles">{{ old("details") }}</textarea>
@@ -95,6 +92,10 @@
                 </button>
             </div>
         </form>
+
+        <p class="color-white overpass my-4">
+            (Este mail se envía a contacto@gamechangerz.gg)
+        </p>
 
         <h3 class="color-white russo text-2xl mt-12 text-center uppercase">Preguntas Frecuentes</h3>
 

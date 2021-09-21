@@ -32,7 +32,7 @@
                     <a class="overpass btn btn-grey btn-text" href="/apply">Postulate como profesor</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Contacto</a>
+                    <a class="overpass btn btn-grey btn-text" href="/contact">Contacto</a>
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="#">Código de conducta</a>
@@ -41,7 +41,7 @@
                     <a class="overpass btn btn-grey btn-text" href="/faq">FAQ</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="#">Soporte</a>
+                    <a class="overpass btn btn-grey btn-text" href="/support">Soporte</a>
                 </li>
                 <li>
                     <a class="overpass btn btn-grey btn-text" href="/terms-&-conditions">Términos de servicio</a>
@@ -72,7 +72,7 @@
                     <a href="https://www.youtube.com" target="_blank">@component('components.svg.YtSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="https://wa.me" target="_blank">@component('components.svg.WppSVG')@endcomponent</a>
+                    <a href="" target="_blank">@component('components.svg.DiscordSVG')@endcomponent</a>
                 </li>
             </ul>
         </nav>
