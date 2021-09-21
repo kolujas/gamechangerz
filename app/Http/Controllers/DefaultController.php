@@ -244,6 +244,62 @@
             ]);
         }
 
+        public function contact (Request $request) {
+            $error = null;
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
+            }
+
+            return view("web.contact", [
+                "error" => $error,
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "assigment" => (object)[
+                        "rules" => Assigment::$validation["make"]["rules"],
+                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
+                ]],
+            ]);
+        }
+
+        public function support (Request $request) {
+            $error = null;
+            if ($request->session()->has("error")) {
+                $error = (object) $request->session()->pull("error");
+            }
+
+            return view("web.support", [
+                "error" => $error,
+                "validation" => [
+                    "login" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
+                ], "signin" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
+                ], "assigment" => (object)[
+                        "rules" => Assigment::$validation["make"]["rules"],
+                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "advanced" => (object)[
+                        "rules" => User::$validation["advanced"]["rules"],
+                        "messages" => User::$validation["advanced"]["messages"]["es"],
+                ], "presentation" => (object)[
+                        "rules" => Presentation::$validation["make"]["rules"],
+                        "messages" => Presentation::$validation["make"]["messages"]["es"],
+                ]],
+            ]);
+        }
+
         /**
          * * Control the apply page.
          * @return [type]

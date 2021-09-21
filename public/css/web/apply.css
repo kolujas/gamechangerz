@@ -21,7 +21,6 @@ main.apply .input-group {
 }
 
 main.apply .form-input, p {
-    background-color: #000;
     color: var(--color-white);
     font-size: .8rem;
     width: 100%;
@@ -36,7 +35,8 @@ main.apply .form-input::placeholder {
 }
 
 main.apply p{
-    color: var(--color-grey);
+    color: var(--color-white);
+    font-size: 1rem;
 }
 
 main.apply .submit-group p {

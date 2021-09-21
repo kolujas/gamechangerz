@@ -100,8 +100,8 @@
                     <li class="my-4">
                         <a href="#">@component('components.svg.YtSVG')@endcomponent</a>
                     </li>
-                    <li class="my-4">
-                        <a href="#">@component('components.svg.WppSVG')@endcomponent</a>
+                    <li class="my-4 pl-4">
+                        <a href="" target="_blank">@component('components.svg.DiscordSVG')@endcomponent</a>
                     </li>
                 </ul>
             </nav>
