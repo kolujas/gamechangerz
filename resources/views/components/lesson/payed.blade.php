@@ -3,24 +3,19 @@
 </header>
 <main class="lg:col-span-8 lg:col-start-2 2xl:col-start-3">
     @if ($lesson->id_type === 1 || $lesson->id_type === 3)
+        <p class="overpass color-white">Tu clase con {{ $lesson->users->from->username }} fue reservada con éxito!</p>
         @foreach ($lesson->days as $day)
             @foreach ($day->hours as $hour)
-                <p class="overpass color-white">Tu clase con ------ fue reservada con éxito!</p>
-                <p class="overpass color-white">La misma se llevará a cabo en nuestro canal de Discord el día --- entre las --- y las ---. Revisá tu casilla de mail para encontrar más instrucciones sobre cómo encontrarte con tu coach</p>
-                <p class="overpass color-white">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <b>#soporte de Discord</b> o enviando una mail a <b>soporte@gamechangerz.gg</b></p>
-                <p class="overpass color-white">Que la disfrutes!</p>
+                <p class="overpass color-white">La misma se llevará a cabo en nuestro canal de Discord el día <b class="color-four">{{ $day->name }}</b> entre las <b class="color-four">{{ $hour->from }}</b> y las <b class="color-four">{{ $hour->to }}</b>. Revisá tu casilla de mail para encontrar más instrucciones sobre cómo encontrarte con tu coach</p>
             @endforeach
         @endforeach
+        <p class="overpass color-white">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <i class="color-five">#soporte</i> de Discord o enviando una mail a <b class="color-four">soporte@gamechangerz.gg</b></p>
+        <p class="overpass color-white">Que la disfrutes!</p>
     @endif
     @if ($lesson->id_type === 2)
-        <p class="overpass color-white">Su clase fue reservada entre <b class="color-four">{{ $lesson->started_at->format("Y-m-d") }}</b> y <b class="color-four">{{ $lesson->ended_at->format("Y-m-d") }}</b>.</p>
+        <p class="overpass color-white">Felicitaciones! Reservaste un Seguimiento Online con el coach {{ $lesson->users->from->username }}.</p>
+        <p class="overpass color-white">En el caso que sea tu primera vez con esta modalidad, podés encontrar en esta guía cómo sacarle el mayor provecho y usarlo correctamente: https://bit.ly/3lyJAyo</p>
+        <p class="overpass color-white">Recordá que el Seguimiento Online se hace únicamente a través de nuestra web y las respuestas de cada Assignment que envíes pueden demorar hasta 48hs hábiles.</p>
+        <p class="overpass color-white">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <i>#soporte</i> de Discord o enviando una mail a <b>soporte@gamechangerz.gg</b></p>
     @endif
 </main>
-
-
-
-
-
-
-
-

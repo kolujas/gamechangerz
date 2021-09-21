@@ -332,8 +332,6 @@
                 'email_to' => config("mail.from.address"),
                 'email_from' => $input->email,
                 'details' => $input->details,
-                'password' => $input->password,
-                'username' => $input->username,
                 'name' => $input->name,
             ]);
             

@@ -327,7 +327,7 @@ export class Chat extends Class {
                     let link = document.createElement("a");
                     link.href = "#assigment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (!this.state.state || parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"] || (chat.lesson.assigments.length && ![...chat.lesson.assigments].pop().hasOwnProperty("presentation") && ![...chat.lesson.assigments].pop().presentation)) {
+                    if (!this.state.state || parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"] || (chat.lesson.assigments.length && ![...chat.lesson.assigments].pop().presentation)) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
@@ -666,7 +666,7 @@ export class Chat extends Class {
                         params.instance.save(response.data);
                         new NotificationJS({
                             code: 200,
-                            message: `Tarea creada exitosamente`,
+                            message: `Assignment entregado con éxito!<br />Tu coach va a recibirlo y dentro de las próximas 48hs hábiles te va a responder en la misma conversación.`,
                             classes: ["russo"],
                         }, {
                             open: true,
@@ -695,7 +695,7 @@ export class Chat extends Class {
                         params.instance.save(response.data);
                         new NotificationJS({
                             code: 200,
-                            message: `Tarea creada exitosamente`,
+                            message: `Respuesta enviada con éxito.<br />Recordá que podés revisar lo que enviaste en cualquier momento entrando al chat haciendo click en "Revisar entrega".`,
                             classes: ["russo"],
                         }, {
                             open: true,
