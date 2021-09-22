@@ -20,7 +20,7 @@
          * @var array
          */
         protected $fillable = [
-            "id_mail", "name",
+            "id_mail", "name", "slug",
         ];
         
         /**
@@ -40,35 +40,35 @@
         public function send (array $data = []) {
             switch ($this->id_mail) {
                 case 1:
-                    // * When an User signs in
+                    // * When a User signs in
                     $mail = new ConfirmationMail((object) $data);
                     break;
                 case 2:
-                    // * When an User sends a Message to another
+                    // * When a User sends a Message to another
                     $mail = new NewMessageMail((object) $data);
                     break;
                 case 3:
-                    // * When a Teacher sends a new Assigment
+                    // * When a Teacher sends a new Assignment
                     $mail = new NewAssigmentMail((object) $data);
                     break;
                 case 4:
-                    // * When an User completes an Assigment
+                    // * When a User completes an Assignment
                     $mail = new NewPresentationMail((object) $data);
                     break;
                 case 5:
-                    // * When an User pays for a Lesson, is an alert for the Teacher
+                    // * When a User pays for a Lesson, this is an alert for the Teacher
                     $mail = new NewLessonTeacherMail((object) $data);
                     break;
                 case 6:
-                    // * When an User sends a friendship request
+                    // * When a User sends a friendship request
                     $mail = new FriendshipRequestMail((object) $data);
                     break;
                 case 7:
-                    // * When an User sends a Teacher request
+                    // * When a User sends a Teacher request
                     $mail = new TeacherRequestMail((object) $data);
                     break;
                 case 8:
-                    // * When an User pays for a Lesson, is an alert for the User
+                    // * When a User pays for a Lesson, this is an alert for the User
                     $mail = new NewLessonUserMail((object) $data);
                     break;
                 case 9:
@@ -76,8 +76,16 @@
                     $mail = new TeacherRequestApprovedMail((object) $data);
                     break;
                 case 10:
-                    // * When an User submits what abilities wants to learn
+                    // * When a User submits what abilities want to learn
                     $mail = new AbilitiesSubmitedMail((object) $data);
+                    break;
+                case 11:
+                    // * When a User tries to contact GameChangerZ
+                    $mail = new ContactMail((object) $data);
+                    break;
+                case 12:
+                    // * When a User tries to contact with GameChangerZ support
+                    $mail = new SupportMail((object) $data);
                     break;
             }
             MailService::to($data["email_to"])->send($mail);
@@ -114,4 +122,35 @@
             }
             return $attributes;
         }
+        /**
+         * * Validation rules & messages.
+         * @var array
+         */
+        static $validation = [
+            "contact" => [
+                "rules" => [
+                    "name" => "required",
+                    "email" => "required",
+                    "details" => "required",
+                ], "messages" => [
+                    "es" => [
+                        "name.required" => "El nombre es obligatorio.",
+                        "email.required" => "El correo es obligatorio.",
+                        "details.required" => "Los detalles son obligatorios.",
+                    ],
+                ],
+            ], "support" => [
+                "rules" => [
+                    "name" => "required",
+                    "email" => "required",
+                    "details" => "required",
+                ], "messages" => [
+                    "es" => [
+                        "name.required" => "El nombre es obligatorio.",
+                        "email.required" => "El correo es obligatorio.",
+                        "details.required" => "Los detalles son obligatorios.",
+                    ],
+                ],
+            ],
+        ];
     }

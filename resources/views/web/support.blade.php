@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    support | GameChangerZ
+    Soporte | GameChangerZ
 @endsection
 
 @section('css')
@@ -18,12 +18,8 @@
 
         <section class="p-8 xl:p-12 xl:px-32 2xl:px-96 text-md">
             <div class="mb-8 introsupp">
-                <p class="color-white overpass my-4">
-                    No te preocupes, los refuerzos están en camino.           
-                </p>
-                <p class="color-white overpass my-4">
-                    Si tuviste algún inconveniente con una clase que contrataste, o simplemente tenés alguna duda que te gustaría sanar no dudes en escribirnos. Nos pondremos en supporto a la brevedad para darte una solución. 
-                </p>
+                <p class="color-white overpass my-4">No te preocupes, los refuerzos están en camino.</p>
+                <p class="color-white overpass my-4">Si tuviste algún inconveniente con una clase que contrataste, o simplemente tenés alguna duda que te gustaría sanar no dudes en escribirnos. Nos pondremos en supporto a la brevedad para darte una solución.</p>
             </div>
 
             <form id="support" action="/support" method="post">
@@ -35,28 +31,25 @@
                 </header>
     
                 <label class="input-group grid mb-6">
-                    <input class="bg-black support form-input px-5 py-4 overpass" type="text" tabindex="1" name="name" id="name" placeholder="Nombre" value={{ old("name") }}>
+                    <input class="bg-black support form-input px-5 py-4 overpass" type="text" tabindex="1" name="name" id="name" placeholder="Nombre" value={{ old("name", ((Auth::check() && Auth::user()->name) ? Auth::user()->name : "")) }}>
                     @if ($errors->has("name"))
                         <span class="error support mt-2 support support-box support-name overpass">{{ $errors->first("name") }}</span>
                     @else
                         <span class="error support mt-2 support support-box hidden support-name overpass"></span>
                     @endif
-                </label>    
-                
                 </label>
     
                 <label class="input-group grid mb-6">
-                    <input class="support bg-black form-input px-5 py-4 overpass" type="text" tabindex="3" name="email" id="email" placeholder="Email" value={{ old("email") }}>
+                    <input class="support bg-black form-input px-5 py-4 overpass" type="text" tabindex="3" name="email" id="email" placeholder="Email" value={{ old("email", (Auth::check() ? Auth::user()->email : "")) }}>
                     @if ($errors->has("email"))
                         <span class="error support mt-2 support support-box support-email overpass">{{ $errors->first("email") }}</span>
                     @else
                         <span class="error support mt-2 support support-box hidden support-email overpass"></span>
                     @endif
                 </label>
-                
     
                 <div class="input-group grid mb-8">
-                    <textarea name="details" class="rounded form-input support overpass bg-solid-black color-white p-4" placeholder="Detalles">{{ old("details") }}</textarea>
+                    <textarea name="details" class="rounded form-input support overpass bg-black color-white p-4" placeholder="Detalles">{{ old("details") }}</textarea>
                     @if ($errors->has("details"))
                         <span class="color-white error support assigment-form support-box overpass mb-4 support-details">{{ $errors->first("details") }}</span>
                     @else
@@ -71,12 +64,8 @@
                 </div>
             </form>
 
-            <p class="color-white overpass my-4">
-                Además, te recordamos que en nuestro canal de Discord contamos con una sala de soporte donde podrás comunicarte de manera directa con un miembro de nuestro staff
-            </p>
-            
-                
-               
+            <div class="mb-8 introsupp">
+                <p class="color-white overpass my-4">Además, te recordamos que en nuestro canal de Discord contamos con una sala de soporte donde podrás comunicarte de manera directa con un miembro de nuestro staff.</p>
             </div>
         </section>
     </main>
@@ -87,5 +76,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src={{ asset('js/web/privacy_politics.js') }}></script>
+    <script type="module" src={{ asset('js/web/support.js') }}></script>
 @endsection

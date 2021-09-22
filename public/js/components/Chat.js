@@ -212,6 +212,7 @@ export class Chat extends Class {
                 message.slug = (chat.id_user_logged == chat.id_user_from ? chat.users.to.slug : chat.users.from.slug);
                 message.id_chat = chat.id_chat;
                 message.chat = this;
+                message.selected = chat.messages.length ? true : false;
             }
             this.sections.details.main.appendChild(Message.component("list", chat));
             this.sections.details.main.children[1].scrollTo(0, this.sections.details.main.children[1].scrollHeight);
@@ -456,6 +457,11 @@ export class Chat extends Class {
                 abilities.push(input.value);
             }
         }
+        if (!abilities.length) {
+            for (const input of document.querySelectorAll("#chat.modal #details .abilities input")) {
+                abilities.push(input.value);
+            }
+        }
         if (abilities.length && this.state.state) {
             const token = Token.get();
             
@@ -577,7 +583,7 @@ export class Chat extends Class {
                             if (chat.messages.length == 1) {
                                 params.instance.sections.details.main.children[1].innerHTML = "";
                             }
-                            params.instance.sections.details.main.children[1].appendChild(Message.component("item", { ...message, chat: params.instance, id_chat: chat.id_chat , slug: chat.users.from.slug }));
+                            params.instance.sections.details.main.children[1].appendChild(Message.component("item", { ...message, chat: params.instance, id_chat: chat.id_chat , slug: chat.users.from.slug, selected: (chat.messages.length ? true : false), }));
                         }
                     }
                     break;
@@ -609,7 +615,7 @@ export class Chat extends Class {
         }
         for (const message of data.chat.messages) {
             if (!document.querySelector(`#message-${ message.id_message }`)) {
-                this.addMessage({ ...message, id_role: data.chat.users[data.chat.id_user_from == data.chat.id_user_logged ? "from" : "to"].id_role, slug: data.chat.users.from.slug, id_chat: data.chat.id_chat });
+                this.addMessage({ ...message, id_role: data.chat.users[data.chat.id_user_from == data.chat.id_user_logged ? "from" : "to"].id_role, slug: data.chat.users.from.slug, id_chat: data.chat.id_chat, selected: (data.chat.messages.length ? true : false) });
             }
             if (document.querySelector(`#message-${ message.id_message }`)) {
                 if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {

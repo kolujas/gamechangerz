@@ -19,7 +19,14 @@ export class Message extends Class {
             item.classList.add("abilities", "flex", "flex-wrap", "gap-2", "justify-end");
                 let title = document.createElement("span");
                 title.classList.add("block", "text-right", "mb-2", "text-sm", "w-full", "color-white");
-                title.innerHTML = "Habilidades elegídas:";
+                if (data.selected) {
+                    title.innerHTML = "Habilidades elegídas:";
+                    title.classList.add("SIP");
+                }
+                if (!data.selected) {
+                    title.classList.add("NOPE");
+                    title.innerHTML = "¿Te gustaria mejorar en alguna habilidad en particular? Si aún no lo sabes, no es necesario que selecciones ningúna para poder continuar";
+                }
                 item.appendChild(title);
 
                 for (const ability of data.abilities) {
