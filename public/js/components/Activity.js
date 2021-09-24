@@ -136,32 +136,6 @@ export default class Activity extends Class {
                 }]; } return []; } )(),
             ],
         });
-        //// <li class="grid gap-8">
-        ////     <section class="assigment">
-        ////         <header class="mb-8">
-        ////             <h4 class="color-four russo text-center mb-0">Título</h4>
-        ////         </header>
-        ////         <main class="flex justify-center flex-wrap">
-        ////             <p class="color-white overpass mb-8">Lorem ipsum dolor sit amet consectetur, adipisicing //elit. Sunt nisi aliquid minus? Architecto, exercitationem! Incidunt ipsam nesciunt similique earum //temporibus, ex vel! Cumque eos accusamus nam quis impedit unde veniam?</p>
-        ////             <a href="#" class="btn btn-one btn-outline">
-        ////                 <span class="px-4 py-2">Link</span>
-        ////             </a>
-        ////             <span class="color-white block w-full text-center">
-        ////                 <i class="fas fa-chevron-down"></i>
-        ////             </span>
-        ////         </main>
-        ////     </section>
-        ////     <section class="presentation p-2 bg-one rounded">
-        ////         <header class="mb-8">
-        ////             <h4 class="color-four russo text-center mb-0">Título</h4>
-        ////         </header>
-        ////         <main class="flex justify-center flex-wrap">
-        ////             <a href="#" class="btn btn-one btn-outline">
-        ////                 <span class="px-4 py-2">Link</span>
-        ////             </a>
-        ////         </main>
-        ////     </section>
-        //// </li>
         return assigment.html;
     }
 

@@ -49,7 +49,6 @@
                     <span class="error support mt-2 apply support-box hidden support-name overpass"></span>
                 @endif
             </label>
-            
 
             <label class="input-group grid mb-6">
                 <input class="apply form-input px-5 py-4 overpass" type="text" tabindex="3" name="email" id="email" placeholder="Email" value={{ old("email") }}>
@@ -63,9 +62,9 @@
             <div class="input-group grid mb-2">
                 <textarea name="details" class="rounded form-input apply overpass bg-solid-black color-white p-4" placeholder="Detalles">{{ old("details") }}</textarea>
                 @if ($errors->has("details"))
-                    <span class="color-white error support assigment-form support-box overpass mb-4 support-details">{{ $errors->first("details") }}</span>
+                    <span class="color-white error support apply support-box overpass mb-4 support-details">{{ $errors->first("details") }}</span>
                 @else
-                    <span class="color-white error hidden support assigment-form support-box overpass mb-4 support-details"></span>
+                    <span class="color-white error hidden support apply support-box overpass mb-4 support-details"></span>
                 @endif
             </div>
             

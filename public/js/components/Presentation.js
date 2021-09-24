@@ -48,7 +48,7 @@ export default class Presentation extends Class {
                     }
     
                     if (videoId == "error") {
-                        $("#presentation-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                        $("#presentation-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Material enviado</span></a>`);
                     }
                     if (videoId != "error") {
                         $("#presentation-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
@@ -102,7 +102,7 @@ export default class Presentation extends Class {
             }
             
             if (videoId == "error") {
-                $("#presentation-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                $("#presentation-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Material enviado</span></a>`);
             }
             if (videoId != "error") {
                 $("#presentation-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);

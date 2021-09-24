@@ -75,6 +75,7 @@ export class Message extends Class {
                         link.appendChild(description);
 
                     link.addEventListener("click", function (e) {
+                        e.preventDefault();
                         Message.getAssigment(data, link);
                     });
         }

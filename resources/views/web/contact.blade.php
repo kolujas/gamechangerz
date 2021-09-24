@@ -53,9 +53,9 @@
                 <div class="input-group grid mb-8">
                     <textarea name="details" class="rounded form-input contact overpass bg-black color-white p-4" placeholder="Detalles">{{ old("details") }}</textarea>
                     @if ($errors->has("details"))
-                        <span class="color-white error support assigment-form support-box overpass mb-4 support-details">{{ $errors->first("details") }}</span>
+                        <span class="color-white error support contact support-box overpass mb-4 support-details">{{ $errors->first("details") }}</span>
                     @else
-                        <span class="color-white error hidden support assigment-form support-box overpass mb-4 support-details"></span>
+                        <span class="color-white error hidden support contact support-box overpass mb-4 support-details"></span>
                     @endif
                 </div>
                 

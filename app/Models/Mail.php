@@ -1,7 +1,6 @@
 <?php
     namespace App\Models;
 
-    use App\Mail\AbilitiesSubmitedMail;
     use App\Mail\ConfirmationMail;
     use App\Mail\NewAssigmentMail;
     use App\Mail\NewLessonTeacherMail;
@@ -74,10 +73,6 @@
                 case 9:
                     // * When an Admin creates a new Teacher
                     $mail = new TeacherRequestApprovedMail((object) $data);
-                    break;
-                case 10:
-                    // * When a User submits what abilities want to learn
-                    $mail = new AbilitiesSubmitedMail((object) $data);
                     break;
                 case 11:
                     // * When a User tries to contact GameChangerZ

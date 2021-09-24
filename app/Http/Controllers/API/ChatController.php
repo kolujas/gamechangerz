@@ -336,13 +336,6 @@
                 $message->id_role = $request->user()->id_role;
             }
 
-            new Mail([ "id_mail" => 10, ], [
-                "email_to" => $chat->users->from->email,
-                "username" => $chat->users->to->username,
-                "slug" => $chat->users->from->slug,
-                "abilities" => $chat->messages[0]->abilities,
-            ]);
-
             return response()->json([
                 "code" => 200,
                 "message" => "Success",

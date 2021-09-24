@@ -7,27 +7,27 @@ import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 import Presentation from "./Presentation.js";
 import Token from "./Token.js";
 
-export class Assigment extends Class {
+export class Assignment extends Class {
     constructor (props) {
         super(props);
-        for (const support of document.querySelectorAll("#assigment-form .support")) {
+        for (const support of document.querySelectorAll("#assignment-form .support")) {
             support.innerHTML = "";
             support.classList.add("hidden");
         }
 
-        document.querySelector("#assigment-form").action = `/api/lessons/chats/${ this.props.id_chat }/assigments/make`;
+        document.querySelector("#assignment-form").action = `/api/lessons/chats/${ this.props.id_chat }/assignments/make`;
 
-        if (this.props.id_assigment) {
-            this.createAssigmentView();
+        if (this.props.id_assignment) {
+            this.createAssignmentView();
         } else {
-            this.createAssigmentUpdate();
-            modals.assigment.open();
+            this.createAssignmentUpdate();
+            modals.assignment.open();
         }
     }
 
-    async createAssigmentView () {
+    async createAssignmentView () {
         const instance = this;
-        for (const input of document.querySelectorAll("#assigment.modal .form-input")) {
+        for (const input of document.querySelectorAll("#assignment.modal .form-input")) {
             switch (input.nodeName) {
                 case "INPUT":
                     switch (input.name.toUpperCase()) {
@@ -44,17 +44,17 @@ export class Assigment extends Class {
                                 }
                                 
                                 if (videoId == "error") {
-                                    $("#assigment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Material enviado</span></a>`);
+                                    $("#assignment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
                                 }
                                 if (videoId != "error") {
-                                    $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                                    $("#assignment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
                                 }
                             }
                             break;
                     }
                     input.disabled = true;
                     for (const child of input.parentNode.children) {
-                        if (child.nodeName == "H3") {
+                        if (child.nodeName === "H3") {
                             child.classList.add("hidden");
                         }
                     }
@@ -64,15 +64,7 @@ export class Assigment extends Class {
                         case "DESCRIPTION":
                             input.value = this.props.description;
                             for (const child of input.parentNode.children) {
-                                if (child.nodeName == "H3") {
-                                    if (this.props.id_role == 0) {
-                                        child.innerHTML = "Tu mensaje:";
-                                    }
-                                    if (this.props.id_role == 1) {
-                                        child.innerHTML = "Mensaje del alumno:";
-                                    }
-                                }
-                                if (child.classList.contains("extra")) {
+                                if (child.nodeName === "H3" || child.classList.contains("extra")) {
                                     child.classList.add("hidden");
                                 }
                             }
@@ -82,17 +74,16 @@ export class Assigment extends Class {
                     break;
             }
         }
-        document.querySelector("#assigment.modal .form-submit").classList.add("hidden");
+        document.querySelector("#assignment.modal .form-submit").classList.add("hidden");
         let link;
-        if (document.querySelector("#assigment.modal .form-submit + a")) {
-            link = document.querySelector("#assigment.modal .form-submit + a");
+        if (document.querySelector("#assignment.modal .form-submit + a")) {
+            link = document.querySelector("#assignment.modal .form-submit + a");
             link.parentNode.removeChild(link);
         }
         let classes = ["btn", "btn-background", "btn-one", "flex", "justify-center", "w-full", "rounded", "p-1", "md:h-12", "md:items-center", "mt-12", "russo"];
-        let innerHTML = "Responder";
+        let innerHTML = "Entregar";
 
-        if (this.props.id_role == 0) {
-            document.querySelector("#assigment.modal form .title").classList.remove("hidden");
+        if (this.props.id_role === 0) {
             if (this.hasProp("presentation") && this.props.presentation) {
                 innerHTML = "Revisar entrega";
             }
@@ -100,8 +91,7 @@ export class Assigment extends Class {
                 classes.push("hidden");
             }
         }
-        if (this.props.id_role == 1) {
-            document.querySelector("#assigment.modal form .title").classList.add("hidden");
+        if (this.props.id_role === 1) {
             if (this.hasProp("presentation") && this.props.presentation) {
                 innerHTML = "Revisar entrega";
             }
@@ -136,29 +126,29 @@ export class Assigment extends Class {
                 preventDefault: true,
             }
         });
-        document.querySelector("#assigment.modal .form-submit").parentNode.appendChild(link.html);
+        document.querySelector("#assignment.modal .form-submit").parentNode.appendChild(link.html);
     }
 
     createPresentation (params) {
-        modals.assigment.close();
+        modals.assignment.close();
         new Presentation({
             ...params.instance.props
         });
     }
 
-    createAssigmentUpdate () {
-        for (const input of document.querySelectorAll("#assigment.modal .form-input")) {
+    createAssignmentUpdate () {
+        for (const input of document.querySelectorAll("#assignment.modal .form-input")) {
             switch (input.nodeName) {
                 case "INPUT":
                     switch (input.name.toUpperCase()) {
                         case "URL":
                             input.value = "";
-                            $("#assigment-video").html("");
+                            $("#assignment-video").html("");
                             break;
                     }
                     input.disabled = false;
                     for (const child of input.parentNode.children) {
-                        if (child.nodeName == "H3") {
+                        if (child.nodeName === "H3") {
                             child.classList.remove("hidden");
                         }
                     }
@@ -168,9 +158,8 @@ export class Assigment extends Class {
                         case "DESCRIPTION":
                             input.value = "";
                             for (const child of input.parentNode.children) {
-                                if (child.nodeName == "H3") {
+                                if (child.nodeName === "H3") {
                                     child.classList.remove("hidden");
-                                    child.innerHTML = "Describí que queres mejorar:";
                                 }
                             }
                             break;
@@ -179,46 +168,43 @@ export class Assigment extends Class {
                     break;
             }
         }
-        document.querySelector("#assigment.modal .form-submit").classList.remove("hidden");
-        if (document.querySelector("#assigment.modal .form-submit + a")) {
-            let link = document.querySelector("#assigment.modal .form-submit + a");
+        document.querySelector("#assignment.modal .form-submit").classList.remove("hidden");
+        if (document.querySelector("#assignment.modal .form-submit + a")) {
+            let link = document.querySelector("#assignment.modal .form-submit + a");
             link.parentNode.removeChild(link);
         }
     }
 
     static setModalJS () {
-        if (!modals.hasOwnProperty("assigment")) {
-            modals.assigment = new ModalJS({
-                id: "assigment",
+        if (!modals.hasOwnProperty("assignment")) {
+            modals.assignment = new ModalJS({
+                id: "assignment",
             }, {
                 outsideClick: true,
             }, {
-                open: { function: Assigment.open },
-                close: { function: Assigment.close }
+                open: { function: Assignment.open },
+                close: { function: Assignment.close }
             });
             this.setURLEvent();
         }
     }
     
     static close (params) {
-        // window.history.pushState({}, document.title, `#chat`);
-        if (document.querySelector("#chat #details footer .assigment.disabled")) {   
-            document.querySelector("#chat #details footer .assigment.disabled").classList.remove("disabled");
-        }
+        window.history.pushState({}, document.title, `#chat`);
     }
     
     static open (params) {
         if (params.hasOwnProperty("id_chat")) {
-            new Assigment({
+            new Assignment({
                 id_chat: params.id_chat,
-                ...params.assigment,
+                ...params.assignment,
                 id_role: params.id_role,
             });
         }
     }
 
     static setURLEvent () {
-        document.querySelector("#assigment.modal input[name=url]").addEventListener("change", function(){
+        document.querySelector("#assignment.modal input[name=url]").addEventListener("change", function(){
             var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             var match = this.value.match(regExp);
             let videoId;
@@ -229,21 +215,21 @@ export class Assigment extends Class {
             }
             
             if (videoId == "error") {
-                $("#assigment-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Material enviado</span></a>`);
+                $("#assignment-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
             }
             if (videoId != "error") {
-                $("#assigment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
+                $("#assignment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
             }
         });
     }
 
     static setValidationJS (callback) {
-        if (validation.hasOwnProperty("assigment")) {
-            if (!validation.assigment.hasOwnProperty("ValidationJS")) {
-                validation.assigment.ValidationJS = new ValidationJS({
-                    id: "assigment-form",
-                    rules: validation.assigment.rules,
-                    messages: validation.assigment.messages,
+        if (validation.hasOwnProperty("assignment")) {
+            if (!validation.assignment.hasOwnProperty("ValidationJS")) {
+                validation.assignment.ValidationJS = new ValidationJS({
+                    id: "assignment-form",
+                    rules: validation.assignment.rules,
+                    messages: validation.assignment.messages,
                 }, {
                     submit: false,
                 }, {
@@ -253,21 +239,21 @@ export class Assigment extends Class {
                 }});
             }
         } else {
-            console.error(`validation.assigment does not exist`);
+            console.error(`validation.assignment does not exist`);
         }
     }
 
     static async submit () {
         const token = Token.get();
 
-        if (!validation.assigment.ValidationJS.html.classList.contains("invalid")) {
-            let formData = new FormData(document.querySelector(`#assigment.modal #assigment-form`));
+        if (!validation.assignment.ValidationJS.html.classList.contains("invalid")) {
+            let formData = new FormData(document.querySelector(`#assignment.modal #assignment-form`));
             let _token = formData.get("_token");
             formData.delete("_token");
 
             let query = await Fetch.send({
                 method: "POST",
-                url: document.querySelector("#assigment-form").action,
+                url: document.querySelector("#assignment-form").action,
             }, {
                 "Accept": "application/json",
                 "Content-type": "application/json; charset=UTF-8",
@@ -279,10 +265,10 @@ export class Assigment extends Class {
         }
     }
 
-    static async one (id_assigment) {
+    static async one (id_assignment) {
         const token = Token.get();
 
-        let query = await Fetch.get(`/api/assigments/${ id_assigment }`, {
+        let query = await Fetch.get(`/api/assignments/${ id_assignment }`, {
             "Accept": "application/json",
             "Authorization": "Bearer " + token.data,
         });
@@ -291,8 +277,8 @@ export class Assigment extends Class {
             return 404;
         }
 
-        return query.response.data.assigment;
+        return query.response.data.assignment;
     }
 }
 
-export default Assigment;
+export default Assignment;

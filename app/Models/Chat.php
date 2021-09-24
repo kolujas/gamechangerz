@@ -11,20 +11,20 @@
          * * Table name.
          * @var string
          */
-        protected $table = 'chats';
+        protected $table = "chats";
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_chat';
+        protected $primaryKey = "id_chat";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'messages',
+            "id_user_from", "id_user_to", "messages",
         ];
 
         /**
@@ -35,23 +35,23 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'available':
+                        case "available":
                             $this->available();
                             break;
-                        case 'lesson':
+                        case "lesson":
                             $this->lesson();
                             break;
-                        case 'messages':
+                        case "messages":
                             $this->messages();
                             break;
-                        case 'users':
+                        case "users":
                             $this->users();
                             break;
                     }
                     continue;
                 }
                 switch ($column[0]) {
-                    case 'available':
+                    case "available":
                         $this->available($column[1]);
                         break;
                 }
@@ -92,7 +92,7 @@
         public function lesson () {
             $this->lesson = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
             
-            $this->lesson->and(['assigments', 'days', 'ended_at', 'started_at']);
+            $this->lesson->and(["assigments", "days", "ended_at", "started_at"]);
         }
 
         /**
@@ -109,12 +109,12 @@
          */
         public function users () {
             $this->users = (object) [
-                'from' => User::find($this->id_user_from),
-                'to' => User::find($this->id_user_to),
+                "from" => User::find($this->id_user_from),
+                "to" => User::find($this->id_user_to),
             ];
 
-            $this->users->from->and(['files', 'games']);
-            $this->users->to->and(['files', 'games']);
+            $this->users->from->and(["files", "games"]);
+            $this->users->to->and(["files", "games"]);
         }
 
         /**
@@ -123,7 +123,7 @@
          * @return Chat[]
          */
         static public function allFromUser (int $id_user) {
-            $chats = Chat::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->orderBy('updated_at', 'DESC')->get();
+            $chats = Chat::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->orderBy("updated_at", "DESC")->get();
 
             return $chats;
         }
@@ -152,11 +152,11 @@
          */
         static public function findByUsers (int $id_user_1, int $id_user_2) {
             $chat = Chat::where([
-                ['id_user_from', '=', $id_user_1],
-                ['id_user_to', '=', $id_user_2],
+                ["id_user_from", "=", $id_user_1],
+                ["id_user_to", "=", $id_user_2],
             ])->orwhere([
-                ['id_user_from', '=', $id_user_2],
-                ['id_user_to', '=', $id_user_1],
+                ["id_user_from", "=", $id_user_2],
+                ["id_user_to", "=", $id_user_1],
             ])->first();
 
             return $chat;
@@ -180,7 +180,7 @@
             $messages->push($data);
 
             $this->update([
-                'messages' => $messages->toJson(),
+                "messages" => $messages->toJson(),
             ]);
         }
 
@@ -189,11 +189,11 @@
          * @var array
          */
         static $validation = [
-            'send' => [
-                'rules' => [
-                    'message' => 'required',
-                ], 'messages' => [
-                    'es' => [
-                        'message.required' => 'El mensaje es obligatorio.',
+            "send" => [
+                "rules" => [
+                    "message" => "required",
+                ], "messages" => [
+                    "es" => [
+                        "message.required" => "El mensaje es obligatorio.",
         ]]]];
     }

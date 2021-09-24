@@ -8,6 +8,17 @@
                     <h3 class="color-four mb-4 russo">¿Es tu primera vez usando el seguimiento online?</h3>
                     <p class="color-white overpass mb-4">Mira esta <a href="/blog/carlos-moran/guia-para-el-seguimiento-online" class="color-five">guia</a> para aprovecharlo al maximo!</p>
                 </div>
+                
+                <div class="input-group grid mb-2">
+                    <h3 class="color-four mb-4 overpass">Describi que queres mejorar:</h3>
+                    <textarea placeholder="Si no sabés por donde empezar, podes usar estas preguntas como guia: ¿Hay algo en particular que te gustaria mejorar? ¿Qué sentis que te sale bien, y que mal, cuando jugas? ¿Jugas solo o en equipo? ¿Tenes una rutina de entrenamiento?" class="descripcion mb-4 px-5 py-4 overpass assigment-form form-input" name="description" cols="30" rows="10"></textarea>
+                    @if ($errors->has("description"))
+                        <span class="color-white error support assigment-form support-box overpass mb-4 support-description">{{ $errors->first("description") }}</span>
+                    @else
+                        <span class="color-white error support assigment-form support-box overpass mb-4 support-description"></span>
+                    @endif
+                    <span class="color-white overpass extra">Recordá que una demo de una partida reciente tuya es la mejor forma de que tu profesor sepa cómo ayudarte a mejorar.</span>
+                </div>
 
                 <div class="input-group grid mt-2 mb-6">
                     <h3 class="mb-4">
@@ -21,17 +32,6 @@
                     @else
                         <span class="color-white error support assigment-form support-box overpass mb-4 support-url"></span>
                     @endif
-                </div>
-                
-                <div class="input-group grid mb-2">
-                    <h3 class="color-four mb-4 overpass">Describi que queres mejorar:</h3>
-                    <textarea placeholder="Si no sabés por donde empezar, podes usar estas preguntas como guia: ¿Hay algo en particular que te gustaria mejorar? ¿Qué sentis que te sale bien, y que mal, cuando jugas? ¿Jugas solo o en equipo? ¿Tenes una rutina de entrenamiento?" class="descripcion mb-4 px-5 py-4 overpass assigment-form form-input" name="description" cols="30" rows="10"></textarea>
-                    @if ($errors->has("description"))
-                        <span class="color-white error support assigment-form support-box overpass mb-4 support-description">{{ $errors->first("description") }}</span>
-                    @else
-                        <span class="color-white error support assigment-form support-box overpass mb-4 support-description"></span>
-                    @endif
-                    <span class="color-white overpass extra">Recordá que una demo de una partida reciente tuya es la mejor forma de que tu profesor sepa cómo ayudarte a mejorar.</span>
                 </div>
 
                 <div>

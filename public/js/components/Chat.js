@@ -333,6 +333,7 @@ export class Chat extends Class {
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", (e) => {
+                        e.preventDefault();
                         if (!link.classList.contains("disabled")) {
                             this.addAssigment();
                         }
@@ -814,6 +815,7 @@ export class Chat extends Class {
             link.href = `#chat-${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].slug }`;
             item.appendChild(link);
             link.addEventListener("click", function (e) {
+                e.preventDefault();
                 data.chat.instance.open(data.chat.id_chat);
             });
                 let figure = document.createElement("figure");
