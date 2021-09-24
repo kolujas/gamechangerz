@@ -23,7 +23,7 @@
 				</form>          
 			</li>
 			<li>
-				<a href="https://www.twitch.tv" target="_blank" class="nav-link">
+				<a href="#" target="_blank" class="nav-link">
 					@component('components.svg.DiscordSVG')@endcomponent
 				</a>
 			</li>
