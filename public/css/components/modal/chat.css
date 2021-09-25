@@ -287,18 +287,18 @@
     opacity: .5;
 }
 
-#chat.modal #details main li.assigment div {
+#chat.modal #details main li.assignment div {
     width: 100%;
     color: var(--color-white);
     font-weight: bold;
     border-radius: 0;
 }
 
-#chat.modal #details main li.assigment div::before {
+#chat.modal #details main li.assignment div::before {
     display: none;
 }
 
-#chat.modal #details main li.assigment div a {
+#chat.modal #details main li.assignment div a {
     justify-content: center;
     width: 100%;
     background-color: rgba(0,0,0,.5);
@@ -310,24 +310,24 @@
     transition: 500ms;
 }
 
-#chat.modal #details main li.assigment div a.complete,
-#chat.modal #details main li.assigment div a.complete:hover {
+#chat.modal #details main li.assignment div a.complete,
+#chat.modal #details main li.assignment div a.complete:hover {
     color: var(--color-five);
     box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-five);
     background-color: var(--color-one);
 }
 
-#chat.modal #details main li.assigment div a:not(.complete) .loading .spinner-icon {
+#chat.modal #details main li.assignment div a:not(.complete) .loading .spinner-icon {
     border-top-color: var(--color-white);
     border-left-color: var(--color-white);
 }
 
-#chat.modal #details main li.assigment div a:hover {
+#chat.modal #details main li.assignment div a:hover {
     color: var(--color-white);
     box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-white);
 }
 
-#chat.modal #details main li.assigment div a:focus {
+#chat.modal #details main li.assignment div a:focus {
     color: var(--color-white);
     border: 1px solid var(--color-white);
     box-shadow: 0 0 0 1px var(--color-black), 0 0 0 2px var(--color-white);
@@ -343,7 +343,7 @@
 }
 
 #chat #details header a:first-child.disabled,
-#chat #details footer .assigment.disabled {
+#chat #details footer .assignment.disabled {
     filter: grayscale(1);
 }
 

@@ -3,14 +3,14 @@
 
     use App\Http\Controllers\Controller;
     use App\Models\Ability;
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use App\Models\Chat;
     use App\Models\Lesson;
     use App\Models\Mail;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
-    class AssigmentController extends Controller {
+    class AssignmentController extends Controller {
         public function make (Request $request, int $id_chat) {
             if (!$request->user()) {
                 return response()->json([
@@ -28,11 +28,11 @@
             }
 
             $lesson = Lesson::findByUsers($chat->id_user_from, $chat->id_user_to);
-            $lesson->and(["assigments"]);
-            if (count($lesson->assigments) == $lesson->{"quantity-of-assigments"}) {
+            $lesson->and(["assignments"]);
+            if (count($lesson->assignments) == $lesson->{"quantity-of-assignments"}) {
                 return response()->json([
                     "code" => 403,
-                    "message" => "There are not more Assigments to create.",
+                    "message" => "There are not more Assignments to create.",
                 ]);
             }
 
@@ -40,7 +40,7 @@
             
             $input->id_lesson = $lesson->id_lesson;
 
-            $validator = Validator::make((array) $input, Assigment::$validation["make"]["rules"], Assigment::$validation["make"]["messages"]["es"]);
+            $validator = Validator::make((array) $input, Assignment::$validation["make"]["rules"], Assignment::$validation["make"]["messages"]["es"]);
             if ($validator->fails()) {
                 return response()->json([
                     "code" => 401,
@@ -49,11 +49,11 @@
                 ]);
             }
 
-            $assigment = Assigment::create((array) $input);
+            $assignment = Assignment::create((array) $input);
 
             $chat->addMessage([
                 "id_user" => $request->user()->id_user,
-                "id_assigment" => $assigment->id_assigment,
+                "id_assignment" => $assignment->id_assignment,
             ]);
 
             $chat->id_user_logged = $request->user()->id_user;
@@ -88,12 +88,12 @@
         }
 
         /**
-         * * Get an specific Assigment.
+         * * Get an specific Assignment.
          * @param Request $request
-         * @param int $id_assigment
+         * @param int $id_assignment
          * @return JSON
          */
-        public function get (Request $request, int $id_assigment) {
+        public function get (Request $request, int $id_assignment) {
             if (!$request->user()) {
                 return response()->json([
                     "code" => 403,
@@ -101,14 +101,14 @@
                 ]);
             }
 
-            $assigment = Assigment::find($id_assigment);
-            $assigment->and(["presentation"]);
+            $assignment = Assignment::find($id_assignment);
+            $assignment->and(["presentation"]);
 
             return response()->json([
                 "code" => 200,
                 "message" => "Success",
                 "data" => [
-                    "assigment" => $assigment,
+                    "assignment" => $assignment,
                 ],
             ]);
         }

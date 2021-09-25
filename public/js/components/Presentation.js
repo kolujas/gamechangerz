@@ -13,7 +13,7 @@ export default class Presentation extends Class {
             support.classList.add("hidden");
         }
 
-        document.querySelector("#presentation-form").action = `/api/lessons/chats/${ this.props.id_chat }/assigments/${ this.props.id_assigment }/complete`;
+        document.querySelector("#presentation-form").action = `/api/lessons/chats/${ this.props.id_chat }/assignments/${ this.props.id_assignment }/complete`;
 
         modals.presentation.open();
         if (this.hasProp('presentation') && this.props.presentation) {

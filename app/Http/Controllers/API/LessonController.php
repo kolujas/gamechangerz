@@ -80,19 +80,19 @@
         }
 
         /**
-         * * Get the Lesson Assigments.
+         * * Get the Lesson Assignments.
          * @param Request $request
          * @param int $id_lesson
          * @return [type]
          */
-        public function getAssigments (Request $request, int $id_lesson) {
+        public function getAssignments (Request $request, int $id_lesson) {
             $lesson = Lesson::find($id_lesson);
-            $lesson->and(["assigments"]);
+            $lesson->and(["assignments"]);
 
             return response()->json([
                 "code" => 200,
                 "data" => [
-                    "assigments" => $lesson->assigments,
+                    "assignments" => $lesson->assignments,
                 ],
             ]);
         }

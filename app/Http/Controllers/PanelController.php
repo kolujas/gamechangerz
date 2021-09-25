@@ -175,7 +175,7 @@
             }
 
             $lesson = new Lesson();
-            $lesson->assigments = 4;
+            $lesson->assignments = 4;
             $lesson->users = (object)[
                 "from" => new User(),
                 "to" => new User(),

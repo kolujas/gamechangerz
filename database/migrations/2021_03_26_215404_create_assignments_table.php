@@ -3,15 +3,15 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateAssigmentsTable extends Migration {
+    class CreateAssignmentsTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up () {
-            Schema::create("assigments", function (Blueprint $table) {
-                $table->increments("id_assigment");
+            Schema::create("assignments", function (Blueprint $table) {
+                $table->increments("id_assignment");
                 $table->unsignedInteger("id_lesson");
                 $table->text("description")->nullable();
                 $table->string("url")->nullable();
@@ -26,6 +26,6 @@
          * @return void
          */
         public function down () {
-            Schema::dropIfExists("assigments");
+            Schema::dropIfExists("assignments");
         }
     }

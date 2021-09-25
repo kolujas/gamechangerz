@@ -1,7 +1,7 @@
 <?php
     namespace App\Models;
 
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use Illuminate\Database\Eloquent\Model;
 
     class Presentation extends Model {
@@ -22,19 +22,19 @@
          * @var array
          */
         protected $fillable = [
-            "description", "url", "id_assigment"
+            "description", "url", "id_assignment"
         ];
 
         /**
-         * * Set the Assigment info. 
+         * * Set the Assignment info. 
          * @param array [$columns]
          */
         public function and (array $columns = []) {
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case "assigment":
-                            $this->assigment();
+                        case "assignment":
+                            $this->assignment();
                             break;
                     }
                     continue;
@@ -47,19 +47,19 @@
         }
 
         /**
-         * * Set the Presentation Assigment.
+         * * Set the Presentation Assignment.
          */
-        public function assigment () {
-            $this->assigment = Assigment::find($this->id_assigment);
+        public function assignment () {
+            $this->assignment = Assignment::find($this->id_assignment);
         }
 
         /**
-         * * Return a Presentation by the Assigment.
-         * @param int $id_assigment
+         * * Return a Presentation by the Assignment.
+         * @param int $id_assignment
          * @return Presentation
          */
-        static public function findByAssigment (int $id_assigment) {
-            $presentation = Presentation::where("id_assigment", "=", $id_assigment)->first();
+        static public function findByAssignment (int $id_assignment) {
+            $presentation = Presentation::where("id_assignment", "=", $id_assignment)->first();
 
             return $presentation;
         }

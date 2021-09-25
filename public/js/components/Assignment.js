@@ -44,7 +44,7 @@ export class Assignment extends Class {
                                 }
                                 
                                 if (videoId == "error") {
-                                    $("#assignment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                                    $("#assignment-video").html(`<a href="${ input.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Material enviado</span></a>`);
                                 }
                                 if (videoId != "error") {
                                     $("#assignment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);
@@ -54,7 +54,7 @@ export class Assignment extends Class {
                     }
                     input.disabled = true;
                     for (const child of input.parentNode.children) {
-                        if (child.nodeName === "H3") {
+                        if (child.nodeName == "H3") {
                             child.classList.add("hidden");
                         }
                     }
@@ -64,7 +64,15 @@ export class Assignment extends Class {
                         case "DESCRIPTION":
                             input.value = this.props.description;
                             for (const child of input.parentNode.children) {
-                                if (child.nodeName === "H3" || child.classList.contains("extra")) {
+                                if (child.nodeName == "H3") {
+                                    if (this.props.id_role == 0) {
+                                        child.innerHTML = "Tu mensaje:";
+                                    }
+                                    if (this.props.id_role == 1) {
+                                        child.innerHTML = "Mensaje del alumno:";
+                                    }
+                                }
+                                if (child.classList.contains("extra")) {
                                     child.classList.add("hidden");
                                 }
                             }
@@ -81,9 +89,10 @@ export class Assignment extends Class {
             link.parentNode.removeChild(link);
         }
         let classes = ["btn", "btn-background", "btn-one", "flex", "justify-center", "w-full", "rounded", "p-1", "md:h-12", "md:items-center", "mt-12", "russo"];
-        let innerHTML = "Entregar";
+        let innerHTML = "Responder";
 
-        if (this.props.id_role === 0) {
+        if (this.props.id_role == 0) {
+            document.querySelector("#assignment.modal form .title").classList.remove("hidden");
             if (this.hasProp("presentation") && this.props.presentation) {
                 innerHTML = "Revisar entrega";
             }
@@ -91,7 +100,8 @@ export class Assignment extends Class {
                 classes.push("hidden");
             }
         }
-        if (this.props.id_role === 1) {
+        if (this.props.id_role == 1) {
+            document.querySelector("#assignment.modal form .title").classList.add("hidden");
             if (this.hasProp("presentation") && this.props.presentation) {
                 innerHTML = "Revisar entrega";
             }
@@ -148,7 +158,7 @@ export class Assignment extends Class {
                     }
                     input.disabled = false;
                     for (const child of input.parentNode.children) {
-                        if (child.nodeName === "H3") {
+                        if (child.nodeName == "H3") {
                             child.classList.remove("hidden");
                         }
                     }
@@ -158,8 +168,9 @@ export class Assignment extends Class {
                         case "DESCRIPTION":
                             input.value = "";
                             for (const child of input.parentNode.children) {
-                                if (child.nodeName === "H3") {
+                                if (child.nodeName == "H3") {
                                     child.classList.remove("hidden");
+                                    child.innerHTML = "Describí que queres mejorar:";
                                 }
                             }
                             break;
@@ -190,7 +201,10 @@ export class Assignment extends Class {
     }
     
     static close (params) {
-        window.history.pushState({}, document.title, `#chat`);
+        // window.history.pushState({}, document.title, `#chat`);
+        if (document.querySelector("#chat #details footer .assignment.disabled")) {   
+            document.querySelector("#chat #details footer .assignment.disabled").classList.remove("disabled");
+        }
     }
     
     static open (params) {
@@ -215,7 +229,7 @@ export class Assignment extends Class {
             }
             
             if (videoId == "error") {
-                $("#assignment-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Link</span></a>`);
+                $("#assignment-video").html(`<a href="${ this.value }" class="w-full russo color-black btn btn-one btn-outline" target="_blank"><span class="px-4 py-2 text-lg">Material enviado</span></a>`);
             }
             if (videoId != "error") {
                 $("#assignment-video").html(`<iframe src="//www.youtube.com/embed/${ videoId }" frameborder="0" allowfullscreen></iframe>`);

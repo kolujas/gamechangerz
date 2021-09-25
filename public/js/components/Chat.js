@@ -7,7 +7,7 @@ import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLSe
 import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 
 import Asset from "./Asset.js";
-import Assigment from "./Assigment.js";
+import Assignment from "./Assignment.js";
 import Presentation from "./Presentation.js";
 import Message from "./Message.js";
 import Token from "../components/Token.js";
@@ -80,11 +80,11 @@ export class Chat extends Class {
     }
 
     setEventListeners () {
-        Assigment.setValidationJS({
+        Assignment.setValidationJS({
             function: this.send,
             params: {
                 instance: this,
-                section: "assigment",
+                section: "assignment",
             },
         });
 
@@ -263,7 +263,7 @@ export class Chat extends Class {
         }
     }
 
-    addAssigment () {
+    addAssignment () {
         if (this.state.state) {
             let chat;
             for (chat of this.props.chats) {
@@ -279,7 +279,7 @@ export class Chat extends Class {
                 }
             }
     
-            new Assigment({
+            new Assignment({
                 id_chat: chat.id_chat,
                 id_role: this.props.id_role,
             });
@@ -321,21 +321,21 @@ export class Chat extends Class {
             if (chat.users.from.id_role == 1) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
-                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
+                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assignments"]) - chat.lesson.assignments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
                 if (chat.users.to.id_user == chat.id_user_logged && chat.messages.length) {
                     let link = document.createElement("a");
-                    link.href = "#assigment";
-                    link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assigment");
-                    if (!this.state.state || parseInt(chat.lesson.assigments.length) == chat.lesson["quantity-of-assigments"] || (chat.lesson.assigments.length && ![...chat.lesson.assigments].pop().presentation)) {
+                    link.href = "#assignment";
+                    link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assignment");
+                    if (!this.state.state || parseInt(chat.lesson.assignments.length) == chat.lesson["quantity-of-assignments"] || (chat.lesson.assignments.length && ![...chat.lesson.assignments].pop().presentation)) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
                     link.addEventListener("click", (e) => {
                         e.preventDefault();
                         if (!link.classList.contains("disabled")) {
-                            this.addAssigment();
+                            this.addAssignment();
                         }
                     });
                         let icon = document.createElement("i");
@@ -415,7 +415,7 @@ export class Chat extends Class {
             if (chat.users.from.id_user != chat.id_user_logged) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
-                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assigments"]) - chat.lesson.assigments.length } tareas pendientes`;
+                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assignments"]) - chat.lesson.assignments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
             }
         }
@@ -576,7 +576,7 @@ export class Chat extends Class {
                     params.instance.props.chats[key] = chat;
                     for (const message of chat.messages) {
                         if (document.querySelector(`li#message-${ message.id_message }`)) {
-                            if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
+                            if (message.hasOwnProperty("assignment") && message.assignment.hasOwnProperty("presentation") && message.assignment.presentation) {
                                 document.querySelector(`li#message-${ message.id_message } a`).classList.add("complete");
                             }
                         }
@@ -619,7 +619,7 @@ export class Chat extends Class {
                 this.addMessage({ ...message, id_role: data.chat.users[data.chat.id_user_from == data.chat.id_user_logged ? "from" : "to"].id_role, slug: data.chat.users.from.slug, id_chat: data.chat.id_chat, selected: (data.chat.messages.length ? true : false) });
             }
             if (document.querySelector(`#message-${ message.id_message }`)) {
-                if (message.hasOwnProperty("assigment") && message.assigment.hasOwnProperty("presentation") && message.assigment.presentation) {
+                if (message.hasOwnProperty("assignment") && message.assignment.hasOwnProperty("presentation") && message.assignment.presentation) {
                     document.querySelector(`#message-${ message.id_message } a`).classList.add("complete");
                 }
             }
@@ -655,14 +655,14 @@ export class Chat extends Class {
                         params.instance.save(response.data);
                     }
                     break;
-                case "assigment":
+                case "assignment":
                     params.instance.setLoadingState();
-                    document.querySelector("#assigment form button").children[0].classList.remove("hidden");
-                    document.querySelector("#assigment form button").children[1].classList.add("hidden");
-                    response = await Assigment.submit();
+                    document.querySelector("#assignment form button").children[0].classList.remove("hidden");
+                    document.querySelector("#assignment form button").children[1].classList.add("hidden");
+                    response = await Assignment.submit();
                     params.instance.setFinishState();
-                    document.querySelector("#assigment form button").children[0].classList.add("hidden");
-                    document.querySelector("#assigment form button").children[1].classList.remove("hidden");
+                    document.querySelector("#assignment form button").children[0].classList.add("hidden");
+                    document.querySelector("#assignment form button").children[1].classList.remove("hidden");
     
                     if (response.code != 200) {
                         params.instance.close();
@@ -680,9 +680,9 @@ export class Chat extends Class {
                         });
                     }
     
-                    modals.assigment.close();
+                    modals.assignment.close();
     
-                    document.querySelector(`#assigment-form`).reset();
+                    document.querySelector(`#assignment-form`).reset();
                     break;
                 case "presentation":
                     params.instance.setLoadingState();
@@ -721,8 +721,8 @@ export class Chat extends Class {
         if (!this.state.state) {
             return false;
         }
-        if (document.querySelector("#chat #details footer .assigment")) {
-            document.querySelector("#chat #details footer .assigment").classList.add("disabled");
+        if (document.querySelector("#chat #details footer .assignment")) {
+            document.querySelector("#chat #details footer .assignment").classList.add("disabled");
         }
         document.querySelector("#chat #details header a:first-child").classList.add("disabled");
         this.setState("state", false);
@@ -730,7 +730,7 @@ export class Chat extends Class {
     }
 
     setFinishState () {
-        if (document.querySelector("#chat #details footer .assigment")) {
+        if (document.querySelector("#chat #details footer .assignment")) {
             let message;
             for (const chat of this.props.chats) {
                 if (chat.id_chat == this.opened) {
@@ -738,7 +738,7 @@ export class Chat extends Class {
                 }
             }
             if (message.hasOwnProperty("presentation") && message.presentation) {
-                document.querySelector("#chat #details footer .assigment").classList.remove("disabled");
+                document.querySelector("#chat #details footer .assignment").classList.remove("disabled");
             }
         }
         document.querySelector("#chat #details header a:first-child").classList.remove("disabled");
@@ -802,7 +802,7 @@ export class Chat extends Class {
                 open: /chat/.exec(URL.findHashParameter()),
             });
         }
-        Assigment.setModalJS();
+        Assignment.setModalJS();
         Presentation.setModalJS();
     }
 

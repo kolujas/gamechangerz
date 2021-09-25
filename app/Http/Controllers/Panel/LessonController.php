@@ -2,7 +2,7 @@
     namespace App\Http\Controllers\Panel;
 
     use App\Http\Controllers\Controller;
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use App\Models\Chat;
     use App\Models\Lesson;
     use App\Models\User;
@@ -149,14 +149,14 @@
                 $chat->delete();
             }
 
-            $assigments = Assigment::allFromLesson($lesson->id_lesson);
-            if (count($assigments)) {
-                foreach ($assigments as $assigment) {
-                    $assigment->and(["presentation"]);
-                    if ($assigment->presentation) {
-                        $assigment->presentation->delete();
+            $assignments = Assignment::allFromLesson($lesson->id_lesson);
+            if (count($assignments)) {
+                foreach ($assignments as $assignment) {
+                    $assignment->and(["presentation"]);
+                    if ($assignment->presentation) {
+                        $assignment->presentation->delete();
                     }
-                    $assigment->delete();
+                    $assignment->delete();
                 }
             }
 

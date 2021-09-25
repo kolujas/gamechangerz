@@ -3,14 +3,14 @@
 
     use App\Http\Controllers\Controller;
     use App\Models\Chat;
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use App\Models\Mail;
     use App\Models\Presentation;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
     class PresentationController extends Controller {
-        public function make (Request $request, int $id_chat, int $id_assigment) {
+        public function make (Request $request, int $id_chat, int $id_assignment) {
             if (!$request->user()) {
                 return response()->json([
                     "code" => 403,
@@ -26,12 +26,12 @@
                 ]);
             }
 
-            $assigment = Assigment::find($id_assigment);
-            $assigment->and(["presentation"]);
-            if (!$assigment) {
+            $assignment = Assignment::find($id_assignment);
+            $assignment->and(["presentation"]);
+            if (!$assignment) {
                 return response()->json([
                     "code" => 404,
-                    "message" => "Assigment does not exist",
+                    "message" => "Assignment does not exist",
                 ]);
             }
 
@@ -46,12 +46,12 @@
                 ]);
             }
 
-            $input->id_assigment = $assigment->id_assigment;
+            $input->id_assignment = $assignment->id_assignment;
 
-            if ($assigment->presentation) {
+            if ($assignment->presentation) {
                 return response()->json([
                     "code" => 403,
-                    "message" => "The Assigment contains a Presentation",
+                    "message" => "The Assignment contains a Presentation",
                 ]);
             }
 

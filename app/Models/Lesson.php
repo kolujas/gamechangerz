@@ -28,7 +28,7 @@
          * @var array
          */
         protected $fillable = [
-            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg", "assigments", "price"
+            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg", "assignments", "price"
         ];
 
         /**
@@ -42,8 +42,8 @@
                         case "abilities":
                             $this->abilities();
                             break;
-                        case "assigments":
-                            $this->assigments();
+                        case "assignments":
+                            $this->assignments();
                             break;
                         case "chat":
                             $this->chat();
@@ -106,17 +106,17 @@
         }
 
         /**
-         * * Set the Lesson Assigment
+         * * Set the Lesson Assignment
          */
-        public function assigments () {
-            if (gettype($this->assigments) == "integer") {
-                $this->{"quantity-of-assigments"} = $this->assigments;
-                $this->assigments = collect();
+        public function assignments () {
+            if (gettype($this->assignments) == "integer") {
+                $this->{"quantity-of-assignments"} = $this->assignments;
+                $this->assignments = collect();
     
-                foreach (Assigment::allFromLesson($this->id_lesson) as $assigment) {
-                    $assigment->and(["presentation"]);
+                foreach (Assignment::allFromLesson($this->id_lesson) as $assignment) {
+                    $assignment->and(["presentation"]);
     
-                    $this->assigments->push($assigment);
+                    $this->assignments->push($assignment);
                 }
             }
         }
@@ -173,24 +173,24 @@
                 }
             }
             if ($this->id_type == 2) {
-                $this->assigments();
-                if (count($this->assigments) >= $this->{"quantity-of-assigments"}) {
-                    foreach ($this->assigments as $assigment) {
-                        if ($assigment->presentation) {
+                $this->assignments();
+                if (count($this->assignments) >= $this->{"quantity-of-assignments"}) {
+                    foreach ($this->assignments as $assignment) {
+                        if ($assignment->presentation) {
                             if (!isset($ended_at)) {
-                                $ended_at = Carbon::parse($assigment->presentation->created_at)->addDays(2);
+                                $ended_at = Carbon::parse($assignment->presentation->created_at)->addDays(2);
                             }
-                            if ($ended_at < Carbon::parse($assigment->presentation->created_at)) {
-                                $ended_at = Carbon::parse($assigment->presentation->created_at)->addDays(2);
+                            if ($ended_at < Carbon::parse($assignment->presentation->created_at)) {
+                                $ended_at = Carbon::parse($assignment->presentation->created_at)->addDays(2);
                             }
                         }
-                        if (!$assigment->presentation) {
+                        if (!$assignment->presentation) {
                             $ended_at = Carbon::parse($this->created_at)->addYear(1);
                             break;
                         }
                     }
                 }
-                if (count($this->assigments) < $this->{"quantity-of-assigments"}) {
+                if (count($this->assignments) < $this->{"quantity-of-assignments"}) {
                     $ended_at = Carbon::parse($this->created_at)->addYear(1);
                 }
             }
@@ -489,7 +489,7 @@
                             "id_method" => "required",
                             "id_type" => "required",
                             "dates" => "required",
-                            "assigments" => "required",
+                            "assignments" => "required",
                             "price" => "required",
                             "fee" => "required",
                             "credits" => "required",
@@ -502,7 +502,7 @@
                                 "id_method.required" => "El metodo es obligatorio.",
                                 "id_type.required" => "El tipo de clase es obligatorio.",
                                 "dates.required" => "La fecha de la clase debe ser seleccionada. Recuerda que primero debes elegir el tipo de clase.",
-                                "assigments.required" => "La cantidad de assigments es obligatoria.",
+                                "assignments.required" => "La cantidad de assignments es obligatoria.",
                                 "fee.required" => "La comisión es obligatoria.",
                                 "credits.required" => "Los créditos son obligatorios.",
                             ],

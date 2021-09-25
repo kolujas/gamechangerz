@@ -191,7 +191,7 @@
 
             $lessons = Lesson::allFromUser($user->id_user);
             foreach ($lessons as $lesson) {
-                $lesson->and(["reviews", "chat", "assigments"]);
+                $lesson->and(["reviews", "chat", "assignments"]);
                 if (count($lesson->reviews)) {
                     foreach ($lesson->reviews as $review) {
                         $review->and(["users"]);
@@ -203,12 +203,12 @@
                         $review->delete();
                     }
                 }
-                if (count($lesson->assigments)) {
-                    foreach ($lesson->assigments as $assigment) {
-                        if ($assigment->presentation) {
-                            $assigment->presentation->delete();
+                if (count($lesson->assignments)) {
+                    foreach ($lesson->assignments as $assignment) {
+                        if ($assignment->presentation) {
+                            $assignment->presentation->delete();
                         }
-                        $assigment->delete();
+                        $assignment->delete();
                     }
                 }
                 if ($lesson->chat) {
@@ -453,7 +453,7 @@
 
             $lessons = Lesson::allFromUser($user->id_user);
             foreach ($lessons as $lesson) {
-                $lesson->and(["reviews", "chat", "assigments"]);
+                $lesson->and(["reviews", "chat", "assignments"]);
                 if (count($lesson->reviews)) {
                     foreach ($lesson->reviews as $review) {
                         $review->and(["users"]);
@@ -465,12 +465,12 @@
                         $review->delete();
                     }
                 }
-                if (count($lesson->assigments)) {
-                    foreach ($lesson->assigments as $assigment) {
-                        if ($assigment->presentation) {
-                            $assigment->presentation->delete();
+                if (count($lesson->assignments)) {
+                    foreach ($lesson->assignments as $assignment) {
+                        if ($assignment->presentation) {
+                            $assignment->presentation->delete();
                         }
-                        $assigment->delete();
+                        $assignment->delete();
                     }
                 }
                 if ($lesson->chat) {

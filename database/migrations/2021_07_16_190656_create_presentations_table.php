@@ -12,7 +12,7 @@
         public function up () {
             Schema::create("presentations", function (Blueprint $table) {
                 $table->increments("id_presentation");
-                $table->unsignedInteger("id_assigment");
+                $table->unsignedInteger("id_assignment");
                 $table->string("title");
                 $table->string("url")->nullable();
                 $table->timestamps();

@@ -126,17 +126,7 @@
                   "content": "Cambiar Assigment por Assignment",
                   "id": 1632435377509,
                   "level": "secondary",
-                  "done": false
-                }
-              },
-              {
-                "key": 1632435392390,
-                "children": [],
-                "todo": {
-                  "content": "Remover and function",
-                  "id": 1632435392390,
-                  "level": "secondary",
-                  "done": false
+                  "done": true
                 }
               }
             ],

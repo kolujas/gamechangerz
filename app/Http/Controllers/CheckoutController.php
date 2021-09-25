@@ -2,7 +2,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\Auth as AuthModel;
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use App\Models\Coupon;
     use App\Models\Event;
     use App\Models\Hour;
@@ -395,8 +395,8 @@
                             unset($lesson->type);
                             unset($lesson->started_at);
                             unset($lesson->ended_at);
-                            $lesson->assigments = $lesson->{"quantity-of-assigments"};
-                            unset($lesson->{"quantity-of-assigments"});
+                            $lesson->assignments = $lesson->{"quantity-of-assignments"};
+                            unset($lesson->{"quantity-of-assignments"});
                             unset($lesson->days);
     
                             // * Totally paid. Release your item
@@ -484,9 +484,9 @@
                 ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assigment" => (object)[
-                        "rules" => Assigment::$validation["make"]["rules"],
-                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "assignment" => (object)[
+                        "rules" => Assignment::$validation["make"]["rules"],
+                        "messages" => Assignment::$validation["make"]["messages"]["es"],
                 ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
@@ -528,9 +528,9 @@
                 ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assigment" => (object)[
-                        "rules" => Assigment::$validation["make"]["rules"],
-                        "messages" => Assigment::$validation["make"]["messages"]["es"],
+                ], "assignment" => (object)[
+                        "rules" => Assignment::$validation["make"]["rules"],
+                        "messages" => Assignment::$validation["make"]["messages"]["es"],
                 ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],

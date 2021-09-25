@@ -141,11 +141,11 @@ function createDates (option) {
         document.querySelector("#lesson .dates").appendChild(date.html);
 
         if (option == 2) {
-            document.querySelector(".assigments").classList.remove("hidden");
+            document.querySelector(".assignments").classList.remove("hidden");
         }
 
         if (option != 2 && (option == 1 || option == 3)) {
-            document.querySelector(".assigments").classList.add("hidden");
+            document.querySelector(".assignments").classList.add("hidden");
             let hour = new Html("label", {
                 props: {
                     classes: ["color-white"],

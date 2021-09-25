@@ -1,7 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use App\Models\Auth as AuthModel;
     use App\Models\Post;
     use App\Models\Presentation;
@@ -40,9 +40,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assigment' => (object)[
-                        'rules' => Assigment::$validation['make']['rules'],
-                        'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'assignment' => (object)[
+                        'rules' => Assignment::$validation['make']['rules'],
+                        'messages' => Assignment::$validation['make']['messages']['es'],
                 ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
@@ -80,9 +80,9 @@
                 ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assigment' => (object)[
-                        'rules' => Assigment::$validation['make']['rules'],
-                        'messages' => Assigment::$validation['make']['messages']['es'],
+                ], 'assignment' => (object)[
+                        'rules' => Assignment::$validation['make']['rules'],
+                        'messages' => Assignment::$validation['make']['messages']['es'],
                 ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],

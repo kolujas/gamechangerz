@@ -1,6 +1,6 @@
 import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 
-import Assigment from "./Assigment.js";
+import Assignment from "./Assignment.js";
 
 export class Message extends Class {
     static item (data) {
@@ -50,14 +50,14 @@ export class Message extends Class {
                         label.appendChild(span);
                 }
         }
-        if (data.hasOwnProperty("assigment")) {
-            item.classList.add("assigment");
+        if (data.hasOwnProperty("assignment")) {
+            item.classList.add("assignment");
                 let div = document.createElement("div");
                 item.appendChild(div);
                     let link = document.createElement("a");
-                    link.href = `#chat-${ data.slug }-assigment-${ data.assigment.id_assigment }`;
+                    link.href = `#chat-${ data.slug }-assignment-${ data.assignment.id_assignment }`;
                     link.classList.add("flex", "justify-end", "flex-wrap", "p-4", "mb-4", "overpass");
-                    if (data.assigment.hasOwnProperty("presentation") && data.assigment.presentation) {
+                    if (data.assignment.hasOwnProperty("presentation") && data.assignment.presentation) {
                         link.classList.add("complete");
                     }
                     div.appendChild(link);
@@ -76,7 +76,7 @@ export class Message extends Class {
 
                     link.addEventListener("click", function (e) {
                         e.preventDefault();
-                        Message.getAssigment(data, link);
+                        Message.getAssignment(data, link);
                     });
         }
         return item;
@@ -133,20 +133,20 @@ export class Message extends Class {
         return this[name](data);
     }
 
-    static async getAssigment (data, div) {
+    static async getAssignment (data, div) {
         if (data.chat.setLoadingState()) {
             div.children[0].children[0].classList.remove("hidden");
             div.children[1].classList.add("hidden");
     
-            let assigment = await Assigment.one(data.assigment.id_assigment);
+            let assignment = await Assignment.one(data.assignment.id_assignment);
     
             data.chat.setFinishState();
             div.children[0].children[0].classList.add("hidden");
             div.children[1].classList.remove("hidden");
     
-            modals.assigment.open({
+            modals.assignment.open({
                 id_chat: data.id_chat,
-                assigment: assigment,
+                assignment: assignment,
                 id_role: data.id_role
             });
         }

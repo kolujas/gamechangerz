@@ -14,13 +14,13 @@ export default class Activity extends Class {
 
     async setActivities () {
         document.querySelector("#activity.modal .modal-content ul").innerHTML = "";
-        this.setProps("assigments", await Activity.getActivities(this.props.id_lesson));
-        if (this.props.assigments && this.props.assigments.length) {
-            for (const assigment of this.props.assigments) {
-                document.querySelector("#activity.modal .modal-content ul").appendChild(Activity.component("assigment", assigment));
+        this.setProps("assignments", await Activity.getActivities(this.props.id_lesson));
+        if (this.props.assignments && this.props.assignments.length) {
+            for (const assignment of this.props.assignments) {
+                document.querySelector("#activity.modal .modal-content ul").appendChild(Activity.component("assignment", assignment));
             }
         }
-        if (!this.props.assigments || !this.props.assigments.length) {
+        if (!this.props.assignments || !this.props.assignments.length) {
             let item = new Html("li", {
                 props: {
                     classes: ["text-center", "russo", "color-grey"],
@@ -45,14 +45,14 @@ export default class Activity extends Class {
     static async  getActivities (id_lesson) {
         const token = Token.get();
 
-        let query = await Fetch.get(`/api/lessons/${ id_lesson }/assigments`, {
+        let query = await Fetch.get(`/api/lessons/${ id_lesson }/assignments`, {
             'Accept': 'application/json',
             'Content-type': 'application/json; charset=UTF-8',
             'Authorization': "Bearer " + token.data,
         });
 
         if (query.response.code === 200) {
-            return query.response.data.assigments;
+            return query.response.data.assignments;
         }
     }
     
@@ -62,14 +62,14 @@ export default class Activity extends Class {
         });
     }
 
-    static assigment (data) {
-        let assigment = new Html("li", {
+    static assignment (data) {
+        let assignment = new Html("li", {
             props: {
                 classes: ["grid", "gap-8"],
             }, innerHTML: [
                 ["section", {
                     props: {
-                        classes: ["assigment"],
+                        classes: ["assignment"],
                     }, innerHTML: [
                         ["main", {
                             props: {
@@ -136,7 +136,7 @@ export default class Activity extends Class {
                 }]; } return []; } )(),
             ],
         });
-        return assigment.html;
+        return assignment.html;
     }
 
     static component (name = '', data) {

@@ -2,7 +2,7 @@
     namespace App\Models;
 
     use App\Models\Ability;
-    use App\Models\Assigment;
+    use App\Models\Assignment;
     use Illuminate\Database\Eloquent\Model;
 
     class Message extends Model {
@@ -17,7 +17,7 @@
          * @var array
          */
         protected $fillable = [
-            "abilities", "id_message", "id_user", "says", "id_assigment",
+            "abilities", "id_message", "id_user", "says", "id_assignment",
         ];
 
         /**
@@ -31,8 +31,8 @@
                         case "abilities":
                             $this->abilities();
                             break;
-                        case "assigment":
-                            $this->assigment();
+                        case "assignment":
+                            $this->assignment();
                             break;
                     }
                     continue;
@@ -45,18 +45,18 @@
         }
 
         /**
-         * * Set the Message Assigment
+         * * Set the Message Assignment
          */
         public function abilities () {
             $this->abilities = Ability::parse(json_encode($this->abilities));
         }
 
         /**
-         * * Set the Message Assigment
+         * * Set the Message Assignment
          */
-        public function assigment () {
-            $this->assigment = Assigment::find($this->id_assigment);
-            $this->assigment->and(["presentation"]);
+        public function assignment () {
+            $this->assignment = Assignment::find($this->id_assignment);
+            $this->assignment->and(["presentation"]);
         }
 
         /**
@@ -77,8 +77,8 @@
                     $props["says"] = $data->says;
                 }
 
-                if (isset($data->id_assigment)) {
-                    $props["id_assigment"] = $data->id_assigment;
+                if (isset($data->id_assignment)) {
+                    $props["id_assignment"] = $data->id_assignment;
                 }
 
                 if (isset($data->abilities)) {
@@ -87,8 +87,8 @@
 
                 $message = new Message($props);
 
-                if (isset($data->id_assigment)) {
-                    $message->and(["assigment"]);
+                if (isset($data->id_assignment)) {
+                    $message->and(["assignment"]);
                 }
 
                 if (isset($data->abilities)) {
@@ -119,8 +119,8 @@
                     $message["says"] = $data["says"];
                 }
 
-                if (isset($data["id_assigment"])) {
-                    $message["id_assigment"] = $data["id_assigment"];
+                if (isset($data["id_assignment"])) {
+                    $message["id_assignment"] = $data["id_assignment"];
                 }
 
                 $collection->push($message);

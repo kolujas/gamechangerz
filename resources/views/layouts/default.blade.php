@@ -33,8 +33,8 @@
     @endcomponent
 
     @if (Auth::check())
-        {{-- ? Assigment modal --}}
-        @component('components.modal.assigment', [
+        {{-- ? Assignment modal --}}
+        @component('components.modal.assignment', [
             'error' => ($error ? $error : []),
         ])
         @endcomponent

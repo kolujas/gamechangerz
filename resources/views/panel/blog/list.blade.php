@@ -14,8 +14,8 @@
 @endsection
 
 @section('content')
-    <li id="blog" class="tab-content min-h-screen closed hive">
-        <header class="flex w-full m-12 mb-24">
+    <li id="blog" class="tab-content min-h-screen p-12 closed hive">
+        <header class="flex w-full mb-24">
             <h2 class="russo color-white mr-4">Artículos</h2>
             <div class="flex items-center">
                 <a class="btn btn-one btn-outline overpass" href="/blog/{{ Auth::user()->slug }}/create">
@@ -23,7 +23,7 @@
                 </a>
             </div>
         </header>
-        <main class="overflow-x-scroll my-2 py-2 flex flex-wrap justify-center rounded ml-12">
+        <main class="my-2 py-2 flex flex-wrap justify-center rounded">
             <table class="min-w-max lg:min-w-full grid">
                 <thead class="lg:grid">
                     <tr class="flex lg:grid grid-cols-9">

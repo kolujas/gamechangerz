@@ -1,5 +1,5 @@
 <?php
-    use App\Http\Controllers\API\AssigmentController;
+    use App\Http\Controllers\API\AssignmentController;
     use App\Http\Controllers\API\AuthController;
     use App\Http\Controllers\API\CouponController;
     use App\Http\Controllers\API\ChatController;
@@ -24,19 +24,19 @@
             Route::middleware("api.lesson.exist")->group(function () {
                 Route::put("/lessons/{id_lesson}/update", [LessonController::class, "update"])->name("api.lesson.update");
                 
-                Route::get("/lessons/{id_lesson}/assigments", [LessonController::class, "getAssigments"])->name("api.lesson.assigments");
+                Route::get("/lessons/{id_lesson}/assignments", [LessonController::class, "getAssignments"])->name("api.lesson.assignments");
             });
 
-// ! AssigmentController - Controls the assigments api.
-            Route::middleware("api.assigment.exist")->group(function () {
-                Route::get("/assigments/{id_assigment}", [AssigmentController::class, "get"])->name("api.assigment.get");
+// ! AssignmentController - Controls the assignments api.
+            Route::middleware("api.assignment.exist")->group(function () {
+                Route::get("/assignments/{id_assignment}", [AssignmentController::class, "get"])->name("api.assignment.get");
             });
             
             Route::middleware(["api.chat.exist", "api.chat.is.available"])->group(function () {
-                Route::post("/lessons/chats/{id_chat}/assigments/make", [AssigmentController::class, "make"])->name("api.assigment.set");
+                Route::post("/lessons/chats/{id_chat}/assignments/make", [AssignmentController::class, "make"])->name("api.assignment.set");
 
-                Route::middleware("api.assigment.exist")->group(function () {
-                    Route::post("/lessons/chats/{id_chat}/assigments/{id_assigment}/complete", [PresentationController::class, "make"])->name("api.presentation.set");
+                Route::middleware("api.assignment.exist")->group(function () {
+                    Route::post("/lessons/chats/{id_chat}/assignments/{id_assignment}/complete", [PresentationController::class, "make"])->name("api.presentation.set");
                 });
             });
         });

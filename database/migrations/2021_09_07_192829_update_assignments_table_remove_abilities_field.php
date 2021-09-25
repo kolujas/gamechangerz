@@ -10,7 +10,7 @@
          * @return void
          */
         public function up () {
-            Schema::table("assigments", function (Blueprint $table) {
+            Schema::table("assignments", function (Blueprint $table) {
                 $table->dropColumn("abilities");
             });
         }
@@ -21,7 +21,7 @@
          * @return void
          */
         public function down () {
-            Schema::table("assigments", function (Blueprint $table) {
+            Schema::table("assignments", function (Blueprint $table) {
                 //
             });
         }

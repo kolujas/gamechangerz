@@ -134,9 +134,9 @@
                     <span class="block color-white error support lesson-form support-box hidden support-created_at mt-2 overpass"></span>
                 </div>
 
-                <div class="pt-0 col-span-2 assigments @if (!isset($lesson->id_lesson) || $lesson->id_type !== 2) hidden @endif">
-                    <input name="assigments" type="number" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif placeholder="Cantidad de Assigments" value="{{ old("assigments", $lesson->assigments) }}">
-                    <span class="block color-white error support lesson-form support-box hidden support-assigments mt-2 overpass"></span>
+                <div class="pt-0 col-span-2 assignments @if (!isset($lesson->id_lesson) || $lesson->id_type !== 2) hidden @endif">
+                    <input name="assignments" type="number" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif placeholder="Cantidad de Assignments" value="{{ old("assignments", $lesson->assignments) }}">
+                    <span class="block color-white error support lesson-form support-box hidden support-assignments mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-4 col-start-1">

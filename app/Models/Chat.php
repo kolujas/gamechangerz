@@ -92,7 +92,7 @@
         public function lesson () {
             $this->lesson = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
             
-            $this->lesson->and(["assigments", "days", "ended_at", "started_at"]);
+            $this->lesson->and(["assignments", "days", "ended_at", "started_at"]);
         }
 
         /**

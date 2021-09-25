@@ -2,7 +2,7 @@
     namespace App\Models;
 
     use App\Mail\ConfirmationMail;
-    use App\Mail\NewAssigmentMail;
+    use App\Mail\NewAssignmentMail;
     use App\Mail\NewLessonTeacherMail;
     use App\Mail\NewLessonUserMail;
     use App\Mail\NewMessageMail;
@@ -48,7 +48,7 @@
                     break;
                 case 3:
                     // * When a Teacher sends a new Assignment
-                    $mail = new NewAssigmentMail((object) $data);
+                    $mail = new NewAssignmentMail((object) $data);
                     break;
                 case 4:
                     // * When a User completes an Assignment
@@ -100,7 +100,7 @@
                     $attributes["name"] = "New message";
                     break;
                 case 3:
-                    $attributes["name"] = "New assigment";
+                    $attributes["name"] = "New assignment";
                     break;
                 case 4:
                     $attributes["name"] = "New presentation";
