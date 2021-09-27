@@ -234,13 +234,16 @@
 }
 
 .user .cardota{
-    /* background: var(--color-black); */
-    /* z-index: -2; */
-    /* border: 1px solid;
-    border-image-source: -webkit-linear-gradient(130deg, var(--color-four), var(--color-five));
-    border-image-slice: 1; */
     position: relative;
     border-radius: .25rem;
+}
+
+.user .mega-cardota.error {
+    cursor: help;
+}
+
+.user .mega-cardota.error:hover .content {
+    display: flex;
 }
 
 .user .cardota > * {

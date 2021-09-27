@@ -18,9 +18,9 @@
         @endif
     </section>
 
-    <section class="data mb-20 md:px-8 md:mt-20 lg:my-0 lg:mx-0 lg:pr-0 xl:px-0 @if (count($user->games) && count($user->games[0]->abilities) && count($user->reviews))
+    <section class="data mb-20 md:px-8 md:mt-20 lg:my-0 lg:mx-0 lg:pr-0 xl:px-0 @if (count($user->games) && count($user->games[0]->abilities))
         lg:row-span-3
-    @endif @if ((count($user->games) && count($user->games[0]->abilities)) || (count($user->games) && count($user->reviews)))
+    @else
         lg:row-span-2
     @endif xl:col-start-2 xl:col-span-3">
         @component('components.user.user.data', [
@@ -59,15 +59,13 @@
         </section>
     @endif
 
-    @if (count($user->reviews))
-        <section class="reviews relative lg:col-span-2 xl:col-span-5 mb-16 lg:mb-0 lg:pr-8 xl:pr-0">
-            <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
-                <h3 class="color-white russo uppercase">Reviews</h3>
-            </header>
-            @component('components.review.teachers', [
-                'reviews' => $user->reviews,
-            ])
-            @endcomponent
-        </section>
-    @endif
+    <section class="reviews relative lg:col-span-2 xl:col-span-5 mb-16 lg:mb-0 lg:pr-8 xl:pr-0">
+        <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
+            <h3 class="color-white russo uppercase">Reviews</h3>
+        </header>
+        @component('components.review.teachers', [
+            'reviews' => $user->reviews,
+        ])
+        @endcomponent
+    </section>
 </form>
