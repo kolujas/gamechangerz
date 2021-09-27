@@ -22,7 +22,9 @@
          * @var array
          */
         protected $fillable = [
-            "description", "url", "id_assignment"
+            "description",
+            "id_assignment",
+            "url",
         ];
 
         /**
@@ -59,9 +61,7 @@
          * @return Presentation
          */
         static public function findByAssignment (int $id_assignment) {
-            $presentation = Presentation::where("id_assignment", "=", $id_assignment)->first();
-
-            return $presentation;
+            return Presentation::where("id_assignment", "=", $id_assignment)->first();
         }
         
         /**
@@ -78,5 +78,8 @@
                         "description.required" => "La descripción es obligatoria.",
                         "description.max" => "La descripción no puede tener más de :max caracteres.",
                         "url.url" => "La URL debe ser valida (https://...)",
-        ]]]];
+                    ],
+                ],
+            ],
+        ];
     }

@@ -28,7 +28,18 @@
          * @var array
          */
         protected $fillable = [
-            "coupon", "days", "id_type", "id_user_from", "id_user_to", "id_method", "name", "slug", "id_status", "svg", "assignments", "price"
+            "assignments",
+            "coupon",
+            "days",
+            "id_method",
+            "id_status",
+            "id_type",
+            "id_user_from",
+            "id_user_to",
+            "name",
+            "price",
+            "slug",
+            "svg",
         ];
 
         /**
@@ -278,9 +289,7 @@
          * @return Lesson[]
          */
         static public function allCreated () {
-            $lessons = Lesson::where("id_status", "=", "1")->get();
-
-            return $lessons;
+            return Lesson::where("id_status", "=", "1")->get();
         }
 
         /**
@@ -289,15 +298,13 @@
          * @return Lesson[]
          */
         static public function allStartedFromUser (int $id_user) {
-            $lessons = Lesson::where([
+            return Lesson::where([
                 ["id_user_from", "=", $id_user],
                 ["id_status", "=", 3],
             ])->orwhere([
                 ["id_user_to", "=", $id_user],
                 ["id_status", "=", 3]
             ])->get();
-
-            return $lessons;
         }
 
         /**
@@ -306,15 +313,13 @@
          * @return Lesson[]
          */
         static public function allDoneFromUser (int $id_user) {
-            $lessons = Lesson::where([
+            return Lesson::where([
                 ["id_user_from", "=", $id_user],
                 ["id_status", ">=", 3],
             ])->orwhere([
                 ["id_user_to", "=", $id_user],
                 ["id_status", ">=", 3]
             ])->get();
-
-            return $lessons;
         }
 
         /**
@@ -323,9 +328,7 @@
          * @return Lesson[]
          */
         static public function allFromUser (int $id_user) {
-            $lessons = Lesson::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->get();
-
-            return $lessons;
+            return Lesson::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->get();
         }
 
         /**
@@ -334,12 +337,10 @@
          * @return Lesson[]
          */
         static public function allFromTeacher (int $id_user) {
-            $lessons = Lesson::where([
+            return Lesson::where([
                 ["id_user_from", "=", $id_user],
                 ["id_status", ">", 0],
             ])->get();
-
-            return $lessons;
         }
 
         /**
@@ -348,15 +349,13 @@
          * @return Lesson[]
          */
         static public function allReadyFromUser (int $id_user) {
-            $lessons = Lesson::where([
+            return Lesson::where([
                 ["id_user_from", "=", $id_user],
                 ["id_status", "=", 3],
             ])->orwhere([
                 ["id_user_to", "=", $id_user],
                 ["id_status", "=", 3],
             ])->get();
-            
-            return $lessons;
         }
 
         /**
@@ -366,15 +365,13 @@
          * @return Lesson
          */
         static public function findByUsers (int $id_user_1, int $id_user_2) {
-            $lesson = Lesson::where([
+            return Lesson::where([
                 ["id_user_from", "=", $id_user_1],
                 ["id_user_to", "=", $id_user_2],
             ])->orwhere([
                 ["id_user_from", "=", $id_user_2],
                 ["id_user_to", "=", $id_user_1],
-            ])->first();
-
-            return $lesson;
+            ])->get();
         }
 
         /**
@@ -574,14 +571,18 @@
                             "discord.required" => "El nombre de usuario de Discord es obligatorio.",
                             "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                             'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
-                ]]], "seguimiento-online" => [
-                    "rules" => [
+                        ],
+                    ],
+                ], "seguimiento-online" => [
+                        "rules" => [
                         // 
                     ], "messages" => [
                         "es" => [
                             // 
-                ]]], "packs" => [
-                    "rules" => [
+                        ],
+                    ],
+                ], "packs" => [
+                        "rules" => [
                         "dates" => "required|array|max:4",
                         "dates.*" => "required",
                         "hours" => "required|array|min:4|max:4",
@@ -601,7 +602,11 @@
                             "discord.required" => "El nombre de usuario de Discord es obligatorio.",
                             "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
                             'discord.unique' => 'Ese nombre de usuario de Discord ya se encuentra en uso.',
-        ]]]]];
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         /**
          * * Lesson types.

@@ -29,7 +29,14 @@
          * @var array
          */
         protected $fillable = [
-            "id_lesson", "id_user_from", "id_user_to", "title", "description", "abilities", "slug", "stars"
+            "abilities",
+            "description",
+            "id_lesson",
+            "id_user_from",
+            "id_user_to",
+            "slug",
+            "stars",
+            "title",
         ];
 
         /**
@@ -127,9 +134,7 @@
          * @return Review[]
          */
         static public function allFromLesson (int $id_lesson) {
-            $reviews = Review::where("id_lesson", "=", $id_lesson)->get();
-
-            return $reviews;
+            return Review::where("id_lesson", "=", $id_lesson)->get();
         }
 
         /**
@@ -138,9 +143,7 @@
          * @return Review[]
          */
         static public function allToUser (int $id_user) {
-            $reviews = Review::where("id_user_to", "=", $id_user)->get();
-
-            return $reviews;
+            return Review::where("id_user_to", "=", $id_user)->get();
         }
         
         /**
@@ -158,5 +161,8 @@
                         "title.max" => "El título no puede tener más de :max caracteres.",
                         "description.required" => "La descripción es obligatoria.",
                         "description.max" => "La descripción no puede tener más de :max caracteres.",
-        ]]]];
+                    ],
+                ],
+            ],
+        ];
     }

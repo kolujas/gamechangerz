@@ -8,14 +8,16 @@
          * * Table primary key name
          * @var string
          */
-        protected $primaryKey = 'id_role';
+        protected $primaryKey = "id_role";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_role', 'name', 'slug',
+            "id_role",
+            "name",
+            "slug",
         ];
 
         /**
@@ -25,7 +27,7 @@
          */
         static public function has (int $id_role) {
             foreach (Role::$options as $option) {
-                if ($option['id_role'] === $id_role) {
+                if ($option["id_role"] === $id_role) {
                     return true;
                 }
             }
@@ -40,7 +42,7 @@
          */
         static public function option (int $id_role) {
             foreach (Role::$options as $option) {
-                if ($option['id_role'] === $id_role) {
+                if ($option["id_role"] === $id_role) {
                     return new Role($option);
                 }
             }
@@ -52,17 +54,19 @@
          * * Role options.
          * @var array
          */
-        static $options = [[
-            'id_role' => 0,
-            'name' => 'User',
-            'slug' => 'user',
-        ], [
-            'id_role' => 1,
-            'name' => 'Teacher',
-            'slug' => 'teacher',
-        ], [
-            'id_role' => 2,
-            'name' => 'Admin',
-            'slug' => 'admin',
-        ]];
+        static $options = [
+            [
+                "id_role" => 0,
+                "name" => "User",
+                "slug" => "user",
+            ], [
+                "id_role" => 1,
+                "name" => "Teacher",
+                "slug" => "teacher",
+            ], [
+                "id_role" => 2,
+                "name" => "Admin",
+                "slug" => "admin",
+            ],
+        ];
     }

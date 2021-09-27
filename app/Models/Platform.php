@@ -21,7 +21,8 @@
          * @var array
          */
         protected $fillable = [
-            "dolar", "link",
+            "dolar",
+            "link",
         ];
 
         /**
@@ -52,7 +53,9 @@
                     "es" => [
                         "banner.mimetypes" => "El banner debe ser una imagen .png",
                         "background.mimetypes" => "La foto de fondo debe ser una imagen .jpeg/jpg",
-            ]]], "info" => [
+                    ],
+                ],
+            ], "info" => [
                 "rules" => [
                     "dolar" => "required",
                     "link" => "required|regex:/^https:\/\/discord\.gg\//",
@@ -61,5 +64,8 @@
                         "dolar.required" => "El valor del dolar es obligatorio",
                         "link.required" => "El link de Discord es obligatorio.",
                         "link.regex" => "El link de Discord debe ser una URL válida (https://discord.gg/aaaaa).",
-        ]]]];
+                    ],
+                ],
+            ],
+        ];
     }

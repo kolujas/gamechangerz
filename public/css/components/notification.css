@@ -20,7 +20,7 @@
 }
 
 .notification .notification-message p {
-    /* max-width: 15rem; */
+    max-width: 30rem;
     color: var(--color-white);
     font-weight: bold;
 }

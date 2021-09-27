@@ -19,13 +19,15 @@
             $chat->and(['users']);
 
             if ($chat->users->from->id_role === 1) {
-                $chat->and(['lesson']);
+                $chat->and(['lessons']);
 
-                if ($chat->lesson->id_type !== 2) {
-                    return response()->json([
-                        'code' => 403,
-                        'message' => "Chat Lesson type is not seguimiento online",
-                    ]);
+                foreach ($chat->lessons as $lesson) {
+                    if ($lesson->id_type !== 2) {
+                        return response()->json([
+                            'code' => 403,
+                            'message' => "Chat Lesson type is not seguimiento online",
+                        ]);
+                    }
                 }
             }
 

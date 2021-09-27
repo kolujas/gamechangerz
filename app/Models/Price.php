@@ -9,14 +9,18 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_price';
+        protected $primaryKey = "id_price";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_price', 'name', 'icon', 'price', 'slug'
+            "icon",
+            "id_price",
+            "name",
+            "price",
+            "slug",
         ];
 
         /**
@@ -24,7 +28,7 @@
          * @param string [$prices] Example: "[{\"id_type\":1,\"price\":500}]"
          * @return Price[]
          */
-        static public function parse (string $prices = '') {
+        static public function parse (string $prices = "") {
             $collection = collect();
 
             foreach (json_decode($prices) as $data) {
@@ -69,9 +73,9 @@
                 $found = false;
                 
                 foreach ($prices as $data) {
-                    if ($option->id_price === $data['id_price']) {
+                    if ($option->id_price === $data["id_price"]) {
                         $found = true;
-                        $price = $data['price'];
+                        $price = $data["price"];
                         break;
                     }
                 }
@@ -88,23 +92,25 @@
          * * Price options.
          * @var array
          */
-        static $options = [[
-            'id_price' => 1,
-            'name' => '1on1',
-            'icon' => 'ClaseOnline1SVG',
-            'slug' => '1on1',
-            'price' => 0
-        ], [
-            'id_price' => 2,
-            'name' => 'Seguimiento online',
-            'icon' => 'ClaseOnline2SVG',
-            'slug' => 'seguimiento-online',
-            'price' => 0
-        ], [
-            'id_price' => 3,
-            'name' => 'Pack',
-            'icon' => 'ClaseOnline3SVG',
-            'slug' => 'pack',
-            'price' => 0
-        ]];
+        static $options = [
+            [
+                "id_price" => 1,
+                "name" => "1on1",
+                "icon" => "ClaseOnline1SVG",
+                "slug" => "1on1",
+                "price" => 0
+            ], [
+                "id_price" => 2,
+                "name" => "Seguimiento online",
+                "icon" => "ClaseOnline2SVG",
+                "slug" => "seguimiento-online",
+                "price" => 0
+            ], [
+                "id_price" => 3,
+                "name" => "Pack",
+                "icon" => "ClaseOnline3SVG",
+                "slug" => "pack",
+                "price" => 0
+            ],
+        ];
     }

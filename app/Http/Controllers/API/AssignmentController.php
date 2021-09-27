@@ -28,6 +28,7 @@
             }
 
             $lesson = Lesson::findByUsers($chat->id_user_from, $chat->id_user_to);
+            $lesson = $lesson[count($lesson) - 1];
             $lesson->and(["assignments"]);
             if (count($lesson->assignments) == $lesson->{"quantity-of-assignments"}) {
                 return response()->json([
@@ -52,8 +53,9 @@
             $assignment = Assignment::create((array) $input);
 
             $chat->addMessage([
-                "id_user" => $request->user()->id_user,
                 "id_assignment" => $assignment->id_assignment,
+                "id_lesson" => $lesson->id_lesson,
+                "id_user" => $request->user()->id_user,
             ]);
 
             $chat->id_user_logged = $request->user()->id_user;

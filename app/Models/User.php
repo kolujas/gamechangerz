@@ -41,7 +41,30 @@
          * @var array
          */
         protected $fillable = [
-            "achievements", "credits", "date_of_birth", "days", "description", "discord", "email", "folder", "games", "id_role", "important", "languages", "lessons", "name", "password", "prices", "slug", "stars", "id_status", "teammate", "teampro", "token", "username", "credentials"
+            "achievements",
+            "credentials",
+            "credits",
+            "date_of_birth",
+            "days",
+            "description",
+            "discord",
+            "email",
+            "folder",
+            "games",
+            "id_role",
+            "id_status",
+            "important",
+            "languages",
+            "lessons",
+            "name",
+            "password",
+            "prices",
+            "slug",
+            "stars",
+            "teammate",
+            "teampro",
+            "token",
+            "username",
         ];
 
         /**
@@ -49,7 +72,9 @@
          * @var array
          */
         protected $hidden = [
-            "credentials", "password", "remember_token",
+            "credentials",
+            "password",
+            "remember_token",
         ];
 
         /**
@@ -420,9 +445,7 @@
          * @return User[]
          */
         static public function allAdmins () {
-            $users = User::where("id_role", "=", 2)->orderBy("updated_at")->get();
-
-            return $users;
+            return User::where("id_role", "=", 2)->orderBy("updated_at")->get();
         }
 
         /**
@@ -430,15 +453,8 @@
          * @param boolean [$paginate=false]
          * @return User[]
          */
-        static public function allTeachers ($paginate = false) {
-            if (!$paginate) {
-                $users = User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->get();
-            }
-            if ($paginate) {
-                $users = User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->paginate(5);
-            }
-
-            return $users;
+        static public function allTeachers () {
+            return User::where("id_role", "=", 1)->orderBy("updated_at", "DESC")->get();
         }
 
         /**
@@ -446,15 +462,8 @@
          * @param boolean [$paginate=false]
          * @return User[]
          */
-        static public function allUsers ($paginate = false) {
-            if (!$paginate) {
-                $users = User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->get();
-            }
-            if ($paginate) {
-                $users = User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->paginate(5);
-            }
-
-            return $users;
+        static public function allUsers () {
+            return User::where("id_role", "=", 0)->orderBy("updated_at", "DESC")->get();
         }
 
         /**
@@ -463,9 +472,7 @@
          * @return User
          */
         static public function findByEmail (string $email = "") {
-            $user = User::where("email", "=", $email)->first();
-
-            return $user;
+            return User::where("email", "=", $email)->first();
         }
 
         /**
@@ -506,32 +513,18 @@
          * @return User
          */
         static public function findBySlug (string $slug = "") {
-            $user = User::where("slug", "=", $slug)->first();
-
-            return $user;
-        }
-
-        /**
-         * * Set the Users with id_role = 1.
-         * @return User[]
-         */
-        static public function teachers () {
-            $users = User::where("id_role", "=", 1)->get();
-
-            return $users;
+            return User::where("slug", "=", $slug)->first();
         }
 
         /**
          * * Set the Users with id_role = 0.
          * @return User[]
          */
-        static public function users () {
-            $users = User::where([
+        static public function availableUsers () {
+            return User::where([
                 ["id_role", "=", 0],
                 ["id_status", ">", 1],
             ])->get();
-
-            return $users;
         }
 
         /**

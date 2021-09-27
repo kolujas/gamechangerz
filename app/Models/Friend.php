@@ -9,20 +9,22 @@
          * * Table name.
          * @var string
          */
-        protected $table = 'friends';
+        protected $table = "friends";
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_friend';
+        protected $primaryKey = "id_friend";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'accepted',
+            "accepted",
+            "id_user_from",
+            "id_user_to",
         ];
 
         /**
@@ -33,7 +35,7 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'users':
+                        case "users":
                             $this->users();
                             break;
                     }
@@ -51,11 +53,11 @@
          */
         public function users () {
             $this->users = (object) [
-                'from' => User::find($this->id_user_from),
-                'to' => User::find($this->id_user_to),
+                "from" => User::find($this->id_user_from),
+                "to" => User::find($this->id_user_to),
             ];
-            $this->users->from->and(['files']);
-            $this->users->to->and(['files']);
+            $this->users->from->and(["files"]);
+            $this->users->to->and(["files"]);
         }
 
         /**
@@ -64,7 +66,7 @@
          * @return Friend[]
          */
         static public function allFromUser (int $id_user) {
-            $chats = Friend::where('id_user_from', '=', $id_user)->orwhere('id_user_to', '=', $id_user)->get();
+            $chats = Friend::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->get();
 
             return $chats;
         }
@@ -76,10 +78,10 @@
          */
         static public function hasAction (string $name) {
             switch (strtoupper($name)) {
-                case 'ACCEPT':
-                case 'CANCEL':
-                case 'DELETE':
-                case 'REQUEST':
+                case "ACCEPT":
+                case "CANCEL":
+                case "DELETE":
+                case "REQUEST":
                     return true;
                 default:
                     return false;

@@ -321,14 +321,14 @@ export class Chat extends Class {
             if (chat.users.from.id_role == 1) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
-                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assignments"]) - chat.lesson.assignments.length } tareas pendientes`;
+                paragraph.innerHTML = `${ parseInt([...chat.lessons].pop()["quantity-of-assignments"]) - [...chat.lessons].pop().assignments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
-                if (chat.users.to.id_user == chat.id_user_logged && chat.messages.length) {
+                if (chat.users.to.id_user == chat.id_user_logged && chat.messages.length && [...chat.messages].pop().hasOwnProperty("id_lesson") && [...chat.messages].pop().id_lesson == [...chat.lessons].pop().id_lesson) {
                     let link = document.createElement("a");
                     link.href = "#assignment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assignment");
-                    if (!this.state.state || parseInt(chat.lesson.assignments.length) == chat.lesson["quantity-of-assignments"] || (chat.lesson.assignments.length && ![...chat.lesson.assignments].pop().presentation)) {
+                    if (!this.state.state || parseInt([...chat.lessons].pop().assignments.length) == [...chat.lessons].pop()["quantity-of-assignments"] || ([...chat.lessons].pop().assignments.length && ![...[...chat.lessons].pop().assignments].pop().presentation)) {
                         link.classList.add("disabled");
                     }
                     this.sections.details.footer.appendChild(link);
@@ -342,7 +342,7 @@ export class Chat extends Class {
                         icon.classList.add("fas", "fa-paperclip", "color-gradient");
                         link.appendChild(icon);
                 }
-                if (chat.users.to.id_user == chat.id_user_logged && !chat.messages.length) {
+                if (chat.users.to.id_user == chat.id_user_logged && (!chat.messages.length || (![...chat.messages].pop().hasOwnProperty("id_lesson") || [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson))) {
                     let button = document.createElement("button");
                     button.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button");
                     this.sections.details.footer.appendChild(button);
@@ -362,7 +362,7 @@ export class Chat extends Class {
                         button.appendChild(img);
                 }
             }
-            if (chat.users.from.id_role == 0) {
+            if (chat.users.from.id_role == 0 || chat.users.from.id_role == 2) {
                 let form = document.createElement("form");
                 form.action = `/api/chats/${ (chat.id_user_logged == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
 
@@ -415,7 +415,7 @@ export class Chat extends Class {
             if (chat.users.from.id_user != chat.id_user_logged) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
-                paragraph.innerHTML = `${ parseInt(chat.lesson["quantity-of-assignments"]) - chat.lesson.assignments.length } tareas pendientes`;
+                paragraph.innerHTML = `${ parseInt([...chat.lessons].pop()["quantity-of-assignments"]) - [...chat.lessons].pop().assignments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
             }
         }
@@ -573,7 +573,38 @@ export class Chat extends Class {
                         found = false;
                         break;
                     }
-                    params.instance.props.chats[key] = chat;
+                    let add = false;
+                    if (params.instance.props.chats[key].hasOwnProperty("lessons") && params.instance.props.chats[key].lessons.length < chat.lessons.length) {
+                        add = true;
+                    }
+                    if (add) {
+                        if ([...chat.messages].pop().hasOwnProperty("id_lesson") && [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson && chat.id_user_logged == chat.id_user_to) {
+                            let key = 1;
+                            for (const message of chat.messages) {
+                                if (key <= message.id_message) {
+                                    key = parseInt(message.id_message) + 1;
+                                }
+                            }
+                            chat.messages.push({
+                                id_message: key,
+                                id_user: chat.users.to.id_user,
+                                disabled: false,
+                                selected: true,
+                                abilities: (() => {
+                                    let abilities = [];
+                                    for (const game of chat.users.from.games) {
+                                        for (const ability of game.abilities) {
+                                            abilities.push(ability);
+                                        }
+                                    }
+                                    return abilities; 
+                                })()
+                            });
+                        }
+                    }
+                    if (params.instance.props.chats[key].messages.length == 0 && chat.messages.length > 0) {
+                        params.instance.sections.details.main.children[1].innerHTML = "";
+                    }
                     for (const message of chat.messages) {
                         if (document.querySelector(`li#message-${ message.id_message }`)) {
                             if (message.hasOwnProperty("assignment") && message.assignment.hasOwnProperty("presentation") && message.assignment.presentation) {
@@ -587,6 +618,7 @@ export class Chat extends Class {
                             params.instance.sections.details.main.children[1].appendChild(Message.component("item", { ...message, chat: params.instance, id_chat: chat.id_chat , slug: chat.users.from.slug, selected: (chat.messages.length ? true : false), }));
                         }
                     }
+                    params.instance.props.chats[key] = chat;
                     break;
                 }
             }

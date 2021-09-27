@@ -11,7 +11,8 @@
          * @var array
          */
         protected $fillable = [
-            'name', 'logo',
+            "logo",
+            "name",
         ];
 
         /**
@@ -25,8 +26,8 @@
                 $data = json_decode($data);
 
                 return new Teampro([
-                    'name' => $data->name,
-                    'logo' => (isset($user->files['teampro']) ? $user->files['teampro'] : null),
+                    "name" => $data->name,
+                    "logo" => (isset($user->files["teampro"]) ? $user->files["teampro"] : null),
                 ]);
             }
             return new Teampro();
@@ -37,9 +38,9 @@
          * @param string $name
          * @return string
          */
-        static public function stringify (string $name = '') {
+        static public function stringify (string $name = "") {
             return json_encode([
-                'name' => $name,
+                "name" => $name,
             ]);
         }
     }

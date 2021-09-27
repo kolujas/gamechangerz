@@ -11,14 +11,20 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_game';
+        protected $primaryKey = "id_game";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'active', 'alias', 'colors', 'folder', 'name', 'slug', 'stars',
+            "active",
+            "alias",
+            "colors",
+            "folder",
+            "name",
+            "slug",
+            "stars",
         ];
 
         /**
@@ -29,29 +35,29 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case 'abilities':
+                        case "abilities":
                             $this->abilities();
                             break;
-                        case 'colors':
+                        case "colors":
                             $this->colors();
                             break;
-                        case 'files':
+                        case "files":
                             $this->files();
                             break;
-                        case 'stars':
+                        case "stars":
                             $this->stars();
                             break;
-                        case 'users':
+                        case "users":
                             $this->users();
                             break;
                     }
                     continue;
                 }
                 switch ($column[0]) {
-                    case 'abilities':
+                    case "abilities":
                         $this->abilities($column[1]);
                         break;
-                    case 'stars':
+                    case "stars":
                         $this->stars($column[1]);
                         break;
                 }
@@ -71,7 +77,7 @@
             }
 
             foreach ($this->abilities as $ability) {
-                $ability->and(['files']);
+                $ability->and(["files"]);
             }
         }
 
@@ -115,10 +121,10 @@
 
             foreach ($users as $user) {
                 if (count($this->users) < 6) {
-                    $user->and(['games', 'languages', 'prices', 'files', 'teampro']);
+                    $user->and(["games", "languages", "prices", "files", "teampro"]);
                     
                     foreach ($user->games as $game) {
-                        $game->and(['files']);
+                        $game->and(["files"]);
                     }
 
                     $this->users->push($user);
@@ -131,14 +137,14 @@
          * @param string [$games] Example: "[{\"id_game\":1,\"stars\":3.5}]"
          * @return Game[]
          */
-        static public function parse (string $games = '') {
+        static public function parse (string $games = "") {
             $collection = collect();
 
             foreach (json_decode($games) as $data) {
                 $game = Game::find($data->id_game);
 
                 if (isset($data->abilities)) {
-                    $game->and([['abilities', json_encode($data->abilities)]]);
+                    $game->and([["abilities", json_encode($data->abilities)]]);
                 }
 
                 $game->stars = (isset($data->stars) ? $data->stars : 0);
@@ -159,9 +165,9 @@
             
             foreach ($games as $data) {
                 $collection->push([
-                    "id_game" => $data['id_game'],
-                    "abilities" => json_decode(Ability::stringify($data['abilities']->toArray())),
-                    "stars" => (isset($data['stars']) ? $data['stars'] : 0),
+                    "id_game" => $data["id_game"],
+                    "abilities" => json_decode(Ability::stringify($data["abilities"]->toArray())),
+                    "stars" => (isset($data["stars"]) ? $data["stars"] : 0),
                 ]);
             }
 
@@ -173,10 +179,8 @@
          * @param string $slug
          * @return Game
          */
-        static public function findBySlug (string $slug = '') {
-            $game = Game::where('slug', '=', $slug)->first();
-
-            return $game;
+        static public function findBySlug (string $slug = "") {
+            return Game::where("slug", "=", $slug)->first();
         }
 
         /**
@@ -185,9 +189,9 @@
          * @param string [$games] Example: "[{\"id_game\":1}]"
          * @return JSON
          */
-        static public function requilify (int $id_user, string $games = '') {
+        static public function requilify (int $id_user, string $games = "") {
             $user = User::find($id_user);
-            $user->and(['reviews']);
+            $user->and(["reviews"]);
 
             $collection = collect();
 

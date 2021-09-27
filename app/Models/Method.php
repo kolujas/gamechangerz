@@ -15,7 +15,10 @@
          * @var array
          */
         protected $fillable = [
-            "id_method", "name", "slug", "access_token",
+            "access_token",
+            "id_method",
+            "name",
+            "slug",
         ];
 
         /**
@@ -116,13 +119,15 @@
          * * Method options.
          * @var array
          */
-        static $options = [[
-            "id_method" => 1,
-            "name" => "MercadoPago",
-            "slug" => "mercadopago",
-        ], [
-            "id_method" => 2,
-            "name" => "PayPal",
-            "slug" => "paypal",
-        ]];
+        static $options = [
+            [
+                "id_method" => 1,
+                "name" => "MercadoPago",
+                "slug" => "mercadopago",
+            ], [
+                "id_method" => 2,
+                "name" => "PayPal",
+                "slug" => "paypal",
+            ],
+        ];
     }

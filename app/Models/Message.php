@@ -17,7 +17,12 @@
          * @var array
          */
         protected $fillable = [
-            "abilities", "id_message", "id_user", "says", "id_assignment",
+            "abilities",
+            "id_assignment",
+            "id_lesson",
+            "id_message",
+            "id_user",
+            "says",
         ];
 
         /**
@@ -81,6 +86,10 @@
                     $props["id_assignment"] = $data->id_assignment;
                 }
 
+                if (isset($data->id_lesson)) {
+                    $props["id_lesson"] = $data->id_lesson;
+                }
+
                 if (isset($data->abilities)) {
                     $props["abilities"] = $data->abilities;
                 }
@@ -121,6 +130,10 @@
 
                 if (isset($data["id_assignment"])) {
                     $message["id_assignment"] = $data["id_assignment"];
+                }
+
+                if (isset($data["id_lesson"])) {
+                    $message["id_lesson"] = $data["id_lesson"];
                 }
 
                 $collection->push($message);

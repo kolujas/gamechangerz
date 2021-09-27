@@ -65,7 +65,7 @@
     @endcomponent
 
     {{-- Layout JS --}}
-    <script type="module" src={{ asset('js/layouts/default.js?v=1.1.1') }}></script>
+    <script type="module" src={{ asset('js/layouts/default.js?v=1.2.1') }}></script>
 
     @yield('js')
 @endsection

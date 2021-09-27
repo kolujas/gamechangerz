@@ -19,7 +19,9 @@
          * @var array
          */
         protected $fillable = [
-            "id_day", "name", "slug",
+            "id_day",
+            "name",
+            "slug",
         ];
 
         /**
@@ -210,35 +212,37 @@
          * * Day options.
          * @var array
          */
-        static $options = [[
-            "id_day" => 0,
-            "name" => "Domingo",
-            "slug" => "domingo",
-        ],[
-            "id_day" => 1,
-            "name" => "Lunes",
-            "slug" => "lunes",
-        ],[
-            "id_day" => 2,
-            "name" => "Martes",
-            "slug" => "martes",
-        ],[
-            "id_day" => 3,
-            "name" => "Miércoles",
-            "slug" => "miercoles",
-        ],[
-            "id_day" => 4,
-            "name" => "Jueves",
-            "slug" => "jueves",
-        ],[
-            "id_day" => 5,
-            "name" => "Viernes",
-            "slug" => "viernes",
-        ],[
-            "id_day" => 6,
-            "name" => "Sábado",
-            "slug" => "sabado",
-        ]];
+        static $options = [
+            [
+                "id_day" => 0,
+                "name" => "Domingo",
+                "slug" => "domingo",
+            ], [
+                "id_day" => 1,
+                "name" => "Lunes",
+                "slug" => "lunes",
+            ], [
+                "id_day" => 2,
+                "name" => "Martes",
+                "slug" => "martes",
+            ], [
+                "id_day" => 3,
+                "name" => "Miércoles",
+                "slug" => "miercoles",
+            ], [
+                "id_day" => 4,
+                "name" => "Jueves",
+                "slug" => "jueves",
+            ], [
+                "id_day" => 5,
+                "name" => "Viernes",
+                "slug" => "viernes",
+            ], [
+                "id_day" => 6,
+                "name" => "Sábado",
+                "slug" => "sabado",
+            ],
+        ];
 
         /**
          * * Year months.

@@ -19,7 +19,9 @@
          * @var array
          */
         protected $fillable = [
-            "id_mail", "name", "slug",
+            "id_mail",
+            "name",
+            "slug",
         ];
         
         /**

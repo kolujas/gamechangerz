@@ -13,14 +13,18 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_achievement';
+        protected $primaryKey = "id_achievement";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_achievement', 'description', 'icon', 'slug', 'title'
+            "description",
+            "icon",
+            "id_achievement",
+            "slug",
+            "title",
         ];
         
         /**
@@ -29,8 +33,8 @@
          */
         public function sluggable (): array {
             return [
-                'slug' => [
-                    'source'	=> 'title',
+                "slug" => [
+                    "source"	=> "title",
                 ]
             ];
         }
@@ -49,7 +53,7 @@
                 $found = false;
                 
                 foreach ($achievements as $data) {
-                    if ($option->id_achievement === $data['id_achievement']) {
+                    if ($option->id_achievement === $data["id_achievement"]) {
                         $found = true;
                         break;
                     }
@@ -68,7 +72,7 @@
          * @param string [$achievements] Example: "[{\"id_achievement\":1,\"title\":\"Title\",\"description\":\"Description\"}]"
          * @return Achievement[]
          */
-        static public function parse (string $achievements = '') {
+        static public function parse (string $achievements = "") {
             $collection = collect();
 
             foreach (json_decode($achievements) as $data) {
@@ -95,10 +99,10 @@
 
             foreach ($achievements as $data) {
                 $collection->push([
-                    "id_achievement" => $data['id_achievement'],
-                    "title" => $data['title'],
-                    "description" => $data['description'],
-                    "slug" => preg_replace('/\W+/', '-', strtolower(trim($data['title']))),
+                    "id_achievement" => $data["id_achievement"],
+                    "title" => $data["title"],
+                    "description" => $data["description"],
+                    "slug" => preg_replace("/\W+/", "-", strtolower(trim($data["title"]))),
                 ]);
             }
 
@@ -109,17 +113,19 @@
          * * Achievement options.
          * @var array
          */
-        static $options = [[
-            'id_achievement' => 1,
-            'title' => 'Something',
-            'description' => 'Something',
-            'icon' => 'something',
-            'slug' => 'something',
-        ], [
-            'id_achievement' => 2,
-            'title' => 'Something',
-            'description' => 'Something',
-            'icon' => 'something',
-            'slug' => 'something',
-        ]];
+        static $options = [
+            [
+                "id_achievement" => 1,
+                "title" => "Something",
+                "description" => "Something",
+                "icon" => "something",
+                "slug" => "something",
+            ], [
+                "id_achievement" => 2,
+                "title" => "Something",
+                "description" => "Something",
+                "icon" => "something",
+                "slug" => "something",
+            ],
+        ];
     }

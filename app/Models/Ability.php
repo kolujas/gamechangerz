@@ -10,14 +10,22 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_ability';
+        protected $primaryKey = "id_ability";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_ability', 'description', 'difficulty', 'folder', 'icon', 'id_game', 'name', 'slug', 'stars',
+            "description",
+            "difficulty",
+            "folder",
+            "icon",
+            "id_ability",
+            "id_game",
+            "name",
+            "slug",
+            "stars",
         ];
 
         /**
@@ -41,7 +49,7 @@
                     continue;
                 }
                 switch ($column[0]) {
-                    case 'stars':
+                    case "stars":
                         $this->stars($column[1]);
                         break;
                 }
@@ -106,8 +114,8 @@
                 $found = false;
                 
                 foreach ($abilities as $data) {
-                    if ($option->id_ability === $data['id_ability']) {
-                        $option->stars = (isset($data['stars']) ? $data['stars'] : 0);
+                    if ($option->id_ability === $data["id_ability"]) {
+                        $option->stars = (isset($data["stars"]) ? $data["stars"] : 0);
                         $found = true;
                         break;
                     }
@@ -126,13 +134,13 @@
          * @param string [$abilities] Example: "[{\"id_ability\":1,\"stars\":3.5}]"
          * @return Ability[]
          */
-        static public function parse (string $abilities = '') {
+        static public function parse (string $abilities = "") {
             $collection = collect();
             
             foreach (json_decode($abilities) as $data) {
                 $ability = Ability::find($data->id_ability);
                 
-                $ability->and([['stars', (isset($data->stars) ? $data->stars : 0)]]);
+                $ability->and([["stars", (isset($data->stars) ? $data->stars : 0)]]);
 
                 $collection->push($ability);
             }
@@ -150,8 +158,8 @@
 
             foreach ($abilities as $data) {
                 $collection->push([
-                    "id_ability" => $data['id_ability'],
-                    "stars" => (isset($data['stars']) ? $data['stars'] : 0),
+                    "id_ability" => $data["id_ability"],
+                    "stars" => (isset($data["stars"]) ? $data["stars"] : 0),
                 ]);
             }
 
@@ -166,7 +174,7 @@
          */
         static public function requilify (int $id_user, array $abilities = []) {
             $user = User::find($id_user);
-            $user->and(['reviews']);
+            $user->and(["reviews"]);
 
             $collection = collect();
             
@@ -203,39 +211,39 @@
          * @param string $slug
          * @return Ability
          */
-        static public function findBySlug (string $slug = '') {
-            $user = Ability::where('slug', '=', $slug)->first();
-
-            return $user;
+        static public function findBySlug (string $slug = "") {
+            return Ability::where("slug", "=", $slug)->first();
         }
 
         /**
          * * Ability options.
          * @var array
          */
-        static $options = [[
-            'id_ability' => 1,
-            'name' => 'Comunicación',
-            'description' => '',
-            'slug' => 'comunicacion',
-            'stars' => null,
-        ], [
-            'id_ability' => 2,
-            'name' => 'Flexibilidad',
-            'description' => '',
-            'slug' => 'flexibilidad',
-            'stars' => null,
-        ], [
-            'id_ability' => 3,
-            'name' => 'Conexión',
-            'description' => '',
-            'slug' => 'conexion',
-            'stars' => null,
-        ], [
-            'id_ability' => 4,
-            'name' => 'Experiencia',
-            'description' => '',
-            'slug' => 'experiencia',
-            'stars' => null,
-        ]];
+        static $options = [
+            [
+                "id_ability" => 1,
+                "name" => "Comunicación",
+                "description" => "",
+                "slug" => "comunicacion",
+                "stars" => null,
+            ], [
+                "id_ability" => 2,
+                "name" => "Flexibilidad",
+                "description" => "",
+                "slug" => "flexibilidad",
+                "stars" => null,
+            ], [
+                "id_ability" => 3,
+                "name" => "Conexión",
+                "description" => "",
+                "slug" => "conexion",
+                "stars" => null,
+            ], [
+                "id_ability" => 4,
+                "name" => "Experiencia",
+                "description" => "",
+                "slug" => "experiencia",
+                "stars" => null,
+            ],
+        ];
     }

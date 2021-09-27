@@ -23,7 +23,9 @@
          * @var array
          */
         protected $fillable = [
-            "description", "id_lesson", "url",
+            "description",
+            "id_lesson",
+            "url",
         ];
 
         /**
@@ -71,9 +73,7 @@
          * @return Assignment[]
          */
         static public function allFromLesson (int $id_lesson) {
-            $assignments = Assignment::where("id_lesson", "=", $id_lesson)->get();
-
-            return $assignments;
+            return Assignment::where("id_lesson", "=", $id_lesson)->get();
         }
 
         /**

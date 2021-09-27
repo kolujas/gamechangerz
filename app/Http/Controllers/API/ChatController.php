@@ -169,7 +169,7 @@
             $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
 
             if ($chat->users->from->id_role === 1) {
-                $chat->and(["lesson"]);
+                // $chat->and(["lessons"]);
             }
 
             foreach ($chat->messages as $message) {
@@ -237,7 +237,7 @@
             $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
 
             if ($chat->users->from->id_role === 1) {
-                $chat->and(["lesson"]);
+                // $chat->and(["lessons"]);
             }
 
             foreach ($chat->messages as $message) {
@@ -311,6 +311,10 @@
                     "message" => "Chat does not exist",
                 ]);
             }
+
+            $chat->and(["lessons"]);
+            $lesson = $chat->lessons[count($chat->lessons) - 1];
+            unset($chat->lessons);
             
             if (gettype($chat->messages) != "string" || (gettype($chat->messages) == "array" && count($chat->messages))) {
                 return response()->json([
@@ -320,6 +324,7 @@
             }
 
             $chat->addMessage([
+                "id_lesson" => $lesson->id_lesson,
                 "id_user" => $request->user()->id_user,
                 "abilities" => $input->abilities,
             ]);
@@ -328,7 +333,7 @@
             $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
 
             if ($chat->users->from->id_role === 1) {
-                $chat->and(["lesson"]);
+                // $chat->and(["lessons"]);
             }
 
             foreach ($chat->messages as $message) {

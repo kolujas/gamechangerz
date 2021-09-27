@@ -23,7 +23,7 @@
 				</form>          
 			</li>
 			<li>
-				<a href="#" target="_blank" class="nav-link">
+				<a href="#" target="_blank" class="nav-link discord">
 					@component('components.svg.DiscordSVG')@endcomponent
 				</a>
 			</li>

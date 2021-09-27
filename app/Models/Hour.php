@@ -10,14 +10,18 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = 'id_hour';
+        protected $primaryKey = "id_hour";
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            'id_hour', 'active', 'from', 'time', 'to',
+            "active",
+            "from",
+            "id_hour",
+            "time",
+            "to",
         ];
 
         /**
@@ -34,7 +38,7 @@
                     continue;
                 }
                 switch ($column[0]) {
-                    case 'active':
+                    case "active":
                         $this->active($column[1]);
                         break;
                 }
@@ -49,7 +53,7 @@
             $this->active = false;
 
             foreach ($hours as $data) {
-                if ($this->id_hour === $data['id_hour']) {
+                if ($this->id_hour === $data["id_hour"]) {
                     $this->active = true;
                 }
             }
@@ -62,7 +66,7 @@
          */
         static public function option (int $id_hour) {
             foreach (Hour::$options as $option) {
-                if ($option['id_hour'] === $id_hour) {
+                if ($option["id_hour"] === $id_hour) {
                     return new Hour($option);
                 }
             }
@@ -87,7 +91,7 @@
                 foreach ($hours as $data) {
                     $option->active = false;
 
-                    if ($option->id_hour === $data['id_hour']) {
+                    if ($option->id_hour === $data["id_hour"]) {
                         $option->active = true;
                         $found = true;
                         break;
@@ -107,7 +111,7 @@
          * @param string [$hours] Example: "[{\"id_hour\":1,\"stars\":3.5}]"
          * @return Hour[]
          */
-        static public function parse (string $hours = '') {
+        static public function parse (string $hours = "") {
             $collection = collect();
             
             foreach (json_decode($hours) as $data) {
@@ -162,7 +166,7 @@
             $collection = collect();
 
             foreach (Hour::$options as $hour) {
-                if ($hour['time'] === $time) {
+                if ($hour["time"] === $time) {
                     $collection->push(new Hour($hour));
                 }
             }
@@ -175,9 +179,9 @@
          * @param string $from
          * @return Hour
          */
-        static public function from (string $from = '') {
+        static public function from (string $from = "") {
             foreach (Hour::$options as $hour) {
-                if ($hour['from'] === $from) {
+                if ($hour["from"] === $from) {
                     return new this($hour);
                 }
             }
@@ -190,9 +194,9 @@
          * @param string $to
          * @return Hour
          */
-        static public function to (string $to = '') {
+        static public function to (string $to = "") {
             foreach (Hour::$options as $hour) {
-                if ($hour['to'] === $to) {
+                if ($hour["to"] === $to) {
                     return new this($hour);
                 }
             }
@@ -204,113 +208,115 @@
          * * Hour options.
          * @var array
          */
-        static $options = [[
-            'id_hour' => 1,
-            'from' => '00:00',
-            'to' => '01:00',
-            'active' => true,
-            'time' => 3
-        ], [
-            'id_hour' => 2,
-            'from' => '07:00',
-            'to' => '08:00',
-            'active' => true,
-            'time' => 1 
-        ], [
-            'id_hour' => 3,
-            'from' => '08:00',
-            'to' => '09:00',
-            'active' => true,
-            'time' => 1 
-        ], [
-            'id_hour' => 4,
-            'from' => '09:00',
-            'to' => '10:00',
-            'active' => true,
-            'time' => 1 
-        ], [
-            'id_hour' => 5,
-            'from' => '10:00',
-            'to' => '11:00',
-            'active' => true,
-            'time' => 1 
-        ], [
-            'id_hour' => 6,
-            'from' => '11:00',
-            'to' => '12:00',
-            'active' => true,
-            'time' => 1 
-        ], [
-            'id_hour' => 7,
-            'from' => '12:00',
-            'to' => '13:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 8,
-            'from' => '13:00',
-            'to' => '14:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 9,
-            'from' => '14:00',
-            'to' => '15:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 10,
-            'from' => '15:00',
-            'to' => '16:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 11,
-            'from' => '16:00',
-            'to' => '17:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 12,
-            'from' => '17:00',
-            'to' => '18:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 13,
-            'from' => '18:00',
-            'to' => '19:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 14,
-            'from' => '19:00',
-            'to' => '20:00',
-            'active' => true,
-            'time' => 2
-        ], [
-            'id_hour' => 15,
-            'from' => '20:00',
-            'to' => '21:00',
-            'active' => true,
-            'time' => 3
-        ], [
-            'id_hour' => 16,
-            'from' => '21:00',
-            'to' => '22:00',
-            'active' => true,
-            'time' => 3
-        ], [
-            'id_hour' => 17,
-            'from' => '22:00',
-            'to' => '23:00',
-            'active' => true,
-            'time' => 3
-        ], [
-            'id_hour' => 18,
-            'from' => '23:00',
-            'to' => '00:00',
-            'active' => true,
-            'time' => 3
-        ]];
+        static $options = [
+            [
+                "id_hour" => 1,
+                "from" => "00:00",
+                "to" => "01:00",
+                "active" => true,
+                "time" => 3
+            ], [
+                "id_hour" => 2,
+                "from" => "07:00",
+                "to" => "08:00",
+                "active" => true,
+                "time" => 1 
+            ], [
+                "id_hour" => 3,
+                "from" => "08:00",
+                "to" => "09:00",
+                "active" => true,
+                "time" => 1 
+            ], [
+                "id_hour" => 4,
+                "from" => "09:00",
+                "to" => "10:00",
+                "active" => true,
+                "time" => 1 
+            ], [
+                "id_hour" => 5,
+                "from" => "10:00",
+                "to" => "11:00",
+                "active" => true,
+                "time" => 1 
+            ], [
+                "id_hour" => 6,
+                "from" => "11:00",
+                "to" => "12:00",
+                "active" => true,
+                "time" => 1 
+            ], [
+                "id_hour" => 7,
+                "from" => "12:00",
+                "to" => "13:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 8,
+                "from" => "13:00",
+                "to" => "14:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 9,
+                "from" => "14:00",
+                "to" => "15:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 10,
+                "from" => "15:00",
+                "to" => "16:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 11,
+                "from" => "16:00",
+                "to" => "17:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 12,
+                "from" => "17:00",
+                "to" => "18:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 13,
+                "from" => "18:00",
+                "to" => "19:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 14,
+                "from" => "19:00",
+                "to" => "20:00",
+                "active" => true,
+                "time" => 2
+            ], [
+                "id_hour" => 15,
+                "from" => "20:00",
+                "to" => "21:00",
+                "active" => true,
+                "time" => 3
+            ], [
+                "id_hour" => 16,
+                "from" => "21:00",
+                "to" => "22:00",
+                "active" => true,
+                "time" => 3
+            ], [
+                "id_hour" => 17,
+                "from" => "22:00",
+                "to" => "23:00",
+                "active" => true,
+                "time" => 3
+            ], [
+                "id_hour" => 18,
+                "from" => "23:00",
+                "to" => "00:00",
+                "active" => true,
+                "time" => 3
+            ],
+        ];
     }

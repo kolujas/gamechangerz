@@ -26,7 +26,10 @@
            * @var array
            */
           protected $fillable = [
-               "name", "limit", "slug", "type",
+               "name",
+               "limit",
+               "slug",
+               "type",
           ];
 
           /**
@@ -106,9 +109,7 @@
            * @return Coupon
            */
           static public function findByName (string $name = "") {
-              $coupon = Coupon::where("name", "=", $name)->first();
-  
-              return $coupon;
+              return Coupon::where("name", "=", $name)->first();
           }
 
           /**
@@ -147,15 +148,19 @@
                               "name.required" => "El nombre es obligatorio.",
                               "name.unique" => "Ese nombre ya esta en uso.",
                               "value.required" => "El valor es obligatorio.",
-               ],],], "delete" => [
-                    "rules" => [
+                         ],
+                    ],
+               ], "delete" => [
+                         "rules" => [
                          "message" => "required|regex:/^BORRAR$/",
                     ], "messages" => [
                          "es" => [
                               "message.required" => "El mensaje es obligatorio.",
                               "message.regex" => "El mensaje debe decir BORRAR.",
-               ],],], "update" => [
-                    "rules" => [
+                         ],
+                    ],
+               ], "update" => [
+                         "rules" => [
                          "name" => "required|unique:coupons,name,{id_coupon},id_coupon",
                          "value" => "required",
                     ], "messages" => [
@@ -163,5 +168,8 @@
                               "name.required" => "El nombre es obligatorio.",
                               "name.unique" => "Ese nombre ya esta en uso.",
                               "value.required" => "El valor es obligatorio.",
-          ],],],];
+                         ],
+                    ],
+               ],
+          ];
      }

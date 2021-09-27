@@ -6,6 +6,9 @@ export class Message extends Class {
     static item (data) {
         let item = document.createElement("li");
         item.id = `message-${ data.id_message }`;
+        if (data.hasOwnProperty("id_lesson")) {
+            item.classList.add(`lesson-${ data.id_lesson }`);
+        }
         if (data.hasOwnProperty("says")) {
             item.classList.add((data.id_user_logged === data.id_user ? "from" : "to"));
                 let div = document.createElement("div");
@@ -21,10 +24,8 @@ export class Message extends Class {
                 title.classList.add("block", "text-right", "mb-2", "text-sm", "w-full", "color-white");
                 if (data.selected) {
                     title.innerHTML = "Habilidades elegídas:";
-                    title.classList.add("SIP");
                 }
                 if (!data.selected) {
-                    title.classList.add("NOPE");
                     title.innerHTML = "¿Te gustaria mejorar en alguna habilidad en particular? Si aún no lo sabes, no es necesario que selecciones ningúna para poder continuar";
                 }
                 item.appendChild(title);
@@ -37,12 +38,12 @@ export class Message extends Class {
                         input.disabled = true;
                     }
                     input.value = ability.id_ability;
-                    input.id = `ability-${ ability.id_ability }`;
+                    input.id = `message-${ data.id_message }-ability-${ ability.id_ability }`;
                     item.appendChild(input);
 
                     let label = document.createElement("label");
                     label.classList.add("mb-6");
-                    label.htmlFor = `ability-${ ability.id_ability }`;
+                    label.htmlFor = `message-${ data.id_message }-ability-${ ability.id_ability }`;
                     item.appendChild(label);
                         let span = document.createElement("span");
                         span.classList.add("bg-one", "color-white", "px-4", "py-2", "rounded");
@@ -86,12 +87,35 @@ export class Message extends Class {
         let list = document.createElement("ul");
         list.classList.add("mx-2", "px-2", "py-4");
         if (data.messages.length) {
+            if ([...data.messages].pop().hasOwnProperty("id_lesson") && [...data.messages].pop().id_lesson != [...data.lessons].pop().id_lesson && data.id_user_logged == data.id_user_to) {
+                let key = 1;
+                for (const message of data.messages) {
+                    if (key <= message.id_message) {
+                        key = parseInt(message.id_message) + 1;
+                    }
+                }
+                data.messages.push({
+                    id_message: key,
+                    id_user: data.users.to.id_user,
+                    disabled: false,
+                    selected: true,
+                    abilities: (() => {
+                        let abilities = [];
+                        for (const game of data.users.from.games) {
+                            for (const ability of game.abilities) {
+                                abilities.push(ability);
+                            }
+                        }
+                        return abilities; 
+                    })()
+                });
+            }
             for (const message of data.messages) {
                 list.appendChild(this.component("item", message));
             }
         }
         if (!data.messages.length) {
-            if (data.hasOwnProperty("lesson")) {
+            if (data.hasOwnProperty("lessons")) {
                 if (data.id_user_logged == data.id_user_to) {
                     list.appendChild(this.component("item", {
                         id_message: 1,
@@ -117,7 +141,7 @@ export class Message extends Class {
                         item.appendChild(span);
                 }
             }
-            if (!data.hasOwnProperty("lesson")) {
+            if (!data.hasOwnProperty("lessons")) {
                 let item = document.createElement("li");
                 list.appendChild(item);
                     let span = document.createElement("span");

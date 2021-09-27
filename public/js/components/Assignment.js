@@ -202,9 +202,6 @@ export class Assignment extends Class {
     
     static close (params) {
         // window.history.pushState({}, document.title, `#chat`);
-        if (document.querySelector("#chat #details footer .assignment.disabled")) {   
-            document.querySelector("#chat #details footer .assignment.disabled").classList.remove("disabled");
-        }
     }
     
     static open (params) {

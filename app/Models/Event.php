@@ -15,7 +15,11 @@
          * @var array
          */
         protected $fillable = [
-            "users", "name", "description", "started_at", "ended_at",
+            "description",
+            "ended_at",
+            "name",
+            "started_at",
+            "users",
         ];
 
         /**

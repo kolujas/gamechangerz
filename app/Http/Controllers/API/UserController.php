@@ -67,7 +67,7 @@
          * @return JSON
          */
         public function teachers (Request $request) {
-            $users = User::teachers();
+            $users = User::allTeachers();
 
             foreach ($users as $user) {
                 $user->and(["games", "files", "prices", "teampro", "languages", "days"]);
@@ -87,7 +87,7 @@
          * @return JSON
          */
         public function users (Request $request) {
-            $users = User::users();
+            $users = User::availableUsers();
 
             foreach ($users as $user) {
                 $user->and(["lessons", "games", "files", "hours", "achievements"]);
