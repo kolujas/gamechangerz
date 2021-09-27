@@ -290,12 +290,18 @@
                 // * Create the GoogleCalendar event.
                 if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
                     foreach ($lesson->days as $day) {
+                        $from_date = new Carbon($day->date);
+                        $to_date = new Carbon($day->date);
+                        if ($day->hours[0]->id_hour == 1 || $day->hours[0]->id_hour == 18) {
+                            $to_date->addDays(1);
+                        }
+
                         $data = [];
                         $data["users"] = $lesson->users;
                         $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
                         $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
-                        $data["started_at"] = new Carbon($day->date."T".$day->hours[0]->from);
-                        $data["ended_at"] = new Carbon($day->date."T".$day->hours[0]->to);
+                        $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
+                        $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
         
                         new Event($data);
                     }
@@ -380,12 +386,18 @@
                             // * Create the GoogleCalendar event.
                             if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
                                 foreach ($lesson->days as $day) {
+                                    $from_date = new Carbon($day->date);
+                                    $to_date = new Carbon($day->date);
+                                    if ($day->hours[0]->id_hour == 1 || $day->hours[0]->id_hour == 18) {
+                                        $to_date->addDays(1);
+                                    }
+            
                                     $data = [];
                                     $data["users"] = $lesson->users;
                                     $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
                                     $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
-                                    $data["started_at"] = new Carbon($day->date."T".$day->hours[0]->from);
-                                    $data["ended_at"] = new Carbon($day->date."T".$day->hours[0]->to);
+                                    $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
+                                    $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
                     
                                     new Event($data);
                                 }
