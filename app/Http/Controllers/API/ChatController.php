@@ -33,7 +33,7 @@
                     $lessons->push($lesson);
                 }
             }
-            ddd($lessons);
+            dd($lessons);
             foreach ($lessons as $lesson) {
                 $lesson->and(["ended_at", "started_at"]);
                 if ($lesson->id_status === 3 && $lesson->id_type === 2) {
