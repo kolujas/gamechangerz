@@ -258,9 +258,9 @@
                 }
             }
 
-            if (!isset($started_at)) {
-                $started_at = new Carbon();
-            }
+            // if (!isset($started_at)) {
+            //     $started_at = new Carbon();
+            // }
 
             $this->started_at = $started_at;
 
