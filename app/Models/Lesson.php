@@ -237,10 +237,6 @@
                 $this->days();
             }
 
-            print_r("<pre>");
-            print_r($this->days);
-            print_r("<pre>");
-
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
                     foreach ($date->hours as $hour) {
@@ -267,6 +263,10 @@
             }
 
             $this->started_at = $started_at;
+
+            print_r("<pre>");
+            print_r($this->attributes);
+            print_r("<pre>");
         }
 
         /**
