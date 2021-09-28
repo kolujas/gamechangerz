@@ -165,11 +165,16 @@
                 foreach ($this->days as $date) {
                     if (count($date->hours)) {
                         foreach ($date->hours as $hour) {
-                            if (!isset($ended_at)) {
-                                $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+                            $dayDate = Carbon::parse($date->date);
+                            if ($hour->id_hour == 1 || $hour->id_hour == 18) {
+                                $dayDate->addDays(1);
                             }
-                            if ($ended_at < Carbon::parse($date->date . "T" . $hour->to)) {
-                                $ended_at = Carbon::parse($date->date . "T" . $hour->to)->addWeeks(1);
+        
+                            if (!isset($ended_at)) {
+                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
+                            }
+                            if ($ended_at < Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)) {
+                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
                             }
                         }
                     }
@@ -237,30 +242,34 @@
                 $this->days();
             }
 
-            foreach ($this->days as $date) {
-                if (count($date->hours)) {
-                    foreach ($date->hours as $hour) {
+            if ($this->id_type == 1 || $this->id_type == 3) {
+                foreach ($this->days as $date) {
+                    if (count($date->hours)) {
+                        foreach ($date->hours as $hour) {        
+                            if (!isset($started_at)) {
+                                $started_at = Carbon::parse($date->date . "T" . $hour->from);
+                            }
+                            if ($started_at < Carbon::parse($date->date . "T" . $hour->from)) {
+                                $started_at = Carbon::parse($date->date . "T" . $hour->from);
+                            }
+                        }
+                    }
+                    if (!count($date->hours)) {
                         if (!isset($started_at)) {
-                            $started_at = Carbon::parse($date->date . "T" . $hour->from);
+                            $started_at = Carbon::parse($date->date);
                         }
-                        if ($started_at < Carbon::parse($date->date . "T" . $hour->from)) {
-                            $started_at = Carbon::parse($date->date . "T" . $hour->from);
+                        if ($started_at < Carbon::parse($date->date)) {
+                            $started_at = Carbon::parse($date->date);
                         }
-                    }
-                }
-                if (!count($date->hours)) {
-                    if (!isset($started_at)) {
-                        $started_at = Carbon::parse($date->date);
-                    }
-                    if ($started_at > Carbon::parse($date->date)) {
-                        $started_at = Carbon::parse($date->date);
                     }
                 }
             }
+            if ($this->id_type == 2) {
+                $started_at = Carbon::parse($this->created_at);
+            }
 
             if (!isset($started_at)) {
-                // $started_at = new Carbon();
-                dd($this);
+                $started_at = Carbon::now();
             }
 
             $this->started_at = $started_at;
