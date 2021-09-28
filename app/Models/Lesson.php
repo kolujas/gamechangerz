@@ -237,6 +237,10 @@
                 $this->days();
             }
 
+            print_r("<pre>");
+            print_r($this->days);
+            print_r("<pre>");
+
             foreach ($this->days as $date) {
                 if (count($date->hours)) {
                     foreach ($date->hours as $hour) {
@@ -256,6 +260,10 @@
                         $started_at = Carbon::parse($date->date);
                     }
                 }
+            }
+
+            if (!isset($started_at)) {
+                $started_at = new Carbon();
             }
 
             $this->started_at = $started_at;

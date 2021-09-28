@@ -33,23 +33,23 @@
                     $lessons->push($lesson);
                 }
             }
-            dd($lessons);
             foreach ($lessons as $lesson) {
                 $lesson->and(["ended_at", "started_at"]);
-                if ($lesson->id_status === 3 && $lesson->id_type === 2) {
-                    $now = Carbon::now();
-                    if ($now > $lesson->started_at && $now < $lesson->ended_at) {
-                        if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
-                            Chat::create([
-                                "id_chat" => null,
-                                "id_user_from" => $lesson->id_user_from,
-                                "id_user_to" => $lesson->id_user_to,
-                                "messages" => "[]",
-                            ]);
-                        }
-                    }
-                }
+                // if ($lesson->id_status === 3 && $lesson->id_type === 2) {
+                //     $now = Carbon::now();
+                //     if ($now > $lesson->started_at && $now < $lesson->ended_at) {
+                //         if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
+                //             Chat::create([
+                //                 "id_chat" => null,
+                //                 "id_user_from" => $lesson->id_user_from,
+                //                 "id_user_to" => $lesson->id_user_to,
+                //                 "messages" => "[]",
+                //             ]);
+                //         }
+                //     }
+                // }
             }
+            die();
 
             $friends = collect();
             foreach (Friend::allFromUser($request->user()->id_user) as $friend) {
