@@ -120,7 +120,7 @@
     top: 3.4rem;
 }
 
-.user .data button + a.btn.btn-icon {
+.user .data .actions button + a.btn.btn-icon {
     top: 6.4rem;
 }
 

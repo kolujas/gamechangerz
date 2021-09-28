@@ -342,6 +342,7 @@
             unset($user->files);
             
             $user->update((array) $input);
+            User::requilify($user->id_user);
 
             return redirect("/panel/teachers/$user->slug")->with("status", [
                 "code" => 200,
@@ -584,6 +585,7 @@
             unset($user->files);
             
             $user->update((array) $input);
+            User::requilify($user->id_user);
 
             return redirect("/panel/users/$user->slug")->with("status", [
                 "code" => 200,

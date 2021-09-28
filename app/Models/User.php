@@ -640,7 +640,6 @@
                         "name" => "nullable|max:50",
                         "profile" => "nullable|mimetypes:image/png,image/jpeg",
                         "banner" => "nullable|mimetypes:image/png,image/jpeg",
-                        "languages" => "required",
                     ], "messages" => [
                         "es" => [
                             "username.required" => "El apodo es obligatorio.",

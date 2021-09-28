@@ -41,6 +41,7 @@ function createErrorNotification (params) {
             const errors = params.errors[target];
             for (const error of errors) {
                 let index = document.querySelectorAll(".notification").length;
+                console.log(error);
                 let notification = new NotificationJS({
                     id: `notification-${ target }`,
                     code: 404,

@@ -54,11 +54,11 @@
             }
 
             $games = Game::stringify($games->toArray());
-            $games = Game::requilify($user->id_user, $games);
-
+            
             $user->update([
                 "games" => $games,
             ]);
+            User::requilify($user->id_user);
             
             return redirect()->back()->with('status', [
                 'code' => 200,
