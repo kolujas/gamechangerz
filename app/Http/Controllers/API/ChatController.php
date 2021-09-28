@@ -50,6 +50,8 @@
                 }
             }
 
+            dd($lessons);
+
             $friends = collect();
             foreach (Friend::allFromUser($request->user()->id_user) as $friend) {
                 $friends->push($friend);
@@ -104,8 +106,6 @@
             foreach ($chats->sortByDesc("updated_at") as $chat) {
                 $sorted->push($chat);
             };
-
-            dd($lessons);
 
             return response()->json([
                 "code" => 200,
