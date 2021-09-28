@@ -90,10 +90,14 @@
          * * Set the chat Lesson.
          */
         public function lessons () {
-            $this->lessons = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
+            $this->lessons = collect();
+            $lessons = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
 
-            foreach ($this->lessons as $lesson) {
-                $lesson->and(["assignments", "days", "ended_at", "started_at"]);
+            foreach ($lessons as $lesson) {
+                if ($lesson->id_type == 2) {
+                    $lesson->and(["assignments", "days", "ended_at", "started_at"]);
+                    $this->lessons->push($lesson);
+                }
             }
         }
 
