@@ -50,8 +50,6 @@
                 }
             }
 
-            dd($lessons);
-
             $friends = collect();
             foreach (Friend::allFromUser($request->user()->id_user) as $friend) {
                 $friends->push($friend);
@@ -71,6 +69,8 @@
                     }
                 }
             }
+
+            dd($lessons);
 
             if ($request->user()->id_role === 2) {
                 foreach (User::allAdmins() as $user) {
