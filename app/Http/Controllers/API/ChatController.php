@@ -100,8 +100,6 @@
                 }
             }
 
-            dd("here");
-
             $sorted = collect();
             foreach ($chats->sortByDesc("updated_at") as $chat) {
                 $sorted->push($chat);
