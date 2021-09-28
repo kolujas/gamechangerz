@@ -263,10 +263,6 @@
             // }
 
             $this->started_at = $started_at;
-
-            print_r("<pre>");
-            print_r($this->attributes);
-            print_r("<pre>");
         }
 
         /**
