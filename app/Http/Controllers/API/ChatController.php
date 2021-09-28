@@ -70,8 +70,6 @@
                 }
             }
 
-            dd($lessons);
-
             if ($request->user()->id_role === 2) {
                 foreach (User::allAdmins() as $user) {
                     if ($user->id_user !== $request->user()->id_user) {
@@ -101,6 +99,8 @@
                     $message->id_role = $request->user()->id_role;
                 }
             }
+
+            dd("here");
 
             $sorted = collect();
             foreach ($chats->sortByDesc("updated_at") as $chat) {
