@@ -10,7 +10,7 @@
     @if ($lesson->id_type === 1 || $lesson->id_type === 3)
         @foreach ($lesson->days as $day)
             @foreach ($day->hours as $hour)
-                <p class="overpass color-white">La misma se llevará a cabo en nuestro canal de Discord el día <b class="color-four">{{ $day->name }}</b> entre las <b class="color-four">{{ $hour->from }}</b> y las <b class="color-four">{{ $hour->to }}</b>. Revisá tu casilla de mail para encontrar más instrucciones sobre cómo encontrarte con tu coach</p>
+                <p class="overpass color-white">La misma se llevará a cabo en nuestro canal de Discord el día <b class="color-four">{{ \Carbon\Carbon::parse($day->date)->format("d-m-Y") }}</b> entre las <b class="color-four">{{ $hour->from }}</b> y las <b class="color-four">{{ $hour->to }}</b>. Revisá tu casilla de mail para encontrar más instrucciones sobre cómo encontrarte con tu coach</p>
             @endforeach
         @endforeach
         <p class="overpass color-white">Cualquier duda o inconveniente, podés ponerte en contacto con nosotros a través del canal <i class="color-five">#soporte</i> de Discord o enviando una mail a <b class="color-four">soporte@gamechangerz.gg</b></p>
