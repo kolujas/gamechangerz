@@ -20,7 +20,7 @@
                 <a href="/" class="logo">
                     <img src="{{ asset('img/logos/028-logotipo_original.png') }}" 
                         alt="Game Changer Z Logo"/>
-                    <h1 class="hidden">GameChangerZ</h1>
+                    <h1 class="hidden">Gamechangerz</h1>
                 </a>
             </header>
 
@@ -30,7 +30,7 @@
                         <a href="/">
                             <img src="{{ asset('img/logos/028-logotipo_original.png') }}" 
                                 alt="Game Changer Z Logo"/>
-                            <h1 class="hidden">GameChangerZ</h1>
+                            <h1 class="hidden">Gamechangerz</h1>
                         </a>
                         <a href="#panel-menu" class="sidebar-button close-btn left hidden">
                             <span>Close</span>

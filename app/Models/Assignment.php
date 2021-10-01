@@ -94,7 +94,7 @@
         static $validation = [
             "make" => [
                 "rules" => [
-                    "description" => "required|max:255",
+                    "description" => "required|max:1000",
                     "url" => "nullable|url",
                 ], "messages" => [
                     "es" => [

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Blog | GameChangerZ
+    Blog | Gamechangerz
 @endsection
 
 @section('css')

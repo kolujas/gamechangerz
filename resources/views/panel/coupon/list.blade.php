@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('title')
-    Listado de Cupones | GameChangerZ
+    Listado de Cupones | Gamechangerz
 @endsection
 
 @section('css')

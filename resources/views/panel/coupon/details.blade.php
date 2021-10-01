@@ -5,7 +5,7 @@
         {{ $coupon->name }}
     @else
         Nuevo
-    @endif | GameChangerZ
+    @endif | Gamechangerz
 @endsection
 
 @section("css")

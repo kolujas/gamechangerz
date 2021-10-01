@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Soporte | GameChangerZ
+    Soporte | Gamechangerz
 @endsection
 
 @section('css')

@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('title')
-    Listado de Clases | GameChangerZ
+    Listado de Clases | Gamechangerz
 @endsection
 
 @section('css')

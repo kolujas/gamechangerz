@@ -2,10 +2,10 @@
 
 @section('title')
     @if (Request::is('users'))
-        Buscador de Usuarios | GameChangerZ
+        Buscador de Usuarios | Gamechangerz
     @endif
     @if (Request::is('teachers'))
-        Buscador de Coaches | GameChangerZ
+        Buscador de Coaches | Gamechangerz
     @endif
 @endsection
 

@@ -597,7 +597,7 @@
                     ],
                 ], "packs" => [
                         "rules" => [
-                        "dates" => "required|array|max:4",
+                        "dates" => "required|array|min:4|max:4",
                         "dates.*" => "required",
                         "hours" => "required|array|min:4|max:4",
                         "hours.*" => "required",
@@ -606,6 +606,7 @@
                         "es" => [
                             "dates.required" => "Las fechas de la clase deben ser seleccionadas.",
                             "dates.array" => "Las fechas deben estar en un array ([]).",
+                            "dates.min" => "Mínimo :min fechas deben ser seleccionadas.",
                             "dates.max" => "Máximo :max fechas deben ser seleccionadas.",
                             "hours.required" => "Las horas de la clase deben ser seleccionadas.",
                             "hours.array" => "Las horas deben estar en un array ([]).",

@@ -30,20 +30,21 @@ for (const tr of document.querySelectorAll("#panel.tab-menu li.tab-content table
 }
 
 if (document.querySelector("#panel.tab-menu li.tab-content > form:not(.not)")) {
-    const editBtn = document.querySelector('.editBtn');
-    editBtn.addEventListener('click', function(){
-        enable();
-    })    
-
-    const cancelBtn = document.querySelector('.cancelBtn');
-    cancelBtn.addEventListener('click', function(){
-        disable();
-    })
-
-    const deleteBtn = document.querySelector('.deleteBtn');
-    deleteBtn.addEventListener('click', function(){
-        deleteEnable();
-    })
+    if (document.querySelector(".editBtn")) {
+        document.querySelector(".editBtn").addEventListener('click', function(){
+            enable();
+        });
+    }
+    if (document.querySelector(".cancelBtn")) {
+        document.querySelector(".cancelBtn").addEventListener('click', function(){
+            disable();
+        }); 
+    }
+    if (document.querySelector(".deleteBtn")) {
+        document.querySelector(".deleteBtn").addEventListener('click', function(){
+            deleteEnable();
+        }); 
+    }
 }
 
 let info = {}

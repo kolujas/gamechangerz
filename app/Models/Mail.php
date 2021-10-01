@@ -77,11 +77,11 @@
                     $mail = new TeacherRequestApprovedMail((object) $data);
                     break;
                 case 11:
-                    // * When a User tries to contact GameChangerZ
+                    // * When a User tries to contact Gamechangerz
                     $mail = new ContactMail((object) $data);
                     break;
                 case 12:
-                    // * When a User tries to contact with GameChangerZ support
+                    // * When a User tries to contact with Gamechangerz support
                     $mail = new SupportMail((object) $data);
                     break;
             }

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Contacto | GameChangerZ
+    Contacto | Gamechangerz
 @endsection
 
 @section('css')

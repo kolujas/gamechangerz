@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('title')
-    Listado de Coaches | GameChangerZ
+    Listado de Coaches | Gamechangerz
 @endsection
 
 @section('css')

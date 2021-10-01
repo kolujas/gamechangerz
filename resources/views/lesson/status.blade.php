@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{ (($id_status == 2 || $id_status == 3) ? "Clase pagada con exito" : (($id_status == 1) ? "Pendiente de pago" : "Pago rechazado")) }} | GameChangerZ
+    {{ (($id_status == 2 || $id_status == 3) ? "Clase pagada con exito" : (($id_status == 1) ? "Pendiente de pago" : "Pago rechazado")) }} | Gamechangerz
 @endsection
 
 @section('css')

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{ $game->name }} | GameChangerZ
+    {{ $game->name }} | Gamechangerz
 @endsection
 
 @section('css')
@@ -122,7 +122,7 @@
             </section>
             
             <aside class="aside lg:h-screen lg:w-full">
-                <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de GameChangerZ">
+                <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de Gamechangerz">
             </aside>
     
             <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24">
@@ -140,7 +140,7 @@
         @else
             <section class="coming-soon flex justify-center items-center mb-8" style="--color-one: {{ $game->colors[0] }}; --color-two: {{ $game->colors[1] }}">
                 <aside>
-                    <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de GameChangerZ">
+                    <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de Gamechangerz">
                 </aside>
                 <header>
                     <h2 class="color-white"><span class="color-four">{{ $game->name }}</span> coming soon</h2>

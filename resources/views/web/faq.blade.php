@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Preguntas frecuentes | GameChangerZ
+    Preguntas frecuentes | Gamechangerz
 @endsection
 
 @section('css')

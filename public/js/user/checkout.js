@@ -530,6 +530,8 @@ function createHours(quantity) {
                 name: "hours[]",
                 defaultValue: null,
                 classes: ["checkout", "form-input"],
+            }, state: {
+                checked: false,
             },
         });
         document.querySelector("div.hours").appendChild(input.html);

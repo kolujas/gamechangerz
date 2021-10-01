@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{ $user->username }} | GameChangerZ
+    {{ $user->username }} | Gamechangerz
 @endsection
 
 @section('css')

@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('title')
-    Información de la plataforma | GameChangerZ
+    Información de la plataforma | Gamechangerz
 @endsection
 
 @section('css')

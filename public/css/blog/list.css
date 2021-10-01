@@ -82,6 +82,7 @@ ul.blog.cards .card .post-content {
         border-bottom-left-radius: 0;
         border-top-right-radius: .25rem;
         border-bottom-right-radius: .25rem;
+        min-height: 12rem;
     }
 
     ul.blog.cards .card .post-content {

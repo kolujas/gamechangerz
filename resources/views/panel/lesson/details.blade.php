@@ -5,7 +5,7 @@
         de {{ $lesson->users->from->username }}
     @else
         > Nueva
-    @endif | GameChangerZ
+    @endif | Gamechangerz
 @endsection
 
 @section('css')
@@ -30,9 +30,9 @@
                     Nueva
                 @endif</h2>
                 <div class="flex items-center">
-                    <a class="btn btn-one btn-icon editBtn" href="#update">
+                    {{-- <a class="btn btn-one btn-icon editBtn" href="#update">
                         <i class="fas fa-pen"></i>
-                    </a>
+                    </a> --}}
                     <a class="btn btn-one btn-icon deleteBtn ml-4" href="#delete">
                         <i class="fas fa-trash"></i>
                     </a>

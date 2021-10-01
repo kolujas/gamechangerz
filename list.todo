@@ -39,26 +39,6 @@
                 }
               },
               {
-                "key": 1629948530330,
-                "children": [],
-                "todo": {
-                  "content": "Que pasa si reservo 2 offline (habiendo o no completado sus Assignments)",
-                  "id": 1629948530330,
-                  "level": "default",
-                  "done": false
-                }
-              },
-              {
-                "key": 1629916944416,
-                "children": [],
-                "todo": {
-                  "content": "Chat entre admins funcional",
-                  "id": 1629916944416,
-                  "level": "secondary",
-                  "done": false
-                }
-              },
-              {
                 "key": 1629137127564,
                 "children": [],
                 "todo": {
@@ -86,47 +66,6 @@
                   "id": 1629137129895,
                   "level": "danger",
                   "done": false
-                }
-              },
-              {
-                "key": 1632435375449,
-                "children": [
-                  {
-                    "key": 1632435412436,
-                    "children": [],
-                    "todo": {
-                      "content": "id_user = 20 => remember_token  Axl7MLYsXcjjMw8YRuatNHAGRo0U3wYcMTRJjhdZApR6fpNu7wfA5oBzrWBx",
-                      "id": 1632435412436,
-                      "level": "default",
-                      "done": false
-                    }
-                  },
-                  {
-                    "key": 1632435424517,
-                    "children": [],
-                    "todo": {
-                      "content": "id_user = 22 => remember_token  dCklPOt9vGtkLdL5m6amgkHOvfLGjkJOXziQelMHuem9hXhcgs7ourr0OKFv",
-                      "id": 1632435424517,
-                      "level": "default",
-                      "done": false
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "Modificar Usuarios de la BDD",
-                  "id": 1632435375449,
-                  "level": "default",
-                  "done": false
-                }
-              },
-              {
-                "key": 1632435377509,
-                "children": [],
-                "todo": {
-                  "content": "Cambiar Assigment por Assignment",
-                  "id": 1632435377509,
-                  "level": "secondary",
-                  "done": true
                 }
               },
               {

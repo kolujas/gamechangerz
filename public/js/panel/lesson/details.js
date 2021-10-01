@@ -84,26 +84,32 @@ if (validation.hasOwnProperty("lesson")) {
     });
 }
 
-document.querySelector(".editBtn").addEventListener("click", function(){
-    validation.lesson.create["1on1"].ValidationJS.setState("active", true);
-    validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
-    validation.lesson.create.packs.ValidationJS.setState("active", false);
-    validation.lesson.delete.ValidationJS.setState("active", false);
-});   
+if (document.querySelector(".editBtn")) {
+    document.querySelector(".editBtn").addEventListener("click", function(){
+        validation.lesson.create["1on1"].ValidationJS.setState("active", true);
+        validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
+        validation.lesson.create.packs.ValidationJS.setState("active", false);
+        validation.lesson.delete.ValidationJS.setState("active", false);
+    });   
+}
 
-document.querySelector(".cancelBtn").addEventListener("click", function(){
-    validation.lesson.create["1on1"].ValidationJS.setState("active", true);
-    validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
-    validation.lesson.create.packs.ValidationJS.setState("active", false);
-    validation.lesson.delete.ValidationJS.setState("active", false);
-});
+if (document.querySelector(".cancelBtn")) {
+    document.querySelector(".cancelBtn").addEventListener("click", function(){
+        validation.lesson.create["1on1"].ValidationJS.setState("active", true);
+        validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
+        validation.lesson.create.packs.ValidationJS.setState("active", false);
+        validation.lesson.delete.ValidationJS.setState("active", false);
+    });
+}
 
-document.querySelector(".deleteBtn").addEventListener("click", function(){
-    validation.lesson.create["1on1"].ValidationJS.setState("active", false);
-    validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
-    validation.lesson.create.packs.ValidationJS.setState("active", false);
-    validation.lesson.delete.ValidationJS.setState("active", true);
-});
+if (document.querySelector(".deleteBtn")) {
+    document.querySelector(".deleteBtn").addEventListener("click", function(){
+        validation.lesson.create["1on1"].ValidationJS.setState("active", false);
+        validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
+        validation.lesson.create.packs.ValidationJS.setState("active", false);
+        validation.lesson.delete.ValidationJS.setState("active", true);
+    });
+}
 
 function createDates (option) {
     document.querySelector("#lesson .dates").innerHTML = "";

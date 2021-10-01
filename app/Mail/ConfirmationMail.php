@@ -27,6 +27,6 @@
         public function build () {
             return $this->view('mail.confirmation')
                 ->from(config("mail.from.address"), config("mail.from.name"))
-                ->subject("¡Te registraste en GameChangerZ! Por favor confirme su correo electrónico");
+                ->subject("¡Te registraste en Gamechangerz! Por favor confirme su correo electrónico");
         }
     }

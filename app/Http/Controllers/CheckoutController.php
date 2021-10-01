@@ -299,7 +299,7 @@
                         $data = [];
                         $data["users"] = $lesson->users;
                         $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
-                        $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
+                        $data["description"] = "Clase reservada desde el sitio web Gamechangerz";
                         $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
                         $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
         
@@ -395,7 +395,7 @@
                                     $data = [];
                                     $data["users"] = $lesson->users;
                                     $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
-                                    $data["description"] = "Clase reservada desde el sitio web GameChangerZ";
+                                    $data["description"] = "Clase reservada desde el sitio web Gamechangerz";
                                     $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
                                     $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
                     

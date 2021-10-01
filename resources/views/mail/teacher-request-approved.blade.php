@@ -8,7 +8,7 @@
         <img src={{ asset("img/logos/028-logotipo_original.png") }} style="
         width: 100%;
         height: 10rem;
-        object-fit: contain;" alt="GameChangerZ logo">
+        object-fit: contain;" alt="Gamechangerz logo">
         <table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
             <tr>
                 <td style="background-color: #ecf0f1">

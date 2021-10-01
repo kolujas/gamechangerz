@@ -5,7 +5,7 @@
         {{ $user->username }}
     @else
         Nuevo
-    @endif | GameChangerZ
+    @endif | Gamechangerz
 @endsection
 
 @section("css")

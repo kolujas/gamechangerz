@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Politica de privacidad | GameChangerZ
+    Politica de privacidad | Gamechangerz
 @endsection
 
 @section('css')

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Panel | GameChangerZ
+    Panel | Gamechangerz
 @endsection
 
 @section('css')

@@ -2,10 +2,10 @@
 
 @section('title')
     @if ($post)
-        {{ $post->title }} | GameChangerZ
+        {{ $post->title }} | Gamechangerz
     @endif
     @if (!$post)
-        Agregar artículo | GameChangerZ
+        Agregar artículo | Gamechangerz
     @endif
 @endsection
 

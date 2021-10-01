@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('title')
-    Listado de Usuarios | GameChangerZ
+    Listado de Usuarios | Gamechangerz
 @endsection
 
 @section('css')

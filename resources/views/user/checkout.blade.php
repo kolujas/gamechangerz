@@ -1,7 +1,7 @@
 @extends("layouts.default")
 
 @section("title")
-    Checkout | GameChangerZ
+    Checkout | Gamechangerz
 @endsection
 
 @section("css")

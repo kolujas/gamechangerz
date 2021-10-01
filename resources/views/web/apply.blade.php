@@ -1,7 +1,7 @@
 @extends("layouts.default")
 
 @section("title")
-    Convertite en profesor | GameChangerZ
+    Convertite en profesor | Gamechangerz
 @endsection
 
 @section("css")
