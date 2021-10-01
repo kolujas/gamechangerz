@@ -84,7 +84,6 @@ function createUsersFilter () {
     let value = (document.querySelector("input[type=search].filter-input").value ? document.querySelector("input[type=search].filter-input").value : null);
     filter = new Filter({
         id: "filter-users",
-        limit: 10,
         order: {
             "stars": "DESC",
             "lessons-done": { value: "DESC", active: false },
@@ -133,7 +132,6 @@ function createTeachersFilter () {
     changeText();
     filter = new Filter({
         id: "filter-teachers",
-        limit: 10,
         order: {
             "important": "DESC",
             "stars": "DESC",
