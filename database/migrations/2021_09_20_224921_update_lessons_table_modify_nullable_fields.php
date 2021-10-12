@@ -11,7 +11,7 @@
          */
         public function up () {
             Schema::table('lessons', function (Blueprint $table) {
-                $table->json('days')->nullable()->default('[]')->change();
+                $table->json('days')->nullable()->change();
             });
         }
 

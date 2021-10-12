@@ -18,7 +18,7 @@
                 $table->unsignedInteger('id_method')->nullable();
                 $table->string('id_coupon')->nullable();
                 $table->tinyInteger('id_status')->nullable()->default(2);
-                $table->json('days')->nullable()->default('[]');
+                $table->json('days')->nullable();
                 $table->integer('assignments')->nullable()->default(4);
                 $table->timestamps();
             });

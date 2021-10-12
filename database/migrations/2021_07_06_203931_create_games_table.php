@@ -16,7 +16,7 @@
                 $table->string('alias');
                 $table->string('folder');
                 $table->string('slug');
-                $table->json('colors')->default("[]");
+                $table->json('colors');
                 $table->boolean('active')->default(1);
                 $table->timestamps();
             });

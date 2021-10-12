@@ -11,7 +11,7 @@
          */
         public function up () {
             Schema::table('chats', function (Blueprint $table) {
-                $table->json('messages')->nullable()->default('[]')->change();
+                $table->json('messages')->nullable()->change();
             });
         }
 

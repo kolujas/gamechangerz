@@ -17,7 +17,7 @@
                 $table->unsignedInteger('id_lesson');
                 $table->string('title');
                 $table->text('description')->nullable();
-                $table->json('abilities')->nullable()->default('[]');
+                $table->json('abilities')->nullable();
                 $table->string('slug');
                 $table->float('stars')->nullable()->default(0);
                 $table->timestamps();

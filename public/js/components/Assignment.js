@@ -94,7 +94,7 @@ export class Assignment extends Class {
         if (this.props.id_role == 0) {
             document.querySelector("#assignment.modal form .title").classList.remove("hidden");
             if (this.hasProp("presentation") && this.props.presentation) {
-                innerHTML = "Revisar entrega";
+                innerHTML = "Ver respuesta del coach";
             }
             if (!this.hasProp("presentation") || !this.props.presentation) {
                 classes.push("hidden");

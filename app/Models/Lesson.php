@@ -571,16 +571,12 @@
             ], "checkout" => [
                 "1on1" => [
                     "rules" => [
-                        "dates" => "required",
-                        "dates.*" => "required",
                         "hours" => "required",
                         "hours.*" => "required",
                         "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                     ], "messages" => [
                         "es" => [
-                            "dates.required" => "La fecha de la clase debe ser seleccionada.",
                             "hours.required" => "El horario de la clase debe ser seleccionada.",
-                            "dates.*.required" => "No se seleccionó una fecha.",
                             "hours.*.required" => "No se seleccionó una hora.",
                             "discord.required" => "El nombre de usuario de Discord es obligatorio.",
                             "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
@@ -588,7 +584,7 @@
                         ],
                     ],
                 ], "seguimiento-online" => [
-                        "rules" => [
+                    "rules" => [
                         // 
                     ], "messages" => [
                         "es" => [
@@ -596,23 +592,16 @@
                         ],
                     ],
                 ], "packs" => [
-                        "rules" => [
-                        "dates" => "required|array|min:4|max:4",
-                        "dates.*" => "required",
+                    "rules" => [
                         "hours" => "required|array|min:4|max:4",
                         "hours.*" => "required",
                         "discord" => "required|unique:users,discord,{id_user},id_user|regex:/([a-z])*#([0-9])*/i",
                     ], "messages" => [
                         "es" => [
-                            "dates.required" => "Las fechas de la clase deben ser seleccionadas.",
-                            "dates.array" => "Las fechas deben estar en un array ([]).",
-                            "dates.min" => "Mínimo :min fechas deben ser seleccionadas.",
-                            "dates.max" => "Máximo :max fechas deben ser seleccionadas.",
                             "hours.required" => "Las horas de la clase deben ser seleccionadas.",
                             "hours.array" => "Las horas deben estar en un array ([]).",
                             "hours.min" => "Mínimo :min horas deben ser seleccionadas.",
                             "hours.max" => "Máximo :max horas deben ser seleccionadas.",
-                            "dates.*.required" => "No se seleccionó una fecha.",
                             "hours.*.required" => "No se seleccionó una hora.",
                             "discord.required" => "El nombre de usuario de Discord es obligatorio.",
                             "discord.regex" => "El nombre de usuario de Discord no es válido (username#0000).",
@@ -627,20 +616,22 @@
          * * Lesson types.
          * @var array
          */
-        static $types = [[
-            "id_type" => 1,
-            "name" => "1on1",
-            "svg" => "components.svg.ClaseOnline1SVG",
-            "slug" => "1on1",
-        ], [
-            "id_type" => 2,
-            "name" => "seguimiento-online",
-            "svg" => "components.svg.ClaseOnline2SVG",
-            "slug" => "seguimiento-online",
-        ], [
-            "id_type" => 3,
-            "name" => "Packs",
-            "svg" => "components.svg.ClaseOnline3SVG",
-            "slug" => "packs",
-        ]];
+        static $types = [
+            [
+                "id_type" => 1,
+                "name" => "1on1",
+                "svg" => "components.svg.ClaseOnline1SVG",
+                "slug" => "1on1",
+            ], [
+                "id_type" => 2,
+                "name" => "seguimiento-online",
+                "svg" => "components.svg.ClaseOnline2SVG",
+                "slug" => "seguimiento-online",
+            ], [
+                "id_type" => 3,
+                "name" => "Packs",
+                "svg" => "components.svg.ClaseOnline3SVG",
+                "slug" => "packs",
+            ],
+        ];
     }

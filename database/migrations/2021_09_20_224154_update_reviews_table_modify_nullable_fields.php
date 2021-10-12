@@ -12,7 +12,7 @@
         public function up () {
             Schema::table('reviews', function (Blueprint $table) {
                 $table->text('description')->nullable()->change();
-                $table->json('abilities')->nullable()->default('[]')->change();
+                $table->json('abilities')->nullable()->change();
             });
         }
 

@@ -13,7 +13,7 @@
             Schema::create('coupons', function (Blueprint $table) {
                 $table->increments('id_coupon');
                 $table->string('name');
-                $table->json('type')->default("");
+                $table->json('type');
                 $table->integer('limit')->nullable();
                 $table->string('slug');
                 $table->timestamps();

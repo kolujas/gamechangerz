@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <!-- ? Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta content={{ csrf_token() }} name="csrf-token" />
         <meta content={{ asset("") }} name="asset" />
+        
+        <!-- ? Favicon -->
+        {{-- <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"> --}}
 
         {{-- ? External Repositories CSS --}}
         <link rel="stylesheet" href={{ asset('submodules/DropdownJS/css/styles.css') }}>
@@ -19,7 +23,7 @@
         
         <!-- ? Tailwind CSS -->
         <link href={{ asset('css/app.css') }} rel="stylesheet">
-        
+
         {{-- ? Global CSS --}}
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">

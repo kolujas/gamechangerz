@@ -15,7 +15,7 @@
                 $table->unsignedInteger("id_lesson");
                 $table->text("description")->nullable();
                 $table->string("url")->nullable();
-                $table->json("abilities")->nullable()->default("[]");
+                $table->json("abilities")->nullable();
                 $table->timestamps();
             });
         }
