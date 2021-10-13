@@ -16,7 +16,7 @@
     class ChatController extends Controller {
         /**
          * * Get all the chats from an User.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @return JSON
          */
         public function all (Request $request) {
@@ -116,7 +116,7 @@
 
         /**
          * * Get an specific Chat.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_user
          * @return JSON
          */
@@ -187,7 +187,7 @@
 
         /**
          * * Add a new Message.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $id_user
          * @return JSON
          */
@@ -272,9 +272,9 @@
 
         /**
          * * Adds the Abilities to learn to the Chat
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_user
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function abilities (Request $request, int $id_user) {
             if (!$request->user()) {

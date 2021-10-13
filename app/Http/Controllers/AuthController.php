@@ -14,7 +14,7 @@
         /**
          * * Confirm the User email.
          * @param string $token User personal access token.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function confirm ($token) {
             if (!DB::table('password_resets')->where('token', $token)->first()) {
@@ -41,8 +41,8 @@
 
         /**
          * * Log the User in the website.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function login (Request $request) {
             foreach ($request->all() as $key => $value) {
@@ -103,7 +103,7 @@
 
         /**
          * * Log the User out the website.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function logout () {
             foreach (Auth::user()->tokens as $token) {

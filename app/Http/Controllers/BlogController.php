@@ -17,7 +17,7 @@
     class BlogController extends Controller {
         /**
          * * Control the Blog list page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function list (Request $request) {
             $error = null;
@@ -57,7 +57,7 @@
          * * Control the Blog details page.
          * @param string|false $user Post User slug.
          * @param string|false $post Post slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function details (Request $request, $user = false, $post = false) {
             $error = null;
@@ -104,11 +104,11 @@
 
         /**
          * * Execute the Post correct function.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string|false $user Post User slug.
          * @param string|false $post Post slug.
          * @param string $action Function name.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function do (Request $request, $user = false, $post = false, $action = 'update') {
             $input = (object) $request->all();
@@ -133,9 +133,9 @@
 
         /**
          * * Create a new Post.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $user Post User slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function doCreate (Request $request, string $user) {
             $input = (object) $request->all();
@@ -169,10 +169,10 @@
 
         /**
          * * Update a Post.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $user Post User slug.
          * @param string $post Post slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function doUpdate (Request $request, string $user, string $post) {
             $input = (object) $request->all();
@@ -212,10 +212,10 @@
 
         /**
          * * Delete a Post.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $user Post User slug.
          * @param string $post Post slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function doDelete (Request $request, string $user, string $post) {
             $post = Post::findBySlug($post);

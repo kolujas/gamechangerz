@@ -18,8 +18,8 @@
     class AuthController extends Controller {
         /**
          * * Log the User in the website.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function login (Request $request) {
             $input = (object) $this->decodeInput($request->all(), "login_");
@@ -84,8 +84,8 @@
 
         /**
          * * Sign the User in the website.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function signin (Request $request) {
             $input = (object) $this->decodeInput($request->all(), "signin_");

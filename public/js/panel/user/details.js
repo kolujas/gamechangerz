@@ -65,7 +65,7 @@ new InputFileMaker({
 },{
     disabled: true,
     generate: document.querySelector(".banner-photo"),
-    image: new Asset((user.hasOwnProperty("id_user") && user.files.hasOwnProperty("banner")) ? "storage/" + user.files.banner : "storage/web/01-banner.png").route
+    image: new Asset((user.hasOwnProperty("id_user") && user.files.hasOwnProperty("banner")) ? "storage/" + user.files.banner : "storage/web/slider/02-banner.png").route
 });
 
 document.querySelector(".banner-photo").appendChild(new Html("span", {

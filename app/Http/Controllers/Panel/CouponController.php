@@ -10,10 +10,10 @@
     class CouponController extends Controller {
         /**
          * * Call the correct function.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $section
          * @param string $action
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         static public function call (Request $request, string $section, string $action) {
             switch ($action) {
@@ -30,8 +30,8 @@
 
         /**
          * * Creates a Coupon.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doCreate (Request $request) {
             $input = (object) $request->all();
@@ -58,8 +58,8 @@
 
         /**
          * * Deletes a Coupon.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doDelete (Request $request) {
             $input = (object) $request->all();
@@ -81,8 +81,8 @@
 
         /**
          * * Updates a Coupon.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doUpdate (Request $request) {
             $input = (object) $request->all();

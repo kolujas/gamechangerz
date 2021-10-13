@@ -3,11 +3,15 @@
     object-fit: cover;
     border-radius: .25rem;
     width: 100%;
-    height: 20rem;
+    height: 15rem;
     cursor: pointer;
     transition: 600ms;
     overflow: hidden;
     background-color: var(--color-black);
+}
+
+#banner .banner-container .banner-photo img {
+    height: 10rem;
 }
 
 #banner .banner-container .banner-photo img:hover,

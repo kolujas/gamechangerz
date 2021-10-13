@@ -47,12 +47,16 @@
         static $validation = [
             "banner" => [
                 "rules" => [
-                    "banner" => "nullable|mimetypes:image/png",
-                    "background" => "nullable|mimetypes:image/jpeg",
+                    "slider-1" => "nullable|mimetypes:image/png",
+                    "slider-2" => "nullable|mimetypes:image/png",
+                    "slider-3" => "nullable|mimetypes:image/png",
+                    "background" => "nullable|mimetypes:image/pnh",
                 ], "messages" => [
                     "es" => [
-                        "banner.mimetypes" => "El banner debe ser una imagen .png",
-                        "background.mimetypes" => "La foto de fondo debe ser una imagen .jpeg/jpg",
+                        "slider-1.mimetypes" => "La imagen 1 del slider de la landing debe ser una imagen .png",
+                        "slider-2.mimetypes" => "La imagen 2 del slider de la landing debe ser una imagen .png",
+                        "slider-3.mimetypes" => "La imagen 3 del slider de la landing debe ser una imagen .png",
+                        "background.mimetypes" => "La foto de fondo debe ser una imagen .png",
                     ],
                 ],
             ], "info" => [

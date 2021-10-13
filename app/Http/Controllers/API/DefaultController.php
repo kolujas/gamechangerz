@@ -8,7 +8,7 @@
     class DefaultController extends Controller {
         /**
          * * Get the Platform dolar value.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @return JSON
          */
         public function dolar (Request $request) {

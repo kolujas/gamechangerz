@@ -9,9 +9,9 @@
     class GameController extends Controller {
         /**
          * * Update the User Games.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function update (Request $request, string $slug) {
             $user = User::findBySlug($slug);

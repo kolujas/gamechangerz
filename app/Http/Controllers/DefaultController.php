@@ -15,7 +15,7 @@
     class DefaultController extends Controller {
         /**
          * * Control the apply page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function apply (Request $request) {
             $error = null;
@@ -50,7 +50,7 @@
 
         /**
          * * Control the coming soon page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function comingSoon (Request $request) {
             $error = null;
@@ -66,8 +66,8 @@
 
         /**
          * * Controls the contact page.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function contact (Request $request) {
             $error = null;
@@ -102,7 +102,7 @@
 
         /**
          * * Control the frequent ask questions page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function faq (Request $request) {
             $error = null;
@@ -134,7 +134,7 @@
 
         /**
          * * Control the index page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function index (Request $request) {
             $error = null;
@@ -173,7 +173,7 @@
         /**
          * * Control the landing page.
          * @param string $slug Game slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function landing (Request $request, $slug) {
             $error = null;
@@ -216,7 +216,7 @@
 
         /**
          * * Control the home page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function home (Request $request) {
             $error = null;
@@ -254,7 +254,7 @@
 
         /**
          * * Control the privacy politics page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function privacyPolitics (Request $request) {
             $error = null;
@@ -286,8 +286,8 @@
 
         /**
          * * Sends the Contact mail.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function sendContact (Request $request) {
             $input = (object) $request->all();
@@ -307,8 +307,8 @@
 
         /**
          * * Sends the Support mail.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function sendSupport (Request $request) {
             $input = (object) $request->all();
@@ -328,8 +328,8 @@
 
         /**
          * * Controls the support page.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function support (Request $request) {
             $error = null;
@@ -364,7 +364,7 @@
 
         /**
          * * Control the terms & contidions page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function termsAndConditions (Request $request) {
             $error = null;

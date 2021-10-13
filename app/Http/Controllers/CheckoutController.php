@@ -22,8 +22,8 @@
     class CheckoutController extends Controller {
         /**
          * * Creates the User MercadoPago access_token.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function authorization (Request $request) {
             if ($request->code) {
@@ -77,10 +77,10 @@
 
         /**
          * * Update a Lesson & redirects to MercadoPago.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_lesson
          * @param string $type
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function complete (Request $request, int $id_lesson, string $type) {
             $input = (object) $request->all();
@@ -323,10 +323,10 @@
 
         /**
          * * Check the Notification
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_lesson
          * @param string $type Notification type.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function notification (Request $request, int $id_lesson, string $type) {
             // * Get the Lesson
@@ -445,7 +445,7 @@
          * * Show the checkout page.
          * @param string $slug User slug.
          * @param string $type User type of Lesson.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function show (Request $request, string $slug, string $typeSearched) {
             $error = null;
@@ -515,10 +515,10 @@
 
         /**
          * * Show the Lesson status.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_lesson
          * @param int $id_status
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function status (Request $request, int $id_lesson, int $id_status) {
             $error = null;

@@ -29,7 +29,7 @@
         /**
          * * Control the User profile page.
          * @param string $slug User slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function profile (Request $request, $slug) {
             $error = null;
@@ -153,7 +153,7 @@
 
         /**
          * * Control the User search page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function search (Request $request) {
             $error = null;
@@ -194,9 +194,9 @@
 
         /**
          * * Update an User.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug User slug
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function update (Request $request, $slug) {
             $user = User::findBySlug($slug);
@@ -292,9 +292,9 @@
 
         /**
          * * Update an User Hours.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug User slug
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function hours (Request $request, $slug) {
             $user = User::findBySlug($slug);
@@ -317,8 +317,8 @@
 
         /**
          * * Send the teacher request form.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function apply (Request $request) {
             $input = (object) $request->all();
@@ -343,8 +343,8 @@
 
         /**
          * * Updates the User credentials.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function credentials (Request $request) {
             $input = (object) $request->all();

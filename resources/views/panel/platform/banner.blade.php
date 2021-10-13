@@ -33,8 +33,13 @@
                 </button>
             </div>
             <div class="banner-container grid grid-cols-2 gap-8 w-full mt-8">
-                <div class="pt-0 banner-photo col-span-2 lg:col-span-1">
-                    <p class="mb-4 russo color-white">Portada landing juego</p>
+                <div class="pt-0 banner-photo col-span-2">
+                    <p class="mb-4 russo color-white col-span-3">Slider landing</p>
+                    <div class="grid grid-cols-3 gap-8">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
                 <div class="pt-0 bg-banner col-span-2 lg:col-span-1">
                     <p class="mb-4 russo color-white">Fondo perfil profesor</p>
