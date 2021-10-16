@@ -169,7 +169,9 @@
                                 $dayDate->addDays(1);
                             }
 
-                            dd($dayDate->format("y-m-d"));
+                            if ($this->id_lesson == 31) {
+                                dd($dayDate->format("y-m-d"));
+                            }
         
                             if (!isset($ended_at)) {
                                 $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
