@@ -20,10 +20,6 @@
                 foreach (Lesson::allStartedFromUser(Auth::user()->id_user) as $lesson) {
                     $lesson->and(['reviews']);
 
-                    if ($lesson->id_lesson == 31) {
-                        ddd($lesson);
-                    }
-
                     if (count($lesson->reviews)) {
                         foreach ($lesson->reviews as $review) {
                             if ($review->id_user_from === Auth::user()->id_user) {
@@ -33,6 +29,10 @@
                     }
 
                     $lesson->and(['ended_at']);
+
+                    if ($lesson->id_lesson == 31) {
+                        ddd($lesson);
+                    }
 
                     if (Carbon::now() > $lesson->ended_at) {
                         $lessons->push($lesson);
