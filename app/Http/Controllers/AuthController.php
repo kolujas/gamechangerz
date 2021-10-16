@@ -180,7 +180,7 @@
 
             $user = Auth::user();
             
-            return redirect('/users/$user->slug/profile');
+            return redirect("/users/$user->slug/profile");
         }
 
         /**

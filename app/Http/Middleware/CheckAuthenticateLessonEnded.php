@@ -17,6 +17,7 @@
         public function handle($request, Closure $next) {
             if (Auth::check()) {
                 $lessons = collect();
+                dd(Lesson::allStartedFromUser(Auth::user()->id_user));
                 foreach (Lesson::allStartedFromUser(Auth::user()->id_user) as $lesson) {
                     $lesson->and(['reviews']);
 
