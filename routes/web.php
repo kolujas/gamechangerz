@@ -17,6 +17,9 @@
     Route::middleware("auth.status")->group(function () {
         Route::post("/login", [AuthController::class, "login"])->name("auth.login");
         Route::post("/signin", [AuthController::class, "signin"])->name("auth.signin");
+        Route::post("/change-password", [AuthController::class, "changePassword"])->name("auth.changePassword");
+        Route::get("/password/{token}/reset", [AuthController::class, "showResetPassword"])->name("auth.showResetPassword");
+        Route::post("/password/{token}/reset", [AuthController::class, "doResetPassword"])->name("auth.doResetPassword");
         Route::middleware("token.exist")->group(function () {
             Route::get("/email/{token}/confirm", [AuthController::class, "confirm"])->name("auth.confirm");
         });

@@ -23,6 +23,10 @@ if (!auth) {
 
     if (URL.findHashParameter()) {
         switch (URL.findHashParameter()) {
+            case "change-password":
+                authenticated.changeSectionState("change-password");
+                modals.auth.open();
+                break;
             case "login":
                 authenticated.changeSectionState("login");
                 modals.auth.open();

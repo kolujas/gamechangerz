@@ -32,7 +32,7 @@
             <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mr-0 lg:mb-0 relative">
                 <img class="opacity-40" src={{ asset("storage/web/01-background.png") }} alt="Foto del profesor">
             </figure>
-            @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)
+            @if ((is_array($user->achievements) && count($user->achievements)) || Auth::check() && Auth::user()->id_user === $user->id_user)
                 <section class="achievements relative">
                     @component('components.achievement.list', [
                         'achievements' => $user->achievements,

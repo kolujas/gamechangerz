@@ -288,24 +288,24 @@
                 ]);
                 
                 // * Create the GoogleCalendar event.
-                if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
-                    foreach ($lesson->days as $day) {
-                        $from_date = new Carbon($day->date);
-                        $to_date = new Carbon($day->date);
-                        if ($day->hours[0]->id_hour == 1 || $day->hours[0]->id_hour == 18) {
-                            $to_date->addDays(1);
-                        }
+                // if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
+                //     foreach ($lesson->days as $day) {
+                //         $from_date = new Carbon($day->date);
+                //         $to_date = new Carbon($day->date);
+                //         if ($day->hours[0]->id_hour == 1 || $day->hours[0]->id_hour == 18) {
+                //             $to_date->addDays(1);
+                //         }
 
-                        $data = [];
-                        $data["users"] = $lesson->users;
-                        $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
-                        $data["description"] = "Clase reservada desde el sitio web Gamechangerz";
-                        $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
-                        $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
+                //         $data = [];
+                //         $data["users"] = $lesson->users;
+                //         $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
+                //         $data["description"] = "Clase reservada desde el sitio web Gamechangerz";
+                //         $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
+                //         $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
         
-                        new Event($data);
-                    }
-                }
+                //         new Event($data);
+                //     }
+                // }
             }
 
             $aux = [
@@ -384,24 +384,24 @@
                             ]);
                             
                             // * Create the GoogleCalendar event.
-                            if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
-                                foreach ($lesson->days as $day) {
-                                    $from_date = new Carbon($day->date);
-                                    $to_date = new Carbon($day->date);
-                                    if ($day->hours[0]->id_hour == 1 || $day->hours[0]->id_hour == 18) {
-                                        $to_date->addDays(1);
-                                    }
+                            // if ($lesson->type->id_type == 1 || $lesson->type->id_type == 3) {
+                            //     foreach ($lesson->days as $day) {
+                            //         $from_date = new Carbon($day->date);
+                            //         $to_date = new Carbon($day->date);
+                            //         if ($day->hours[0]->id_hour == 1 || $day->hours[0]->id_hour == 18) {
+                            //             $to_date->addDays(1);
+                            //         }
             
-                                    $data = [];
-                                    $data["users"] = $lesson->users;
-                                    $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
-                                    $data["description"] = "Clase reservada desde el sitio web Gamechangerz";
-                                    $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
-                                    $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
+                            //         $data = [];
+                            //         $data["users"] = $lesson->users;
+                            //         $data["name"] = ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username;
+                            //         $data["description"] = "Clase reservada desde el sitio web Gamechangerz";
+                            //         $data["started_at"] = new Carbon($from_date->format("Y-m-d")."T".$day->hours[0]->from);
+                            //         $data["ended_at"] = new Carbon($to_date->format("Y-m-d")."T".$day->hours[0]->to);
                     
-                                    new Event($data);
-                                }
-                            }
+                            //         new Event($data);
+                            //     }
+                            // }
                             
                             unset($lesson->users);
                             unset($lesson->type);
@@ -493,22 +493,26 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ], "checkout" => (object)[
+                    ], "checkout" => (object)[
                         "rules" => Lesson::$validation["checkout"][$type->slug]["rules"],
                         "messages" => Lesson::$validation["checkout"][$type->slug]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
@@ -537,16 +541,20 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
     }

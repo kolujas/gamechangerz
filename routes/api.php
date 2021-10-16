@@ -44,6 +44,7 @@
 // ! AuthController - Controls the authentication api.
         Route::post("/login", [AuthController::class, "login"])->name("api.auth.login");
         Route::post("/signin", [AuthController::class, "signin"])->name("api.auth.signin");
+        Route::post("/change-password", [AuthController::class, "changePassword"])->name("api.auth.changePassword");
 
 // ! ChatController - Controls the chats api.
         Route::middleware("auth:api")->group(function () {

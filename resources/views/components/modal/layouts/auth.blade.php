@@ -8,5 +8,9 @@
             'erros' => ($errors ? $errors : []),
         ])
         @endcomponent
+        @component('components.modal.auth.change-password', [
+            'erros' => ($errors ? $errors : []),
+        ])
+        @endcomponent
     </section>
 </aside>

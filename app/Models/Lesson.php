@@ -1,7 +1,6 @@
 <?php
     namespace App\Models;
 
-    use App\Models\Ability;
     use App\Models\Day;
     use App\Models\Folder;
     use App\Models\Method;
@@ -201,13 +200,13 @@
                             }
                         }
                         if (!$assignment->presentation) {
-                            $ended_at = Carbon::parse($this->created_at)->addYear(1);
+                            $ended_at = Carbon::parse($this->created_at)->addYear(5);
                             break;
                         }
                     }
                 }
                 if (count($this->assignments) < $this->{"quantity-of-assignments"}) {
-                    $ended_at = Carbon::parse($this->created_at)->addYear(1);
+                    $ended_at = Carbon::parse($this->created_at)->addYear(5);
                 }
             }
 
