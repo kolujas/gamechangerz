@@ -168,25 +168,21 @@
                             if ($hour->id_hour == 18) {
                                 $dayDate->addDays(1);
                             }
-
-                            if ($this->id_lesson == 31) {
-                                dd($dayDate->format("y-m-d"));
-                            }
         
                             if (!isset($ended_at)) {
-                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
+                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to);
                             }
                             if ($ended_at < Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)) {
-                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
+                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to);
                             }
                         }
                     }
                     if (!count($date->hours)) {
                         if (!isset($ended_at)) {
-                            $ended_at = Carbon::parse($date->date)->addWeeks(1);
+                            $ended_at = Carbon::parse($date->date);
                         }
                         if ($ended_at < Carbon::parse($date->date)) {
-                            $ended_at = Carbon::parse($date->date)->addWeeks(1);
+                            $ended_at = Carbon::parse($date->date);
                         }
                     }
                 }
