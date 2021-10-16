@@ -165,7 +165,7 @@
                     if (count($date->hours)) {
                         foreach ($date->hours as $hour) {
                             $dayDate = Carbon::parse($date->date);
-                            if ($hour->id_hour == 1 || $hour->id_hour == 18) {
+                            if ($hour->id_hour == 18) {
                                 $dayDate->addDays(1);
                             }
         
