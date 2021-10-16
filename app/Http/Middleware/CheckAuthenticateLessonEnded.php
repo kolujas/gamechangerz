@@ -30,10 +30,6 @@
 
                     $lesson->and(['ended_at']);
 
-                    if ($lesson->id_lesson == 31) {
-                        ddd($lesson);
-                    }
-
                     if (Carbon::now() > $lesson->ended_at) {
                         $lessons->push($lesson);
                     }
