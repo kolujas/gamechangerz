@@ -45,8 +45,6 @@
                 }
             }
 
-            dd($lessons);
-
             $user = User::findBySlug($slug);
             $user->and(["achievements", "games", "role", "files", "languages", "posts"]);
             
