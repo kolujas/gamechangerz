@@ -3,6 +3,20 @@
     --tab-menu-tabs-background-color: var(--color-black);
 }
 
+#panel.tab-menu .fit{
+    min-width: fit-content;
+}
+
+#panel.tab-menu .small{
+    min-width: 3rem;
+    max-width: 3rem;
+}
+
+#panel.tab-menu .big{
+    min-width: 6rem;
+    max-width: 6rem;
+}
+
 #panel.tab-menu .tab-header {
     display: flex;
     padding: 0 1rem;
@@ -89,9 +103,23 @@
 
 /* ? MD */
 @media (min-width: 768px) {
+    .tab-menu.vertical .tab-content-list {
+        --tab-menu-content-md-width: 100%;
+    }
+    
     #panel.tab-menu.vertical :where(.tabs, .tab-content-list) {
         min-height: 100vh;
         max-height: 100vh;
+    }
+
+    #panel.tab-menu .small{
+        min-width: revert;
+        max-width: revert;
+    }
+    
+    #panel.tab-menu .big{
+        min-width: revert;
+        max-width: revert;
     }
 }
 
@@ -99,5 +127,13 @@
 @media (min-width: 1024px) {
     #panel.tab-menu > .tab-header {
         display: none;
+    }
+
+    #panel.tab-menu .small{
+        width: revert;
+    }
+    
+    #panel.tab-menu .big{
+        width: revert;
     }
 }
