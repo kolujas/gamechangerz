@@ -10,10 +10,10 @@
     class FriendshipController extends Controller {
         /**
          * * Executes the Friendship function.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug
          * @param string $action
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function call (Request $request, string $slug, string $action) {
             switch (strtoupper($action)) {
@@ -30,8 +30,8 @@
 
         /**
          * * Accepts the Friendship.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function accept (Request $request) {
             $slug = $request->route()->parameter("slug");
@@ -72,8 +72,8 @@
 
         /**
          * * Cancel the Friendship.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function cancel (Request $request) {
             $slug = $request->route()->parameter("slug");
@@ -105,8 +105,8 @@
 
         /**
          * * Delete the Friendship.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function delete (Request $request) {
             $slug = $request->route()->parameter("slug");
@@ -142,8 +142,8 @@
 
         /**
          * * Request a Friendship.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function request (Request $request) {
             $slug = $request->route()->parameter("slug");

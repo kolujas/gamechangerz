@@ -44,6 +44,7 @@
                 <span class="russo xl:text-lg">Entrar</span>
             </button>
             <p class="color-white mt-6 text-center overpass">No tenés cuenta todavía? <a class="btn btn-text btn-one" href="#signin">Registrate</a></p>
+            <p class="color-white mt-6 text-center overpass">Te olviste la contraseña? <a class="btn btn-text btn-one" href="#change-password">Recuperá la cuenta</a></p>
         </div>
     </main>
 </form>

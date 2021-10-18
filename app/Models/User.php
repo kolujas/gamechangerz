@@ -180,7 +180,9 @@
          * * Set the User Achievements.
          */
         public function achievements () {
-            $this->achievements = Achievement::parse($this->achievements);
+            if ($this->achievements) {
+                $this->achievements = Achievement::parse($this->achievements);
+            }
         }
 
         /**
@@ -255,10 +257,12 @@
          * * Set the User Games.
          */
         public function games () {
-            $this->games = Game::parse($this->games);
-            
-            foreach ($this->games as $game) {
-                $game->and(["colors", "files"]);
+            if ($this->games) {
+                $this->games = Game::parse($this->games);
+                
+                foreach ($this->games as $game) {
+                    $game->and(["colors", "files"]);
+                }
             }
         }
 
@@ -290,7 +294,9 @@
          * * Set the User Languages.
          */
         public function languages () {
-            $this->languages = Language::parse($this->languages);
+            if ($this->languages) {
+                $this->languages = Language::parse($this->languages);
+            }
         }
 
         /**

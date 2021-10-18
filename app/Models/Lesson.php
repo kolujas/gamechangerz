@@ -1,7 +1,6 @@
 <?php
     namespace App\Models;
 
-    use App\Models\Ability;
     use App\Models\Day;
     use App\Models\Folder;
     use App\Models\Method;
@@ -166,24 +165,24 @@
                     if (count($date->hours)) {
                         foreach ($date->hours as $hour) {
                             $dayDate = Carbon::parse($date->date);
-                            if ($hour->id_hour == 1 || $hour->id_hour == 18) {
+                            if ($hour->id_hour == 18) {
                                 $dayDate->addDays(1);
                             }
         
                             if (!isset($ended_at)) {
-                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
+                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to);
                             }
                             if ($ended_at < Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)) {
-                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to)->addWeeks(1);
+                                $ended_at = Carbon::parse($dayDate->format("y-m-d") . "T" . $hour->to);
                             }
                         }
                     }
                     if (!count($date->hours)) {
                         if (!isset($ended_at)) {
-                            $ended_at = Carbon::parse($date->date)->addWeeks(1);
+                            $ended_at = Carbon::parse($date->date);
                         }
                         if ($ended_at < Carbon::parse($date->date)) {
-                            $ended_at = Carbon::parse($date->date)->addWeeks(1);
+                            $ended_at = Carbon::parse($date->date);
                         }
                     }
                 }
@@ -201,13 +200,13 @@
                             }
                         }
                         if (!$assignment->presentation) {
-                            $ended_at = Carbon::parse($this->created_at)->addYear(1);
+                            $ended_at = Carbon::parse($this->created_at)->addYear(5);
                             break;
                         }
                     }
                 }
                 if (count($this->assignments) < $this->{"quantity-of-assignments"}) {
-                    $ended_at = Carbon::parse($this->created_at)->addYear(1);
+                    $ended_at = Carbon::parse($this->created_at)->addYear(5);
                 }
             }
 

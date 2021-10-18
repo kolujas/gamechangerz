@@ -2,6 +2,7 @@
 @import "./modal/activity.css";
 @import "./modal/assignment.css";
 @import "./modal/chat.css";
+@import "./modal/change-password.css";
 @import "./modal/friends.css";
 @import "./modal/login.css";
 @import "./modal/poll.css";

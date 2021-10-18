@@ -1,7 +1,6 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Models\Ability;
     use App\Models\Assignment;
     use App\Models\Auth as AuthModel;
     use App\Models\Game;
@@ -15,7 +14,7 @@
     class DefaultController extends Controller {
         /**
          * * Control the apply page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function apply (Request $request) {
             $error = null;
@@ -29,28 +28,32 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ], "apply" => (object)[
+                    ], "apply" => (object)[
                         "rules" => User::$validation["apply"]["rules"],
                         "messages" => User::$validation["apply"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the coming soon page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function comingSoon (Request $request) {
             $error = null;
@@ -66,8 +69,8 @@
 
         /**
          * * Controls the contact page.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function contact (Request $request) {
             $error = null;
@@ -81,28 +84,32 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ], "contact" => [
-                    "rules" => Mail::$validation["contact"]["rules"],
-                    "messages" => Mail::$validation["contact"]["messages"]["es"],
-                ]],
+                    ], "contact" => [
+                        "rules" => Mail::$validation["contact"]["rules"],
+                        "messages" => Mail::$validation["contact"]["messages"]["es"],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the frequent ask questions page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function faq (Request $request) {
             $error = null;
@@ -116,25 +123,29 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the index page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function index (Request $request) {
             $error = null;
@@ -154,26 +165,30 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the landing page.
          * @param string $slug Game slug.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function landing (Request $request, $slug) {
             $error = null;
@@ -198,25 +213,29 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the home page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function home (Request $request) {
             $error = null;
@@ -236,25 +255,29 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the privacy politics page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function privacyPolitics (Request $request) {
             $error = null;
@@ -268,26 +291,30 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Sends the Contact mail.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function sendContact (Request $request) {
             $input = (object) $request->all();
@@ -307,8 +334,8 @@
 
         /**
          * * Sends the Support mail.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function sendSupport (Request $request) {
             $input = (object) $request->all();
@@ -328,8 +355,8 @@
 
         /**
          * * Controls the support page.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         public function support (Request $request) {
             $error = null;
@@ -343,28 +370,32 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ], "support" => [
-                    "rules" => Mail::$validation["support"]["rules"],
-                    "messages" => Mail::$validation["contact"]["messages"]["es"],
-                ]],
+                    ], "support" => [
+                        "rules" => Mail::$validation["support"]["rules"],
+                        "messages" => Mail::$validation["contact"]["messages"]["es"],
+                    ],
+                ],
             ]);
         }
 
         /**
          * * Control the terms & contidions page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function termsAndConditions (Request $request) {
             $error = null;
@@ -378,19 +409,23 @@
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["login"]["messages"]["es"], "login_"),
-                ], "signin" => (object)[
+                    ], "signin" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["signin"]["rules"], "signin_"),
                         "messages" => $this->encodeInput(AuthModel::$validation["signin"]["messages"]["es"], "signin_"),
-                ], "assignment" => (object)[
+                    ], "change-password" => (object)[
+                        "rules" => $this->encodeInput(AuthModel::$validation["change-password"]["rules"], "change-password_"),
+                        "messages" => $this->encodeInput(AuthModel::$validation["change-password"]["messages"]["es"], "change-password_"),
+                    ], "assignment" => (object)[
                         "rules" => Assignment::$validation["make"]["rules"],
                         "messages" => Assignment::$validation["make"]["messages"]["es"],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], "presentation" => (object)[
+                    ], "presentation" => (object)[
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
-                ]],
+                    ],
+                ],
             ]);
         }
     }

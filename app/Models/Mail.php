@@ -1,15 +1,6 @@
 <?php
     namespace App\Models;
 
-    use App\Mail\ConfirmationMail;
-    use App\Mail\NewAssignmentMail;
-    use App\Mail\NewLessonTeacherMail;
-    use App\Mail\NewLessonUserMail;
-    use App\Mail\NewMessageMail;
-    use App\Mail\NewPresentationMail;
-    use App\Mail\FriendshipRequestMail;
-    use App\Mail\TeacherRequestMail;
-    use App\Mail\TeacherRequestApprovedMail;
     use Illuminate\Support\Facades\Mail as MailService;
     use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +21,7 @@
          * @param array $data
          */
         public function __construct (array $attributes = [], array $data = []) {
-            parent::__construct(Mail::parseAttributes($attributes));
+            parent::__construct($attributes);
             $this->send($data);
         }
 
@@ -42,83 +33,56 @@
             switch ($this->id_mail) {
                 case 1:
                     // * When a User signs in
-                    $mail = new ConfirmationMail((object) $data);
+                    $mail = new \App\Mail\ConfirmationMail((object) $data);
                     break;
                 case 2:
                     // * When a User sends a Message to another
-                    $mail = new NewMessageMail((object) $data);
+                    $mail = new \App\Mail\NewMessageMail((object) $data);
                     break;
                 case 3:
                     // * When a Teacher sends a new Assignment
-                    $mail = new NewAssignmentMail((object) $data);
+                    $mail = new \App\Mail\NewAssignmentMail((object) $data);
                     break;
                 case 4:
                     // * When a User completes an Assignment
-                    $mail = new NewPresentationMail((object) $data);
+                    $mail = new \App\Mail\NewPresentationMail((object) $data);
                     break;
                 case 5:
                     // * When a User pays for a Lesson, this is an alert for the Teacher
-                    $mail = new NewLessonTeacherMail((object) $data);
+                    $mail = new \App\Mail\NewLessonTeacherMail((object) $data);
                     break;
                 case 6:
                     // * When a User sends a friendship request
-                    $mail = new FriendshipRequestMail((object) $data);
+                    $mail = new \App\Mail\FriendshipRequestMail((object) $data);
                     break;
                 case 7:
                     // * When a User sends a Teacher request
-                    $mail = new TeacherRequestMail((object) $data);
+                    $mail = new \App\Mail\TeacherRequestMail((object) $data);
                     break;
                 case 8:
                     // * When a User pays for a Lesson, this is an alert for the User
-                    $mail = new NewLessonUserMail((object) $data);
+                    $mail = new \App\Mail\NewLessonUserMail((object) $data);
                     break;
                 case 9:
                     // * When an Admin creates a new Teacher
-                    $mail = new TeacherRequestApprovedMail((object) $data);
+                    $mail = new \App\Mail\TeacherRequestApprovedMail((object) $data);
                     break;
                 case 11:
                     // * When a User tries to contact Gamechangerz
-                    $mail = new ContactMail((object) $data);
+                    $mail = new \App\Mail\ContactMail((object) $data);
                     break;
                 case 12:
                     // * When a User tries to contact with Gamechangerz support
-                    $mail = new SupportMail((object) $data);
+                    $mail = new \App\Mail\SupportMail((object) $data);
+                    break;
+                case 13:
+                    // * When a User tries to reset his password
+                    $mail = new \App\Mail\ChangePasswordMail((object) $data);
                     break;
             }
             MailService::to($data["email_to"])->send($mail);
         }
 
-       /**
-        * * Parse the Mail attributes.
-        * @param array $attributes
-        * @return array
-        */
-        static function parseAttributes (array $attributes = []) {
-            switch ($attributes["id_mail"]) {
-                case 1:
-                    $attributes["name"] = "Confirmation";
-                    break;
-                case 2:
-                    $attributes["name"] = "New message";
-                    break;
-                case 3:
-                    $attributes["name"] = "New assignment";
-                    break;
-                case 4:
-                    $attributes["name"] = "New presentation";
-                    break;
-                case 5:
-                    $attributes["name"] = "New lesson";
-                    break;
-                case 6:
-                    $attributes["name"] = "Friendship request";
-                    break;
-                case 7:
-                    $attributes["name"] = "New teacher request";
-                    break;
-            }
-            return $attributes;
-        }
         /**
          * * Validation rules & messages.
          * @var array

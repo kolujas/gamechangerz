@@ -1,8 +1,6 @@
 <?php
     namespace App\Models;
 
-    use App\Models\Ability;
-    use App\Models\Folder;
     use Illuminate\Database\Eloquent\Model;
 
     class Teampro extends Model {

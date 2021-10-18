@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             },
         }, {
             generate: document.querySelector(".user .banner figure"),
-            image: new Asset(((files.hasOwnProperty("banner")) ? `storage/${ files.banner }` : "storage/web/01-banner.png")).route,
+            image: new Asset(((files.hasOwnProperty("banner")) ? `storage/${ files.banner }` : "storage/web/slider/02-banner.png")).route,
             disabled: true,
         });
     }

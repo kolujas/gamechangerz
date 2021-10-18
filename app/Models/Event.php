@@ -57,7 +57,7 @@
 
         /**
          * * Creates the Google Event.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function create () {
             // * Create the Google Event

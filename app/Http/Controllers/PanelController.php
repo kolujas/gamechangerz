@@ -25,7 +25,7 @@
     class PanelController extends Controller {
         /**
          * * Control the platform custom banners panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function banner (Request $request) {
             $error = null;
@@ -41,7 +41,7 @@
 
         /**
          * * Control the posts list panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function blog (Request $request) {
             $error = null;
@@ -63,9 +63,9 @@
 
         /**
          * * Call the correct panel controller.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $section
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function call (Request $request, string $section) {
             $action = $request->route()->parameter("action");
@@ -89,7 +89,7 @@
         /**
          * * Control the coupon details panel page.
          * @param string|false [$slug=false]
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function coupon (Request $request, $slug = false) {
             $error = null;
@@ -126,7 +126,7 @@
 
         /**
          * * Control the Coupons list panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function coupons (Request $request) {
             $error = null;
@@ -148,7 +148,7 @@
 
         /**
          * * Control the platform custom info panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function info (Request $request) {
             $error = null;
@@ -166,7 +166,7 @@
 
         /**
          * * Control the posts list panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
          public function lesson (Request $request, $id_lesson = false) {
             $error = null;
@@ -240,7 +240,7 @@
 
         /**
          * * Control the posts list panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function lessons (Request $request) {
             $error = null;
@@ -263,7 +263,7 @@
         /**
          * * Control the teacher details panel page.
          * @param string|false [$slug=false]
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function teacher (Request $request, $slug = false) {
             $error = null;
@@ -394,7 +394,7 @@
 
         /**
          * * Control the teachers list panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function teachers (Request $request) {
             $error = null;
@@ -414,7 +414,7 @@
         /**
          * * Control the user details panel page.
          * @param string|false [$slug=false]
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function user (Request $request, $slug = false) {
             $error = null;
@@ -513,7 +513,7 @@
 
         /**
          * * Control the users list panel page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function users (Request $request) {
             $error = null;

@@ -7,7 +7,7 @@
     class RoleController extends Controller {
         /**
          * * Get the User Role.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @return JSON
          */
         public function get (Request $request) {

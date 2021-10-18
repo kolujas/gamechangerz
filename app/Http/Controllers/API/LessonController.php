@@ -10,7 +10,7 @@
     class LessonController extends Controller {
         /**
          * * Updates a Lesson.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $id_lesson
          * @return JSON
          */
@@ -81,9 +81,9 @@
 
         /**
          * * Get the Lesson Assignments.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_lesson
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function getAssignments (Request $request, int $id_lesson) {
             $lesson = Lesson::find($id_lesson);

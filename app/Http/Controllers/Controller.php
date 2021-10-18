@@ -64,7 +64,7 @@
         
         /**
          * * Control the index page.
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function index (Request $request) {
             return view('web.home', [

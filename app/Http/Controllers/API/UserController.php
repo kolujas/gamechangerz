@@ -8,7 +8,7 @@
     class UserController extends Controller {
         /**
          * * Check if the User has a Lesson with a specific time.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug User slug.
          * @return JSON
          */
@@ -44,7 +44,7 @@
         
         /**
          * * Get the User Lessons.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug User slug.
          * @return JSON
          */
@@ -63,7 +63,7 @@
 
         /**
          * * Get the Users with id_role = 1.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @return JSON
          */
         public function teachers (Request $request) {
@@ -83,7 +83,7 @@
         }
         /**
          * * Get the Users with id_role = 0.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @return JSON
          */
         public function users (Request $request) {

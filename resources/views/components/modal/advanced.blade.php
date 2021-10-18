@@ -10,12 +10,22 @@
                     <h3 class="color-four mb-12 russo text-center">Configuración avanzada</h3>
                 </header>
 
-                @if (Auth::user()->id_role === 1)
+                @if (Auth::user()->id_role == 0)
+                    <label class="input-option input-group grid mb-6">
+                        <div class="input-text flex items-center">
+                            <span class="color-white russo mr-4">Esconder calificaciones</span>
+                            <input class="overpass form-input advanced-form editable" name="disable_califications" type="checkbox" />
+                            <div class="input-box mr-2"></div>
+                        </div>
+                    </label>
+                @endif
+
+                @if (Auth::user()->id_role == 1)
                     <label class="input-group grid mb-6">
                         <span class="color-white russo mb-4">Paypal</span>
                         @php 
                             foreach (json_decode(Auth::user()->credentials) as $credential) {
-                                if ($credential->id_method === 2) {
+                                if ($credential->id_method == 2) {
                                     $access_token = $credential->access_token;
                                     break;
                                 }

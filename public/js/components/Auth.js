@@ -19,6 +19,7 @@ export class Auth extends Class {
             this.htmls = {
                 login: modals.auth.html.children[0].children[0],
                 signin: modals.auth.html.children[0].children[1],
+                "change-password": modals.auth.html.children[0].children[2],
             };
         }
         this.setEvents();
@@ -38,6 +39,14 @@ export class Auth extends Class {
                 btn.addEventListener("click", (e) => {
                     modals.auth.open();
                     this.changeSectionState("signin");
+                });
+            }
+        }
+        if (document.querySelectorAll(`a[href="#change-password"]`).length) {
+            for (const btn of document.querySelectorAll(`a[href="#change-password"]`)) {
+                btn.addEventListener("click", (e) => {
+                    modals.auth.open();
+                    this.changeSectionState("change-password");
                 });
             }
         }
@@ -116,15 +125,38 @@ export class Auth extends Class {
         } else {
             console.error(`validation.signin does not exist`);
         }
+        if (validation.hasOwnProperty("change-password")) {
+            validation['change-password'].ValidationJS = new ValidationJS({
+                id: "change-password",
+                rules: validation['change-password'].rules,
+                messages: validation['change-password'].messages,
+            }, {
+                submit: false,
+            }, {
+                valid: {
+                    function: this.submit,
+                    params: {
+                        section: "change-password",
+                        authenticated: this,
+                    }
+                }
+            });
+        } else {
+            console.error(`validation.change-password does not exist`);
+        }
     }
 
     changeSectionState (section) {
         if (this.state.status === "waiting") {
             this.setState("section", section);
+            this.htmls["login"].classList.add("hidden");
+            this.htmls["login"].classList.remove("block");
+            this.htmls["signin"].classList.add("hidden");
+            this.htmls["signin"].classList.remove("block");
+            this.htmls["change-password"].classList.add("hidden");
+            this.htmls["change-password"].classList.remove("block");
             this.htmls[this.state.section].classList.add("block");
             this.htmls[this.state.section].classList.remove("hidden");
-            this.htmls[this.state.section === "signin" ? "login" : "signin"].classList.add("hidden");
-            this.htmls[this.state.section === "signin" ? "login" : "signin"].classList.remove("block");
         }
     }
 

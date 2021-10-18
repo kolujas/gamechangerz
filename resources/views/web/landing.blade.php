@@ -34,11 +34,14 @@
                                     <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
                                 </a>
                             </header>
-                            <img src="{{ asset($game->files['banner']) }}" alt="Game banner">
+                            <img src="{{ asset('storage/web/slider/01-banner.png') }}" alt="Game banner">
                         </section>
                         <section class="swiper-slide">
-                            <img src="{{ asset('storage/web/01-banner.png') }}" alt="Ads banner">
-                        </section>   
+                            <img src="{{ asset('storage/web/slider/02-banner.png') }}" alt="Ads banner">
+                        </section>
+                        <section class="swiper-slide">
+                            <img src="{{ asset('storage/web/slider/03-banner.png') }}" alt="Ads banner">
+                        </section>
                     </div>
                 </main>
             </section>
@@ -122,7 +125,7 @@
             </section>
             
             <aside class="aside lg:h-screen lg:w-full">
-                <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de Gamechangerz">
+                <img src={{ asset('storage/web/slider/02-banner.png') }} alt="Imagen de anuncio de Gamechangerz">
             </aside>
     
             <section class="catalogo lg:grid lg:grid-cols-10 2xl:grid-cols-12 py-24">
@@ -140,7 +143,7 @@
         @else
             <section class="coming-soon flex justify-center items-center mb-8" style="--color-one: {{ $game->colors[0] }}; --color-two: {{ $game->colors[1] }}">
                 <aside>
-                    <img src={{ asset('storage/web/01-banner.png') }} alt="Imagen de anuncio de Gamechangerz">
+                    <img src={{ asset('storage/web/slider/02-banner.png') }} alt="Imagen de anuncio de Gamechangerz">
                 </aside>
                 <header>
                     <h2 class="color-white"><span class="color-four">{{ $game->name }}</span> coming soon</h2>

@@ -1,8 +1,8 @@
-<section id="horarios" class="horarios tab-menu mb-20 lg:mr-8 lg:mb-0 xl:mx-0 p-8 @if ((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) && count($user->reviews) && $user->description !== '')
+<section id="horarios" class="horarios tab-menu mb-20 lg:mr-8 lg:mb-0 xl:mx-0 p-8 @if (((is_array($user->achievements) && count($user->achievements)) || Auth::check() && Auth::user()->id_user === $user->id_user) && count($user->reviews) && $user->description !== '')
     lg:row-span-3
-@elseif (((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) && count($user->reviews)) || ((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) && $user->description !== '') || (count($user->reviews) && $user->description !== ''))
+@elseif ((((is_array($user->achievements) && count($user->achievements)) || Auth::check() && Auth::user()->id_user === $user->id_user) && count($user->reviews)) || (((is_array($user->achievements) && count($user->achievements)) || Auth::check() && Auth::user()->id_user === $user->id_user) && $user->description !== '') || (count($user->reviews) && $user->description !== ''))
     lg:row-span-2
-@elseif ((count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user) || count($user->reviews) || $user->description !== '')
+@elseif (((is_array($user->achievements) && count($user->achievements)) || Auth::check() && Auth::user()->id_user === $user->id_user) || count($user->reviews) || $user->description !== '')
     lg:row-span-1
 @endif xl:col-span-3">
     @if (Auth::check() && Auth::user()->id_user === $user->id_user)

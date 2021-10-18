@@ -1,5 +1,5 @@
 <ul class="achievements cards flex px-8 pb-4 lg:pr-0 xl:px-0 mb-20 lg:mb-0">
-    @if (count($achievements))
+    @if (is_array($achievements) && count($achievements))
         @for ($key = 0; $key < count($achievements); $key++)
             <li class="card">
                 <div class="color-white flex justify-center items-center py-4 px-8 rounded">
@@ -20,7 +20,7 @@
             </li>
         @endfor
     @endif
-    @if (!count($achievements))
+    @if (!is_array($achievements) || !count($achievements))
         <li class="card">
             <div class="color-white flex justify-center items-center py-4 px-8">
                 <span class="overpass">No tiene logros que mostrar</span>

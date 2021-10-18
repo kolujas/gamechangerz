@@ -24,10 +24,10 @@
     class UserController extends Controller {
         /**
          * * Call the correct function.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $section
          * @param string $action
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         static public function call (Request $request, string $section, string $action) {
             switch ($section) {
@@ -60,8 +60,8 @@
 
         /**
          * * Creates an User with id_role = 1.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doCreateTeacher (Request $request) {
             $input = (object) $request->all();
@@ -167,8 +167,8 @@
 
         /**
          * * Deletes an User with id_role = 1.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doDeleteTeacher (Request $request) {
             $input = (object) $request->all();
@@ -238,8 +238,8 @@
 
         /**
          * * Updates an User with id_role = 1.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doUpdateTeacher (Request $request) {
             $input = (object) $request->all();
@@ -352,8 +352,8 @@
 
         /**
          * * Creates an User with id_role = 0.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doCreateUser (Request $request) {
             $input = (object) $request->all();
@@ -432,8 +432,8 @@
 
         /**
          * * Deletes an User with id_role = 0.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doDeleteUser (Request $request) {
             $input = (object) $request->all();
@@ -501,8 +501,8 @@
 
         /**
          * * Updates an User with id_role = 0.
-         * @param Request $request
-         * @return [type]
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
          */
         static public function doUpdateUser (Request $request) {
             $input = (object) $request->all();

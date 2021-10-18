@@ -91,7 +91,7 @@
 
         /**
          * * Get an specific Assignment.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_assignment
          * @return JSON
          */

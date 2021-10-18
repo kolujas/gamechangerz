@@ -8,9 +8,9 @@
     class LanguageController extends Controller {
         /**
          * * Update the User Languages.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param string $slug
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function update (Request $request, string $slug) {
             $user = User::findBySlug($slug);

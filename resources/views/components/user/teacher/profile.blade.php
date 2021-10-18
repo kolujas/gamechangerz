@@ -30,9 +30,9 @@
     <section class="banner lg:grid lg:gap-20 lg:grid-cols-3 xl:grid-cols-10 mb-4 lg:mb-20">
         <section class="lg:col-span-2 xl:col-span-6 lg:pr-0 xl:px-0">
             <figure class="flex justify-center mx-8 mb-4 lg:mb-4 lg:mr-0 lg:mb-0 relative">
-                <img class="opacity-40" src={{ asset("storage/web/02-background.jpg") }} alt="Foto del profesor">
+                <img class="opacity-40" src={{ asset("storage/web/01-background.png") }} alt="Foto del profesor">
             </figure>
-            @if (count($user->achievements) || Auth::check() && Auth::user()->id_user === $user->id_user)
+            @if ((is_array($user->achievements) && count($user->achievements)) || Auth::check() && Auth::user()->id_user === $user->id_user)
                 <section class="achievements relative">
                     @component('components.achievement.list', [
                         'achievements' => $user->achievements,

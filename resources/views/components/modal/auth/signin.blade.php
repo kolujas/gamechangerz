@@ -110,7 +110,7 @@
                 <span class="russo xl:text-lg">Registrarme</span>
             </button>
             <p class="color-white mt-6 text-center">Ya tenés cuenta? <a class="btn btn-text btn-one" href="#login">Ingrésa aquí</a></p>
+            <p class="color-white mt-6 text-center overpass">Te olviste la contraseña? <a class="btn btn-text btn-one" href="#change-password">Recuperá la cuenta</a></p>
         </div>
     </main>
 </form>
-

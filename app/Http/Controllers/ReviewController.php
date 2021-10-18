@@ -12,9 +12,9 @@
     class ReviewController extends Controller {
         /**
          * * Create a new Review.
-         * @param Request $request
+         * @param  \Illuminate\Http\Request  $request
          * @param int $id_lesson
-         * @return [type]
+         * @return \Illuminate\Http\Response
          */
         public function create (Request $request, int $id_lesson) {
             $input = (object) $request->all();
