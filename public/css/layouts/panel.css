@@ -17,6 +17,11 @@
     max-width: 6rem;
 }
 
+#panel.tab-menu .biggest{
+    min-width: 9rem;
+    max-width: 9rem;
+}
+
 #panel.tab-menu .tab-header {
     display: flex;
     padding: 0 1rem;
@@ -60,6 +65,11 @@
 #panel.tab-menu table {
     background-color: var(--color-black);
     border-radius: .25rem;
+    overflow: hidden;
+}
+
+#panel.tab-menu tr td p{
+    text-overflow: ellipsis;
     overflow: hidden;
 }
 
@@ -121,6 +131,11 @@
         min-width: revert;
         max-width: revert;
     }
+
+    #panel.tab-menu .biggest{
+        min-width: revert;
+        max-width: revert;
+    }
 }
 
 /* ? LG */
@@ -134,6 +149,10 @@
     }
     
     #panel.tab-menu .big{
+        width: revert;
+    }
+
+    #panel.tab-menu .biggest{
         width: revert;
     }
 }

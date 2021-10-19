@@ -35,7 +35,7 @@
             <div class="banner-container grid grid-cols-2 gap-8 w-full mt-8">
                 <div class="pt-0 banner-photo col-span-2">
                     <p class="mb-4 russo color-white col-span-3">Slider landing</p>
-                    <div class="grid grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div></div>
                         <div></div>
                         <div></div>
