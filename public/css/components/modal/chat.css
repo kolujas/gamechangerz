@@ -2,7 +2,7 @@
     z-index: 10;
 }
 
-#chat.modal .modal-content::before {
+#chat.modal #chat.modal .modal-content::before {
     display: none;
 }
 
@@ -490,6 +490,40 @@ a[href="#chat"].modal-button.chat span {
     }
 
     #chat.modal #details ul::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar-button {
+        width: 15%;
+        height: 15%;
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar-thumb {
+        background: var(--color-white);
+        border-radius: 100vh;
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar-thumb:hover,
+    #chat.modal .modal-content::-webkit-scrollbar-thumb:active {
+        background: var(--color-grey);
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar-track {
+        background: black;
+        border-radius: 100vh;
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar-track:hover,
+    #chat.modal .modal-content::-webkit-scrollbar-track:active {
+        background: black;
+    }
+
+    #chat.modal .modal-content::-webkit-scrollbar-corner {
         background: transparent;
     }
 }
