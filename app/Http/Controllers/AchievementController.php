@@ -13,7 +13,7 @@
          * @return \Illuminate\Http\Response
          */
         public function update (Request $request, string $slug) {
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
             $user->and(["achievements"]);
 
             $input = (object) $request->all();

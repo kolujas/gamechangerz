@@ -36,6 +36,11 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             $lessons = [];
             if ($request->session()->has("lessons")) {
@@ -45,7 +50,7 @@
                 }
             }
 
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
             $user->and(["achievements", "games", "role", "files", "languages", "posts"]);
             
             if ($user->id_role === 2) {
@@ -122,6 +127,7 @@
                 "languages" => $languages,
                 "lessons" => $lessons,
                 "user" => $user,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -165,6 +171,11 @@
                 $error = (object) $request->session()->pull("error");
             }
 
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
+
             $games = Game::all();
             foreach ($games as $game) {
                 $game->and(["abilities"]);
@@ -173,6 +184,7 @@
             return view("user.search", [
                 "games" => $games,
                 "error" => $error,
+                // "notifications" => $notifications,
                 "search" => (object)[
                     "username" => $request->username,
                 ],
@@ -207,7 +219,7 @@
          * @return \Illuminate\Http\Response
          */
         public function update (Request $request, $slug) {
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
             $user->and(["files"]);
             
             $input = (object) $request->all();
@@ -305,7 +317,7 @@
          * @return \Illuminate\Http\Response
          */
         public function hours (Request $request, $slug) {
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
 
             $input = (object) $request->all();
 

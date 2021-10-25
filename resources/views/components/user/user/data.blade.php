@@ -21,12 +21,10 @@
         </div>
     </header>
     
-    @if (count($user->achievements))
+    @if (is_array($user->achievements) && count($user->achievements))
         @component('components.achievement.icon-list', [
             'achievements' => $user->achievements
-        ])
-            
-        @endcomponent
+        ])@endcomponent
     @endif
 
     <div class="info mt-8">

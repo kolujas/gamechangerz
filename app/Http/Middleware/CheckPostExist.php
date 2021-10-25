@@ -16,7 +16,7 @@
         public function handle (Request $request, Closure $next) {
             $slug = (!is_null($request->route()->parameter('slug')) ? $request->route()->parameter('slug') : $request->route()->parameter('post'));
 
-            if (!Post::findBySlug($slug)) {
+            if (!Post::bySlug($slug)->first()) {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Post \"$slug\" does not exist",

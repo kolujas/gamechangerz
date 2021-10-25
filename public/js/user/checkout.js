@@ -670,41 +670,86 @@ function createPayPalButton () {
             if (price - credits < 0) {
                 credits += price -= credits;
             }
-            price -= credits;
+            
+            couponPrice = 0;
             if (coupon) {
-                bool = true;
+                found = true;
 
                 if (coupon.limit) {
-                    bool = false;
+                    found = false;
 
                     if (parseInt(coupon.used) < parseInt(coupon.limit)) {
-                        bool = true;
+                        found = true;
                     }
                 }
 
-                if (bool) {
+                if (found) {
+                    auxPrice = 0;
                     if (coupon.type.id_type == 1) {
                         if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
-                            price -= price * parseInt(coupon.type.value) / 100;
+                            auxPrice = price * parseInt(coupon.type.value) / 100;
                         }
                     }
                     if (coupon.type.id_type == 2) {
                         if (price - parseInt(coupon.type.value) >= dolar / 2) {
-                            price -= parseInt(coupon.type.value);
+                            auxPrice = parseInt(coupon.type.value);
+                        }
+                    }
+                    if (price - auxPrice >= dolar / 2) {
+                        couponPrice = price - auxPrice;
+                    }
+                }
+            }
+
+            price -= credits;
+            
+            if (price <= dolar / 2) {
+                if (coupon) {
+                    credits -= couponPrice;
+                }
+                price = dolar / 2;
+            } else {
+                if (coupon) {
+                    found = true;
+    
+                    if (coupon.limit) {
+                        found = false;
+    
+                        if (parseInt(coupon.used) < parseInt(coupon.limit)) {
+                            found = true;
+                        }
+                    }
+    
+                    if (found) {
+                        auxPrice = 0;
+                        if (coupon.type.id_type == 1) {
+                            if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
+                                auxPrice = price * parseInt(coupon.type.value) / 100;
+                            }
+                        }
+                        if (coupon.type.id_type == 2) {
+                            if (price - parseInt(coupon.type.value) >= dolar / 2) {
+                                auxPrice = parseInt(coupon.type.value);
+                            }
+                        }
+                        if (price - auxPrice >= dolar / 2) {
+                            couponPrice = price - auxPrice;
                         }
                     }
                 }
             }
-            
-            if (price < dolar / 2 && price > 0) {
-                price = dolar / 2;
-            }
 
-            if (price == 0) {
+            price -= couponPrice;
+
+            if (price <= 0) {
                 validation.checkout.ValidationJS.validate();
             }
             if (price > 0) {
                 if (validation.checkout.ValidationJS.validate()) {
+                    if (price <= dolar / 2) {
+                        price = dolar / 2;
+                    }
+
                     price /= dolar;
         
                     let order = actions.order.create({

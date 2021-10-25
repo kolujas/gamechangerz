@@ -2,7 +2,6 @@
     namespace App\Http\Controllers\API;
 
     use App\Http\Controllers\Controller;
-    use App\Models\Ability;
     use App\Models\Assignment;
     use App\Models\Chat;
     use App\Models\Lesson;
@@ -27,7 +26,7 @@
                 ]);
             }
 
-            $lesson = Lesson::findByUsers($chat->id_user_from, $chat->id_user_to);
+            $lesson = Lesson::byUsers($chat->id_user_from, $chat->id_user_to)->get();
             $lesson = $lesson[count($lesson) - 1];
             $lesson->and(["assignments"]);
             if (count($lesson->assignments) == $lesson->{"quantity-of-assignments"}) {

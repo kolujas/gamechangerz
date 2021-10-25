@@ -17,7 +17,7 @@
             $field = (!is_null($request->route()->parameter('id_assignment')) ? 'id_assignment' : 'slug');
             $value = (!is_null($request->route()->parameter('id_assignment')) ? $request->route()->parameter('id_assignment') : $request->route()->parameter('slug'));
 
-            if (!Assignment::where($field, '=', $value)->first()) {
+            if (!Assignment::where($field, $value)->first()) {
                 return response()->json([
                     'code' => 404,
                     'message' => "Assignment \"$value\" does not exist",

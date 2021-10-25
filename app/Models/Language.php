@@ -127,10 +127,10 @@
                 ], "messages" => [
                     "es" => [
                         "languages.required" => "Al menos 1 idioma es obligatorio.",
+                    ],
                 ],
             ],
-        ],
-    ];
+        ];
 
         /**
          * * Language options.

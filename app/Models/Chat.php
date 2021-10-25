@@ -11,22 +11,20 @@
          * * Table name.
          * @var string
          */
-        protected $table = "chats";
+        protected $table = 'chats';
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = "id_chat";
+        protected $primaryKey = 'id_chat';
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            "id_user_from",
-            "id_user_to",
-            "messages",
+            'id_user_from', 'id_user_to', 'messages',
         ];
 
         /**
@@ -37,23 +35,23 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case "available":
+                        case 'available':
                             $this->available();
                             break;
-                        case "lessons":
+                        case 'lessons':
                             $this->lessons();
                             break;
-                        case "messages":
+                        case 'messages':
                             $this->messages();
                             break;
-                        case "users":
+                        case 'users':
                             $this->users();
                             break;
                     }
                     continue;
                 }
                 switch ($column[0]) {
-                    case "available":
+                    case 'available':
                         $this->available($column[1]);
                         break;
                 }
@@ -76,7 +74,7 @@
                     $this->available = true;
                 }
                 if ($id_user_logged == $user->id_user) {
-                    if (gettype($this->messages) == "string") {
+                    if (gettype($this->messages) == 'string') {
                         $this->messages();
                     }
                     if (count($this->messages) >= 1) {
@@ -91,11 +89,11 @@
          */
         public function lessons () {
             $this->lessons = collect();
-            $lessons = Lesson::findByUsers($this->id_user_from, $this->id_user_to);
+            $lessons = Lesson::byUsers($this->id_user_from, $this->id_user_to)->get();
 
             foreach ($lessons as $lesson) {
                 if ($lesson->id_type == 2) {
-                    $lesson->and(["assignments", "days", "ended_at", "started_at"]);
+                    $lesson->and(['assignments', 'days', 'ended_at', 'started_at']);
                     $this->lessons->push($lesson);
                 }
             }
@@ -105,7 +103,7 @@
          * * Set the Chat Messages.
          */
         public function messages () {
-            if (gettype($this->messages) == "string") {
+            if (gettype($this->messages) == 'string') {
                 $this->messages = Message::parse($this->messages);
             }
         }
@@ -115,12 +113,12 @@
          */
         public function users () {
             $this->users = (object) [
-                "from" => User::find($this->id_user_from),
-                "to" => User::find($this->id_user_to),
+                'from' => User::find($this->id_user_from),
+                'to' => User::find($this->id_user_to),
             ];
 
-            $this->users->from->and(["files", "games"]);
-            $this->users->to->and(["files", "games"]);
+            $this->users->from->and(['files', 'games']);
+            $this->users->to->and(['files', 'games']);
         }
        
         /**
@@ -136,54 +134,42 @@
                 $messages->push($message);
             }
 
-            $data["id_message"] = $id_message;
+            $data['id_message'] = $id_message;
 
             $messages->push($data);
 
             $this->update([
-                "messages" => $messages->toJson(),
+                'messages' => $messages->toJson(),
             ]);
         }
 
         /**
-         * * Get all the Chats from an User.
-         * @param int $id_user
-         * @return Chat[]
+         * * Scope a query to only include Abilities where their id_user matches one of them.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  int $id_user
+         * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function allFromUser (int $id_user) {
-            return Chat::where("id_user_from", "=", $id_user)->orwhere("id_user_to", "=", $id_user)->orderBy("updated_at", "DESC")->get();
+        static public function scopeByUser ($query, int $id_user) {
+            return $query->where('id_user_from', $id_user)->orwhere('id_user_to', $id_user);
         }
 
         /**
-         * * Check if a Chat exist by the Users.
-         * @param int $id_user_1
-         * @param int $id_user_2
-         * @return bool
+         * * Scope a query to only include Abilities where their id_user matches both.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  int $id_user_1
+         * @param  int $id_user_2
+         * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function exist (int $id_user_1, int $id_user_2) {
-            $chat = Chat::findByUsers($id_user_1, $id_user_2);
-
-            if (!$chat) {
-                return false;
-            }
-
-            return true;
-        }
-
-        /**
-         * * Get a Chat by the Users.
-         * @param int $id_user_1
-         * @param int $id_user_2
-         * @return Chat
-         */
-        static public function findByUsers (int $id_user_1, int $id_user_2) {
-            return Chat::where([
-                ["id_user_from", "=", $id_user_1],
-                ["id_user_to", "=", $id_user_2],
+        static public function scopeByUsers ($query, int $id_user_1, int $id_user_2) {
+            return $query->where([
+                ['id_user_from', $id_user_1],
+                ['id_user_to', $id_user_2],
             ])->orwhere([
-                ["id_user_from", "=", $id_user_2],
-                ["id_user_to", "=", $id_user_1],
-            ])->first();
+                ['id_user_from', $id_user_2],
+                ['id_user_to', $id_user_1],
+            ]);
         }
 
         /**
@@ -191,12 +177,12 @@
          * @var array
          */
         static $validation = [
-            "send" => [
-                "rules" => [
-                    "message" => "required",
-                ], "messages" => [
-                    "es" => [
-                        "message.required" => "El mensaje es obligatorio.",
+            'send' => [
+                'rules' => [
+                    'message' => 'required',
+                ], 'messages' => [
+                    'es' => [
+                        'message.required' => 'El mensaje es obligatorio.',
                     ],
                 ],
             ],

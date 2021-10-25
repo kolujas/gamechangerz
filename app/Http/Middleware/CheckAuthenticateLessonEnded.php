@@ -17,7 +17,7 @@
         public function handle($request, Closure $next) {
             if (Auth::check()) {
                 $lessons = collect();
-                foreach (Lesson::allStartedFromUser(Auth::user()->id_user) as $lesson) {
+                foreach (Lesson::startedByUser(Auth::user()->id_user)->get() as $lesson) {
                     $lesson->and(['reviews']);
 
                     if (count($lesson->reviews)) {

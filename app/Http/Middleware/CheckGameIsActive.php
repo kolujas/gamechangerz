@@ -15,7 +15,7 @@
          */
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
-            $game = Game::findBySlug($slug);
+            $game = Game::bySlug($slug)->first();
 
             if (!$game->active) {
                 $request->session()->put('error', [

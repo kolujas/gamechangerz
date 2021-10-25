@@ -16,7 +16,7 @@
                 ]);
             }
 
-            $coupon = Coupon::findByName($input->coupon);
+            $coupon = Coupon::byName($input->coupon)->first();
 
             if (!$coupon) {
                 return response()->json([

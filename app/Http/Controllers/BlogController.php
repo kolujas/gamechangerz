@@ -24,32 +24,39 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
-            $posts = Post::fromAdmin();
+            $posts = Post::byAdmin()->limit(10)->get();
             foreach ($posts as $post) {
                 $post->and(['date', 'user']);
             }
 
             return view('blog.list', [
-                'posts' => $posts,
                 'error' => $error,
+                // 'notifications' => $notifications,
+                'posts' => $posts,
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
                         'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                ], 'signin' => (object)[
+                    ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assignment' => (object)[
+                    ], 'assignment' => (object)[
                         'rules' => Assignment::$validation['make']['rules'],
                         'messages' => Assignment::$validation['make']['messages']['es'],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], 'presentation' => (object)[
+                    ], 'presentation' => (object)[
                         'rules' => Presentation::$validation['make']['rules'],
                         'messages' => Presentation::$validation['make']['messages']['es'],
-                ]],
+                    ],
+                ],
             ]);
         }
 
@@ -64,41 +71,48 @@
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             if ($post) {
-                $post = Post::findBySlug($post);
+                $post = Post::bySlug($post)->first();
                 $post->and(['user', 'date']);
             }
 
             return view('blog.details', [
-                'post' => $post,
                 'error' => $error,
+                // 'notifications' => $notifications,
+                'post' => $post,
                 'validation' => [
                     'login' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
                         'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                ], 'signin' => (object)[
+                    ], 'signin' => (object)[
                         'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
                         'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                ], 'assignment' => (object)[
+                    ], 'assignment' => (object)[
                         'rules' => Assignment::$validation['make']['rules'],
                         'messages' => Assignment::$validation['make']['messages']['es'],
-                ], "advanced" => (object)[
+                    ], "advanced" => (object)[
                         "rules" => User::$validation["advanced"]["rules"],
                         "messages" => User::$validation["advanced"]["messages"]["es"],
-                ], 'presentation' => (object)[
+                    ], 'presentation' => (object)[
                         'rules' => Presentation::$validation['make']['rules'],
                         'messages' => Presentation::$validation['make']['messages']['es'],
-                ], 'create' => (object)[
+                    ], 'create' => (object)[
                         'rules' => Post::$validation['create']['rules'],
                         'messages' => Post::$validation['create']['messages']['es'],
-                ], 'update' => (object)[
+                    ], 'update' => (object)[
                         'rules' => Post::$validation['update']['rules'],
                         'messages' => Post::$validation['update']['messages']['es'],
-                ], 'delete' => (object)[
+                    ], 'delete' => (object)[
                         'rules' => Post::$validation['delete']['rules'],
                         'messages' => Post::$validation['delete']['messages']['es'],
-                ]],
+                    ],
+                ],
             ]);
         }
 
@@ -145,7 +159,7 @@
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $user = User::findBySlug($user);
+            $user = User::bySlug($user)->first();
             $input->id_user = $user->id_user;
             
             $file = Image::make($request->file('image'))
@@ -176,14 +190,14 @@
          */
         public function doUpdate (Request $request, string $user, string $post) {
             $input = (object) $request->all();
-            $post = Post::findBySlug($post);
+            $post = Post::bySlug($post)->first();
 
             $validator = Validator::make($request->all(), Post::$validation['update']['rules'], Post::$validation['update']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             
-            $user = User::findBySlug($user);
+            $user = User::bySlug($user)->first();
 
             if ($request->hasFile('image')) {
                 Storage::delete($post->image);
@@ -218,14 +232,14 @@
          * @return \Illuminate\Http\Response
          */
         public function doDelete (Request $request, string $user, string $post) {
-            $post = Post::findBySlug($post);
+            $post = Post::bySlug($post)->first();
 
             $validator = Validator::make($request->all(), Post::$validation['delete']['rules'], Post::$validation['delete']['messages']['es']);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             
-            $user = User::findBySlug($user);
+            $user = User::bySlug($user)->first();
 
             Storage::delete($post->image);
                 

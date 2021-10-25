@@ -9,6 +9,7 @@
     use App\Models\Post;
     use App\Models\Presentation;
     use App\Models\User;
+    use Auth;
     use Illuminate\Http\Request;
 
     class DefaultController extends Controller {
@@ -22,8 +23,14 @@
                 $error = (object) $request->session()->pull("error");
             }
 
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
+
             return view("web.apply", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -61,8 +68,14 @@
                 $error = (object) $request->session()->pull("error");
             }
 
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
+
             return view("web.coming_soon", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [],
             ]);
         }
@@ -77,9 +90,15 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             return view("web.contact", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -116,9 +135,15 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             return view("web.faq", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -153,6 +178,11 @@
                 $error = (object) $request->session()->pull("error");
             }
 
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
+
             $games = Game::all();
             foreach ($games as $game) {
                 $game->and(["colors", "files"]);
@@ -161,6 +191,7 @@
             return view("web.home", [
                 "games" => $games,
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -195,11 +226,16 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
-            $game = Game::findBySlug($slug);
+            $game = Game::bySlug($slug)->first();
             $game->and(["abilities", "users", "files", "colors"]);
 
-            $posts = Post::fromAdmin();
+            $posts = Post::byAdmin()->limit(10)->get();
             foreach ($posts as $post) {
                 $post->and(["user"]);
                 $post->date = $this->dateToHuman($post->updated_at);
@@ -207,8 +243,9 @@
 
             return view("web.landing", [
                 "game" => $game,
-                "posts" => $posts,
                 "error" => $error,
+                // "notifications" => $notifications,
+                "posts" => $posts,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -242,6 +279,11 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             $games = Game::all();
             foreach ($games as $game) {
@@ -251,6 +293,7 @@
             return view("web.home", [
                 "games" => $games,
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -284,9 +327,15 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             return view("web.privacy_politics", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -363,9 +412,15 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             return view("web.support", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -402,9 +457,15 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            // $notifications = Auth::check() ? Auth::user()->notifications : [];
+            // foreach ($notifications as $notification) {
+            //     $notification->delete();
+            // }
 
             return view("web.terms_&_conditions", [
                 "error" => $error,
+                // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),

@@ -194,7 +194,7 @@
             $hours = Hour::options();
 
             $teachers = collect();
-            foreach (User::allTeachers() as $user) {
+            foreach (User::teachers()->orderBy('updated_at', 'DESC')->get() as $user) {
                 if ($user->id_status === 2) {
                     $teachers->push($user);
                 }
@@ -205,7 +205,7 @@
             $methods = Method::options();
 
             $users = collect();
-            foreach (User::allUsers() as $user) {
+            foreach (User::users()->orderBy('updated_at', 'DESC')->get() as $user) {
                 if ($user->id_status === 2) {
                     $users->push($user);
                 }
@@ -274,7 +274,7 @@
             $user = new User();
             $teampro = new Teampro();
             if ($slug) {
-                $user = User::findBySlug($slug);
+                $user = User::bySlug($slug)->first();
                 $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials"]);
                 $teampro = $user->teampro;
 
@@ -330,7 +330,7 @@
                     }
                 }
 
-                foreach (Lesson::allFromTeacher($user->id_user) as $lesson) {
+                foreach (Lesson::byTeacher($user->id_user)->get() as $lesson) {
                     if ($lesson->id_status >= 3) {
                         $lesson->and(["reviews", "abilities"]);
 
@@ -402,7 +402,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $users = User::allTeachers();
+            $users = User::teachers()->orderBy('updated_at', 'DESC')->get();
 
             return view("panel.teachers.list", [
                 "error" => $error,
@@ -424,7 +424,7 @@
 
             $user = new User();
             if ($slug) {
-                $user = User::findBySlug($slug);
+                $user = User::bySlug($slug)->first();
                 $user->and(["games", "reviews", "achievements", "files", "languages"]);
             }
 
@@ -456,7 +456,7 @@
                     }
                 }
 
-                foreach (Lesson::allDoneFromUser($user->id_user) as $lesson) {
+                foreach (Lesson::doneByUser($user->id_user)->get() as $lesson) {
                     if ($lesson->id_status >= 3) {
                         $lesson->and(["reviews", "abilities"]);
 
@@ -521,7 +521,7 @@
                 $error = (object) $request->session()->pull("error");
             }
 
-            $users = User::allUsers();
+            $users = User::users()->orderBy('updated_at', 'DESC')->get();
 
             return view("panel.users.list", [
                 "error" => $error,

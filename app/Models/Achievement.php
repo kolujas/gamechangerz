@@ -13,18 +13,14 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = "id_achievement";
+        protected $primaryKey = 'id_achievement';
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            "description",
-            "icon",
-            "id_achievement",
-            "slug",
-            "title",
+            'description', 'icon', 'id_achievement', 'slug', 'title',
         ];
         
         /**
@@ -33,15 +29,15 @@
          */
         public function sluggable (): array {
             return [
-                "slug" => [
-                    "source"	=> "title",
+                'slug' => [
+                    'source'	=> 'title',
                 ]
             ];
         }
 
         /**
          * * Returns the Achievement options.
-         * @param array [$achievements] Example: [["id_achievement"=>1]]
+         * @param array [$achievements]
          * @param bool [$all=true]
          * @return Achievement[]
          */
@@ -53,7 +49,7 @@
                 $found = false;
                 
                 foreach ($achievements as $data) {
-                    if ($option->id_achievement === $data["id_achievement"]) {
+                    if ($option->id_achievement === $data['id_achievement']) {
                         $found = true;
                         break;
                     }
@@ -69,18 +65,18 @@
 
         /**
          * * Parse an Achievements array.
-         * @param string [$achievements] Example: "[{\"id_achievement\":1,\"title\":\"Title\",\"description\":\"Description\"}]"
+         * @param string [$achievements]
          * @return Achievement[]
          */
-        static public function parse (string $achievements = "") {
+        static public function parse (string $achievements = '') {
             $collection = collect();
 
             foreach (json_decode($achievements) as $data) {
                 $achievement = new Achievement([
-                    "id_achievement" => $data->id_achievement,
-                    "title" => $data->title,
-                    "description" => $data->description,
-                    "icon" => "components.svg.TrofeoSVG",
+                    'id_achievement' => $data->id_achievement,
+                    'title' => $data->title,
+                    'description' => $data->description,
+                    'icon' => 'components.svg.TrofeoSVG',
                 ]);
 
                 $collection->push($achievement);
@@ -91,7 +87,7 @@
 
         /**
          * * Stringify an Achievements array.
-         * @param array [$achievements] Example: [["id_achievement"=>1,"title"=>"Title","description"=>"Description"]]
+         * @param array [$achievements]
          * @return string
          */
         static public function stringify (array $achievements = []) {
@@ -99,10 +95,10 @@
 
             foreach ($achievements as $data) {
                 $collection->push([
-                    "id_achievement" => $data["id_achievement"],
-                    "title" => $data["title"],
-                    "description" => $data["description"],
-                    "slug" => preg_replace("/\W+/", "-", strtolower(trim($data["title"]))),
+                    'id_achievement' => $data['id_achievement'],
+                    'title' => $data['title'],
+                    'description' => $data['description'],
+                    'slug' => preg_replace('/\W+/', '-', strtolower(trim($data['title']))),
                 ]);
             }
 
@@ -115,17 +111,17 @@
          */
         static $options = [
             [
-                "id_achievement" => 1,
-                "title" => "Something",
-                "description" => "Something",
-                "icon" => "something",
-                "slug" => "something",
+                'id_achievement' => 1,
+                'title' => 'Something',
+                'description' => 'Something',
+                'icon' => 'something',
+                'slug' => 'something',
             ], [
-                "id_achievement" => 2,
-                "title" => "Something",
-                "description" => "Something",
-                "icon" => "something",
-                "slug" => "something",
+                'id_achievement' => 2,
+                'title' => 'Something',
+                'description' => 'Something',
+                'icon' => 'something',
+                'slug' => 'something',
             ],
         ];
     }

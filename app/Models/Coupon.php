@@ -13,23 +13,20 @@
            * * Table name.
            * @var string
            */
-          protected $table = "coupons";
+          protected $table = 'coupons';
           
           /**
            * * Table primary key name.
            * @var string
            */
-          protected $primaryKey = "id_coupon";
+          protected $primaryKey = 'id_coupon';
 
           /**
            * * The attributes that are mass assignable.
            * @var array
            */
           protected $fillable = [
-               "name",
-               "limit",
-               "slug",
-               "type",
+               'name', 'limit', 'slug', 'type',
           ];
 
           /**
@@ -40,13 +37,13 @@
               foreach ($columns as $column) {
                   if (!is_array($column)) {
                       switch ($column) {
-                          case "lessons":
+                          case 'lessons':
                               $this->lessons();
                               break;
-                          case "type":
+                          case 'type':
                               $this->type();
                               break;
-                          case "used":
+                          case 'used':
                               $this->used();
                               break;
                       }
@@ -65,9 +62,9 @@
            */
           public function sluggable (): array {
               return [
-                  "slug" => [
-                      "source"	=> "name",
-                      "onUpdate"	=> true,
+                  'slug' => [
+                      'source'	=> 'name',
+                      'onUpdate'	=> true,
                   ]
               ];
           }
@@ -104,70 +101,72 @@
           }
 
           /**
-           * * Get a Coupon by the name.
-           * @param string $name
-           * @return Coupon
-           */
-          static public function findByName (string $name = "") {
-              return Coupon::where("name", "=", $name)->first();
-          }
-
-          /**
            * * Parse the Coupon type object.
-           * @param string [$type] Example: "[{\"id_type\":1,\"value\":400}]"
+           * @param string [$type] Example: '[{\'id_type\':1,\'value\':400}]'
            * @return Coupon[]
            */
           static public function parse (string $type = '') {
                $type = json_decode($type);
 
-               $type->key = $type->id_type === 1 ? "%" : "$";
+               $type->key = $type->id_type === 1 ? '%' : '$';
   
               return $type;
           }
   
           /**
            * * Stringify a Coupon type object.
-           * @param object [$data] Example: ["type"=>"%","value"=>400]
+           * @param object [$data] Example: ['type'=>'%','value'=>400]
            * @return string
            */
           static public function stringify (object $data) {  
               return json_encode([
-                   "id_type" => $data->type === "%" ? 1 : 2,
-                   "value" => $data->value
+                   'id_type' => $data->type === '%' ? 1 : 2,
+                   'value' => $data->value
               ]);
+          }
+
+          /**
+           * * Scope a query to only include Abilities where their name matches.
+           * @static
+           * @param  \Illuminate\Database\Eloquent\Builder  $query
+           * @param  string $name
+           * @return \Illuminate\Database\Eloquent\Builder
+           */
+          static public function scopeByName ($query, string $name) {
+              return $query->where('name', $name);
           }
           
           /** @var array Validation rules & messages. */
           static $validation = [
-               "create" => [
-                    "rules" => [
-                         "name" => "required|unique:coupons",
-                         "value" => "required",
-                    ], "messages" => [
-                         "es" => [
-                              "name.required" => "El nombre es obligatorio.",
-                              "name.unique" => "Ese nombre ya esta en uso.",
-                              "value.required" => "El valor es obligatorio.",
+               'create' => [
+                    'rules' => [
+                         'name' => 'required|unique:coupons',
+                         'value' => 'required',
+                    ], 'messages' => [
+                         'es' => [
+                              'name.required' => 'El nombre es obligatorio.',
+                              'name.unique' => 'Ese nombre ya esta en uso.',
+                              'value.required' => 'El valor es obligatorio.',
                          ],
                     ],
-               ], "delete" => [
-                         "rules" => [
-                         "message" => "required|regex:/^BORRAR$/",
-                    ], "messages" => [
-                         "es" => [
-                              "message.required" => "El mensaje es obligatorio.",
-                              "message.regex" => "El mensaje debe decir BORRAR.",
+               ], 'delete' => [
+                         'rules' => [
+                         'message' => 'required|regex:/^BORRAR$/',
+                    ], 'messages' => [
+                         'es' => [
+                              'message.required' => 'El mensaje es obligatorio.',
+                              'message.regex' => 'El mensaje debe decir BORRAR.',
                          ],
                     ],
-               ], "update" => [
-                         "rules" => [
-                         "name" => "required|unique:coupons,name,{id_coupon},id_coupon",
-                         "value" => "required",
-                    ], "messages" => [
-                         "es" => [
-                              "name.required" => "El nombre es obligatorio.",
-                              "name.unique" => "Ese nombre ya esta en uso.",
-                              "value.required" => "El valor es obligatorio.",
+               ], 'update' => [
+                         'rules' => [
+                         'name' => 'required|unique:coupons,name,{id_coupon},id_coupon',
+                         'value' => 'required',
+                    ], 'messages' => [
+                         'es' => [
+                              'name.required' => 'El nombre es obligatorio.',
+                              'name.unique' => 'Ese nombre ya esta en uso.',
+                              'value.required' => 'El valor es obligatorio.',
                          ],
                     ],
                ],

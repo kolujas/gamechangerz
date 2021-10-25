@@ -16,7 +16,7 @@
          */
         public function handle ($request, Closure $next) {
             if ($request->route()->parameter("type") === "seguimiento-online") {
-                $user = User::findBySlug($request->route()->parameter('slug'));
+                $user = User::bySlug($request->route()->parameter('slug'))->first();
                 $user->and(["lessons"]);
     
                 foreach ($user->lessons as $lesson) {

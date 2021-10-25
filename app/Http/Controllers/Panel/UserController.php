@@ -79,7 +79,7 @@
 
             $games = collect();
             foreach ($input->abilities as $ability => $on) {
-                $ability = Ability::findBySlug($ability);
+                $ability = Ability::bySlug($ability)->first();
                 if (count($games)) {
                     foreach ($games as $game) {
                         if ($game["id_game"] === $ability->id_game) {
@@ -173,7 +173,7 @@
         static public function doDeleteTeacher (Request $request) {
             $input = (object) $request->all();
 
-            $user = User::findBySlug($request->route()->parameter("slug"));
+            $user = User::bySlug($request->route()->parameter("slug"))->first();
             $user->and(["files", "posts"]);
 
             $validator = Validator::make($request->all(), User::$validation["teacher"]["panel"]["delete"]["rules"], User::$validation["teacher"]["panel"]["delete"]["messages"]["es"]);
@@ -189,7 +189,7 @@
 
             $requilify = collect();
 
-            $lessons = Lesson::allFromUser($user->id_user);
+            $lessons = Lesson::byUser($user->id_user)->get();
             foreach ($lessons as $lesson) {
                 $lesson->and(["reviews", "chat", "assignments"]);
                 if (count($lesson->reviews)) {
@@ -244,7 +244,7 @@
         static public function doUpdateTeacher (Request $request) {
             $input = (object) $request->all();
 
-            $user = User::findBySlug($request->route()->parameter("slug"));
+            $user = User::bySlug($request->route()->parameter("slug"))->first();
             $user->and(["files"]);
 
             $validator = Validator::make($request->all(), Controller::replaceUnique(User::$validation["teacher"]["panel"]["update"]["rules"], $user->id_user), User::$validation["teacher"]["panel"]["update"]["messages"]["es"]);
@@ -256,7 +256,7 @@
 
             $games = collect();
             foreach ($input->abilities as $ability => $on) {
-                $ability = Ability::findBySlug($ability);
+                $ability = Ability::bySlug($ability)->first();
                 if (count($games)) {
                     foreach ($games as $game) {
                         if ($game["id_game"] === $ability->id_game) {
@@ -365,12 +365,12 @@
 
             $games = collect();
             foreach ($input->games as $game => $on) {
-                $game = Game::findBySlug($game);
+                $game = Game::bySlug($game)->first();
                 $games->push([
                     "id_game" => $game->id_game,
                     "abilities" => collect(),
                 ]);
-                foreach (Ability::allFromGame($game->id_game) as $ability) {
+                foreach (Ability::byGame($game->id_game)->get() as $ability) {
                     $games[count($games) - 1]["abilities"]->push([
                         "id_ability" => $ability->id_ability,
                     ]);
@@ -438,7 +438,7 @@
         static public function doDeleteUser (Request $request) {
             $input = (object) $request->all();
 
-            $user = User::findBySlug($request->route()->parameter("slug"));
+            $user = User::bySlug($request->route()->parameter("slug"))->first();
             $user->and(["files", "friends"]);
 
             $validator = Validator::make($request->all(), User::$validation["user"]["panel"]["delete"]["rules"], User::$validation["user"]["panel"]["delete"]["messages"]["es"]);
@@ -452,7 +452,7 @@
 
             $requilify = collect();
 
-            $lessons = Lesson::allFromUser($user->id_user);
+            $lessons = Lesson::byUser($user->id_user)->get();
             foreach ($lessons as $lesson) {
                 $lesson->and(["reviews", "chat", "assignments"]);
                 if (count($lesson->reviews)) {
@@ -507,7 +507,7 @@
         static public function doUpdateUser (Request $request) {
             $input = (object) $request->all();
 
-            $user = User::findBySlug($request->route()->parameter("slug"));
+            $user = User::bySlug($request->route()->parameter("slug"))->first();
             $user->and(["files"]);
 
             $validator = Validator::make($request->all(), Controller::replaceUnique(User::$validation["user"]["panel"]["update"]["rules"], $user->id_user), User::$validation["user"]["panel"]["update"]["messages"]["es"]);
@@ -517,12 +517,12 @@
 
             $games = collect();
             foreach ($input->games as $game => $on) {
-                $game = Game::findBySlug($game);
+                $game = Game::bySlug($game)->first();
                 $games->push([
                     "id_game" => $game->id_game,
                     "abilities" => collect(),
                 ]);
-                foreach (Ability::allFromGame($game->id_game) as $ability) {
+                foreach (Ability::byGame($game->id_game)->get() as $ability) {
                     $games[count($games) - 1]["abilities"]->push([
                         "id_ability" => $ability->id_ability,
                     ]);

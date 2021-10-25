@@ -28,7 +28,7 @@
             }
 
             $lessons = collect();
-            foreach (Lesson::allReadyFromUser($request->user()->id_user) as $lesson) {
+            foreach (Lesson::startedByUser($request->user()->id_user)->get() as $lesson) {
                 if ($lesson->id_type === 2) {
                     $lessons->push($lesson);
                 }
@@ -38,7 +38,7 @@
                 if ($lesson->id_status === 3 && $lesson->id_type === 2) {
                     $now = Carbon::now();
                     if ($now > $lesson->started_at && $now < $lesson->ended_at) {
-                        if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))) {
+                        if (!Chat::byUsers($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))->first()) {
                             Chat::create([
                                 "id_chat" => null,
                                 "id_user_from" => $lesson->id_user_from,
@@ -51,14 +51,14 @@
             }
 
             $friends = collect();
-            foreach (Friend::allFromUser($request->user()->id_user) as $friend) {
+            foreach (Friend::byUser($request->user()->id_user)->get() as $friend) {
                 $friends->push($friend);
             }
 
             if ($request->user()->id_role === 0) {
                 foreach ($friends as $friend) {
                     if ($friend->accepted) {
-                        if (!Chat::exist($request->user()->id_user, ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from))) {
+                        if (!Chat::byUsers($request->user()->id_user, ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from))->first()) {
                             Chat::create([
                                 "id_chat" => null,
                                 "id_user_from" => $friend->id_user_from,
@@ -71,9 +71,9 @@
             }
 
             if ($request->user()->id_role === 2) {
-                foreach (User::allAdmins() as $user) {
+                foreach (User::admins()->orderBy('updated_at')->get() as $user) {
                     if ($user->id_user !== $request->user()->id_user) {
-                        if (!Chat::exist($request->user()->id_user, $user->id_user)) {
+                        if (!Chat::byUsers($request->user()->id_user, $user->id_user)->first()) {
                             Chat::create([
                                 "id_chat" => null,
                                 "id_user_from" => $request->user()->id_user,
@@ -86,7 +86,7 @@
             }
 
             $chats = collect();
-            foreach (Chat::allFromUser($request->user()->id_user) as $chat) {
+            foreach (Chat::byUser($request->user()->id_user)->orderBy('updated_at', 'DESC')->get() as $chat) {
                 $chats->push($chat);
             }
 
@@ -137,7 +137,7 @@
             }
 
             $chats = collect();
-            foreach (Chat::allFromUser($request->user()->id_user) as $chat) {
+            foreach (Chat::byUser($request->user()->id_user)->orderBy('updated_at', 'DESC')->get() as $chat) {
                 $chats->push($chat);
             }
             
@@ -218,7 +218,7 @@
                 ]);
             }
 
-            $chat = Chat::findByUsers($request->user()->id_user, $id_user);
+            $chat = Chat::byUsers($request->user()->id_user, $id_user)->first();
 
             if (!$chat) {
                 return response()->json([
@@ -302,7 +302,7 @@
             }
             $input->abilities = $abilities->toArray();
 
-            $chat = Chat::findByUsers($request->user()->id_user, $id_user);
+            $chat = Chat::byUsers($request->user()->id_user, $id_user)->first();
 
             if (!$chat) {
                 return response()->json([

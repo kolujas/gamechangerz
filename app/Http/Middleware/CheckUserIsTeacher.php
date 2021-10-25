@@ -14,7 +14,7 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $user = User::findBySlug($request->route()->parameter('slug'));
+            $user = User::bySlug($request->route()->parameter('slug'))->first();
 
             if ($user->id_role !== 1) {
                 $request->session()->put('error', [

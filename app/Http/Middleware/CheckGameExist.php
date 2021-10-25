@@ -16,7 +16,7 @@
         public function handle (Request $request, Closure $next) {
             $slug = $request->route()->parameter('slug');
 
-            if (!Game::findBySlug($slug)) {
+            if (!Game::bySlug($slug)->first()) {
                 $request->session()->put('error', [
                     'code' => 404,
                     'message' => "Game \"$slug\" does not exist",

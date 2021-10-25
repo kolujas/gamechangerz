@@ -16,7 +16,7 @@
         public function handle ($request, Closure $next) {
             $field = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('id_chat'));
 
-            $chat = (!is_null($request->route()->parameter('id_user')) ? Chat::findByUsers($field, $request->user()->id_user) : Chat::find($field));
+            $chat = (!is_null($request->route()->parameter('id_user')) ? Chat::byUsers($field, $request->user()->id_user)->first() : Chat::find($field));
             $chat->and(['users', ["available", $request->user()->id_user]]);
 
             if (!$chat->available) {

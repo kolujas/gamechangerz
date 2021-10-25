@@ -15,7 +15,7 @@
         public function handle ($request, Closure $next) {
             $id_user = $request->route()->parameter('id_user');
 
-            $chat = Chat::findByUsers($request->user()->id_user, $id_user);
+            $chat = Chat::byUsers($request->user()->id_user, $id_user)->first();
             $chat->and(['users']);
 
             if ($chat->users->from->id_role === 1) {

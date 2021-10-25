@@ -10,22 +10,14 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = "id_ability";
+        protected $primaryKey = 'id_ability';
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            "description",
-            "difficulty",
-            "folder",
-            "icon",
-            "id_ability",
-            "id_game",
-            "name",
-            "slug",
-            "stars",
+            'description', 'difficulty', 'folder', 'icon', 'id_ability', 'id_game', 'name', 'slug', 'stars',
         ];
 
         /**
@@ -36,20 +28,20 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case "game":
+                        case 'game':
                             $this->game();
                             break;
-                        case "files":
+                        case 'files':
                             $this->files();
                             break;
-                        case "stars":
+                        case 'stars':
                             $this->stars();
                             break;
                     }
                     continue;
                 }
                 switch ($column[0]) {
-                    case "stars":
+                    case 'stars':
                         $this->stars($column[1]);
                         break;
                 }
@@ -73,11 +65,11 @@
             $files = Folder::getFiles($this->game->folder . "/abilities/$this->id_ability", false);
 
             foreach ($files as $file) {
-                $fileExplode = explode(".", $file);
-                $fileExplode = explode("/", $fileExplode[0]);
-                $fileExplode = explode("\\", end($fileExplode));
-                $fileExplode = explode("-", end($fileExplode));
-                $this->files[end($fileExplode)] = preg_replace("~\\\\~", "/", $file);
+                $fileExplode = explode('.', $file);
+                $fileExplode = explode('/', $fileExplode[0]);
+                $fileExplode = explode('\\', end($fileExplode));
+                $fileExplode = explode('-', end($fileExplode));
+                $this->files[end($fileExplode)] = preg_replace('~\\\\~', '/', $file);
             }
         }
 
@@ -90,19 +82,8 @@
         }
 
         /**
-         * * Get all the Abilities from a Game.
-         * @param int $id_game
-         * @return Ability[]
-         */
-        static public function allFromGame (int $id_game) {
-            $abilities = Ability::where("id_game", "=", $id_game)->get();
-
-            return $abilities;
-        }
-
-        /**
          * * Returns the Ability options.
-         * @param array [$abilities] Example: [["id_ability"=>1,"stars"=>3.5]]
+         * @param array [$abilities]
          * @param bool [$all=true]
          * @return Ability[]
          */
@@ -114,8 +95,8 @@
                 $found = false;
                 
                 foreach ($abilities as $data) {
-                    if ($option->id_ability === $data["id_ability"]) {
-                        $option->stars = (isset($data["stars"]) ? $data["stars"] : 0);
+                    if ($option->id_ability === $data['id_ability']) {
+                        $option->stars = (isset($data['stars']) ? $data['stars'] : 0);
                         $found = true;
                         break;
                     }
@@ -131,16 +112,16 @@
 
         /**
          * * Parse an Abilities array.
-         * @param string [$abilities] Example: "[{\"id_ability\":1,\"stars\":3.5}]"
+         * @param string [$abilities]
          * @return Ability[]
          */
-        static public function parse (string $abilities = "") {
+        static public function parse (string $abilities = '') {
             $collection = collect();
             
             foreach (json_decode($abilities) as $data) {
                 $ability = Ability::find($data->id_ability);
                 
-                $ability->and([["stars", (isset($data->stars) ? $data->stars : 0)]]);
+                $ability->and([['stars', (isset($data->stars) ? $data->stars : 0)]]);
 
                 $collection->push($ability);
             }
@@ -150,7 +131,7 @@
 
         /**
          * * Stringify an Abilities array.
-         * @param array [$abilities] Example: [["id_ability"=>1,"stars"=>3.5]]
+         * @param array [$abilities]
          * @return string
          */
         static public function stringify (array $abilities = []) {
@@ -158,8 +139,8 @@
 
             foreach ($abilities as $data) {
                 $collection->push([
-                    "id_ability" => $data["id_ability"],
-                    "stars" => (isset($data["stars"]) ? $data["stars"] : 0),
+                    'id_ability' => $data['id_ability'],
+                    'stars' => (isset($data['stars']) ? $data['stars'] : 0),
                 ]);
             }
 
@@ -169,12 +150,12 @@
         /**
          * * Requilify the Abilities by the User Reviews.
          * @param int $id_user
-         * @param array [$abilities] Example: [["id_ability"=>1]]
+         * @param array [$abilities]
          * @return JSON
          */
         static public function requilify (int $id_user, array $abilities = []) {
             $user = User::find($id_user);
-            $user->and(["reviews"]);
+            $user->and(['reviews']);
 
             $collection = collect();
             
@@ -198,21 +179,34 @@
                 $ability->stars = ($stars ? $stars / $quantity : 0);
 
                 $collection->push([
-                    "id_ability" => $ability->id_ability,
-                    "stars" => $ability->stars,
+                    'id_ability' => $ability->id_ability,
+                    'stars' => $ability->stars,
                 ]);
             }
             
             return $collection->toJson();
         }
+            
+        /**
+         * * Scope a query to only include Abilities where their id_game matches.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  int $id_game
+         * @return \Illuminate\Database\Eloquent\Builder
+         */
+        static public function scopeByGame ($query, int $id_game) {
+            return $query->where('id_game', $id_game);
+        }
 
         /**
-         * * Get a Ability by the slug.
+         * * Scope a query to only include Abilities where their slug matches.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
          * @param string $slug
-         * @return Ability
+         * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function findBySlug (string $slug = "") {
-            return Ability::where("slug", "=", $slug)->first();
+        static public function scopeBySlug ($query, string $slug = '') {
+            return $query->where('slug', $slug);
         }
 
         /**
@@ -221,29 +215,29 @@
          */
         static $options = [
             [
-                "id_ability" => 1,
-                "name" => "Comunicación",
-                "description" => "",
-                "slug" => "comunicacion",
-                "stars" => null,
+                'id_ability' => 1,
+                'name' => 'Comunicación',
+                'description' => '',
+                'slug' => 'comunicacion',
+                'stars' => null,
             ], [
-                "id_ability" => 2,
-                "name" => "Flexibilidad",
-                "description" => "",
-                "slug" => "flexibilidad",
-                "stars" => null,
+                'id_ability' => 2,
+                'name' => 'Flexibilidad',
+                'description' => '',
+                'slug' => 'flexibilidad',
+                'stars' => null,
             ], [
-                "id_ability" => 3,
-                "name" => "Conexión",
-                "description" => "",
-                "slug" => "conexion",
-                "stars" => null,
+                'id_ability' => 3,
+                'name' => 'Conexión',
+                'description' => '',
+                'slug' => 'conexion',
+                'stars' => null,
             ], [
-                "id_ability" => 4,
-                "name" => "Experiencia",
-                "description" => "",
-                "slug" => "experiencia",
-                "stars" => null,
+                'id_ability' => 4,
+                'name' => 'Experiencia',
+                'description' => '',
+                'slug' => 'experiencia',
+                'stars' => null,
             ],
         ];
     }

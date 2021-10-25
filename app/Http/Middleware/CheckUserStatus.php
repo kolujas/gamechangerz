@@ -26,7 +26,7 @@
                 $value = $request->route()->parameter('user');
             }
 
-            $user = User::where($field, '=', $value)->first();
+            $user = User::where($field, $value)->first();
 
             if ($user->id_status != 2) {
                 if ($user->id_status == 0) {

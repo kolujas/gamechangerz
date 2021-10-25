@@ -17,7 +17,7 @@
             $field = (!is_null($request->route()->parameter('id_user')) ? 'id_user' : 'slug');
             $value = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('slug'));
 
-            if (!User::where($field, '=', $value)->first()) {
+            if (!User::where($field, $value)->first()) {
                 return response()->json([
                     'code' => 404,
                     'message' => "User \"$value\" does not exist",

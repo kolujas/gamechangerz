@@ -14,7 +14,7 @@
          * @return \Illuminate\Http\Response
          */
         public function update (Request $request, string $slug) {
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
             
             $input = (object) $request->all();
 
@@ -22,7 +22,7 @@
                 $games = collect();
                 if (isset($input->games)) {
                     foreach ($input->games as $slug) {
-                        $game = Game::findBySlug($slug);
+                        $game = Game::bySlug($slug)->first();
 
                         $game->and(['abilities']);
                         $games->push($game);
@@ -32,7 +32,7 @@
             if ($user->id_role === 1) {
                 $games = collect();
                 foreach ($input->abilities as $ability => $on) {
-                    $ability = Ability::findBySlug($ability);
+                    $ability = Ability::bySlug($ability)->first();
                     if (count($games)) {
                         foreach ($games as $game) {
                             if ($game["id_game"] === $ability->id_game) {

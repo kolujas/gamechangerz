@@ -95,7 +95,7 @@
             $days = collect();
             if (isset($input->dates)) {
                 for ($i=0; $i < count($input->dates); $i++) {
-                    foreach (Lesson::allFromTeacher($lesson->id_user_from) as $previousLesson) {
+                    foreach (Lesson::byTeacher($lesson->id_user_from)->get() as $previousLesson) {
                         $previousLesson->and(["days"]);
                         if ($previousLesson->id_lesson !== intval($id_lesson)) {
                             foreach ($previousLesson->days as $day) {
@@ -135,6 +135,21 @@
                 ]);
             }
 
+            $input->days = $days->toJson();
+
+            $input->id_status = 2;
+
+            $lesson->and(["type", "users"]);
+
+            $user = $lesson->users->from;
+
+            $dolar = floatval(Platform::dolar() / 2);
+
+            $price = intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price);
+            if ($price < $dolar) {
+                $price = $dolar;
+            }
+
             if (isset($input->credits)) {
                 if (isset(Auth::user()->credits) && Auth::user()->credits && intval(Auth::user()->credits)) {
                     if (intval(Auth::user()->credits) >= intval($input->credits)) {
@@ -149,26 +164,6 @@
             if (!isset($input->credits)) {
                 $input->credits = 0;
             }
-
-            $input->days = $days->toJson();
-
-            $input->id_status = 2;
-
-            $lesson->and(["type", "users"]);
-
-            $user = $lesson->users->from;
-
-            $coupon = false;
-            if (isset($input->coupon)) {
-                $coupon = Coupon::findByName($input->coupon);
-            }
-
-            $dolar = floatval(Platform::dolar() / 2);
-
-            $price = intval($lesson->users->from->prices[$lesson->type->id_type - 1]->price);
-            if ($price < $dolar) {
-                $price = $dolar;
-            }
             
             if ($price - $input->credits < $dolar && $price - $input->credits > 0) {
                 $input->credits -= $dolar - ($price - $input->credits);
@@ -181,24 +176,23 @@
                 $input->credits += $price - $input->credits;
             }
 
-            $price -= $input->credits;
-
-            $fee = floatval($price * 20 / 100);
-            $coupontPrice = 0;
-
-            if ($coupon) {
-                $bool = true;
+            $coupon = false;
+            $couponPrice = 0;
+            if (isset($input->coupon)) {
+                $coupon = Coupon::byName($input->coupon)->first();
+                
+                $found = true;
 
                 if ($coupon->limit) {
                     $coupon->and(["used"]);
-                    $bool = false;
+                    $found = false;
 
                     if (intval($coupon->used) < intval($coupon->limit)) {
-                        $bool = true;
+                        $found = true;
                     }
                 }
 
-                if ($bool) {
+                if ($found) {
                     $coupon->and(["type"]);
                     $auxPrice = 0;
 
@@ -210,17 +204,65 @@
                     }
                     if ($price - $auxPrice >= $dolar) {
                         $input->id_coupon = $coupon->id_coupon;
-                        $coupontPrice = $auxPrice;
+                        $couponPrice = $auxPrice;
                     }
                 }
             }
 
-            $fee -= $coupontPrice;
+            $price -= $input->credits;
 
-            if ($fee < 0) {
-                $price += $fee;
-                $fee = 0;
+            if ($price <= $dolar) {
+                if ($coupon) {
+                    $input->credits -= $couponPrice;
+                }
+                $price = $dolar;
+            } else {
+                if ($coupon) {
+                    $found = true;
+    
+                    if ($coupon->limit) {
+                        $coupon->and(["used"]);
+                        $found = false;
+    
+                        if (intval($coupon->used) < intval($coupon->limit)) {
+                            $found = true;
+                        }
+                    }
+    
+                    if ($found) {
+                        $coupon->and(["type"]);
+                        $auxPrice = 0;
+    
+                        if ($coupon->type->id_type == 1) {
+                            $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
+                        }
+                        if ($coupon->type->id_type == 2) {
+                            $auxPrice = floatval($price - floatval($coupon->type->value));
+                        }
+                        if ($price - $auxPrice >= $dolar) {
+                            $input->id_coupon = $coupon->id_coupon;
+                            $couponPrice = $auxPrice;
+                        }
+                    }
+                }
             }
+
+            $fee = floatval($price * 20 / 100);
+
+            $fee -= $couponPrice;
+
+            if ($fee <= 0) {
+                if ($coupon) {
+                    $couponPrice = $fee - ($fee * 2);
+                }
+                $fee = 0;
+            } else {
+                if ($coupon) {
+                    $couponPrice = 0;
+                }
+            }
+
+            $price -= $couponPrice;
 
             if ($price < $dolar && $price > 0) {
                 $price = $dolar;
@@ -248,12 +290,9 @@
                     $input->id_status = 3;
                 }
             }
-            if ($input->id_method == 2 || $price == 0) {
+            if ($input->id_method == 2 || $price <= 0) {
+                $price = 0;
                 $input->id_status = 3;
-
-                if ($coupon && $price >= $dolar) {
-                    $input->id_coupon = $coupon->id_coupon;
-                }
             }
 
             unset($lesson->type);
@@ -453,7 +492,12 @@
                 $error = (object) $request->session()->pull("error");
             }
             
-            $user = User::findBySlug($slug);
+            $notifications = Auth::check() ? Auth::user()->notifications : [];
+            foreach ($notifications as $notification) {
+                $notification->delete();
+            }
+
+            $user = User::bySlug($slug)->first();
             $user->and(["prices", "days", "lessons", "credentials"]);
             foreach ($user->prices as $price) {
                 if ($price->slug == $typeSearched) {
@@ -461,7 +505,7 @@
                 }
             }
 
-            foreach (Lesson::allCreated() as $lesson) {
+            foreach (Lesson::current()->get() as $lesson) {
                 if ($lesson->updated_at->addMinutes(5) < Carbon::now()) {
                     $lesson->delete();
                 }
@@ -489,6 +533,7 @@
                 "user" => $user,
                 "type" => $type,
                 "error" => $error,
+                "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
                         "rules" => $this->encodeInput(AuthModel::$validation["login"]["rules"], "login_"),
@@ -529,12 +574,18 @@
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
+            
+            $notifications = Auth::check() ? Auth::user()->notifications : [];
+            foreach ($notifications as $notification) {
+                $notification->delete();
+            }
 
             $lesson = Lesson::find($id_lesson);
             $lesson->and(["started_at", "ended_at", "users"]);
 
             return view("lesson.status", [
                 "error" => $error,
+                "notifications" => $notifications,
                 "lesson" => $lesson,
                 "id_status" => $id_status,
                 "validation" => [

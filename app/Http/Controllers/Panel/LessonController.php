@@ -144,12 +144,12 @@
                 User::requilify($user->id_user);
             }
 
-            $chat = Chat::findByUsers($lesson->id_user_from, $lesson->id_user_to);
+            $chat = Chat::byUsers($lesson->id_user_from, $lesson->id_user_to)->first();
             if ($chat) {
                 $chat->delete();
             }
 
-            $assignments = Assignment::allFromLesson($lesson->id_lesson);
+            $assignments = Assignment::byLesson($lesson->id_lesson)->get();
             if (count($assignments)) {
                 foreach ($assignments as $assignment) {
                     $assignment->and(["presentation"]);

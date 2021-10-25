@@ -56,12 +56,14 @@
         }
 
         /**
-         * * Return a Presentation by the Assignment.
-         * @param int $id_assignment
-         * @return Presentation
+         * * Scope a query to only include Posts where their id_assignment matches.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  int $id_assignment
+         * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function findByAssignment (int $id_assignment) {
-            return Presentation::where("id_assignment", "=", $id_assignment)->first();
+        static public function scopeByAssignment ($query, int $id_assignment) {
+            return $query->where('id_assignment', $id_assignment);
         }
         
         /**

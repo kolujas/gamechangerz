@@ -14,7 +14,7 @@
          */
         public function checkLesson (Request $request, string $slug) {
             $input = (object) $request->all();
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
             $user->and(["lessons"]);
 
             $found = false;
@@ -49,7 +49,7 @@
          * @return JSON
          */
         public function lessons (Request $request, string $slug) {
-            $user = User::findBySlug($slug);
+            $user = User::bySlug($slug)->first();
             $user->and(["lessons"]);
 
             return response()->json([
@@ -67,7 +67,7 @@
          * @return JSON
          */
         public function teachers (Request $request) {
-            $users = User::allTeachers();
+            $users = User::teachers()->orderBy('updated_at', 'DESC')->get();
 
             foreach ($users as $user) {
                 $user->and(["games", "files", "prices", "teampro", "languages", "days"]);
@@ -87,7 +87,7 @@
          * @return JSON
          */
         public function users (Request $request) {
-            $users = User::availableUsers();
+            $users = User::available()->get();
 
             foreach ($users as $user) {
                 $user->and(["lessons", "games", "files", "hours", "achievements"]);

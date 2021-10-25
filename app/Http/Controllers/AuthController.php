@@ -27,6 +27,10 @@
          * @return \Illuminate\Http\Response
          */
         public function showResetPassword (Request $request, $token) {
+            if (Auth::check()) {
+                return redirect('/');
+            }
+
             $error = null;
             if ($request->session()->has('error')) {
                 $error = (object) $request->session()->pull('error');
@@ -76,7 +80,7 @@
 
             $password = DB::table('password_resets')->where('token', $token)->first();
 
-            $user = User::findByEmail($password->data);
+            $user = User::byEmail($password->data)->first();
             if (!$user) {
                 $user = User::findByUsername($password->data);
                 if (!$user) {
@@ -107,7 +111,7 @@
             }
 
             $password = DB::table('password_resets')->where('token', $token)->first();
-            $user = User::findByEmail($password->email);
+            $user = User::byEmail($password->email)->first();
             if ($user) {
                 DB::table('password_resets')->where('token', $token)->delete();
     

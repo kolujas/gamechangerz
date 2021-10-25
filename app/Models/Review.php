@@ -16,27 +16,20 @@
          * * Table name.
          * @var string
          */
-        protected $table = "reviews";
+        protected $table = 'reviews';
         
         /**
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = "id_review";
+        protected $primaryKey = 'id_review';
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            "abilities",
-            "description",
-            "id_lesson",
-            "id_user_from",
-            "id_user_to",
-            "slug",
-            "stars",
-            "title",
+            'abilities', 'description', 'id_lesson', 'id_user_from', 'id_user_to', 'slug', 'stars', 'title',
         ];
 
         /**
@@ -47,13 +40,13 @@
             foreach ($columns as $column) {
                 if (!is_array($column)) {
                     switch ($column) {
-                        case "abilities":
+                        case 'abilities':
                             $this->abilities();
                             break;
-                        case "lesson":
+                        case 'lesson':
                             $this->lesson();
                             break;
-                        case "users":
+                        case 'users':
                             $this->users();
                             break;
                     }
@@ -92,7 +85,7 @@
          */
         public function lesson () {
             $this->lesson = Lesson::find($this->id_lesson);
-            $this->lesson->and(["type"]);
+            $this->lesson->and(['type']);
         }
         
         /**
@@ -101,9 +94,9 @@
          */
         public function sluggable (): array {
             return [
-                "slug" => [
-                    "source"	=> "title",
-                    "onUpdate"	=> true,
+                'slug' => [
+                    'source'	=> 'title',
+                    'onUpdate'	=> true,
                 ]
             ];
         }
@@ -113,37 +106,41 @@
          */
         public function users () {
             $this->users = (object) [
-                "from" => User::find($this->id_user_from),
-                "to" => User::find($this->id_user_to),
+                'from' => User::find($this->id_user_from),
+                'to' => User::find($this->id_user_to),
             ];
 
-            $this->users->from->and(["files", "games"]);
-            $this->users->to->and(["files", "games"]);
+            $this->users->from->and(['files', 'games']);
+            $this->users->to->and(['files', 'games']);
 
             if ($this->users->from->id_role === 1) {
-                $this->users->from->and(["teampro"]);
+                $this->users->from->and(['teampro']);
             }
             if ($this->users->to->id_role === 1) {
-                $this->users->to->and(["teampro"]);
+                $this->users->to->and(['teampro']);
             }
         }
 
         /**
-         * * Get all the Reviews from a Lesson.
-         * @param int $id_lesson
-         * @return Review[]
+         * * Scope a query to only include Posts where their id_lesson matches.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  int $id_lesson
+         * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function allFromLesson (int $id_lesson) {
-            return Review::where("id_lesson", "=", $id_lesson)->get();
+        static public function scopeByLesson ($query, int $id_lesson) {
+            return $query->where('id_lesson', $id_lesson);
         }
 
         /**
-         * * Get all the Reviews done to an User.
-         * @param int $id_user
-         * @return Review[]
+         * * Scope a query to only include Posts where their id_user matches.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  int $id_user
+         * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function allToUser (int $id_user) {
-            return Review::where("id_user_to", "=", $id_user)->get();
+        static public function scopeToUser ($query, int $id_user) {
+            return $query->where('id_user_to', $id_user);
         }
         
         /**
@@ -151,16 +148,16 @@
          * @var array
          */
         static $validation = [
-            "create" => [
-                "rules" => [
-                    "title" => "required|max:100",
-                    "description" => "required|max:150",
-                ], "messages" => [
-                    "es" => [
-                        "title.required" => "El título es obligatorio.",
-                        "title.max" => "El título no puede tener más de :max caracteres.",
-                        "description.required" => "La descripción es obligatoria.",
-                        "description.max" => "La descripción no puede tener más de :max caracteres.",
+            'create' => [
+                'rules' => [
+                    'title' => 'required|max:100',
+                    'description' => 'required|max:150',
+                ], 'messages' => [
+                    'es' => [
+                        'title.required' => 'El título es obligatorio.',
+                        'title.max' => 'El título no puede tener más de :max caracteres.',
+                        'description.required' => 'La descripción es obligatoria.',
+                        'description.max' => 'La descripción no puede tener más de :max caracteres.',
                     ],
                 ],
             ],

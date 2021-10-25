@@ -35,7 +35,7 @@
                 ]);
             }
 
-            $user = User::findByEmail($input->data);
+            $user = User::byEmail($input->data)->first();
             if (!$user) {
                 $user = User::findByUsername($input->data);
                 if (!$user) {
