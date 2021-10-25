@@ -43,7 +43,7 @@
 				</a>
 			</li>
 			@if (Auth::check())
-				@if (count($notifications))
+				{{-- @if (count($notifications))
 					<li id="nav-notification" class="notifications dropdown closed">
 						<a href="#" class="nav-link dropdown-header dropdown-link">
 							<i class="fas fa-bell"></i>
@@ -73,7 +73,7 @@
 							<i class="fas fa-bell"></i>
 						</span>
 					</li>
-				@endif
+				@endif --}}
 				<li id="nav-user" class="dropdown closed">
 					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">
 						@if (Auth::user()->profile())
