@@ -313,6 +313,15 @@ h5 {
   100% { transform: rotate(360deg); transform: rotate(360deg); }
 }
 
+.notifications.dropdown .dropdown-header {
+    /* position: relative; */
+    --navmenu-button-color: var(--color-four);
+}
+
+.notifications.dropdown .dropdown-header .quantity {
+    text-shadow: none;
+}
+
 /* ? MD */
 @media(min-width: 768px){
     /*  */

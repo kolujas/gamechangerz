@@ -43,6 +43,37 @@
 				</a>
 			</li>
 			@if (Auth::check())
+				@if (count($notifications))
+					<li id="nav-notification" class="notifications dropdown closed">
+						<a href="#" class="nav-link dropdown-header dropdown-link">
+							<i class="fas fa-bell"></i>
+							<span class="quantity overpass text-sm ml-1">{{ count($notifications) }}</span>
+						</a>
+						<ul class="dropdown-content px-4">
+							@foreach ($notifications as $notification)
+								<li>
+									@if (isset($notification->data['link']))
+										<a href="{{ $notification->data['link'] }}" class="nav-link dropdown-link">
+											<span class="link-text overpass">{{ $notification->data['message'] }}</span>
+										</a>
+									@endif
+									@if (!isset($notification->data['link']))
+										<p class="nav-link dropdown-link">
+											<span class="link-text overpass">{{ $notification->data['message'] }}</span>
+										</p>
+									@endif
+								</li>
+							@endforeach
+						</ul>
+					</li>
+				@endif
+				@if (!count($notifications))
+					<li id="nav-notification" class="notifications">
+						<span class="nav-link">
+							<i class="fas fa-bell"></i>
+						</span>
+					</li>
+				@endif
 				<li id="nav-user" class="dropdown closed">
 					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">
 						@if (Auth::user()->profile())
