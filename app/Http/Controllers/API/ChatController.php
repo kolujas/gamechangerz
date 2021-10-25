@@ -93,7 +93,6 @@
             foreach ($chats as $chat) {
                 $chat->id_user_logged = $request->user()->id_user;
                 $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
-
                 foreach ($chat->messages as $message) {
                     $message->id_user_logged = $request->user()->id_user;
                     $message->id_role = $request->user()->id_role;
