@@ -338,8 +338,9 @@ export class Chat extends Class {
                             this.addAssignment();
                         }
                     });
-                        let icon = document.createElement("i");
-                        icon.classList.add("fas", "fa-paperclip", "color-gradient");
+                        let icon = document.createElement("span");
+                        icon.classList.add("color-white","overpass");
+                        icon.innerHTML = "Enviar tarea";
                         link.appendChild(icon);
                 }
                 if (chat.users.to.id_user == chat.id_user_logged && (!chat.messages.length || (![...chat.messages].pop().hasOwnProperty("id_lesson") || [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson))) {
@@ -356,10 +357,14 @@ export class Chat extends Class {
                             let icon = document.createElement("i");
                             icon.classList.add("spinner-icon");
                             div.appendChild(icon);
-                        let img = document.createElement("img");
-                        img.src = new Asset("img/resources/SendSVG.svg").route;
-                        img.alt = "Send button icon";
-                        button.appendChild(img);
+                            let spanete = document.createElement("span");
+                            spanete.innerHTML = (!chat.hasOwnProperty("lessons") ? "Enviar" : "Confirmar habilidades");
+                            spanete.classList.add("overpass", "color-white");
+                            button.appendChild(spanete);
+                        // let img = document.createElement("img");
+                        // img.src = new Asset("img/resources/SendSVG.svg").route;
+                        // img.alt = "Send button icon";
+                        // button.appendChild(img);
                 }
             }
             if (chat.users.from.id_role == 0 || chat.users.from.id_role == 2) {

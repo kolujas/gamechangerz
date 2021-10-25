@@ -39,7 +39,7 @@
                         @foreach ($coupons as $coupon)
                             <tr data-href="/panel/coupons/{{ $coupon->slug }}" class="grid grid-cols-8">
                                 <td class="flex items-center px-6 py-4 whitespace-no-wrap">
-                                    <span class="text-sm overpass">{{ $coupon->id_coupon }}</spans>
+                                    <span class="text-sm overpass">{{ $coupon->id_coupon }}</span>
                                 </td>
                                 <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $coupon->name }}</td>
                                 <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass col-span-2">{{ $coupon->type->key }} {{ $coupon->type->value }}</td>
