@@ -1,8 +1,8 @@
-<section id="list" class="px-8">
+<section id="list" class="px-8 lg:pr-4">
     <a href="#_" class="modal-button chat absolute color-five flex justify-center items-center">
         <i class="fas fa-times"></i>
     </a>
-    <main>
+    <main class="lg:pr-4">
         <form action="#" class="my-8">
             <input data-name="users.username|name" class="py-2 px-4 filter-input filter-chats rule" placeholder="Busca a un amigo" type="search">
             <button class="py-2 px-4" type="submit">

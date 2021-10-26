@@ -2,8 +2,13 @@
     z-index: 10;
 }
 
-#chat.modal #chat.modal .modal-content::before {
+#chat.modal .modal-content #list > main::before {
     display: none;
+}
+
+#chat.modal .modal-content #list > main {
+    height: 100%;
+    overflow-y: auto;
 }
 
 #chat.modal {
@@ -11,7 +16,7 @@
 }
 
 #chat.modal #list .modal-button {
-    top: -2rem;
+    /* top: -2rem; */
     right: 0;
     width: 2rem;
     height: 2rem;
@@ -34,8 +39,8 @@
     width: 100%;
     height: 100%;
     max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto;
+    overflow-x: hidden; */
     box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
 }
 
@@ -493,37 +498,41 @@ a[href="#chat"].modal-button.chat span {
         background: transparent;
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar {
+    #chat.modal .modal-content #list {
+        height: 100%;
+    }
+
+    #chat.modal .modal-content #list > main::-webkit-scrollbar {
         width: 5px;
         height: 5px;
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar-button {
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-button {
         width: 15%;
         height: 15%;
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar-thumb {
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-thumb {
         background: var(--color-white);
         border-radius: 100vh;
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar-thumb:hover,
-    #chat.modal .modal-content::-webkit-scrollbar-thumb:active {
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-thumb:hover,
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-thumb:active {
         background: var(--color-grey);
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar-track {
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-track {
         background: black;
         border-radius: 100vh;
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar-track:hover,
-    #chat.modal .modal-content::-webkit-scrollbar-track:active {
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-track:hover,
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-track:active {
         background: black;
     }
 
-    #chat.modal .modal-content::-webkit-scrollbar-corner {
+    #chat.modal .modal-content #list > main::-webkit-scrollbar-corner {
         background: transparent;
     }
 }
