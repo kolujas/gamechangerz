@@ -85,7 +85,9 @@
            * * Set the Coupon type.
            */
           public function type () {
-              $this->type = Coupon::parse($this->type);
+               if (gettype($this->type) == 'string') {
+                    $this->type = Coupon::parse($this->type);
+               }
           }
 
           /**
