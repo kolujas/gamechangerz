@@ -247,7 +247,7 @@
                 }
             }
 
-            $final_price -= $couponPrice;
+            $final_price = $price - $couponPrice;
 
             $fee = floatval($price * 20 / 100);
 
