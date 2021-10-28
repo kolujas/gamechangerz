@@ -178,7 +178,7 @@
                 
                 $mail = new Mail([ 'id_mail' => 1, ], [
                     'email_to' => $input->email,
-                    'token' => DB::table('password_resets')->where('email', $input->email)->first()->token,
+                    'token' => DB::table('password_resets')->where('data', $input->email)->first()->token,
                 ]);
             } catch (\Throwable $th) {
                 dd($th);

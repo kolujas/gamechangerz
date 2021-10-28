@@ -88,7 +88,7 @@
                 }
             }
 
-            DB::table('password_resets')->where('token', $token)->delete();
+            $password->delete();
 
             $user->update([
                 'password' => \Hash::make($input->password),
@@ -111,11 +111,12 @@
             }
 
             $password = DB::table('password_resets')->where('token', $token)->first();
-            $user = User::byEmail($password->email)->first();
+
+            $user = User::byEmail($password->data)->first();
             if (!$user) {
-                $user = User::byUsername($input->data)->first();
+                $user = User::byUsername($password->data)->first();
                 if (!$user) {
-                    DB::table('password_resets')->where('token', $token)->delete();
+                    $password->delete();
         
                     $user->update([
                         'id_status' => 2,
