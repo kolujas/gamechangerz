@@ -741,6 +741,10 @@ function createPayPalButton () {
 
             price -= couponPrice;
 
+            if (price < 0) {
+                price = 0;
+            }
+
             if (price <= 0) {
                 validation.checkout.ValidationJS.validate();
             }
