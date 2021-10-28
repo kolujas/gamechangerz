@@ -88,7 +88,7 @@
                 }
             }
 
-            $password->delete();
+            DB::table('password_resets')->where('token', $token)->delete();
 
             $user->update([
                 'password' => \Hash::make($input->password),
@@ -120,7 +120,7 @@
                 }
             }
 
-            $password->delete();
+            DB::table('password_resets')->where('token', $token)->delete();
 
             $user->update([
                 'id_status' => 2,
