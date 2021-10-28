@@ -519,6 +519,17 @@
         }
 
         /**
+         * * Scope a query to only include Users where their username matches.
+         * @static
+         * @param  \Illuminate\Database\Eloquent\Builder  $query
+         * @param  string $username
+         * @return \Illuminate\Database\Eloquent\Builder
+         */
+        static public function scopeByUsername ($query, string $username) {
+            return $query->where('username', $username);
+        }
+
+        /**
          * * Scope a query to only include Users where their slug matches.
          * @static
          * @param  \Illuminate\Database\Eloquent\Builder  $query

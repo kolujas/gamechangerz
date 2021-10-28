@@ -82,7 +82,7 @@
 
             $user = User::byEmail($password->data)->first();
             if (!$user) {
-                $user = User::findByUsername($password->data);
+                $user = User::byUsername($password->data)->first();
                 if (!$user) {
                     abort(403);
                 }
@@ -112,14 +112,17 @@
 
             $password = DB::table('password_resets')->where('token', $token)->first();
             $user = User::byEmail($password->email)->first();
-            if ($user) {
-                DB::table('password_resets')->where('token', $token)->delete();
-    
-                $user->update([
-                    'id_status' => 2,
-                ]);
+            if (!$user) {
+                $user = User::byUsername($input->data)->first();
+                if (!$user) {
+                    DB::table('password_resets')->where('token', $token)->delete();
+        
+                    $user->update([
+                        'id_status' => 2,
+                    ]);
 
-                return redirect('/users/$user->slug/profile');
+                    return redirect('/users/$user->slug/profile');
+                }
             }
 
             return redirect('/');

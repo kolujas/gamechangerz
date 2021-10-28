@@ -37,7 +37,7 @@
 
             $user = User::byEmail($input->data)->first();
             if (!$user) {
-                $user = User::findByUsername($input->data);
+                $user = User::byUsername($input->data)->first();
                 if (!$user) {
                     return response()->json([
                         'code' => 404,
@@ -165,7 +165,7 @@
             $input->id_status = 1;
 
             DB::table('password_resets')->insert([
-                'email' => $input->email,
+                'data' => $input->email,
                 'token' => Str::random(60),
                 'created_at' => Carbon::now(),
             ]);
