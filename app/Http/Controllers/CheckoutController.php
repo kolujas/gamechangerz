@@ -265,13 +265,12 @@
                 $final_price = $dolar;
             }
 
-            ddd([
-                'price' => $final_price,
-                'credits' => $input->credits,
-                'coupon' => $couponPrice,
-                'coach' => $final_price - $fee,
-                'fee' => $fee,
-            ]);
+            // ddd([
+            //     'price' => $final_price,
+            //     'credits' => $input->credits,
+            //     'coach' => $final_price - $fee,
+            //     'fee' => $fee,
+            // ]);
 
             if ($input->id_method == 1 && $final_price >= $dolar) {
                 $data = (object) [
@@ -299,6 +298,8 @@
                 $final_price = 0;
                 $input->id_status = 3;
             }
+
+            ddd('success');
 
             unset($lesson->type);
             unset($lesson->users);
