@@ -119,14 +119,16 @@
                     return redirect('/');
                 }
             }
-            
+
             $password->delete();
 
             $user->update([
                 'id_status' => 2,
             ]);
 
-            return redirect('/users/$user->slug/profile');
+            Auth::login($user);
+
+            return redirect("/users/$user->slug/profile");
         }
 
         /**
