@@ -116,17 +116,17 @@
             if (!$user) {
                 $user = User::byUsername($password->data)->first();
                 if (!$user) {
-                    $password->delete();
-        
-                    $user->update([
-                        'id_status' => 2,
-                    ]);
-
-                    return redirect('/users/$user->slug/profile');
+                    return redirect('/');
                 }
             }
+            
+            $password->delete();
 
-            return redirect('/');
+            $user->update([
+                'id_status' => 2,
+            ]);
+
+            return redirect('/users/$user->slug/profile');
         }
 
         /**
