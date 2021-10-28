@@ -272,13 +272,13 @@
                 $price = $dolar;
             }
 
-            // ddd([
-            //     'price' => $price,
-            //     'credits' => $input->credits,
-            //     'coupon' => $couponPrice,
-            //     'coach' => $price - $fee,
-            //     'fee' => $fee,
-            // ]);
+            ddd([
+                'price' => $price,
+                'credits' => $input->credits,
+                'coupon' => $couponPrice,
+                'coach' => $price - $fee,
+                'fee' => $fee,
+            ]);
 
             if ($input->id_method == 1 && $price >= $dolar) {
                 $data = (object) [
