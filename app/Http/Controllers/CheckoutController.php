@@ -247,44 +247,37 @@
                 }
             }
 
+            $final_price -= $couponPrice;
+
             $fee = floatval($price * 20 / 100);
 
             $fee -= $couponPrice;
 
             if ($fee <= 0) {
-                if ($coupon) {
-                    $couponPrice = $fee - ($fee * 2);
-                }
                 $fee = 0;
-            } else {
-                if ($coupon) {
-                    $couponPrice = 0;
-                }
             }
 
-            $price -= $couponPrice;
-
-            if ($price < 0) {
-                $price = 0;
+            if ($final_price < 0) {
+                $final_price = 0;
             }
 
-            if ($price < $dolar && $price > 0) {
-                $price = $dolar;
+            if ($final_price < $dolar && $final_price > 0) {
+                $final_price = $dolar;
             }
 
             ddd([
-                'price' => $price,
+                'price' => $final_price,
                 'credits' => $input->credits,
                 'coupon' => $couponPrice,
-                'coach' => $price - $fee,
+                'coach' => $final_price - $fee,
                 'fee' => $fee,
             ]);
 
-            if ($input->id_method == 1 && $price >= $dolar) {
+            if ($input->id_method == 1 && $final_price >= $dolar) {
                 $data = (object) [
                     "id" => $lesson->id_lesson,
                     "title" => ($lesson->type->id_type == 3 ? "4 Clases" : "1 Clase") . ($lesson->type->id_type == 2 ? " Seguimiento online" : " 1on1") . " de " . $lesson->users->from->username,
-                    "price" => $price,
+                    "price" => $final_price,
                     "fee" => $fee,
                 ];
 
@@ -302,8 +295,8 @@
                     $input->id_status = 3;
                 }
             }
-            if ($input->id_method == 2 || $price <= 0) {
-                $price = 0;
+            if ($input->id_method == 2 || $final_price <= 0) {
+                $final_price = 0;
                 $input->id_status = 3;
             }
 
@@ -312,14 +305,14 @@
             unset($input->coupon);
 
             $input->price = json_encode([
-                "value" => $price,
+                "value" => $final_price,
                 "fee" => $fee,
                 "credits" => $input->credits
             ]);
 
             $lesson->update((array) $input);
 
-            if ($input->id_method == 2 || $price == 0) {
+            if ($input->id_method == 2 || $final_price == 0) {
                 $url = redirect()->route("checkout.status", [
                     "id_lesson" => $lesson->id_lesson,
                     "id_status" => 3,
