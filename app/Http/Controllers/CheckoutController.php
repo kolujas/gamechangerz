@@ -299,8 +299,6 @@
                 $input->id_status = 3;
             }
 
-            ddd('success');
-
             unset($lesson->type);
             unset($lesson->users);
             unset($input->coupon);
