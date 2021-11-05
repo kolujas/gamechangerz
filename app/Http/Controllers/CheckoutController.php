@@ -311,6 +311,8 @@
 
             $lesson->update((array) $input);
 
+            $aux = [];
+
             if ($input->id_method == 2 || $final_price == 0) {
                 $url = redirect()->route("checkout.status", [
                     "id_lesson" => $lesson->id_lesson,
@@ -349,17 +351,15 @@
                 //         new Event($data);
                 //     }
                 // }
-            }
 
-            $aux = [
-                "credits" => intval(intval(Auth::user()->credits) - intval($input->credits)),
-            ];
+                $aux["credits"] = intval(intval(Auth::user()->credits) - intval($input->credits));
+                
+                Auth::user()->update($aux);
+            }
 
             if (!Auth::user()->discord || $input->discord != Auth::user()->discord) {
                 $aux["discord"] = $input->discord;
             }
-            
-            Auth::user()->update($aux);
 
             return $url;
         }
@@ -412,16 +412,19 @@
                         // ? If the Lesson was updated
                         if ($lesson->id_status != 3) {
                             $lesson->and(["type", "started_at", "ended_at"]);
+
+                            $from = $lesson->users->from->email;
+                            $to = $lesson->users->to->email;
     
                             // * Send the Mails
                             new Mail([ "id_mail" => 5, ], [
-                                "email_to" => $lesson->users->from->email,
+                                "email_to" => $from->email,
                                 "lesson" => $lesson,
                                 "link" => Platform::link(),
                             ]);
                             
                             new Mail([ "id_mail" => 8, ], [
-                                "email_to" => $lesson->users->to->email,
+                                "email_to" => $to->email,
                                 "lesson" => $lesson,
                                 "link" => Platform::link(),
                             ]);
@@ -457,6 +460,12 @@
                             // * Totally paid. Release your item
                             $lesson->update([
                                 "id_status" => 3,
+                            ]);
+
+                            $lesson->and(['price']);
+                            
+                            $to->update([
+                                "credits" => intval(intval($to->credits) - intval($lesson->price->credits)),
                             ]);
                         }
 
