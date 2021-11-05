@@ -1,13 +1,8 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-
-
-
-export class Hours extends Class{
+export class Hours extends window.class{
 
     static setModalJS () {
         if (!modals.hasOwnProperty("hours")) {
-            modals.hours = new ModalJS({
+            modals.hours = new window.modal({
                 id: "hours",
             },{
                 detectHash: true,

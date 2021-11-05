@@ -1,13 +1,7 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-import { LocalStorageServiceProvider as LocalStorage } from "../../submodules/ProvidersJS/js/LocalStorageServiceProvider.js";
-
 import User from "./User.js";
 import Asset from "./Asset.js";
 
-export class Review extends Class {
+export class Review extends window.class {
     constructor (props, state) {
         super(props, state);
         this.setModalJS();
@@ -18,8 +12,8 @@ export class Review extends Class {
         };
         this.setLessons();
         this.setEventListeners();
-        if (!LocalStorage.has("gamechangerz_later") && auth.id_role !== 2) {
-            let link = new Html("div", {
+        if (!window.localstorage.has("gamechangerz_later") && auth.id_role !== 2) {
+            let link = new window.html("div", {
                 props: {
                     classes: ["flex", "justify-center"],
                 }, innerHTML: [
@@ -35,7 +29,7 @@ export class Review extends Class {
                             }],
                         ], callback: {
                             function: (params) => {
-                                LocalStorage.set("gamechangerz_later", true);
+                                window.localstorage.set("gamechangerz_later", true);
                                 modals.review.close();
                             },
                         },
@@ -65,11 +59,11 @@ export class Review extends Class {
 
     setModalJS () {
         if (!modals.hasOwnProperty("review")) {
-            modals.review = new ModalJS({
+            modals.review = new window.modal({
                 id: 'reviews',
             }, {
                 outsideClick: true,
-                open: !LocalStorage.has("gamechangerz_later"),
+                open: !window.localstorage.has("gamechangerz_later"),
                 detectHash: true,
             });
         }
@@ -170,7 +164,7 @@ export class Review extends Class {
                 }]);
             }
 
-            ability = new Html("div", {
+            ability = new window.html("div", {
                 props: {
                     id: `ability-${ ability.id_ability }`,
                     classes: ["grid", "grid-cols-2", "gap-4"],
@@ -259,7 +253,7 @@ export class Review extends Class {
     setValidationJS () {
         if (validation.hasOwnProperty('review')) {
             if (!validation.review.hasOwnProperty('ValidationJS')) {
-                validation.review.ValidationJS = new ValidationJS({
+                validation.review.ValidationJS = new window.validation({
                     id: 'review-form',
                     rules: validation.review.rules,
                     messages: validation.review.messages,
@@ -291,7 +285,7 @@ export class Review extends Class {
         });
         link.html.classList.add("flex-wrap", "gap-2");
         
-        link.appendChild(new Html("div", {
+        link.appendChild(new window.html("div", {
             props: {
                 id: `lesson-${ user.slug }-date`,
                 classes: ["ml-8"],
@@ -304,7 +298,7 @@ export class Review extends Class {
                 }],
             ],
         }).html);
-        link.appendChild(new Html("button", {
+        link.appendChild(new window.html("button", {
             props: {
                 id: `lesson-${ user.slug }-link`,
                 classes: ["btn", "btn-one", "btn-outline", "ml-8"],
@@ -318,7 +312,7 @@ export class Review extends Class {
             ],
         }).html);
 
-        let li = new Html("li", {
+        let li = new window.html("li", {
             props: {
                 id: `lesson-${ user.slug }`,
                 classes: ["grid", "gap-8"],

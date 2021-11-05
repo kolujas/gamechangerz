@@ -1,8 +1,3 @@
-import { Html } from "../../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import { InputFileMaker } from "../../../submodules/InputFileMakerJS/js/InputFileMaker.js";
-import { URLServiceProvider as URL } from "../../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import Validation from "../../../submodules/ValidationJS/js/Validation.js";
-
 import Achievement from "../../components/Achievement.js";
 import Asset from "../../components/Asset.js";
 import Review from "../../components/Review.js";
@@ -28,7 +23,7 @@ if (document.querySelector("#reviews.modal")) {
     }
 }
 
-new InputFileMaker({
+new window.inputfile({
     accept: ["image/png", "image/jpeg"],
     button: (user.hasOwnProperty("id_user") ? "Cambiar foto" : "Subir foto"),
     classes: {
@@ -45,13 +40,13 @@ new InputFileMaker({
     image: new Asset((user.hasOwnProperty("id_user") && user.files.hasOwnProperty("profile")) ? "storage/" + user.files.profile : "img/resources/ProfileSVG.svg").route,
 });
 
-document.querySelector(".profile-photo").appendChild(new Html("span", {
+document.querySelector(".profile-photo").appendChild(new window.html("span", {
     props: {
         classes: ["error", "support", "user-form", "support-box", "hidden", "support-profile", "mt-1", "overpass", "color-white"]
     }
 }).html);
 
-new InputFileMaker({
+new window.inputfile({
     accept: ["image/png", "image/jpeg"],
     button: (user.hasOwnProperty("id_user") ? "Cambiar banner" : "Subir banner"),
     classes: {
@@ -68,7 +63,7 @@ new InputFileMaker({
     image: new Asset((user.hasOwnProperty("id_user") && user.files.hasOwnProperty("banner")) ? "storage/" + user.files.banner : "storage/web/slider/02-banner.png").route
 });
 
-document.querySelector(".banner-photo").appendChild(new Html("span", {
+document.querySelector(".banner-photo").appendChild(new window.html("span", {
     props: {
         classes: ["error", "support", "user-form", "support-box", "hidden", "support-teampro_logo", "mt-1", "overpass", "color-white"]
     }
@@ -94,7 +89,7 @@ function submit (params) {
 }
 
 if (validation.hasOwnProperty("user")) {
-    validation.user.create.ValidationJS = new Validation({
+    validation.user.create.ValidationJS = new window.validation({
         id: "user-form",
         rules: validation.user.create.rules,
         messages: validation.user.create.messages,
@@ -114,7 +109,7 @@ if (validation.hasOwnProperty("user")) {
             },
         }
     });
-    validation.user.update.ValidationJS = new Validation({
+    validation.user.update.ValidationJS = new window.validation({
         id: "user-form",
         rules: validation.user.update.rules,
         messages: validation.user.update.messages,
@@ -134,7 +129,7 @@ if (validation.hasOwnProperty("user")) {
             },
         }
     });
-    validation.user.delete.ValidationJS = new Validation({
+    validation.user.delete.ValidationJS = new window.validation({
         id: "user-form",
         rules: validation.user.delete.rules,
         messages: validation.user.delete.messages,
@@ -167,12 +162,12 @@ document.querySelector(".deleteBtn").addEventListener("click", function(){
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (/update/.exec(URL.findHashParameter())) {
+    if (/update/.exec(window.url.findHashParameter())) {
         validation.user.create.ValidationJS.setState("active", false);
         validation.user.update.ValidationJS.setState("active", true);
     }
     
-    if (/delete/.exec(URL.findHashParameter())) {
+    if (/delete/.exec(window.url.findHashParameter())) {
         validation.user.create.ValidationJS.setState("active", false);
         validation.user.delete.ValidationJS.setState("active", true);
     }

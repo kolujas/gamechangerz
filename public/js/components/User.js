@@ -1,14 +1,10 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-
 import Asset from "./Asset.js";
 import Game from "./Game.js";
 
-export class User extends Class {
+export class User extends window.class {
     static setValidationJS (params = {}) {
         if (validation.hasOwnProperty('update')) {
-            validation.update.ValidationJS = new ValidationJS({
+            validation.update.ValidationJS = new window.validation({
                 id: 'update-form',
                 rules: validation.update.rules,
                 messages: validation.update.messages,
@@ -23,7 +19,7 @@ export class User extends Class {
     }
 
     static user (data) {
-        let item = new Html("li", {
+        let item = new window.html("li", {
             props: {
                 id: data.slug,
                 classes: ["lg:col-span-8", "lg:col-start-2", "degradado"]
@@ -294,7 +290,7 @@ export class User extends Class {
     }
 
     static profile (data) {
-        let link = new Html("a", {
+        let link = new window.html("a", {
             props: {
                 id: `link-${ data.props.slug }`,
                 url: (data.props.hasOwnProperty("url") ? data.props.url : `/users/${ data.slug }/profile`),

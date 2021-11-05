@@ -1,6 +1,3 @@
-import { URLServiceProvider as URL } from "../../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import Validation from "../../../submodules/ValidationJS/js/Validation.js";
-
 function submit (params) {
     switch (params.type) {
         case "create":
@@ -20,7 +17,7 @@ function submit (params) {
 }
 
 if (validation.hasOwnProperty("coupon")) {
-    validation.coupon.create.ValidationJS = new Validation({
+    validation.coupon.create.ValidationJS = new window.validation({
         id: "coupon-form",
         rules: validation.coupon.create.rules,
         messages: validation.coupon.create.messages,
@@ -35,7 +32,7 @@ if (validation.hasOwnProperty("coupon")) {
             },
         }
     });
-    validation.coupon.update.ValidationJS = new Validation({
+    validation.coupon.update.ValidationJS = new window.validation({
         id: "coupon-form",
         rules: validation.coupon.update.rules,
         messages: validation.coupon.update.messages,
@@ -50,7 +47,7 @@ if (validation.hasOwnProperty("coupon")) {
             },
         }
     });
-    validation.coupon.delete.ValidationJS = new Validation({
+    validation.coupon.delete.ValidationJS = new window.validation({
         id: "coupon-form",
         rules: validation.coupon.delete.rules,
         messages: validation.coupon.delete.messages,
@@ -83,12 +80,12 @@ document.querySelector('.deleteBtn').addEventListener('click', function(){
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (/update/.exec(URL.findHashParameter())) {
+    if (/update/.exec(window.url.findHashParameter())) {
         validation.coupon.create.ValidationJS.setState("active", false);
         validation.coupon.update.ValidationJS.setState("active", true);
     }
     
-    if (/delete/.exec(URL.findHashParameter())) {
+    if (/delete/.exec(window.url.findHashParameter())) {
         validation.coupon.create.ValidationJS.setState("active", false);
         validation.coupon.delete.ValidationJS.setState("active", true);
     }

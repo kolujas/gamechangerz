@@ -1,9 +1,6 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-
 import Step from "./Step.js";
 
-export class Poll extends Class{
+export class Poll extends window.class{
     constructor(){
         super({},{
             page: "step-1",
@@ -59,7 +56,7 @@ export class Poll extends Class{
     
     setModalJS () {
         if (!modals.hasOwnProperty("poll")) {
-            modals.poll = new ModalJS({
+            modals.poll = new window.modal({
                 id: "poll",
             },{
                 detectHash: true,

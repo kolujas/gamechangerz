@@ -1,12 +1,9 @@
-import { InputFileMaker as InputFileMakerJS } from "../../submodules/InputFileMakerJS/js/InputFileMaker.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
 import Asset from "../components/Asset.js";
 import Post from "../components/Post.js";
 
 let editor;
 
-new InputFileMakerJS({
+new window.inputfile({
     id: "banner",
     message: "Elige una imagen",
     button: "",
@@ -23,21 +20,21 @@ new InputFileMakerJS({
 });
 
 (async (params) => {
-    editor = await window.CKEditor.create( document.querySelector( "#editor" ), {
+    editor = await window.ckeditor.create( document.querySelector( "#editor" ), {
         toolbar: [ "heading", "bold", "italic", "|", "undo", "redo", ],
     } );
 
-    editor.isReadOnly = URL.findOriginalRoute().split("/").pop() !== "create";
+    editor.isReadOnly = window.url.findOriginalRoute().split("/").pop() !== "create";
 
     editor.model.document.on( "change:data", () => {
         document.querySelector("textarea[name=description]").value = editor.getData();
     });
 
-    if (URL.findHashParameter()) {
-        changeStatus(URL.findHashParameter());
+    if (window.url.findHashParameter()) {
+        changeStatus(window.url.findHashParameter());
     }
 
-    if (URL.findOriginalRoute().split("/").pop() === "create") {
+    if (window.url.findOriginalRoute().split("/").pop() === "create") {
         Post.setValidationJS("create");
     }
 })();
@@ -57,7 +54,7 @@ if (document.querySelector(".update-button")) {
 }
     
 function changeStatus (status) {
-    document.querySelector("#post").action = (status === "update" ? URL.findOriginalRoute() + "/update" : status === "delete" ? URL.findOriginalRoute() + "/delete" : URL.findOriginalRoute());
+    document.querySelector("#post").action = (status === "update" ? window.url.findOriginalRoute() + "/update" : status === "delete" ? window.url.findOriginalRoute() + "/delete" : window.url.findOriginalRoute());
     switch (status) {
         case "cancel":
             document.querySelector(".update-button").classList.remove("hidden");

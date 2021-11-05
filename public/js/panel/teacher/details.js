@@ -1,8 +1,3 @@
-import { Html } from "../../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import { InputFileMaker } from "../../../submodules/InputFileMakerJS/js/InputFileMaker.js";
-import { URLServiceProvider as URL } from "../../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import Validation from "../../../submodules/ValidationJS/js/Validation.js";
-
 import Achievement from "../../components/Achievement.js";
 import Asset from "../../components/Asset.js";
 import Review from "../../components/Review.js";
@@ -28,7 +23,7 @@ if (document.querySelector("#reviews.modal")) {
     }
 }
 
-new InputFileMaker({
+new window.inputfile({
     accept: ['image/png'],
     button: (user.hasOwnProperty("id_user") ? "Cambiar foto" : 'Subir foto'),
     classes: {
@@ -45,13 +40,13 @@ new InputFileMaker({
     image: new Asset((user.hasOwnProperty("id_user") ? "storage/" + user.files.profile : "img/resources/ProfileSVG.svg")).route,
 });
 
-document.querySelector('.profile-photo').appendChild(new Html("span", {
+document.querySelector('.profile-photo').appendChild(new window.html("span", {
     props: {
         classes: ["error", "support", "teacher-form", "support-box", "hidden", "support-profile", "mt-1", "overpass", "color-white"]
     }
 }).html);
 
-new InputFileMaker({
+new window.inputfile({
     accept: ['image/png'],
     button: (user.hasOwnProperty("id_user") ? "Cambiar logo" : 'Subir logo'),
     classes: {
@@ -68,7 +63,7 @@ new InputFileMaker({
     image: (user.hasOwnProperty("id_user") && user.files.teampro) ? new Asset('storage/' + user.files.teampro).route : "",
 });
 
-document.querySelector('.teampro-photo').appendChild(new Html("span", {
+document.querySelector('.teampro-photo').appendChild(new window.html("span", {
     props: {
         classes: ["error", "support", "teacher-form", "support-box", "hidden", "support-teampro_logo", "mt-1", "overpass", "color-white"]
     }
@@ -93,7 +88,7 @@ function submit (params) {
 }
 
 if (validation.hasOwnProperty("teacher")) {
-    validation.teacher.create.ValidationJS = new Validation({
+    validation.teacher.create.ValidationJS = new window.validation({
         id: "teacher-form",
         rules: validation.teacher.create.rules,
         messages: validation.teacher.create.messages,
@@ -108,7 +103,7 @@ if (validation.hasOwnProperty("teacher")) {
             },
         }
     });
-    validation.teacher.update.ValidationJS = new Validation({
+    validation.teacher.update.ValidationJS = new window.validation({
         id: "teacher-form",
         rules: validation.teacher.update.rules,
         messages: validation.teacher.update.messages,
@@ -123,7 +118,7 @@ if (validation.hasOwnProperty("teacher")) {
             },
         }
     });
-    validation.teacher.delete.ValidationJS = new Validation({
+    validation.teacher.delete.ValidationJS = new window.validation({
         id: "teacher-form",
         rules: validation.teacher.delete.rules,
         messages: validation.teacher.delete.messages,
@@ -156,12 +151,12 @@ document.querySelector('.deleteBtn').addEventListener('click', function(){
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (/update/.exec(URL.findHashParameter())) {
+    if (/update/.exec(window.url.findHashParameter())) {
         validation.teacher.create.ValidationJS.setState("active", false);
         validation.teacher.update.ValidationJS.setState("active", true);
     }
     
-    if (/delete/.exec(URL.findHashParameter())) {
+    if (/delete/.exec(window.url.findHashParameter())) {
         validation.teacher.create.ValidationJS.setState("active", false);
         validation.teacher.delete.ValidationJS.setState("active", true);
     }

@@ -1,16 +1,12 @@
-import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
-import Sidebar from "../../submodules/SidebarJS/js/Sidebar.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
 import Token from "../components/Token.js";
 
-new TabMenuJS({
+new window.tabmenu({
     id: "panel",
 },{
     open: document.querySelector("#panel.tab-menu li.tab-content").id,
 });
 
-new Sidebar({
+new window.sidebar({
     id: "panel-menu",
     position: "left",
 }, {
@@ -137,15 +133,15 @@ document.querySelector('a.tab-link').addEventListener('click', function (e) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (/update/.exec(URL.findHashParameter())) {
+    if (/update/.exec(window.url.findHashParameter())) {
         enable(false);
     }
     
-    if (/delete/.exec(URL.findHashParameter())) {
+    if (/delete/.exec(window.url.findHashParameter())) {
         deleteEnable();
     }
     
-    if (/create/.exec(URL.findCompleteRoute())) {
+    if (/create/.exec(window.url.findCompleteRoute())) {
         enable(false);
     }
 });

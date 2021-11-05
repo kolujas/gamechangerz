@@ -1,13 +1,9 @@
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 
 import Presentation from "./Presentation.js";
 import Token from "./Token.js";
 
-export class Assignment extends Class {
+export class Assignment extends window.class {
     constructor (props) {
         super(props);
         for (const support of document.querySelectorAll("#assignment-form .support")) {
@@ -106,7 +102,7 @@ export class Assignment extends Class {
                 innerHTML = "Revisar entrega";
             }
         }
-        link = new Html("a", {
+        link = new window.html("a", {
             props: {
                 url: `#`,
                 classes: classes
@@ -188,7 +184,7 @@ export class Assignment extends Class {
 
     static setModalJS () {
         if (!modals.hasOwnProperty("assignment")) {
-            modals.assignment = new ModalJS({
+            modals.assignment = new window.modal({
                 id: "assignment",
             }, {
                 outsideClick: true,
@@ -237,7 +233,7 @@ export class Assignment extends Class {
     static setValidationJS (callback) {
         if (validation.hasOwnProperty("assignment")) {
             if (!validation.assignment.hasOwnProperty("ValidationJS")) {
-                validation.assignment.ValidationJS = new ValidationJS({
+                validation.assignment.ValidationJS = new window.validation({
                     id: "assignment-form",
                     rules: validation.assignment.rules,
                     messages: validation.assignment.messages,

@@ -1,11 +1,7 @@
-import { Html } from "../../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import { URLServiceProvider as URL } from "../../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import Validation from "../../../submodules/ValidationJS/js/Validation.js";
-
 function submit (params) {
     switch (params.type) {
         case "create":
-            if (/update/.exec(URL.findHashParameter())) {
+            if (/update/.exec(window.url.findHashParameter())) {
                 validation.lesson.create["1on1"].ValidationJS.html.action = `/panel/bookings/${ lesson.id_lesson }/update`;
                 document.querySelector("form#lesson-form input[name=_method]").value = "PUT";
                 break;
@@ -22,7 +18,7 @@ function submit (params) {
 }
 
 if (validation.hasOwnProperty("lesson")) {
-    validation.lesson.create["1on1"].ValidationJS = new Validation({
+    validation.lesson.create["1on1"].ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.create["1on1"].rules,
         messages: validation.lesson.create["1on1"].messages,
@@ -37,7 +33,7 @@ if (validation.hasOwnProperty("lesson")) {
             },
         }
     });
-    validation.lesson.create["seguimiento-online"].ValidationJS = new Validation({
+    validation.lesson.create["seguimiento-online"].ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.create["seguimiento-online"].rules,
         messages: validation.lesson.create["seguimiento-online"].messages,
@@ -52,7 +48,7 @@ if (validation.hasOwnProperty("lesson")) {
             },
         }
     });
-    validation.lesson.create.packs.ValidationJS = new Validation({
+    validation.lesson.create.packs.ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.create.packs.rules,
         messages: validation.lesson.create.packs.messages,
@@ -67,7 +63,7 @@ if (validation.hasOwnProperty("lesson")) {
             },
         }
     });
-    validation.lesson.delete.ValidationJS = new Validation({
+    validation.lesson.delete.ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.delete.rules,
         messages: validation.lesson.delete.messages,
@@ -125,7 +121,7 @@ function createDates (option) {
             }
         }
 
-        let date = new Html("label", {
+        let date = new window.html("label", {
             props: {
                 classes: ["color-white", "col-start-1"]
             }, innerHTML: [
@@ -152,7 +148,7 @@ function createDates (option) {
 
         if (option != 2 && (option == 1 || option == 3)) {
             document.querySelector(".assignments").classList.add("hidden");
-            let hour = new Html("label", {
+            let hour = new window.html("label", {
                 props: {
                     classes: ["color-white"],
                 }, innerHTML: [
@@ -209,7 +205,7 @@ document.querySelector("#lesson select[name=id_type]").addEventListener("click",
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (/update/.exec(URL.findHashParameter())) {
+    if (/update/.exec(window.url.findHashParameter())) {
         switch (lesson.id_type) {
             case 1:
                 validation.lesson.create["1on1"].ValidationJS.setState("active", true);
@@ -232,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     
-    if (/delete/.exec(URL.findHashParameter())) {
+    if (/delete/.exec(window.url.findHashParameter())) {
         validation.lesson.create["1on1"].ValidationJS.setState("active", false);
         validation.lesson.create["seguimiento-online"].ValidationJS.setState("active", false);
         validation.lesson.create.packs.ValidationJS.setState("active", false);

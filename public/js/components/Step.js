@@ -1,6 +1,4 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-
-export class Step extends Class{
+export class Step extends window.class {
     constructor(props = {
       id: "step-1",  
     }, state = {

@@ -1,8 +1,6 @@
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-
 if (validation.hasOwnProperty("support")) {
     if (!validation.support.hasOwnProperty("ValidationJS")) {
-        validation.support.ValidationJS = new ValidationJS({
+        validation.support.ValidationJS = new window.validation({
             id: "support",
             rules: validation.support.rules,
             messages: validation.support.messages,

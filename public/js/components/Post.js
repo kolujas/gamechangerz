@@ -1,12 +1,9 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-
 import Asset from "./Asset.js";
-export class Post extends Class {
+
+export class Post extends window.class {
     static setModalJS () {
         if (!modals.hasOwnProperty("deleteMessage")) {
-            modals.deleteMessage = new ModalJS({
+            modals.deleteMessage = new window.modal({
                 id: 'delete-message',
             }, {
                 outsideClick: true,
@@ -17,7 +14,7 @@ export class Post extends Class {
 
     static setValidationJS (name) {
         if (validation.hasOwnProperty(name)) {
-            validation[name].ValidationJS = new ValidationJS({
+            validation[name].ValidationJS = new window.validation({
                 id: 'post',
                 rules: validation[name].rules,
                 messages: validation[name].messages,

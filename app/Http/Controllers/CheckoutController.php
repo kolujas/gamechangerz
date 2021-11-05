@@ -200,7 +200,7 @@
                         $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
                     }
                     if ($coupon->type->id_type == 2) {
-                        $auxPrice = floatval($price - floatval($coupon->type->value));
+                        $auxPrice = floatval($coupon->type->value);
                     }
                     if ($price - $auxPrice >= $dolar) {
                         $input->id_coupon = $coupon->id_coupon;
@@ -237,7 +237,7 @@
                             $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
                         }
                         if ($coupon->type->id_type == 2) {
-                            $auxPrice = floatval($price - floatval($coupon->type->value));
+                            $auxPrice = floatvfloatval($coupon->type->value);
                         }
                         if ($price - $auxPrice >= $dolar) {
                             $input->id_coupon = $coupon->id_coupon;

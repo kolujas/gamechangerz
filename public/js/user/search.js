@@ -1,6 +1,4 @@
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import Filter from "../../submodules/FilterJS/js/Filter.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
 
 import User from "../components/User.js";
 
@@ -14,23 +12,23 @@ function makePages (data) {
             autoHidePrevious: true,
             autoHideNext: true,
             callback: function (data, pagination) {
-                if (URL.findOriginalRoute() === "/users") {
+                if (window.url.findOriginalRoute() === "/users") {
                     updateUsersList(data);
                 }
-                if (URL.findOriginalRoute() === "/teachers") {
+                if (window.url.findOriginalRoute() === "/teachers") {
                     updateTeachersList(data);
                 }
             }
         });
     }
     if (!data.current.length) {
-        if (URL.findOriginalRoute() === "/users") {
+        if (window.url.findOriginalRoute() === "/users") {
             if (document.querySelector(".filter-pagination")) {
                 document.querySelector(".filter-pagination").innerHTML = "";
             }
             updateUsersList(data);
         }
-        if (URL.findOriginalRoute() === "/teachers") {
+        if (window.url.findOriginalRoute() === "/teachers") {
             if (document.querySelector(".filter-pagination")) {
                 document.querySelector(".filter-pagination").innerHTML = "";
             }
@@ -82,7 +80,7 @@ function updateTeachersList (data) {
 
 function createUsersFilter () {
     let value = (document.querySelector("input[type=search].filter-input").value ? document.querySelector("input[type=search].filter-input").value : null);
-    filter = new Filter({
+    filter = new window.filter({
         id: "filter-users",
         order: {
             "stars": "DESC",
@@ -130,7 +128,7 @@ function createTeachersFilter () {
         input.min = min;
     }
     changeText();
-    filter = new Filter({
+    filter = new window.filter({
         id: "filter-teachers",
         order: {
             "important": "DESC",
@@ -250,10 +248,10 @@ function changeTextWidth () {
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
-    if (URL.findOriginalRoute() === "/users") {
+    if (window.url.findOriginalRoute() === "/users") {
         getUsers(0);
     }
-    if (URL.findOriginalRoute() === "/teachers") {
+    if (window.url.findOriginalRoute() === "/teachers") {
         getUsers(1);
 
         // * Apply Sliders events

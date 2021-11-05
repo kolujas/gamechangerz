@@ -1,11 +1,5 @@
 // ? External repositories
-import { Dropdown as DropdownJS } from "../../submodules/DropdownJS/js/Dropdown.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import InputDateMaker from "../../submodules/InputDateMakerJS/js/InputDateMaker.js";
-import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
-import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
-import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Token from "../components/Token.js";
 
@@ -474,7 +468,7 @@ async function printHours (params = {}) {
                 }
 
                 // * Create the <li>
-                let item = new Html("li", {
+                let item = new window.html("li", {
                     innerHTML: [
                         ["input", {
                             props: {
@@ -524,7 +518,7 @@ async function printHours (params = {}) {
  */
 function createHours(quantity) {
     for (let index = 0; index < quantity; index++) {
-        let input = new Html("input", {
+        let input = new window.html("input", {
             props: {
                 type: "checkbox",
                 name: "hours[]",
@@ -596,7 +590,7 @@ async function submit (params = {}) {
                         // ? If the Hour is the same as the element Hour
                         if (hour.id_hour == element.hour.value) {
                             // * Throw the NotificationJS
-                            new NotificationJS({
+                            new window.notification({
                                 code: 403,
                                 message: `La fecha seleccionada (${ element.date.parsed } entre ${ element.hour.parsed }) ya se encuentra en uso`,
                                 classes: ["russo"],
@@ -853,7 +847,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
     }
 
     if (type.id_type != 2) {
-        new DropdownJS({
+        new window.dropdown({
             id: "date-1",
         }, {
             open: true,
@@ -869,7 +863,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         let now = new Date();
         now.setDate(new Date().getDate() + 1);
         
-        calendar = new InputDateMaker({
+        calendar = new window.inputdate({
             props: {
                 today: now,
                 availableWeekDays: enableDays,
@@ -895,7 +889,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         createHours((type.id_type == 1 ? 1 : 4));
     }
 
-    validation.checkout.ValidationJS = new ValidationJS({
+    validation.checkout.ValidationJS = new window.validation({
         id: "checkout",
         rules: validation.checkout.rules,
         messages: validation.checkout.messages,
@@ -906,7 +900,7 @@ document.addEventListener("DOMContentLoaded", async function (e) {
             function: submit,
     }});
 
-    new TabMenuJS({
+    new window.tabmenu({
         id: "methods"
     }, {
         open: "mercadopago",

@@ -1,9 +1,4 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
-export class Achievement extends Class {
+export class Achievement extends window.class {
     constructor (props = {}, state = {}) {
         super({ ...props, id: `achievement-${ props.id_achievement }` }, state);
         this.setCells();
@@ -23,7 +18,7 @@ export class Achievement extends Class {
             this.btns = [];
         }
         if (this.props.hasOwnProperty("title")) {
-            this.btns.push(new Html("a", {
+            this.btns.push(new window.html("a", {
                 props: {
                     id: `${ this.props.id }-update`,
                     classes: ["btn", "btn-icon", "btn-one"],
@@ -34,13 +29,13 @@ export class Achievement extends Class {
                         instance: this,
                         state: "disabled",
                     }
-                }, innerHTML: new Html("icon", {
+                }, innerHTML: new window.html("icon", {
                     props: {
                         classes: ["fas", "fa-pen"],
                     }
                 }).html
             }));
-            this.btns.push(new Html("a", {
+            this.btns.push(new window.html("a", {
                 props: {
                     id: `${ this.props.id }-delete`,
                     classes: ["btn", "btn-icon", "btn-one"],
@@ -51,14 +46,14 @@ export class Achievement extends Class {
                         instance: this,
                         state: "confirm",
                     }
-                }, innerHTML: new Html("icon", {
+                }, innerHTML: new window.html("icon", {
                     props: {
                         classes: ["fas", "fa-trash"],
                     }
                 }).html
             }));
         }
-        this.btns.push(new Html("a", {
+        this.btns.push(new window.html("a", {
             props: {
                 id: `${ this.props.id }-cancel`,
                 classes: (this.props.hasOwnProperty("title") ? ["btn", "btn-icon", "btn-three", "hidden"] : ["btn", "btn-icon", "btn-three"]),
@@ -69,13 +64,13 @@ export class Achievement extends Class {
                     instance: this,
                     state: (this.props.hasOwnProperty("title") ? "both" : "remove"),
                 }
-            }, innerHTML: new Html("icon", {
+            }, innerHTML: new window.html("icon", {
                 props: {
                     classes: ["fas", "fa-times"],
                 }
             }).html
         }));
-        let actions = new Html("div", {
+        let actions = new window.html("div", {
             props: {
                 id: `${ this.props.id }-actions`,
                 classes: ["actions", "relative"]
@@ -85,7 +80,7 @@ export class Achievement extends Class {
             actions.appendChild(btn.html);
         }
         if (this.props.hasOwnProperty("title")) {
-            this.message = new Html("input", {
+            this.message = new window.html("input", {
                 props: {
                     id: `${ this.props.id }-message`,
                     classes: ["hidden", "px-4", "py-2", "message"],
@@ -120,7 +115,7 @@ export class Achievement extends Class {
         if (!this.inputs) {
             this.inputs = [];
         }
-        this.inputs.push(new Html("input", {
+        this.inputs.push(new window.html("input", {
             props: {
                 id: `${ this.props.id }-description`,
                 classes: ["w-full", "min-h-full", "px-4", "py-2"],
@@ -147,7 +142,7 @@ export class Achievement extends Class {
         if (!this.inputs) {
             this.inputs = [];
         }
-        this.inputs.push(new Html("input", {
+        this.inputs.push(new window.html("input", {
             props: {
                 id: `${ this.props.id }-title`,
                 classes: ["w-full", "min-h-full", "px-4", "py-2"],
@@ -264,7 +259,7 @@ export class Achievement extends Class {
             }
         }
 
-        return new Html("table", {
+        return new window.html("table", {
             props: {
                 classes: ["tabla", "w-full", "mb-12"],
             }, structure: {
@@ -279,10 +274,10 @@ export class Achievement extends Class {
 
     static setModalJS (achievements) {
         if (!modals.hasOwnProperty('achievements')) {
-            modals.achievements = new ModalJS({
+            modals.achievements = new window.modal({
                 id: 'achievements',
             }, {
-                open: /achievements/.exec(URL.findHashParameter()),
+                open: /achievements/.exec(window.url.findHashParameter()),
                 detectHash: true,
                 outsideClick: true,
             });

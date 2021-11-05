@@ -1,14 +1,10 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
-export class Friend extends Class {
+export class Friend extends window.class {
     static setModalJS () {
         if (!modals.hasOwnProperty("friends")) {
-            modals.friends = new ModalJS({
+            modals.friends = new window.modal({
                 id: 'friends',
             }, {
-                open: URL.findHashParameter() === 'friends',
+                open: window.url.findHashParameter() === 'friends',
                 detectHash: true,
                 outsideClick: true,
             });

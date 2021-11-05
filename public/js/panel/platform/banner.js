@@ -1,7 +1,6 @@
-import { InputFileMaker } from "../../../submodules/InputFileMakerJS/js/InputFileMaker.js";
 import { Asset } from "../../components/Asset.js";
 
-new InputFileMaker({
+new window.inputfile({
     accept: ["image/png"],
     button: "Cargar imagen",
     classes: {
@@ -17,7 +16,7 @@ new InputFileMaker({
     image: new Asset("storage/web/slider/01-banner.png").route
 });
 
-new InputFileMaker({
+new window.inputfile({
     accept: ["image/png"],
     button: "Cargar imagen",
     classes: {
@@ -33,7 +32,7 @@ new InputFileMaker({
     image: new Asset("storage/web/slider/02-banner.png").route
 });
 
-new InputFileMaker({
+new window.inputfile({
     accept: ["image/png"],
     button: "Cargar imagen",
     classes: {
@@ -49,7 +48,7 @@ new InputFileMaker({
     image: new Asset("storage/web/slider/03-banner.png").route
 });
 
-new InputFileMaker({
+new window.inputfile({
     accept: ["image/jpeg"],
     button: "Cargar imagen",
     classes: {

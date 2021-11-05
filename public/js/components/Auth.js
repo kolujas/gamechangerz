@@ -1,12 +1,8 @@
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Token from "./Token.js";
 
-export class Auth extends Class {
+export class Auth extends window.class {
     constructor () {
         super({  }, {
             section: "login",
@@ -78,7 +74,7 @@ export class Auth extends Class {
 
     setModalJS () {
         if (!modals.hasOwnProperty("auth")) {
-            modals.auth = new ModalJS({
+            modals.auth = new window.modal({
                 id: "auth",
             }, {
                 outsideClick: true
@@ -88,7 +84,7 @@ export class Auth extends Class {
 
     setValidationJS () {
         if (validation.hasOwnProperty("login")) {
-            validation.login.ValidationJS = new ValidationJS({
+            validation.login.ValidationJS = new window.validation({
                 id: "login",
                 rules: validation.login.rules,
                 messages: validation.login.messages,
@@ -107,7 +103,7 @@ export class Auth extends Class {
             console.error(`validation.login does not exist`);
         }
         if (validation.hasOwnProperty("signin")) {
-            validation.signin.ValidationJS = new ValidationJS({
+            validation.signin.ValidationJS = new window.validation({
                 id: "signin",
                 rules: validation.signin.rules,
                 messages: validation.signin.messages,
@@ -126,7 +122,7 @@ export class Auth extends Class {
             console.error(`validation.signin does not exist`);
         }
         if (validation.hasOwnProperty("change-password")) {
-            validation['change-password'].ValidationJS = new ValidationJS({
+            validation['change-password'].ValidationJS = new window.validation({
                 id: "change-password",
                 rules: validation['change-password'].rules,
                 messages: validation['change-password'].messages,
@@ -179,7 +175,7 @@ export class Auth extends Class {
                 params.Form.html.submit();
             }
             if (query.response.code !== 200) {
-                new NotificationJS(query.response, {
+                new window.notification(query.response, {
                     open: true,
                 });
                 for (const key in query.response.data.errors) {

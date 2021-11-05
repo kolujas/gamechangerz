@@ -1,11 +1,8 @@
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { Html } from "../../submodules/HTMLCreatorJS/js/HTMLCreator.js";
 
 import Token from "./Token.js";
 
-export default class Activity extends Class {
+export default class Activity extends window.class {
     constructor (props) {
         super(props);
 
@@ -21,7 +18,7 @@ export default class Activity extends Class {
             }
         }
         if (!this.props.assignments || !this.props.assignments.length) {
-            let item = new Html("li", {
+            let item = new window.html("li", {
                 props: {
                     classes: ["text-center", "russo", "color-grey"],
                 }, innerHTML: "No realizaron actividades"
@@ -32,7 +29,7 @@ export default class Activity extends Class {
 
     static setModalJS () {
         if (!modals.hasOwnProperty("activity")) {
-            modals.activity = new ModalJS({
+            modals.activity = new window.modal({
                 id: 'activity',
             }, {
                 outsideClick: true,
@@ -63,7 +60,7 @@ export default class Activity extends Class {
     }
 
     static assignment (data) {
-        let assignment = new Html("li", {
+        let assignment = new window.html("li", {
             props: {
                 classes: ["grid", "gap-8"],
             }, innerHTML: [

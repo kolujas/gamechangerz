@@ -1,8 +1,3 @@
-import { InputFileMaker as InputFileMakerJS } from "../../submodules/InputFileMakerJS/js/InputFileMaker.js";
-import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
-import { TabMenu as TabMenuJS } from "../../submodules/TabMenuJS/js/TabMenu.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
 import Achievement from "../components/Achievement.js";
 import Asset from "../components/Asset.js";
 import Friend from "../components/Friend.js";
@@ -42,7 +37,7 @@ function createErrorNotification (params) {
             for (const error of errors) {
                 let index = document.querySelectorAll(".notification").length;
                 console.log(error);
-                let notification = new NotificationJS({
+                let notification = new window.notification({
                     id: `notification-${ target }`,
                     code: 404,
                     message: error,
@@ -105,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         Advanced.setModalJS();
     }
     if (document.querySelector("#horarios.tab-menu")) {
-        new TabMenuJS({
+        new window.tabmenu({
             id: "horarios"
         },{
             open: "online",
@@ -129,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             })
         }
 
-        new InputFileMakerJS({
+        new window.inputfile({
             id: "profile",
             message: "",
             button: "",
@@ -146,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             disabled: true,
         });
         
-        new InputFileMakerJS({
+        new window.inputfile({
             id: "banner",
             message: "",
             button: "",
@@ -217,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             }
         }
         
-        new InputFileMakerJS({
+        new window.inputfile({
             id: "profile",
             message: "",
             button: "",
@@ -235,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             disabled: true,
         });
         
-        new InputFileMakerJS({
+        new window.inputfile({
             id: "teampro",
             message: "",
             button: "",
@@ -289,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     params: {}
                 });
             }
-            if (URL.findHashParameter() === "update") {
+            if (window.url.findHashParameter() === "update") {
                 changeProfileState("update");
             }
             for (const btn of document.querySelectorAll("a.update-button")) {

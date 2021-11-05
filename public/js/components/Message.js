@@ -1,8 +1,6 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-
 import Assignment from "./Assignment.js";
 
-export class Message extends Class {
+export class Message extends window.class {
     static item (data) {
         let item = document.createElement("li");
         item.id = `message-${ data.id_message }`;

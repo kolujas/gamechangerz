@@ -1,11 +1,8 @@
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
 
 import Token from "./Token.js";
 
-export default class Presentation extends Class {
+export default class Presentation extends window.class {
     constructor (props) {
         super(props);
         for (const support of document.querySelectorAll("#presentation-form .support")) {
@@ -75,7 +72,7 @@ export default class Presentation extends Class {
 
     static setModalJS () {
         if (!modals.hasOwnProperty('presentation')) {
-            modals.presentation = new ModalJS({
+            modals.presentation = new window.modal({
                 id: 'presentation',
             }, {
                 outsideClick: true,
@@ -113,7 +110,7 @@ export default class Presentation extends Class {
     static setValidationJS (callback) {
         if (validation.hasOwnProperty('presentation')) {
             if (!validation.presentation.hasOwnProperty('ValidationJS')) {
-                validation.presentation.ValidationJS = new ValidationJS({
+                validation.presentation.ValidationJS = new window.validation({
                     id: 'presentation-form',
                     rules: validation.presentation.rules,
                     messages: validation.presentation.messages,

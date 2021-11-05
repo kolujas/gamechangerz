@@ -1,6 +1,3 @@
-import { NavMenu as NavMenuJS } from "../../submodules/NavMenuJS/js/NavMenu.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
 import Auth from "../components/Auth.js";
 import Chat from "../components/Chat.js";
 import Token from "../components/Token.js";
@@ -10,7 +7,7 @@ async function getChats(token) {
     new Chat({ token: token.data }, chats);
 }
 
-new NavMenuJS({
+new window.navmenu({
     id: "nav-id",
     sidebar: {
         id: ["menu"],
@@ -21,8 +18,8 @@ const token = Token.get();
 if (!auth) {
     let authenticated = new Auth();
 
-    if (URL.findHashParameter()) {
-        switch (URL.findHashParameter()) {
+    if (window.url.findHashParameter()) {
+        switch (window.url.findHashParameter()) {
             case "change-password":
                 authenticated.changeSectionState("change-password");
                 modals.auth.open();

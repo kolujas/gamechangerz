@@ -27,4 +27,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-window.CKEditor = require( '@ckeditor/ckeditor5-build-inline' );
+window.ckeditor = require( '@ckeditor/ckeditor5-build-inline' );
+
+window.moment = require('moment');
+window.moment.locale('es');
+
+window.class = require('juancruzagb/JuanCruzAGB/js/Class').default;
+
+window.countdown = require('juancruzagb/CountDownJS/js/CountDown').default;
+
+window.dropdown = require('juancruzagb/DropdownJS/js/Dropdown').default;
+
+window.filter = require('juancruzagb/FilterJS/js/Filter').default;
+
+window.html = require('juancruzagb/HTMLCreatorJS/js/HTMLCreator').default;
+
+window.inputdate = require('juancruzagb/InputDateMakerJS/js/InputDateMaker').default;
+
+window.inputfile = require('juancruzagb/InputFileMakerJS/js/InputFileMaker').default;
+
+window.modal = require('juancruzagb/ModalJS/js/Modal').default;
+
+window.navmenu = require('juancruzagb/NavMenuJS/js/NavMenu').default;
+
+window.notification = require('juancruzagb/NotificationJS/js/Notification').default;
+
+window.sidebar = require('juancruzagb/SidebarJS/js/Sidebar').default;
+
+window.tabmenu = require('juancruzagb/TabMenuJS/js/TabMenu').default;
+
+window.validation = require('juancruzagb/ValidationJS/js/Validation').default;
+
+window.localstorage = require('juancruzagb/ProvidersJS/js/LocalStorageServiceProvider').LocalStorageServiceProvider;
+window.url = require('juancruzagb/ProvidersJS/js/URLServiceProvider').URLServiceProvider;

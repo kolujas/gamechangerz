@@ -1,6 +1,4 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-
-export class Asset extends Class {
+export class Asset extends window.class {
     constructor (url = '') {
         super();
         this.route = document.querySelector('meta[name=asset]').content + url;

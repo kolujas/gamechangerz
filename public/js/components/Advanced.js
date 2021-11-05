@@ -1,15 +1,10 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-
-export default class Advanced extends Class{
+export default class Advanced extends window.class {
     static setModalJS() {
         if (!modals.hasOwnProperty('advanced')) {
-            modals.advanced = new ModalJS({
+            modals.advanced = new window.modal({
                 id: 'advanced',
             }, {
-                open: /advanced/.exec(URL.findHashParameter()),
+                open: /advanced/.exec(window.url.findHashParameter()),
                 detectHash: true,
                 outsideClick: true,
             });
@@ -20,7 +15,7 @@ export default class Advanced extends Class{
     static setValidationJS () {
         if (validation.hasOwnProperty("advanced")) {
             if (!validation.advanced.hasOwnProperty("ValidationJS")) {
-                validation.advanced.ValidationJS = new ValidationJS({
+                validation.advanced.ValidationJS = new window.validation({
                     id: "advanced-form",
                     rules: validation.advanced.rules,
                     messages: validation.advanced.messages,

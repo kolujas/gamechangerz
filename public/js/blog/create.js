@@ -1,8 +1,6 @@
-import { InputFileMaker as InputFileMakerJS } from "../../submodules/InputFileMakerJS/js/InputFileMaker.js";
-
 import Asset from "../components/Asset.js";
 
-new InputFileMakerJS({
+new window.inputfile({
     id: 'banner',
     message: 'Elige una imagen',
     button: '',

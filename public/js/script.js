@@ -1,6 +1,3 @@
-import { Dropdown as DropdownJS } from "../submodules/DropdownJS/js/Dropdown.js";
-import { Notification as NotificationJS } from "../submodules/NotificationJS/js/Notification.js";
-
 function changeType (btn) {
     let input;
     for (const className of btn.classList) {
@@ -25,14 +22,14 @@ function changeType (btn) {
 document.addEventListener('DOMContentLoaded', (e) => {
     if (document.querySelectorAll('.dropdown').length) {
         for (const html of document.querySelectorAll('.dropdown')) {
-            new DropdownJS({
+            new window.dropdown({
                 id: html.id
             });
         }
     }
 
     if (error) {
-        new NotificationJS({
+        new window.notification({
             ...error,
             classes: ['russo'],
         }, {

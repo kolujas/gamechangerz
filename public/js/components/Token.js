@@ -1,21 +1,18 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { LocalStorageServiceProvider as LocalStorage } from "../../submodules/ProvidersJS/js/LocalStorageServiceProvider.js";
-
 const token_name = 'gamechangerz_access_token';
 
-export class Token extends Class {
+export class Token extends window.class {
     constructor () {
         super();
-        this.data = LocalStorage.get(token_name).data;
+        this.data = window.localstorage.get(token_name).data;
     }
 
     remove () {
         this.data = null;
-        LocalStorage.remove(token_name);
+        window.localstorage.remove(token_name);
     }
 
     static has () {
-        return LocalStorage.has(token_name);
+        return window.localstorage.has(token_name);
     }
 
     static get () {
@@ -27,7 +24,7 @@ export class Token extends Class {
     }
 
     static save (data) {
-        LocalStorage.set(token_name, data, true);
+        window.localstorage.set(token_name, data, true);
         return new this();
     }
 }

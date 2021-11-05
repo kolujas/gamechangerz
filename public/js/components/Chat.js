@@ -1,10 +1,5 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
 import { CountDown as CountDownJS } from "../../submodules/CountDownJS/js/CountDown.js";
 import { FetchServiceProvider as Fetch } from "../../submodules/ProvidersJS/js/FetchServiceProvider.js";
-import Filter from "../../submodules/FilterJS/js/Filter.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-import { Notification as NotificationJS } from "../../submodules/NotificationJS/js/Notification.js";
 
 import Asset from "./Asset.js";
 import Assignment from "./Assignment.js";
@@ -12,7 +7,7 @@ import Presentation from "./Presentation.js";
 import Message from "./Message.js";
 import Token from "../components/Token.js";
 
-export class Chat extends Class {
+export class Chat extends window.class {
     constructor (props, chats = []) {
         super(props, { state: true });
         this.setProps("chats", chats);
@@ -107,7 +102,7 @@ export class Chat extends Class {
     setFilter () {
         if (!this.FilterJS) {
             if (parseInt(this.props.id_role) == 0) {
-                this.FilterJS = new Filter({
+                this.FilterJS = new window.filter({
                     id: "filter-chats",
                     order: {
                         "updated_at": "DESC",
@@ -122,7 +117,7 @@ export class Chat extends Class {
                 }, this.props.chats);
             }
             if (parseInt(this.props.id_role) != 0) {
-                this.FilterJS = new Filter({
+                this.FilterJS = new window.filter({
                     id: "filter-chats",
                     order: {
                         "updated_at": "DESC",
@@ -708,7 +703,7 @@ export class Chat extends Class {
                     if (response.code == 200) {
                         params.instance.CountDownJS.details.stop();
                         params.instance.save(response.data);
-                        new NotificationJS({
+                        new window.notification({
                             code: 200,
                             message: `Assignment entregado con éxito!<br />Tu coach va a recibirlo y dentro de las próximas 48hs hábiles te va a responder en la misma conversación.`,
                             classes: ["russo"],
@@ -737,7 +732,7 @@ export class Chat extends Class {
                     if (response.code == 200) {
                         params.instance.CountDownJS.details.stop();
                         params.instance.save(response.data);
-                        new NotificationJS({
+                        new window.notification({
                             code: 200,
                             message: `Respuesta enviada con éxito.<br />Recordá que podés revisar lo que enviaste en cualquier momento entrando al chat haciendo click en "Revisar entrega".`,
                             classes: ["russo"],
@@ -832,11 +827,11 @@ export class Chat extends Class {
 
     static setModalJS () {
         if (!modals.hasOwnProperty("chat")) {
-            modals.chat = new ModalJS({
+            modals.chat = new window.modal({
                 id: "chat",
             }, {
                 detectHash: true,
-                open: /chat/.exec(URL.findHashParameter()),
+                open: /chat/.exec(window.url.findHashParameter()),
             });
         }
         Assignment.setModalJS();

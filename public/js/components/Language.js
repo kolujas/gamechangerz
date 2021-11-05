@@ -1,15 +1,10 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import ValidationJS from "../../submodules/ValidationJS/js/Validation.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
-export class Language extends Class {
+export class Language extends window.class {
     static setModalJS () {
         if (!modals.hasOwnProperty("languages")) {
-            modals.languages = new ModalJS({
+            modals.languages = new window.modal({
                 id: 'languages',
             }, {
-                open: URL.findHashParameter() === 'languages',
+                open: window.url.findHashParameter() === 'languages',
                 detectHash: true,
                 outsideClick: true,
             });
@@ -18,7 +13,7 @@ export class Language extends Class {
 
     static setValidationJS () {
         if (validation.hasOwnProperty('languages')) {
-            validation.languages.ValidationJS = new ValidationJS({
+            validation.languages.ValidationJS = new window.validation({
                 id: 'languages-form',
                 rules: validation.languages.rules,
                 messages: validation.languages.messages,

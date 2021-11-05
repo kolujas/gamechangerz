@@ -1,16 +1,12 @@
-import Class from "../../submodules/JuanCruzAGB/js/Class.js";
-import { Modal as ModalJS } from "../../submodules/ModalJS/js/Modal.js";
-import { URLServiceProvider as URL } from "../../submodules/ProvidersJS/js/URLServiceProvider.js";
-
 import Asset from "./Asset.js";
 
-export class Game extends Class {
+export class Game extends window.class {
     static setModalJS () {
         if (!modals.hasOwnProperty("games")) {
-            modals.games = new ModalJS({
+            modals.games = new window.modal({
                 id: "games",
             }, {
-                open: URL.findHashParameter() === "games",
+                open: window.url.findHashParameter() === "games",
                 detectHash: true,
                 outsideClick: true,
             });
