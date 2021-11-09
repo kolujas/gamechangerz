@@ -194,17 +194,14 @@
 
                 if ($found) {
                     $coupon->and(["type"]);
-                    $auxPrice = 0;
 
                     if ($coupon->type->id_type == 1) {
-                        $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
+                        $input->id_coupon = $coupon->id_coupon;
+                        $couponPrice = floatval($price * floatval($coupon->type->value) / 100);
                     }
                     if ($coupon->type->id_type == 2) {
-                        $auxPrice = floatval($coupon->type->value);
-                    }
-                    if ($price - $auxPrice >= $dolar) {
                         $input->id_coupon = $coupon->id_coupon;
-                        $couponPrice = $auxPrice;
+                        $couponPrice = floatval($coupon->type->value);
                     }
                 }
             }
@@ -234,23 +231,18 @@
     
                     if ($found) {
                         $coupon->and(["type"]);
-                        $auxPrice = 0;
     
                         if ($coupon->type->id_type == 1) {
-                            $auxPrice = floatval($price * floatval($coupon->type->value) / 100);
+                            $input->id_coupon = $coupon->id_coupon;
+                            $couponPrice = floatval($price * floatval($coupon->type->value) / 100);
                         }
                         if ($coupon->type->id_type == 2) {
-                            $auxPrice = floatval($coupon->type->value);
-                        }
-                        if ($price - $auxPrice >= $dolar) {
                             $input->id_coupon = $coupon->id_coupon;
-                            $couponPrice = $auxPrice;
+                            $couponPrice = floatval($coupon->type->value);
                         }
                     }
                 }
             }
-
-            ddd($couponPrice);
 
             $final_price = $price - $couponPrice;
 
