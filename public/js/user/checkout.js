@@ -678,19 +678,11 @@ function createPayPalButton () {
                 }
 
                 if (found) {
-                    auxPrice = 0;
                     if (coupon.type.id_type == 1) {
-                        if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
-                            auxPrice = price * parseInt(coupon.type.value) / 100;
-                        }
+                        couponPrice = price * parseInt(coupon.type.value) / 100;
                     }
                     if (coupon.type.id_type == 2) {
-                        if (price - parseInt(coupon.type.value) >= dolar / 2) {
-                            auxPrice = parseInt(coupon.type.value);
-                        }
-                    }
-                    if (price - auxPrice >= dolar / 2) {
-                        couponPrice = price - auxPrice;
+                        couponPrice = parseInt(coupon.type.value);
                     }
                 }
             }
@@ -718,19 +710,11 @@ function createPayPalButton () {
                     }
     
                     if (found) {
-                        auxPrice = 0;
                         if (coupon.type.id_type == 1) {
-                            if (price - (price * parseInt(coupon.type.value) / 100) >= dolar / 2) {
-                                auxPrice = price * parseInt(coupon.type.value) / 100;
-                            }
+                            couponPrice = price * parseInt(coupon.type.value) / 100;
                         }
                         if (coupon.type.id_type == 2) {
-                            if (price - parseInt(coupon.type.value) >= dolar / 2) {
-                                auxPrice = parseInt(coupon.type.value);
-                            }
-                        }
-                        if (price - auxPrice >= dolar / 2) {
-                            couponPrice = price - auxPrice;
+                            couponPrice = parseInt(coupon.type.value);
                         }
                     }
                 }
