@@ -266,12 +266,12 @@
                 $final_price = $dolar;
             }
 
-            ddd([
-                'price' => $final_price,
-                'credits' => $input->credits,
-                'coach' => $final_price - $fee,
-                'fee' => $fee,
-            ]);
+            // ddd([
+            //     'price' => $final_price,
+            //     'credits' => $input->credits,
+            //     'coach' => $final_price - $fee,
+            //     'fee' => $fee,
+            // ]);
 
             if ($input->id_method == 1 && $final_price >= $dolar) {
                 $data = (object) [
