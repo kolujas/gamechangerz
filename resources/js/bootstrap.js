@@ -44,7 +44,7 @@ window.html = require('juancruzagb/HTMLCreatorJS/js/HTMLCreator').default;
 
 window.inputdate = require('juancruzagb/InputDateMakerJS/js/InputDateMaker').default;
 
-window.inputfile = require('juancruzagb/InputFileMakerJS/js/InputFileMaker').default;
+window.inputfile = require('juancruzagb/InputFileMakerJS/js/InputFileMaker').InputFileMaker;
 
 window.modal = require('juancruzagb/ModalJS/js/Modal').default;
 

@@ -1897,7 +1897,7 @@ window.dropdown = __webpack_require__(/*! juancruzagb/DropdownJS/js/Dropdown */ 
 window.filter = __webpack_require__(/*! juancruzagb/FilterJS/js/Filter */ "./node_modules/juancruzagb/FilterJS/js/Filter.js").default;
 window.html = __webpack_require__(/*! juancruzagb/HTMLCreatorJS/js/HTMLCreator */ "./node_modules/juancruzagb/HTMLCreatorJS/js/HTMLCreator.js").default;
 window.inputdate = __webpack_require__(/*! juancruzagb/InputDateMakerJS/js/InputDateMaker */ "./node_modules/juancruzagb/InputDateMakerJS/js/InputDateMaker.js").default;
-window.inputfile = __webpack_require__(/*! juancruzagb/InputFileMakerJS/js/InputFileMaker */ "./node_modules/juancruzagb/InputFileMakerJS/js/InputFileMaker.js").default;
+window.inputfile = __webpack_require__(/*! juancruzagb/InputFileMakerJS/js/InputFileMaker */ "./node_modules/juancruzagb/InputFileMakerJS/js/InputFileMaker.js").InputFileMaker;
 window.modal = __webpack_require__(/*! juancruzagb/ModalJS/js/Modal */ "./node_modules/juancruzagb/ModalJS/js/Modal.js").default;
 window.navmenu = __webpack_require__(/*! juancruzagb/NavMenuJS/js/NavMenu */ "./node_modules/juancruzagb/NavMenuJS/js/NavMenu.js").default;
 window.notification = __webpack_require__(/*! juancruzagb/NotificationJS/js/Notification */ "./node_modules/juancruzagb/NotificationJS/js/Notification.js").default;
@@ -11272,7 +11272,7 @@ class Sidebar extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defa
             function: function (params) { /* console.log(params); */ },
             params: {},
         }, open: {
-            function: function (params) { console.log(params); },
+            function: function (params) { /* console.log(params); */ },
             params: {},
     }}) {
         super({ ...Sidebar.props, ...props }, { ...Sidebar.state, ...state });
@@ -11466,7 +11466,7 @@ class Sidebar extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defa
             function: function (params) { /* console.log(params); */ },
             params: {},
         }, open: {
-            function: function (params) { console.log(params); },
+            function: function (params) { /* console.log(params); */ },
             params: {},
     }}
 }
