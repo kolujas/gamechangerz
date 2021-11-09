@@ -212,6 +212,9 @@
             $price -= $input->credits;
 
             if ($price <= 0) {
+                if ($price < 0) {
+                    $input->credits -= $price - ($price * 2);
+                }
                 if ($coupon) {
                     $input->credits -= $couponPrice;
                 }
@@ -253,7 +256,11 @@
 
             $fee -= $couponPrice;
 
-            if ($fee <= 0) {
+            if ($input->credits < 0) {
+                $input->credits = 0;
+            }
+
+            if ($fee < 0) {
                 $fee = 0;
             }
 
@@ -265,12 +272,12 @@
                 $final_price = $dolar;
             }
 
-            // ddd([
-            //     'price' => $final_price,
-            //     'credits' => $input->credits,
-            //     'coach' => $final_price - $fee,
-            //     'fee' => $fee,
-            // ]);
+            ddd([
+                'price' => $final_price,
+                'credits' => $input->credits,
+                'coach' => $final_price - $fee,
+                'fee' => $fee,
+            ]);
 
             if ($input->id_method == 1 && $final_price >= $dolar) {
                 $data = (object) [

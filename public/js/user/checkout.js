@@ -698,6 +698,9 @@ function createPayPalButton () {
             price -= credits;
             
             if (price <= dolar / 2) {
+                if (price < dolar / 2) {
+                    credits -= price - (price * 2);
+                }
                 if (coupon) {
                     credits -= couponPrice;
                 }
@@ -734,6 +737,10 @@ function createPayPalButton () {
             }
 
             price -= couponPrice;
+
+            if (credits < 0) {
+                credits = 0;
+            }
 
             if (price < 0) {
                 price = 0;
