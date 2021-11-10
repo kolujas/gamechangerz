@@ -378,14 +378,17 @@
 
             // * Get the User credentials
             $lesson->and(["users"]);
-            $lesson->users->from->and(["credentials"]);
+            
+            $from = $lesson->users->from;
+            $from->and(["credentials"]);
+            $to = $lesson->users->to;
 
             // * Check the Notification type
             switch ($type) {
                 case "mercadopago":
                     // * Create the MercadoPago
                     $MP = new MercadoPago([
-                        "access_token" => $lesson->users->from->credentials->mercadopago->access_token,
+                        "access_token" => $from->credentials->mercadopago->access_token,
                     ]);
         
                     // * Check the request topic
@@ -412,10 +415,7 @@
                     if ($paid_amount >= $MP->merchant_order->total_amount) {
                         // ? If the Lesson was updated
                         if ($lesson->id_status != 3) {
-                            $lesson->and(["type", "started_at", "ended_at"]);
-
-                            $from = $lesson->users->from->email;
-                            $to = $lesson->users->to->email;
+                            $lesson->and(["type", "started_at", "ended_at"]);;
     
                             // * Send the Mails
                             new Mail([ "id_mail" => 5, ], [
