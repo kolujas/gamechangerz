@@ -27,7 +27,7 @@
          * @var array
          */
         protected $fillable = [
-            'assignments', 'coupon', 'days', 'id_method', 'id_status', 'id_type', 'id_user_from', 'id_user_to', 'name', 'price', 'slug', 'svg',
+            'assignments', 'id_coupon', 'days', 'id_method', 'id_status', 'id_type', 'id_user_from', 'id_user_to', 'name', 'price', 'slug', 'svg',
         ];
 
         /**
