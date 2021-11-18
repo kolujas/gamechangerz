@@ -108,7 +108,7 @@
             
             $platform = Platform::find(1);
             $platform->update([
-                "info" => $input->info,
+                "info" => $input->link,
             ]);
 
             return redirect("/panel/platform/info")->with("status", [

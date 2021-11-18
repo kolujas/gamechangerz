@@ -3217,18 +3217,18 @@ class Order extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
     static checkNumber (aValue, bValue, type) {
         switch (type.toUpperCase()) {
             case "ASC":
-                if (aValue > bValue) {
+                if (parseFloat(aValue) > parseFloat(bValue)) {
                     return [1, aValue, bValue];
                 }
-                if (aValue < bValue) {
+                if (parseFloat(aValue) < parseFloat(bValue)) {
                     return [-1, aValue, bValue];
                 }
                 break;
             case "DESC":
-                if (aValue > bValue) {
+                if (parseFloat(aValue) > parseFloat(bValue)) {
                     return [-1, aValue, bValue];
                 }
-                if (aValue < bValue) {
+                if (parseFloat(aValue) < parseFloat(bValue)) {
                     return [1, aValue, bValue];
                 }
                 break;
@@ -3324,7 +3324,7 @@ class Order extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
         if (aValue) {
             if (/\[/.exec(position)) {
                 let aAux = [], bAux = [];
-                for (const key of position.split("[").pop().split("]").shift().splt(",")) {
+                for (const key of position.split("[").pop().split("]").shift().split(",")) {
                     if (aValue.hasOwnProperty(key)) {
                         aAux.push(aValue[key]);
                         if (bValue.hasOwnProperty(key)) {

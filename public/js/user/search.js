@@ -133,12 +133,12 @@ function createTeachersFilter () {
         order: {
             "important": "DESC",
             "stars": "DESC",
-            "prices:*.price": { value: "ASC", active: false },
+            "prices:[1,2].price": { value: "ASC", active: false },
             "username": "ASC",
         }, rules: {
             "username|name": value ? { values: [{ regex: value }] } : null,
             "games:*.slug": null,
-            "prices:*.price": { comparator: "><", strict: false },
+            "prices:[1,2].price": { comparator: "><", strict: false },
             "days:*.hours:*.time": { strict: true },
             "games:*.abilities:*.slug": null,
         },

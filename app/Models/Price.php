@@ -52,7 +52,7 @@
             foreach ($prices as $id_type => $data) {
                 $collection->push([
                     "id_type" => $id_type + 1,
-                    "price" => $data,
+                    "price" => parseInt($data),
                 ]);
             }
 
