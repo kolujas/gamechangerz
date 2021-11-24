@@ -46,5 +46,5 @@
         let users = [];
     </script>
 
-    <script type="module" src={{ asset('js/user/search.js?v=0.0.2') }}></script>
+    <script type="module" src={{ asset('js/user/search.js?v=0.0.3') }}></script>
 @endsection

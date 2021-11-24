@@ -131,9 +131,9 @@ function createTeachersFilter () {
     filter = new window.filter({
         id: "filter-teachers",
         order: {
-            "important": "DESC",
             "stars": "DESC",
             "prices:[1,2].price": { value: "ASC", active: false },
+            "important": "DESC",
             "username": "ASC",
         }, rules: {
             "username|name": value ? { values: [{ regex: value }] } : null,
