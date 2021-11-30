@@ -72,7 +72,7 @@
                     <a href="https://www.youtube.com" target="_blank">@component('components.svg.YtSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="" target="_blank">@component('components.svg.DiscordSVG')@endcomponent</a>
+                    <a href="{{ \App\Models\Platform::first()->link }}" target="_blank">@component('components.svg.DiscordSVG')@endcomponent</a>
                 </li>
             </ul>
         </nav>

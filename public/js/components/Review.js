@@ -222,7 +222,7 @@ export class Review extends window.class {
     }
 
     changeStars (params) {
-        let stars = parseInt(params.element.html.value);
+        let stars = parseInt(params.element.props.defaultValue);
         
         if (!params.element.html.checked) {
             let bigger = 1;

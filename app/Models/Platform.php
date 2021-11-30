@@ -63,7 +63,7 @@
             ], 'info' => [
                 'rules' => [
                     'dolar' => 'required',
-                    'link' => 'required|regex:/^https:\/\/discord\.gg\//',
+                    'link' => 'required',
                 ], 'messages' => [
                     'es' => [
                         'dolar.required' => 'El valor del dolar es obligatorio',

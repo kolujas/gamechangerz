@@ -5912,10 +5912,10 @@ class Input extends _JuanCruzAGB_js_Html_js__WEBPACK_IMPORTED_MODULE_0__.default
                 }
                 break;
         }
-        if (this.props.defaultValue && this.props.defaultValue === 0) {
+        if (this.props.defaultValue || this.props.defaultValue === 0) {
             this.setAttribute("value", this.props.defaultValue);
         }
-        if (this.props.placeholder && this.props.placeholder === 0) {
+        if (this.props.placeholder || this.props.placeholder === 0) {
             this.setAttribute("placeholder", this.props.placeholder);
         }
     }
@@ -9833,7 +9833,7 @@ class Modal extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
         let instance = this;
         if (this.state.outsideClick) {
             this.html.classList.add("clicked");
-            this.html.addEventListener("click", function (e) {
+            this.html.addEventListener("mousedown", function (e) {
                 if (e.target !== e.currentTarget) { return }
                 window.history.pushState({}, document.title, _ProvidersJS_js_URLServiceProvider_js__WEBPACK_IMPORTED_MODULE_1__.URLServiceProvider.findOriginalRoute());
                 instance.close();

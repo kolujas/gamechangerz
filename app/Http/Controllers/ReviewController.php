@@ -35,11 +35,13 @@
                 foreach ($from->games as $game) {
                     foreach ($game->abilities as $ability) {
                         $value = 0;
-                        foreach ($input->stars as $slug => $stars) {
-                            if ($ability->slug === $slug) {
-                                foreach ($stars as $star) {
-                                    if ($value < intval($star)) {
-                                        $value = intval($star);
+                        if (isset($input->stars)) {
+                            foreach ($input->stars as $slug => $stars) {
+                                if ($ability->slug === $slug) {
+                                    foreach ($stars as $star) {
+                                        if ($value < intval($star)) {
+                                            $value = intval($star);
+                                        }
                                     }
                                 }
                             }
@@ -54,11 +56,13 @@
             if (Auth::user()->id_role === 0) {
                 foreach ($from->abilities as $ability) {
                     $value = 0;
-                    foreach ($input->stars as $slug => $stars) {
-                        if ($ability->slug === $slug) {
-                            foreach ($stars as $star) {
-                                if ($value < intval($star)) {
-                                    $value = intval($star);
+                    if (isset($input->stars)) {
+                        foreach ($input->stars as $slug => $stars) {
+                            if ($ability->slug === $slug) {
+                                foreach ($stars as $star) {
+                                    if ($value < intval($star)) {
+                                        $value = intval($star);
+                                    }
                                 }
                             }
                         }
@@ -114,11 +118,13 @@
                 foreach ($review->lesson->users->from->games as $game) {
                     foreach ($game->abilities as $ability) {
                         $value = 0;
-                        foreach ($input->stars as $slug => $stars) {
-                            if ($ability->slug === $slug) {
-                                foreach ($stars as $star) {
-                                    if ($value < intval($star)) {
-                                        $value = intval($star);
+                        if (isset($input->stars)) {
+                            foreach ($input->stars as $slug => $stars) {
+                                if ($ability->slug === $slug) {
+                                    foreach ($stars as $star) {
+                                        if ($value < intval($star)) {
+                                            $value = intval($star);
+                                        }
                                     }
                                 }
                             }
@@ -133,11 +139,13 @@
             if ($user->id_role === 0) {
                 foreach ($review->lesson->users->from->abilities as $ability) {
                     $value = 0;
-                    foreach ($input->stars as $slug => $stars) {
-                        if ($ability->slug === $slug) {
-                            foreach ($stars as $star) {
-                                if ($value < intval($star)) {
-                                    $value = intval($star);
+                    if (isset($input->stars)) {
+                        foreach ($input->stars as $slug => $stars) {
+                            if ($ability->slug === $slug) {
+                                foreach ($stars as $star) {
+                                    if ($value < intval($star)) {
+                                        $value = intval($star);
+                                    }
                                 }
                             }
                         }

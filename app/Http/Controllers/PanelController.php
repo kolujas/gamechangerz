@@ -434,9 +434,11 @@
 
                 if ($slug) {
                     $game->active = false;
-                    foreach ($user->games as $userGame) {
-                        if ($userGame->id_game === $game->id_game) {
-                            $game->active = true;
+                    if (is_array($user->games) && count($user->games)) {
+                        foreach ($user->games as $userGame) {
+                            if ($userGame->id_game === $game->id_game) {
+                                $game->active = true;
+                            }
                         }
                     }
                 }
