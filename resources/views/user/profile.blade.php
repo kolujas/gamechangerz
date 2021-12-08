@@ -87,5 +87,5 @@
             const achievements = @json($user->achievements);
         @endif
     </script>
-    <script type="module" src={{ asset('js/user/profile.js?v=0.0.1') }}></script>
+    <script type="module" src={{ asset('js/user/profile.js?v=1.0.0') }}></script>
 @endsection

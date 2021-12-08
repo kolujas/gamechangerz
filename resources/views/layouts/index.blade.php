@@ -37,7 +37,7 @@
         @yield('body')
 
         {{-- ? Node modules --}}
-        <script src={{ asset('js/app.js?v=1.0.1') }}></script>
+        <script src={{ asset('js/app.js?v=1.0.2') }}></script>
         <script src={{ asset('js/jquery/jquery-3.6.0.min.js') }}></script>
         <script src={{ asset('js/pagination.min.js') }}></script>
 

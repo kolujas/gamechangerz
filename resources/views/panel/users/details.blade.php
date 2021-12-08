@@ -219,5 +219,5 @@
         const user = @json($user);
         const lessons = @json($lessons);
     </script>
-    <script type="module" src={{ asset("js/panel/user/details.js") }}></script>
+    <script type="module" src={{ asset("js/panel/user/details.js?v=1.0.0") }}></script>
 @endsection
