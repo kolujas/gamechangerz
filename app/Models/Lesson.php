@@ -282,7 +282,11 @@
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
-            $this->users->from->and(['files', 'prices', 'games', 'abilities']);
+            try {
+                $this->users->from->and(['files', 'prices', 'games', 'abilities']);
+            } catch (\Throwable $th) {
+                ddd($this);
+            }
             $this->users->to->and(['files', 'games']);
         }
 

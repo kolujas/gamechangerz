@@ -249,7 +249,6 @@
             }
 
             $lessons = Lesson::orderBy("updated_at", "DESC")->get();
-            ddd($lessons);
             foreach ($lessons as $lesson) {
                 $lesson->and(["users", "type", "ended_at", "method"]);
             }
