@@ -66,7 +66,7 @@
 
             $this->date = (object) [
                 'timeForHumans' => $this->updated_at->diffForHumans(),
-                'dateForHumans' => '$month $day, $year',
+                'dateForHumans' => "$month $day, $year",
             ];
         }
         
