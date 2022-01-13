@@ -283,8 +283,6 @@
                 }
             }
 
-            ddd($user->files);
-
             $games = Game::all();
             foreach ($games as $game) {
                 $game->and(["abilities"]);
