@@ -19,7 +19,12 @@
     use Illuminate\Support\Facades\Http;
     use Illuminate\Support\Facades\Validator;
 
-    class CheckoutController extends Controller {
+    class CheckoutController extends Controller {/**
+        * * Controller Model.
+        * @var \App\Models\User
+        */
+       protected $model = \App\Models\User::class;
+
         /**
          * * Creates the User MercadoPago access_token.
          * @param  \Illuminate\Http\Request  $request
@@ -517,6 +522,13 @@
                 if ($price->slug == $typeSearched) {
                     $type = $price;
                 }
+            }
+
+            if (Auth::user()->cant('viewCheckout', [$user, $typeSearched])) {
+                return back()->with('status', [
+                    'code' => 403,
+                    'message' => "La clase no puede ser reservada",
+                ]);
             }
 
             foreach (Lesson::current()->get() as $lesson) {

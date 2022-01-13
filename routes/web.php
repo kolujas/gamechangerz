@@ -74,7 +74,7 @@
                     Route::get("/users/{slug}/checkout/{type}", [CheckoutController::class, "show"])->name("checkout.show");
                 });
             });
-            Route::middleware(["lesson.exist", "lesson.status.exist", "auth.is.lesson.user"])->group(function () {
+            Route::middleware(["lesson.exist", "lesson.status.exist", "auth.is.lesson.member"])->group(function () {
                 Route::get("/lessons/{id_lesson}/checkout/{id_status}", [CheckoutController::class, "status"])->name("checkout.status");
             });
         });
@@ -82,7 +82,7 @@
         
 // ! ReviewController - Controls the Review pages.
         Route::middleware(["auth.custom"])->group(function () {
-            Route::middleware("lesson.exist", "auth.is.lesson.user")->group(function () {
+            Route::middleware("lesson.exist", "auth.is.lesson.member")->group(function () {
                 Route::post("/lessons/{id_lesson}/review/create", [ReviewController::class, "create"])->name("review.create");
             });
             Route::middleware("review.exist")->group(function () {

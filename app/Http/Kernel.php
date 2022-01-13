@@ -80,7 +80,7 @@ class Kernel extends HttpKernel
         "auth.custom" => \App\Http\Middleware\CustomAuthenticate::class,
         "auth.is.user" => \App\Http\Middleware\CheckAuthenticateIsUser::class,
         "auth.not.user" => \App\Http\Middleware\CheckAuthenticateNotUser::class,
-        "auth.is.lesson.user" => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
+        "auth.is.lesson.member" => \App\Http\Middleware\CheckAuthenticateIsLessonUser::class,
         "auth.lesson.end" => \App\Http\Middleware\CheckAuthenticateLessonEnded::class,
         "auth.lesson.current.not.exist" => \App\Http\Middleware\CheckAuthenticateLessonCurrentNotExist::class,
         "auth.role.is.admin" => \App\Http\Middleware\CheckAuthenticateRoleIsAdmin::class,

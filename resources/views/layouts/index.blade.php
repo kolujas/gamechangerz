@@ -58,7 +58,10 @@
             var error = @json($error);
             var modals = {};
             @if(Session::has('status'))
-                error = @json(Session::get('status'))
+                error = @json(Session::get('status'));
+            @endif
+            @if (session('status'))
+                error = @json(session('status'));
             @endif
         </script>
         <script type="module" src={{ asset('js/script.js?v=0.0.1') }}></script>

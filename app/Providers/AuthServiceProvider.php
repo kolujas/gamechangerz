@@ -12,7 +12,7 @@
          * @var array
          */
         protected $policies = [
-            'App\Models\Model' => 'App\Policies\ModelPolicy',
+            'App\Models\User' => 'App\Policies\UserPolicy',
         ];
 
         /**
