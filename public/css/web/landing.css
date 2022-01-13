@@ -19,11 +19,11 @@
     transform: rotateY(180deg);
 }
 
-ul.teachers .teacher .team-icon figure img {
+ul.coaches .coach .team-icon figure img {
     object-fit: contain;
 }
 
-ul.teachers .image figure{
+ul.coaches .image figure{
     width: calc(((100vw - 4rem) / 2) - 1rem);
     height: 16rem;
 }
@@ -113,7 +113,7 @@ ul.teachers .image figure{
     background: var(--color-one);
 }
 
-.teachers .teacher .teampro img {
+.coaches .coach .teampro img {
     width: 100%;
     height: 2rem;
     object-fit: contain;
@@ -131,7 +131,7 @@ ul.teachers .image figure{
     object-fit: contain;
 }
 
-.video-section .iframe-padrino, .banner-buscador .users-form-search, .profesores-destacados .teacher:hover{
+.video-section .iframe-padrino, .banner-buscador .users-form-search, .profesores-destacados .coach:hover{
     position: relative;
     border-radius: .25rem;
 }
@@ -276,18 +276,18 @@ ul.teachers .image figure{
     color: var(--color-grey);
 }
 
-.teachers .teacher {
+.coaches .coach {
     position: relative;
     border-radius: .25rem;
     border: none;
 }
 
-.teachers .teacher > a {
+.coaches .coach > a {
     height: 100%;
     border-radius: .25rem;
 }
 
-.teachers .teacher:hover::before {
+.coaches .coach:hover::before {
     content: '';
     position: absolute;
     top: -1px;
@@ -299,7 +299,7 @@ ul.teachers .image figure{
     border-radius: .25rem;
 }
 
-.teacher .payment .mobile-btn span {
+.coach .payment .mobile-btn span {
     background: none;
 }
 
@@ -348,7 +348,7 @@ ul.abilities.cards {
     opacity: 0;
 }
 
-.profesores-destacados .teacher:hover .abilities ul li{
+.profesores-destacados .coach:hover .abilities ul li{
     transition: 500ms;
     opacity: 1;
 }
@@ -357,7 +357,7 @@ ul.abilities.cards {
     display: none;
 }
 
-.profesores-destacados ul.teachers .abilities li span{
+.profesores-destacados ul.coaches .abilities li span{
     min-width: fit-content;
     max-width: fit-content;
     padding-right: 0;
@@ -376,49 +376,49 @@ ul.abilities.cards .card header > span {
     top: calc(100% - 18rem);
 }
 
-ul.teachers .image img{
+ul.coaches .image img{
     top: 0;
 }
 
-.profesores-destacados .teacher > a {
+.profesores-destacados .coach > a {
     background-color: var(--color-one);
 }
 
-.profesores-destacados .teacher {
+.profesores-destacados .coach {
     opacity: .5;
     transition: 500ms;
     z-index: 1;
 }
 
-.profesores-destacados .teacher:hover {
+.profesores-destacados .coach:hover {
     opacity: 1;
     z-index: 2;
 }
 
-.profesores-destacados .teacher .image {
+.profesores-destacados .coach .image {
     filter: grayscale(1);
     transition: 500ms;
     grid-row: span 2 / span 2;
 }
 
-.profesores-destacados .teacher:hover .image {
+.profesores-destacados .coach:hover .image {
     filter: grayscale(0);
 }
 
-.profesores-destacados .teachers .teacher .team-name {
+.profesores-destacados .coaches .coach .team-name {
     display: none;
 }
 
-.profesores-destacados .teachers .teacher .team-icon {
+.profesores-destacados .coaches .coach .team-icon {
     grid-column: span 2 / span 2;
     order: 1;
 }
 
-.profesores-destacados .teachers .teacher .info {
+.profesores-destacados .coaches .coach .info {
     order: 2;
 }
 
-.profesores-destacados .teacher .teampro {
+.profesores-destacados .coach .teampro {
     transition: 500ms;
     opacity: 0;
     align-items: center;
@@ -426,22 +426,22 @@ ul.teachers .image img{
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.profesores-destacados .teacher .teampro .info{
+.profesores-destacados .coach .teampro .info{
     grid-column: span 2 / span 2;
 }
 
-.profesores-destacados .teacher .teampro .info .languages{
+.profesores-destacados .coach .teampro .info .languages{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.profesores-destacados .teacher .teampro .team-icon{
+.profesores-destacados .coach .teampro .team-icon{
     grid-column: span 2 / span 2;
     margin-left: 0;
     margin-bottom: 1rem;
 }
 
-.profesores-destacados .teacher:hover .teampro {
+.profesores-destacados .coach:hover .teampro {
     opacity: 1;
 }
 
@@ -461,7 +461,7 @@ ul.teachers .image img{
     padding: 0;
 }
 
-.profesores-destacados .teacher:hover .payment .btn {
+.profesores-destacados .coach:hover .payment .btn {
     opacity: 1;
 }
 
@@ -481,18 +481,18 @@ ul.teachers .image img{
     display: none;
 } */
 
-.teacher > a {
+.coach > a {
     background: url('../../img/01-background.png') no-repeat center center;
     background-size: cover;
 }
 
-.teachers .teacher:not(:last-child){
+.coaches .coach:not(:last-child){
     margin-bottom: 2.5rem;
 }
 
 /* ? MD */
 @media(min-width: 768px){
-    ul.teachers .image figure{
+    ul.coaches .image figure{
         width: calc(((((100vw - 12rem) - 2rem) / 2) - 1rem) / 2);
         height: 18rem;
     }
@@ -542,42 +542,42 @@ ul.teachers .image img{
         padding-left: 3.7rem;
     }
 
-    .profesores-destacados .teachers {
+    .profesores-destacados .coaches {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 2rem;
     }
 
-    .teachers .teacher:nth-last-of-type(2) {
+    .coaches .coach:nth-last-of-type(2) {
         margin-bottom: 0;
     }
 
-    .profesores-destacados .teacher > a {
+    .profesores-destacados .coach > a {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }    
 
-    .profesores-destacados .teacher .image {
+    .profesores-destacados .coach .image {
         grid-row: span 2 / span 2;
     }
 
-    .profesores-destacados .teacher .payment {
+    .profesores-destacados .coach .payment {
         grid-row: span 1 / span 1;
         margin: 0;
         margin-left: 1rem;
     }
 
-    .profesores-destacados ul.teachers .image img{
+    .profesores-destacados ul.coaches .image img{
             top: -2rem;
     }
 
-    .teachers .teacher:not(:last-child){
+    .coaches .coach:not(:last-child){
         margin-bottom: 0;
     }
 }
 
 /* ? LG */
 @media(min-width: 1024px){
-    .profesores-destacados .teachers {
+    .profesores-destacados .coaches {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
@@ -611,7 +611,7 @@ ul.teachers .image img{
         font-size: 1rem;
     }
 
-    .teachers .teacher:nth-last-of-type(3) {
+    .coaches .coach:nth-last-of-type(3) {
         margin-bottom: 0;
     }
 
@@ -622,24 +622,24 @@ ul.teachers .image img{
     }
     
 
-    .profesores-destacados .teacher header {
+    .profesores-destacados .coach header {
         grid-column: span 1 / span 1;
     }
 
-    .profesores-destacados .teachers {
+    .profesores-destacados .coaches {
         gap: 3rem;
     }
 
-    .profesores-destacados .teachers .username {
+    .profesores-destacados .coaches .username {
         max-width: 100%;
         flex-basis: 100%;
     }
 
-    ul.teachers .image figure {
+    ul.coaches .image figure {
         clip-path: polygon(-2rem 0, calc(100% + 5rem) 0, calc(100% + 5rem) 100%, -2rem 100%);
     }
 
-    .profesores-destacados .teachers .image img {
+    .profesores-destacados .coaches .image img {
         /* height: 100%;
         top: 0;
         width: 100%;
@@ -655,34 +655,34 @@ ul.teachers .image img{
         object-position: center bottom;
     }
 
-    .profesores-destacados .teachers .teacher:hover .image img {
+    .profesores-destacados .coaches .coach:hover .image img {
         height: 95%;
         top: 5%;
         max-width: calc(100% + 5rem);
         width: calc(100% + 5rem);
     }
 
-    ul.teachers .image figure{
+    ul.coaches .image figure{
         width: calc((((((100vw / 10) * 8) - 6rem) / 3) - 1rem) / 2);
         height: 18rem;
     }
 
-    .profesores-destacados .teacher .image {
+    .profesores-destacados .coach .image {
         grid-column: span 1 / span 1;
         grid-row: span 1 / span 1;
     }
 
-    .profesores-destacados .teacher .payment {
+    .profesores-destacados .coach .payment {
         /* grid-column: span 1 / span 1;
         grid-row: span 1 / span 1; */
         display: none;
     }
 
-    .profesores-destacados ul.teachers .image img{
+    .profesores-destacados ul.coaches .image img{
         top: 15%;
 }
 
-    .teachers .teacher:not(:last-child){
+    .coaches .coach:not(:last-child){
         margin-bottom: 0;
     }
 
@@ -707,11 +707,11 @@ ul.teachers .image img{
         font-size: 1.125rem;
     }
 
-    .profesores-destacados .teachers {
+    .profesores-destacados .coaches {
         gap: 4rem;
     }
 
-    ul.teachers .image figure {
+    ul.coaches .image figure {
         width: calc(((((((100vw - 17px) / 10) * 8) - 8rem) / 3) - 1rem) / 2);
     }
 }
@@ -731,7 +731,7 @@ ul.teachers .image img{
         width: 3rem !important;
     }
 
-    ul.teachers .image figure {
+    ul.coaches .image figure {
         width: calc(((((((100vw - 17px) / 12) * 8) - 8rem) / 3) - 1rem) / 2);
     }
 

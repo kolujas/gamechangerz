@@ -55,7 +55,7 @@
                     </li>
                 @endif
                 <li>
-                    <a href="/teachers" class="sidebar-link nav-link p-0">
+                    <a href="/coaches" class="sidebar-link nav-link p-0">
                         <span class="link-text">Coaches</span>
                     </a>
                 </li>

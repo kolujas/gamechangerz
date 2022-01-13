@@ -301,7 +301,7 @@
                 }
             }
             if ($this->id_role == 1) {
-                foreach (Lesson::byTeacher($this->id_user)->get() as $lesson) {
+                foreach (Lesson::byCoach($this->id_user)->get() as $lesson) {
                     $lesson->and(['reviews', 'users', 'abilities', 'ended_at']);
                     $this->lessons->push($lesson);
                     if ($lesson->id_status == 4) {
@@ -556,7 +556,7 @@
          * @param  \Illuminate\Database\Eloquent\Builder  $query
          * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function scopeTeachers ($query) {
+        static public function scopeCoaches ($query) {
             return $query->where('id_role', 1);
         }
 
@@ -653,7 +653,7 @@
                         ],
                     ],
                 ],
-            ], 'teacher' => [
+            ], 'coach' => [
                 'panel' => [
                     'create' => [
                         'rules' => [

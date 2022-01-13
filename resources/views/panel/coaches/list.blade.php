@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    <link href={{ asset('css/panel/teacher/list.css') }} rel="stylesheet">
+    <link href={{ asset('css/panel/coach/list.css') }} rel="stylesheet">
 @endsection
 
 @section('tabs')
@@ -14,11 +14,11 @@
 @endsection
 
 @section('content')
-    <li id="teachers" class="tab-content min-h-screen closed">
+    <li id="coaches" class="tab-content min-h-screen closed">
         <header class="flex mx-12 py-12">
             <h2 class="russo color-white mr-4">Coaches</h2>
             <div class="flex items-center">
-                <a class="btn btn-one btn-outline overpass" href="/panel/teachers/create">
+                <a class="btn btn-one btn-outline overpass" href="/panel/coaches/create">
                     <span class="py-2 px-4">Registrar profesor</span>
                 </a>
             </div>
@@ -39,7 +39,7 @@
                         <tbody class="md:grid">
                             @if (count($users))
                                 @foreach ($users as $user)
-                                    <tr data-href="/panel/teachers/{{ $user->slug }}" class="flex md:grid md:grid-cols-12">
+                                    <tr data-href="/panel/coaches/{{ $user->slug }}" class="flex md:grid md:grid-cols-12">
                                         <td class="flex items-center px-6 py-4 whitespace-no-wrap small">
                                             <span class="text-sm overpass">{{ $user->id_user }}</s>
                                         </td>
@@ -72,7 +72,7 @@
                                 @endforeach
                             @endif
                             @if (!count($users))
-                                <tr data-href="/panel/teachers/create" class="grid grid-cols-8">
+                                <tr data-href="/panel/coaches/create" class="grid grid-cols-8">
                                     <td class="col-span-8 flex items-center justify-center px-6 py-4 whitespace-no-wrap">No se crearon coaches</td>
                                 </tr>
                             @endif
@@ -85,5 +85,5 @@
 @endsection
 
 @section('js')
-    <script type="module" src={{ asset('js/panel/teacher/list.js') }}></script>
+    <script type="module" src={{ asset('js/panel/coach/list.js') }}></script>
 @endsection

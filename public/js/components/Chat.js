@@ -172,7 +172,7 @@ export class Chat extends window.class {
             this.showUserChat();
         }
         if (this.props.id_role != 0) {
-            this.showTeacherChat();
+            this.showCoachChat();
         }
         if (this.props.chats.length) {
             this.sections.list.empty.classList.add("hidden");
@@ -444,7 +444,7 @@ export class Chat extends window.class {
         }
     }
 
-    showTeacherChat () {
+    showCoachChat () {
         this.sections.list.lessons.classList.remove("hidden");
         this.sections.list.lessons.children[0].classList.add("hidden");
         this.sections.list.friends.classList.add("hidden");

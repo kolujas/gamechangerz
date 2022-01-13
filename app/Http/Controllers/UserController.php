@@ -154,8 +154,8 @@
                         "rules" => Presentation::$validation["make"]["rules"],
                         "messages" => Presentation::$validation["make"]["messages"]["es"],
                     ], "update" => (object)[
-                        "rules" => User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["rules"],
-                        "messages" => User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["messages"]["es"],
+                        "rules" => User::$validation[($user->id_role === 0 ? "user" : "coach")]["update"]["rules"],
+                        "messages" => User::$validation[($user->id_role === 0 ? "user" : "coach")]["update"]["messages"]["es"],
                     ],
                 ],
             ]);
@@ -224,7 +224,7 @@
             
             $input = (object) $request->all();
             
-            $validator = Validator::make((array) $input, Controller::replaceUnique(User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["rules"], $user->id_user), User::$validation[($user->id_role === 0 ? "user" : "teacher")]["update"]["messages"]["es"]);
+            $validator = Validator::make((array) $input, Controller::replaceUnique(User::$validation[($user->id_role === 0 ? "user" : "coach")]["update"]["rules"], $user->id_user), User::$validation[($user->id_role === 0 ? "user" : "coach")]["update"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -336,7 +336,7 @@
         }
 
         /**
-         * * Send the teacher request form.
+         * * Send the Coach request form.
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */

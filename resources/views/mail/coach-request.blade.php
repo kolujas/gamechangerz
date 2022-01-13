@@ -20,7 +20,7 @@
                             <li>Detalles: {{ $data->details }}</li>
                         </ul>
                         <div style="width: 100%; text-align: center; margin: 2rem 0;"">
-                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://gamechangerz.gg/panel/teachers/create">Registrar</a>
+                            <a style="font-family: sans-serif;text-decoration:none;border-radius:5px;padding:11px 23px;color:white;background-color: #0D0D0D;"target="_blank" href="https://gamechangerz.gg/panel/coaches/create">Registrar</a>
                         </div>
                     </div>
                 </td>

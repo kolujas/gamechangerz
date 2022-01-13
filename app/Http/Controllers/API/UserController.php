@@ -66,8 +66,8 @@
          * @param  \Illuminate\Http\Request  $request
          * @return JSON
          */
-        public function teachers (Request $request) {
-            $users = User::teachers()->orderBy('updated_at', 'DESC')->get();
+        public function coaches (Request $request) {
+            $users = User::coaches()->orderBy('updated_at', 'DESC')->get();
 
             foreach ($users as $user) {
                 $user->and(["games", "files", "prices", "teampro", "languages", "days"]);

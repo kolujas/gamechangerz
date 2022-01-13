@@ -40,7 +40,7 @@
                     $mail = new \App\Mail\NewMessageMail((object) $data);
                     break;
                 case 3:
-                    // * When a Teacher sends a new Assignment
+                    // * When a Coach sends a new Assignment
                     $mail = new \App\Mail\NewAssignmentMail((object) $data);
                     break;
                 case 4:
@@ -48,24 +48,24 @@
                     $mail = new \App\Mail\NewPresentationMail((object) $data);
                     break;
                 case 5:
-                    // * When a User pays for a Lesson, this is an alert for the Teacher
-                    $mail = new \App\Mail\NewLessonTeacherMail((object) $data);
+                    // * When a User pays for a Lesson, this is an alert for the Coach
+                    $mail = new \App\Mail\NewLessonCoachMail((object) $data);
                     break;
                 case 6:
                     // * When a User sends a friendship request
                     $mail = new \App\Mail\FriendshipRequestMail((object) $data);
                     break;
                 case 7:
-                    // * When a User sends a Teacher request
-                    $mail = new \App\Mail\TeacherRequestMail((object) $data);
+                    // * When a User sends a Coach request
+                    $mail = new \App\Mail\CoachRequestMail((object) $data);
                     break;
                 case 8:
                     // * When a User pays for a Lesson, this is an alert for the User
                     $mail = new \App\Mail\NewLessonUserMail((object) $data);
                     break;
                 case 9:
-                    // * When an Admin creates a new Teacher
-                    $mail = new \App\Mail\TeacherRequestApprovedMail((object) $data);
+                    // * When an Admin creates a new Coach
+                    $mail = new \App\Mail\CoachRequestApprovedMail((object) $data);
                     break;
                 case 11:
                     // * When a User tries to contact Gamechangerz

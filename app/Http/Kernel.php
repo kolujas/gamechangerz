@@ -109,7 +109,7 @@ class Kernel extends HttpKernel
         "token.exist" => \App\Http\Middleware\CheckTokenExist::class,
 
         "user.exist" => \App\Http\Middleware\CheckUserExist::class,
-        "user.is.teacher" => \App\Http\Middleware\CheckUserIsTeacher::class,
+        "user.is.coach" => \App\Http\Middleware\CheckUserIsCoach::class,
         "user.status" => \App\Http\Middleware\CheckUserStatus::class,
     ];
 }

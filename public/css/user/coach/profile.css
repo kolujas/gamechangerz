@@ -1,10 +1,10 @@
-.teacher .profile .info input {
+.coach .profile .info input {
     background-color: transparent;
     padding: 0;
     cursor: text;
 }
 
-.teacher .profile .info :where(.username, .name) span {
+.coach .profile .info :where(.username, .name) span {
     position: fixed;
     display: inline-block;
     left: -100000rem;
@@ -13,82 +13,82 @@
     font-weight: normal;
 }
 
-.teacher .profile .info .username input {
+.coach .profile .info .username input {
     max-width: 35rem;
 }
 
-.teacher .profile .info .username input:disabled {
+.coach .profile .info .username input:disabled {
     width: calc(var(--width) + 1px);
 }
 
-.teacher .profile .info .username input:not([disabled]) {
+.coach .profile .info .username input:not([disabled]) {
     width: calc(var(--width));
     min-width: 7.5rem;
 }
 
-.teacher .profile .info .name input {
+.coach .profile .info .name input {
     max-width: 24rem;
 }
 
-.teacher .profile .info .name input:disabled {
+.coach .profile .info .name input:disabled {
     width: calc(var(--width) + 1px);
 }
 
-.teacher .profile .info .name input:not([disabled]) {
+.coach .profile .info .name input:not([disabled]) {
     width: calc(var(--width));
     min-width: 5.5rem;
 }
 
-.teacher .profile .actions .btn.btn-icon {
+.coach .profile .actions .btn.btn-icon {
     position: absolute;
     top: .5rem;
     left: -3.5rem;
 }
 
-.teacher .profile .actions button + a.btn.btn-icon {
+.coach .profile .actions button + a.btn.btn-icon {
     top: 3.5rem;
 }
 
-.teacher .profile .info input[disabled] {
+.coach .profile .info input[disabled] {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.teacher .profile .info input:not([disabled]) {
+.coach .profile .info input:not([disabled]) {
     background-color: var(--color-black);
     padding: .25rem .5rem;
 }
 
-.teacher .profile .teampro input {
+.coach .profile .teampro input {
     max-width: 10rem;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.teacher .profile .info .teampro input:disabled {
+.coach .profile .info .teampro input:disabled {
     width: calc(var(--width) + 2px);
 }
 
-.teacher .profile .info .teampro input + span {
+.coach .profile .info .teampro input + span {
     position: fixed;
     left: -100000000px;
 }
 
-.teacher .profile .info .teampro input:not([disabled]) {
+.coach .profile .info .teampro input:not([disabled]) {
     width: calc(var(--width) + 1rem);
     min-width: 4.2rem;
 }
 
-.teacher .info .teampro figure {
+.coach .info .teampro figure {
     position: relative;
 }
 
-.teacher .info .teampro figure .input-image {
+.coach .info .teampro figure .input-image {
     position: inherit;
     z-index: 1;
 }
 
-.teacher .info .teampro figure .input-button {
+.coach .info .teampro figure .input-button {
     position: absolute;
     top: 0;
     left: 0;
@@ -96,19 +96,19 @@
     height: 100%;
 }
 
-.teacher .info .teampro figure input:not(:disabled) ~ .input-button {
+.coach .info .teampro figure input:not(:disabled) ~ .input-button {
     background-color: var(--color-black);
 }
 
-.teacher .profile .info .name input:not([disabled]) {
+.coach .profile .info .name input:not([disabled]) {
     margin: 0 .5rem;
 }
 
-.teacher .profile .info .name input {
+.coach .profile .info .name input {
     text-align: center;
 }
 
-.teacher .description textarea {
+.coach .description textarea {
     background-color: transparent;
     width: 100%;
     resize: none;
@@ -117,49 +117,49 @@
     color: var(--color-two);
 }
 
-.teacher .info .languages li {
+.coach .info .languages li {
     height: fit-content;
 }
 
-.teacher .info .languages .btn {
+.coach .info .languages .btn {
     width: 1.5rem;
     height: 1.5rem;
     font-size: .75rem;
 }
 
-.teacher .description textarea:not([disabled]) {
+.coach .description textarea:not([disabled]) {
     background-color: black;
     padding: .5rem;
     color: var(--color-white);
 }
 
-.teacher .info .languages li svg{
+.coach .info .languages li svg{
     width: 1.5rem;
 }
 
-.teacher .info .teampro svg{
+.coach .info .teampro svg{
     height: 1.5rem;
     display: inline-block;
 }
 
-.teacher .info .abilities.cards li > div {
+.coach .info .abilities.cards li > div {
     width: fit-content;
     min-height: fit-content;
     opacity: 1;
 }
 
-.teacher .info .abilities.cards li:not(:last-of-type) > div {
+.coach .info .abilities.cards li:not(:last-of-type) > div {
     border-right: 2px solid var(--color-white);
     margin-right: 1rem;
     padding-right: 1rem;
 }
 
-.teacher .info .abilities .stars svg {
+.coach .info .abilities .stars svg {
     margin-left: .5rem;
     width: 19px;
 }
 
-.teacher .banner figure .input-button {
+.coach .banner figure .input-button {
     position: absolute;
     top: 2rem;
     left: 2rem;
@@ -169,7 +169,7 @@
     border-radius: .25rem;
 }
 
-.teacher .banner figure .input-button {
+.coach .banner figure .input-button {
     border: 2px solid var(--color-grey);
     z-index: 2;
     top: 2rem;
@@ -180,11 +180,11 @@
     opacity: .5;
 }
 
-.teacher .banner figure input:disabled ~ :where(.input-message, .support, .input-button) {
+.coach .banner figure input:disabled ~ :where(.input-message, .support, .input-button) {
     display: none;
 }
 
-.teacher .banner figure :where(.input-message, .support) {
+.coach .banner figure :where(.input-message, .support) {
     position: absolute;
     left: 50%;
     bottom: calc(2rem + 2px);
@@ -195,7 +195,7 @@
     text-shadow: var(--color-one) 3px 0px 0px, var(--color-one) 2.83487px 0.981584px 0px, var(--color-one) 2.35766px 1.85511px 0px, var(--color-one) 1.62091px 2.52441px 0px, var(--color-one) 0.705713px 2.91581px 0px, var(--color-one) -0.287171px 2.98622px 0px, var(--color-one) -1.24844px 2.72789px 0px, var(--color-one) -2.07227px 2.16926px 0px, var(--color-one) -2.66798px 1.37182px 0px, var(--color-one) -2.96998px 0.42336px 0px, var(--color-one) -2.94502px -0.571704px 0px, var(--color-one) -2.59586px -1.50383px 0px, var(--color-one) -1.96093px -2.27041px 0px, var(--color-one) -1.11013px -2.78704px 0px, var(--color-one) -0.137119px -2.99686px 0px, var(--color-one) 0.850987px -2.87677px 0px, var(--color-one) 1.74541px -2.43999px 0px, var(--color-one) 2.44769px -1.73459px 0px, var(--color-one) 2.88051px -0.838247px 0px;
 }
 
-.teacher .banner figure .support {
+.coach .banner figure .support {
     bottom: 0;
     opacity: 1;
     height: 2rem;
@@ -203,22 +203,22 @@
     display: block;
 }
 
-.teacher .banner figure :where(.input-button, .input-message) {
+.coach .banner figure :where(.input-button, .input-message) {
     transition: 500ms;
 }
 
-.teacher .banner figure:hover :where(.input-button, .input-message) {
+.coach .banner figure:hover :where(.input-button, .input-message) {
     opacity: 1;
 }
 
-.teacher .banner figure img{
+.coach .banner figure img{
      width: 100%;
      height: 180px;
      object-fit: cover;
      border-radius: .25rem;
 }
 
-.teacher section.games .cards{
+.coach section.games .cards{
     gap: 2rem;
     margin-top: 0; 
 }
@@ -227,89 +227,89 @@
     display: none;
 }
 
-.teacher ul.games header * {
+.coach ul.games header * {
     font-size: .7rem;
     -webkit-text-fill-color: var(--color-white);
 }
  
-.teacher section.games figure {
+.coach section.games figure {
     height: 10rem;
 }
 
-.teacher section.games header{
+.coach section.games header{
     order: 2;
     flex-basis: 100%;
 }
 
-.teacher section.games main{
+.coach section.games main{
     order: 1;
 }
 
-.teacher section.games ul li{
+.coach section.games ul li{
     padding-top: 0;
 }
 
-.teacher .tab-menu .tabs svg {
+.coach .tab-menu .tabs svg {
     height: 3rem;
 }
 
-.teacher .description div{
+.coach .description div{
     background-color: var(--color-black);
 }
 
-.teacher .blog .card-body{
+.coach .blog .card-body{
     padding-top: 1rem;
 }
 
-.teacher .blog .card h4{
+.coach .blog .card h4{
     color: var(--color-white);
 }
 
-.teacher .blog .card main span{
+.coach .blog .card main span{
     display: none;
 }
 
-.teacher .tab-menu {
+.coach .tab-menu {
     background-color: var(--color-black);
 }
 
-.teacher .tab-menu .tabs a {
+.coach .tab-menu .tabs a {
     color: var(--color-two);
     transition: 500ms;
 }
 
-.teacher .tab-menu .tabs a.opened {
+.coach .tab-menu .tabs a.opened {
     background: linear-gradient(130deg, var(--color-five), var(--color-four));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.teacher .tab-menu .tabs a.opened svg .cls-1{
+.coach .tab-menu .tabs a.opened svg .cls-1{
     fill: var(--color-four); 
 }
 
-.teacher .tab-menu .tabs a:not(.opened) svg .cls-1{
+.coach .tab-menu .tabs a:not(.opened) svg .cls-1{
     fill: var(--color-three); 
 }
 
-.teacher .tab-menu .tabs a > div {
+.coach .tab-menu .tabs a > div {
     max-width: fit-content;
     text-align: center;
 }
 
-.teacher .tab-menu .tab-menu-list .btn {
+.coach .tab-menu .tab-menu-list .btn {
     width: 100%;
 }
 
-.teacher .tab-menu :where(table, tbody, tr) {
+.coach .tab-menu :where(table, tbody, tr) {
     width: 100%;
 }
 
-.teacher .tab-menu table td label input {
+.coach .tab-menu table td label input {
     display: none;
 }
 
-.teacher .tab-menu table td label span {
+.coach .tab-menu table td label span {
     display: block;
     text-align: center;
     border-radius: .25rem;
@@ -319,35 +319,35 @@
     font-size: .75rem;
 }
 
-.teacher .tab-menu table td label input:checked + span {
+.coach .tab-menu table td label input:checked + span {
     background-color: var(--color-four);
     opacity: 1;
 }
 
-.teacher .tab-menu table td label input:not([disabled]) + span {
+.coach .tab-menu table td label input:not([disabled]) + span {
     cursor: pointer;
 }
 
-.teacher .info .abilities.cards li > div {
+.coach .info .abilities.cards li > div {
     border-top: none;
     border-bottom: none;
     border-left: none;
     border-image-source: none;
 }
 
-.teacher .abilities .text-profile, .teacher .abilities header h4{
+.coach .abilities .text-profile, .coach .abilities header h4{
     color: var(--color-white);
 }
 
-.teacher .info .abilities.cards li > div:hover {
+.coach .info .abilities.cards li > div:hover {
     border-image-source: none;
 }
 
-.teacher .info .teampro figure {
+.coach .info .teampro figure {
     height: 80%;
 }
 
-.teacher .info .teampro img {
+.coach .info .teampro img {
     width: 1.5rem;
     min-width: 1.5rem;
     height: 100%;
@@ -357,7 +357,7 @@
     display: block;
 }
 
-.teacher .tab-menu input[type=number] {
+.coach .tab-menu input[type=number] {
     width: calc(var(--width) + 1rem);
     min-width: 2.8rem;
     background-color: transparent;
@@ -365,54 +365,54 @@
     -moz-appearance: textfield;
 }
 
-.teacher .tab-menu .tab-content > div > span{
+.coach .tab-menu .tab-content > div > span{
     border: 1px solid var(--color-four);
     /* border-radius: .25rem; */
 }
 
-.teacher .tab-menu input[type=number]::-webkit-inner-spin-button, 
-.teacher .tab-menu input[type=number]::-webkit-outer-spin-button {
+.coach .tab-menu input[type=number]::-webkit-inner-spin-button, 
+.coach .tab-menu input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* .teacher .tab-menu input[type=number]:disabled {
+/* .coach .tab-menu input[type=number]:disabled {
     width: calc(var(--width) + 1rem);
 }
 
-.teacher .tab-menu input[type=number]:not(:disabled) {
+.coach .tab-menu input[type=number]:not(:disabled) {
     min-width: 2.8rem;
 } */
 
-.teacher .tab-menu input[type=number]:not([disabled]) {
+.coach .tab-menu input[type=number]:not([disabled]) {
     background-color: black;
 }
 
-.teacher .tab-menu input[type=number] + span {
+.coach .tab-menu input[type=number] + span {
     position: fixed;
     left: -100000000px;
 }
 
-.teacher .horarios{
+.coach .horarios{
     border-radius: .25rem;
 }
 
-.teacher .horarios #online .precio{
+.coach .horarios #online .precio{
     font-family: var(--font-one);
 }
 
-.teacher .banner .profile{
+.coach .banner .profile{
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: calc(100% - 2rem) 0;
 }
 
-.teacher ul.games figure {
+.coach ul.games figure {
     width: 100%;
 }
 
-.teacher .clases li{
+.coach .clases li{
     background-color: #000;
 }
 
@@ -420,126 +420,126 @@
     fill: var(--color-three) !important;
 }
 
-.teacher .tab-menu .tabs a.opened svg .cls-1{
+.coach .tab-menu .tabs a.opened svg .cls-1{
     fill: var(--color-four) !important;
 }
 
 /* ? MD */
 @media (min-width: 768px) {
-    .teacher .banner figure img{
+    .coach .banner figure img{
          height: 350px;
     }
 
-    .teacher .info .abilities.cards li {
+    .coach .info .abilities.cards li {
         width: 50%;
     }
 
-    .teacher .info .abilities.cards li > div {
+    .coach .info .abilities.cards li > div {
         width: 100%;
     }
 
-    .teacher .info .abilities.cards .card:last-of-type {
+    .coach .info .abilities.cards .card:last-of-type {
         padding-right: .5rem;
     }
 
-    .teacher .info .abilities.cards li:nth-of-type(2) > div,
-    .teacher .info .abilities.cards li:last-of-type > div {
+    .coach .info .abilities.cards li:nth-of-type(2) > div,
+    .coach .info .abilities.cards li:last-of-type > div {
         border: none;
     }
 
-    .teacher .tab-menu .tab-menu-list .btn {
+    .coach .tab-menu .tab-menu-list .btn {
         width: 33%;
     }
 }
 
 /* ? LG */
 @media (min-width: 1024px) {
-    .teacher section.games .cards {
+    .coach section.games .cards {
         display: flex;
         overflow: auto;
         padding-bottom: 1rem;
         gap: 0;
     }
 
-    .teacher section.games .cards .card {
+    .coach section.games .cards .card {
         width: calc(((100vw - (5rem * 2)) / 3) / 2);
         min-width: calc(((100vw - (5rem * 2)) / 3) / 2);
     }
 
-    .teacher section.games .cards .card {
+    .coach section.games .cards .card {
         padding-right: 2rem;
     }
 
-    /* .teacher section.games .cards .card:last-of-type:not(:first-of-type, :nth-of-type(2)) {
+    /* .coach section.games .cards .card:last-of-type:not(:first-of-type, :nth-of-type(2)) {
         width: calc((((100vw / 3) - 7rem) / 2) + 2rem);
         min-width: calc((((100vw / 3) - 7rem) / 2) + 2rem);
         padding-right: 2rem;
     } */
 
-    .teacher section.games figure {
+    .coach section.games figure {
         height: 5rem;
     }
 
-    .teacher section.games .degradado {
+    .coach section.games .degradado {
         font-size: .75rem;
     }
 
-    .teacher .abilities.cards .card:first-of-type,
-    .teacher .blog.cards .card:first-of-type {
+    .coach .abilities.cards .card:first-of-type,
+    .coach .blog.cards .card:first-of-type {
         padding-left: 2rem;
     }
 
-    .teacher .info .abilities.cards {
+    .coach .info .abilities.cards {
         overflow: hidden;
     }
 
-    .teacher .info .abilities.cards .card:where(:nth-of-type(3), :first-of-type) > div {
+    .coach .info .abilities.cards .card:where(:nth-of-type(3), :first-of-type) > div {
         padding-left: 0;
     }
 
-    .teacher .info .abilities.cards .card:first-of-type {
+    .coach .info .abilities.cards .card:first-of-type {
         padding-left: 0;
     }
 
-    .teacher .abilities.cards .card:last-of-type,
-    .teacher .blog.cards .card:last-of-type {
+    .coach .abilities.cards .card:last-of-type,
+    .coach .blog.cards .card:last-of-type {
         padding-right: 2rem;
     }
 
-    .teacher .tab-menu {
+    .coach .tab-menu {
         position: sticky;
         top: 1rem;
         height: fit-content;
     }
 
-    .teacher section.games .cards {
+    .coach section.games .cards {
         grid-template-columns: initial;
     }
 
-    .teacher .info .abilities.cards::after,
-    .teacher .info .abilities.cards::before {
+    .coach .info .abilities.cards::after,
+    .coach .info .abilities.cards::before {
         display: none;
     }
 
-    .teacher .tab-menu .tab-menu-list .btn {
+    .coach .tab-menu .tab-menu-list .btn {
         width: 100%;
     }
 
-    .teacher .tab-menu .update-button {
+    .coach .tab-menu .update-button {
         position: absolute;
         top: 2rem;
         right: -1.25rem;
         margin: 0;
     }
 
-    .teacher .tab-menu .hours-button{
+    .coach .tab-menu .hours-button{
         position: absolute;
         top: 2rem;
         right: -1.25rem;
         margin: 0;
     }
 
-    .teacher .tab-menu button.update-button + a.update-button {
+    .coach .tab-menu button.update-button + a.update-button {
         top: 5rem;
     }
 
@@ -547,48 +547,48 @@
 
 /* ? XL */
 @media (min-width: 1200px) {
-    .teacher section.games .cards .card a {
+    .coach section.games .cards .card a {
         min-width: 100%;
         margin-top: 1px;
     }
     
-    .teacher section.games .cards:first-of-type .card a {
+    .coach section.games .cards:first-of-type .card a {
         margin-left: 1px;
     }
 
-    .teacher .abilities.cards .card:first-of-type,
-    .teacher .blog.cards .card:first-of-type {
+    .coach .abilities.cards .card:first-of-type,
+    .coach .blog.cards .card:first-of-type {
         padding-left: 10%;
     }
 
-    .teacher section.games .cards .card {
+    .coach section.games .cards .card {
         width: calc(((100vw / 3) - 9rem) / 2);
         min-width: calc(((100vw / 3) - 9rem) / 2);
     }
 
-    .teacher section.games .cards .card:last-of-type:not(:first-of-type, :nth-of-type(2)) {
+    .coach section.games .cards .card:last-of-type:not(:first-of-type, :nth-of-type(2)) {
         width: calc((((100vw / 3) - 9rem) / 2) + calc(((100vw / 10) - 4.5rem) + 5rem));
         min-width: calc((((100vw / 3) - 9rem) / 2) + calc(((100vw / 10) - 4.5rem) + 5rem));
         padding-right: calc(((100vw / 10) - 4.5rem) + 5rem);
     }
 
-    .teacher .abilities.cards .card:last-of-type,
-    .teacher .blog.cards .card:last-of-type {
+    .coach .abilities.cards .card:last-of-type,
+    .coach .blog.cards .card:last-of-type {
         padding-right: 10%;
     }
 
-    .teacher .banner figure {
+    .coach .banner figure {
         margin-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
     }
 
-    .teacher .reviews > header {
+    .coach .reviews > header {
         padding-left: calc(((100% - (5rem * 5)) / 6) + 5rem);
     }
 }
 
 /* ? 2XL */
 @media (min-width: 1536px) {
-    .teacher section.games main {
+    .coach section.games main {
         width: 100%;
     }
 }

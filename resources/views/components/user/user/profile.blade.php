@@ -63,7 +63,7 @@
         <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
             <h3 class="color-white russo uppercase">Reviews</h3>
         </header>
-        @component('components.review.teachers', [
+        @component('components.review.coaches', [
             'reviews' => $user->reviews,
         ])
         @endcomponent

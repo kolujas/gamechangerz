@@ -70,7 +70,7 @@
         });
         
         Route::get("/users", [UserController::class, "users"])->name("api.user.users");
-        Route::get("/teachers", [UserController::class, "teachers"])->name("api.user.teachers");
+        Route::get("/coaches", [UserController::class, "coaches"])->name("api.user.coaches");
         Route::middleware("api.user.exist")->group(function () {
             Route::get("/users/{slug}/lessons", [UserController::class, "lessons"])->name("api.user.lessons");
             Route::middleware("auth:api")->group(function () {

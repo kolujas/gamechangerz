@@ -15,8 +15,8 @@ function makePages (data) {
                 if (window.url.findOriginalRoute() === "/users") {
                     updateUsersList(data);
                 }
-                if (window.url.findOriginalRoute() === "/teachers") {
-                    updateTeachersList(data);
+                if (window.url.findOriginalRoute() === "/coaches") {
+                    updateCoachesList(data);
                 }
             }
         });
@@ -28,11 +28,11 @@ function makePages (data) {
             }
             updateUsersList(data);
         }
-        if (window.url.findOriginalRoute() === "/teachers") {
+        if (window.url.findOriginalRoute() === "/coaches") {
             if (document.querySelector(".filter-pagination")) {
                 document.querySelector(".filter-pagination").innerHTML = "";
             }
-            updateTeachersList(data);
+            updateCoachesList(data);
         }
     }
 }
@@ -42,9 +42,9 @@ function addUser (user) {
     list.appendChild(User.component("user", user));
 }
 
-function addTeacher (user) {
-    let list = document.querySelector(".teachers + .list ul");
-    list.appendChild(User.component("teacher", user));
+function addCoach (user) {
+    let list = document.querySelector(".coaches + .list ul");
+    list.appendChild(User.component("coach", user));
 }
 
 function updateUsersList (data) {
@@ -63,12 +63,12 @@ function updateUsersList (data) {
     }
 }
 
-function updateTeachersList (data) {
-    let list = document.querySelector(".teachers + .list ul");
+function updateCoachesList (data) {
+    let list = document.querySelector(".coaches + .list ul");
     list.innerHTML = "";
     if (data.length) {
         for (const user of data) {
-            addTeacher(user);
+            addCoach(user);
         }
     }
     if (!data.length) {
@@ -98,7 +98,7 @@ function createUsersFilter () {
     filter.run();
 }
 
-function createTeachersFilter () {
+function createCoachesFilter () {
     let value = (document.querySelector("input[type=search].filter-input").value ? document.querySelector("input[type=search].filter-input").value : null);
     let max = 0, min = 0;
     for (const user of users) {
@@ -129,7 +129,7 @@ function createTeachersFilter () {
     }
     changeText();
     filter = new window.filter({
-        id: "filter-teachers",
+        id: "filter-coaches",
         order: {
             "stars": "DESC",
             "prices:[1,2].price": { value: "ASC", active: false },
@@ -164,13 +164,13 @@ async function getUsers (role = 0) {
             }
             break;
         case 1:
-            query = await Fetch.get(`/api/teachers`, {
+            query = await Fetch.get(`/api/coaches`, {
                 "Accept": "application/json",
                 "Content-type": "application/json; charset=UTF-8",
             });
             if (query.response.code === 200) {
                 users = query.response.data.users;
-                createTeachersFilter();
+                createCoachesFilter();
             }
             break;
     }
@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (window.url.findOriginalRoute() === "/users") {
         getUsers(0);
     }
-    if (window.url.findOriginalRoute() === "/teachers") {
+    if (window.url.findOriginalRoute() === "/coaches") {
         getUsers(1);
 
         // * Apply Sliders events

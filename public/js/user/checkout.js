@@ -389,7 +389,7 @@ function checkPayPalState () {
 }
 
 /**
- * * Print the Teacher available Hours.
+ * * Print the Coach available Hours.
  * @param {object} params
  */
 async function printHours (params = {}) {
@@ -430,7 +430,7 @@ async function printHours (params = {}) {
                 if (hasLesson(current.date.parsed)) {
                     // * Loop the Lessons
                     lessons: for (const foundLesson of findLessons(current.date.parsed)) {
-                        // ? If the current Lesson is not the same as another Teacher Lesson
+                        // ? If the current Lesson is not the same as another Coach Lesson
                         if (lesson.id_lesson != foundLesson.id_lesson) {
                             // * Loop the Lesson Days
                             for (const dayFromLesson of foundLesson.days) {

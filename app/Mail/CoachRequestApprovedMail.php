@@ -6,7 +6,7 @@
     use Illuminate\Mail\Mailable;
     use Illuminate\Queue\SerializesModels;
 
-    class TeacherRequestApprovedMail extends Mailable {
+    class CoachRequestApprovedMail extends Mailable {
         use Queueable, SerializesModels;
 
         /** @var array Mail data. */
@@ -25,7 +25,7 @@
          * @return $this
          */
         public function build () {
-            return $this->view('mail.teacher-request-approved')
+            return $this->view('mail.coach-request-approved')
                 ->from(config("mail.from.address"), config("mail.from.name"))
                 ->subject("Solicitud de profesor aprobada");
         }

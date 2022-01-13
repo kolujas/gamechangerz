@@ -70,7 +70,7 @@
                     Route::post("/lessons/{id_lesson}/checkout/{type}", [CheckoutController::class, "complete"])->name("checkout.complete");
                 });
 
-                Route::middleware(["user.exist", "user.status", "auth.role.is.user", "user.is.teacher", "lesson.type.exist", "auth.lesson.current.not.exist"])->group(function () {
+                Route::middleware(["user.exist", "user.status", "auth.role.is.user", "user.is.coach", "lesson.type.exist", "auth.lesson.current.not.exist"])->group(function () {
                     Route::get("/users/{slug}/checkout/{type}", [CheckoutController::class, "show"])->name("checkout.show");
                 });
             });
@@ -94,7 +94,7 @@
         Route::post("/apply", [UserController::class, "apply"])->name("user.apply");
         
         Route::get("/users", [UserController::class, "search"])->name("user.searchUsers");
-        Route::get("/teachers", [UserController::class, "search"])->name("user.searchTeachers");
+        Route::get("/coaches", [UserController::class, "search"])->name("user.searchCoaches");
         Route::middleware(["user.exist", "user.status"])->group(function () {
             Route::middleware("auth.lesson.end")->group(function () {
                 Route::get("/users/{slug}/profile", [UserController::class, "profile"])->name("user.profile");
@@ -124,10 +124,10 @@
             Route::get("/panel/platform", [PanelController::class, "banner"])->name("panel.platform");
             Route::get("/panel/platform/banner", [PanelController::class, "banner"])->name("panel.banner");
             Route::get("/panel/platform/info", [PanelController::class, "info"])->name("panel.info");
-            Route::get("/panel/teachers", [PanelController::class, "teachers"])->name("panel.teachers");
-            Route::get("/panel/teachers/create", [PanelController::class, "teacher"])->name("panel.showCreateTeacher");
+            Route::get("/panel/coaches", [PanelController::class, "coaches"])->name("panel.coaches");
+            Route::get("/panel/coaches/create", [PanelController::class, "coach"])->name("panel.showCreateCoach");
             Route::middleware("user.exist")->group(function () {
-                Route::get("/panel/teachers/{slug}", [PanelController::class, "teacher"])->name("panel.teacher");
+                Route::get("/panel/coaches/{slug}", [PanelController::class, "coach"])->name("panel.coach");
             });
             Route::get("/panel/users", [PanelController::class, "users"])->name("panel.users");
             Route::get("/panel/users/create", [PanelController::class, "user"])->name("panel.showCreateUser");

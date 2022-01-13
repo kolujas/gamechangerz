@@ -28,7 +28,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/teachers" class="nav-link">
+				<a href="/coaches" class="nav-link">
 					<span class="link-text overpass">Coaches</span>
 				</a>
 			</li>

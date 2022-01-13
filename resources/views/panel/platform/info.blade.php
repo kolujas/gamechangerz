@@ -35,7 +35,7 @@
             <div class="pt-0 lg:col-span-2">
                 <label class="flex w-full rounded">
                     <span class="flex justify-center items-center">$</span>
-                    <input type="number" name="dolar" placeholder="Dolar" value="{{ $dolar }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable"/>
+                    <input type="number" name="dolar" placeholder="Dolar" value="{{ $dolar }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input coach-form editable"/>
                 </label>
             </div>
             <div class="pt-0 lg:col-span-2 col-start-1">

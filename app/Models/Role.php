@@ -61,8 +61,8 @@
                 "slug" => "user",
             ], [
                 "id_role" => 1,
-                "name" => "Teacher",
-                "slug" => "teacher",
+                "name" => "Coach",
+                "slug" => "coach",
             ], [
                 "id_role" => 2,
                 "name" => "Admin",

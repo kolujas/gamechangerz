@@ -10,8 +10,8 @@ import Advanced from "../components/Advanced.js";
 import Hours from "../components/Hours.js";
 
 function setDefaultWidth (params) {
-    let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
-    let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");
+    let prices_input = document.querySelectorAll(".coach .tab-menu input[type=number]");
+    let prices_text = document.querySelectorAll(".coach .tab-menu input[type=number] + span");
     prices_text[0].innerHTML = prices_input[0].value;
     prices_text[1].innerHTML = prices_input[1].value;
     prices_text[2].innerHTML = prices_input[2].value;
@@ -159,9 +159,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
         });
     }
 
-    if (document.querySelector("form.teacher")) {
-        let username_input = document.querySelector(".teacher .profile .info .username input");
-        let username_text = document.querySelector(".teacher .profile .info .username span");
+    if (document.querySelector("form.coach")) {
+        let username_input = document.querySelector(".coach .profile .info .username input");
+        let username_text = document.querySelector(".coach .profile .info .username span");
         username_text.innerHTML = username_input.value;
         username_input.setAttribute("style", `--width: ${ username_text.offsetWidth }px`);
         username_input.addEventListener("keyup", function (e) {
@@ -169,9 +169,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
             username_text.innerHTML = this.value;
             this.setAttribute("style", `--width: ${ username_text.offsetWidth }px`);
         });
-        if (document.querySelector(".teacher .profile .info .name input")) {
-            let name_input = document.querySelector(".teacher .profile .info .name input");
-            let name_text = document.querySelector(".teacher .profile .info .name span");
+        if (document.querySelector(".coach .profile .info .name input")) {
+            let name_input = document.querySelector(".coach .profile .info .name input");
+            let name_text = document.querySelector(".coach .profile .info .name span");
             name_text.innerHTML = name_input.value;
             name_input.setAttribute("style", `--width: ${ name_text.offsetWidth }px`);
             name_input.addEventListener("keyup", function (e) {
@@ -180,9 +180,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 this.setAttribute("style", `--width: ${ name_text.offsetWidth }px`);
             });
         }
-        if (document.querySelector(".teacher .profile .info .teampro div input")) {
-            let teampro_name_input = document.querySelector(".teacher .profile .info .teampro div input");
-            let teampro_name_text = document.querySelector(".teacher .profile .info .teampro div span");
+        if (document.querySelector(".coach .profile .info .teampro div input")) {
+            let teampro_name_input = document.querySelector(".coach .profile .info .teampro div input");
+            let teampro_name_text = document.querySelector(".coach .profile .info .teampro div span");
             teampro_name_text.innerHTML = teampro_name_input.value;
             teampro_name_input.setAttribute("style", `--width: ${ teampro_name_text.offsetWidth }px`);
             teampro_name_input.addEventListener("keyup", function (e) {
@@ -191,9 +191,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 this.setAttribute("style", `--width: ${ teampro_name_text.offsetWidth }px`);
             });
         }
-        if (document.querySelectorAll(".teacher .tab-menu input[type=number]").length === 3) {
-            let prices_input = document.querySelectorAll(".teacher .tab-menu input[type=number]");
-            let prices_text = document.querySelectorAll(".teacher .tab-menu input[type=number] + span");
+        if (document.querySelectorAll(".coach .tab-menu input[type=number]").length === 3) {
+            let prices_input = document.querySelectorAll(".coach .tab-menu input[type=number]");
+            let prices_text = document.querySelectorAll(".coach .tab-menu input[type=number] + span");
             prices_text[0].innerHTML = prices_input[0].value;
             prices_text[1].innerHTML = prices_input[1].value;
             prices_text[2].innerHTML = prices_input[2].value;
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 button: ["update-input"],
             },
         }, {
-            generate: document.querySelector(".teacher .banner figure"),
+            generate: document.querySelector(".coach .banner figure"),
             image: new Asset(`storage/${ files.profile }`).route,
             disabled: true,
         });
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 button: ["update-input"],
             },
         }, {
-            generate: document.querySelector(".teacher .info .teampro figure"),
+            generate: document.querySelector(".coach .info .teampro figure"),
             image: files.hasOwnProperty("teampro") ? new Asset(`storage/${ files.teampro }`).route : "",
             disabled: true,
         });

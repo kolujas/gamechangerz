@@ -1,13 +1,13 @@
-.teachers form {
+.coaches form {
     background-color: var(--color-black);
 }
 
-.teachers #order .dropdown-header {
+.coaches #order .dropdown-header {
     background-color: var(--color-one);
     border-radius: .25rem;
 }
 
-.teachers input[type=search] {
+.coaches input[type=search] {
     width: 80%;
     height: 2.5rem;
     border-radius: .25rem;
@@ -16,91 +16,91 @@
     font-family: var(--font-two);
 }
 
-.teachers input[type=search]::placeholder {
+.coaches input[type=search]::placeholder {
     font-size: 1rem;
     color: var(--color-grey);
     font-family: var(--font-two);
 }
 
-.teachers .dropdown {
+.coaches .dropdown {
     --dropdown-header-background-color-alternative: var(--color-one);
 }
 
-.teachers .dropdown label input {
+.coaches .dropdown label input {
     display: none;
 }
 
-.teachers .dropdown label input + span {
+.coaches .dropdown label input + span {
     transition: 600ms;
     color: var(--color-three);    
 }
 
-.teachers .dropdown label input:checked + span {
+.coaches .dropdown label input:checked + span {
     color: var(--color-white);    
 }
 
-.teachers .dropdown li{
+.coaches .dropdown li{
     padding: .5rem;
 }
 
-.teachers .dropdown li label {
+.coaches .dropdown li label {
     cursor: pointer;
 }
 
-.teachers .dropdown li:not(:last-of-type) {
+.coaches .dropdown li:not(:last-of-type) {
     border-bottom: 1px solid var(--color-grey);
 }
 
-.teachers .dropdown-content{
+.coaches .dropdown-content{
     z-index: 4;
     width: 100%;
 }
 
-.teachers #order .dropdown-content{
+.coaches #order .dropdown-content{
     color: var(--color-grey);
     background-color: var(--color-one);
 }
 
-.teachers + .list .teachers .teacher{
+.coaches + .list .coaches .coach{
     margin-top: 1rem;
     margin-bottom: 3rem;
 }
 
-.teachers .dropdown-header span{
+.coaches .dropdown-header span{
     color: var(--color-three);
     font-weight: 600;
     white-space: nowrap;
     padding: 0 .5rem;
 }
 
-.teacher .mobile-btn{
+.coach .mobile-btn{
     background-color: var(--color-one);
 }
 
-.teacher .team-icon figure img{
+.coach .team-icon figure img{
     height: 56px;
     width: 32px;
     object-fit: cover;
 }
 
-.teacher .languages{
+.coach .languages{
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.teacher .abilities ul{
+.coach .abilities ul{
     width: 5rem;
 }
 
-.teachers .teacher .btn.btn-outline span{
+.coaches .coach .btn.btn-outline span{
     background-color: var(--color-one);
     padding: .5rem 0;
 }
 
-.teachers .dropdown-header {
+.coaches .dropdown-header {
     background-color: var(--color-black);
 }
 
-.teachers .dropdown.opened .dropdown-header {
+.coaches .dropdown.opened .dropdown-header {
     background-color: var(--color-black);
 }
 
@@ -108,44 +108,44 @@
     transform: rotateX(180deg);
 }
 
-.teachers .dropdown-content{
+.coaches .dropdown-content{
     width: fit-content;
     min-width: 100%;
     z-index: 10;
     border-radius: .25rem;
 }
 
-.teachers .dropdown-content li label span {
+.coaches .dropdown-content li label span {
     white-space: nowrap;
 }
 
-.teachers .range-slider .range-slider-text {
+.coaches .range-slider .range-slider-text {
     background: var(--color-black);
     width: calc(var(--width) + 1rem);
     -moz-appearance: textfield;
     appearance: textfield;
 }
 
-.teachers .range-slider .range-slider-text::-webkit-inner-spin-button, 
-.teachers .range-slider .range-slider-text::-webkit-outer-spin-button { 
+.coaches .range-slider .range-slider-text::-webkit-inner-spin-button, 
+.coaches .range-slider .range-slider-text::-webkit-outer-spin-button { 
     -webkit-appearance: none; 
     margin: 0; 
 }
 
-.teachers .range-slider .range-slider-text:focus {
+.coaches .range-slider .range-slider-text:focus {
     background: #000;
 }
 
-.teachers .range-slider label {
+.coaches .range-slider label {
     position: fixed;
     left: -100000rem;
 }
 
-.teachers .teacher main{
+.coaches .coach main{
     position: relative;
 }
 
-.teachers .teacher main::before{
+.coaches .coach main::before{
     content: '';
     position: absolute;
     top: -1px;
@@ -158,19 +158,19 @@
 }
 
 
-.teachers #payment div{
+.coaches #payment div{
     background: var(--color-black);
     color: var(--color-four);
 }
 
-.teachers input[type=range] {
+.coaches input[type=range] {
     -webkit-appearance: none;
     background: var(--color-three);
     height: .5rem;
     border-radius: 5px;
 }
 
-.teachers input[type=range]::-webkit-slider-thumb {
+.coaches input[type=range]::-webkit-slider-thumb {
     height: 12px;
     width: 12px;
     border-radius: 100vw;
@@ -257,35 +257,35 @@ div.range-slider input[type=range]::-moz-focus-outer {
 
 /* ? LG */
 @media(min-width: 1024px){
-    .teacher .abilities ul{
+    .coach .abilities ul{
         width: 100%;
     }
 }
 
 /* ? XL */
 @media(min-width: 1200px){
-    .teacher .username h4{
+    .coach .username h4{
         font-size: 1.6rem;
     }
 
-    .teacher .username h5{
+    .coach .username h5{
         font-size: 1.1rem;
     }
 
-    .teacher .abilities ul{
+    .coach .abilities ul{
         display: flex;
         flex-wrap: wrap;
     }
 
-    .teacher .abilities ul li{
+    .coach .abilities ul li{
         width: fit-content;
     }
 
-    .teacher .abilities ul li span{
+    .coach .abilities ul li span{
         font-size: 1rem;
     }
 
-    .teacher .teampro{
+    .coach .teampro{
         flex-basis: 50%;
     }
 }

@@ -1,9 +1,9 @@
-<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" enctype="multipart/form-data" class="teacher hive pb-16">
+<form id="update-form" action="/users/{{ $user->slug }}/update" method="post" enctype="multipart/form-data" class="coach hive pb-16">
     @csrf
     @method('POST')
     <section class="profile lg:grid lg:grid-cols-3 xl:grid-cols-10 lg:gap-20">
         <header class="info grid lg:col-span-2 xl:col-span-5 xl:col-start-2 pt-20">
-            @component('components.user.teacher.data', [
+            @component('components.user.coach.data', [
                 'user' => $user,
             ])
             @endcomponent

@@ -1,7 +1,7 @@
-<ul class="teachers flex justify-center flex-wrap">
+<ul class="coaches flex justify-center flex-wrap">
     @if (count($users))
         @foreach ($users as $user)
-            <li class="teacher">
+            <li class="coach">
                 <a href="/users/{{ $user->slug }}/profile" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
                     <header class="profile lg:col-span-6 mt-4 ml-4 lg:my-4">
                         <div class="grid gap-4 lg:flex lg:flex-wrap">

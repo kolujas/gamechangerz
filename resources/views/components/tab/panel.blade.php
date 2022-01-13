@@ -10,8 +10,8 @@
     </a>
 </li>
 
-<li id="tab-teachers" class="tab">
-    <a href="/panel/teachers" class="sidebar-link tab-button russo">
+<li id="tab-coaches" class="tab">
+    <a href="/panel/coaches" class="sidebar-link tab-button russo">
         Coaches
     </a>
 </li>

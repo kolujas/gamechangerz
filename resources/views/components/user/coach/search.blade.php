@@ -1,4 +1,4 @@
-<section class="teachers lg:grid lg:grid-cols-10 px-8 lg:px-0">
+<section class="coaches lg:grid lg:grid-cols-10 px-8 lg:px-0">
     <header class="lg:col-span-8 lg:col-start-2">
         <h2 class="color-two text-2xl text-left pt-24 xl:text-2xl russo">Buscador de coaches</h2>
     </header>
@@ -13,7 +13,7 @@
                 @foreach ($games as $game)                     
                     <li>
                         <label>
-                            <input type="checkbox" data-name="games.slug" value="{{ $game->slug }}" class="hidden filter-input filter-teachers rule">
+                            <input type="checkbox" data-name="games.slug" value="{{ $game->slug }}" class="hidden filter-input filter-coaches rule">
                             <span class="overpass">{{ $game->name }}</span>
                         </label>
                     </li>
@@ -31,7 +31,7 @@
                     @foreach ($game->abilities as $ability)
                         <li>
                             <label>
-                                <input type="checkbox" data-name="games.abilities.slug" value="{{ $ability->slug }}" class="hidden filter-input filter-teachers rule">
+                                <input type="checkbox" data-name="games.abilities.slug" value="{{ $ability->slug }}" class="hidden filter-input filter-coaches rule">
                                 <span class="overpass">{{ $ability->name }}</span>
                             </label>
                         </li>
@@ -48,19 +48,19 @@
             <ul class="dropdown-content">                        
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days.hours.time" value=1>
+                        <input type="checkbox" class="filter-input filter-coaches rule" data-name="days.hours.time" value=1>
                         <span class="overpass">Mañana</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days.hours.time" value=2>
+                        <input type="checkbox" class="filter-input filter-coaches rule" data-name="days.hours.time" value=2>
                         <span class="overpass">Tarde</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="checkbox" class="filter-input filter-teachers rule" data-name="days.hours.time" value=3>
+                        <input type="checkbox" class="filter-input filter-coaches rule" data-name="days.hours.time" value=3>
                         <span class="overpass">Noche</span>
                     </label>
                 </li>
@@ -75,15 +75,15 @@
             <ul class="dropdown-content">                        
                 <li>
                     <div class="flex items-center overpass color-three mb-2">
-                        <input id="min" class="range-slider-text min p-2 filter-input filter-teachers rule" type="number" data-name="prices.price" value="1" min="1" max="50000">
+                        <input id="min" class="range-slider-text min p-2 filter-input filter-coaches rule" type="number" data-name="prices.price" value="1" min="1" max="50000">
                         <label for="min">1</label>
                         <span class="mx-2">-</span>
-                        <input id="max" class="range-slider-text max p-2 filter-input filter-teachers rule" type="number" data-name="prices.price" value="50000" min="1" max="50000">
+                        <input id="max" class="range-slider-text max p-2 filter-input filter-coaches rule" type="number" data-name="prices.price" value="50000" min="1" max="50000">
                         <label for="max">50000</label>
                     </div>
                     <div class="relative w-full h-3">
-                        <input multiple class="range-slider-bar filter-input filter-teachers rule min" data-name="prices.price" value="1" min="1" max="50000" step="1" type="range">
-                        <input multiple class="range-slider-bar filter-input filter-teachers rule max" data-name="prices.price" value="50000" min="1" max="50000" step="1" type="range">
+                        <input multiple class="range-slider-bar filter-input filter-coaches rule min" data-name="prices.price" value="1" min="1" max="50000" step="1" type="range">
+                        <input multiple class="range-slider-bar filter-input filter-coaches rule max" data-name="prices.price" value="50000" min="1" max="50000" step="1" type="range">
                     </div>
                 </li>
             </ul>
@@ -91,7 +91,7 @@
     </div>
 
     <form class="flex justify-center lg:justify-between my-4 py-2 pl-4 pr-2 lg:col-span-8 lg:col-start-2 mb-8 lg:mb-12 rounded" action="#">
-        <input class="rounded filter-input filter-teachers rule" data-name="username|name" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
+        <input class="rounded filter-input filter-coaches rule" data-name="username|name" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
         <div id="order" class="dropdown closed">
             <a class="dropdown-header dropdown-button" href="#">
                 <span class="overpass hidden md:inline">Ordenar por</span>
@@ -100,13 +100,13 @@
             <ul class="dropdown-content">                        
                 <li>
                     <label>
-                        <input type="radio" name="order" data-name="prices.price" class="filter-input filter-teachers order">
+                        <input type="radio" name="order" data-name="prices.price" class="filter-input filter-coaches order">
                         <span class="overpass">Precio más bajo</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="radio" name="order" data-name="stars" checked class="filter-input filter-teachers order">
+                        <input type="radio" name="order" data-name="stars" checked class="filter-input filter-coaches order">
                         <span class="overpass">Puntuación</span>
                     </label>
                 </li>
@@ -117,7 +117,7 @@
 
 <section class="list lg:grid lg:grid-cols-10 px-8 lg:px-0">
     <main class="lg:col-span-8 lg:col-start-2">
-        @component('components.user.teacher.list',[
+        @component('components.user.coach.list',[
             'users' => [],
         ])
         @endcomponent

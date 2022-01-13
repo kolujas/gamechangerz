@@ -31,14 +31,14 @@
          */
         static public function call (Request $request, string $section, string $action) {
             switch ($section) {
-                case "teachers":
+                case "coaches":
                     switch ($action) {
                         case "create":
-                            return UserController::doCreateTeacher($request);
+                            return UserController::doCreateCoach($request);
                         case "delete":
-                            return UserController::doDeleteTeacher($request);
+                            return UserController::doDeleteCoach($request);
                         case "update":
-                            return UserController::doUpdateTeacher($request);
+                            return UserController::doUpdateCoach($request);
                         default:
                             dd("Call to an undefined action \"$action\"");
                     }
@@ -63,14 +63,14 @@
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        static public function doCreateTeacher (Request $request) {
+        static public function doCreateCoach (Request $request) {
             $input = (object) $request->all();
 
             if (!isset($input->id_status)) {
                 $input->id_status = "1";
             }
 
-            $validator = Validator::make((array) $input, User::$validation["teacher"]["panel"]["create"]["rules"], User::$validation["teacher"]["panel"]["create"]["messages"]["es"]);
+            $validator = Validator::make((array) $input, User::$validation["coach"]["panel"]["create"]["rules"], User::$validation["coach"]["panel"]["create"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -159,7 +159,7 @@
                 "link" => "https://auth.mercadopago.com.ar/authorization?client_id=" . config("services.mercadopago.app_id") . "&response_type=code&platform_id=mp&state=$user->id_user&redirect_uri=https://gamechangerz.gg/mercadopago/authorization",
             ]);
 
-            return redirect("/panel/teachers/$user->slug")->with("status", [
+            return redirect("/panel/coaches/$user->slug")->with("status", [
                 "code" => 200,
                 "message" => "Profesor creado exitosamente.",
             ]);
@@ -170,13 +170,13 @@
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        static public function doDeleteTeacher (Request $request) {
+        static public function doDeleteCoach (Request $request) {
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
             $user->and(["files", "posts"]);
 
-            $validator = Validator::make($request->all(), User::$validation["teacher"]["panel"]["delete"]["rules"], User::$validation["teacher"]["panel"]["delete"]["messages"]["es"]);
+            $validator = Validator::make($request->all(), User::$validation["coach"]["panel"]["delete"]["rules"], User::$validation["coach"]["panel"]["delete"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -231,7 +231,7 @@
 
             $user->delete();
 
-            return redirect("/panel/teachers")->with("status", [
+            return redirect("/panel/coaches")->with("status", [
                 "code" => 200,
                 "message" => "Profesor eliminado exitosamente.",
             ]);
@@ -242,13 +242,13 @@
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        static public function doUpdateTeacher (Request $request) {
+        static public function doUpdateCoach (Request $request) {
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
             $user->and(["files"]);
 
-            $validator = Validator::make($request->all(), Controller::replaceUnique(User::$validation["teacher"]["panel"]["update"]["rules"], $user->id_user), User::$validation["teacher"]["panel"]["update"]["messages"]["es"]);
+            $validator = Validator::make($request->all(), Controller::replaceUnique(User::$validation["coach"]["panel"]["update"]["rules"], $user->id_user), User::$validation["coach"]["panel"]["update"]["messages"]["es"]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
@@ -345,7 +345,7 @@
             $user->update((array) $input);
             User::requilify($user->id_user);
 
-            return redirect("/panel/teachers/$user->slug")->with("status", [
+            return redirect("/panel/coaches/$user->slug")->with("status", [
                 "code" => 200,
                 "message" => "Profesor actualizado exitosamente.",
             ]);

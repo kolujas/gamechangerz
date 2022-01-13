@@ -282,11 +282,7 @@
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
-            try {
-                $this->users->from->and(['files', 'prices', 'games', 'abilities']);
-            } catch (\Throwable $th) {
-                ddd($this);
-            }
+            $this->users->from->and(['files', 'prices', 'games', 'abilities']);
             $this->users->to->and(['files', 'games']);
         }
 
@@ -381,7 +377,7 @@
          * @param  int $id_user
          * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function scopeByTeacher ($query, int $id_user) {
+        static public function scopeByCoach ($query, int $id_user) {
             return $query->where([
                 ['id_user_from', $id_user],
                 ['id_status', '>', 1],

@@ -1,24 +1,24 @@
 
-ul.teachers .teacher h4 {
+ul.coaches .coach h4 {
     font-size: 1.5rem;
 }
 
-ul.teachers .teacher .team-name {
+ul.coaches .coach .team-name {
     display: inline-block;
     background-color: var(--color-one);
     color: var(--color-four);
     max-height: 2rem;
 }
 
-ul.teachers .teacher .languages svg {
+ul.coaches .coach .languages svg {
     width: 1.5rem;
 }
 
-ul.teachers .image figure{
+ul.coaches .image figure{
     height: 22rem;
 }
 
-ul.teachers .image img {
+ul.coaches .image img {
     width: 100%;
     height: calc(100% + 2rem);
     object-fit: cover;
@@ -27,65 +27,65 @@ ul.teachers .image img {
     top: -2rem;
 }
 
-ul.teachers .btn {
+ul.coaches .btn {
    z-index: 1;
 }
 
-ul.teachers .abilities li {
+ul.coaches .abilities li {
     border: 1px solid var(--color-white);
 }
 
-ul.teachers .abilities li span {
+ul.coaches .abilities li span {
     flex-basis: 100%;
 }
 
-ul.teachers .abilities li svg {
+ul.coaches .abilities li svg {
     height: 2.5rem;
 }
 
-ul.teachers .teacher{
+ul.coaches .coach{
     background-color: var(--color-black);
     border-radius: .25rem;
 } 
 
-ul.teachers .teacher .profile .info{
+ul.coaches .coach .profile .info{
     width: fit-content;
 }
 
-ul.teachers .teacher .profile .info + .team-icon figure{
+ul.coaches .coach .profile .info + .team-icon figure{
     height: 100%;
 }
 
-ul.teachers .teacher .profile .info .team-name{
+ul.coaches .coach .profile .info .team-name{
     position: relative;
     top: 1px;
 }
 
-ul.teachers .teacher .profile .info .team-name .inner-text{
+ul.coaches .coach .profile .info .team-name .inner-text{
     position: relative;
     top: 2px;
 } 
 
 /* ? MD */
 @media (min-width: 768px) {
-    ul.teachers .teacher .abilities li svg {
+    ul.coaches .coach .abilities li svg {
         height: 2rem;
     }
 
-    ul.teachers .teacher .team-icon figure img{
+    ul.coaches .coach .team-icon figure img{
         height: 56px;
         width: 40px;
         object-fit: contain;
     }
 
-    ul.teachers .image figure{
+    ul.coaches .image figure{
         width: calc(((100vw - 4rem) - 2rem) / 3);
     }
 }
 
 /* ? LG */
 @media (min-width: 1024px) {
-    ul.teachers .image figure {
+    ul.coaches .image figure {
         width: calc(((((100vw / 10) * 8) - 2rem) / 10) * 3);
     }
 }
@@ -93,12 +93,12 @@ ul.teachers .teacher .profile .info .team-name .inner-text{
 /* ? XL */
 @media (min-width: 1200px) {
 
-    ul.teachers .image img {
+    ul.coaches .image img {
         height: calc(100% + 10rem);
     }
 
 
-    ul.teachers .image figure{
+    ul.coaches .image figure{
         height: 15rem;
         width: calc((((((100vw - 17px) / 10) * 8) - 2rem) / 12) * 4);
         clip-path: polygon(0 -2rem, 100% -2rem, 100% 100%, 0 100%);

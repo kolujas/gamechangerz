@@ -127,9 +127,9 @@ export class User extends window.class {
         return item.html;
     }
 
-    static teacher (data) {
+    static coach (data) {
         let item = document.createElement('li');
-        item.classList.add('teacher');
+        item.classList.add('coach');
             let main = document.createElement('main');
             main.classList.add("grid", "grid-cols-2", "md:grid-cols-3", "lg:grid-cols-12", "gap-4");
             item.appendChild(main);

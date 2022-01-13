@@ -120,11 +120,11 @@
                 <div class="pt-0 col-span-4 col-start-1 grid grid-cols-2 gap-8">
                     <h3 class="col-span-2 russo color-white uppercase">Créditos</h3>
                     <div>
-                        <input type="number" tabindex="6" name="credits" placeholder="0" value="{{ old("credits", $user->credits) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                        <input type="number" tabindex="6" name="credits" placeholder="0" value="{{ old("credits", $user->credits) }}" class="px-5 py-4 form-input coach-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                         @if ($errors->has("credits"))
-                            <span class="block color-white error support teacher-form support-box support-credits mt-2 overpass">{{ $errors->first("credits") }}</span>
+                            <span class="block color-white error support coach-form support-box support-credits mt-2 overpass">{{ $errors->first("credits") }}</span>
                         @else
-                            <span class="block color-white error support teacher-form support-box hidden support-credits mt-2 overpass"></span>
+                            <span class="block color-white error support coach-form support-box hidden support-credits mt-2 overpass"></span>
                         @endif
                     </div>
                 </div>

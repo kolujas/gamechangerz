@@ -27,12 +27,12 @@ new window.inputfile({
     accept: ['image/png'],
     button: (user.hasOwnProperty("id_user") ? "Cambiar foto" : 'Subir foto'),
     classes: {
-        input: ['teacher-pic', 'editable', 'form-input', 'teacher-form'],
-        button: ['teacher-button', 'editable', 'btn', 'btn-outline', 'btn-one', 'my-4', (user.hasOwnProperty("id_user") ? 'hidden' : 'inline')],
-        message: ['teacher-msg', 'color-white', 'block', 'russo', 'w-full']
+        input: ['coach-pic', 'editable', 'form-input', 'coach-form'],
+        button: ['coach-button', 'editable', 'btn', 'btn-outline', 'btn-one', 'my-4', (user.hasOwnProperty("id_user") ? 'hidden' : 'inline')],
+        message: ['coach-msg', 'color-white', 'block', 'russo', 'w-full']
     },
     message: 'Foto de perfíl',
-    id: 'teacher-photo',
+    id: 'coach-photo',
     name: 'profile'
 },{
     disabled: true,
@@ -42,7 +42,7 @@ new window.inputfile({
 
 document.querySelector('.profile-photo').appendChild(new window.html("span", {
     props: {
-        classes: ["error", "support", "teacher-form", "support-box", "hidden", "support-profile", "mt-1", "overpass", "color-white"]
+        classes: ["error", "support", "coach-form", "support-box", "hidden", "support-profile", "mt-1", "overpass", "color-white"]
     }
 }).html);
 
@@ -50,12 +50,12 @@ new window.inputfile({
     accept: ['image/png'],
     button: (user.hasOwnProperty("id_user") ? "Cambiar logo" : 'Subir logo'),
     classes: {
-        input: ['teacher-banner', 'editable', 'form-input', 'teacher-form'],
-        button: ['teacher-button', 'editable', 'btn', 'btn-outline', 'btn-one', 'my-4', (user.hasOwnProperty("id_user") ? 'mx-10' : 'mx-5'), (user.hasOwnProperty("id_user") ? 'hidden' : 'inline')],
-        message: ['teacher-msg', 'color-white', 'block', 'russo', 'w-full']
+        input: ['coach-banner', 'editable', 'form-input', 'coach-form'],
+        button: ['coach-button', 'editable', 'btn', 'btn-outline', 'btn-one', 'my-4', (user.hasOwnProperty("id_user") ? 'mx-10' : 'mx-5'), (user.hasOwnProperty("id_user") ? 'hidden' : 'inline')],
+        message: ['coach-msg', 'color-white', 'block', 'russo', 'w-full']
     },
     message: 'Logo del teampro',
-    id: 'teacher-teampro',
+    id: 'coach-teampro',
     name: 'teampro_logo'
 },{
     disabled: true,
@@ -65,33 +65,33 @@ new window.inputfile({
 
 document.querySelector('.teampro-photo').appendChild(new window.html("span", {
     props: {
-        classes: ["error", "support", "teacher-form", "support-box", "hidden", "support-teampro_logo", "mt-1", "overpass", "color-white"]
+        classes: ["error", "support", "coach-form", "support-box", "hidden", "support-teampro_logo", "mt-1", "overpass", "color-white"]
     }
 }).html);
 
 function submit (params) {
     switch (params.type) {
         case "create":
-            validation.teacher.create.ValidationJS.html.action = `/panel/teachers/create`;
-            document.querySelector("form#teacher-form input[name=_method]").value = "POST";
+            validation.coach.create.ValidationJS.html.action = `/panel/coaches/create`;
+            document.querySelector("form#coach-form input[name=_method]").value = "POST";
             break;
         case "delete":
-            validation.teacher.create.ValidationJS.html.action = `/panel/teachers/${ user.slug }/delete`;
-            document.querySelector("form#teacher-form input[name=_method]").value = "DELETE";
+            validation.coach.create.ValidationJS.html.action = `/panel/coaches/${ user.slug }/delete`;
+            document.querySelector("form#coach-form input[name=_method]").value = "DELETE";
             break;
         case "update":
-            validation.teacher.create.ValidationJS.html.action = `/panel/teachers/${ user.slug }/update`;
-            document.querySelector("form#teacher-form input[name=_method]").value = "PUT";
+            validation.coach.create.ValidationJS.html.action = `/panel/coaches/${ user.slug }/update`;
+            document.querySelector("form#coach-form input[name=_method]").value = "PUT";
             break;
     }
-    validation.teacher.create.ValidationJS.html.submit();
+    validation.coach.create.ValidationJS.html.submit();
 }
 
-if (validation.hasOwnProperty("teacher")) {
-    validation.teacher.create.ValidationJS = new window.validation({
-        id: "teacher-form",
-        rules: validation.teacher.create.rules,
-        messages: validation.teacher.create.messages,
+if (validation.hasOwnProperty("coach")) {
+    validation.coach.create.ValidationJS = new window.validation({
+        id: "coach-form",
+        rules: validation.coach.create.rules,
+        messages: validation.coach.create.messages,
     }, {
         submit: false,
         active: true,
@@ -103,10 +103,10 @@ if (validation.hasOwnProperty("teacher")) {
             },
         }
     });
-    validation.teacher.update.ValidationJS = new window.validation({
-        id: "teacher-form",
-        rules: validation.teacher.update.rules,
-        messages: validation.teacher.update.messages,
+    validation.coach.update.ValidationJS = new window.validation({
+        id: "coach-form",
+        rules: validation.coach.update.rules,
+        messages: validation.coach.update.messages,
     }, {
         submit: false,
         active: false,
@@ -118,10 +118,10 @@ if (validation.hasOwnProperty("teacher")) {
             },
         }
     });
-    validation.teacher.delete.ValidationJS = new window.validation({
-        id: "teacher-form",
-        rules: validation.teacher.delete.rules,
-        messages: validation.teacher.delete.messages,
+    validation.coach.delete.ValidationJS = new window.validation({
+        id: "coach-form",
+        rules: validation.coach.delete.rules,
+        messages: validation.coach.delete.messages,
     }, {
         submit: false,
         active: false,
@@ -136,28 +136,28 @@ if (validation.hasOwnProperty("teacher")) {
 }
 
 document.querySelector('.editBtn').addEventListener('click', function(){
-    validation.teacher.create.ValidationJS.setState("active", false);
-    validation.teacher.update.ValidationJS.setState("active", true);
+    validation.coach.create.ValidationJS.setState("active", false);
+    validation.coach.update.ValidationJS.setState("active", true);
 });   
 
 document.querySelector('.cancelBtn').addEventListener('click', function(){
-    validation.teacher.update.ValidationJS.setState("active", false);
-    validation.teacher.delete.ValidationJS.setState("active", false);
+    validation.coach.update.ValidationJS.setState("active", false);
+    validation.coach.delete.ValidationJS.setState("active", false);
 });
 
 document.querySelector('.deleteBtn').addEventListener('click', function(){
-    validation.teacher.create.ValidationJS.setState("active", false);
-    validation.teacher.delete.ValidationJS.setState("active", true);
+    validation.coach.create.ValidationJS.setState("active", false);
+    validation.coach.delete.ValidationJS.setState("active", true);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
     if (/update/.exec(window.url.findHashParameter())) {
-        validation.teacher.create.ValidationJS.setState("active", false);
-        validation.teacher.update.ValidationJS.setState("active", true);
+        validation.coach.create.ValidationJS.setState("active", false);
+        validation.coach.update.ValidationJS.setState("active", true);
     }
     
     if (/delete/.exec(window.url.findHashParameter())) {
-        validation.teacher.create.ValidationJS.setState("active", false);
-        validation.teacher.delete.ValidationJS.setState("active", true);
+        validation.coach.create.ValidationJS.setState("active", false);
+        validation.coach.delete.ValidationJS.setState("active", true);
     }
 });

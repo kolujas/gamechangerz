@@ -5,7 +5,7 @@
     use Closure;
     use Illuminate\Http\Request;
 
-    class CheckUserIsTeacher {
+    class CheckUserIsCoach {
         /**
          * Handle an incoming request.
          *
@@ -19,7 +19,7 @@
             if ($user->id_role !== 1) {
                 $request->session()->put('error', [
                     'code' => 403,
-                    'message' => "$user->username is not a teacher",
+                    'message' => "$user->username is not a coach",
                 ]);
 
                 return redirect()->back();

@@ -9,7 +9,7 @@
 @endsection
 
 @section("css")
-    <link href={{ asset("css/panel/teacher/details.css") }} rel="stylesheet">
+    <link href={{ asset("css/panel/coach/details.css") }} rel="stylesheet">
 @endsection
 
 @section("tabs")
@@ -18,8 +18,8 @@
 @endsection
 
 @section("content")
-    <li id="teacher" class="tab-content p-12 closed">
-        <form id="teacher-form" action="#" method="post" enctype="multipart/form-data">
+    <li id="coach" class="tab-content p-12 closed">
+        <form id="coach-form" action="#" method="post" enctype="multipart/form-data">
             @csrf
             @method("POST")
 
@@ -37,9 +37,9 @@
                         <i class="fas fa-trash"></i>
                     </a>
                     <div class="msg-modal hidden mr-4">
-                        <input type="text" class="px-5 py-4 rounded form-input teacher-form" placeholder='Escribí "BORRAR" para confirmar' name="message">
+                        <input type="text" class="px-5 py-4 rounded form-input coach-form" placeholder='Escribí "BORRAR" para confirmar' name="message">
                     </div>
-                    <button type="submit" class="btn btn-white btn-icon hidden submitBtn form-submit teacher-form">
+                    <button type="submit" class="btn btn-white btn-icon hidden submitBtn form-submit coach-form">
                         <i class="fas fa-check"></i>
                     </button>
                     <a class="btn btn-three btn-icon ml-4 hidden cancelBtn" href="#">
@@ -58,25 +58,25 @@
                     <label class="text-gray-700 input-option">
                         <div class="input-text flex items-center">
                             <span class="overpass color-white mr-2">Destacado</span>
-                            <input class="overpass form-input teacher-form editable" tabindex="1" name="important" type="checkbox" @if ($user->important) checked @endif @if(isset($user->id_user)) disabled @endif/>
+                            <input class="overpass form-input coach-form editable" tabindex="1" name="important" type="checkbox" @if ($user->important) checked @endif @if(isset($user->id_user)) disabled @endif/>
                             <div class="input-box mr-2"></div>
                         </div>
                     </label>
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <input type="text" tabindex="2" name="name" placeholder="Nombre del profesor" value="{{ old("name", $user->name) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-name mt-2 overpass"></span>
+                    <input type="text" tabindex="2" name="name" placeholder="Nombre del profesor" value="{{ old("name", $user->name) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-coach form-input coach-form editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support coach-form support-box hidden support-name mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable not-default" disabled>
+                    <select name="id_status" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input coach-form editable not-default" disabled>
                         <option class="overpass" disabled @if (!old("id_status", $user->id_status)) selected @endif>Estado</option>
                         <option class="overpass" value="0" @if (intval(old("id_status", $user->id_status)) === 0) selected @endif>Baneado</option>
                         <option class="overpass" value="1" @if (intval(old("id_status", $user->id_status)) === 1 || !isset($user->id_user)) selected @endif>Correo pendiente de aprobación</option>
                         <option class="overpass" value="2" @if (intval(old("id_status", $user->id_status)) === 2) selected @endif>Habilitado</option>
                     </select>
-                    <span class="block color-white error support teacher-form support-box hidden support-id_status mt-2 overpass"></span>
+                    <span class="block color-white error support coach-form support-box hidden support-id_status mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2 row-span-3 profile-photo text-center flex content-start flex-wrap justify-center"></div>
@@ -84,48 +84,48 @@
                 <div class="pt-0 col-span-2 row-span-3 teampro-photo text-center flex content-start flex-wrap justify-center"></div>
 
                 <div class="pt-0 col-span-2">
-                    <input type="text" tabindex="3" name="email" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
+                    <input type="text" tabindex="3" name="email" placeholder="Email" value="{{ old("email", $user->email) }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input coach-form editable" @if(isset($user->id_user)) disabled @endif/>
                     @if ($errors->has("email"))
-                        <span class="block color-white error support teacher-form support-box support-email mt-2 overpass">{{ $errors->first("email") }}</span>
+                        <span class="block color-white error support coach-form support-box support-email mt-2 overpass">{{ $errors->first("email") }}</span>
                     @else
-                        <span class="block color-white error support teacher-form support-box hidden support-email mt-2 overpass"></span>
+                        <span class="block color-white error support coach-form support-box hidden support-email mt-2 overpass"></span>
                     @endif
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <input type="password" tabindex="4" name="password" placeholder="Contraseña" value="{{ old("password") }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-teacher form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-password mt-2 overpass"></span>
+                    <input type="password" tabindex="4" name="password" placeholder="Contraseña" value="{{ old("password") }}" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full input-coach form-input coach-form editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support coach-form support-box hidden support-password mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2 col-start-1">
-                    <input type="text" tabindex="5" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <input type="text" tabindex="5" name="username" placeholder="Username" value="{{ old("username", $user->username) }}" class="px-5 py-4 form-input coach-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
                     @if ($errors->has("username"))
-                        <span class="block color-white error support teacher-form support-box support-username mt-2 overpass">{{ $errors->first("username") }}</span>
+                        <span class="block color-white error support coach-form support-box support-username mt-2 overpass">{{ $errors->first("username") }}</span>
                     @else
-                        <span class="block color-white error support teacher-form support-box hidden support-username mt-2 overpass"></span>
+                        <span class="block color-white error support coach-form support-box hidden support-username mt-2 overpass"></span>
                     @endif
                 </div>
 
                 <div class="pt-0 col-span-2">
-                    <input type="text" tabindex="6" name="teampro_name" placeholder="Nombre del teampro" value="{{ old("teampro_name", $teampro->name) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-teampro_name mt-2 overpass"></span>
+                    <input type="text" tabindex="6" name="teampro_name" placeholder="Nombre del teampro" value="{{ old("teampro_name", $teampro->name) }}" class="px-5 py-4 form-input coach-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support coach-form support-box hidden support-teampro_name mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-4">
-                    <textarea tabindex="7" placeholder="Descripcion del profesor" name="description" class="w-16 h-16 px-5 py-4 text-base placeholder-blueGray-300 text-gray-700 placeholder-blueGray-300 rounded-lg focus:shadow-outline w-full form-input teacher-form editable" @if(isset($user->id_user)) disabled @endif>{{ old("description", $user->description) }}</textarea>
-                    <span class="block color-white error support teacher-form support-box hidden support-description mt-2 overpass"></span>
+                    <textarea tabindex="7" placeholder="Descripcion del profesor" name="description" class="w-16 h-16 px-5 py-4 text-base placeholder-blueGray-300 text-gray-700 placeholder-blueGray-300 rounded-lg focus:shadow-outline w-full form-input coach-form editable" @if(isset($user->id_user)) disabled @endif>{{ old("description", $user->description) }}</textarea>
+                    <span class="block color-white error support coach-form support-box hidden support-description mt-2 overpass"></span>
                 </div>
 
                 {{-- <div class="pt-0 col-span-2 col-start-1">
                     <h3 class="russo color-white mb-8 uppercase">MercadoPago</h3>
-                    <input type="text" tabindex="10" name="mp_access_token" placeholder="Access token" value="{{ old("mp_access_token", ((isset($user->id_user) && isset($user->credentials->mercadopago) && $user->credentials->mercadopago) ? $user->credentials->mercadopago->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-mp_access_token mt-2 overpass"></span>
+                    <input type="text" tabindex="10" name="mp_access_token" placeholder="Access token" value="{{ old("mp_access_token", ((isset($user->id_user) && isset($user->credentials->mercadopago) && $user->credentials->mercadopago) ? $user->credentials->mercadopago->access_token : "")) }}" class="px-5 py-4 form-input coach-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support coach-form support-box hidden support-mp_access_token mt-2 overpass"></span>
                 </div>
 
                 <div class="pt-0 col-span-2">
                     <h3 class="russo color-white mb-8 uppercase">PayPal</h3>
-                    <input type="text" tabindex="11" name="pp_Access_token" placeholder="Access token" value="{{ old("pp_Access_token", ((isset($user->id_user) && isset($user->credentials->paypal) && $user->credentials->paypal) ? $user->credentials->paypal->access_token : "")) }}" class="px-5 py-4 form-input teacher-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
-                    <span class="block color-white error support teacher-form support-box hidden support-pp_Access_token mt-2 overpass"></span>
+                    <input type="text" tabindex="11" name="pp_Access_token" placeholder="Access token" value="{{ old("pp_Access_token", ((isset($user->id_user) && isset($user->credentials->paypal) && $user->credentials->paypal) ? $user->credentials->paypal->access_token : "")) }}" class="px-5 py-4 form-input coach-form placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full editable" @if(isset($user->id_user)) disabled @endif/>
+                    <span class="block color-white error support coach-form support-box hidden support-pp_Access_token mt-2 overpass"></span>
                 </div> --}}
 
                 <div class="pt-0 col-span-8">
@@ -133,7 +133,7 @@
                     <ul class="languages options grid grid-cols-8 gap-4">
                         @foreach ($languages as $language)
                             <li class="language option" title="{{ $language->name }}">
-                                <input id="language-{{ $language->slug }}" type="checkbox" class="form-input teacher-form editable" @if ($language->checked) checked @endif @if(isset($user->id_user)) disabled @endif name="languages[{{ $language->id_language }}]" value="{{ $language->slug }}">
+                                <input id="language-{{ $language->slug }}" type="checkbox" class="form-input coach-form editable" @if ($language->checked) checked @endif @if(isset($user->id_user)) disabled @endif name="languages[{{ $language->id_language }}]" value="{{ $language->slug }}">
                                 <label for="language-{{ $language->slug }}">
                                     <main class="grid">
                                         @component("components.svg." . $language->icon)
@@ -143,7 +143,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    <span class="block color-white error support teacher-form support-box hidden support-languages mt-2 overpass"></span>
+                    <span class="block color-white error support coach-form support-box hidden support-languages mt-2 overpass"></span>
                 </div>     
 
                 <div class="pt-0 col-span-8 grid grid-cols-4 gap-8 games">
@@ -156,7 +156,7 @@
                                     <li class="overpass color-white">
                                         <label class="text-gray-700 col-span-4 input-option flex mb-6">
                                             <div class="input-text flex">
-                                                <input class="overpass form-input teacher-form editable"  type="checkbox" @if ($ability->checked) checked @endif name="abilities[{{ $ability->slug }}]" @if($ability) disabled @endif>
+                                                <input class="overpass form-input coach-form editable"  type="checkbox" @if ($ability->checked) checked @endif name="abilities[{{ $ability->slug }}]" @if($ability) disabled @endif>
                                                 <div class="input-box mr-2"></div>
                                                 <span class="overpass color-white">{{ $ability->name }}</span>
                                             </div>
@@ -166,7 +166,7 @@
                             </ul>
                         </div>
                     @endforeach
-                    <span class="block color-white error support teacher-form support-box hidden support-abilities mt-2 overpass col-span-4"></span>
+                    <span class="block color-white error support coach-form support-box hidden support-abilities mt-2 overpass col-span-4"></span>
                 </div>       
 
                 {{-- <div class="col-span-8 rounded bg-black p-4">
@@ -181,12 +181,12 @@
                                 <label class="grid grid-cols-4">
                                     <span class="overpass color-white col-span-4 mb-2">{{ $prices[$i]->name }}</span>
                                     <span class="divisa flex justify-center items-center bg-black color-white rounded">AR$</span>
-                                    <input type="text" class="col-span-3 form-input teacher-form px-5 py-4 rounded editable" value="{{ old($prices[$i]->slug, $prices[$i]->price) }}" name="prices[{{ $i }}]" @if($prices[$i]) disabled @endif>
+                                    <input type="text" class="col-span-3 form-input coach-form px-5 py-4 rounded editable" value="{{ old($prices[$i]->slug, $prices[$i]->price) }}" name="prices[{{ $i }}]" @if($prices[$i]) disabled @endif>
                                 </label>
                             </li>
                         @endfor
                     </ul>
-                    <span class="block color-white error support teacher-form support-box hidden support-prices mt-2 overpass"></span>
+                    <span class="block color-white error support coach-form support-box hidden support-prices mt-2 overpass"></span>
                 </div>  
 
                 <div class="pt-0 col-span-3">
@@ -198,13 +198,13 @@
                                 @for ($i = 1; $i <= 3; $i++)
                                     <label>
                                         @if ($i === 1)
-                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input editable" name="days[{{ $day->id_day }}][time][1]">
+                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input coach-form update-input editable" name="days[{{ $day->id_day }}][time][1]">
                                             <span class="color-white p-1 overpass">Mañana</span>
                                         @elseif($i === 2)
-                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input" name="days[{{ $day->id_day }}][time][2]">
+                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input coach-form update-input" name="days[{{ $day->id_day }}][time][2]">
                                             <span class="color-white p-1 overpass">Tarde</span>
                                         @else
-                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input teacher-form update-input" name="days[{{ $day->id_day }}][time][3]">
+                                            <input class="editable" type="checkbox" @foreach ($day->hours as $hour) @if ($hour->active && $hour->time === $i) checked @endif @if($day) disabled @endif @endforeach class="form-input coach-form update-input" name="days[{{ $day->id_day }}][time][3]">
                                             <span class="color-white p-1 overpass">Noche</span>
                                         @endif
                                     </label>
@@ -212,7 +212,7 @@
                             </li>
                         @endforeach
                     </ul>
-                    <span class="block color-white error support teacher-form support-box hidden support-days mt-2 overpass"></span>
+                    <span class="block color-white error support coach-form support-box hidden support-days mt-2 overpass"></span>
                 </div>    
 
                 @if (isset($user->id_user))
@@ -278,5 +278,5 @@
         const user = @json($user);
         const lessons = @json($lessons);
     </script>
-    <script type="module" src={{ asset("js/panel/teacher/details.js?v=1.0.0") }}></script>
+    <script type="module" src={{ asset("js/panel/coach/details.js?v=1.0.0") }}></script>
 @endsection

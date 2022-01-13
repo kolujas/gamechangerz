@@ -34,7 +34,7 @@
             
             $days = collect();
             for ($i=0; $i < count($input->dates); $i++) {
-                foreach (Lesson::byTeacher($lesson->id_user_from)->get() as $previousLesson) {
+                foreach (Lesson::byCoach($lesson->id_user_from)->get() as $previousLesson) {
                     $previousLesson->and(["days"]);
                     if ($previousLesson->id_lesson !== intval($id_lesson)) {
                         foreach ($previousLesson->days as $day) {

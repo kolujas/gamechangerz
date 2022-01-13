@@ -4,7 +4,7 @@
     @if (Request::is('users'))
         Buscador de Usuarios | Gamechangerz
     @endif
-    @if (Request::is('teachers'))
+    @if (Request::is('coaches'))
         Buscador de Coaches | Gamechangerz
     @endif
 @endsection
@@ -24,8 +24,8 @@
         ])
         @endcomponent
     @endif
-    @if (Request::is('teachers'))
-        @component('components.user.teacher.search', [
+    @if (Request::is('coaches'))
+        @component('components.user.coach.search', [
             'games'=> $games,
             'search' => $search,
         ])

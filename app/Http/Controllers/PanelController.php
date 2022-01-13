@@ -78,7 +78,7 @@
                 case "banner":
                 case "info":
                     return PlatformController::call($request, $section, $action);
-                case "teachers":
+                case "coaches":
                 case "users":
                     return UserController::call($request, $section, $action);
                 default:
@@ -193,10 +193,10 @@
 
             $hours = Hour::options();
 
-            $teachers = collect();
-            foreach (User::teachers()->orderBy('updated_at', 'DESC')->get() as $user) {
+            $coaches = collect();
+            foreach (User::coaches()->orderBy('updated_at', 'DESC')->get() as $user) {
                 if ($user->id_status === 2) {
-                    $teachers->push($user);
+                    $coaches->push($user);
                 }
             }
 
@@ -217,7 +217,7 @@
                 "hours" => $hours,
                 "lesson" => $lesson,
                 "methods" => $methods,
-                "teachers" => $teachers,
+                "coaches" => $coaches,
                 "types" => $types,
                 "users" => $users,
                 "validation" => [
@@ -261,11 +261,11 @@
         }
 
         /**
-         * * Control the teacher details panel page.
+         * * Control the coach details panel page.
          * @param string|false [$slug=false]
          * @return \Illuminate\Http\Response
          */
-        public function teacher (Request $request, $slug = false) {
+        public function coach (Request $request, $slug = false) {
             $error = null;
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
@@ -330,7 +330,7 @@
                     }
                 }
 
-                foreach (Lesson::byTeacher($user->id_user)->get() as $lesson) {
+                foreach (Lesson::byCoach($user->id_user)->get() as $lesson) {
                     if ($lesson->id_status >= 3) {
                         $lesson->and(["reviews", "abilities"]);
 
@@ -362,7 +362,7 @@
                 $reviews = $user->reviews;
             }
 
-            return view("panel.teachers.details", [
+            return view("panel.coaches.details", [
                 "achievements" => $achievements,
                 "days" => $days,
                 "error" => $error,
@@ -376,16 +376,16 @@
                 "user" => $user,
                 "minPrice" => floatval(Platform::dolar() / 2),
                 "validation" => [
-                    "teacher" => (object)[
+                    "coach" => (object)[
                         "create" => (object)[
-                            "rules" => $this->replaceUnique(User::$validation["teacher"]["panel"]["create"]["rules"], PLatform::dolar() / 2),
-                            "messages" => User::$validation["teacher"]["panel"]["create"]["messages"]["es"],
+                            "rules" => $this->replaceUnique(User::$validation["coach"]["panel"]["create"]["rules"], PLatform::dolar() / 2),
+                            "messages" => User::$validation["coach"]["panel"]["create"]["messages"]["es"],
                         ], "update" => (object)[
-                            "rules" => $this->replaceUnique(User::$validation["teacher"]["panel"]["update"]["rules"], PLatform::dolar() / 2),
-                            "messages" => User::$validation["teacher"]["panel"]["update"]["messages"]["es"],
+                            "rules" => $this->replaceUnique(User::$validation["coach"]["panel"]["update"]["rules"], PLatform::dolar() / 2),
+                            "messages" => User::$validation["coach"]["panel"]["update"]["messages"]["es"],
                         ], "delete" => (object)[
-                            "rules" => User::$validation["teacher"]["panel"]["delete"]["rules"],
-                            "messages" => User::$validation["teacher"]["panel"]["delete"]["messages"]["es"],
+                            "rules" => User::$validation["coach"]["panel"]["delete"]["rules"],
+                            "messages" => User::$validation["coach"]["panel"]["delete"]["messages"]["es"],
                     ],], "review" => (object)[
                         "rules" => Review::$validation["create"]["rules"],
                         "messages" => Review::$validation["create"]["messages"]["es"],
@@ -393,18 +393,18 @@
         }
 
         /**
-         * * Control the teachers list panel page.
+         * * Control the coaches list panel page.
          * @return \Illuminate\Http\Response
          */
-        public function teachers (Request $request) {
+        public function coaches (Request $request) {
             $error = null;
             if ($request->session()->has("error")) {
                 $error = (object) $request->session()->pull("error");
             }
 
-            $users = User::teachers()->orderBy('updated_at', 'DESC')->get();
+            $users = User::coaches()->orderBy('updated_at', 'DESC')->get();
 
-            return view("panel.teachers.list", [
+            return view("panel.coaches.list", [
                 "error" => $error,
                 "validation" => [],
                 "users" => $users

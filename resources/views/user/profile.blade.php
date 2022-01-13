@@ -23,8 +23,8 @@
         @endcomponent
     @endif
     @if ($user->id_role === 1)
-        {{-- ? Teacher --}}
-        @component('components.user.teacher.profile', [
+        {{-- ? Coach --}}
+        @component('components.user.coach.profile', [
             "days" => $days,
             'dolar' => $dolar,
             "user" => $user,

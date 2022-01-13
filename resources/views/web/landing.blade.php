@@ -30,7 +30,7 @@
                             <header class="p-8 md:mt-12 lg:px-24 xl:px-32">
                                 <h2 class="color-white russo text-5xl mb-8 uppercase">Aprende de los <span class="color-four">mejores</span></h2>
                                 <p class="mb-8 slider-text color-white overpass text-xl">Entrenamiento personalizado con jugadores profesionales.</p>
-                                <a href="/teachers" class="btn btn-outline btn-one">
+                                <a href="/coaches" class="btn btn-outline btn-one">
                                     <span class="russo py-2 px-4 font-thin verPros rounded">Ver profesionales</span>
                                 </a>
                             </header>
@@ -110,14 +110,14 @@
                     <h3 class="color-three mb-2 russo uppercase">Nuestro coaches</h3>
                     <p class="color-two xl:text-lg overpass">Desde Silver hasta Global Elite <span class="color-four">no importa cual sea tu rango,</span> encontrá el mentor que lleve tu gameplay al próximo nivel.</p>
                 </header>
-                <form class="users-form-search lg:col-span-8 lg:col-start-2 2xl:col-start-3 flex justify-between mb-10" action="/teachers" method="GET">
+                <form class="users-form-search lg:col-span-8 lg:col-start-2 2xl:col-start-3 flex justify-between mb-10" action="/coaches" method="GET">
                     <input class="users-search focus:outline-none p-4" placeholder="Busca por nombre, idiomas, habilidades, etc." type="search" name="username">
                     <button class="submit-lupa p-4" type="submit">
                         @component('components.svg.Buscar2SVG')@endcomponent
                     </button>
                 </form>
                 <main class="lg:col-span-8 lg:col-start-2 2xl:col-start-3">
-                    @component('components.user.teacher.list', [
+                    @component('components.user.coach.list', [
                         'users' => $game->users,
                     ])
                     @endcomponent

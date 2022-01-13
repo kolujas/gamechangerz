@@ -7,10 +7,10 @@
                     <a class="overpass btn btn-grey btn-text" href="/">Inicio</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="/teachers">Coaches</a>
+                    <a class="overpass btn btn-grey btn-text" href="/coaches">Coaches</a>
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="/users">Alumnos</a>
+                    <a class="overpass btn btn-grey btn-text" href="/users">Usuarios</a>
                 </li>
                 <li>
                     @if (Auth::check())

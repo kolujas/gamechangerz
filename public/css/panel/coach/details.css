@@ -1,18 +1,18 @@
-#teacher .blog{
+#coach .blog{
     padding-left: 0;
 }
 
-#teacher input[type=text], #teacher input[type=password], #teacher input[type=url], #teacher textarea, #teacher select{
+#coach input[type=text], #coach input[type=password], #coach input[type=url], #coach textarea, #coach select{
     background: var(--color-black);
     color: var(--color-white);
 }
 
-#teacher select:disabled {
+#coach select:disabled {
     opacity: 1;
     appearance: none;
 }
 
-#teacher textarea{
+#coach textarea{
     color: var(--color-white);
     resize: none;
     height: 10rem;
@@ -20,20 +20,20 @@
     overflow: hidden;
 }
 
-#teacher .games h2{
+#coach .games h2{
     color: var(--color-white);
 }
 
-#teacher .games .game-name h4{
+#coach .games .game-name h4{
     color: var(--color-white);
     background: var(--color-black);
 }
 
-#teacher .date input{
+#coach .date input{
     display: none;
 }
 
-#teacher .date label span{
+#coach .date label span{
     display: block;
     text-align: center;
     border-radius: .25rem;
@@ -43,36 +43,36 @@
     font-size: .75rem;
 }
 
-#teacher .date label input:not(:disabled) + span {
+#coach .date label input:not(:disabled) + span {
     cursor: pointer;
 }
 
-#teacher .date label input:checked + span {
+#coach .date label input:checked + span {
     background-color: var(--color-four);
     opacity: 1;
 }
 
-#teacher .msg-modal input{
+#coach .msg-modal input{
     width: 17em;
 }
 
-#teacher .profile-photo,
-#teacher .teampro-photo{
+#coach .profile-photo,
+#coach .teampro-photo{
     overflow: hidden;
 }
 
-#teacher .profile-photo span,
-#teacher .teampro-photo span{
+#coach .profile-photo span,
+#coach .teampro-photo span{
     padding: .5rem 0;
 }
 
-#teacher .profile-photo button span,
-#teacher .teampro-photo button span{
+#coach .profile-photo button span,
+#coach .teampro-photo button span{
     padding: .5rem 1rem;
 }
 
-#teacher .profile-photo img,
-#teacher .teampro-photo img {
+#coach .profile-photo img,
+#coach .teampro-photo img {
     width: 100%;
     max-height: 253px;
     object-fit: contain;
@@ -82,31 +82,31 @@
     border-radius: .25rem;
 }
 
-#teacher .teampro-photo img {
+#coach .teampro-photo img {
     width: 40px;
     min-height: 56px;
     max-height: 56px;
 }
 
-#teacher .input-option input[type="checkbox"]:disabled:checked ~ .input-box {
+#coach .input-option input[type="checkbox"]:disabled:checked ~ .input-box {
     background: var(--color-four);
     opacity: 1;
     border-color: var(--color-four);
 }
 
-#teacher ul.achievements li:first-of-type,
-#teacher ul.reviews li:first-of-type,
-#teacher ul.blog.cards .card:first-of-type {
+#coach ul.achievements li:first-of-type,
+#coach ul.reviews li:first-of-type,
+#coach ul.blog.cards .card:first-of-type {
     padding-left: 0;
 }
 
-#teacher .prices label .divisa {
+#coach .prices label .divisa {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 1px solid var(--color-five);
 }
 
-#teacher .prices label input {
+#coach .prices label input {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }

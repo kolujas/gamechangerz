@@ -52,8 +52,8 @@
                 <div class="pt-0 col-span-2">
                     <select name="id_user_from" class="px-5 py-4 placeholder-blueGray-300 rounded shadow outline-none focus:outline-none w-full form-input lesson-form editable" @if(isset($lesson->id_lesson)) disabled @endif>
                         <option class="overpass" disabled @if (!old("id_user_from", $lesson->id_user_from)) selected @endif>Profesor</option>
-                        @foreach ($teachers as $teacher)
-                            <option class="overpass" value="{{ $teacher->id_user }}" @if (old("teacher", $lesson->id_user_from) === $teacher->id_user) selected @endif>{{ $teacher->username }}</option>
+                        @foreach ($coaches as $coach)
+                            <option class="overpass" value="{{ $coach->id_user }}" @if (old("coach", $lesson->id_user_from) === $coach->id_user) selected @endif>{{ $coach->username }}</option>
                         @endforeach
                     </select>
                     <span class="block color-white error support lesson-form support-box hidden support-id_user_from mt-2 overpass"></span>
