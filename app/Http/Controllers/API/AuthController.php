@@ -173,7 +173,7 @@
             try {
                 $user = User::create((array) $input);
                 $user->update([
-                    'folder' => 'users/$user->id_user',
+                    'folder' => "users/$user->id_user",
                 ]);
                 
                 $mail = new Mail([ 'id_mail' => 1, ], [

@@ -235,8 +235,6 @@
             $game = Game::bySlug($slug)->first();
             $game->and(["abilities", "users", "files", "colors"]);
 
-            ddd($game->users);
-
             $posts = Post::byAdmin()->limit(10)->get();
             foreach ($posts as $post) {
                 $post->and(["user"]);
