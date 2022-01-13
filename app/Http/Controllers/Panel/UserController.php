@@ -214,6 +214,7 @@
                 if ($lesson->chat) {
                     $lesson->chat->delete();
                 }
+                $lesson->delete();
             }
 
             foreach ($requilify as $requilifyUser) {
@@ -477,6 +478,7 @@
                 if ($lesson->chat) {
                     $lesson->chat->delete();
                 }
+                $lesson->delete();
             }
 
             foreach ($requilify as $requilifyUser) {
