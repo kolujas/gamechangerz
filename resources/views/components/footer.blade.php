@@ -21,7 +21,7 @@
                     @endif
                 </li>
                 <li>
-                    <a class="overpass btn btn-grey btn-text" href="/blog">Blog</a>
+                    <a class="overpass btn btn-grey btn-text" href="/blog">Contenido</a>
                 </li>
             </ul>
         </nav>
@@ -91,9 +91,6 @@
             </li>
             <li class="pb-2 md:pb-0 lg:pl-2 px-2 md:px-4 orange-border">
                 <a class="overpass btn btn-white btn-text" href="/privacy-politics">Políticas de privacidad</a>
-            </li>
-            <li class="pb-2 md:pb-0 lg:pl-2 px-2 md:px-4 orange-border">
-                <a class="overpass btn btn-white btn-text" href="#">Accesibilidad</a>
             </li>
         </ul>
     </nav>

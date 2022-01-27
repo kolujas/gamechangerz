@@ -147,7 +147,7 @@
                     <div class="loading hidden">
                         <i class="spinner-icon"></i>
                     </div>
-                    <span>Comenzar entrenamiento</span>
+                    <span>Reservar clase</span>
                 </span>
             </button>
         </div>

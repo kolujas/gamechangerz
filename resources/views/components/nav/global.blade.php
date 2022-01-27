@@ -16,9 +16,9 @@
 			<li>
 				<form class="flex justify-center lg:justify-between my-4 py-2 pl-4 pr-2 lg:col-span-8 lg:col-start-2 rounded" action="/users" method="GET">
 					@isset($search)
-						<input class="rounded landing-search" name="username" placeholder="Busca por nombre, etc" type="search" value="{{ $search->username }}">
+						<input class="rounded landing-search" name="username" placeholder="Buscar usuarios" type="search" value="{{ $search->username }}">
 					@else
-						<input class="rounded landing-search" name="username" placeholder="Busca por nombre, etc" type="search" value="">
+						<input class="rounded landing-search" name="username" placeholder="Buscar usuarios" type="search" value="">
 					@endisset
 				</form>          
 			</li>
