@@ -55,10 +55,10 @@
             <h4 class="col-span-3 font-bold pb-4 pl-5">Redes</h4>
             <ul class="col-start-1">
                 <li class="my-4 pl-4">
-                    <a href="https://twitter.com" target="_blank">@component('components.svg.TwSVG')@endcomponent</a>
+                    <a href="https://twitter.com/gamechangerzgg" target="_blank">@component('components.svg.TwSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="https://www.youtube.com" target="_blank">@component('components.svg.TwitchSVG')@endcomponent</a>
+                    <a href="https://www.twitch.tv/gamechangerzgg" target="_blank">@component('components.svg.TwitchSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
                     <a href="https://www.instagram.com/gamechangerzgg" target="_blank">@component('components.svg.IgSVG')@endcomponent</a>
@@ -66,10 +66,10 @@
             </ul>
             <ul> 
                 <li class="my-4 pl-4">
-                    <a href="https://www.facebook.com/" target="_blank">@component('components.svg.FbSVG')@endcomponent</a>
+                    <a href="https://www.facebook.com/GameChangerz/" target="_blank">@component('components.svg.FbSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
-                    <a href="https://www.youtube.com" target="_blank">@component('components.svg.YtSVG')@endcomponent</a>
+                    <a href="https://www.youtube.com/channel/UCxmKVwmoliGaQSIpgjeru-A" target="_blank">@component('components.svg.YtSVG')@endcomponent</a>
                 </li>
                 <li class="my-4 pl-4">
                     <a href="{{ \App\Models\Platform::first()->link }}" target="_blank">@component('components.svg.DiscordSVG')@endcomponent</a>

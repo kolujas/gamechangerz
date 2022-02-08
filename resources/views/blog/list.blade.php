@@ -13,7 +13,7 @@
 @endsection
 
 @section('main')
-    <h2 class="color-white text-center pt-24 pb-8 px-8 russo">Guía, discusiones y más en nuestro <span class="color-four">Blog</span></h2>
+    <h2 class="color-white text-center pt-24 pb-8 px-8 russo">Guía, discusiones y más en nuestro <span class="color-four">Contenido</span></h2>
 
     <section class="posts"></section>
 

@@ -577,6 +577,10 @@ ul.coaches .image img{
 
 /* ? LG */
 @media(min-width: 1024px){
+    ul.blog.cards .card > :where(a, div) main {
+        height: 12rem;
+    }
+
     .profesores-destacados .coaches {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
