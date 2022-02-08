@@ -18,7 +18,7 @@
 
         <section class="p-8 xl:p-12 xl:px-32 2xl:px-96 text-md">
             <div class="mb-8 introcontact">
-                <p class="color-white overpass my-4">Gracias pr querer contactarte con nosotros.</p>
+                <p class="color-white overpass my-4">Gracias por querer contactarte con nosotros.</p>
                 <p class="color-white overpass my-4">Si hay algo que nos quieras decir, estamos acá para escucharlo! No te guardes nada, queremos crecer y nos interesa tu opinión.</p>
                 <p class="color-white overpass my-4">Te sugerimos que describas tu consulta lo más detallada posible para que podamos resolverlo de la mejor manera. Sentite libre de agregar comentarios u opiniones sobre lo que quieras de nuestra marca o plataforma. Estaremos leyendo detenidamente cada solicitud.</p>
                 <p class="color-white overpass my-4">Completá los datos acá abajo. Te escribiremos tan pronto tengamos una respuesta.</p>

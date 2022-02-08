@@ -128,10 +128,6 @@ ul.blog.cards .card > :where(a, div) main {
         right: 0;
         background-image: linear-gradient(90deg, transparent 0%, var(--color-one) 100%);
     } */
-
-    ul.blog.cards .card > :where(a, div) main {
-        height: 12rem;
-    }
 }
 
 /* ? XL */

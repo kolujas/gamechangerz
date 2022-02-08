@@ -53,7 +53,7 @@
                     </p>
                 </div>
                 <div>
-                    <h3 class="russo color-four text-uppercase mt-12">Enlaces a Terceros</h3>
+                    <h3 class="russo color-four text-uppercase mt-12">Uso de información personal</h3>
                     <p class="color-white overpass my-4">
                         En cualquier momento usted puede restringir la recopilación o el uso de la información personal que es proporcionada a nuestro sitio web.
                     <p class="color-white overpass my-4">
