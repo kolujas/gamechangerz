@@ -25,7 +25,8 @@
         "laravel/tinker": "^2.5",
         "mercadopago/dx-php": "^2.3",
         "paypal/paypal-checkout-sdk": "^1.0",
-        "spatie/laravel-google-calendar": "^3.3"
+        "spatie/laravel-google-calendar": "^3.3",
+        "staudenmeir/eloquent-json-relations": "^1.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
