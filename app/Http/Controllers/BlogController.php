@@ -20,11 +20,6 @@
          * @return \Illuminate\Http\Response
          */
         public function list (Request $request) {
-            $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -36,7 +31,6 @@
             }
 
             return view('blog.list', [
-                'error' => $error,
                 // 'notifications' => $notifications,
                 'posts' => $posts,
                 'validation' => [
@@ -67,11 +61,6 @@
          * @return \Illuminate\Http\Response
          */
         public function details (Request $request, $user = false, $post = false) {
-            $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -83,7 +72,6 @@
             }
 
             return view('blog.details', [
-                'error' => $error,
                 // 'notifications' => $notifications,
                 'post' => $post,
                 'validation' => [

@@ -17,12 +17,10 @@
             $user = User::bySlug($request->route()->parameter('slug'))->first();
 
             if ($user->id_role !== 1) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 403,
                     'message' => "$user->username is not a coach",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

@@ -11,6 +11,7 @@
     use App\Models\User;
     use Auth;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Validator;
 
     class DefaultController extends Controller {
         /**
@@ -18,18 +19,12 @@
          * @return \Illuminate\Http\Response
          */
         public function apply (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.apply", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -63,18 +58,12 @@
          * @return \Illuminate\Http\Response
          */
         public function comingSoon (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.coming_soon", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [],
             ]);
@@ -86,18 +75,12 @@
          * @return \Illuminate\Http\Response
          */
         public function contact (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.contact", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -131,18 +114,12 @@
          * @return \Illuminate\Http\Response
          */
         public function faq (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.faq", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -173,11 +150,6 @@
          * @return \Illuminate\Http\Response
          */
         public function index (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -190,7 +162,6 @@
 
             return view("web.home", [
                 "games" => $games,
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -222,11 +193,6 @@
          * @return \Illuminate\Http\Response
          */
         public function landing (Request $request, $slug) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -243,7 +209,6 @@
 
             return view("web.landing", [
                 "game" => $game,
-                "error" => $error,
                 // "notifications" => $notifications,
                 "posts" => $posts,
                 "validation" => [
@@ -275,11 +240,6 @@
          * @return \Illuminate\Http\Response
          */
         public function home (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -292,7 +252,6 @@
 
             return view("web.home", [
                 "games" => $games,
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -323,18 +282,12 @@
          * @return \Illuminate\Http\Response
          */
         public function privacyPolitics (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.privacy_politics", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -375,9 +328,14 @@
 
             new Mail([ "id_mail" => 11, ], [
                 "email_from" => $input->email,
-                "email_to" => config("mail.from.address"),
+                "email_to" => 'contacto@gamechangerz.gg',
                 "name" => $input->name,
                 "details" => $input->details,
+            ]);
+
+            return redirect('/')->with('status', [
+                'code' => 200,
+                'messages' => 'Su mensaje nos llego correctamente. Muchas gracias!',
             ]);
         }
 
@@ -396,9 +354,14 @@
 
             new Mail([ "id_mail" => 12, ], [
                 "email_from" => $input->email,
-                "email_to" => "soporte@gamechangerz.gg",
+                "email_to" => 'soporte@gamechangerz.gg',
                 "name" => $input->name,
                 "details" => $input->details,
+            ]);
+
+            return redirect('/')->with('status', [
+                'code' => 200,
+                'messages' => 'Su mensaje nos llego correctamente. Muchas gracias!',
             ]);
         }
 
@@ -408,18 +371,12 @@
          * @return \Illuminate\Http\Response
          */
         public function support (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.support", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -453,18 +410,12 @@
          * @return \Illuminate\Http\Response
          */
         public function termsAndConditions (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
             // }
 
             return view("web.terms_&_conditions", [
-                "error" => $error,
                 // "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[

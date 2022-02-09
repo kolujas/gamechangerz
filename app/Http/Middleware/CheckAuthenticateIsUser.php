@@ -24,13 +24,11 @@
             }
             
             if ((!is_null($request->route()->parameter('id_user')) ? intval($field) !== $request->user()->id_user : $field !== $request->user()->slug)) {
-                if ($request->user()->id_role !== 2) {
-                    $request->session()->put('error', [
+                if ($request->user()->id_role != 2) {
+                    return redirect()->back()->with('status', [
                         'code' => 403,
                         'message' => "You are not this User",
                     ]);
-    
-                    return redirect()->back();
                 }
             }
             

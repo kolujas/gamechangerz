@@ -54,8 +54,7 @@
             </header>
             @component('components.abilities.listByGame', [
                 'games' => $user->games,
-            ])
-            @endcomponent
+            ])@endcomponent
         </section>
     @endif
 
@@ -65,7 +64,6 @@
         </header>
         @component('components.review.coaches', [
             'reviews' => $user->reviews,
-        ])
-        @endcomponent
+        ])@endcomponent
     </section>
 </form>

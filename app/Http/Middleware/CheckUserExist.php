@@ -28,12 +28,10 @@
             }
 
             if (!User::where($field, "=", $value)->first()) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "User \"$value\" does not exist",
                 ]);
-
-                return redirect()->back();
             }
 
             return $next($request);

@@ -27,27 +27,15 @@
 
 @section('extras')
     {{-- ? Auth modal --}}
-    @component('components.modal.layouts.auth', [
-        'error' => ($error ? $error : []),
-    ])
-    @endcomponent
+    @component('components.modal.layouts.auth')@endcomponent
 
     @if (Auth::check())
         {{-- ? Assignment modal --}}
-        @component('components.modal.assignment', [
-            'error' => ($error ? $error : []),
-        ])
-        @endcomponent
+        @component('components.modal.assignment')@endcomponent
         {{-- ? Presentation modal --}}
-        @component('components.modal.presentation', [
-            'error' => ($error ? $error : []),
-        ])
-        @endcomponent
+        @component('components.modal.presentation')@endcomponent
         {{-- ? Chat modal --}}
-        @component('components.modal.layouts.chat', [
-            'error' => ($error ? $error : []),
-        ])
-        @endcomponent
+        @component('components.modal.layouts.chat')@endcomponent
         {{-- ? Advanced modal --}}
         @component('components.modal.advanced')
         @endcomponent
@@ -59,10 +47,7 @@
         </a>
     @endif
 
-    @component('components.modal.layouts.poll', [
-        'error' => ($error ? $error : []),
-    ])
-    @endcomponent
+    @component('components.modal.layouts.poll')@endcomponent
 
     {{-- Layout JS --}}
     <script type="module" src={{ asset('js/layouts/default.js?v=1.2.2') }}></script>

@@ -16,12 +16,10 @@
             $field = $request->route()->parameter('id_lesson');
 
             if (!Lesson::find($field)) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Lesson \"$field\" does not exist",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

@@ -14,21 +14,21 @@
 
 @section('main')
     <main class="main">
-        <h2 class="color-white russo text-2xl xl:text-4xl text-center uppercase py-8">support</h2>
+        {{-- <h2 class="color-white russo text-2xl xl:text-4xl text-center uppercase py-8">support</h2> --}}
 
         <section class="p-8 xl:p-12 xl:px-32 2xl:px-96 text-md">
-            <div class="mb-8 introsupp">
+            {{-- <div class="mb-8 introsupp">
                 <p class="color-white overpass my-4">No te preocupes, los refuerzos están en camino.</p>
                 <p class="color-white overpass my-4">Si tuviste algún inconveniente con una clase que contrataste, o simplemente tenés alguna duda que te gustaría sanar no dudes en escribirnos. Nos pondremos en supporto a la brevedad para darte una solución.</p>
-            </div>
+            </div> --}}
 
             <form id="support" action="/support" method="post">
                 @csrf
                 @method("POST")
     
-                <header class="modal-header my-12">
-                    <h2 class="color-four text-center russo uppercase">Contactate con nosotros</h2>
-                </header>
+                {{-- <header class="modal-header my-12">
+                    <h2 class="color-four text-center russo uppercase">En que te ayudamos?</h2>
+                </header> --}}
     
                 <label class="input-group grid mb-6">
                     <input class="bg-black support form-input px-5 py-4 overpass" type="text" tabindex="1" name="name" id="name" placeholder="Nombre" value={{ old("name", ((Auth::check() && Auth::user()->name) ? Auth::user()->name : "")) }}>
@@ -64,9 +64,9 @@
                 </div>
             </form>
 
-            <div class="mb-8 introsupp">
+            {{-- <div class="mb-8 introsupp">
                 <p class="color-white overpass my-4">Además, te recordamos que en nuestro canal de Discord contamos con una sala de soporte donde podrás comunicarte de manera directa con un miembro de nuestro staff.</p>
-            </div>
+            </div> --}}
         </section>
     </main>
 @endsection

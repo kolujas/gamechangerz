@@ -15,12 +15,10 @@
             $id_status = $request->route()->parameter('id_status');
 
             if (intval($id_status) !== 0 && intval($id_status) !== 1 && intval($id_status) !== 2 && intval($id_status) !== 3) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Lesson status does not exist",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

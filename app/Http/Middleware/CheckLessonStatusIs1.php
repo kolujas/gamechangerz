@@ -16,12 +16,10 @@
             $lesson = Lesson::find($request->route()->parameter("id_lesson"));
 
             if ($lesson->id_status != 1) {
-                $request->session()->put("error", [
+                return redirect("/")->back()->with('status', [
                     "code" => 403,
                     "message" => "Lesson was paid",
                 ]);
-                
-                return redirect("/");
             }
 
             return $next($request);

@@ -60,6 +60,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/users" class="sidebar-link nav-link p-0">
+                        <span class="link-text">Usuarios</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/blog" class="sidebar-link nav-link p-0">
                         <span class="link-text">Contenido</span>
                     </a>

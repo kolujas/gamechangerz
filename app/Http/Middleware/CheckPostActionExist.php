@@ -16,12 +16,10 @@
             $action = $request->route()->parameter('action');
 
             if (!Post::hasAction($action)) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Action \"$action\" does not exist",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

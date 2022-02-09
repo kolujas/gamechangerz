@@ -506,11 +506,6 @@
          * @return \Illuminate\Http\Response
          */
         public function show (Request $request, string $slug, string $typeSearched) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             $notifications = Auth::check() ? Auth::user()->notifications : [];
             foreach ($notifications as $notification) {
                 $notification->delete();
@@ -558,7 +553,6 @@
                 "lesson" => $lesson,
                 "user" => $user,
                 "type" => $type,
-                "error" => $error,
                 "notifications" => $notifications,
                 "validation" => [
                     "login" => (object)[
@@ -596,11 +590,6 @@
          * @return \Illuminate\Http\Response
          */
         public function status (Request $request, int $id_lesson, int $id_status) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             $notifications = Auth::check() ? Auth::user()->notifications : [];
             foreach ($notifications as $notification) {
                 $notification->delete();
@@ -610,7 +599,6 @@
             $lesson->and(["started_at", "ended_at", "users"]);
 
             return view("lesson.status", [
-                "error" => $error,
                 "notifications" => $notifications,
                 "lesson" => $lesson,
                 "id_status" => $id_status,

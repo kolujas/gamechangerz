@@ -28,13 +28,7 @@
          * @return \Illuminate\Http\Response
          */
         public function banner (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             return view("panel.platform.banner", [
-                "error" => $error,
                 "validation" => []
             ]);
         }
@@ -44,18 +38,12 @@
          * @return \Illuminate\Http\Response
          */
         public function blog (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $posts = Post::orderBy("updated_at", "DESC")->get();
             foreach ($posts as $post) {
                 $post->and(["user"]);
             }
             
             return view("panel.blog.list", [
-                "error" => $error,
                 "validation" => [],
                 "posts" => $posts
             ]);
@@ -92,11 +80,6 @@
          * @return \Illuminate\Http\Response
          */
         public function coupon (Request $request, $slug = false) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $coupon = new Coupon();
             $coupon->type = (object) [
                 "key" => null,
@@ -109,7 +92,6 @@
 
             return view("panel.coupon.details", [
                 "coupon" => $coupon,
-                "error" => $error,
                 "validation" => [
                     "coupon" => (object)[
                         "create" => (object)[
@@ -129,18 +111,12 @@
          * @return \Illuminate\Http\Response
          */
         public function coupons (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $coupons = Coupon::orderBy("updated_at", "DESC")->get();
             foreach ($coupons as $coupon) {
                 $coupon->and(["used", "type"]);
             }
 
             return view("panel.coupon.list", [
-                "error" => $error,
                 "validation" => [],
                 "coupons" => $coupons
             ]);
@@ -151,13 +127,7 @@
          * @return \Illuminate\Http\Response
          */
         public function info (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             return view("panel.platform.info", [
-                "error" => $error,
                 "dolar" => Platform::dolar(),
                 "link" => Platform::link(),
                 "validation" => []
@@ -169,11 +139,6 @@
          * @return \Illuminate\Http\Response
          */
          public function lesson (Request $request, $id_lesson = false) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $lesson = new Lesson();
             $lesson->assignments = 4;
             $lesson->users = (object)[
@@ -212,7 +177,6 @@
             }
             
             return view("panel.lesson.details", [
-                "error" => $error,
                 "price" => $price,
                 "hours" => $hours,
                 "lesson" => $lesson,
@@ -243,18 +207,12 @@
          * @return \Illuminate\Http\Response
          */
         public function lessons (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $lessons = Lesson::orderBy("updated_at", "DESC")->get();
             foreach ($lessons as $lesson) {
                 $lesson->and(["users", "type", "ended_at", "method"]);
             }
             
             return view("panel.lesson.list", [
-                "error" => $error,
                 "validation" => [],
                 "lessons" => $lessons
             ]);
@@ -266,11 +224,6 @@
          * @return \Illuminate\Http\Response
          */
         public function coach (Request $request, $slug = false) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $user = new User();
             $teampro = new Teampro();
             if ($slug) {
@@ -365,7 +318,6 @@
             return view("panel.coaches.details", [
                 "achievements" => $achievements,
                 "days" => $days,
-                "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
                 "lessons" => $lessons,
@@ -397,15 +349,9 @@
          * @return \Illuminate\Http\Response
          */
         public function coaches (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $users = User::coaches()->orderBy('updated_at', 'DESC')->get();
 
             return view("panel.coaches.list", [
-                "error" => $error,
                 "validation" => [],
                 "users" => $users
             ]);
@@ -417,11 +363,6 @@
          * @return \Illuminate\Http\Response
          */
         public function user (Request $request, $slug = false) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $user = new User();
             if ($slug) {
                 $user = User::bySlug($slug)->first();
@@ -490,7 +431,6 @@
 
             return view("panel.users.details", [
                 "achievements" => $achievements,
-                "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
                 "lessons" => $lessons,
@@ -518,15 +458,9 @@
          * @return \Illuminate\Http\Response
          */
         public function users (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             $users = User::users()->orderBy('updated_at', 'DESC')->get();
 
             return view("panel.users.list", [
-                "error" => $error,
                 "users" => $users,
                 "validation" => [],
             ]);

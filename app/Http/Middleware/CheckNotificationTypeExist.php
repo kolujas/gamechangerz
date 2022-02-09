@@ -15,12 +15,10 @@
             $type = $request->route()->parameter('type');
 
             if ($type !== 'mercadopago') {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Notification \"$type\" does not exist",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

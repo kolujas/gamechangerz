@@ -55,13 +55,17 @@
             @if (!Auth::check())
                 const auth = false;
             @endif
-            var error = @json($error);
             var modals = {};
-            @if(Session::has('status'))
-                error = @json(Session::get('status'));
-            @endif
+
+            const status = {};
             @if (session('status'))
-                error = @json(session('status'));
+                for (const key in @json(session('status'))) {
+                    if (Object.hasOwnProperty.call(@json(session('status')), key)) {
+                        const element = @json(session('status'))[key];
+                        status[key] = element;
+                    }
+                }
+                console.log(status);
             @endif
         </script>
         <script type="module" src={{ asset('js/script.js?v=0.0.1') }}></script>

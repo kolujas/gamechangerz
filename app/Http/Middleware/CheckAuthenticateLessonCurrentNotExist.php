@@ -24,12 +24,10 @@
                         $lesson->and(["started_at"]);
                         $now = Carbon::now();
                         if ($now > $lesson->started_at && $now < $lesson->ended_at) {
-                            $request->session()->put('error', [
+                            return redirect()->back()->with('status', [
                                 'code' => 403,
                                 'message' => "Tienes una clase seguimiento online de $user->username en curso",
                             ]);
-            
-                            return redirect()->back();
                         }
                     }
                 }

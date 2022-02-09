@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
         }
     }
 
-    if (error) {
+    if (status.hasOwnProperty('code')) {
         new window.notification({
-            ...error,
+            ...status,
             classes: ['russo'],
         }, {
             open: true,

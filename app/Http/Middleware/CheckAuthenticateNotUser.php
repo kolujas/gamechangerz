@@ -16,12 +16,10 @@
             $slug = $request->route()->parameter('slug');
 
             if ($request->user()->slug === $slug) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 403,
                     'message' => "You can not access here",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

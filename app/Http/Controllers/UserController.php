@@ -32,11 +32,6 @@
          * @return \Illuminate\Http\Response
          */
         public function profile (Request $request, $slug) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-            
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -53,13 +48,12 @@
             $user = User::bySlug($slug)->first();
             $user->and(["achievements", "games", "role", "files", "languages", "posts"]);
             
-            if ($user->id_role === 2) {
-                if (!Auth::check()) {
-                    $request->session()->put("error", [
-                        "code" => 404,
-                        "message" => "User \"$slug\" does not exist",
+            if ($user->id_role == 2) {
+                if (!Auth::check() || Auth::user()->id_user != $user->id_user) {
+                    return redirect()->back()->with('status', [
+                        'code' => 404,
+                        'message' => "User \"$slug\" does not exist",
                     ]);
-                    return redirect()->back();
                 }
                 return redirect("/panel");
             }
@@ -122,7 +116,6 @@
             return view("user.profile", [
                 "days" => $days,
                 "dolar" => Platform::dolar(),
-                "error" => $error,
                 "games" => $games,
                 "languages" => $languages,
                 "lessons" => $lessons,
@@ -166,11 +159,6 @@
          * @return \Illuminate\Http\Response
          */
         public function search (Request $request) {
-            $error = null;
-            if ($request->session()->has("error")) {
-                $error = (object) $request->session()->pull("error");
-            }
-
             // $notifications = Auth::check() ? Auth::user()->notifications : [];
             // foreach ($notifications as $notification) {
             //     $notification->delete();
@@ -183,7 +171,6 @@
 
             return view("user.search", [
                 "games" => $games,
-                "error" => $error,
                 // "notifications" => $notifications,
                 "search" => (object)[
                     "username" => $request->username,

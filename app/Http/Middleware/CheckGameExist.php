@@ -17,12 +17,10 @@
             $slug = $request->route()->parameter('slug');
 
             if (!Game::bySlug($slug)->first()) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Game \"$slug\" does not exist",
                 ]);
-                
-                return redirect()->back();
             }
 
             return $next($request);

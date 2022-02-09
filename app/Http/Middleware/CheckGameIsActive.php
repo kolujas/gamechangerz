@@ -18,12 +18,10 @@
             $game = Game::bySlug($slug)->first();
 
             if (!$game->active) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 403,
                     'message' => "Game \"$game->name\" is not active",
                 ]);
-
-                return redirect()->back();
             }
 
             return $next($request);

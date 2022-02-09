@@ -30,11 +30,6 @@
             if (Auth::check()) {
                 return redirect('/');
             }
-
-            $error = null;
-            if ($request->session()->has('error')) {
-                $error = (object) $request->session()->pull('error');
-            }
             
             if (!DB::table('password_resets')->where('token', $token)->first()) {
                 abort(403);
@@ -43,7 +38,6 @@
             $password = DB::table('password_resets')->where('token', $token)->first();
 
             return view('auth.reset-password',[
-                'error' => $error,
                 'password' => $password,
                 'validation' => [
                     'login' => [

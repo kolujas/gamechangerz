@@ -30,19 +30,15 @@
 
             if ($user->id_status != 2) {
                 if ($user->id_status == 0) {
-                    $request->session()->put('error', [
-                        'code' => 403,
-                        'message' => "Usuario \"$value\" baneado",
-                    ]);
+                    $message = "Usuario \"$value\" baneado";
                 }
                 if ($user->id_status == 1) {
-                    $request->session()->put('error', [
-                        'code' => 403,
-                        'message' => "Correo pendiente de aprobación",
-                    ]);
+                    $message = "Correo pendiente de aprobación";
                 }
-
-                return redirect()->back();
+                return redirect()->back()->with('status', [
+                    'code' => 403,
+                    'message' => $message,
+                ]);
             }
 
             return $next($request);

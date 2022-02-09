@@ -38,7 +38,9 @@
         Route::get("/terms-&-conditions", [DefaultController::class, "termsAndConditions"])->name("web.terms_&_conditions");
         Route::get("/faq", [DefaultController::class, "faq"])->name("web.faq");
         Route::get("/contact", [DefaultController::class, "contact"])->name("web.contact");
+        Route::post("/contact", [DefaultController::class, "sendContact"])->name("web.sendContact");
         Route::get("/support", [DefaultController::class, "support"])->name("web.support");
+        Route::post("/support", [DefaultController::class, "sendSupport"])->name("web.sendSupport");
         Route::get("/apply", [DefaultController::class, "apply"])->name("web.apply");
             
 // ! BlogController - Controls the Blog pages.

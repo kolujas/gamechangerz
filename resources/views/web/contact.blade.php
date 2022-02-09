@@ -14,23 +14,23 @@
 
 @section('main')
     <main class="main">
-        <h2 class="color-white russo text-2xl xl:text-4xl text-center uppercase py-8">Contacto</h2>
+        {{-- <h2 class="color-white russo text-2xl xl:text-4xl text-center uppercase py-8">Contacto</h2> --}}
 
         <section class="p-8 xl:p-12 xl:px-32 2xl:px-96 text-md">
-            <div class="mb-8 introcontact">
+            {{-- <div class="mb-8 introcontact">
                 <p class="color-white overpass my-4">Gracias por querer contactarte con nosotros.</p>
                 <p class="color-white overpass my-4">Si hay algo que nos quieras decir, estamos acá para escucharlo! No te guardes nada, queremos crecer y nos interesa tu opinión.</p>
                 <p class="color-white overpass my-4">Te sugerimos que describas tu consulta lo más detallada posible para que podamos resolverlo de la mejor manera. Sentite libre de agregar comentarios u opiniones sobre lo que quieras de nuestra marca o plataforma. Estaremos leyendo detenidamente cada solicitud.</p>
                 <p class="color-white overpass my-4">Completá los datos acá abajo. Te escribiremos tan pronto tengamos una respuesta.</p>
-            </div>
+            </div> --}}
 
             <form id="contact" action="/contact" method="post">
                 @csrf
                 @method("POST")
     
-                <header class="modal-header my-12">
+                {{-- <header class="modal-header my-12">
                     <h2 class="color-four text-center russo uppercase">Contacta con nosotros</h2>
-                </header>
+                </header> --}}
     
                 <label class="input-group grid mb-6">
                     <input class="bg-black contact form-input px-5 py-4 overpass" type="text" tabindex="1" name="name" id="name" placeholder="Nombre" value={{ old("name", ((Auth::check() && Auth::user()->name) ? Auth::user()->name : "")) }}>

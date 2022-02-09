@@ -130,10 +130,7 @@
         </div>
 
         {{-- ? Delete message modal --}}
-        @component('components.modal.delete', [
-            'error' => ($error ? $error : []),
-        ])
-        @endcomponent
+        @component('components.modal.delete')@endcomponent
     </form>
 @endsection
 

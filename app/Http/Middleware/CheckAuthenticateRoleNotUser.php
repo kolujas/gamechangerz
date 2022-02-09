@@ -13,12 +13,10 @@
          */
         public function handle ($request, Closure $next) {
             if ($request->user()->id_role === 0) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 403,
                     'message' => "You must not be an User to perform this action",
                 ]);
-                
-                return redirect()->back();
             }
             
             return $next($request);

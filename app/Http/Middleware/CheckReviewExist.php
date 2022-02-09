@@ -16,12 +16,10 @@
             $field = $request->route()->parameter('id_review');
 
             if (!Review::find($field)) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Review \"$field\" does not exist",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);

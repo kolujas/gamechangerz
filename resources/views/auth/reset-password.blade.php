@@ -52,7 +52,7 @@
                         <div class="loading hidden">
                             <i class="spinner-icon"></i>
                         </div>
-                        <span class="russo xl:text-lg">Entrar</span>
+                        <span class="russo xl:text-lg">Confirmar</span>
                     </button>
                     <p class="color-white mt-6 text-center">Ya tenés cuenta? <a class="btn btn-text btn-one" href="/#login">Ingrésa aquí</a></p>
                     <p class="color-white mt-6 text-center overpass">No tenés cuenta todavía? <a class="btn btn-text btn-one" href="/#reset-password">Registrate</a></p>

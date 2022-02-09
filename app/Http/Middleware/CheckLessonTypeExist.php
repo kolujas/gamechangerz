@@ -17,12 +17,10 @@
             $slug = $request->route()->parameter('type');
 
             if (!Lesson::has($slug)) {
-                $request->session()->put('error', [
+                return redirect()->back()->with('status', [
                     'code' => 404,
                     'message' => "Lesson \"$slug\" type does not exist",
                 ]);
-
-                return redirect()->back();
             }
             
             return $next($request);
