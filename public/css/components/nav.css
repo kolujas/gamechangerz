@@ -2,7 +2,11 @@
     width: 80%;
 }
 
-.nav-menu .nav-menu-list span.nav-link {
+.nav-menu .nav-menu-list :not(.notifications) span.nav-link {
+    color: var(--color-four);
+}
+
+.nav-menu .nav-menu-list .notifications.news span.nav-link {
     color: var(--color-four);
 }
 

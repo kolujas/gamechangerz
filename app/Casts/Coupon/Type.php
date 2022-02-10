@@ -3,7 +3,7 @@
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class TypeAttribute implements CastsAttributes {
+    class Type implements CastsAttributes {
         /**
          * * Cast the given value.
          *

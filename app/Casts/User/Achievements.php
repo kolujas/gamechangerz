@@ -1,9 +1,9 @@
 <?php
-    namespace App\Casts\Lesson;
+    namespace App\Casts\User;
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class DaysAttribute implements CastsAttributes {
+    class Achievements implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,7 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Day::parse($value ? $value : '[]');
+            return \App\Models\Achievement::parse($value ? $value : '[]');
         }
 
         /**

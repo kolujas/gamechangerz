@@ -60,9 +60,7 @@
                 ]);
             }
 
-            $found->update([
-                "accepted" => 1,
-            ]);
+            $found->accept();
 
             return redirect("/users/$slug/profile")->with("status", [
                 "code" => 200,
@@ -95,7 +93,7 @@
                 ]);
             }
 
-            $found->delete();
+            $found->cancel();
 
             return redirect("/users/$slug/profile")->with("status", [
                 "code" => 200,
@@ -171,14 +169,7 @@
                 "accepted" => 0,
             ]);
 
-            $from = User::find($request->user()->id_user);
-
-            new Mail([ "id_mail" => 6, ], [
-                "email_to" => $user->email,
-                "name" => $from->name,
-                "slug" => $from->slug,
-                "username" => $from->username,
-            ]);
+            $friend->notify();
 
             return redirect("/users/$slug/profile")->with("status", [
                 "code" => 200,

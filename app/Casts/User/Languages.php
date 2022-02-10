@@ -3,7 +3,7 @@
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class CredentialsAttribute implements CastsAttributes {
+    class Languages implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,25 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            $credentials = (object) [
-                'mercadopago' => null,
-                'paypal' => null,
-            ];
-
-            foreach (\App\Models\Method::parse($value) as $credential) {
-                switch ($credential->id_method) {
-                    case 1:
-                        $credentials->mercadopago = $credential;
-                        break;
-                    case 2:
-                        $credentials->paypal = $credential;
-                        break;
-                }
-            }
-
-            ddd($credentials);
-
-            return $credentials;
+            return \App\Models\Language::parse($value ? $value : '[]');
         }
 
         /**

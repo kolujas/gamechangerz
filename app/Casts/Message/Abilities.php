@@ -1,9 +1,9 @@
 <?php
-    namespace App\Casts\User;
+    namespace App\Casts\Message;
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class AchievementsAttribute implements CastsAttributes {
+    class Abilities implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,7 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Achievement::parse($value ? $value : '[]');
+            return \App\Models\Ability::parse(json_encode($value));
         }
 
         /**

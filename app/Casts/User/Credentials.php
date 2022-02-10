@@ -3,7 +3,7 @@
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class GamesAttribute implements CastsAttributes {
+    class Credentials implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,7 +14,25 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Game::parse($value ? $value : '[]');
+            $credentials = (object) [
+                'mercadopago' => null,
+                'paypal' => null,
+            ];
+
+            foreach (\App\Models\Method::parse($value) as $credential) {
+                switch ($credential->id_method) {
+                    case 1:
+                        $credentials->mercadopago = $credential;
+                        break;
+                    case 2:
+                        $credentials->paypal = $credential;
+                        break;
+                }
+            }
+
+            ddd($credentials);
+
+            return $credentials;
         }
 
         /**

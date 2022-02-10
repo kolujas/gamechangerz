@@ -3,7 +3,7 @@
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class TeamproAttribute implements CastsAttributes {
+    class Prices implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,7 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Teampro::parse($value ? $value : '', $model);
+            return \App\Models\Price::parse($value ? $value : '[]');
         }
 
         /**

@@ -1,9 +1,9 @@
 <?php
-    namespace App\Casts\Chat;
+    namespace App\Casts\User;
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class MessageAttribute implements CastsAttributes {
+    class Days implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,7 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Message::parse($value ? $value : '[]');
+            return \App\Models\Day::parse($value ? $value : '[]');
         }
 
         /**
@@ -27,16 +27,6 @@
          * @return mixed
          */
         public function set ($model, $key, $value, $attributes) {
-            $messages = collect();
-            $value->id_message = 1;
-
-            foreach (json_decode($model->messages) as $message) {
-                $value->id_message = intval($message->id_message) + 1;
-                $messages->push($message);
-            }
-
-            $messages->push($value);
-
-            return $messages->toJson();
+            return $value;
         }
     }

@@ -1,9 +1,9 @@
 <?php
-    namespace App\Casts\Review;
+    namespace App\Casts\User;
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class AbilitiesAttribute implements CastsAttributes {
+    class Teampro implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,18 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            if ($model->to->id_role === 0) {
-                return \App\Models\Ability::parse($value ? $value : '[]');
-            }
-
-            $abilities = collect();
-
-            foreach (json_decode($value) as $ability) {
-                $ability = new Ability((array) $ability);
-                $abilities->push($ability);
-            }
-
-            return Ability::options($abilities->toArray());
+            return \App\Models\Teampro::parse($value ? $value : '', $model);
         }
 
         /**

@@ -3,7 +3,7 @@
 
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class PricesAttribute implements CastsAttributes {
+    class Games implements CastsAttributes {
         /**
          * * Cast the given value.
          *
@@ -14,7 +14,7 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Price::parse($value ? $value : '[]');
+            return \App\Models\Game::parse($value ? $value : '[]');
         }
 
         /**
