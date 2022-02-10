@@ -609,7 +609,7 @@
                 'slug' => '1on1',
             ], [
                 'id_type' => 2,
-                'name' => 'seguimiento-online',
+                'name' => 'Seguimiento Online',
                 'svg' => 'components.svg.ClaseOnline2SVG',
                 'slug' => 'seguimiento-online',
             ], [
