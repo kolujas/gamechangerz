@@ -33,24 +33,6 @@
             return view('blog.list', [
                 // 'notifications' => $notifications,
                 'posts' => $posts,
-                'validation' => [
-                    'login' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                    ], 'signin' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                    ], 'assignment' => (object)[
-                        'rules' => Assignment::$validation['make']['rules'],
-                        'messages' => Assignment::$validation['make']['messages']['es'],
-                    ], "advanced" => (object)[
-                        "rules" => User::$validation["advanced"]["rules"],
-                        "messages" => User::$validation["advanced"]["messages"]["es"],
-                    ], 'presentation' => (object)[
-                        'rules' => Presentation::$validation['make']['rules'],
-                        'messages' => Presentation::$validation['make']['messages']['es'],
-                    ],
-                ],
             ]);
         }
 
@@ -74,33 +56,6 @@
             return view('blog.details', [
                 // 'notifications' => $notifications,
                 'post' => $post,
-                'validation' => [
-                    'login' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['login']['messages']['es'], 'login_'),
-                    ], 'signin' => (object)[
-                        'rules' => $this->encodeInput(AuthModel::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(AuthModel::$validation['signin']['messages']['es'], 'signin_'),
-                    ], 'assignment' => (object)[
-                        'rules' => Assignment::$validation['make']['rules'],
-                        'messages' => Assignment::$validation['make']['messages']['es'],
-                    ], "advanced" => (object)[
-                        "rules" => User::$validation["advanced"]["rules"],
-                        "messages" => User::$validation["advanced"]["messages"]["es"],
-                    ], 'presentation' => (object)[
-                        'rules' => Presentation::$validation['make']['rules'],
-                        'messages' => Presentation::$validation['make']['messages']['es'],
-                    ], 'create' => (object)[
-                        'rules' => Post::$validation['create']['rules'],
-                        'messages' => Post::$validation['create']['messages']['es'],
-                    ], 'update' => (object)[
-                        'rules' => Post::$validation['update']['rules'],
-                        'messages' => Post::$validation['update']['messages']['es'],
-                    ], 'delete' => (object)[
-                        'rules' => Post::$validation['delete']['rules'],
-                        'messages' => Post::$validation['delete']['messages']['es'],
-                    ],
-                ],
             ]);
         }
 

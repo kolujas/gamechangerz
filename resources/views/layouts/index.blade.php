@@ -45,16 +45,16 @@
 
         {{-- ? Global JS --}}
         <script>
-            const validation = @json($validation);
+            const validation = {
+                // ?
+            };
+
+            const auth = {};
             @if (Auth::check())
-                const auth = {
-                    id_user: {{ Auth::user()->id_user }},
-                    id_role: {{ Auth::user()->id_role }},
-                };
+                auth.id_user = {{ Auth::user()->id_user }};
+                auth.id_role = {{ Auth::user()->id_role }};
             @endif
-            @if (!Auth::check())
-                const auth = false;
-            @endif
+
             var modals = {};
 
             const status = {};

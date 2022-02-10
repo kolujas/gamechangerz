@@ -29,6 +29,8 @@
 @section('js')
     <script>
         const posts = @json($posts);
+
+        validation.post = @json(\App\Models\Post::$validation);
     </script>
     <script type="module" src={{ asset('js/blog/list.js') }}></script>
 @endsection

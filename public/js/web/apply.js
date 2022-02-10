@@ -1,9 +1,9 @@
-if (validation.hasOwnProperty("apply")) {
-    if (!validation.apply.hasOwnProperty("ValidationJS")) {
-        validation.apply.ValidationJS = new window.validation({
+if (validation.hasOwnProperty('user') && validation.user.hasOwnProperty("apply")) {
+    if (!validation.user.apply.hasOwnProperty("ValidationJS")) {
+        validation.user.apply.ValidationJS = new window.validation({
             id: "apply",
-            rules: validation.apply.rules,
-            messages: validation.apply.messages,
+            rules: validation.user.apply.rules,
+            messages: validation.user.apply.messages.es,
         });
     }
 } else {

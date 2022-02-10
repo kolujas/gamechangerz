@@ -15,7 +15,7 @@ new window.navmenu({
 }});
 
 const token = Token.get();
-if (!auth) {
+if (!auth.hasOwnProperty('id_user')) {
     let authenticated = new Auth();
 
     if (window.url.findHashParameter()) {
@@ -36,7 +36,7 @@ if (!auth) {
     }
 }
 
-if (auth) {
+if (auth.hasOwnProperty('id_user')) {
     if (document.querySelectorAll(`a[href="/logout"]`).length) {
         for (const html of document.querySelectorAll(`a[href="/logout"]`)) {
             html.addEventListener("click", function (e) {

@@ -39,21 +39,6 @@
 
             return view('auth.reset-password',[
                 'password' => $password,
-                'validation' => [
-                    'login' => [
-                        'rules' => $this->encodeInput(Model::$validation['login']['rules'], 'login_'),
-                        'messages' => $this->encodeInput(Model::$validation['login']['messages']['es'], 'login_'),
-                    ], 'signin' => [
-                        'rules' => $this->encodeInput(Model::$validation['signin']['rules'], 'signin_'),
-                        'messages' => $this->encodeInput(Model::$validation['signin']['messages']['es'], 'signin_'),
-                    ], 'change-password' => [
-                        'rules' => $this->encodeInput(Model::$validation['change-password']['rules'], 'change-password_'),
-                        'messages' => $this->encodeInput(Model::$validation['change-password']['messages']['es'], 'change-password_'),
-                    ], 'reset-password' => [
-                        'rules' => Model::$validation['reset-password']['rules'],
-                        'messages' => Model::$validation['reset-password']['messages']['es'],
-                    ],
-                ],
             ]);
         }
 
@@ -131,17 +116,9 @@
          * @return \Illuminate\Http\Response
          */
         public function login (Request $request) {
-            foreach ($request->all() as $key => $value) {
-                if (preg_match('/login_/', $key)) {
-                    $string = 'login_';
-                }
-                if (preg_match('/signin_/', $key)) {
-                    $string = 'signin_';
-                }
-            }
-
-            $input = (object) $this->decodeInput($request->all(), $string);
-            if ($string == 'signin_') {
+            $input = (object) $request->all();
+            
+            if (isset($input->email)) {
                 $input->data = $input->email;
             }
 

@@ -13,12 +13,12 @@ export default class Advanced extends window.class {
     } 
 
     static setValidationJS () {
-        if (validation.hasOwnProperty("advanced")) {
-            if (!validation.advanced.hasOwnProperty("ValidationJS")) {
-                validation.advanced.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty("user") && validation.user.hasOwnProperty("advanced")) {
+            if (!validation.user.advanced.hasOwnProperty("ValidationJS")) {
+                validation.user.advanced.ValidationJS = new window.validation({
                     id: "advanced-form",
-                    rules: validation.advanced.rules,
-                    messages: validation.advanced.messages,
+                    rules: validation.user.advanced.rules,
+                    messages: validation.user.advanced.messages.es,
                 });
             }
         } else {

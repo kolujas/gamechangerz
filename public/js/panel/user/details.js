@@ -92,7 +92,7 @@ if (validation.hasOwnProperty("user")) {
     validation.user.create.ValidationJS = new window.validation({
         id: "user-form",
         rules: validation.user.create.rules,
-        messages: validation.user.create.messages,
+        messages: validation.user.create.messages.es,
     }, {
         submit: false,
         active: true,
@@ -112,7 +112,7 @@ if (validation.hasOwnProperty("user")) {
     validation.user.update.ValidationJS = new window.validation({
         id: "user-form",
         rules: validation.user.update.rules,
-        messages: validation.user.update.messages,
+        messages: validation.user.update.messages.es,
     }, {
         submit: false,
         active: false,
@@ -132,7 +132,7 @@ if (validation.hasOwnProperty("user")) {
     validation.user.delete.ValidationJS = new window.validation({
         id: "user-form",
         rules: validation.user.delete.rules,
-        messages: validation.user.delete.messages,
+        messages: validation.user.delete.messages.es,
     }, {
         submit: false,
         active: false,

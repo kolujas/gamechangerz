@@ -55,6 +55,13 @@
 
 @section('extras')
     {{-- Layout JS --}}
+    <script>
+        validation.coupon = @json(\App\Models\Coupon::$validation);
+        validation.lesson = @json(\App\Models\Lesson::$validation);
+        validation.review = @json(\App\Models\Review::$validation);
+        validation.user = @json(\App\Models\User::$validation);
+    </script>
+
     <script type="module" src={{ asset('js/layouts/panel.js') }}></script>
 
     @yield('js')

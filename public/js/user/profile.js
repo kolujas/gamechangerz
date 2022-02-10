@@ -36,7 +36,6 @@ function createErrorNotification (params) {
             const errors = params.errors[target];
             for (const error of errors) {
                 let index = document.querySelectorAll(".notification").length;
-                console.log(error);
                 let notification = new window.notification({
                     id: `notification-${ target }`,
                     code: 404,
@@ -255,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (document.querySelector("#friends.modal")) {
         Friend.setModalJS();
     }
-    if (auth) {
+    if (auth.hasOwnProperty('id_user')) {
         if (document.querySelector("#achievements.modal")) {
             Achievement.setModalJS(achievements);
             for (const btn of document.querySelectorAll("ul.achievements.cards .btn")) {
@@ -278,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }
 
         if (document.querySelectorAll(".update-button").length) {
-            if (!validation["update"].ValdiationJS) {
+            if (!validation.user[auth.id_role == 1 ? 'coach' : 'user']["update"].ValdiationJS) {
                 User.setValidationJS({
                     function: createErrorNotification,
                     params: {}

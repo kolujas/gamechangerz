@@ -23,7 +23,7 @@
                 </header>
                 <label class="input-group grid mb-6">
                     <div class="flex justify-between">
-                        <input class="reset-password form-input px-5 py-4 overpass" type="password" tabindex="4" name="password" id="password" placeholder="Contraseña">
+                        <input class="reset-password form-input px-5 py-4 overpass" type="password" tabindex="4" name="password" placeholder="Contraseña">
                         <button class="seePassword input-password">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -36,7 +36,7 @@
                 </label>
                 <label class="input-group grid mb-6">
                     <div class="flex justify-between">
-                        <input class="reset-password form-input px-5 py-4 overpass" type="password" tabindex="5" name="password_confirmation" id="password_confirmation" placeholder="Confirmar contraseña">
+                        <input class="reset-password form-input px-5 py-4 overpass" type="password" tabindex="5" name="password_confirmation" placeholder="Confirmar contraseña">
                         <button class="seePassword input-password_confirmation">
                             <i class="fas fa-eye"></i>
                         </button>
@@ -67,6 +67,7 @@
 @endsection
 
 @section('js')
-    <script src={{ asset('js/scrollreveal.min.js') }}></script> 
+    <script src={{ asset('js/scrollreveal.min.js') }}></script>
+
     <script type="module" src={{ asset('js/auth/reset-password.js') }}></script>
 @endsection

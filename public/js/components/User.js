@@ -3,11 +3,11 @@ import Game from "./Game.js";
 
 export class User extends window.class {
     static setValidationJS (params = {}) {
-        if (validation.hasOwnProperty('update')) {
-            validation.update.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty('user') && validation.user.hasOwnProperty('update')) {
+            validation.user.update.ValidationJS = new window.validation({
                 id: 'update-form',
-                rules: validation.update.rules,
-                messages: validation.update.messages,
+                rules: validation.user.update.rules,
+                messages: validation.user.update.messages.es,
             }, {}, {
                 invalid: {
                     function: params.function,

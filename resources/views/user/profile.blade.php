@@ -78,6 +78,10 @@
 
 @section('js')
     <script>
+        validation.language = @json(\App\Models\Language::$validation);
+        validation.review = @json(\App\Models\Review::$validation);
+        validation.user = @json(\App\Models\User::$validation);
+
         const lessons = @json($lessons);
         @if ($user->id_role === 0)
             const files = @json($user->files);
@@ -87,5 +91,6 @@
             const achievements = @json($user->achievements);
         @endif
     </script>
+
     <script type="module" src={{ asset('js/user/profile.js?v=1.0.0') }}></script>
 @endsection

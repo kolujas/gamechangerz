@@ -20,7 +20,7 @@ if (validation.hasOwnProperty("coupon")) {
     validation.coupon.create.ValidationJS = new window.validation({
         id: "coupon-form",
         rules: validation.coupon.create.rules,
-        messages: validation.coupon.create.messages,
+        messages: validation.coupon.create.messages.es,
     }, {
         submit: false,
         active: true,
@@ -35,7 +35,7 @@ if (validation.hasOwnProperty("coupon")) {
     validation.coupon.update.ValidationJS = new window.validation({
         id: "coupon-form",
         rules: validation.coupon.update.rules,
-        messages: validation.coupon.update.messages,
+        messages: validation.coupon.update.messages.es,
     }, {
         submit: false,
         active: false,
@@ -50,7 +50,7 @@ if (validation.hasOwnProperty("coupon")) {
     validation.coupon.delete.ValidationJS = new window.validation({
         id: "coupon-form",
         rules: validation.coupon.delete.rules,
-        messages: validation.coupon.delete.messages,
+        messages: validation.coupon.delete.messages.es,
     }, {
         submit: false,
         active: false,

@@ -231,12 +231,12 @@ export class Assignment extends window.class {
     }
 
     static setValidationJS (callback) {
-        if (validation.hasOwnProperty("assignment")) {
-            if (!validation.assignment.hasOwnProperty("ValidationJS")) {
-                validation.assignment.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty("assignment") && validation.assignment.hasOwnProperty("make")) {
+            if (!validation.assignment.make.hasOwnProperty("ValidationJS")) {
+                validation.assignment.make.ValidationJS = new window.validation({
                     id: "assignment-form",
-                    rules: validation.assignment.rules,
-                    messages: validation.assignment.messages,
+                    rules: validation.assignment.make.rules,
+                    messages: validation.assignment.make.messages.es,
                 }, {
                     submit: false,
                 }, {
@@ -253,7 +253,7 @@ export class Assignment extends window.class {
     static async submit () {
         const token = Token.get();
 
-        if (!validation.assignment.ValidationJS.html.classList.contains("invalid")) {
+        if (!validation.assignment.make.ValidationJS.html.classList.contains("invalid")) {
             let formData = new FormData(document.querySelector(`#assignment.modal #assignment-form`));
             let _token = formData.get("_token");
             formData.delete("_token");

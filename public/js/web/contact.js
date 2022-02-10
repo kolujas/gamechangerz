@@ -1,9 +1,9 @@
-if (validation.hasOwnProperty("contact")) {
-    if (!validation.contact.hasOwnProperty("ValidationJS")) {
-        validation.contact.ValidationJS = new winodw.validation({
+if (validation.hasOwnProperty('mail') && validation.mail.hasOwnProperty("contact")) {
+    if (!validation.mail.contact.hasOwnProperty("ValidationJS")) {
+        validation.mail.contact.ValidationJS = new winodw.validation({
             id: "contact",
-            rules: validation.contact.rules,
-            messages: validation.contact.messages,
+            rules: validation.mail.contact.rules,
+            messages: validation.mail.contact.messages,
         });
     }
 } else {

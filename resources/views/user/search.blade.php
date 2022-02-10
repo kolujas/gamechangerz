@@ -44,6 +44,8 @@
 @section('js')
     <script>
         let users = [];
+
+        validaion.user = @json(\App\Models\User::$validation);
     </script>
 
     <script type="module" src={{ asset('js/user/search.js?v=0.0.3') }}></script>

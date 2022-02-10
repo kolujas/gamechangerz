@@ -21,7 +21,7 @@ if (validation.hasOwnProperty("lesson")) {
     validation.lesson.create["1on1"].ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.create["1on1"].rules,
-        messages: validation.lesson.create["1on1"].messages,
+        messages: validation.lesson.create["1on1"].messages.es,
     }, {
         submit: false,
         active: false,
@@ -36,7 +36,7 @@ if (validation.hasOwnProperty("lesson")) {
     validation.lesson.create["seguimiento-online"].ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.create["seguimiento-online"].rules,
-        messages: validation.lesson.create["seguimiento-online"].messages,
+        messages: validation.lesson.create["seguimiento-online"].messages.es,
     }, {
         submit: false,
         active: true,
@@ -51,7 +51,7 @@ if (validation.hasOwnProperty("lesson")) {
     validation.lesson.create.packs.ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.create.packs.rules,
-        messages: validation.lesson.create.packs.messages,
+        messages: validation.lesson.create.packs.messages.es,
     }, {
         submit: false,
         active: false,
@@ -66,7 +66,7 @@ if (validation.hasOwnProperty("lesson")) {
     validation.lesson.delete.ValidationJS = new window.validation({
         id: "lesson-form",
         rules: validation.lesson.delete.rules,
-        messages: validation.lesson.delete.messages,
+        messages: validation.lesson.delete.messages.es,
     }, {
         submit: false,
         active: false,

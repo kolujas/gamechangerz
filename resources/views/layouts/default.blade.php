@@ -50,6 +50,12 @@
     @component('components.modal.layouts.poll')@endcomponent
 
     {{-- Layout JS --}}
+    <script>
+        validation.assignment = @json(\App\Models\Assignment::$validation);
+        validation.auth = @json(\App\Models\Auth::$validation);
+        validation.presentation = @json(\App\Models\Presentation::$validation);
+    </script>
+
     <script type="module" src={{ asset('js/layouts/default.js?v=1.2.2') }}></script>
 
     @yield('js')

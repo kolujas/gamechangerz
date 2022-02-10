@@ -76,5 +76,9 @@
 @endsection
 
 @section('js')
+    <script>
+        validation.mail = @json(\App\Models\Mail::$validation);
+    </script>
+
     <script type="module" src={{ asset('js/web/support.js') }}></script>
 @endsection

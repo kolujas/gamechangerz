@@ -22,7 +22,7 @@
          * @return \Illuminate\Http\Response
          */
         public function changePassword (Request $request) {
-            $input = (object) $this->decodeInput($request->all(), 'change-password_');
+            $input = (object) $request->all();
 
             $validator = Validator::make((array) $input, Model::$validation['change-password']['rules'], Model::$validation['login']['messages']['es']);
             if ($validator->fails()) {
@@ -76,7 +76,7 @@
          * @return \Illuminate\Http\Response
          */
         public function login (Request $request) {
-            $input = (object) $this->decodeInput($request->all(), 'login_');
+            $input = (object) $request->all();
 
             $validator = Validator::make((array) $input, Model::$validation['login']['rules'], Model::$validation['login']['messages']['es']);
             if ($validator->fails()) {
@@ -142,7 +142,7 @@
          * @return \Illuminate\Http\Response
          */
         public function signin (Request $request) {
-            $input = (object) $this->decodeInput($request->all(), 'signin_');
+            $input = (object) $request->all();
 
             $validator = Validator::make((array) $input, Model::$validation['signin']['rules'], Model::$validation['signin']['messages']['es']);
             if ($validator->fails()) {

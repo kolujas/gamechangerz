@@ -1,9 +1,9 @@
-if (validation.hasOwnProperty("support")) {
-    if (!validation.support.hasOwnProperty("ValidationJS")) {
-        validation.support.ValidationJS = new window.validation({
+if (validation.hasOwnProperty('mail') && validation.mail.hasOwnProperty("support")) {
+    if (!validation.mail.support.hasOwnProperty("ValidationJS")) {
+        validation.mail.support.ValidationJS = new window.validation({
             id: "support",
-            rules: validation.support.rules,
-            messages: validation.support.messages,
+            rules: validation.mail.support.rules,
+            messages: validation.mail.support.messages,
         });
     }
 } else {

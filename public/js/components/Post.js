@@ -13,11 +13,11 @@ export class Post extends window.class {
     }
 
     static setValidationJS (name) {
-        if (validation.hasOwnProperty(name)) {
-            validation[name].ValidationJS = new window.validation({
+        if (validation.hasOwnProperty('post') && validation.post.hasOwnProperty(name)) {
+            validation.post[name].ValidationJS = new window.validation({
                 id: 'post',
-                rules: validation[name].rules,
-                messages: validation[name].messages,
+                rules: validation.post[name].rules,
+                messages: validation.post[name].messages.es,
             });
         }
     }

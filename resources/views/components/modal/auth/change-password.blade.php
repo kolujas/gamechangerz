@@ -1,4 +1,4 @@
-<form id="change-password" action="/change-password" method="post" class="grid pr-6">
+<form id="change-password" action="/change-password" method="post" class="grid pr-6" name="change0password">
     @csrf
     @method('post')
     <main class="change-password pl-12 pb-12 pr-6">
@@ -9,11 +9,11 @@
             <h2 class="color-four text-center russo xl:text-lg uppercase">Cambiar contraseña</h2>
         </header>
         <label class="input-group grid mb-6">
-            <input class="change-password form-input px-5 py-4 overpass" type="text" tabindex="1" name="change-password_data" id="change-password_data" placeholder="Email o Nombre de usuario" value={{ old('change-password_data', '') }}>
-            @if ($errors->has('change-password_data'))
-                <span class="error support change-password support-box hidden support-change-password_data overpass mt-2">{{ $errors->first('change-password_data') }}</span>
+            <input class="change-password form-input px-5 py-4 overpass" type="text" tabindex="1" name="data" placeholder="Email o Nombre de usuario" value={{ old('data', '') }}>
+            @if ($errors->has('data'))
+                <span class="error support change-password support-box hidden support-data overpass mt-2">{{ $errors->first('data') }}</span>
             @else
-                <span class="error support change-password support-box hidden support-change-password_data overpass mt-2"></span>
+                <span class="error support change-password support-box hidden support-data overpass mt-2"></span>
             @endif
         </label>
         <div class="submit-group">

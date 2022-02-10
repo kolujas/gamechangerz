@@ -29,7 +29,7 @@
          */
         public function banner (Request $request) {
             return view("panel.platform.banner", [
-                "validation" => []
+                // ?
             ]);
         }
 
@@ -44,7 +44,6 @@
             }
             
             return view("panel.blog.list", [
-                "validation" => [],
                 "posts" => $posts
             ]);
         }
@@ -92,18 +91,7 @@
 
             return view("panel.coupon.details", [
                 "coupon" => $coupon,
-                "validation" => [
-                    "coupon" => (object)[
-                        "create" => (object)[
-                            "rules" => Coupon::$validation["create"]["rules"],
-                            "messages" => Coupon::$validation["create"]["messages"]["es"],
-                        ], "update" => (object)[
-                            "rules" => Coupon::$validation["update"]["rules"],
-                            "messages" => Coupon::$validation["update"]["messages"]["es"],
-                        ], "delete" => (object)[
-                            "rules" => Coupon::$validation["delete"]["rules"],
-                            "messages" => Coupon::$validation["delete"]["messages"]["es"],
-            ],],],]);
+            ]);
         }
 
         /**
@@ -117,7 +105,6 @@
             }
 
             return view("panel.coupon.list", [
-                "validation" => [],
                 "coupons" => $coupons
             ]);
         }
@@ -130,7 +117,6 @@
             return view("panel.platform.info", [
                 "dolar" => Platform::dolar(),
                 "link" => Platform::link(),
-                "validation" => []
             ]);
         }
 
@@ -184,22 +170,7 @@
                 "coaches" => $coaches,
                 "types" => $types,
                 "users" => $users,
-                "validation" => [
-                    "lesson" => (object)[
-                        "create" => (object)[
-                            "1on1" => (object)[
-                                "rules" => Lesson::$validation["panel"]["create"]["1on1"]["rules"],
-                                "messages" => Lesson::$validation["panel"]["create"]["1on1"]["messages"]["es"],
-                            ], "seguimiento-online" => (object)[
-                                "rules" => Lesson::$validation["panel"]["create"]["seguimiento-online"]["rules"],
-                                "messages" => Lesson::$validation["panel"]["create"]["seguimiento-online"]["messages"]["es"],
-                            ], "packs" => (object)[
-                                "rules" => Lesson::$validation["panel"]["create"]["packs"]["rules"],
-                                "messages" => Lesson::$validation["panel"]["create"]["packs"]["messages"]["es"],
-                        ],], "delete" => (object)[
-                            "rules" => Lesson::$validation["panel"]["delete"]["rules"],
-                            "messages" => Lesson::$validation["panel"]["delete"]["messages"]["es"],
-            ],],],]);
+            ]);
         }
 
         /**
@@ -213,7 +184,6 @@
             }
             
             return view("panel.lesson.list", [
-                "validation" => [],
                 "lessons" => $lessons
             ]);
         }
@@ -327,21 +297,7 @@
                 "teampro" => $teampro,
                 "user" => $user,
                 "minPrice" => floatval(Platform::dolar() / 2),
-                "validation" => [
-                    "coach" => (object)[
-                        "create" => (object)[
-                            "rules" => $this->replaceUnique(User::$validation["coach"]["panel"]["create"]["rules"], PLatform::dolar() / 2),
-                            "messages" => User::$validation["coach"]["panel"]["create"]["messages"]["es"],
-                        ], "update" => (object)[
-                            "rules" => $this->replaceUnique(User::$validation["coach"]["panel"]["update"]["rules"], PLatform::dolar() / 2),
-                            "messages" => User::$validation["coach"]["panel"]["update"]["messages"]["es"],
-                        ], "delete" => (object)[
-                            "rules" => User::$validation["coach"]["panel"]["delete"]["rules"],
-                            "messages" => User::$validation["coach"]["panel"]["delete"]["messages"]["es"],
-                    ],], "review" => (object)[
-                        "rules" => Review::$validation["create"]["rules"],
-                        "messages" => Review::$validation["create"]["messages"]["es"],
-            ],],]);
+            ]);
         }
 
         /**
@@ -352,7 +308,6 @@
             $users = User::coaches()->orderBy('updated_at', 'DESC')->get();
 
             return view("panel.coaches.list", [
-                "validation" => [],
                 "users" => $users
             ]);
         }
@@ -436,21 +391,7 @@
                 "lessons" => $lessons,
                 "reviews" => $reviews,
                 "user" => $user,
-                "validation" => [
-                    "user" => (object)[
-                        "create" => (object)[
-                            "rules" => User::$validation["user"]["panel"]["create"]["rules"],
-                            "messages" => User::$validation["user"]["panel"]["create"]["messages"]["es"],
-                        ], "update" => (object)[
-                            "rules" => User::$validation["user"]["panel"]["update"]["rules"],
-                            "messages" => User::$validation["user"]["panel"]["update"]["messages"]["es"],
-                        ], "delete" => (object)[
-                            "rules" => User::$validation["user"]["panel"]["delete"]["rules"],
-                            "messages" => User::$validation["user"]["panel"]["delete"]["messages"]["es"],
-                    ],], "review" => (object)[
-                        "rules" => Review::$validation["create"]["rules"],
-                        "messages" => Review::$validation["create"]["messages"]["es"],
-            ],],]);
+            ]);
         }
 
         /**
@@ -462,7 +403,6 @@
 
             return view("panel.users.list", [
                 "users" => $users,
-                "validation" => [],
             ]);
         }
     }

@@ -126,5 +126,9 @@
 @endsection
 
 @section("js")
+    <script>
+        validation.user = @json(\App\Models\User::$validation);
+    </script>
+
     <script type="module" src={{ asset("js/web/apply.js") }}></script>
 @endsection

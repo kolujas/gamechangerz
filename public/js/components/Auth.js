@@ -83,11 +83,11 @@ export class Auth extends window.class {
     }
 
     setValidationJS () {
-        if (validation.hasOwnProperty("login")) {
-            validation.login.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty("auth") && validation.auth.hasOwnProperty("login")) {
+            validation.auth.login.ValidationJS = new window.validation({
                 id: "login",
-                rules: validation.login.rules,
-                messages: validation.login.messages,
+                rules: validation.auth.login.rules,
+                messages: validation.auth.login.messages.es,
             }, {
                 submit: false,
             }, {
@@ -102,11 +102,11 @@ export class Auth extends window.class {
         } else {
             console.error(`validation.login does not exist`);
         }
-        if (validation.hasOwnProperty("signin")) {
-            validation.signin.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty("auth") && validation.auth.hasOwnProperty("signin")) {
+            validation.auth.signin.ValidationJS = new window.validation({
                 id: "signin",
-                rules: validation.signin.rules,
-                messages: validation.signin.messages,
+                rules: validation.auth.signin.rules,
+                messages: validation.auth.signin.messages.es,
             }, {
                 submit: false,
             }, {
@@ -121,11 +121,11 @@ export class Auth extends window.class {
         } else {
             console.error(`validation.signin does not exist`);
         }
-        if (validation.hasOwnProperty("change-password")) {
-            validation['change-password'].ValidationJS = new window.validation({
+        if (validation.hasOwnProperty("auth") && validation.auth.hasOwnProperty("change-password")) {
+            validation.auth['change-password'].ValidationJS = new window.validation({
                 id: "change-password",
-                rules: validation['change-password'].rules,
-                messages: validation['change-password'].messages,
+                rules: validation.auth['change-password'].rules,
+                messages: validation.auth['change-password'].messages.es,
             }, {
                 submit: false,
             }, {

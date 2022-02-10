@@ -1,4 +1,4 @@
-<form id="login" action="/login" method="post" class="grid pr-6">
+<form id="login" action="/login" method="post" class="grid pr-6" name="login">
     @csrf
     @method('post')
     <main class="login pl-12 pb-12 pr-6">
@@ -9,29 +9,29 @@
             <h2 class="color-four text-center russo xl:text-lg uppercase">Iniciar sesión</h2>
         </header>
         <label class="input-group grid mb-6">
-            <input class="login form-input px-5 py-4 overpass" type="text" tabindex="1" name="login_data" id="login_data" placeholder="Email o Nombre de usuario" value={{ old('login_data', '') }}>
-            @if ($errors->has('login_data'))
-                <span class="error support login support-box hidden support-login_data overpass mt-2">{{ $errors->first('login_data') }}</span>
+            <input class="login form-input px-5 py-4 overpass" type="text" tabindex="1" name="data" placeholder="Email o Nombre de usuario" value={{ old('data', '') }}>
+            @if ($errors->has('data'))
+                <span class="error support login support-box hidden support-data overpass mt-2">{{ $errors->first('data') }}</span>
             @else
-                <span class="error support login support-box hidden support-login_data overpass mt-2"></span>
+                <span class="error support login support-box hidden support-data overpass mt-2"></span>
             @endif
         </label>
         <label class="input-group grid mb-8">
             <div class="flex justify-between">
-                <input class="login form-input px-5 py-4 overpass" type="password" tabindex="2" name="login_password" id="login_password" placeholder="Contraseña">
-                <span class="seePassword input-login_password">
+                <input class="login form-input px-5 py-4 overpass" type="password" tabindex="2" name="password" placeholder="Contraseña">
+                <span class="seePassword input-password">
                     <i class="fas fa-eye"></i>
                 </span>
             </div>
-            @if ($errors->has('login_password'))
-                <span class="error support login support-box hidden support-login_password mt-2 overpass">{{ $errors->first('login_password') }}</span>
+            @if ($errors->has('password'))
+                <span class="error support login support-box hidden support-password mt-2 overpass">{{ $errors->first('password') }}</span>
             @else
-                <span class="error support login support-box hidden support-login_password mt-2 overpass"></span>
+                <span class="error support login support-box hidden support-password mt-2 overpass"></span>
             @endif
         </label>
         <div class="submit-group">
             <label class="text-white input-option flex mb-6">
-                <input class="overpass" type="checkbox" tabindex="3" name="login_remember">
+                <input class="overpass" type="checkbox" tabindex="3" name="remember">
                 <div class="input-box mr-2"></div>
                 <div class="input-text">
                     <span class="overpass">Recuerdame</span>

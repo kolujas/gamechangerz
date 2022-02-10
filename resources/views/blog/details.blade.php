@@ -141,6 +141,9 @@
 @section('js')
     <script>
         const post = @json($post);
+
+        validation.post = @json(\App\Models\Post::$validation);
     </script>
+
     <script type="module" src={{ asset('js/blog/details.js') }}></script>
 @endsection

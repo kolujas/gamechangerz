@@ -12,11 +12,11 @@ export class Language extends window.class {
     }
 
     static setValidationJS () {
-        if (validation.hasOwnProperty('languages')) {
-            validation.languages.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty("language") && validation.language.hasOwnProperty('user')) {
+            validation.language.user.ValidationJS = new window.validation({
                 id: 'languages-form',
-                rules: validation.languages.rules,
-                messages: validation.languages.messages,
+                rules: validation.language.user.rules,
+                messages: validation.language.user.messages.es,
             });
         } else {
             console.error(`validation.languages does not exist`);

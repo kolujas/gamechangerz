@@ -731,10 +731,10 @@ function createPayPalButton () {
             }
 
             if (price <= 0) {
-                validation.checkout.ValidationJS.validate();
+                validation.lesson.checkout.ValidationJS.validate();
             }
             if (price > 0) {
-                if (validation.checkout.ValidationJS.validate()) {
+                if (validation.lesson.checkout.ValidationJS.validate()) {
                     if (price <= dolar / 2) {
                         price = dolar / 2;
                     }
@@ -880,10 +880,10 @@ document.addEventListener("DOMContentLoaded", async function (e) {
         createHours((type.id_type == 1 ? 1 : 4));
     }
 
-    validation.checkout.ValidationJS = new window.validation({
+    validation.lesson.checkout.ValidationJS = new window.validation({
         id: "checkout",
-        rules: validation.checkout.rules,
-        messages: validation.checkout.messages,
+        rules: validation.lesson.checkout.rules,
+        messages: validation.lesson.checkout.messages.es,
     }, {
         submit: false
     }, {

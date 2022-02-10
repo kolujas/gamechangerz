@@ -12,7 +12,7 @@ export class Review extends window.class {
         };
         this.setLessons();
         this.setEventListeners();
-        if (!window.localstorage.has("gamechangerz_later") && auth.id_role !== 2) {
+        if (!window.localstorage.has("gamechangerz_later") && auth.id_role != 2) {
             let link = new window.html("div", {
                 props: {
                     classes: ["flex", "justify-center"],
@@ -251,12 +251,12 @@ export class Review extends window.class {
     }
 
     setValidationJS () {
-        if (validation.hasOwnProperty('review')) {
-            if (!validation.review.hasOwnProperty('ValidationJS')) {
-                validation.review.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty('review') && validation.review.hasOwnProperty('create')) {
+            if (!validation.review.create.hasOwnProperty('ValidationJS')) {
+                validation.review.create.ValidationJS = new window.validation({
                     id: 'review-form',
-                    rules: validation.review.rules,
-                    messages: validation.review.messages,
+                    rules: validation.review.create.rules,
+                    messages: validation.review.create.messages.es,
                 });
             }
         } else {
@@ -269,7 +269,7 @@ export class Review extends window.class {
     }
 
     static lesson (data) {
-        const user = data.users[((auth && auth.id_user === data.users.from.id_user) ? "to" : "from")];
+        const user = data.users[((auth.hasOwnProperty('id_user') && auth.id_user === data.users.from.id_user) ? "to" : "from")];
 
         let link = User.component("profile", {
             props: {
@@ -307,7 +307,7 @@ export class Review extends window.class {
                     props: {
                         id: `lesson-${ user.slug }-link-text`,
                         classes: ["py-2", "px-4"]
-                    }, innerHTML: ((auth && auth.id_role !== 2) ? "Dejar reseña" : "Revisar reseña")
+                    }, innerHTML: ((auth.hasOwnProperty('id_user') && auth.id_role !== 2) ? "Dejar reseña" : "Revisar reseña")
                 }],
             ],
         }).html);

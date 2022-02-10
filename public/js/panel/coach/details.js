@@ -72,26 +72,26 @@ document.querySelector('.teampro-photo').appendChild(new window.html("span", {
 function submit (params) {
     switch (params.type) {
         case "create":
-            validation.coach.create.ValidationJS.html.action = `/panel/coaches/create`;
+            validation.user.coach.create.ValidationJS.html.action = `/panel/coaches/create`;
             document.querySelector("form#coach-form input[name=_method]").value = "POST";
             break;
         case "delete":
-            validation.coach.create.ValidationJS.html.action = `/panel/coaches/${ user.slug }/delete`;
+            validation.user.coach.create.ValidationJS.html.action = `/panel/coaches/${ user.slug }/delete`;
             document.querySelector("form#coach-form input[name=_method]").value = "DELETE";
             break;
         case "update":
-            validation.coach.create.ValidationJS.html.action = `/panel/coaches/${ user.slug }/update`;
+            validation.user.coach.create.ValidationJS.html.action = `/panel/coaches/${ user.slug }/update`;
             document.querySelector("form#coach-form input[name=_method]").value = "PUT";
             break;
     }
-    validation.coach.create.ValidationJS.html.submit();
+    validation.user.coach.create.ValidationJS.html.submit();
 }
 
-if (validation.hasOwnProperty("coach")) {
-    validation.coach.create.ValidationJS = new window.validation({
+if (validation.hasOwnProperty('user') && validation.user.hasOwnProperty("coach")) {
+    validation.user.coach.create.ValidationJS = new window.validation({
         id: "coach-form",
-        rules: validation.coach.create.rules,
-        messages: validation.coach.create.messages,
+        rules: validation.user.coach.create.rules,
+        messages: validation.user.coach.create.messages.es,
     }, {
         submit: false,
         active: true,
@@ -103,10 +103,10 @@ if (validation.hasOwnProperty("coach")) {
             },
         }
     });
-    validation.coach.update.ValidationJS = new window.validation({
+    validation.user.coach.update.ValidationJS = new window.validation({
         id: "coach-form",
-        rules: validation.coach.update.rules,
-        messages: validation.coach.update.messages,
+        rules: validation.user.coach.update.rules,
+        messages: validation.user.coach.update.messages.es,
     }, {
         submit: false,
         active: false,
@@ -118,10 +118,10 @@ if (validation.hasOwnProperty("coach")) {
             },
         }
     });
-    validation.coach.delete.ValidationJS = new window.validation({
+    validation.user.coach.delete.ValidationJS = new window.validation({
         id: "coach-form",
-        rules: validation.coach.delete.rules,
-        messages: validation.coach.delete.messages,
+        rules: validation.user.coach.delete.rules,
+        messages: validation.user.coach.delete.messages.es,
     }, {
         submit: false,
         active: false,
@@ -136,28 +136,28 @@ if (validation.hasOwnProperty("coach")) {
 }
 
 document.querySelector('.editBtn').addEventListener('click', function(){
-    validation.coach.create.ValidationJS.setState("active", false);
-    validation.coach.update.ValidationJS.setState("active", true);
+    validation.user.coach.create.ValidationJS.setState("active", false);
+    validation.user.coach.update.ValidationJS.setState("active", true);
 });   
 
 document.querySelector('.cancelBtn').addEventListener('click', function(){
-    validation.coach.update.ValidationJS.setState("active", false);
-    validation.coach.delete.ValidationJS.setState("active", false);
+    validation.user.coach.update.ValidationJS.setState("active", false);
+    validation.user.coach.delete.ValidationJS.setState("active", false);
 });
 
 document.querySelector('.deleteBtn').addEventListener('click', function(){
-    validation.coach.create.ValidationJS.setState("active", false);
-    validation.coach.delete.ValidationJS.setState("active", true);
+    validation.user.coach.create.ValidationJS.setState("active", false);
+    validation.user.coach.delete.ValidationJS.setState("active", true);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
     if (/update/.exec(window.url.findHashParameter())) {
-        validation.coach.create.ValidationJS.setState("active", false);
-        validation.coach.update.ValidationJS.setState("active", true);
+        validation.user.coach.create.ValidationJS.setState("active", false);
+        validation.user.coach.update.ValidationJS.setState("active", true);
     }
     
     if (/delete/.exec(window.url.findHashParameter())) {
-        validation.coach.create.ValidationJS.setState("active", false);
-        validation.coach.delete.ValidationJS.setState("active", true);
+        validation.user.coach.create.ValidationJS.setState("active", false);
+        validation.user.coach.delete.ValidationJS.setState("active", true);
     }
 });

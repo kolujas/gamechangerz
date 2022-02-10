@@ -166,6 +166,8 @@
         var lessons = @json($user->lessons);
         const type = @json($type);
         const slug = "{{ $user->slug }}";
+
+        validation.lesson = @json(\App\Models\Lesson::$validation);
     </script>
     <script type="module" src={{ asset("js/user/checkout.js?v=1.0.11") }}></script>
 @endsection

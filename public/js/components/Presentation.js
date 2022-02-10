@@ -108,12 +108,12 @@ export default class Presentation extends window.class {
     }
 
     static setValidationJS (callback) {
-        if (validation.hasOwnProperty('presentation')) {
-            if (!validation.presentation.hasOwnProperty('ValidationJS')) {
-                validation.presentation.ValidationJS = new window.validation({
+        if (validation.hasOwnProperty('presentation') && validation.presentation.hasOwnProperty('make')) {
+            if (!validation.presentation.make.hasOwnProperty('ValidationJS')) {
+                validation.presentation.make.ValidationJS = new window.validation({
                     id: 'presentation-form',
-                    rules: validation.presentation.rules,
-                    messages: validation.presentation.messages,
+                    rules: validation.presentation.make.rules,
+                    messages: validation.presentation.make.messages.es,
                 }, {
                     submit: false,
                 }, {
@@ -130,7 +130,7 @@ export default class Presentation extends window.class {
     static async submit () {
         const token = Token.get();
 
-        if (!validation.presentation.ValidationJS.html.classList.contains('invalid')) {
+        if (!validation.presentation.make.ValidationJS.html.classList.contains('invalid')) {
             let formData = new FormData(document.querySelector(`#presentation.modal #presentation-form`));
             let _token = formData.get('_token');
             formData.delete('_token');
