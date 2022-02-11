@@ -83,6 +83,7 @@ function createUsersFilter () {
     filter = new window.filter({
         id: "filter-users",
         order: {
+            "disable_califications": "ASC",
             "stars": "DESC",
             "lessons-done": { value: "DESC", active: false },
             "username": "ASC",

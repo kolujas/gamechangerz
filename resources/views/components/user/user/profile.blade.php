@@ -53,7 +53,7 @@
                 <h3 class="color-white russo">Promedio de evaluaciones</h3>
             </header>
             @component('components.abilities.listByGame', [
-                'games' => $user->games,
+                'user' => $user,
             ])@endcomponent
         </section>
     @endif
@@ -63,7 +63,7 @@
             <h3 class="color-white russo uppercase">Reviews</h3>
         </header>
         @component('components.review.coaches', [
-            'reviews' => $user->reviews,
+            'user' => $user,
         ])@endcomponent
     </section>
 </form>

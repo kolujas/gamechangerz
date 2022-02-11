@@ -41,7 +41,7 @@
          * @var array
          */
         protected $fillable = [
-            'achievements', 'credentials', 'credits', 'date_of_birth', 'days', 'description', 'discord', 'email', 'folder', 'games', 'id_role', 'id_status', 'important', 'languages', 'lessons', 'name', 'password', 'prices', 'slug', 'stars', 'teammate', 'teampro', 'token', 'username',
+            'achievements', 'credentials', 'credits', 'date_of_birth', 'days', 'description', 'disable_califications', 'discord', 'email', 'folder', 'games', 'id_role', 'id_status', 'important', 'languages', 'lessons', 'name', 'password', 'prices', 'slug', 'stars', 'teammate', 'teampro', 'token', 'username',
         ];
 
         /**

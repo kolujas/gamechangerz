@@ -307,6 +307,8 @@
 
             $user = Auth::user();
 
+            $input->disable_califications = isset($input->disable_califications) ? 1 : 0;
+
             if ($user->id_role == 1) {
                 $user->and(["credentials"]);
                 
@@ -333,7 +335,7 @@
             
             return redirect("/users/$user->slug/profile")->with("status", [
                 "code" => 200,
-                "message" => "Credenciales actualizadas exitosamente.",
+                "message" => "Datos actualizados exitosamente.",
             ]);
         }
     }

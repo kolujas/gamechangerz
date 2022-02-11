@@ -1,6 +1,6 @@
 <ul class="cards px-8 pb-4 lg:px-0 xl:col-span-4 mb-4">
-    @if (count($reviews))
-        @foreach ($reviews as $review)
+    @if (count($user->reviews))
+        @foreach ($user->reviews as $review)
             <li class="card">
                 <div class="relative mega-cardota">            
                     <div class="flex p-4 pb-0 grid grid-cols-2 gap-8 xl:gap-6 cardota md:grid-cols-4 2xl:grid-cols-6">
@@ -9,10 +9,11 @@
                                 <span class="mr-2 w-full overpass">{{ $review->lesson->type->name }}</span>
                                 @component($review->lesson->type->svg)@endcomponent
                             </div>
+
                             @component('components.game.list', [
                                 "games" => [$review->users->from->games[0]]
-                            ])                                    
-                            @endcomponent
+                            ])@endcomponent
+
                             <div class="color-white font-bold w-full flex flex-auto items-center">
                                 <span class="mr-2 w-full overpass text-sm">{{ $review->updated_at->format("Y-m-d") }}</span>
                             </div>
@@ -20,20 +21,22 @@
                         <div class="grid grid-cols-2 col-span-2 xl:grid-cols-2 2xl:col-span-4 hidden md:grid">
                             <div>
                                 <ul class="abilities md:flex content-start flex-wrap mb-4 xl:col-span-2">
-                                    @foreach ($review->abilities as $ability)
-                                        <li div class="w-full flex items-center justify-between">
-                                            <span class="color-white overpass">{{ $ability->name }}</span> 
-                                            <div class="stars flex">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    @if ($i <= $ability->stars)
-                                                        @component('components.svg.EstrellaSVG')@endcomponent
-                                                    @else
-                                                        @component('components.svg.Estrella2SVG')@endcomponent
-                                                    @endif
-                                                @endfor
-                                            </div>
-                                        </li>
-                                    @endforeach
+                                    @if (!$user->disable_califications)
+                                        @foreach ($review->abilities as $ability)
+                                            <li div class="w-full flex items-center justify-between">
+                                                <span class="color-white overpass">{{ $ability->name }}</span> 
+                                                    <div class="stars flex">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @if ($i <= $ability->stars)
+                                                                @component('components.svg.EstrellaSVG')@endcomponent
+                                                            @else
+                                                                @component('components.svg.Estrella2SVG')@endcomponent
+                                                            @endif
+                                                        @endfor
+                                                    </div>
+                                                </li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
                             <div class="image">
@@ -66,8 +69,7 @@
                 </div>
             </li>
         @endforeach
-    @endif
-    @if (!count($reviews))
+    @else
         <li class="card">
             <div class="relative mega-cardota error">            
                 <div class="flex justify-center p-8 cardota">

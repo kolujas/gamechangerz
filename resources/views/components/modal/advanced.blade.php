@@ -11,13 +11,13 @@
                 </header>
 
                 @if (Auth::user()->id_role == 0)
-                    {{-- <label class="input-option input-group grid mb-6">
+                    <label class="input-option input-group grid mb-6">
                         <div class="input-text flex items-center">
                             <span class="color-white russo mr-4">Esconder calificaciones</span>
-                            <input class="overpass form-input advanced-form editable" name="disable_califications" type="checkbox" />
+                            <input class="overpass form-input advanced-form editable" name="disable_califications" type="checkbox" @if (Auth::user()->disable_califications) checked @endif/>
                             <div class="input-box mr-2"></div>
                         </div>
-                    </label> --}}
+                    </label>
                 @endif
 
                 @if (Auth::user()->id_role == 1)
