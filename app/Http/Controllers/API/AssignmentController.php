@@ -6,110 +6,112 @@
     use App\Models\Chat;
     use App\Models\Lesson;
     use App\Models\Mail;
+    use App\Models\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
     class AssignmentController extends Controller {
-        public function make (Request $request, int $id_chat) {
+        /**
+         * * Get an specific Assignment.
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
+        public function get (Request $request, int $id_assignment) {
             if (!$request->user()) {
                 return response()->json([
-                    "code" => 403,
-                    "message" => "Unauthenticated",
+                    'code' => 403,
+                    'message' => 'Unauthenticated',
                 ]);
             }
 
-            $chat = Chat::find($id_chat);
-            if (!$chat) {
-                return response()->json([
-                    "code" => 404,
-                    "message" => "Chat does not exist",
-                ]);
-            }
-
-            $lesson = Lesson::byUsers($chat->id_user_from, $chat->id_user_to)->get();
-            $lesson = $lesson[count($lesson) - 1];
-            $lesson->and(["assignments"]);
-            if (count($lesson->assignments) == $lesson->{"quantity-of-assignments"}) {
-                return response()->json([
-                    "code" => 403,
-                    "message" => "There are not more Assignments to create.",
-                ]);
-            }
-
-            $input = (object) $request->all();
-            
-            $input->id_lesson = $lesson->id_lesson;
-
-            $validator = Validator::make((array) $input, Assignment::$validation["make"]["rules"], Assignment::$validation["make"]["messages"]["es"]);
-            if ($validator->fails()) {
-                return response()->json([
-                    "code" => 401,
-                    "message" => "Validation error",
-                    "data" => $validator->errors()->messages(),
-                ]);
-            }
-
-            $assignment = Assignment::create((array) $input);
-
-            $chat->addMessage([
-                "id_assignment" => $assignment->id_assignment,
-                "id_lesson" => $lesson->id_lesson,
-                "id_user" => $request->user()->id_user,
-            ]);
-
-            $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
-
-            foreach ($chat->messages as $message) {
-                $message->id_user_logged = $request->user()->id_user;
-            }
-
-            if ($request->user()->id_user === $chat->id_user_from) {
-                $from = $chat->users->from;
-                $to = $chat->users->to;
-            }
-            if ($request->user()->id_user !== $chat->id_user_from) {
-                $from = $chat->users->to;
-                $to = $chat->users->from;
-            }
-
-            new Mail([ "id_mail" => 3, ], [
-                'email_to' => $to->email,
-                'slug' => $from->slug,
-                'username' => $from->username,
-            ]);
+            $assignment = Assignment::with(['presentation'])->find($id_assignment);
 
             return response()->json([
-                "code" => 200,
-                "message" => "Success",
-                "data" => [
-                    "chat" => $chat,
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'assignment' => $assignment,
                 ],
             ]);
         }
 
         /**
-         * * Get an specific Assignment.
-         * @param  \Illuminate\Http\Request  $request
-         * @param int $id_assignment
-         * @return JSON
+         * * Make a new Assignment.
+         * @param  \Illuminate\Http\Request $request
+         * @param  string $slug
+         * @return \Illuminate\Http\Response 
          */
-        public function get (Request $request, int $id_assignment) {
+        public function make (Request $request, string $slug) {
             if (!$request->user()) {
                 return response()->json([
-                    "code" => 403,
-                    "message" => "Unauthenticated",
+                    'code' => 403,
+                    'message' => 'Unauthenticated',
                 ]);
             }
 
-            $assignment = Assignment::find($id_assignment);
-            $assignment->and(["presentation"]);
+            $user = User::bySlug($slug)->first();
+            if (!$user) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'User does not exist',
+                ]);
+            }
+
+            $chat = Chat::byUsers($request->user()->id_user, $user->id_user)->first();
+            if (!$chat) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'Chat does not exist',
+                ]);
+            }
+
+            if (!$chat->available) {
+                return response()->json([
+                    'code' => 403,
+                    'message' => 'The chat is not available',
+                ]);
+            }
+
+            $chat->lessons->last()->and(['assignments']);
+            if (count($chat->lessons->last()->assignments) == $chat->lessons->last()->{'quantity-of-assignments'}) {
+                return response()->json([
+                    'code' => 403,
+                    'message' => 'There are not more Assignments to create.',
+                ]);
+            }
+
+            $input = (object) $request->all();
+            
+            $input->id_lesson = $chat->lessons->last()->id_lesson;
+
+            $validator = Validator::make((array) $input, Assignment::$validation['make']['rules'], Assignment::$validation['make']['messages']['es']);
+            if ($validator->fails()) {
+                return response()->json([
+                    'code' => 401,
+                    'message' => 'Validation error',
+                    'data' => $validator->errors()->messages(),
+                ]);
+            }
+
+            $assignment = Assignment::create((array) $input);
+
+            $chat->send([
+                'id_assignment' => $assignment->id_assignment,
+                'id_lesson' => $chat->lessons->last()->id_lesson,
+                'id_user' => $request->user()->id_user,
+            ]);
+
+            new Mail([ 'id_mail' => 3, ], [
+                'email_to' => $chat->notAuth->email,
+                'slug' => $chat->auth->slug,
+                'username' => $chat->auth->username,
+            ]);
 
             return response()->json([
-                "code" => 200,
-                "message" => "Success",
-                "data" => [
-                    "assignment" => $assignment,
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'assignment' => $assignment,
                 ],
             ]);
         }

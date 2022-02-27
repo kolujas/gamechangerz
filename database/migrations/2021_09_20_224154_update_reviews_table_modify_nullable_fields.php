@@ -22,8 +22,6 @@
          * @return void
          */
         public function down () {
-            Schema::table('reviews', function (Blueprint $table) {
-                //
-            });
+            // 
         }
     }

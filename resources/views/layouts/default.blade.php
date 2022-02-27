@@ -37,10 +37,10 @@
         {{-- ? Chat modal --}}
         @component('components.modal.layouts.chat')@endcomponent
         {{-- ? Advanced modal --}}
-        @component('components.modal.advanced')
-        @endcomponent
+        @component('components.modal.advanced')@endcomponent
         
         <a href="#chat" class="chat-button modal-button chat border-gradient" title="Chat">
+            <span class="quantity hidden"></span>
             <figure>
                 @component('components.svg.ClaseOnline2SVG')@endcomponent
             </figure>

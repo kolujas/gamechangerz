@@ -17,6 +17,25 @@
 
     class AuthController extends Controller {
         /**
+         * * Sends the authenticated User data.
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
+        public function user (Request $request) {
+            $user = $request->user();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'id_user' => $user->id_user,
+                    'id_role' => $user->id_role,
+                    'slug' => $user->slug,
+                ],
+            ]);
+        }
+
+        /**
          * * Sends to the User an email to reset his password.
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response

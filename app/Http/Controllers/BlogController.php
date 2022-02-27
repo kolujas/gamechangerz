@@ -20,18 +20,12 @@
          * @return \Illuminate\Http\Response
          */
         public function list (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             $posts = Post::byAdmin()->limit(10)->get();
             foreach ($posts as $post) {
                 $post->and(['date', 'user']);
             }
 
             return view('blog.list', [
-                // 'notifications' => $notifications,
                 'posts' => $posts,
             ]);
         }
@@ -43,18 +37,12 @@
          * @return \Illuminate\Http\Response
          */
         public function details (Request $request, $user = false, $post = false) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             if ($post) {
                 $post = Post::bySlug($post)->first();
                 $post->and(['user', 'date']);
             }
 
             return view('blog.details', [
-                // 'notifications' => $notifications,
                 'post' => $post,
             ]);
         }

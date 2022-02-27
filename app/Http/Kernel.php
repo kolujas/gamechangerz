@@ -74,6 +74,8 @@ class Kernel extends HttpKernel
 
         "api.lesson.exist" => \App\Http\Middleware\API\CheckLessonExist::class,
 
+        "api.presentation.exist" => \App\Http\Middleware\API\CheckPresentationExist::class,
+
         "api.user.exist" => \App\Http\Middleware\API\CheckUserExist::class,
         
         "auth.status" => \App\Http\Middleware\CheckAuthenticateStatus::class,

@@ -1,12 +1,12 @@
 <?php
-    namespace App\Casts\Chat;
+    namespace App\Casts;
 
+    use Carbon\Carbon as Model;
     use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-    class Message implements CastsAttributes {
+    class Carbon implements CastsAttributes {
         /**
          * * Cast the given value.
-         *
          * @param  \Illuminate\Database\Eloquent\Model  $model
          * @param  string  $key
          * @param  mixed  $value
@@ -14,12 +14,11 @@
          * @return mixed
          */
         public function get ($model, $key, $value, $attributes) {
-            return \App\Models\Message::parse($value ? $value : '[]');
+            return Model::parse($value);
         }
 
         /**
          * * Prepare the given value for storage.
-         *
          * @param  \Illuminate\Database\Eloquent\Model  $model
          * @param  string  $key
          * @param  array  $value
@@ -27,16 +26,6 @@
          * @return mixed
          */
         public function set ($model, $key, $value, $attributes) {
-            $messages = collect();
-            $value->id_message = 1;
-
-            foreach (json_decode($model->messages) as $message) {
-                $value->id_message = intval($message->id_message) + 1;
-                $messages->push($message);
-            }
-
-            $messages->push($value);
-
-            return $messages->toJson();
+            return Model::parse($value);
         }
     }

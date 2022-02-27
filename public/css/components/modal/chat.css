@@ -71,6 +71,12 @@
 
 #chat.modal #list li {
     flex-basis: 100%;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+}
+
+#chat.modal #list li.alert {
+    background-image: linear-gradient(130deg, var(--color-five), var(--color-four));
 }
 
 #chat.modal #list ul li.order-0 {
@@ -98,6 +104,10 @@
     justify-content: center;
 }
 
+#chat.modal #list li.alert a .icon {
+    color: var(--color-white);
+}
+
 #chat.modal #list li a:hover .icon {
     right: 1rem;
     color: var(--color-four);
@@ -112,6 +122,19 @@
 #chat.modal #list .sections li a p {
     display: flex;
     align-items: center;
+}
+
+#chat.modal #list .sections li.alert a p {
+    color: var(--color-black);
+}
+
+#chat.modal #list .sections li.alert a p + span {
+    color: var(--color-red);
+}
+
+#chat.modal #list .sections li .image {
+    background-color: var(--color-one);
+    border-radius: 100vh;
 }
 
 #chat.modal #list .sections li .image img {
@@ -390,6 +413,38 @@ a[href="#chat"].modal-button.chat {
     opacity: .4;
     transition: 500ms;
     z-index: 2;
+    border-radius: 100vh;
+}
+
+a[href="#chat"].modal-button.chat.alert::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: 100vh;
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
+    z-index: -1;
+}
+
+a[href="#chat"].modal-button.chat.alert .quantity:not(.hidden) {
+    display: flex;
+}
+
+a[href="#chat"].modal-button.chat.alert .quantity {
+    content: '';
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100vh;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-black);
+    font-weight: bold;
+    background: linear-gradient(130deg, var(--color-five), var(--color-four));
 }
 
 a[href="#chat"].modal-button.chat:hover { 
@@ -415,21 +470,6 @@ a[href="#chat"].modal-button.chat img {
     width: 75%;
     height: 75%;
     object-fit: cover;
-}
-
-a[href="#chat"].modal-button.chat span {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--color-four);
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    color: var(--color-white);
 }
 
 /* ? MD */

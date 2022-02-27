@@ -2,6 +2,7 @@
     namespace App\Http\Middleware\API;
 
     use App\Models\Chat;
+    use Auth;
     use Carbon\Carbon;
     use Closure;
 
@@ -14,10 +15,12 @@
          * @return mixed
          */
         public function handle ($request, Closure $next) {
-            $field = (!is_null($request->route()->parameter('id_user')) ? $request->route()->parameter('id_user') : $request->route()->parameter('id_chat'));
-
-            $chat = (!is_null($request->route()->parameter('id_user')) ? Chat::byUsers($field, $request->user()->id_user)->first() : Chat::find($field));
-            $chat->and(['users', ["available", $request->user()->id_user]]);
+            if (!is_null($request->route()->parameter('id_chat'))) {
+                $chat = Chat::find($request->route()->parameter('id_chat'));
+            }
+            if (!is_null($request->route()->parameter('id_user'))) {
+                $chat = Chat::byUsers($request->route()->parameter('id_user'), Auth::user()->id_user)->first();
+            }
 
             if (!$chat->available) {
                 return response()->json([

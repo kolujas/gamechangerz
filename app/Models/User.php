@@ -83,9 +83,6 @@
                         case 'files':
                             $this->files();
                             break;
-                        case 'friends':
-                            $this->friends();
-                            break;
                         case 'games':
                             $this->games();
                             break;
@@ -218,14 +215,11 @@
         }
 
         /**
-         * * Set the User Friends.
+         * * Get all of the friends for the User>
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
          */
         public function friends () {
-            $this->friends = collect();
-
-            foreach (Friend::byUser($this->id_user)->get() as $friend) {
-                $this->friends->push($friend);
-            }
+            return $this->hasMany(Friend::class, 'id_user_from', 'id_user')->orwhere('id_user_to', $this->attributes['id_user']);
         }
 
         /**

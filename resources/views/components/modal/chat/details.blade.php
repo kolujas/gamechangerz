@@ -12,6 +12,8 @@
         <span class="question" title="Los mensajes se cargaran automáticamente cada 1 minuto">
             <i class="fas fa-question"></i>
         </span>
+
+        <ul class="mx-2 px-2 py-4"></ul>
     </main>
     <footer></footer>
 </section>

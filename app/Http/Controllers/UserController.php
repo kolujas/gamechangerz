@@ -32,11 +32,6 @@
          * @return \Illuminate\Http\Response
          */
         public function profile (Request $request, $slug) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             $lessons = [];
             if ($request->session()->has("lessons")) {
                 $lessons = (object) $request->session()->pull("lessons");
@@ -59,7 +54,7 @@
             }
 
             if ($user->id_role === 0) {
-                $user->and(["friends", "hours", "reviews"]);
+                $user->and(["hours", "reviews"]);
                 $days = [];
                 $user->friends_length = 0;
 

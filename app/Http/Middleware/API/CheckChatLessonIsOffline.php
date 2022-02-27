@@ -16,13 +16,10 @@
             $id_user = $request->route()->parameter('id_user');
 
             $chat = Chat::byUsers($request->user()->id_user, $id_user)->first();
-            $chat->and(['users']);
 
-            if ($chat->users->from->id_role === 1) {
-                $chat->and(['lessons']);
-
+            if ($chat->from->id_role == 1) {
                 foreach ($chat->lessons as $lesson) {
-                    if ($lesson->id_type !== 2) {
+                    if ($lesson->id_type != 2) {
                         return response()->json([
                             'code' => 403,
                             'message' => "Chat Lesson type is not seguimiento online",

@@ -4,7 +4,7 @@
     </a>
     <main class="lg:pr-4">
         <form action="#" class="my-8">
-            <input data-name="users.username|name" class="py-2 px-4 filter-input filter-chats rule" placeholder="Busca a un amigo" type="search">
+            <input data-name="props.not_auth.username|name" class="py-2 px-4 filter-input filter-chats rule" placeholder="Buscar a un usuario" type="search">
             <button class="py-2 px-4" type="submit">
                 @component('components.svg.BuscarSVG')@endcomponent
             </button>
@@ -13,11 +13,13 @@
             <h2 class="header color-white mb-8 overpass">
                 <span>Coaches</span>
             </h2>
+            <ul id="lessons"></ul>
         </div>
         <div class="sections mb-8 hidden">
             <h2 class="header color-white mb-8 overpass">
                 <span>Amigos</span>
             </h2>
+            <ul id="friends"></ul>
         </div>
         <div class="sections">
             <span class="header color-grey mt-4 block text-center overpass">No tienes chats disponibles</span>

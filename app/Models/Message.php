@@ -10,135 +10,98 @@
          * * Table primary key name.
          * @var string
          */
-        protected $primaryKey = "id_message";
+        protected $primaryKey = 'id_message';
 
         /**
          * * The attributes that are mass assignable.
          * @var array
          */
         protected $fillable = [
-            "abilities",
-            "id_assignment",
-            "id_lesson",
-            "id_message",
-            "id_user",
-            "says",
+            'abilities', 'id_assignment', 'id_lesson', 'id_message', 'id_user', 'says', 'created_at',
         ];
 
         /**
-         * * Set the Message info. 
-         * @param array [$columns]
+         * * The attributes that should be cast to native types.
+         * @var array
          */
-        public function and (array $columns = []) {
-            foreach ($columns as $column) {
-                if (!is_array($column)) {
-                    switch ($column) {
-                        case "abilities":
-                            $this->abilities();
-                            break;
-                        case "assignment":
-                            $this->assignment();
-                            break;
-                    }
-                    continue;
-                }
-                switch ($column[0]) {
-                    default:
-                        break;
-                }
+        protected $casts = [
+            'abilities' => \App\Casts\Ability::class,
+            'created_at' => \App\Casts\Carbon::class,
+        ];
+
+        /**
+         * * Returns the Message "id_type".
+         * @return int
+         */
+        public function getIdTypeAttribute () {
+            if (isset($this->attributes['says'])) {
+                return 1;
+            }
+            if (isset($this->attributes['abilities'])) {
+                return 2;
+            }
+            if (isset($this->attributes['id_assignment'])) {
+                return 3;
             }
         }
 
         /**
-         * * Set the Message Assignment
+         * * Returns the Chat "type".
+         * @return object
          */
-        public function abilities () {
-            $this->abilities = Ability::parse(json_encode($this->abilities));
+        public function getTypeAttribute () {
+            switch ($this->id_type) {
+                case 1:
+                    return (object) [
+                        'id_type' => 1,
+                        'name' => 'Text',
+                        'slug' => 'text',
+                    ];
+                case 2:
+                    return (object) [
+                        'id_type' => 2,
+                        'name' => 'Ability',
+                        'slug' => 'ability',
+                    ];
+                case 3:
+                    return (object) [
+                        'id_type' => 3,
+                        'name' => 'Assignment',
+                        'slug' => 'assignment',
+                    ];
+            }
         }
 
         /**
-         * * Set the Message Assignment
+         * * Set the Message for API use. 
+         * @return void
+         */
+        public function api () {
+            if ($this->assignment) {
+                $this->assignment->presentation;
+            }
+
+            $this->id_type = $this->id_type;
+
+            if ($this->id_type == 2) {
+                $this->selected = true;
+                $this->disabled = true;
+            }
+        }
+
+        /**
+         * * Get the Assignment that owns the Message.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         public function assignment () {
-            $this->assignment = Assignment::find($this->id_assignment);
-            $this->assignment->and(["presentation"]);
+            return $this->belongsTo(Assignment::class, 'id_assignment', 'id_assignment');
         }
 
         /**
-         * * Parse a Messages array.
-         * @param string [$messages] Example: "[{\"id_message\":1,\"id_user\":1,\"says\":\"Hi!\"}]"
-         * @return Message[]
+         * * Get the User that owns the Message.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
-        static public function parse (string $messages = "") {
-            $collection = collect();
-            
-            foreach (json_decode($messages) as $data) {
-                $props = [
-                    "id_message" => $data->id_message,
-                    "id_user" => $data->id_user,
-                ];
-
-                if (isset($data->says)) {
-                    $props["says"] = $data->says;
-                }
-
-                if (isset($data->id_assignment)) {
-                    $props["id_assignment"] = $data->id_assignment;
-                }
-
-                if (isset($data->id_lesson)) {
-                    $props["id_lesson"] = $data->id_lesson;
-                }
-
-                if (isset($data->abilities)) {
-                    $props["abilities"] = $data->abilities;
-                }
-
-                $message = new Message($props);
-
-                if (isset($data->id_assignment)) {
-                    $message->and(["assignment"]);
-                }
-
-                if (isset($data->abilities)) {
-                    $message->and(["abilities"]);
-                }
-
-                $collection->push($message);
-            }
-
-            return $collection;
-        }
-
-        /**
-         * * Stringify a Messages array.
-         * @param array [$message] Example: [["id_message"=>1,"stars"=>3.5]]
-         * @return string
-         */
-        static public function stringify (array $message = []) {
-            $collection = collect();
-
-            foreach ($message as $data) {
-                $message = [
-                    "id_message" => $data["id_message"],
-                    "id_user" => $data["id_user"],
-                ];
-
-                if (isset($data["says"])) {
-                    $message["says"] = $data["says"];
-                }
-
-                if (isset($data["id_assignment"])) {
-                    $message["id_assignment"] = $data["id_assignment"];
-                }
-
-                if (isset($data["id_lesson"])) {
-                    $message["id_lesson"] = $data["id_lesson"];
-                }
-
-                $collection->push($message);
-            }
-
-            return $collection->toJson();
+        public function user () {
+            return $this->belongsTo(User::class, 'id_user', 'id_user');
         }
     }

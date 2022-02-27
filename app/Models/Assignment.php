@@ -27,42 +27,19 @@
         ];
 
         /**
-         * * Set the Assignment info. 
-         * @param array [$columns]
-         */
-        public function and (array $columns = []) {
-            foreach ($columns as $column) {
-                if (!is_array($column)) {
-                    switch ($column) {
-                        case 'lesson':
-                            $this->lesson();
-                            break;
-                        case 'presentation':
-                            $this->presentation();
-                            break;
-                    }
-                    continue;
-                }
-                switch ($column[0]) {
-                    default:
-                        break;
-                }
-            }
-        }
-
-        /**
-         * * Set the Assignment Lesson.
+         * * Get the Lesson that owns the Assignment.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         public function lesson () {
-            $this->lesson = Lesson::find($this->id_lesson);
-            $this->lesson->and(['chat']);
+            return $this->belongsTo(Lesson::class, 'id_lesson', 'id_lesson');
         }
 
         /**
-         * * Set the Assignment Presentation.
+         * * Get the Presentation that owns the Assignment.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         public function presentation () {
-            $this->presentation = Presentation::byAssignment($this->id_assignment)->first();
+            return $this->belongsTo(Presentation::class, 'id_assignment', 'id_assignment');
         }
             
         /**

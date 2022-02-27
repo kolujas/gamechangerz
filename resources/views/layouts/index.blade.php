@@ -65,7 +65,6 @@
                         status[key] = element;
                     }
                 }
-                console.log(status);
             @endif
         </script>
         <script type="module" src={{ asset('js/script.js?v=0.0.1') }}></script>

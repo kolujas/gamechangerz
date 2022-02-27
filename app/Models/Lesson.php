@@ -1,6 +1,7 @@
 <?php
     namespace App\Models;
 
+    use App\Models\Chat;
     use App\Models\Day;
     use App\Models\Folder;
     use App\Models\Method;
@@ -29,6 +30,20 @@
         protected $fillable = [
             'assignments', 'id_coupon', 'days', 'id_method', 'id_status', 'id_type', 'id_user_from', 'id_user_to', 'name', 'price', 'slug', 'svg',
         ];
+
+        /**
+         * * Returns if the Lesson end.
+         * @return bool
+         */
+        public function getEndedAttribute () {
+            switch ($this->attributes['id_type']) {
+                case 2:
+                    return $this->original['assignments'] == Assignment::byLesson($this->attributes['id_lesson'])->count() && Assignment::byLesson($this->attributes['id_lesson'])->orderBy('id_assignment', 'ASC')->get()->last()->presentation != null;
+                default:
+                    $this->and(['ended_at']);
+                    return Carbon::now() > $this->ended_at;
+            }
+        }
 
         /**
          * * Set the Lesson info. 
@@ -112,19 +127,18 @@
                 $this->{'quantity-of-assignments'} = $this->assignments;
                 $this->assignments = collect();
     
-                foreach (Assignment::byLesson($this->id_lesson)->get() as $assignment) {
-                    $assignment->and(['presentation']);
-    
+                foreach (Assignment::byLesson($this->id_lesson)->orderBy('id_assignment', 'ASC')->get() as $assignment) {
                     $this->assignments->push($assignment);
                 }
             }
         }
 
         /**
-         * * Set the Lesson Chat.
+         * * Get the Chat that owns the Lesson.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         public function chat () {
-            $this->chat = Chat::byUsers($this->id_user_from, $this->id_user_to)->first();
+            return $this->belongsTo(Chat::class, 'id_user_from', 'id_user_from')->where('id_user_to', $this->attributes['id_user_to']);
         }
 
         /**
@@ -132,6 +146,31 @@
          */
         public function days () {
             $this->days = Day::parse($this->days);
+        }
+
+        /**
+         * * Creates the Lesson Chat.
+         * @return void
+         */
+        public function generate () {
+            $logged_at = collect();
+
+            $logged_at->push([
+                'id_user' => $this->attributes['id_user_from'],
+                'at' => Carbon::now(),
+            ]);
+
+            $logged_at->push([
+                'id_user' => $this->attributes['id_user_to'],
+                'at' => Carbon::now(),
+            ]);
+
+            Chat::create([
+                'id_user_from' => $this->attributes['id_user_from'],
+                'id_user_to' => $this->attributes['id_user_to'],
+                'messages' => collect(),
+                'logged_at' => $logged_at,
+            ]);
         }
 
         /**

@@ -3,14 +3,14 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class UpdatePasswordResetsTableFieldEmailChangeToData extends Migration {
+    class UpdateChatsTableAddLastLogField extends Migration {	
         /**
          * * Run the migrations.
          * @return void
          */
         public function up () {
-            Schema::table('password_resets', function (Blueprint $table) {
-                $table->renameColumn("email", "data");
+            Schema::table('chats', function (Blueprint $table) {
+                $table->json('lastLog')->nullable();
             });
         }
 
@@ -18,7 +18,7 @@
          * * Reverse the migrations.
          * @return void
          */
-        public function down () {
-            // 
+        public function down () {	
+            //
         }
     }

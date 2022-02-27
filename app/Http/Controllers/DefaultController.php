@@ -19,13 +19,8 @@
          * @return \Illuminate\Http\Response
          */
         public function apply (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.apply", [
-                // "notifications" => $notifications,
+                // ?
             ]);
         }
 
@@ -34,14 +29,8 @@
          * @return \Illuminate\Http\Response
          */
         public function comingSoon (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.coming_soon", [
-                // "notifications" => $notifications,
-                "validation" => [],
+                // ?
             ]);
         }
 
@@ -51,13 +40,8 @@
          * @return \Illuminate\Http\Response
          */
         public function contact (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.contact", [
-                // "notifications" => $notifications,
+                // ?
             ]);
         }
 
@@ -66,13 +50,8 @@
          * @return \Illuminate\Http\Response
          */
         public function faq (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.faq", [
-                // "notifications" => $notifications,
+                // ?
             ]);
         }
 
@@ -81,11 +60,6 @@
          * @return \Illuminate\Http\Response
          */
         public function index (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             $games = Game::all();
             foreach ($games as $game) {
                 $game->and(["colors", "files"]);
@@ -93,7 +67,6 @@
 
             return view("web.home", [
                 "games" => $games,
-                // "notifications" => $notifications,
             ]);
         }
 
@@ -103,11 +76,6 @@
          * @return \Illuminate\Http\Response
          */
         public function landing (Request $request, $slug) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             $game = Game::bySlug($slug)->first();
             $game->and(["abilities", "users", "files", "colors"]);
 
@@ -119,7 +87,6 @@
 
             return view("web.landing", [
                 "game" => $game,
-                // "notifications" => $notifications,
                 "posts" => $posts,
             ]);
         }
@@ -129,11 +96,6 @@
          * @return \Illuminate\Http\Response
          */
         public function home (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             $games = Game::all();
             foreach ($games as $game) {
                 $game->and(["colors", "files"]);
@@ -141,7 +103,6 @@
 
             return view("web.home", [
                 "games" => $games,
-                // "notifications" => $notifications,
             ]);
         }
 
@@ -150,13 +111,8 @@
          * @return \Illuminate\Http\Response
          */
         public function privacyPolitics (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.privacy_politics", [
-                // "notifications" => $notifications,
+                // ?
             ]);
         }
 
@@ -218,13 +174,8 @@
          * @return \Illuminate\Http\Response
          */
         public function support (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.support", [
-                // "notifications" => $notifications,
+                // ?
             ]);
         }
 
@@ -233,13 +184,8 @@
          * @return \Illuminate\Http\Response
          */
         public function termsAndConditions (Request $request) {
-            // $notifications = Auth::check() ? Auth::user()->notifications : [];
-            // foreach ($notifications as $notification) {
-            //     $notification->delete();
-            // }
-
             return view("web.terms_&_conditions", [
-                // "notifications" => $notifications,
+                // ?
             ]);
         }
     }

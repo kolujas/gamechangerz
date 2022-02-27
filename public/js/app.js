@@ -2049,11 +2049,14 @@ class CountDown extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.de
 
     /**
      * * Stops the interval.
+     * @param {object} [params={}]
      * @memberof CountDown
      */
-    stop () {
+    stop (params = {}) {
         clearInterval(this.interval);
+        
         this.execute('end', {
+            ...params,
             countDown: this,
             state: 200,
         });
@@ -4792,8 +4795,8 @@ class Form extends _JuanCruzAGB_js_Html_js__WEBPACK_IMPORTED_MODULE_0__.default 
         params: {}
     }, innerHTML = false) {
         super({ ...Form.props, ...props }, { ...Form.state, ...state }, { submit: { ...Form.callback, ...callback } });
-        _HTMLCreator_js__WEBPACK_IMPORTED_MODULE_1__.default.setInnerHTML(this, innerHTML);
         this.createHTML(this.props.nodeName);
+        _HTMLCreator_js__WEBPACK_IMPORTED_MODULE_1__.default.setInnerHTML(this, innerHTML);
         this.setEventListener();
         this.setHTMLAttributes();
     }
@@ -5889,9 +5892,15 @@ class Input extends _JuanCruzAGB_js_Html_js__WEBPACK_IMPORTED_MODULE_0__.default
                         value: this.value,
                     });
                 });
+                this.html.addEventListener("keyup", function (e) {
+                    instance.setProps("value", this.value);
+                    instance.keyup({
+                        value: this.value,
+                    });
+                });
                 break;
             default:
-                console.error(`Input type: ${ this.props.type } does not have event`);
+                // console.error(`Input type: ${ this.props.type } does not have event`);
                 break;
         }
     }
@@ -9397,11 +9406,9 @@ class Class {
                 }
                 this.callbacks[name].function(params);
             } else {
-                console.error("Class callback was not found");
-                throw new Error("Class callback was not found");
+                throw new Error(`Callback ${ name } was not found`);
             }
         } else {
-            console.error("Class callback name is required");
             throw new Error("Class callback name is required");
         }
     }
@@ -9680,12 +9687,24 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     /**
+     * * Html key up callback.
+     * @param {*} [params={}] Keyup callback function optional params
+     * @memberof Html
+     */
+    keyup (params = {}) {
+        this.execute("keyup", {
+            element: this,
+            ...(Object.keys(params).length ? { ...this.callbacks.keyup.params, ...params } : { ...this.callbacks.keyup.params }),
+        });
+    }
+
+    /**
      * * Html submit callback.
      * @param {*} [params={}] Submit callback function optional params
      * @memberof Html
      */
     submit (params = {}) {
-        this.execute("default", {
+        this.execute("submit", {
             element: this,
             ...(Object.keys(params).length ? { ...this.callbacks.submit.params, ...params } : { ...this.callbacks.submit.params }),
         });
@@ -9730,6 +9749,7 @@ class Modal extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
      * @param {object} [props] Modal properties:
      * @param {string} [id="modal-1"] Modal primary key.
      * @param {object} [state] Modal state:
+     * @param {boolean} [back=false] On close Modal returns back state.
      * @param {boolean} [detectHash=false] Modal detect the hash state.
      * @param {boolean} [open=false] Modal open state.
      * @param {boolean} [outsideClick=false] Modal outside click state.
@@ -9745,6 +9765,7 @@ class Modal extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
     constructor (props = {
         id: "modal-1",
     }, state = {
+        back: false,
         detectHash: false,
         open: false,
         outsideClick: false,
@@ -9830,15 +9851,22 @@ class Modal extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
      * @memberof Modal
      */
     checkOutsideClickState () {
-        let instance = this;
         if (this.state.outsideClick) {
-            this.html.classList.add("clicked");
-            this.html.addEventListener("mousedown", function (e) {
-                if (e.target !== e.currentTarget) { return }
-                window.history.pushState({}, document.title, _ProvidersJS_js_URLServiceProvider_js__WEBPACK_IMPORTED_MODULE_1__.URLServiceProvider.findOriginalRoute());
-                instance.close();
-            });
+            this.html.classList.add('clicked');
         }
+        this.html.addEventListener('mousedown', e => {
+            if (this.state.outsideClick) {
+                if (e.target !== e.currentTarget) {
+                    return;
+                }
+                if (this.state.back) {
+                    history.back();
+                } else {
+                    window.history.pushState({}, document.title, _ProvidersJS_js_URLServiceProvider_js__WEBPACK_IMPORTED_MODULE_1__.URLServiceProvider.findOriginalRoute());
+                }
+                this.close();
+            }
+        });
     }
 
     /**
@@ -9899,6 +9927,7 @@ class Modal extends _JuanCruzAGB_js_Class_js__WEBPACK_IMPORTED_MODULE_0__.defaul
      * @var {object} state Default state.
      */
     static state = {
+        back: false,
         detectHash: false,
         open: false,
         outsideClick: false,

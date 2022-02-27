@@ -1,10 +1,12 @@
 <?php
     namespace App\Models;
 
+    use App\Models\Chat;
     use App\Models\Mail;
     use App\Models\User;
     use App\Notifications\FriendshipAccepted;
     use App\Notifications\FriendshipRequested;
+    use Carbon\Carbon;
     use Illuminate\Database\Eloquent\Model;
 
     class Friend extends Model {
@@ -73,11 +75,44 @@
         }
 
         /**
+         * * Get the Chat that owns the Friend.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
+        public function chat () {
+            return $this->belongsTo(Chat::class, 'id_user_from', 'id_user_from')->where('id_user_to', $this->attributes['id_user_to']);
+        }
+
+        /**
          * * Get the User "from" that owns the Friend.
          * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         public function from () {
             return $this->belongsTo(User::class, 'id_user_from', 'id_user');
+        }
+
+        /**
+         * * Creates the Friend Chat.
+         * @return void
+         */
+        public function generate () {
+            $logged_at = collect();
+
+            $logged_at->push([
+                'id_user' => $this->attributes['id_user_from'],
+                'at' => Carbon::now(),
+            ]);
+
+            $logged_at->push([
+                'id_user' => $this->attributes['id_user_to'],
+                'at' => Carbon::now(),
+            ]);
+
+            Chat::create([
+                'id_user_from' => $this->attributes['id_user_from'],
+                'id_user_to' => $this->attributes['id_user_to'],
+                'messages' => collect(),
+                'logged_at' => $logged_at,
+            ]);
         }
 
         /**

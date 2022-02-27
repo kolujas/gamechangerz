@@ -89,6 +89,10 @@
             $lesson = Lesson::find($id_lesson);
             $lesson->and(["assignments"]);
 
+            foreach ($lesson->assignments as $assignment) {
+                $assignment->presentation;
+            }
+
             return response()->json([
                 "code" => 200,
                 "data" => [

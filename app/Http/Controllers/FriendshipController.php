@@ -37,7 +37,6 @@
         public function accept (Request $request) {
             $slug = $request->route()->parameter("slug");
             $user = User::bySlug($slug)->first();
-            $user->and(["friends"]);
 
             $found = false;
             foreach ($user->friends as $friend) {
@@ -77,7 +76,6 @@
         public function cancel (Request $request) {
             $slug = $request->route()->parameter("slug");
             $user = User::bySlug($slug)->first();
-            $user->and(["friends"]);
             $found = false;
             
             foreach ($user->friends as $friend) {
@@ -110,7 +108,6 @@
         public function delete (Request $request) {
             $slug = $request->route()->parameter("slug");
             $user = User::bySlug($slug)->first();
-            $user->and(["friends"]);
 
             $found = false;
             foreach ($user->friends as $friend) {
@@ -147,7 +144,6 @@
         public function request (Request $request) {
             $slug = $request->route()->parameter("slug");
             $user = User::bySlug($slug)->first();
-            $user->and(["friends"]);
 
             $found = false;
             foreach ($user->friends as $friend) {

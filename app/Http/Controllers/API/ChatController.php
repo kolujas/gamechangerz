@@ -17,169 +17,85 @@
         /**
          * * Get all the chats from an User.
          * @param  \Illuminate\Http\Request  $request
-         * @return JSON
+         * @return \Illuminate\Http\Response
          */
         public function all (Request $request) {
             if (!$request->user()) {
                 return response()->json([
-                    "code" => 403,
-                    "message" => "Unauthenticated",
+                    'code' => 403,
+                    'message' => 'Unauthenticated',
                 ]);
             }
 
-            $lessons = collect();
             foreach (Lesson::startedByUser($request->user()->id_user)->get() as $lesson) {
-                if ($lesson->id_type === 2) {
-                    $lessons->push($lesson);
-                }
-            }
-            foreach ($lessons as $lesson) {
                 $lesson->and(["ended_at", "started_at"]);
-                if ($lesson->id_status === 3 && $lesson->id_type === 2) {
-                    $now = Carbon::now();
-                    if ($now > $lesson->started_at && $now < $lesson->ended_at) {
-                        if (!Chat::byUsers($request->user()->id_user, ($request->user()->id_user === $lesson->id_user_from ? $lesson->id_user_to : $lesson->id_user_from))->first()) {
-                            Chat::create([
-                                "id_chat" => null,
-                                "id_user_from" => $lesson->id_user_from,
-                                "id_user_to" => $lesson->id_user_to,
-                                "messages" => "[]",
-                            ]);
-                        }
+
+                if ($lesson->id_status == 3 && $lesson->id_type == 2) {
+                    if (!$lesson->chat) {
+                        $friend->generate();
                     }
                 }
             }
 
-            $friends = collect();
-            foreach (Friend::byUser($request->user()->id_user)->get() as $friend) {
-                $friends->push($friend);
-            }
-
-            if ($request->user()->id_role === 0) {
-                foreach ($friends as $friend) {
-                    if ($friend->accepted) {
-                        if (!Chat::byUsers($request->user()->id_user, ($request->user()->id_user === $friend->id_user_from ? $friend->id_user_to : $friend->id_user_from))->first()) {
-                            Chat::create([
-                                "id_chat" => null,
-                                "id_user_from" => $friend->id_user_from,
-                                "id_user_to" => $friend->id_user_to,
-                                "messages" => "[]",
-                            ]);
-                        }
+            foreach ($request->user()->friends as $friend) {
+                if ($friend->accepted) {
+                    if (!$friend->chat) {
+                        $friend->generate();
                     }
                 }
             }
 
-            if ($request->user()->id_role === 2) {
-                foreach (User::admins()->orderBy('updated_at')->get() as $user) {
-                    if ($user->id_user !== $request->user()->id_user) {
-                        if (!Chat::byUsers($request->user()->id_user, $user->id_user)->first()) {
-                            Chat::create([
-                                "id_chat" => null,
-                                "id_user_from" => $request->user()->id_user,
-                                "id_user_to" => $user->id_user,
-                                "messages" => "[]",
-                            ]);
-                        }
-                    }
-                }
+            foreach ($chats = Chat::byUser($request->user()->id_user)->orderBy('updated_at', 'DESC')->with('from', 'to')->get() as $chat) {
+                $chat->api();
             }
-
-            $chats = collect();
-            foreach (Chat::byUser($request->user()->id_user)->orderBy('updated_at', 'DESC')->get() as $chat) {
-                $chats->push($chat);
-            }
-
-            foreach ($chats as $chat) {
-                $chat->id_user_logged = $request->user()->id_user;
-                $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
-                foreach ($chat->messages as $message) {
-                    $message->id_user_logged = $request->user()->id_user;
-                    $message->id_role = $request->user()->id_role;
-                }
-            }
-
-            $sorted = collect();
-            foreach ($chats->sortByDesc("updated_at") as $chat) {
-                $sorted->push($chat);
-            };
 
             return response()->json([
-                "code" => 200,
-                "message" => "Success",
-                "data" => [
-                    "chats" => $sorted,
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'chats' => $chats,
                 ],
             ]);
         }
 
         /**
-         * * Get an specific Chat.
+         * * Log a User in a Chat.
          * @param  \Illuminate\Http\Request  $request
-         * @param int $id_user
-         * @return JSON
+         * @param string $slug
+         * @return \Illuminate\Http\Response
          */
-        public function get (Request $request, int $id_user) {
+        public function login (Request $request, string $slug) {
             if (!$request->user()) {
                 return response()->json([
-                    "code" => 403,
-                    "message" => "Unauthenticated",
+                    'code' => 403,
+                    'message' => 'Unauthenticated',
                 ]);
             }
 
-            $user = User::find($id_user);
+            $user = User::bySlug($slug)->first();
             if (!$user) {
                 return response()->json([
-                    "code" => 404,
-                    "message" => "User does not exist",
+                    'code' => 404,
+                    'message' => 'User does not exist',
                 ]);
             }
 
-            $chats = collect();
-            foreach (Chat::byUser($request->user()->id_user)->orderBy('updated_at', 'DESC')->get() as $chat) {
-                $chats->push($chat);
-            }
-            
-            $found = false;
-            foreach ($chats as $chat) {
-                if ($chat->id_user_from === $request->user()->id_user) {
-                    if ($chat->id_user_to === intval($id_user)) {
-                        $found = true;
-                        break;
-                    }
-                }
-                if ($chat->id_user_to === $request->user()->id_user) {
-                    if ($chat->id_user_from === intval($id_user)) {
-                        $found = true;
-                        break;
-                    }
-                }
-            }
+            $chat = Chat::byUsers($request->user()->id_user, $user->id_user)->first();
 
-            if (!$found) {
+            if (!$chat) {
                 return response()->json([
-                    "code" => 404,
-                    "message" => "Chat does not exist",
+                    'code' => 404,
+                    'message' => 'Chat does not exist',
                 ]);
             }
 
-            $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
-
-            if ($chat->users->from->id_role === 1) {
-                // $chat->and(["lessons"]);
-            }
-
-            foreach ($chat->messages as $message) {
-                $message->id_user_logged = $request->user()->id_user;
-                $message->id_role = $request->user()->id_role;
-            }
+            $chat->login();
 
             return response()->json([
-                "code" => 200,
-                "message" => "Success",
-                "data" => [
-                    "chat" => $chat,
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'logged_at' => $chat->logged_at,
                 ],
             ]);
         }
@@ -187,163 +103,112 @@
         /**
          * * Add a new Message.
          * @param  \Illuminate\Http\Request  $request
-         * @param string $id_user
-         * @return JSON
-         */
-        public function send (Request $request, string $id_user) {
-            if (!$request->user()) {
-                return response()->json([
-                    "code" => 403,
-                    "message" => "Unauthenticated",
-                ]);
-            }
-
-            $user = User::find($id_user);
-            if (!$user) {
-                return response()->json([
-                    "code" => 404,
-                    "message" => "User does not exist",
-                ]);
-            }
-
-            $input = (object) $request->all();
-
-            $validator = Validator::make((array) $input, Chat::$validation["send"]["rules"], Chat::$validation["send"]["messages"]["es"]);
-            if ($validator->fails()) {
-                return response()->json([
-                    "code" => 401,
-                    "message" => "Validation error",
-                    "data" => $validator->errors()->messages(),
-                ]);
-            }
-
-            $chat = Chat::byUsers($request->user()->id_user, $id_user)->first();
-
-            if (!$chat) {
-                return response()->json([
-                    "code" => 404,
-                    "message" => "Chat does not exist",
-                ]);
-            }
-
-            $chat->addMessage([
-                "id_user" => $request->user()->id_user,
-                "says" => $input->message,
-            ]);
-
-            $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
-
-            if ($chat->users->from->id_role === 1) {
-                // $chat->and(["lessons"]);
-            }
-
-            foreach ($chat->messages as $message) {
-                $message->id_user_logged = $request->user()->id_user;
-                $message->id_role = $request->user()->id_role;
-            }
-
-            if ($request->user()->id_user === $chat->id_user_from) {
-                $from = $chat->users->from;
-                $to = $chat->users->to;
-            }
-            if ($request->user()->id_user !== $chat->id_user_from) {
-                $from = $chat->users->to;
-                $to = $chat->users->from;
-            }
-
-            new Mail([ "id_mail" => 2, ], [
-                "email_to" => $to->email,
-                "message" => $input->message,
-                "name" => $from->name,
-                "slug" => $to->slug,
-                "username" => $from->username,
-            ]);
-
-            return response()->json([
-                "code" => 200,
-                "message" => "Success",
-                "data" => [
-                    "chat" => $chat,
-                ],
-            ]);
-        }
-
-        /**
-         * * Adds the Abilities to learn to the Chat
-         * @param  \Illuminate\Http\Request  $request
          * @param int $id_user
          * @return \Illuminate\Http\Response
          */
-        public function abilities (Request $request, int $id_user) {
+        public function send (Request $request, int $id_user) {
             if (!$request->user()) {
                 return response()->json([
-                    "code" => 403,
-                    "message" => "Unauthenticated",
+                    'code' => 403,
+                    'message' => 'Unauthenticated',
                 ]);
             }
 
             $user = User::find($id_user);
             if (!$user) {
                 return response()->json([
-                    "code" => 404,
-                    "message" => "User does not exist",
+                    'code' => 404,
+                    'message' => 'User does not exist',
+                ]);
+            }
+
+            $chat = Chat::byUsers($request->user()->id_user, $user->id_user)->first();
+
+            if (!$chat) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'Chat does not exist',
                 ]);
             }
 
             $input = (object) $request->all();
 
-            $abilities = collect();
-            foreach (explode(",", $input->abilities) as $ability) {
-                $abilities->push([
-                    "id_ability" => intval($ability),
-                ]);
-            }
-            $input->abilities = $abilities->toArray();
+            switch ($input->id_type) {
+                case 1:
+                    $validator = Validator::make((array) $input, Chat::$validation['send']['says']['rules'], Chat::$validation['send']['says']['messages']['es']);
+                    if ($validator->fails()) {
+                        return response()->json([
+                            'code' => 401,
+                            'message' => 'Validation error',
+                            'data' => $validator->errors()->messages(),
+                        ]);
+                    }
 
-            $chat = Chat::byUsers($request->user()->id_user, $id_user)->first();
+                    $chat->send([
+                        'id_user' => $request->user()->id_user,
+                        'says' => $input->message,
+                    ]);
 
-            if (!$chat) {
-                return response()->json([
-                    "code" => 404,
-                    "message" => "Chat does not exist",
-                ]);
-            }
+                    new Mail([ 'id_mail' => 2, ], [
+                        'email_to' => $chat->notAuth->email,
+                        'message' => $input->message,
+                        'name' => $chat->auth->name,
+                        'slug' => $chat->notAuth->slug,
+                        'username' => $chat->auth->username,
+                    ]);
+                    break;
+                case 2:
+                    $validator = Validator::make((array) $input, Chat::$validation['send']['abilities']['rules'], Chat::$validation['send']['abilities']['messages']['es']);
+                    if ($validator->fails()) {
+                        return response()->json([
+                            'code' => 401,
+                            'message' => 'Validation error',
+                            'data' => $validator->errors()->messages(),
+                        ]);
+                    }
 
-            $chat->and(["lessons"]);
-            $lesson = $chat->lessons[count($chat->lessons) - 1];
-            unset($chat->lessons);
-            
-            if (gettype($chat->messages) != "string" || (gettype($chat->messages) == "array" && count($chat->messages))) {
-                return response()->json([
-                    "code" => 403,
-                    "message" => "Chat contains the Abilities",
-                ]);
-            }
+                    $chat->to->and(['games']);
 
-            $chat->addMessage([
-                "id_lesson" => $lesson->id_lesson,
-                "id_user" => $request->user()->id_user,
-                "abilities" => $input->abilities,
-            ]);
+                    $abilities = collect();
 
-            $chat->id_user_logged = $request->user()->id_user;
-            $chat->and(["users", ["available", $request->user()->id_user], "messages"]);
+                    $found = false;
 
-            if ($chat->users->from->id_role === 1) {
-                // $chat->and(["lessons"]);
+                    foreach ($chat->to->games->last()->abilities as $ability) {
+                        if (isset($input->{"ability[$ability->slug]"})){
+                            if ($input->{"ability[$ability->slug]"} == 'on') {
+                                $abilities->push((object) [
+                                    'id_ability' => $ability->id_ability,
+                                ]);
+
+                                $found = true;
+                            }
+                        }
+                    }
+
+                    if (!$found) {
+                        foreach ($chat->to->games->last()->abilities as $ability) {
+                            $abilities->push((object) [
+                                'id_ability' => $ability->id_ability,
+                            ]);
+                        }
+                    }
+
+                    $chat->send([
+                        'abilities' => $abilities,
+                        'id_user' => $request->user()->id_user,
+                    ]);
+                    break;
             }
 
             foreach ($chat->messages as $message) {
-                $message->id_user_logged = $request->user()->id_user;
-                $message->id_role = $request->user()->id_role;
+                $message->api();
             }
 
             return response()->json([
-                "code" => 200,
-                "message" => "Success",
-                "data" => [
-                    "chat" => $chat,
+                'code' => 200,
+                'message' => 'Success',
+                'data' => [
+                    'messages' => $chat->messages,
                 ],
             ]);
         }

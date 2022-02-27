@@ -114,7 +114,6 @@
 @endsection
 
 @section('js')
-    @component('components.modal.activity')
-    @endcomponent
+    @component('components.modal.activity')@endcomponent
     <script type="module" src={{ asset('js/panel/lesson/list.js') }}></script>
 @endsection

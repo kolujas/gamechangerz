@@ -191,7 +191,7 @@
 
             $lessons = Lesson::byUser($user->id_user)->get();
             foreach ($lessons as $lesson) {
-                $lesson->and(["reviews", "chat", "assignments"]);
+                $lesson->and(["reviews", "assignments"]);
                 if (count($lesson->reviews)) {
                     foreach ($lesson->reviews as $review) {
                         $review->and(["users"]);
@@ -440,7 +440,7 @@
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
-            $user->and(["files", "friends"]);
+            $user->and(["files"]);
 
             $validator = Validator::make($request->all(), User::$validation["user"]["panel"]["delete"]["rules"], User::$validation["user"]["panel"]["delete"]["messages"]["es"]);
             if ($validator->fails()) {
@@ -455,7 +455,7 @@
 
             $lessons = Lesson::byUser($user->id_user)->get();
             foreach ($lessons as $lesson) {
-                $lesson->and(["reviews", "chat", "assignments"]);
+                $lesson->and(["reviews", "assignments"]);
                 if (count($lesson->reviews)) {
                     foreach ($lesson->reviews as $review) {
                         $review->and(["users"]);

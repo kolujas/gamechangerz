@@ -29,15 +29,15 @@ export class Chat extends window.class {
         }
         if (params.instance.props.id_role == 0) {
             for (const chat of params.instance.props.chats) {
-                if (chat.id_user_logged == chat.id_user_to) {
-                    if (chat.users.from.id_role == 1) {
+                if (auth.id_user == chat.id_user_to) {
+                    if (chat.from.id_role == 1) {
                         lessons.push(chat);
                     }
-                    if (chat.users.from.id_role == 0) {
+                    if (chat.from.id_role == 0) {
                         friends.push(chat);
                     }
                 }
-                if (chat.id_user_logged == chat.id_user_from) {
+                if (auth.id_user == chat.id_user_from) {
                     friends.push(chat);
                 }
             }
@@ -204,7 +204,7 @@ export class Chat extends window.class {
             
         if (chat.hasOwnProperty("id_chat")) {
             for (const message of chat.messages) {
-                message.slug = (chat.id_user_logged == chat.id_user_from ? chat.users.to.slug : chat.users.from.slug);
+                message.slug = (auth.id_user == chat.id_user_from ? chat.to.slug : chat.from.slug);
                 message.id_chat = chat.id_chat;
                 message.chat = this;
                 message.selected = chat.messages.length ? true : false;
@@ -268,7 +268,7 @@ export class Chat extends window.class {
                 chat = false;
             }
             let abilities = [];
-            for (const game of chat.users.from.games) {
+            for (const game of chat.from.games) {
                 for (const ability of game.abilities) {
                     abilities.push(ability);
                 }
@@ -291,35 +291,35 @@ export class Chat extends window.class {
 
     changeUserProfile (chat) {
         this.sections.details.header.children[1].classList.add("overpass");
-        this.sections.details.header.href = `/users/${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].slug }/profile`;
+        this.sections.details.header.href = `/users/${ chat[auth.id_user == chat.id_user_from ? "to" : "from"].slug }/profile`;
         this.sections.details.header.innerHTML = "";
             let figure = document.createElement("figure");
             this.sections.details.header.appendChild(figure);
                 let image = document.createElement("img");
-                image.alt = `${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].username } profile image`;
-                if (!chat.users[((chat.id_user_logged == chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                image.alt = `${ chat[auth.id_user == chat.id_user_from ? "to" : "from"].username } profile image`;
+                if (!chat[((auth.id_user == chat.id_user_from) ? "to" : "from")].files["profile"]) {
                     image.src = new Asset(`img/resources/ProfileSVG.svg`).route;
                 }
-                if (chat.users[((chat.id_user_logged == chat.id_user_from) ? "to" : "from")].files["profile"]) {
-                    image.src = new Asset(`storage/${ chat.users[((chat.id_user_logged == chat.id_user_from) ? "to" : "from")].files["profile"] }`).route;
+                if (chat[((auth.id_user == chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                    image.src = new Asset(`storage/${ chat[auth.id_user == chat.id_user_from ? "to" : "from"].files["profile"] }`).route;
                 }
                 figure.appendChild(image);
 
             let span = document.createElement("span");
             span.classList.add("ml-2");
             this.sections.details.header.appendChild(span);
-            span.innerHTML = `${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].username } (${ chat.users[(chat.id_user_logged == chat.id_user_from ? "to" : "from")].name })`;
+            span.innerHTML = `${ chat[auth.id_user == chat.id_user_from ? "to" : "from"].username } (${ chat[auth.id_user == chat.id_user_from ? "to" : "from"].name })`;
     }
 
     changeFooter (chat) {
         if (chat.available) {
-            if (chat.users.from.id_role == 1) {
+            if (chat.from.id_role == 1) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4");
                 paragraph.innerHTML = `${ parseInt([...chat.lessons].pop()["quantity-of-assignments"]) - [...chat.lessons].pop().assignments.length } tareas pendientes`;
                 this.sections.details.footer.appendChild(paragraph);
                 
-                if (chat.users.to.id_user == chat.id_user_logged && chat.messages.length && [...chat.messages].pop().hasOwnProperty("id_lesson") && [...chat.messages].pop().id_lesson == [...chat.lessons].pop().id_lesson) {
+                if (chat.to.id_user == auth.id_user && chat.messages.length && [...chat.messages].pop().hasOwnProperty("id_lesson") && [...chat.messages].pop().id_lesson == [...chat.lessons].pop().id_lesson) {
                     let link = document.createElement("a");
                     link.href = "#assignment";
                     link.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button", "assignment");
@@ -338,7 +338,7 @@ export class Chat extends window.class {
                         icon.innerHTML = "Enviar tarea";
                         link.appendChild(icon);
                 }
-                if (chat.users.to.id_user == chat.id_user_logged && (!chat.messages.length || (![...chat.messages].pop().hasOwnProperty("id_lesson") || [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson))) {
+                if (chat.to.id_user == auth.id_user && (!chat.messages.length || (![...chat.messages].pop().hasOwnProperty("id_lesson") || [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson))) {
                     let button = document.createElement("button");
                     button.classList.add("my-2", "py-2", "px-4", "flex", "items-center", "overpass", "modal-button");
                     this.sections.details.footer.appendChild(button);
@@ -362,9 +362,9 @@ export class Chat extends window.class {
                         // button.appendChild(img);
                 }
             }
-            if (chat.users.from.id_role == 0 || chat.users.from.id_role == 2) {
+            if (chat.from.id_role == 0 || chat.from.id_role == 2) {
                 let form = document.createElement("form");
-                form.action = `/api/chats/${ (chat.id_user_logged == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
+                form.action = `/api/chats/${ (auth.id_user == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`;
 
                 this.sections.details.footer.appendChild(form);
                 form.addEventListener("submit", (e) => {
@@ -406,13 +406,13 @@ export class Chat extends window.class {
             }
         }
         if (!chat.available) {
-            if (chat.users.from.id_user == chat.id_user_logged) {
+            if (chat.from.id_user == auth.id_user) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
                 paragraph.innerHTML = "El chat no se encuentra activo";
                 this.sections.details.footer.appendChild(paragraph);
             }
-            if (chat.users.from.id_user != chat.id_user_logged) {
+            if (chat.from.id_user != auth.id_user) {
                 let paragraph = document.createElement("p");
                 paragraph.classList.add("overpass", "color-grey", "py-2", "px-4", "unavailable");
                 paragraph.innerHTML = `${ parseInt([...chat.lessons].pop()["quantity-of-assignments"]) - [...chat.lessons].pop().assignments.length } tareas pendientes`;
@@ -428,10 +428,10 @@ export class Chat extends window.class {
         let lessons = 0;
         if (this.props.chats.length) {
             for (const chat of this.props.chats) {
-                if (chat.users.from.id_role == 0) {
+                if (chat.from.id_role == 0) {
                     friends++;
                 }
-                if (chat.users.from.id_role == 1) {
+                if (chat.from.id_role == 1) {
                     lessons++;
                 }
             }
@@ -578,7 +578,7 @@ export class Chat extends window.class {
                         add = true;
                     }
                     if (add) {
-                        if ([...chat.messages].pop().hasOwnProperty("id_lesson") && [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson && chat.id_user_logged == chat.id_user_to) {
+                        if ([...chat.messages].pop().hasOwnProperty("id_lesson") && [...chat.messages].pop().id_lesson != [...chat.lessons].pop().id_lesson && auth.id_user == chat.id_user_to) {
                             let key = 1;
                             for (const message of chat.messages) {
                                 if (key <= message.id_message) {
@@ -587,12 +587,12 @@ export class Chat extends window.class {
                             }
                             chat.messages.push({
                                 id_message: key,
-                                id_user: chat.users.to.id_user,
+                                id_user: chat.to.id_user,
                                 disabled: false,
                                 selected: true,
                                 abilities: (() => {
                                     let abilities = [];
-                                    for (const game of chat.users.from.games) {
+                                    for (const game of chat.from.games) {
                                         for (const ability of game.abilities) {
                                             abilities.push(ability);
                                         }
@@ -615,7 +615,7 @@ export class Chat extends window.class {
                             if (chat.messages.length == 1) {
                                 params.instance.sections.details.main.children[1].innerHTML = "";
                             }
-                            params.instance.sections.details.main.children[1].appendChild(Message.component("item", { ...message, chat: params.instance, id_chat: chat.id_chat , slug: chat.users.from.slug, selected: (chat.messages.length ? true : false), }));
+                            params.instance.sections.details.main.children[1].appendChild(Message.component("item", { ...message, chat: params.instance, id_chat: chat.id_chat , slug: chat.from.slug, selected: (chat.messages.length ? true : false), }));
                         }
                     }
                     params.instance.props.chats[key] = chat;
@@ -648,7 +648,7 @@ export class Chat extends window.class {
         }
         for (const message of data.chat.messages) {
             if (!document.querySelector(`#message-${ message.id_message }`)) {
-                this.addMessage({ ...message, id_role: data.chat.users[data.chat.id_user_from == data.chat.id_user_logged ? "from" : "to"].id_role, slug: data.chat.users.from.slug, id_chat: data.chat.id_chat, selected: (data.chat.messages.length ? true : false) });
+                this.addMessage({ ...message, id_role: data.chat[data.chat.id_user_from == data.auth.id_user ? "from" : "to"].id_role, slug: data.chat.from.slug, id_chat: data.chat.id_chat, selected: (data.chat.messages.length ? true : false) });
             }
             if (document.querySelector(`#message-${ message.id_message }`)) {
                 if (message.hasOwnProperty("assignment") && message.assignment.hasOwnProperty("presentation") && message.assignment.presentation) {
@@ -815,7 +815,7 @@ export class Chat extends window.class {
     }
 
     static async one (chat, token) {
-        let query = await Fetch.get(`/api/chats/${ (chat.id_user_logged == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`, {
+        let query = await Fetch.get(`/api/chats/${ (auth.id_user == chat.id_user_from ? chat.id_user_to : chat.id_user_from) }`, {
             "Accept": "application/json",
             "Authorization": "Bearer " + token,
         });
@@ -844,7 +844,7 @@ export class Chat extends window.class {
         item.classList.add("mt-4", `order-${ data.key }`);
             let link = document.createElement("a");
             link.classList.add("flex", "color-white", "items-center", "overpass");
-            link.href = `#chat-${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].slug }`;
+            link.href = `#chat-${ data.chat[auth.id_user == data.chat.id_user_from ? "to" : "from"].slug }`;
             item.appendChild(link);
             link.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -855,21 +855,21 @@ export class Chat extends window.class {
                 link.appendChild(figure);
                     let image = document.createElement("img");
                     figure.appendChild(image);
-                        if (!data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].files["profile"]) {
+                        if (!data.chat[auth.id_user == data.chat.id_user_from ? "to" : "from"].files["profile"]) {
                             image.src = new Asset(`img/resources/ProfileSVG.svg`).route;
                         }
-                        if (data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].files["profile"]) {
-                            image.src = new Asset(`storage/${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].files["profile"] }`).route;
+                        if (data.chat[auth.id_user == data.chat.id_user_from ? "to" : "from"].files["profile"]) {
+                            image.src = new Asset(`storage/${ data.chat[auth.id_user == data.chat.id_user_from ? "to" : "from"].files["profile"] }`).route;
                         }
 
                 let username = document.createElement("div");
                 username.classList.add("username");
                 link.appendChild(username);
                     let paragraph = document.createElement("p");
-                    paragraph.innerHTML = `${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].username} (`;
+                    paragraph.innerHTML = `${ data.chat[auth.id_user == data.chat.id_user_from ? "to" : "from"].username} (`;
                     username.appendChild(paragraph);
                         let name = document.createElement("span");
-                        name.innerHTML = `${ data.chat.users[((data.chat.id_user_logged == data.chat.id_user_from) ? "to" : "from")].name }`;
+                        name.innerHTML = `${ data.chat[auth.id_user == data.chat.id_user_from ? "to" : "from"].name }`;
                         paragraph.appendChild(name);
                         paragraph.innerHTML = `${ paragraph.innerHTML })`;
 

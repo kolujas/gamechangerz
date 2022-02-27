@@ -152,7 +152,6 @@
             $assignments = Assignment::byLesson($lesson->id_lesson)->get();
             if (count($assignments)) {
                 foreach ($assignments as $assignment) {
-                    $assignment->and(["presentation"]);
                     if ($assignment->presentation) {
                         $assignment->presentation->delete();
                     }

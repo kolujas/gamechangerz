@@ -1,10 +1,22 @@
 import Auth from "../components/Auth.js";
-import Chat from "../components/Chat.js";
-import Token from "../components/Token.js";
+import Assignment from "../components/Modal/Assignment.js";
+import Chat from "../components/Modal/Chat.js";
+import Presentation from "../components/Modal/Presentation.js";
+import User from "../components/Models/User.js";
 
-async function getChats(token) {
-    const chats = await Chat.all(token.data);
-    new Chat({ token: token.data }, chats);
+/**
+ * * Starts the Chat Modal Logic.
+ */
+async function StartChatLogic () {
+    const user = await User.auth();
+
+    if (user) {
+        new Chat(user);
+        
+        new Assignment(user);
+        
+        new Presentation(user);
+    }
 }
 
 new window.navmenu({
@@ -14,7 +26,6 @@ new window.navmenu({
         position: ["left"],
 }});
 
-const token = Token.get();
 if (!auth.hasOwnProperty('id_user')) {
     let authenticated = new Auth();
 
@@ -45,7 +56,6 @@ if (auth.hasOwnProperty('id_user')) {
             });
         }
     }
-    getChats(token);
-} else if (token) {
-    token.remove();
+    
+    StartChatLogic();
 }

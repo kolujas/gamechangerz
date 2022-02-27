@@ -3,6 +3,7 @@
 
     use App\Models\Message;
     use App\Models\User;
+    use Auth;
     use Carbon\Carbon;
     use Illuminate\Database\Eloquent\Model;
 
@@ -24,123 +25,203 @@
          * @var array
          */
         protected $fillable = [
-            'id_user_from', 'id_user_to', 'messages',
+            'id_user_from', 'id_user_to', 'logged_at', 'messages',
         ];
 
         /**
-         * * Set the Chat info. 
-         * @param array [$columns]
+         * * The attributes that should be cast to native types.
+         * @var array
          */
-        public function and (array $columns = []) {
-            foreach ($columns as $column) {
-                if (!is_array($column)) {
-                    switch ($column) {
-                        case 'available':
-                            $this->available();
-                            break;
-                        case 'lessons':
-                            $this->lessons();
-                            break;
-                        case 'messages':
-                            $this->messages();
-                            break;
-                        case 'users':
-                            $this->users();
-                            break;
-                    }
-                    continue;
-                }
-                switch ($column[0]) {
-                    case 'available':
-                        $this->available($column[1]);
-                        break;
-                }
+        protected $casts = [
+            'logged_at' => \App\Casts\LoggedAt::class,
+            'messages' => \App\Casts\Message::class,
+        ];
+
+        /**
+         * * Returns if the Chat is available.
+         * @return bool
+         */
+        public function getAvailableAttribute () {
+            switch ($this->id_type) {
+                case 2:
+                    return !$this->lessons->last()->ended;
+                default:
+                    return true;
             }
         }
 
         /**
-         * * Set if the Chat is available.
+         * * Returns the Chat "id_type".
+         * @return int
          */
-        public function available ($id_user_logged = null) {
-            $user = User::find($this->id_user_from);
-            
-            $this->available = false;
-            if ($user->id_role === 0 || $user->id_role === 2) {
-                $this->available = true;
+        public function getIdTypeAttribute () {
+            if ($this->from->id_role == 0) {
+                return 1;
             }
-            if ($user->id_role === 1) {
-                $this->lessons();
-                if ($id_user_logged != $user->id_user) {
-                    $this->available = true;
-                }
-                if ($id_user_logged == $user->id_user) {
-                    if (gettype($this->messages) == 'string') {
-                        $this->messages();
-                    }
-                    if (count($this->messages) >= 1) {
-                        $this->available = true;
-                    }
-                }
+
+            return 2;
+        }
+
+        /**
+         * * Returns the Chat "type".
+         * @return object
+         */
+        public function getTypeAttribute () {
+            switch ($this->id_type) {
+                case 1:
+                    return (object) [
+                        'id_type' => 1,
+                        'name' => 'Friend',
+                        'slug' => 'friend',
+                    ];
+                case 2:
+                    return (object) [
+                        'id_type' => 2,
+                        'name' => 'Lesson',
+                        'slug' => 'lesson',
+                    ];
             }
         }
 
         /**
-         * * Set the chat Lesson.
+         * * Set the Chat for API use. 
+         * @return void
+         */
+        public function api () {
+            $this->id_type = $this->id_type;
+
+            $this->from->and(['abilities', 'files', 'games']);
+
+            $this->to->and(['files', 'games']);
+
+            $this->auth->and(['files', 'games']);
+
+            $this->available = $this->available;
+
+            foreach ($this->lessons as $lesson) {
+                $lesson->and(['assignments']);
+
+                foreach ($lesson->assignments as $assignment) {
+                    $assignment->presentation;
+                }
+            }
+
+            $this->notAuth->and(['files', 'games']);
+
+            foreach ($this->messages as $message) {
+                $message->api();
+            }
+
+            if ($this->id_type == 2) {
+                $this->start();
+            }
+        }
+
+        /**
+         * * Get the User "authenticated" that owns the Chat.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
+        public function auth () {
+            return $this->belongsTo(User::class, Auth::user()->id_user == $this->attributes['id_user_from'] ? 'id_user_from' : 'id_user_to', 'id_user');
+        }
+
+        /**
+         * * Get the User "from" that owns the Chat.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
+        public function from () {
+            return $this->belongsTo(User::class, 'id_user_from', 'id_user');
+        }
+
+        /**
+         * * Get all of the Lessons for the Chat.
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
          */
         public function lessons () {
-            $this->lessons = collect();
-            $lessons = Lesson::byUsers($this->id_user_from, $this->id_user_to)->get();
-
-            foreach ($lessons as $lesson) {
-                if ($lesson->id_type == 2) {
-                    $lesson->and(['assignments', 'days', 'ended_at', 'started_at']);
-                    $this->lessons->push($lesson);
-                }
-            }
+            return $this->hasMany(Lesson::class, 'id_user_from', 'id_user_from')->where('id_user_to', $this->attributes['id_user_to']);
         }
 
         /**
-         * * Set the Chat Messages.
+         * * Log an User in the Chat.
+         * @return void
          */
-        public function messages () {
-            if (gettype($this->messages) == 'string') {
-                $this->messages = Message::parse($this->messages);
-            }
+        public function login () {
+            $this->update([
+                'logged_at' => Auth::user()->id_user,
+            ]);
         }
 
         /**
-         * * Set the Chat Users.
+         * * Get the User "not authenticated" that owns the Chat.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
-        public function users () {
-            $this->users = (object) [
-                'from' => User::find($this->id_user_from),
-                'to' => User::find($this->id_user_to),
-            ];
-
-            $this->users->from->and(['files', 'games']);
-            $this->users->to->and(['files', 'games']);
+        public function notAuth () {
+            return $this->belongsTo(User::class, Auth::user()->id_user == $this->attributes['id_user_from'] ? 'id_user_to' : 'id_user_from', 'id_user');
         }
        
         /**
-         * * Add a new Chat Message
+         * * Send a new Chat Message.
          * @param array $data
          */
-        public function addMessage (array $data = []) {
-            $messages = collect();
-            $id_message = 1;
-
-            foreach (json_decode($this->messages) as $message) {
-                $id_message = intval($message->id_message) + 1;
-                $messages->push($message);
-            }
-
-            $data['id_message'] = $id_message;
-
-            $messages->push($data);
-
+        public function send (array $data = []) {
             $this->update([
-                'messages' => $messages->toJson(),
+                'messages' => $data,
+                'logged_at' => Auth::user()->id_user,
             ]);
+        }
+
+        /**
+         * * Start the Chat Lesson.
+         * @return void
+         */
+        public function start () {
+            $quantity = count($this->messages);
+
+            foreach ($this->lessons as $lesson) {
+                if ($lesson->ended) {
+                    foreach ($lesson->assignments as $assignment) {
+                        $quantity--;
+                    }
+                    $quantity--;
+
+                    continue;
+                } else if ($quantity == 0) {
+                    $message = new Message([
+                        'abilities' => $this->to->games->last()->abilities,
+                        'id_lesson' => $this->lessons->last()->id_lesson,
+                        'id_message' => $this->messages->count()
+                            ? $this->messages->count() + 1
+                            : 1,
+                        'created_at' => Carbon::now(),
+                    ]);
+    
+                    $message->id_type = $message->id_type;
+                    
+                    $message->selected = false;
+
+                    $message->disabled = Auth::user()->id_role == 1;
+
+                    $this->messages->push($message);
+                }
+
+                break;
+            }
+        }
+
+        /**
+         * * Get the User "to" that owns the Chat.
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
+        public function to () {
+            return $this->belongsTo(User::class, 'id_user_to', 'id_user');
+        }
+
+        /**
+         * * Get all of the Users for the Chat.
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
+         */
+        public function users () {
+            return $this->hasMany(User::class, 'id_user_from', 'id_user_from')->orwhere('id_user_to', $this->attributes['id_user_to']);
         }
 
         /**
@@ -162,7 +243,7 @@
          * @param  int $id_user_2
          * @return \Illuminate\Database\Eloquent\Builder
          */
-        static public function scopeByUsers ($query, int $id_user_1, int $id_user_2) {
+        static public function scopeByUsers ($query, $id_user_1, $id_user_2) {
             return $query->where([
                 ['id_user_from', $id_user_1],
                 ['id_user_to', $id_user_2],
@@ -178,11 +259,23 @@
          */
         static $validation = [
             'send' => [
-                'rules' => [
-                    'message' => 'required',
-                ], 'messages' => [
-                    'es' => [
-                        'message.required' => 'El mensaje es obligatorio.',
+                'abilities' => [
+                    'rules' => [
+                        'id_type' => 'required',
+                    ], 'messages' => [
+                        'es' => [
+                            'id_type.required' => 'El tipo de mensaje es obligatorio.',
+                        ],
+                    ],
+                ], 'says' => [
+                    'rules' => [
+                        'id_type' => 'required',
+                        'message' => 'required',
+                    ], 'messages' => [
+                        'es' => [
+                            'message.required' => 'El mensaje es obligatorio.',
+                            'id_type.required' => 'El tipo de mensaje es obligatorio.',
+                        ],
                     ],
                 ],
             ],

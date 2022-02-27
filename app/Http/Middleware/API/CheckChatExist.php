@@ -14,9 +14,7 @@
          * @return mixed
          */
         public function handle (Request $request, Closure $next) {
-            $id_chat = $request->route()->parameter('id_chat');
-
-            if (!Chat::find($id_chat)) {
+            if (!Chat::find($request->route()->parameter('id_chat'))) {
                 return response()->json([
                     'code' => 404,
                     'message' => "Chat \"$id_chat\" does not exist",
