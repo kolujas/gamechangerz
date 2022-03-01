@@ -3,14 +3,14 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class UpdateChatsTableAddLastLogField extends Migration {	
+    class UpdateChatsTableAddLoggedAtField extends Migration {	
         /**
          * * Run the migrations.
          * @return void
          */
         public function up () {
             Schema::table('chats', function (Blueprint $table) {
-                $table->json('lastLog')->nullable();
+                $table->json('logged_at')->nullable();
             });
         }
 
