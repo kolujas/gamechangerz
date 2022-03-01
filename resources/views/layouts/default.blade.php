@@ -56,7 +56,7 @@
         validation.presentation = @json(\App\Models\Presentation::$validation);
     </script>
 
-    <script type="module" src={{ asset('js/layouts/default.js?v=1.2.2') }}></script>
+    <script type="module" src={{ asset('js/layouts/default.js?v=1.4.2') }}></script>
 
     @yield('js')
 @endsection
