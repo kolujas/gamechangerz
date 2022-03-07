@@ -15,11 +15,15 @@
         public function handle ($request, Closure $next) {
             $action = $request->route()->parameter('action');
 
-            if (!Post::hasAction($action)) {
-                return redirect()->back()->with('status', [
-                    'code' => 404,
-                    'message' => "Action \"$action\" does not exist",
-                ]);
+            switch (strtoupper($action)) {
+                case 'UPDATE':
+                case 'DELETE':
+                    break;
+                default:
+                    return redirect()->back()->with('status', [
+                        'code' => 404,
+                        'message' => "Action \"$action\" does not exist",
+                    ]);
             }
             
             return $next($request);

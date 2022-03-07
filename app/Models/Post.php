@@ -92,21 +92,6 @@
         }
 
         /**
-         * * Check if the Post has an action.
-         * @param string $name
-         * @return bool
-         */
-        static public function hasAction (string $name) {
-            switch (strtoupper($name)) {
-                case 'UPDATE':
-                case 'DELETE':
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        /**
          * * Scope a query to only include Posts where their User role = 2.
          * @static
          * @param  \Illuminate\Database\Eloquent\Builder  $query
