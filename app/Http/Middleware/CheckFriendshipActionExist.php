@@ -16,11 +16,17 @@
         public function handle (Request $request, Closure $next) {
             $action = $request->route()->parameter('action');
 
-            if (!Friend::hasAction($action)) {
-                return redirect()->back()->with('status', [
-                    'code' => 404,
-                    'message' => "Action \"$action\" does not exist",
-                ]);
+            switch (strtoupper($action)) {
+                case 'ACCEPT':
+                case 'CANCEL':
+                case 'DELETE':
+                case 'REQUEST':
+                    break;
+                default:
+                    return redirect()->back()->with('status', [
+                        'code' => 404,
+                        'message' => "Action \"$action\" does not exist",
+                    ]);
             }
             
             return $next($request);

@@ -46,27 +46,6 @@
         }
 
         /**
-         * * Set the Friend info. 
-         * @param array [$columns]
-         */
-        public function and (array $columns = []) {
-            foreach ($columns as $column) {
-                if (!is_array($column)) {
-                    switch ($column) {
-                        case 'users':
-                            $this->users();
-                            break;
-                    }
-                    continue;
-                }
-                switch ($column[0]) {
-                    default:
-                        break;
-                }
-            }
-        }
-
-        /**
          * * Cancel the friendship.
          * @return void
          */
@@ -116,6 +95,19 @@
         }
 
         /**
+         * * Get the User who is not the specified.
+         * @param int $id_user
+         * @return \App\Models\User
+         */
+        public function not (int $id_user) {
+            if ($id_user == $this->attributes['id_user_from']) {
+                return $this->to;
+            } else {
+                return $this->from;
+            }
+        }
+
+        /**
          * * Notify the friendship request.
          * @return void
          */
@@ -142,36 +134,15 @@
         }
 
         /**
-         * * Set the Friend Users.
+         * * Get all of the Users for the Friend.
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
          */
         public function users () {
-            $this->users = (object) [
-                'from' => User::find($this->id_user_from),
-                'to' => User::find($this->id_user_to),
-            ];
-            $this->users->from->and(['files']);
-            $this->users->to->and(['files']);
+            return $this->hasMany(User::class, 'id_user', 'id_user_from')->orwhere('id_user', $this->attributes['id_user_to']);
         }
 
         /**
-         * * Check if the Friend has an action.
-         * @param string $name
-         * @return bool
-         */
-        static public function hasAction (string $name) {
-            switch (strtoupper($name)) {
-                case 'ACCEPT':
-                case 'CANCEL':
-                case 'DELETE':
-                case 'REQUEST':
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        /**
-         * * Scope a query to only include Abilities where their id_user matches one of them.
+         * * Scope a query to only include Friends where their id_user matches one of them.
          * @static
          * @param  \Illuminate\Database\Eloquent\Builder  $query
          * @param  int $id_user
