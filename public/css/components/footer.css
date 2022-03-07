@@ -1,54 +1,34 @@
-.footer{
+.footer {
     background-color: #0D0D0D;
     color: #fff;
 }
 
-.footer .btn{
-    font-weight: initial;
-}
-
-.footer-logo{
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-}
-
-.footer .contact-info{
-    font-size: 1rem;
-}
-
-.footer .contact-footer-info p, .footer nav p{
-    background-color: var(--color-black);
-}
-
-
-
-/* ? MD */
-@media(min-width: 768px){
-    .policy-ul .orange-border{
-        border-left: 2px solid#ED6744;
-        padding-bottom: 0;
-    }
+.footer a.discord svg {
+    width: 50%;
 }
 
 /* ? LG */
-@media(min-width: 1024px){
-    .nav-policy{
-        padding: 0 5rem 2rem 5rem;        
-    }    
-}
+@media (min-width: 1024px) {
+    .footer .bottombar {
+        padding: 1rem 4rem;        
+    }
 
-/* ? XL */
-@media(min-width: 1200px){
-    .nav-policy, .copy-text{
-        /* padding: 0 8.25rem 2rem 8.25rem; */
-        padding: 0px 8.25rem 2rem 7.25rem;
+    .footer a.discord svg {
+        width: 33%;
     }
 }
 
-/* ? 2XL */
-@media(min-width: 1536px){
-    .nav-policy, .copy-text{
-        padding: 0 12rem 2rem 12rem;
+/* ? XL */
+@media (min-width: 1366px) {
+    .footer .sitemap {
+        padding: 4rem 8rem;        
+    }
+
+    .footer .bottombar {
+        padding: 1rem 8rem;        
+    }
+
+    .footer a.discord svg {
+        width: 25%;
     }
 }

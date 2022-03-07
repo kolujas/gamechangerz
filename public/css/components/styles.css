@@ -1,6 +1,7 @@
 @import './abilities/list.css';
 @import './achievements/list.css';
 @import './animation.css';
+@import './bottombar.css';
 @import './blog/list.css';
 @import './button.css';
 @import './filter.css';
@@ -14,5 +15,8 @@
 @import './notification.css';
 @import './reviews/list.css';
 @import './sidebar.css';
+@import './sitemap.css';
 @import './tab.css';
 @import './user/list.css';
+@import './user/profile/data.css';
+@import './user/profile/image.css';
