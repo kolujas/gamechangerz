@@ -15,9 +15,7 @@
     </header>
             
     <main class="main container-fluid">
-        {{-- <div class="row"> --}}
-            @yield('main')
-        {{-- </div> --}}
+        @yield('main')
     </main>
 
     <footer class="footer"> 
@@ -26,21 +24,21 @@
 @endsection
 
 @section('extras')
-    {{-- ? Auth modal --}}
+    {{-- Modals --}}
     @component('components.modal.layouts.auth')@endcomponent
 
     @if (Auth::check())
-        {{-- ? Assignment modal --}}
         @component('components.modal.assignment')@endcomponent
-        {{-- ? Presentation modal --}}
+        
         @component('components.modal.presentation')@endcomponent
-        {{-- ? Chat modal --}}
+        
         @component('components.modal.layouts.chat')@endcomponent
-        {{-- ? Advanced modal --}}
+        
         @component('components.modal.advanced')@endcomponent
         
         <a href="#chat" class="chat-button modal-button chat border-gradient" title="Chat">
             <span class="quantity hidden"></span>
+
             <figure>
                 @component('components.svg.ClaseOnline2SVG')@endcomponent
             </figure>

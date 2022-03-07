@@ -27,8 +27,7 @@
                 </a>
             </li>
         @endforeach
-    @endif
-    @if (!count($games))
+    @else
         <li class="card text-center">
             <div class="flex flex-wrap p-6 color-grey">
                 <span class="overpass">No hay juegos que mostrar</span>

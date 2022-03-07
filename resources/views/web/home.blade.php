@@ -20,8 +20,7 @@
            
         @component('components.game.list', [
             'games' => $games
-        ])
-        @endcomponent
+        ])@endcomponent
     </main>
 @endsection
 
@@ -30,6 +29,7 @@
 @endsection
 
 @section('js')
-    <script src={{ asset('js/scrollreveal.min.js') }}></script> 
+    <script src={{ asset('js/scrollreveal.min.js') }}></script>
+    
     <script type="module" src={{ asset('js/web/home.js') }}></script>
 @endsection
