@@ -3,7 +3,7 @@
     use App\Http\Controllers\API\AuthController;
     use App\Http\Controllers\API\CouponController;
     use App\Http\Controllers\API\ChatController;
-    use App\Http\Controllers\API\DefaultController;
+    use App\Http\Controllers\API\Controller;
     use App\Http\Controllers\API\FriendController;
     use App\Http\Controllers\API\LessonController;
     use App\Http\Controllers\API\PresentationController;
@@ -13,8 +13,8 @@
     use Illuminate\Support\Facades\Route;
 
     Route::middleware("api")->group(function () {
-// ! DefaultController - Controls the web api in general.
-        Route::get("/dolar", [DefaultController::class, "dolar"])->name("api.web.dolar");
+// ! Controller - Controls the web api in general.
+        Route::get("/dolar", [Controller::class, "dolar"])->name("api.web.dolar");
 
 // ! CouponController - Controls the coupon api.
         Route::post("/coupons/validate", [CouponController::class, "check"])->name("api.coupon.check");

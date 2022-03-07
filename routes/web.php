@@ -3,7 +3,7 @@
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\BlogController;
     use App\Http\Controllers\CheckoutController;
-    use App\Http\Controllers\DefaultController;
+    use App\Http\Controllers\Controller;
     use App\Http\Controllers\PanelController;
     use App\Http\Controllers\FriendshipController;
     use App\Http\Controllers\GameController;
@@ -27,21 +27,21 @@
             Route::get("/logout", [AuthController::class, "logout"])->name("auth.logout");
         });
         
-// ! DefaultController - Controls the web in general.
-        Route::get("/coming-soon", [DefaultController::class, "comingSoon"])->name("web.coming_soon");
-        Route::get("/", [DefaultController::class, "index"])->name("web.index");
+// ! Controller - Controls the web in general.
+        Route::get("/coming-soon", [Controller::class, "comingSoon"])->name("web.coming_soon");
+        Route::get("/", [Controller::class, "index"])->name("web.index");
         Route::middleware(["game.exist", "game.is.active"])->group(function () {
-            Route::get("/games/{slug}", [DefaultController::class, "landing"])->name("web.landing");
+            Route::get("/games/{slug}", [Controller::class, "landing"])->name("web.landing");
         });
-        Route::get("/home", [DefaultController::class, "home"])->name("web.home");
-        Route::get("/privacy-politics", [DefaultController::class, "privacyPolitics"])->name("web.privacy_politics");
-        Route::get("/terms-&-conditions", [DefaultController::class, "termsAndConditions"])->name("web.terms_&_conditions");
-        Route::get("/faq", [DefaultController::class, "faq"])->name("web.faq");
-        Route::get("/contact", [DefaultController::class, "contact"])->name("web.contact");
-        Route::post("/contact", [DefaultController::class, "sendContact"])->name("web.sendContact");
-        Route::get("/support", [DefaultController::class, "support"])->name("web.support");
-        Route::post("/support", [DefaultController::class, "sendSupport"])->name("web.sendSupport");
-        Route::get("/apply", [DefaultController::class, "apply"])->name("web.apply");
+        Route::get("/home", [Controller::class, "home"])->name("web.home");
+        Route::get("/privacy-politics", [Controller::class, "privacyPolitics"])->name("web.privacy_politics");
+        Route::get("/terms-&-conditions", [Controller::class, "termsAndConditions"])->name("web.terms_&_conditions");
+        Route::get("/faq", [Controller::class, "faq"])->name("web.faq");
+        Route::get("/contact", [Controller::class, "contact"])->name("web.contact");
+        Route::post("/contact", [Controller::class, "sendContact"])->name("web.sendContact");
+        Route::get("/support", [Controller::class, "support"])->name("web.support");
+        Route::post("/support", [Controller::class, "sendSupport"])->name("web.sendSupport");
+        Route::get("/apply", [Controller::class, "apply"])->name("web.apply");
             
 // ! BlogController - Controls the Blog pages.
         Route::get("/blog", [BlogController::class, "list"])->name("blog.list");

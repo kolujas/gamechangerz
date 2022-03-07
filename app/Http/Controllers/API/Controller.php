@@ -1,11 +1,11 @@
 <?php
     namespace App\Http\Controllers\API;
 
-    use App\Http\Controllers\Controller;
+    use App\Http\Controllers\Controller as BaseController;
     use App\Models\Platform;
     use Illuminate\Http\Request;
 
-    class DefaultController extends Controller {
+    class Controller extends BaseController {
         /**
          * * Get the Platform dolar value.
          * @param  \Illuminate\Http\Request  $request
