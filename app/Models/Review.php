@@ -110,8 +110,10 @@
                 'to' => User::find($this->id_user_to),
             ];
 
-            $this->users->from->and(['files', 'games']);
-            $this->users->to->and(['files', 'games']);
+            $this->users->from->and(['games']);
+            $this->users->from->files = $this->users->from->files;
+            $this->users->to->and(['games']);
+            $this->users->to->files = $this->users->to->files;
 
             if ($this->users->from->id_role === 1) {
                 $this->users->from->and(['teampro']);

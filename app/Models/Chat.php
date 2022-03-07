@@ -90,11 +90,14 @@
         public function api () {
             $this->id_type = $this->id_type;
 
-            $this->from->and(['abilities', 'files', 'games']);
+            $this->from->and(['abilities', 'games']);
+            $this->from->files = $this->from->files;
 
-            $this->to->and(['files', 'games']);
+            $this->to->and(['games']);
+            $this->to->files = $this->to->files;
 
-            $this->auth->and(['files', 'games']);
+            $this->auth->and(['games']);
+            $this->auth->files = $this->auth->files;
 
             $this->available = $this->available;
 
@@ -106,7 +109,8 @@
                 }
             }
 
-            $this->notAuth->and(['files', 'games']);
+            $this->notAuth->and(['games']);
+            $this->notAuth->files = $this->notAuth->files;
 
             foreach ($this->messages as $message) {
                 $message->api();

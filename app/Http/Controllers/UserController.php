@@ -41,7 +41,7 @@
             }
 
             $user = User::bySlug($slug)->first();
-            $user->and(["achievements", "games", "role", "files", "languages", "posts"]);
+            $user->and(["achievements", "games", "role", "languages", "posts"]);
             
             if ($user->id_role == 2) {
                 if (!Auth::check() || Auth::user()->id_user != $user->id_user) {
@@ -59,7 +59,6 @@
                 $user->friends_length = 0;
 
                 foreach ($user->friends as $friend) {
-                    $friend->and(["users"]);
                     if ($friend->accepted) {
                         $user->friends_length++;
                     }
@@ -108,6 +107,8 @@
 
             $languages = Language::options();
 
+            // ddd("storage/". $user->friends[0]->not($user->id_user)->files['profile']);
+
             return view("user.profile", [
                 "days" => $days,
                 "dolar" => Platform::dolar(),
@@ -151,7 +152,6 @@
          */
         public function update (Request $request, $slug) {
             $user = User::bySlug($slug)->first();
-            $user->and(["files"]);
             
             $input = (object) $request->all();
             

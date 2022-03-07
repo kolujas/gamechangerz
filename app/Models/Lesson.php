@@ -321,8 +321,10 @@
                 'from' => User::find($this->id_user_from),
                 'to' => User::find($this->id_user_to),
             ];
-            $this->users->from->and(['files', 'prices', 'games', 'abilities']);
-            $this->users->to->and(['files', 'games']);
+            $this->users->from->and(['prices', 'games', 'abilities']);
+            $this->users->from->files = $this->users->from->files;
+            $this->users->to->and(['games']);
+            $this->users->to->files = $this->users->to->files;
         }
 
         /**

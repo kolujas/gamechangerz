@@ -61,6 +61,27 @@
         ];
 
         /**
+         * * Set the User Files.
+         */
+
+
+        /**
+         * * Returns the User files.
+         * @return \Illuminate\Support\Collection
+         */
+        public function getFilesAttribute () {
+            $files = collect();
+            
+            foreach (Folder::getFiles($this->attributes['folder']) as $file) {
+                $fileExplode = explode('.', $file);
+                $fileExplode = explode('-', $fileExplode[0]);
+                $files[$fileExplode[1]] = $file;
+            }
+
+            return $files;
+        }
+
+        /**
          * * Set the User info. 
          * @param array [$columns]
          */
@@ -79,9 +100,6 @@
                             break;
                         case 'days':
                             $this->days();
-                            break;
-                        case 'files':
-                            $this->files();
                             break;
                         case 'games':
                             $this->games();
@@ -192,26 +210,6 @@
          */
         public function days () {
             $this->days = Day::parse($this->days);
-        }
-
-        /**
-         * * Set the User Files.
-         */
-        public function files () {
-            $this->files = collect();
-            $files = Folder::getFiles($this->folder);
-
-            if (!count($files)) {
-                $this->files = false;
-            }
-            
-            if (count($files)) {
-                foreach ($files as $file) {
-                    $fileExplode = explode('.', $file);
-                    $fileExplode = explode('-', $fileExplode[0]);
-                    $this->files[$fileExplode[1]] = $file;
-                }
-            }
         }
 
         /**

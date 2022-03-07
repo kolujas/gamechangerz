@@ -115,7 +115,8 @@
 
             foreach ($users as $user) {
                 if (count($this->users) < 6) {
-                    $user->and(['games', 'languages', 'prices', 'files', 'teampro']);
+                    $user->and(['games', 'languages', 'prices', 'teampro']);
+                    $user->files = $user->files;
                     
                     foreach ($user->games as $game) {
                         $game->and(['files']);

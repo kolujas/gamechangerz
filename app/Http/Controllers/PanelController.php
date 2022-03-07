@@ -198,7 +198,8 @@
             $teampro = new Teampro();
             if ($slug) {
                 $user = User::bySlug($slug)->first();
-                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "files", "teampro", "credentials"]);
+                $user->and(["games", "languages", "lessons", "reviews", "days", "posts", "prices", "days", "achievements", "teampro", "credentials"]);
+                $user->files = $user->files;
                 $teampro = $user->teampro;
 
                 foreach ($user->posts as $post) {
@@ -321,7 +322,8 @@
             $user = new User();
             if ($slug) {
                 $user = User::bySlug($slug)->first();
-                $user->and(["games", "reviews", "achievements", "files", "languages"]);
+                $user->and(["games", "reviews", "achievements", "languages"]);
+                $user->files = $user->files;
             }
 
             $games = Game::all();

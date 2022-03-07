@@ -174,7 +174,8 @@
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
-            $user->and(["files", "posts"]);
+            $user->files = $user->files;
+            $user->and(["posts"]);
 
             $validator = Validator::make($request->all(), User::$validation["coach"]["panel"]["delete"]["rules"], User::$validation["coach"]["panel"]["delete"]["messages"]["es"]);
             if ($validator->fails()) {
@@ -246,7 +247,7 @@
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
-            $user->and(["files"]);
+            $user->files = $user->files;
 
             $validator = Validator::make($request->all(), Controller::replaceUnique(User::$validation["coach"]["panel"]["update"]["rules"], $user->id_user), User::$validation["coach"]["panel"]["update"]["messages"]["es"]);
             if ($validator->fails()) {
@@ -440,7 +441,7 @@
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
-            $user->and(["files"]);
+            $user->files = $user->files;
 
             $validator = Validator::make($request->all(), User::$validation["user"]["panel"]["delete"]["rules"], User::$validation["user"]["panel"]["delete"]["messages"]["es"]);
             if ($validator->fails()) {
@@ -510,7 +511,7 @@
             $input = (object) $request->all();
 
             $user = User::bySlug($request->route()->parameter("slug"))->first();
-            $user->and(["files"]);
+            $user->files = $user->files;
 
             $validator = Validator::make($request->all(), Controller::replaceUnique(User::$validation["user"]["panel"]["update"]["rules"], $user->id_user), User::$validation["user"]["panel"]["update"]["messages"]["es"]);
             if ($validator->fails()) {

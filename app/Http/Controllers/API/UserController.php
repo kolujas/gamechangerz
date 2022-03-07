@@ -70,7 +70,8 @@
             $users = User::coaches()->orderBy('updated_at', 'DESC')->get();
 
             foreach ($users as $user) {
-                $user->and(["games", "files", "prices", "teampro", "languages", "days"]);
+                $user->and(["games", "prices", "teampro", "languages", "days"]);
+                $user->files = $user->files;
             }
 
             return response()->json([
@@ -90,7 +91,8 @@
             $users = User::available()->get();
 
             foreach ($users as $user) {
-                $user->and(["lessons", "games", "files", "hours", "achievements"]);
+                $user->and(["lessons", "games", "hours", "achievements"]);
+                $user->files = $user->files;
             }
 
             return response()->json([
