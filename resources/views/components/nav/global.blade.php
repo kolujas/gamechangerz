@@ -82,14 +82,9 @@
 				@endif
 				<li id="nav-user" class="dropdown closed">
 					<a href="/users/{{ Auth::user()->slug }}/profile" class="nav-link dropdown-header dropdown-link">
-						@if (Auth::user()->profile())
-							<figure class="profile-image">
-								<img src={{ asset("storage/". Auth::user()->profile()) }} alt="{{ Auth::user()->username }} profile image">
-							</figure>
-						@endif
-						@if (!Auth::user()->profile())
-							@component('components.svg.ProfileSVG')@endcomponent
-						@endif
+						@component('components.user.profile.image', [
+							'user' => Auth::user(),
+						])@endcomponent
 					</a>
 					<ul class="dropdown-content px-4">
 						@if (Auth::user()->credits)

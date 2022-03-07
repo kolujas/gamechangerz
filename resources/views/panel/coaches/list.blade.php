@@ -44,14 +44,9 @@
                                             <span class="text-sm overpass">{{ $user->id_user }}</s>
                                         </td>
                                         <td class="flex items-center whitespace-no-wrap small">
-                                            @if ($user->profile())
-                                                <figure class="profile-image">
-                                                    <img src={{ asset("storage/". $user->profile()) }} alt="{{ $user->username }} profile image">
-                                                </figure>
-                                            @endif
-                                            @if (!$user->profile())
-                                                @component('components.svg.ProfileSVG')@endcomponent
-                                            @endif
+                                            @component('components.user.profile.image', [
+                                                'user' => $user,
+                                            ])@endcomponent
                                         </td>
                                         <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass md:col-span-3 big">{{ $user->username }}</td>
                                         <td class="flex items-center px-6 py-4 whitespace-no-wrap color-white overpass md:col-span-6 biggest">{{ $user->email }}</td>

@@ -5,25 +5,15 @@
                 <img class="my-8 w-32" src={{ asset("/img/logos/008-isologo_original_solido.png")}} alt="Logo solido de GCZ">
             </figure>
             @if (Auth::check())
-                <a href="/users/{{ Auth::user()->slug }}/profile" class="sidebar-title grid grid-cols-3 items-center">
-                    <div class="pr-2">
-                        @if (Auth::user()->profile())
-                            <figure class="profile-image">
-                                <img src={{ asset("storage/". Auth::user()->profile()) }} alt="{{ Auth::user()->username }} profile image">
-                            </figure>
-                        @endif
-                        @if (!Auth::user()->profile())
-                            @component('components.svg.ProfileSVG')@endcomponent
-                        @endif
-                    </div>
-                    <div class="col-span-2 grid grid-cols-1 items-center">
-                        <span>{{ Auth::user()->username }}</span>
-                        <span>{{ Auth::user()->name }}</span>
-                    </div>
-                </a>
+                @component('components.user.profile.data', [
+                    'user' => Auth::user(),
+                    'classlist' => ['sidebar-title'],
+                ])@endcomponent
+                
                 <a href="#menu" class="sidebar-button close-btn left hidden">
                     <span class="link-text">Close</span>
                 </a>
+
                 @if (Auth::user()->credits)
                     <span class="sidebar-link block w-full pt-4">
                         <span class="link-text">{{ Auth::user()->credits }} Créditos</span>
@@ -85,31 +75,7 @@
         </div>
     
         <div class="sidebar-footer">
-            <nav class="grid grid-cols-2">
-                <h4 class="col-span-3 font-bold pb-4 color-white">Redes</h4>
-                <ul class="col-start-1">
-                    <li class="my-4">
-                        <a href="#">@component('components.svg.TwSVG')@endcomponent</a>
-                    </li>
-                    <li class="my-4">
-                        <a href="#">@component('components.svg.TwitchSVG')@endcomponent</a>
-                    </li>
-                    <li class="my-4">
-                        <a href="#">@component('components.svg.IgSVG')@endcomponent</a>
-                    </li>
-                </ul>
-                <ul> 
-                    <li class="my-4">
-                        <a href="#">@component('components.svg.FbSVG')@endcomponent</a>
-                    </li>
-                    <li class="my-4">
-                        <a href="#">@component('components.svg.YtSVG')@endcomponent</a>
-                    </li>
-                    <li class="my-4 pl-4">
-                        <a href="{{ \App\Models\Platform::first()->link }}" target="_blank">@component('components.svg.DiscordSVG')@endcomponent</a>
-                    </li>
-                </ul>
-            </nav>
+            @component('components.social-media')@endcomponent
         </div>
     </div>
 </div>

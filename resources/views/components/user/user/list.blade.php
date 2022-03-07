@@ -2,7 +2,10 @@
     @if (count($users))
         @foreach ($users as $user)
             <li class="p-4 flex justify-between items-center gap-4 lg:col-span-8 lg:col-start-2 degradado">
-                <a href="/users/{{ $user->slug }}/profile" class="flex btn btn-text btn-white">
+                @component('components.user.profile.data', [
+                    'user' => $user,
+                ])@endcomponent
+                {{-- <a href="/users/{{ $user->slug }}/profile" class="flex btn btn-text btn-white">
                     <div class="photo flex items-center mr-2">
                         @if (isset($user->files['profile']))
                             <figure class="profile-image">
@@ -17,7 +20,7 @@
                         <h3 class="russo">{{ $user->username }}</h3>
                         <span class="color-grey overpass whitespace-nowrap block">@if (iseet($user->name) && $user->name){{ $user->name }}@endif</span>
                     </div>
-                </a>
+                </a> --}}
                 
                 <div class="h-full teammate flex items-center @if ($user->teammate)
                     active
