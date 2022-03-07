@@ -18,7 +18,7 @@
         @endif
     </section>
 
-    <section class="data mb-20 md:px-8 md:mt-20 lg:my-0 lg:mx-0 lg:pr-0 xl:px-0 @if (count($user->games) && count($user->games[0]->abilities))
+    <section class="details @if (count($user->games) && count($user->games[0]->abilities))
         lg:row-span-3
     @else
         lg:row-span-2
@@ -26,8 +26,12 @@
         @component('components.user.user.data', [
             "user" => $user,
             "lessons" => $lessons,
-        ])
-        @endcomponent
+        ])@endcomponent
+
+        @component('components.request.list', [
+            'requests' => $user->friends,
+            'user' => $user,
+        ])@endcomponent
     </section>
 
     <section class="games lg:col-span-2 xl:col-span-5 xl:relative mb-20 mx-8 md:mr-8 lg:mx-0 lg:mb-0 lg:px-0 xl:mx-0">
@@ -41,10 +45,10 @@
                 @endif
             </h3>
         </header>
+
         @component('components.game.list', [
             'games' => $user->games,
-        ])
-        @endcomponent
+        ])@endcomponent
     </section>       
     
     @if (count($user->games) && count($user->games[0]->abilities))
@@ -52,6 +56,7 @@
             <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
                 <h3 class="color-white russo">Promedio de evaluaciones</h3>
             </header>
+
             @component('components.abilities.listByGame', [
                 'user' => $user,
             ])@endcomponent
@@ -62,6 +67,7 @@
         <header class="px-8 lg:px-0 xl:col-span-3 xl:col-start-2 mb-8">
             <h3 class="color-white russo uppercase">Reviews</h3>
         </header>
+
         @component('components.review.coaches', [
             'user' => $user,
         ])@endcomponent
