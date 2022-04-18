@@ -62,7 +62,7 @@
     
                 return 2;
             } catch (\Throwable $th) {
-                ddd($this->attributes['id_user_from']);
+                dd($this->attributes['id_user_from']);
             }
         }
 
