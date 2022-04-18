@@ -55,6 +55,10 @@
          * @return int
          */
         public function getIdTypeAttribute () {
+            ddd([
+                'id_user_from' => $this->attributes['id_user_from'],
+                'from' => $this->from,
+            ]);
             if ($this->from->id_role == 0) {
                 return 1;
             }
