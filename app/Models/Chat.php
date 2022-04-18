@@ -104,12 +104,10 @@
             foreach ($this->lessons as $lesson) {
                 $lesson->and(['assignments']);
 
-                try {
+                if ($lesson->assignments) {
                     foreach ($lesson->assignments as $assignment) {
                         $assignment->presentation;
                     }
-                } catch (\Throwable $th) {
-                    dd([$lesson, $lesson->assignments]);
                 }
             }
 
