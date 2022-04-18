@@ -55,15 +55,17 @@
          * @return int
          */
         public function getIdTypeAttribute () {
-            ddd([
-                'id_user_from' => $this->attributes['id_user_from'],
-                'from' => $this->from,
-            ]);
-            if ($this->from->id_role == 0) {
-                return 1;
+            try {
+                if ($this->from->id_role == 0) {
+                    return 1;
+                }
+    
+                return 2;
+            } catch (\Throwable $th) {
+                ddd([
+                    'from->id_role' => $this->from->id_role,
+                ]);
             }
-
-            return 2;
         }
 
         /**
