@@ -55,15 +55,11 @@
          * @return int
          */
         public function getIdTypeAttribute () {
-            try {
-                if ($this->from->id_role == 0) {
-                    return 1;
-                }
-    
-                return 2;
-            } catch (\Throwable $th) {
-                dd($this);
+            if ($this->from->id_role == 0) {
+                return 1;
             }
+
+            return 2;
         }
 
         /**
