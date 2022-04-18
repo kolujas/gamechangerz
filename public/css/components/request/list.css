@@ -1,0 +1,26 @@
+/*  */
+
+/* ? MD */
+@media (min-width: 768px) {
+    /*  */
+}
+
+/* ? LG */
+@media (min-width: 1024px) {
+    /*  */
+}
+
+/* ? XL */
+@media (min-width: 1200px) {
+    ul.requests li.request a.profile main span {
+        max-width: 5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* ? 2XL */
+@media (min-width: 1536px) {
+    /*  */
+}

@@ -61,11 +61,6 @@
         ];
 
         /**
-         * * Set the User Files.
-         */
-
-
-        /**
          * * Returns the User files.
          * @return \Illuminate\Support\Collection
          */

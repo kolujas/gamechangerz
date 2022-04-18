@@ -370,12 +370,13 @@ export default class Chat extends window.class {
         });
 
         let figure = document.createElement('figure');
-        figure.classList.add('image', 'mr-4');
+        figure.classList.add('image', 'profile', 'mr-4');
         item.children[0].insertBefore(figure, item.children[0].children[0].html);
         
             let image = document.createElement('img');
             figure.appendChild(image);
             if (!data.not_auth.files['profile']) {
+                figure.classList.add('default');
                 image.src = new Asset(`img/resources/ProfileSVG.svg`).route;
             } else {
                 image.src = new Asset(`storage/${ data.not_auth.files['profile'] }`).route;

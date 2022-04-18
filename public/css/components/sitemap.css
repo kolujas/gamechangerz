@@ -3,3 +3,14 @@
     height: 200px;
     object-fit: contain;
 }
+
+.sitemap nav.nav-social-media ul li a {
+    width: fit-content;
+    height: fit-content;
+    display: inline-block;
+}
+
+.sitemap nav.nav-social-media ul li a svg {
+    width: 27px;
+    height: 25px;
+}

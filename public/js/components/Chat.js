@@ -851,7 +851,7 @@ export class Chat extends window.class {
                 data.chat.instance.open(data.chat.id_chat);
             });
                 let figure = document.createElement("figure");
-                figure.classList.add("image", "mr-4");
+                figure.classList.add("image", "profile", "mr-4");
                 link.appendChild(figure);
                     let image = document.createElement("img");
                     figure.appendChild(image);

@@ -1,5 +1,5 @@
 
-<header class="data mb-20 md:px-8 md:mt-20 lg:my-0 lg:mx-0 lg:pr-0 xl:px-0">
+<header class="data mb-8 md:px-8 md:mt-20 lg:my-0 lg:mx-0 lg:pr-0 xl:px-0">
     <div class="p-8">
         <header class="tag flex items-center">
             <div class="pr-4">

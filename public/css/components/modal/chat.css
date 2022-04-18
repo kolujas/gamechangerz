@@ -138,11 +138,17 @@
 }
 
 #chat.modal #list .sections li .image img {
-    min-width: 38px;
-    width: 38px;
-    height: 38px;
+    min-width: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: cover;
     border-radius: 100vh;
+}
+
+#chat.modal #list .sections li .image:not(.default) img {
+    min-width: calc(2.5rem - 4px);
+    width: calc(2.5rem - 4px);
+    height: calc(2.5rem - 4px);
 }
 
 #chat.modal #list .sections li a p span {

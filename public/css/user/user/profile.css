@@ -459,6 +459,10 @@
         height: fit-content;
     }
 
+    .user .details .requests {
+        margin-top: 1rem;
+    }
+
     .user > .games{
         margin-top: 9rem;
     }
