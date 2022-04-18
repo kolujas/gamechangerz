@@ -63,7 +63,8 @@
                 return 2;
             } catch (\Throwable $th) {
                 ddd([
-                    'from->id_role' => $this->from->id_role,
+                    'id_user_from' => $this->attributes['id_user_role'],
+                    'from' => $this->from,
                 ]);
             }
         }
