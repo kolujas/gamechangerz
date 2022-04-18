@@ -109,7 +109,7 @@
                         $assignment->presentation;
                     }
                 } catch (\Throwable $th) {
-                    ddd($lesson->assignments);
+                    dd([$lesson, $lesson->assignments]);
                 }
             }
 
